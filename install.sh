@@ -4,14 +4,16 @@ repohome=$( dirname $(readlink -f "${BASH_SOURCE[0]}") )
 cd ${repohome}
 git submodule update --init --recursive
 
-# [Bash]
+# [bin]
  mkdir -p ~/local/bin
+ ln -sf ${repohome}/bin/git-diffall/git-diffall ~/local/bin/git-diffall
+ ln -sf ${repohome}/bin/git-archive-all/git-archive-all.sh ~/local/bin/git-archive-all.sh
+ ln -sf ${repohome}/bin/rupa_v/v ~/local/bin/v
+
+# [Bash]
  ln -sf ${repohome}/bash/_bash_aliases ~/.bash_aliases
  ln -sf ${repohome}/bash/_bash_extras ~/.bash_extras
  ln -sf ${repohome}/bash/_inputrc ~/.inputrc
- ln -sf ${repohome}/bash/git-diffall/git-diffall ~/local/bin/git-diffall
- ln -sf ${repohome}/bash/git-archive-all/git-archive-all.sh ~/local/bin/git-archive-all.sh
- ln -sf ${repohome}/bash/rupa_v/v ~/local/bin/v
 
 # [vim]
  ln -sf ${repohome}/vim/vimrc ~/.vimrc
