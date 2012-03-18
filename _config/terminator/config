@@ -1,0 +1,20 @@
+[global_config]
+  window_state = maximise
+  enabled_plugins = ActivityWatch, TerminalShot
+  close_button_on_tab = False
+  borderless = True
+  title_transmit_bg_color = "#2f0ea3"
+[keybindings]
+[profiles]
+  [[default]]
+    foreground_color = "#47bf47"
+[layouts]
+  [[default]]
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = default
+    [[[window0]]]
+      type = Window
+      parent = ""
+[plugins]

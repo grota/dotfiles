@@ -1,0 +1,123 @@
+[submodule "vim/dotvim/marvim_store"]
+	path = vim/dotvim/marvim_store
+	url = /home/grota/Dropbox/Backup/git_repos/vim/marvim_store
+[submodule "vim/dotvim/bundle/vim-scripts_YankRing"]
+	path = vim/dotvim/bundle/vim-scripts_YankRing
+	url = git://github.com/vim-scripts/YankRing.vim.git
+[submodule "vim/dotvim/bundle/scrooloose_nerdcommenter"]
+	path = vim/dotvim/bundle/scrooloose_nerdcommenter
+	url = git://github.com/scrooloose/nerdcommenter.git
+[submodule "vim/dotvim/bundle/Lokaltog_vim-powerline"]
+	path = vim/dotvim/bundle/Lokaltog_vim-powerline
+	url = git://github.com/Lokaltog/vim-powerline.git
+[submodule "vim/dotvim/bundle/sjbach_lusty"]
+	path = vim/dotvim/bundle/sjbach_lusty
+	url = git://github.com/sjbach/lusty.git
+[submodule "vim/dotvim/bundle/majutsushi_tagbar"]
+	path = vim/dotvim/bundle/majutsushi_tagbar
+	url = git://github.com/majutsushi/tagbar.git
+[submodule "vim/dotvim/bundle/vim-scripts_IndexedSearch"]
+	path = vim/dotvim/bundle/vim-scripts_IndexedSearch
+	url = git://github.com/vim-scripts/IndexedSearch.git
+[submodule "vim/dotvim/bundle/AndrewRadev_linediff.vim"]
+	path = vim/dotvim/bundle/AndrewRadev_linediff.vim
+	url = git://github.com/AndrewRadev/linediff.vim.git
+[submodule "vim/dotvim/bundle/godlygeek_tabular"]
+	path = vim/dotvim/bundle/godlygeek_tabular
+	url = git://github.com/godlygeek/tabular.git
+[submodule "vim/dotvim/bundle/rbgrouleff_bclose.vim"]
+	path = vim/dotvim/bundle/rbgrouleff_bclose.vim
+	url = git://github.com/rbgrouleff/bclose.vim.git
+[submodule "vim/dotvim/bundle/gregsexton_gitv"]
+	path = vim/dotvim/bundle/gregsexton_gitv
+	url = git://github.com/gregsexton/gitv.git
+[submodule "vim/dotvim/bundle/vim-scripts_lastpos"]
+	path = vim/dotvim/bundle/vim-scripts_lastpos
+	url = git://github.com/vim-scripts/lastpos.vim.git
+[submodule "vim/dotvim/bundle/kien_ctrlp.vim"]
+	path = vim/dotvim/bundle/kien_ctrlp.vim
+	url = git://github.com/kien/ctrlp.vim.git
+[submodule "vim/dotvim/bundle/nvie_togglemouse"]
+	path = vim/dotvim/bundle/nvie_togglemouse
+	url = git://github.com/nvie/vim-togglemouse.git
+[submodule "vim/dotvim/bundle/Raimondi_delimitMate"]
+	path = vim/dotvim/bundle/Raimondi_delimitMate
+	url = git://github.com/Raimondi/delimitMate.git
+[submodule "vim/dotvim/bundle/git.devnull.li_ikiwiki-nav"]
+	path = vim/dotvim/bundle/git.devnull.li_ikiwiki-nav
+	url = http://git.devnull.li/ikiwiki-nav.git
+[submodule "vim/dotvim/bundle/git.devnull.li_ikiwiki-syntax"]
+	path = vim/dotvim/bundle/git.devnull.li_ikiwiki-syntax
+	url = http://git.devnull.li/ikiwiki-syntax.git
+[submodule "vim/dotvim/bundle/ervandew_supertab"]
+	path = vim/dotvim/bundle/ervandew_supertab
+	url = git://github.com/ervandew/supertab
+[submodule "vim/dotvim/bundle/grota_dirdiff"]
+	path = vim/dotvim/bundle/grota_dirdiff
+	url = git@github.com:grota/DirDiff.vim.git
+[submodule "vim/dotvim/bundle/tpope_vim-surround"]
+	path = vim/dotvim/bundle/tpope_vim-surround
+	url = git://github.com/tpope/vim-surround
+[submodule "vim/dotvim/bundle/tpope_fugitive"]
+	path = vim/dotvim/bundle/tpope_fugitive
+	url = git://github.com/tpope/vim-fugitive
+[submodule "vim/dotvim/bundle/tpope_vim-repeat"]
+	path = vim/dotvim/bundle/tpope_vim-repeat
+	url = git://github.com/tpope/vim-repeat.git
+[submodule "vim/dotvim/bundle/vim-scripts_phpfolding"]
+	path = vim/dotvim/bundle/vim-scripts_phpfolding
+	url = git://github.com/vim-scripts/phpfolding.vim.git
+[submodule "vim/dotvim/bundle/SirVer_ultisnips"]
+	path = vim/dotvim/bundle/SirVer_ultisnips
+	url = git://github.com/SirVer/ultisnips.git
+[submodule "vim/dotvim/bundle/tpope_vim-eunuch"]
+	path = vim/dotvim/bundle/tpope_vim-eunuch
+	url = git://github.com/tpope/vim-eunuch.git
+[submodule "vim/dotvim/bundle/scrooloose_syntastic"]
+	path = vim/dotvim/bundle/scrooloose_syntastic
+	url = git://github.com/scrooloose/syntastic.git
+[submodule "vim/dotvim/bundle/vim-scripts_marvim"]
+	path = vim/dotvim/bundle/vim-scripts_marvim
+	url = git://github.com/vim-scripts/marvim.git
+[submodule "vim/dotvim/bundle/tpope_vim-markdown"]
+	path = vim/dotvim/bundle/tpope_vim-markdown
+	url = git://github.com/tpope/vim-markdown.git
+[submodule "vim/dotvim/bundle/tpope_vim-pathogen"]
+	path = vim/dotvim/bundle/tpope_vim-pathogen
+	url = git://github.com/tpope/vim-pathogen.git
+[submodule "vim/dotvim/bundle/tpope_vim-unimpaired"]
+	path = vim/dotvim/bundle/tpope_vim-unimpaired
+	url = git://github.com/tpope/vim-unimpaired.git
+[submodule "vim/dotvim/bundle/grota_showmarks"]
+	path = vim/dotvim/bundle/grota_showmarks
+	url = git@github.com:grota/ShowMarks.git
+[submodule "vim/dotvim/bundle/grota_AutoTag"]
+	path = vim/dotvim/bundle/grota_AutoTag
+	url = git@github.com:grota/AutoTag.git
+[submodule "vim/dotvim/bundle/grota_vimroom"]
+	path = vim/dotvim/bundle/grota_vimroom
+	url = git@github.com:grota/vimroom.git
+[submodule "vim/dotvim/bundle/shawncplus_phpcomplete.vim"]
+	path = vim/dotvim/bundle/shawncplus_phpcomplete.vim
+	url = git://github.com/shawncplus/phpcomplete.vim.git
+[submodule "vim/dotvim/bundle/guns_xterm_color_table.vim"]
+	path = vim/dotvim/bundle/guns_xterm_color_table.vim
+	url = git://github.com/guns/xterm-color-table.vim.git
+[submodule "vim/dotvim/bundle/grota_drupal.vim"]
+	path = vim/dotvim/bundle/grota_drupal.vim
+	url = git@github.com:grota/drupal.vim.git
+[submodule "private"]
+	path = private
+	url = /home/grota/Dropbox/Backup/git_repos/private_rcfiles
+[submodule "bin/bashmarks"]
+	path = bin/bashmarks
+	url = git://github.com/huyng/bashmarks.git
+[submodule "bin/git-archive-all"]
+	path = bin/git-archive-all
+	url = git://github.com/mhitza/git-archive-all.sh.git
+[submodule "bin/git-diffall"]
+	path = bin/git-diffall
+	url = git@github.com:grota/git-diffall.git
+[submodule "bin/rupa_v"]
+	path = bin/rupa_v
+	url = https://github.com/rupa/v.git

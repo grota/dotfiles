@@ -1,0 +1,104 @@
+#!env bash
+# vim: set tabstop=2 shiftwidth=2 foldmethod=marker:
+
+# source and extra file for non aliases/function stuff
+if [ -f ~/.bash_extras ]; then
+    . ~/.bash_extras
+fi
+
+# aliases {{{
+alias df='df -h'
+alias ll='ls -AlFh'
+alias sl=ls
+alias fire='firefox -Profilemanager -no-remote &'
+alias pg='ps aux| grep '
+alias pw='pwsafe -Eup -l'
+alias rstty='stty start undef stop undef'
+alias ..="cd .."
+alias ..2="cd ../.."
+alias ..3="cd ../../.."
+alias ..4="cd ../../../.."
+alias ..5="cd ../../../../.."
+alias cd..="cd ../"
+alias cd...="cd ../.."
+alias cd....="cd ../../.."
+alias cd.....="cd ../../../.."
+alias cd......="cd ../../../../.."
+alias bc='bc -l'
+alias grep='grep -n --exclude-dir=.svn --exclude-dir=.git '
+alias pb='vi ~/.config/pianobar/config'
+# {tl,ll,rl}php log {{{
+alias tlphp='tail -F /tmp/php5_apache_errorlog.log'
+alias llphp='less /tmp/php5_apache_errorlog.log'
+alias rlphp='sudo rm /tmp/php5_apache_errorlog.log'
+#}}}
+
+# Acer specific {{{
+alias toff='synclient TouchpadOff=1'
+#}}}
+
+# vim aliases {{{
+# alias for v, vim wrapper at https://github.com/rupa/v.git
+alias vls='v -l'
+alias vl='vim="eval $(type vim  | tail -n +2); vim" v -l'
+# alias v='vim="eval $(type vim  | tail -n +2); vim" v'
+# alias vi to vim (this is to keep using the vim() bash function that uses the vim --remote feature)
+alias vi=vim
+# alias vim=gvim
+alias vs=$(which 2>/dev/null vim)
+#}}}
+
+#git aliases {{{
+alias gti=git
+alias gb='git branch -vv'
+alias gbr='git branch -vr'
+alias gr='git remote -v'
+alias gdw='git diff --word-diff'
+alias gd='git diff'
+alias gdcw='git diff --cached --word-diff'
+alias gdc='git diff --cached'
+alias gs='git st'
+alias gl='git ll'
+alias k='git ll -n12'
+alias gau='git add -u'
+alias gk='gitk --all&'
+#}}}
+
+
+# old stuff, still used {{{
+alias c='cat /proc/mdstat'
+alias STO='sudo mdadm -S /dev/md0'
+alias STA='sudo mdadm -As /dev/md0'
+alias L='less -R'
+#alias rs='rsync -av --delete'
+#alias k='kompare -no -'
+alias vci='vi config.inc.php'
+#alias svnd='svn diff --diff-cmd diff'
+#}}}
+#}}}
+
+# functions {{{
+function pianobar {
+  # only way I found, short of unsetting PS1.
+  # due to variable visibility, methinks
+  echo -ne "\033]0;pianobar\a"
+  command pianobar
+}
+function mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+
+# vim function that shadows aliases and commands
+function vim {
+  vim_orig=$(which 2>/dev/null vim)
+  $vim_orig --serverlist | grep -q TROLOLOL
+  # if server is running
+  if [ $? -eq 0 ]; then
+      $vim_orig --servername TROLOLOL --remote-silent "$@"
+  else
+      $vim_orig "$@" --servername TROLOLOL
+  fi
+}
+# as in bash-title
+function bt {
+  export GROTA_TITLE="$*"
+}
+#}}}

@@ -1,0 +1,558 @@
+" vim:ft=vim:foldmethod=marker:foldcolumn=3:foldlevel=0
+
+" INITIALIZATION "{{{
+set nocompatible
+filetype off
+" pathogen as a submodule. source it explicitly.
+runtime macros/matchit.vim
+runtime bundle/tpope_vim-pathogen/autoload/pathogen.vim
+" Pathogen callbacks
+call pathogen#infect()
+call pathogen#helptags()
+" vim's filetype specific code is good stuff
+filetype plugin indent on
+if has("gui_running")
+  " a nice coloscheme easy to the eye, it sets the 'background' option
+  colorscheme koehler
+  " Hide the Toolbar
+  set guioptions-=T
+  " Don't load $VIMRUNTIME/menu.vim
+  set guioptions+=M
+  " Hide the Menu
+  set guioptions-=m
+  set guiheadroom=0
+  " Set gui font
+  set guifont=Monospace\ 10
+else
+  set background=dark
+endif
+colorscheme grota
+syntax enable
+"}}}
+
+" VIM OPTIONS {{{
+set scrolloff=1 "keep 1 line above and below the cursor
+set mouse=a " let's try using the mouse for a while
+set ignorecase " ignore case if search pattern is all lowercase, case-sensitive otherwise
+set smartcase
+set showcmd " show partial command on last line
+set autoindent
+set smartindent " extends indent functionalites of autoindent. works well for C-like sources
+set expandtab " expandtab to spaces
+set shiftwidth=2 " shiftwidth: Number of spaces to use for each step of (auto)indent.
+set tabstop=2 " tabstop: Number of spaces that a <Tab> in the file counts for.
+set shiftround " use multiple of shiftwidth when indenting with '<' and '>'
+set hls " highlist searches (set hlsearch). Use :noh[lsearch] to disable temporarily
+set list " show the listchars in vim
+set listchars=tab:▸\ ,trail:·,extends:❯,nbsp:·,precedes:❮
+set showbreak=↪
+set history=400
+set backspace=indent,eol,start
+set hidden " simply hide a modified buffer when switching to another.
+set gdefault " search/replace globally (on a line) by default
+set pastetoggle=<F5>
+set sidescrolloff=37 "keep N chars at the left and right of the cursor, see also sidescroll below
+set sidescroll=12 "When vim needs to scroll horizontally do it smoothly by moving 12 chars. 1 is not enough
+set cursorline " the line the cursor is on is underlined
+set wildmenu
+set wildmode=longest,full
+set wildignore+=.hg,.git,.svn   " Version control
+set dir-=. " remove current dir as a possibility of where to save the swap file
+set nobackup " default is already off, but just to be sure.
+set splitbelow " horizontal split below as default
+set splitright " vertical split on the right as default
+set whichwrap=b,s,<,>,[,] "left and right, in insert e normal mode wrap lines
+set ruler
+set laststatus=2 " when to show the extra status line: 2=always, 1=only if there are at least two windows
+set keymodel=startsel
+" This will look in the directory of the current file for 'tags', and work up the tree towards root until one is found.
+set tags=./tags;
+set completeopt=longest,menuone,preview
+set virtualedit+=block
+set clipboard=autoselect,unnamed,exclude:cons\|linux
+" don't use the tag file for i_<C-N> and i_<C-P>
+" for php, omnicomplete in autoload/phpcomplete.vim already does that
+set complete-=t
+" and no included files either
+set complete-=i
+" choose what to save in the session files.
+" disable the useless ones and
+" the ones that we already load from the .vimrc
+set sessionoptions-=options
+set sessionoptions-=help
+set sessionoptions-=blank
+" fold are dynamically created, we also expand all folds
+" upon BufReadPost *.php, see after/plugin/after_actions.vim
+set sessionoptions-=folds
+set foldmethod=syntax
+" defaults is no folds closed
+set foldlevelstart=99
+" used for knowing when to save to the swap file and for the CursorHold event
+set updatetime=500
+set encoding=utf-8
+" doesn't really work on terminal vim
+if has("balloon_eval") && has("gui_running")
+  set ballooneval
+endif
+"}}}
+
+" VIM PLAIN MAPPINGS {{{
+let mapleader = ","
+" EASIER NAVIGATION {{{
+" VERY OPINIONATED REMAPPINGS {{{
+nnoremap <space> :
+xnoremap <space> :
+nnoremap \ `
+nnoremap ` '
+nnoremap ' ;
+xnoremap ' ;
+nnoremap ; ,
+xnoremap ; ,
+set <M-'>='
+nnoremap <M-'> g_
+xnoremap <M-'> g_
+inoremap <M-'> <C-o>$
+inoremap <M-Right> <C-o>$
+set <M-;>=;
+nnoremap <M-;> ^
+xnoremap <M-;> ^
+inoremap <M-;> <C-o>^
+inoremap <M-Left> <C-o>^
+"}}}
+" USE <M-LEFT/RIGHT> TO SCROLL LEFT/RIGHT {{{
+nnoremap <M-Left> 13z<Left>
+nnoremap <M-Right> 13z<Right>
+" }}}
+" <C-hjkl>: EASY WINDOW NAVIGATION {{{
+" the following:
+" http://vim.wikia.com/wiki/Avoid_scrolling_when_switch_buffers
+" does not work because the events BufLeave,BufEnter are called
+" before the <C-w>|<C-w>_ commands
+function! s:Savewinpos()
+  let b:winview = winsaveview()
+endfunc
+function! s:RestoreWinPos()
+  wincmd | | wincmd _
+  if(exists('b:winview')) | call winrestview(b:winview) | endif
+endfunc
+nnoremap <silent> <C-h>  :call <SID>Savewinpos()<CR><C-w>h:call <SID>RestoreWinPos()<CR>
+nnoremap <silent> <C-j>  :call <SID>Savewinpos()<CR><C-w>j:call <SID>RestoreWinPos()<CR>
+nnoremap <silent> <C-k>  :call <SID>Savewinpos()<CR><C-w>k:call <SID>RestoreWinPos()<CR>
+nnoremap <silent> <C-l>  :call <SID>Savewinpos()<CR><C-w>l:call <SID>RestoreWinPos()<CR>
+"}}}
+" <C-n><C-p>: NEXT/PREV BUFFER {{{
+" <C-N> was the same as <Down> and I didn't need it.
+nnoremap <silent> <C-n> :bn<CR>
+nnoremap <silent> <C-p> :bp<CR>
+"}}}
+" <C-Left/Right> FOR TMUX {{{
+set <C-Left>=[D
+set <C-Right>=[C
+"}}}
+" Q <C-q> <C-c>: QUICK EXIT {{{
+nnoremap Q :qa<CR>
+nnoremap <C-q> :qa<CR>
+inoremap <C-c> <ESC>
+"}}}
+" UP/DOWN MAPPINGS {{{
+" revert the semantic: normal <up>,<down>,j,k keys move the cursor by visual line
+nnoremap j gj
+nnoremap k gk
+nnoremap <up> gk
+nnoremap <down> gj
+vnoremap <up> gk
+vnoremap <down> gj
+" and gj,gk move the cursor by physical line (g<up>, g<down> not mapped, for now)
+nnoremap gj j
+nnoremap gk k
+vnoremap gj <down>
+vnoremap gk <up>
+inoremap <expr> <Up> pumvisible() ?
+      \ "\<Up>" :
+      \ "\<C-o>gk"
+inoremap <expr> <Down> pumvisible() ?
+      \ "\<Down>" :
+      \ "\<C-o>gj"
+"}}}
+" MISCELLANEOUS {{{
+" go to tag location if only 1 place, or show selection if more than 1 place
+nnoremap <C-]> g<C-]>
+" cycle through windows
+nnoremap <tab> <C-W>w
+nnoremap <S-tab> <C-W>W
+" Close/Only window
+nnoremap <F1> <C-W>o
+nnoremap <F2> <C-W>c
+" Close/Only Tab
+nnoremap <F3> :<C-u>tabclose<CR>
+nnoremap <leader>to :<C-u>tabonly<CR>
+" gah
+xnoremap <END> <END>h
+" Session Save As and Open
+nnoremap ssa :mksession! ~/.vim/sessions/
+nnoremap so :so ~/.vim/sessions/
+nnoremap <leader>ww :<C-u>pwd<cr>
+nnoremap <C-g> :nohlsearch<CR><C-g>
+nnoremap <F5> :h grota_documentation<CR>
+" Change Working Directory to that of the current file
+cmap cd. lcd %:p:h
+" I never liked the command history window anyway
+nnoremap q: :q
+cnoremap <C-A> <Home>
+"}}}
+" DIFF {{{
+" Diff mode only mappgins.
+" Center the screen upon moving to the next diff chunk.
+" I don't care what the manual says, I don't like asymmetry,
+" dg/dp in normal/visual mode.
+" Don't ask me why, but I need to remap dp to dp,
+" I thinks this is yankring's fault.
+autocmd FilterWritePre * if &diff|
+      \ nnoremap <buffer> ]c ]czz|
+      \ nnoremap <buffer> [c [czz|
+      \ nnoremap <buffer> <leader>du :<C-U>diffupdate<CR>|
+      \ nnoremap <buffer> dp dp]czz|
+      \ nnoremap <buffer> dg do]czz|
+      \ nnoremap <buffer> do <nop>|
+      \ xnoremap <buffer> dp :diffput<CR>|
+      \ xnoremap <buffer> dg :diffget<CR>|
+      \ normal gg|
+      \ endif
+autocmd WinEnter * if &diff==0|
+      \ if maparg('dp','x') !=# ''|
+      \ xunmap <buffer> dp|
+      \ endif|
+      \ if maparg('dg','x') !=# ''|
+      \ xunmap <buffer> dg|
+      \ endif|
+      \ endif
+"}}}
+" FOLD NAVIGATION {{{
+nnoremap z<Down> zj
+nnoremap z<Up> zk
+"}}}
+"}}}
+
+" EASIER TEXT EDITING {{{
+" gV < >: VISUAL SELECTIONS AND SHIFTING {{{
+" visual shifting (does not exit Visual mode)
+xnoremap < <gv
+xnoremap > >gv
+" Visually select the text that was last edited/pasted
+nnoremap gV `[v`]
+"}}}
+" Y ,y ,Y ,p: YANKING AND PASTING {{{
+" yankring does not map Y so we don't need to put it inside YRRunAfterMaps
+xnoremap Y Y`>
+xnoremap <Leader>y "+y`>
+nnoremap <Leader>Y "+yy$
+nnoremap <Leader>p "+gp
+"}}}
+" <C-s> QUICK SAVING {{{
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <C-o>:w<CR>
+"}}}
+" iv_<M-UP/DOWN> MOVE LINES UP/DOWN {{{
+nnoremap <M-Down> :m+<CR>==
+nnoremap <M-Up> :m-2<CR>==
+inoremap <M-Down> <Esc>:m+<CR>==gi
+inoremap <M-Up> <Esc>:m-2<CR>==gi
+xnoremap <M-Down> :m'>+<CR>gv=gv
+xnoremap <M-Up> :m-2<CR>gv=gv
+"}}}
+" S SPLIT LINE {{{
+" (sister to [J]oin lines). The normal use of S is covered by cc,
+" so don't worry about shadowing it
+nnoremap S i<cr><esc>`.
+"}}}
+"}}}
+"}}}
+
+" CORE FTPLUGIN/SYNTAX SETTINGS {{{
+" See $VIMRUNTIME/{syntax,ftplugin}/* for more details
+let g:vimsyn_folding = 'af'
+let g:is_bash = 1
+let g:sh_fold_enabled=7
+" Display error for unmatched )]}
+let php_parent_error_close=1
+" The following is not necessary, I use a contrib plugin for folding that also
+" folds phpdoc sections.
+"let g:php_folding = 2
+" use K on a proposed line in an interactive gitrebase to see the corresponding diff
+autocmd FileType gitrebase nnoremap <buffer> <silent> S :Cycle<CR>
+autocmd FileType gitcommit nnoremap <buffer> <silent> <leader>d :DiffGitCached<CR>
+" }}}
+
+" CONTRIB PLUGINS MAPPINGS AND SETTINGS {{{
+" tagbar plugin {{{
+nnoremap <silent> <F10> :TagbarToggle<CR>
+let g:tagbar_autofocus = 1
+let g:tagbar_type_php = {
+      \ 'kinds' : [
+      \ 'd:constant definitions:1',
+      \ 'i:interfaces:1',
+      \ 'c:classes:1',
+      \ 'f:functions:0',
+      \ 'j:javascript functions:1',
+      \ ]
+      \ }
+"}}}
+" Fugitive {{{
+" Map .. to go back to the parent dir when you are in a git (fugitive)
+" tree|blob buffer
+autocmd User Fugitive
+      \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+      \   nnoremap <buffer> .. :edit %:h/<CR> |
+      \ endif
+set <M-d>=d
+nnoremap <M-d> :Gdiff<CR>gg]czz
+nnoremap <leader>gg  :Ggrep 
+nnoremap <leader>gw  :Gw<CR>
+nnoremap <leader>gs  :Gstatus<CR>
+nnoremap <M-s> :Gstatus<CR>
+nnoremap <leader>gc  :Gcommit -v<CR>
+"}}}
+" Yankring {{{
+set <M-.>=.
+set <M-,>=,
+let g:yankring_replace_n_pkey = '<M-.>'
+let g:yankring_replace_n_nkey = '<M-,>'
+" The following is required because it conflicts with tpope's repeat plugin
+let g:yankring_map_dot = 0
+" Move the cursor to end of the selection after yanking in visual mode
+function! YRRunAfterMaps()
+  xnoremap y :<C-U>YRYankRange 'v'<CR>`>
+endfunction
+" defaults, but set just to be sure:
+let g:yankring_clipboard_monitor = 1
+let g:yankring_manual_clipboard_check = 1
+"}}}
+" UltiSnips {{{
+let g:UltiSnipsEditSplit='vertical'
+let g:UltiSnipsExpandTrigger="<tab>"
+" These 2 do not collide with yankring's mappings
+let g:UltiSnipsJumpForwardTrigger="<M-.>"
+let g:UltiSnipsJumpBackwardTrigger="<M-,>"
+" it's a insert mode mapping
+let g:UltiSnipsListSnippets="<S-Tab>"
+let g:UltiSnipsDoHash=0
+"}}}
+" Bclose {{{
+nnoremap <expr> <C-w><C-d> ((&bufhidden == 'delete') \|\| (&bufhidden == 'wipe')) ? ":bd\<CR>" : ":Bclose\<CR>"
+"}}}
+" ctrlp {{{
+let g:ctrlp_map = '<c-f>'
+" don't let ctrlp handle the working dir
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_highlight_match = [1, 'Pmenu']
+"let g:ctrlp_arg_map = 1
+"let g:ctrlp_open_multi = 'vr'
+set <M-w>=w
+set <M-s>=s
+set <M-v>=v
+set <M-+>=+
+let g:ctrlp_prompt_mappings = {
+      \ 'PrtInsert("w")':       ['<F2>', '<M-w>'],
+      \ 'PrtInsert("s")':       ['<F3>', '<M-s>'],
+      \ 'PrtInsert("v")':       ['<F4>', '<M-v>'],
+      \ 'PrtInsert("+")':       ['<F6>', '<M-+>'],
+      \}
+"}}}
+" Lusty-Juggler/Explorer {{{
+" Lusty-Juggler
+let g:LustyJugglerDefaultMappings  = 0
+let g:LustyJugglerAltTabMode = 1 "enables the mapping below
+nnoremap <silent> <C-\>  :LustyJuggler<CR>
+" Lusty-Explorer
+let g:LustyExplorerDefaultMappings = 0
+"nnoremap <silent> <C-f> :LustyFilesystemExplorer<CR>
+nnoremap <silent> <C-b> :LustyFilesystemExplorerFromHere<CR>
+set <M-g>=g
+nnoremap <silent> <M-g> :LustyBufferGrep<CR>
+set <M-b>=b
+nnoremap <silent> <M-b> :LustyBufferExplorer<CR>
+"}}}
+" Syntastic {{{
+let g:syntastic_enable_signs=1
+"}}}
+" Showmarks {{{
+" show only a-z marks in the showmarks plugin
+let g:showmarks_include="abcdefghijklmnopqrstuvwxyz"
+highlight ShowMarksHLl ctermfg=darkblue ctermbg=blue cterm=NONE guifg=blue guibg=lightblue gui=bold
+let g:showmarks_ignore_bt    = "nofile"
+"}}}
+" Autotag {{{
+" Specify 40MB as the maximum size of the tags file to be considered by autotag
+let g:autotagmaxTagsFileSize=1024*1024*40
+"}}}
+" marvim {{{
+let g:marvim_store = $HOME.'/.vim/marvim_store/'
+let g:marvim_prefix = 0
+let g:marvim_find_key = '<F7>'
+let g:marvim_store_key = '<F6>'
+"}}}
+" ikiwiki {{{
+nnoremap <silent> <Leader>wh :e ~/grotawiki/index.mdwn<CR>:lcd %:p:h<CR>
+" load tpope's markdown syntax file when editing ikiwiki files
+let g:ikiwiki_render_filetype = 'markdown'
+"}}}
+" Powerline {{{
+let g:Powerline_cache_file = $HOME.'/.vim/vim_powerline.cache'
+let g:Powerline_symbols = 'unicode'
+"let g:Powerline_theme = 'powerline_grota'
+"}}}
+" Supertab {{{
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabLongestHighlight = 1
+" Supertab takes care of the following, which are not needed anymore, I keep
+" these here for future reference.
+" This is done to select the first entry in the menu. Not very useful, but still.
+" This also renders the longest value in completeopt pretty useless.
+"inoremap <C-X><C-O> <C-X><C-O><C-N><C-P><Down>
+"" with menuone in completeopt, the pum is always visible
+""inoremap <expr> <C-X><C-O> pumvisible() ? '<C-X><C-O><C-N><C-P>' : '<C-X><C-O>'
+"inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+"inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+"}}}
+" delimitMate {{{
+" Hacks to deal with the fucking delimitMate.
+" delimitMate's mapping logic is screwd up
+" and messes with tpope's eunuch plugin.
+imap <C-g><C-g> <Plug>delimitMateJumpMany
+" actual bug in delimitMate
+nmap <plug>NoopJumpMany <Plug>delimitMateJumpMany
+for map in ['Up', 'Down', 'PageUp', 'PageDown', 'S-Down', 'S-Up', 'S-Tab']
+  exec 'imap <plug>NoopDelimitMate'.map.' <Plug>delimitMate'.map
+endfor
+"}}}
+" DirDiff {{{
+" ,dj ,dk per diff
+for map in ['Get', 'Put', 'Next', 'Prev']
+  exec 'nmap <plug>NoopDirDiff'.map.' <Plug>DirDiff'.map
+endfor
+"}}}
+" Gitv {{{
+nnoremap <leader>gl :<C-U>Gitv --all<CR>
+" Gitv does not respect the foldlevelstart setting for working copy and index
+"}}}
+" vimroom {{{
+let g:vimroom_sidebar_height = 1
+let g:vimroom_width = 80
+" I like it a little bit to the left, note this has to be a nmap.
+nmap ,V <Plug>VimroomToggle wincmd h<CR> vertical res -20<CR> wincmd p<CR>
+"}}}
+"}}}
+
+" CUSTOM PLUGINS MAPPINGS AND SETTINGS {{{
+" ,qf quickfix toggle {{{
+nnoremap <leader>qf :QFix<CR>
+"}}}
+" ,s for syntax class {{{
+function! SynStack()
+  if !exists("*synstack")
+    return
+  endif
+  echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
+endfunc
+nnoremap <leader>s :call SynStack()<CR>
+"}}}
+" * and # in visual {{{
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  let @@ = temp
+endfunction
+xnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
+xnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
+"}}}
+" ,hh ,h1 ,h2 ,h3 {{{
+nnoremap <silent> <leader>hh :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
+nnoremap <silent> <leader>h1 :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
+nnoremap <silent> <leader>h2 :execute '2match InterestingWord2 /\<<c-r><c-w>\>/'<cr>
+nnoremap <silent> <leader>h3 :execute '3match InterestingWord3 /\<<c-r><c-w>\>/'<cr>
+"}}}
+"}}}
+
+" AUTOCOMMANDS {{{
+" highlight cursorline only for current window
+autocmd WinLeave * setlocal nocursorline
+autocmd WinEnter * setlocal cursorline
+if version >= 703
+  " Enable relativenumber just for php for now
+  autocmd FileType php setlocal relativenumber
+endif
+" Auto close the preview window that pops up in omnicomplete mode
+" DiffGitCached is opened in a preview window so we check for ft=php
+autocmd InsertLeave * if (pumvisible() == 0 && &ft ==# 'php')|silent! pclose|endif
+" Help on the right
+autocmd FileType help wincmd L
+" Red line for gitcommit
+autocmd FileType gitcommit setlocal colorcolumn=+1
+" Quickfix window: no numbers
+autocmd Filetype qf setlocal nonumber
+" this matches the conflict markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+"}}}
+
+" TO BE EVALUATED {{{
+" USE i_<C-HJKL> TO MOVE BETWEEN WORDS {{{
+inoremap <C-l> <C-o><C-right>
+inoremap <C-h> <C-o><C-left>
+inoremap <C-j> <C-o>gj
+inoremap <C-k> <C-o>gk
+"}}}
+" USE i_<M-HJKL> TO MOVE IN FINER STEPS {{{
+set <M-l>=l
+inoremap <M-l> <right>
+set <M-h>=h
+inoremap <M-h> <left>
+set <M-j>=j
+inoremap <M-j> <C-o>gj
+set <M-k>=k
+inoremap <M-k> <C-o>gk
+"}}}
+set <M-t>=t
+" from steve losh: ,S to vimscript-source the selected text
+" (or till the end of the line) (useful for mappings)
+"vnoremap <leader>S y:execute @@<cr>
+"nnoremap <leader>S ^vg_y:execute @@<cr>
+"}}}
+
+" UNUSED / COMMENTED OUT SECTIONS "{{{
+" only [0-9A-Za-z_] chars are literal. These {}()|+? are regexp constructs
+" http://stevelosh.com/blog/2010/09/coming-home-to-vim/
+" useless with IndexedSearch plugin
+"nnoremap / /\v
+"vnoremap / /\v
+" make p in Visual mode replace the selected text with the yank register
+" yankring works better, we use that.
+" vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
+" vim-indent-guides
+"let g:indent_guides_guide_size = 1
+"let g:indent_guides_start_level = 2
+"" syntastic doesn't conflict anymore with this being set
+"let g:indent_guides_enable_on_vim_startup = 1
+"let g:indent_guides_auto_colors = 0
+"highlight IndentGuidesOdd  ctermbg=237
+"highlight IndentGuidesEven ctermbg=234
+" scroll faster:
+"nnoremap <C-e> 2<C-e>
+"nnoremap <C-y> 2<C-y>
+" Use keypad 5 for the down key
+"set <k5>=[E
+"nmap <k5> <down>
+"vmap <k5> <down>
+" set foldcolumn=2
+" if filereadable(expand("~/.vimrc.local"))
+"     source ~/.vimrc.local
+" endif
+" <C-l> WORD-WISE COPY FROM LINE ABOVE BY @a {{{
+" by www.twitter/a. Piecewise copy from line above, word for word. Easier than <C-E> and <C-Y>
+" fix to use <C-L> (i.e. use 1 char from entry selected in menu, when pumvisible)
+"inoremap <expr> <C-L> pumvisible() ?
+      "\"\<C-L>" :
+      "\ "@@@<ESC>hhkywjl?@@@<CR>P/@@@<CR>3s"
+"}}}
+"}}}

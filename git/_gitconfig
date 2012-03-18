@@ -1,0 +1,45 @@
+# vim: set ft=gitconfig:
+[color]
+	ui = true
+
+[alias]
+	st = status -s
+	ci = commit
+	civ = commit -v
+	co = checkout
+	rv = remote -v
+	psuh = push
+	ll = log --oneline --graph --decorate
+	up = pull --ff-only
+
+# This alias requires git-diffall from https://github.com/thenigan/git-diffall
+# git-diffall prepares 2 temp directory trees: lhs and rhs.
+# It then calls merge.tool or diff.tool on those trees.
+# Passing --extcmd bypasses diff.tool and merge.tool (a valid option must be set, though)
+# --copy-back applies the modifications made on the temp rhs tree back to git's working copy.
+# ONLY the rhs tree will be copied to the working copy. The lhs will be discarded.
+	dd = diffall --copy-back --extcmd \"vim -f '+next' '+execute \\\"DirDiff\\\" argv(0) argv(1)'\"
+	vdd = -c merge.tool=meld diffall --copy-back
+
+# Defines a diff mode, you can then put in .gitattributes
+# *.prpt diff=unzipca
+[diff "unzipca"]
+	textconv = unzip -c -aa
+
+[advice]
+	statusHints = false
+[diff]
+	mnemonicprefix = true
+[merge]
+	tool = vimdiff
+
+[rerere]
+	enabled = 1
+[core]
+    excludesfile = ~/.global_gitignore
+[gui]
+    fontui = -family FreeSans -size 11 -weight bold -slant roman -underline 0 -overstrike 0
+    fontdiff = -family \"Courier 10 Pitch\" -size 11 -weight normal -slant roman -underline 0 -overstrike 0
+[tig "bind"]
+    generic = up move-up
+    generic = down move-down

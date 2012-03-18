@@ -1,0 +1,19 @@
+$include /etc/inputrc
+# bash's bind offers the same functionalities. See `help bind'.
+#"\C-xp": dump-functions
+#"\C-xc": dump-macros
+# "\C-xp": "PATH=${PATH}\e\C-e\C-a\ef\C-f"
+$if Bash
+  # performs bash's HISTORY EXPANSION.
+  # Use it on the cli in after !^ !$ !* !:1 !:2 !:3 !:0
+  # Can also use !-2 to retrieve the next-to-last line in full.
+  # And pick its pieces with !-2:0 (0 means first token)
+  Control-Space: magic-space
+$endif
+# add parameters to the last command
+"\C-xx": "\C-p\C-a\e[5C "
+# tmux configuration
+$if term=screen-256color
+"\eOC": forward-word
+"\eOD": backward-word
+$endif
