@@ -140,14 +140,68 @@ nnoremap <silent> <C-j>  :call <SID>Savewinpos()<CR><C-w>j:call <SID>RestoreWinP
 nnoremap <silent> <C-k>  :call <SID>Savewinpos()<CR><C-w>k:call <SID>RestoreWinPos()<CR>
 nnoremap <silent> <C-l>  :call <SID>Savewinpos()<CR><C-w>l:call <SID>RestoreWinPos()<CR>
 "}}}
+" WINDOWS {{{
+" splitting and maximizing
+nnoremap <C-w>\| <C-w>v
+nnoremap <C-w>v <nop>
+nnoremap <C-w>s <nop>
+nnoremap <C-w>m <C-w>|
+nnoremap <C-w>- <C-w>s
+" cycle through windows
+nnoremap <tab> <C-W>w
+nnoremap <S-tab> <C-W>W
+" Close/Only window
+nnoremap <F1> <C-W>o
+nnoremap <F2> <C-W>c
+"}}}
 " <C-n><C-p>: NEXT/PREV BUFFER {{{
 " <C-N> was the same as <Down> and I didn't need it.
 nnoremap <silent> <C-n> :bn<CR>
 nnoremap <silent> <C-p> :bp<CR>
 "}}}
-" <C-Left/Right> FOR TMUX {{{
-set <C-Left>=[D
-set <C-Right>=[C
+" <C-Left/Right><M-Up/Down/Left/Right> FOR TMUX {{{
+if $TMUX !=# ''
+
+  " TMUX with xterm-key OFF
+  "udlr OA OB OD OC
+  "C-udlr [A [B [D [C
+  "M-udlr <up> <down> <left> <right>
+  "S-udlr N/A
+
+  " TMUX with xterm-key ON
+  "udlr OA OB OD OC
+  "C-udlr [1;5A [1;5B [1;5D [1;5C
+  "M-udlr [1;3A [1;3B [1;3D [1;3C
+  "S-udlr [1;2A [1;2B [1;2D [1;2C
+
+  " enable C-left/right with tmux's xterm-key off
+  " vim complains if we try set <C-Up/Down> = ...
+  set <C-Right>=[C
+  set <C-Left>=[D
+  nmap [A <C-Up>
+  imap [A <C-Up>
+  xmap [A <C-Up>
+  nmap [B <C-Down>
+  imap [B <C-Down>
+  xmap [B <C-Down>
+  " vim complains if we try set <M-Left/Right/Up/Down> = ...
+  nmap <Down> <M-Down>
+  imap <Down> <M-Down>
+  xmap <Down> <M-Down>
+  nmap <Up> <M-Up>
+  imap <Up> <M-Up>
+  xmap <Up> <M-Up>
+  " for diff horizontal scrolling and moving to start/end of line
+  nmap <Left> <M-Left>
+  imap <Left> <M-Left>
+  nmap <Right> <M-Right>
+  imap <Right> <M-Right>
+endif
+" The alternative, if there are other inconsistencies in vim, or if other
+" programs need xterm-like sequences, is to enable xterm-keys in tmux and
+" try something along the lines of nmap [1;3A <M-Up>, nmap [1;3B <M-Down>,
+" or maybe use tmux's terminal-overrides string option to match the set termcap
+" shown in vim inside a pty.
 "}}}
 " Q <C-q> <C-c>: QUICK EXIT {{{
 nnoremap Q :qa<CR>
@@ -177,12 +231,6 @@ inoremap <expr> <Down> pumvisible() ?
 " MISCELLANEOUS {{{
 " go to tag location if only 1 place, or show selection if more than 1 place
 nnoremap <C-]> g<C-]>
-" cycle through windows
-nnoremap <tab> <C-W>w
-nnoremap <S-tab> <C-W>W
-" Close/Only window
-nnoremap <F1> <C-W>o
-nnoremap <F2> <C-W>c
 " Close/Only Tab
 nnoremap <F3> :<C-u>tabclose<CR>
 nnoremap <leader>to :<C-u>tabonly<CR>
