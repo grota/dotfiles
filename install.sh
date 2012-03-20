@@ -22,6 +22,7 @@ git submodule update --init --recursive
 # [git]
  ln -sf ${repohome}/git/_gitconfig ~/.gitconfig
  ln -sf ${repohome}/git/_global_gitignore ~/.global_gitignore
+ ln -sf ${repohome}/git/_gitk ~/.gitk
 
 # [tmux]
  ln -sf ${repohome}/tmux/_tmux.conf ~/.tmux.conf
