@@ -75,3 +75,5 @@ git submodule update --init --recursive
 # [xmodmap]
 # conf for laptop dv7-6190sl
  ln -sf ${repohome}/xmodmap/_Xmodmap ~/.Xmodmap
+
+${repohome}/private/install.sh
