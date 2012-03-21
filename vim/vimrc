@@ -143,8 +143,6 @@ nnoremap <silent> <C-l>  :call <SID>Savewinpos()<CR><C-w>l:call <SID>RestoreWinP
 " WINDOWS {{{
 " splitting and maximizing
 nnoremap <C-w>\| <C-w>v
-nnoremap <C-w>v <nop>
-nnoremap <C-w>s <nop>
 nnoremap <C-w>m <C-w>\|
 nnoremap <C-w>- <C-w>s
 " cycle through windows
@@ -339,7 +337,7 @@ let php_parent_error_close=1
 "let g:php_folding = 2
 " use K on a proposed line in an interactive gitrebase to see the corresponding diff
 autocmd FileType gitrebase nnoremap <buffer> <silent> S :Cycle<CR>
-autocmd FileType gitcommit nnoremap <buffer> <silent> <leader>d :DiffGitCached<CR>
+autocmd FileType gitcommit nnoremap <buffer> <silent> <leader>d :DiffGitCached<CR>:wincmd L<CR>
 " }}}
 
 " CONTRIB PLUGINS MAPPINGS AND SETTINGS {{{
@@ -556,12 +554,6 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 "}}}
 
 " TO BE EVALUATED {{{
-" USE i_<C-HJKL> TO MOVE BETWEEN WORDS {{{
-inoremap <C-l> <C-o><C-right>
-inoremap <C-h> <C-o><C-left>
-inoremap <C-j> <C-o>gj
-inoremap <C-k> <C-o>gk
-"}}}
 " USE i_<M-HJKL> TO MOVE IN FINER STEPS {{{
 set <M-l>=l
 inoremap <M-l> <right>
@@ -573,13 +565,13 @@ set <M-k>=k
 inoremap <M-k> <C-o>gk
 "}}}
 set <M-t>=t
+"}}}
+
+" UNUSED / COMMENTED OUT SECTIONS "{{{
 " from steve losh: ,S to vimscript-source the selected text
 " (or till the end of the line) (useful for mappings)
 "vnoremap <leader>S y:execute @@<cr>
 "nnoremap <leader>S ^vg_y:execute @@<cr>
-"}}}
-
-" UNUSED / COMMENTED OUT SECTIONS "{{{
 " only [0-9A-Za-z_] chars are literal. These {}()|+? are regexp constructs
 " http://stevelosh.com/blog/2010/09/coming-home-to-vim/
 " useless with IndexedSearch plugin
@@ -599,19 +591,13 @@ set <M-t>=t
 " scroll faster:
 "nnoremap <C-e> 2<C-e>
 "nnoremap <C-y> 2<C-y>
-" Use keypad 5 for the down key
-"set <k5>=[E
-"nmap <k5> <down>
-"vmap <k5> <down>
-" set foldcolumn=2
 " if filereadable(expand("~/.vimrc.local"))
 "     source ~/.vimrc.local
 " endif
-" <C-l> WORD-WISE COPY FROM LINE ABOVE BY @a {{{
-" by www.twitter/a. Piecewise copy from line above, word for word. Easier than <C-E> and <C-Y>
-" fix to use <C-L> (i.e. use 1 char from entry selected in menu, when pumvisible)
-"inoremap <expr> <C-L> pumvisible() ?
-      "\"\<C-L>" :
-      "\ "@@@<ESC>hhkywjl?@@@<CR>P/@@@<CR>3s"
+" USE i_<C-HJKL> TO MOVE BETWEEN WORDS {{{
+"inoremap <C-l> <C-o><C-right>
+"inoremap <C-h> <C-o><C-left>
+"inoremap <C-j> <C-o>gj
+"inoremap <C-k> <C-o>gk
 "}}}
 "}}}

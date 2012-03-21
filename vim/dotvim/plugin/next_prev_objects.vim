@@ -54,7 +54,6 @@ function! s:NextPrevTextObject(around_or_inner, next_or_prev)
         let argument_objects  = ['a']
 
         if index(simple_objects+argument_objects, obj) < 0
-            echom 'Text object non valido'
             return
         endif
 
