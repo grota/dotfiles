@@ -145,7 +145,7 @@ nnoremap <silent> <C-l>  :call <SID>Savewinpos()<CR><C-w>l:call <SID>RestoreWinP
 nnoremap <C-w>\| <C-w>v
 nnoremap <C-w>v <nop>
 nnoremap <C-w>s <nop>
-nnoremap <C-w>m <C-w>|
+nnoremap <C-w>m <C-w>\|
 nnoremap <C-w>- <C-w>s
 " cycle through windows
 nnoremap <tab> <C-W>w
