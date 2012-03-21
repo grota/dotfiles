@@ -205,6 +205,7 @@ endif
 "}}}
 " Q <C-q> <C-c>: QUICK EXIT {{{
 nnoremap Q :qa<CR>
+nnoremap !Q :qa!<CR>
 nnoremap <C-q> :qa<CR>
 inoremap <C-c> <ESC>
 "}}}
@@ -273,6 +274,16 @@ autocmd WinEnter * if &diff==0|
       \ if maparg('dg','x') !=# ''|
       \ xunmap <buffer> dg|
       \ endif|
+      \ if maparg('dp','n') !=# ''|
+      \ nunmap <buffer> dp|
+      \ endif|
+      \ if maparg('dg','n') !=# ''|
+      \ nunmap <buffer> dg|
+      \ endif|
+      \ try|
+      \ nunmap <buffer> do|
+      \ catch /.*/|
+      \ endtry|
       \ endif
 "}}}
 " FOLD NAVIGATION {{{
