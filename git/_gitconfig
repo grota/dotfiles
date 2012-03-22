@@ -9,7 +9,7 @@
 	co = checkout
 	rv = remote -v
 	psuh = push
-	ll = log --oneline --graph --decorate
+	ll = log --oneline --graph --decorate --all
 	up = pull --ff-only
 
 # This alias requires git-diffall from https://github.com/thenigan/git-diffall
