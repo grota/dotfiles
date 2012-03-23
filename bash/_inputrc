@@ -3,13 +3,21 @@ $include /etc/inputrc
 #"\C-xp": dump-functions
 #"\C-xc": dump-macros
 # "\C-xp": "PATH=${PATH}\e\C-e\C-a\ef\C-f"
+
+# M-f, M-b move by one word like C-Left/Right.
+# C-f, C-b move by one char at a time
+# M-t, C-t transpose words/chars
+# C-r, C-s reverse/forward search history
+# C-g aborts (for searches)
+# M-# comments line
+# C-u, C-k kill backwards/forwards
 $if Bash
-  # performs bash's HISTORY EXPANSION.
-  # Use it on the cli in after !^ !$ !* !:1 !:2 !:3 !:0
-  # Can also use !-2 to retrieve the next-to-last line in full.
-  # And pick its pieces with !-2:0 (0 means first token)
-  Control-Space: magic-space
 $endif
+# performs bash's HISTORY EXPANSION.
+# Use it on the cli in after !^ !$ !* !:1 !:2 !:3 !:0
+# Can also use !-2 to retrieve the next-to-last line in full.
+# And pick its pieces with !-2:0 (0 means first token)
+Control-Space: magic-space
 # add parameters to the last command
 "\C-xx": "\C-p\C-a\e[5C "
 # tmux configuration
