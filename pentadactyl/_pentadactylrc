@@ -1,0 +1,55 @@
+"1.0rc1
+
+" initialization {{{
+loadplugins '\.(js|penta)$'
+group user
+" }}}
+
+" Pentadactyl's default keymaps {{{
+" { } movement between paragraphs
+" y yank current url to clipboard and selection
+" Y yank current selection to selection clipboard
+" d D u (close tab, close tab and select left, undo close tab)
+" r R reload (without cache)
+" H L prev/next
+" C-d C-u up/down half screen wise
+" C-n C-p C-^ tab movement
+" s S open a search in current/new tab
+" o O open in current tab (O with current address selected)
+" t T open in new tab (T with current address selected)
+" w W open in new win (W with current address selected)
+" B gH
+" f F ;
+" zi zo zz
+" ZI ZO zZ
+" ZZ
+" }}}
+
+" remapping {{{
+nnoremap j 3j
+nnoremap k 3k
+
+nnoremap a <nop>
+nnoremap A <nop>
+nnoremap a <C-6>
+
+nnoremap <leader>lk :listkeys -mode 
+
+nnoremap <C-c> <Esc>
+cnoremap <C-c> <Esc>
+nnoremap <Esc> <C-c>
+
+"nnoremap <space> :
+"nnoremap gf :tab normal! gf<cr>
+" }}}
+
+" options {{{
+set hlfind
+set mapleader=','
+"set newtab=all
+set newtab=help,prefs
+set titlestring="Firefox / Pentadactyl"
+"set wildmode=longest,full
+" }}}
+
+" vim: set ft=vim foldmethod=marker:
