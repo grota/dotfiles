@@ -123,6 +123,22 @@ inoremap <M-Left> <C-o>^
 nnoremap <M-Left> 13z<Left>
 nnoremap <M-Right> 13z<Right>
 " }}}
+" USE i_<M-HJKL> TO MOVE IN FINER STEPS {{{
+set <M-l>=l
+inoremap <M-l> <right>
+set <M-h>=h
+inoremap <M-h> <left>
+set <M-j>=j
+inoremap <M-j> <C-o>gj
+set <M-k>=k
+inoremap <M-k> <C-o>gk
+"}}}
+" USE i_<C-HJKL> TO MOVE BETWEEN WORDS {{{
+inoremap <C-l> <C-o><C-right>
+inoremap <C-h> <C-o><C-left>
+inoremap <C-j> <C-o>gj
+inoremap <C-k> <C-o>gk
+" }}}
 " <C-hjkl>: EASY WINDOW NAVIGATION {{{
 " the following:
 " http://vim.wikia.com/wiki/Avoid_scrolling_when_switch_buffers
@@ -140,7 +156,7 @@ nnoremap <silent> <C-j>  :call <SID>Savewinpos()<CR><C-w>j:call <SID>RestoreWinP
 nnoremap <silent> <C-k>  :call <SID>Savewinpos()<CR><C-w>k:call <SID>RestoreWinPos()<CR>
 nnoremap <silent> <C-l>  :call <SID>Savewinpos()<CR><C-w>l:call <SID>RestoreWinPos()<CR>
 "}}}
-" WINDOWS {{{
+" WINDOWS SPLIT/MAXIMIZE/CLOSE/ONLY/CYCLE {{{
 " splitting and maximizing
 nnoremap <C-w>\| <C-w>v
 nnoremap <C-w>m <C-w>\|
@@ -309,7 +325,9 @@ nnoremap <Leader>p "+gp
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <C-o>:w<CR>
 "}}}
-" iv_<M-UP/DOWN> MOVE LINES UP/DOWN {{{
+" inv_<M-UP/DOWN> n_<M-jk> MOVE LINES UP/DOWN {{{
+nnoremap <M-j> :m+<CR>==
+nnoremap <M-k> :m-2<CR>==
 nnoremap <M-Down> :m+<CR>==
 nnoremap <M-Up> :m-2<CR>==
 inoremap <M-Down> <Esc>:m+<CR>==gi
@@ -554,16 +572,6 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 "}}}
 
 " TO BE EVALUATED {{{
-" USE i_<M-HJKL> TO MOVE IN FINER STEPS {{{
-set <M-l>=l
-inoremap <M-l> <right>
-set <M-h>=h
-inoremap <M-h> <left>
-set <M-j>=j
-inoremap <M-j> <C-o>gj
-set <M-k>=k
-inoremap <M-k> <C-o>gk
-"}}}
 set <M-t>=t
 "}}}
 

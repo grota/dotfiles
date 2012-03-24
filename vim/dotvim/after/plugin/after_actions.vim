@@ -47,3 +47,6 @@ nnoremap <silent> <Plug>unimpairedTPrevious :<C-u>tabprevious<CR>
 nnoremap <silent> <Plug>unimpairedTFirst :<C-u>tabfirst<CR>
 nnoremap <silent> <Plug>unimpairedTLast :<C-u>tablast<CR>
 "}}}
+" CHANGE CASE {{{
+nnoremap U gUiWw
+"}}}
