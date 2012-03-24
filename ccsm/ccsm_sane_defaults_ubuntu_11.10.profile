@@ -30,8 +30,8 @@ s0_filter_match = any
 s0_exclude_match = type=Desktop
 
 [gnomecompat]
-s0_main_menu_key = <Alt>F1
-s0_run_key = <Alt>F2
+s0_main_menu_key = Disabled
+s0_run_key = Disabled
 s0_command_screenshot = gnome-screenshot
 s0_run_command_screenshot_key = Print
 s0_command_window_screenshot = gnome-screenshot --window
@@ -50,7 +50,7 @@ s0_slide_out_duration = 250
 [place]
 s0_workarounds = true
 s0_mode = 2
-s0_multioutput_mode = 0
+s0_multioutput_mode = 1
 s0_force_placement_match = 
 s0_position_matches = 
 s0_position_x_values = 
@@ -456,7 +456,7 @@ s0_command17 =
 s0_command18 = 
 s0_command19 = 
 s0_command20 = 
-s0_run_command0_key = <Alt>q
+s0_run_command0_key = Disabled
 s0_run_command1_key = Disabled
 s0_run_command2_key = Disabled
 s0_run_command3_key = Disabled
@@ -727,7 +727,7 @@ s0_saturation_matches =
 s0_saturation_values = 90;
 
 [core]
-s0_active_plugins = core;bailer;detection;composite;opengl;decor;grid;compiztoolbox;commands;imgpng;regex;snap;gnomecompat;place;workarounds;vpswitch;move;mousepoll;neg;resize;expo;session;ezoom;wall;staticswitcher;fade;scale;scaleaddon;unityshell;
+s0_active_plugins = core;bailer;detection;composite;opengl;decor;grid;compiztoolbox;imgpng;regex;snap;gnomecompat;place;workarounds;vpswitch;move;mousepoll;neg;resize;expo;session;ezoom;wall;staticswitcher;fade;scale;scaleaddon;unityshell;
 s0_audible_bell = true
 s0_ignore_hints_when_maximized = true
 s0_hide_skip_taskbar_windows = true
@@ -744,7 +744,7 @@ s0_autoraise = true
 s0_autoraise_delay = 1000
 s0_focus_prevention_level = 1
 s0_focus_prevention_match = !(class=Polkit-gnome-authentication-agent-1)
-s0_close_window_key = <Alt>F4
+s0_close_window_key = <Alt>grave
 s0_close_window_button = Disabled
 s0_raise_window_key = Disabled
 s0_raise_window_button = <Control>Button6
@@ -962,11 +962,11 @@ s0_launcher_reveal_edge = Left
 s0_launcher_reveal_edge_timeout = 686
 s0_launcher_hide_mode = 2
 s0_show_launcher = Disabled
-s0_keyboard_focus = Disabled
+s0_keyboard_focus = <Alt>F1
 s0_execute_command = Disabled
 s0_panel_first_menu = Disabled
 s0_alt_tab_timeout = true
-s0_alt_tab_bias_viewport = false
+s0_alt_tab_bias_viewport = true
 s0_alt_tab_forward = Disabled
 s0_alt_tab_prev = Disabled
 s0_alt_tab_right = Disabled
