@@ -34,8 +34,8 @@ alias rlphp='sudo rm /tmp/php5_apache_errorlog.log'
 #}}}
 
 # Acer specific {{{
-alias toff='xinput set-prop 15 132 0'
-alias koff='xinput set-prop 14 132 0'
+alias toff='xinput set-prop "SynPS/2 Synaptics TouchPad" 132 0'
+alias koff='xinput set-prop "AT Translated Set 2 keyboard" 132 0'
 #}}}
 
 # vim aliases {{{
