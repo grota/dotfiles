@@ -602,10 +602,4 @@ set <M-t>=t
 " if filereadable(expand("~/.vimrc.local"))
 "     source ~/.vimrc.local
 " endif
-" USE i_<C-HJKL> TO MOVE BETWEEN WORDS {{{
-"inoremap <C-l> <C-o><C-right>
-"inoremap <C-h> <C-o><C-left>
-"inoremap <C-j> <C-o>gj
-"inoremap <C-k> <C-o>gk
-"}}}
 "}}}

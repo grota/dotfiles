@@ -4,15 +4,28 @@ $include /etc/inputrc
 #"\C-xc": dump-macros
 # "\C-xp": "PATH=${PATH}\e\C-e\C-a\ef\C-f"
 
+"\C-f": clear-screen
+"\C-l": forward-word
+"\C-h": backward-word
+"\eh":  backward-char
+"\el":  forward-char
+"\C-k": previous-history
+"\C-j": next-history
+"\ew":  kill-word
+
 # M-f, M-b move by one word like C-Left/Right.
-# C-f, C-b move by one char at a time
 # M-t, C-t transpose words/chars
 # C-r, C-s reverse/forward search history
 # C-g aborts (for searches)
 # M-# comments line
 # C-u, C-k kill backwards/forwards
+
+# defaults overridden
+# C-f, C-b move by one char at a time
+
 $if Bash
 $endif
+
 # performs bash's HISTORY EXPANSION.
 # Use it on the cli in after !^ !$ !* !:1 !:2 !:3 !:0
 # Can also use !-2 to retrieve the next-to-last line in full.

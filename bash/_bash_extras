@@ -16,7 +16,7 @@ if [ "$TERM" = "xterm" -a "$COLORTERM" = "gnome-terminal" ]; then
     TERM="xterm-256color"
 fi
 
-HISTIGNORE="clear:bg:fg:cd:cd -:exit:date:w:* --help"
+HISTIGNORE="clear:bg:fg:cd:cd -:exit:date:w:"
 
 # PS1 overrides the one from .bashrc. Color prompt by default
 # the title of xterms is set only to \w (the current working directory,
