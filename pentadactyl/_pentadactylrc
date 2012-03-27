@@ -1,10 +1,5 @@
 "1.0rc1
 
-" initialization {{{
-loadplugins '\.(js|penta)$'
-group user
-" }}}
-
 " Pentadactyl's default keymaps {{{
 " { } movement between paragraphs
 " y yank current url to clipboard and selection
@@ -25,6 +20,11 @@ group user
 " ZZ
 " }}}
 
+" initialization {{{
+loadplugins '\.(js|penta)$'
+group user
+" }}}
+
 " remapping {{{
 nnoremap j 3j
 nnoremap k 3k
@@ -32,6 +32,7 @@ nnoremap k 3k
 nnoremap a <nop>
 nnoremap A <nop>
 nnoremap a <C-6>
+nnoremap e g;b
 
 nnoremap <leader>lk :listkeys -mode 
 
@@ -39,17 +40,24 @@ nnoremap <C-c> <Esc>
 cnoremap <C-c> <Esc>
 nnoremap <Esc> <C-c>
 
-"nnoremap <space> :
-"nnoremap gf :tab normal! gf<cr>
+noremap <C-a> <C-f>
+noremap <C-f> /
 " }}}
 
-" options {{{
+" options and highlighting {{{
 set hlfind
 set mapleader=','
 "set newtab=all
 set newtab=help,prefs
 set titlestring="Firefox / Pentadactyl"
+set hintkeys='asdfhjklgqwerpoiuyt'
+set passkeys+=mail.google.com:jkroaefu<CR>gi#
 "set wildmode=longest,full
+set defsearch=gg
+
+highlight Hint       font-size: 14px; background: rgba(210,1,133,0.8) !important; border: 2px solid rgb(165,1,105); font-weight: bold; color: white; font-family: Helvetica; line-height:1em;
+highlight HintActive background: rgba(145,197,43,0.8)    !important;
+highlight HintElem   background: rgba(255, 209, 20, 0.7) !important;
 " }}}
 
 " vim: set ft=vim foldmethod=marker:
