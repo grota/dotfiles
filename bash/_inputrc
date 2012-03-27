@@ -2,26 +2,43 @@ $include /etc/inputrc
 # bash's bind offers the same functionalities. See `help bind'.
 #"\C-xp": dump-functions
 #"\C-xc": dump-macros
-# "\C-xp": "PATH=${PATH}\e\C-e\C-a\ef\C-f"
 
-"\C-f": clear-screen
+# RATIONALE:
+# C-hjkl to move between words like C-arrows (h/j=up/down in history)
+# M-hl to move left/right charwise like in vim
+# C-w M-w to delete WORDS on the left/right of the cursor (space-separated)
+# C-d M-d to delete words on the left/right of the cursor
+# C-b like backspace
+
 "\C-l": forward-word
 "\C-h": backward-word
-"\eh":  backward-char
-"\el":  forward-char
 "\C-k": previous-history
 "\C-j": next-history
-"\ew":  kill-word
+"\eh":  backward-char
+"\el":  forward-char
+"\C-f": clear-screen
+"\C-b": backward-delete-char
+"\ea":  kill-region
+"\ew":  '\e \C-] \ea'
+"\C-d": backward-kill-word
+"\ek":  kill-line
 
-# M-f, M-b move by one word like C-Left/Right.
+# Defaults {{{
 # M-t, C-t transpose words/chars
 # C-r, C-s reverse/forward search history
-# C-g aborts (for searches)
-# M-# comments line
-# C-u, C-k kill backwards/forwards
+# C-g abort searches
+# M-S-3 comments line (i.e. M-#)
+# C-u kill backwards
+# M-d kill-word
 
 # defaults overridden
 # C-f, C-b move by one char at a time
+# C-k kill-line
+
+# unused
+# C-M-h M-BS backward-kill-word
+# M-f, M-b move by one word like C-Left/Right.
+# }}}
 
 $if Bash
 $endif
