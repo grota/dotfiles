@@ -18,7 +18,7 @@
 # Passing --extcmd bypasses diff.tool and merge.tool (a valid option must be set, though)
 # --copy-back applies the modifications made on the temp rhs tree back to git's working copy.
 # ONLY the rhs tree will be copied to the working copy. The lhs will be discarded.
-	dd = diffall --copy-back --extcmd \"vim -f '+next' '+execute \\\"DirDiff\\\" argv(0) argv(1)'\"
+	dd = diffall --extcmd=/home/grota/local/bin/vimdirdiff.sh
 	vdd = -c merge.tool=meld diffall --copy-back
 
 # Defines a diff mode, you can then put in .gitattributes
