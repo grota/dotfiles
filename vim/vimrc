@@ -123,23 +123,31 @@ inoremap <M-Left> <C-o>^
 nnoremap <M-Left> 13z<Left>
 nnoremap <M-Right> 13z<Right>
 " }}}
-" USE i_<M-HJKL> TO MOVE IN FINER STEPS {{{
+" USE ni_<M-HJKL> TO MOVE IN FINER STEPS {{{
 set <M-l>=l
 inoremap <M-l> <right>
+nnoremap <M-l> <right>
 set <M-h>=h
 inoremap <M-h> <left>
+nnoremap <M-h> <left>
 set <M-j>=j
 inoremap <M-j> <C-o>gj
+nnoremap <M-j> gj
 set <M-k>=k
 inoremap <M-k> <C-o>gk
+nnoremap <M-k> gk
 "}}}
-" USE i_<C-HJKL> TO MOVE BETWEEN WORDS {{{
+" USE ni_<C-HJKL> TO MOVE BETWEEN WORDS {{{
 inoremap <C-l> <C-o><C-right>
 inoremap <C-h> <C-o><C-left>
 inoremap <C-j> <C-o>gj
 inoremap <C-k> <C-o>gk
+nnoremap <C-l> <C-right>
+nnoremap <C-h> <C-left>
+nnoremap <C-j> 3gj
+nnoremap <C-k> 3gk
 " }}}
-" <C-hjkl>: EASY WINDOW NAVIGATION {{{
+" <C-Up/Down/Left/Right>: EASY WINDOW NAVIGATION {{{
 " the following:
 " http://vim.wikia.com/wiki/Avoid_scrolling_when_switch_buffers
 " does not work because the events BufLeave,BufEnter are called
@@ -151,10 +159,10 @@ function! s:RestoreWinPos()
   wincmd | | wincmd _
   if(exists('b:winview')) | call winrestview(b:winview) | endif
 endfunc
-nnoremap <silent> <C-h>  :call <SID>Savewinpos()<CR><C-w>h:call <SID>RestoreWinPos()<CR>
-nnoremap <silent> <C-j>  :call <SID>Savewinpos()<CR><C-w>j:call <SID>RestoreWinPos()<CR>
-nnoremap <silent> <C-k>  :call <SID>Savewinpos()<CR><C-w>k:call <SID>RestoreWinPos()<CR>
-nnoremap <silent> <C-l>  :call <SID>Savewinpos()<CR><C-w>l:call <SID>RestoreWinPos()<CR>
+nnoremap <silent> <C-Left>  :call <SID>Savewinpos()<CR><C-w>h:call <SID>RestoreWinPos()<CR>
+nnoremap <silent> <C-Down>  :call <SID>Savewinpos()<CR><C-w>j:call <SID>RestoreWinPos()<CR>
+nnoremap <silent> <C-Up>    :call <SID>Savewinpos()<CR><C-w>k:call <SID>RestoreWinPos()<CR>
+nnoremap <silent> <C-Right> :call <SID>Savewinpos()<CR><C-w>l:call <SID>RestoreWinPos()<CR>
 "}}}
 " WINDOWS SPLIT/MAXIMIZE/CLOSE/ONLY/CYCLE {{{
 " splitting and maximizing
@@ -325,9 +333,7 @@ nnoremap <Leader>p "+gp
 nnoremap <C-s> :w<CR>
 inoremap <C-s> <C-o>:w<CR>
 "}}}
-" inv_<M-UP/DOWN> n_<M-jk> MOVE LINES UP/DOWN {{{
-nnoremap <M-j> :m+<CR>==
-nnoremap <M-k> :m-2<CR>==
+" nix_<M-UP/DOWN> MOVE LINES UP/DOWN {{{
 nnoremap <M-Down> :m+<CR>==
 nnoremap <M-Up> :m-2<CR>==
 inoremap <M-Down> <Esc>:m+<CR>==gi
