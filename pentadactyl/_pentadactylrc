@@ -51,9 +51,10 @@ set mapleader=','
 set newtab=help,prefs
 set titlestring="Firefox / Pentadactyl"
 set hintkeys='asdfhjklgqwerpoiuyt'
-set passkeys+=mail.google.com:jkroaefu<CR>gi#
+set passkeys+=mail.google.com:jkroaefu<CR>gi#l
 "set wildmode=longest,full
 set defsearch=gg
+set go+=B
 
 highlight Hint       font-size: 14px; background: rgba(210,1,133,0.8) !important; border: 2px solid rgb(165,1,105); font-weight: bold; color: white; font-family: Helvetica; line-height:1em;
 highlight HintActive background: rgba(145,197,43,0.8)    !important;
