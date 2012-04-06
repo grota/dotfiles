@@ -123,21 +123,25 @@ inoremap <M-Left> <C-o>^
 nnoremap <M-Left> 13z<Left>
 nnoremap <M-Right> 13z<Right>
 " }}}
-" USE ni_<M-HJKL> TO MOVE IN FINER STEPS {{{
-set <M-l>=l
-inoremap <M-l> <right>
-nnoremap <M-l> <right>
-set <M-h>=h
-inoremap <M-h> <left>
-nnoremap <M-h> <left>
-set <M-j>=j
-inoremap <M-j> <C-o>gj
-nnoremap <M-j> gj
+" USE nix_<M-HJKL> TO MOVE IN FINER STEPS {{{
 set <M-k>=k
+set <M-j>=j
+set <M-h>=h
+set <M-l>=l
 inoremap <M-k> <C-o>gk
+inoremap <M-j> <C-o>gj
+inoremap <M-h> <left>
+inoremap <M-l> <right>
 nnoremap <M-k> gk
+nnoremap <M-j> gj
+nnoremap <M-h> <left>
+nnoremap <M-l> <right>
+xnoremap <M-k> gk
+xnoremap <M-j> gj
+xnoremap <M-h> <left>
+xnoremap <M-l> <right>
 "}}}
-" USE ni_<C-HJKL> TO MOVE BETWEEN WORDS {{{
+" USE nix_<C-HJKL> TO MOVE BETWEEN WORDS {{{
 inoremap <C-l> <C-o><C-right>
 inoremap <C-h> <C-o><C-left>
 inoremap <C-j> <C-o>gj
@@ -146,6 +150,10 @@ nnoremap <C-l> <C-right>
 nnoremap <C-h> <C-left>
 nnoremap <C-j> 3gj
 nnoremap <C-k> 3gk
+xnoremap <C-l> <C-right>
+xnoremap <C-h> <C-left>
+xnoremap <C-j> 3gj
+xnoremap <C-k> 3gk
 " }}}
 " <C-Up/Down/Left/Right>: EASY WINDOW NAVIGATION {{{
 " the following:
