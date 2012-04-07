@@ -505,12 +505,10 @@ let g:SuperTabLongestHighlight = 1
 "inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 "}}}
 " delimitMate {{{
-" Hacks to deal with the fucking delimitMate.
-" delimitMate's mapping logic is screwd up
-" and messes with tpope's eunuch plugin.
+" Hacks to deal with delimitMate
+" there are some problems with tpope's eunuch plugin.
 imap <C-g><C-g> <Plug>delimitMateJumpMany
-" actual bug in delimitMate
-nmap <plug>NoopJumpMany <Plug>delimitMateJumpMany
+nmap <plug>NoopDelimitMateJumpMany <Plug>delimitMateJumpMany
 for map in ['Up', 'Down', 'PageUp', 'PageDown', 'S-Down', 'S-Up', 'S-Tab']
   exec 'imap <plug>NoopDelimitMate'.map.' <Plug>delimitMate'.map
 endfor
