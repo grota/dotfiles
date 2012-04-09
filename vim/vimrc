@@ -289,7 +289,7 @@ cnoremap <C-A> <Home>
 autocmd FilterWritePre * if &diff|
       \ nnoremap <buffer> ]c ]czz|
       \ nnoremap <buffer> [c [czz|
-      \ nnoremap <buffer> <leader>du :<C-U>diffupdate<CR>|
+      \ nnoremap <buffer> <leader>du :let l=line(".")<CR>\|:<C-U>diffupdate<CR>\|:exe "normal! ".l."G"<CR>zz|
       \ nnoremap <buffer> dp dp]czz|
       \ nnoremap <buffer> dg do]czz|
       \ nnoremap <buffer> do <nop>|
@@ -431,6 +431,7 @@ nnoremap <expr> <C-w><C-d> ((&bufhidden == 'delete') \|\| (&bufhidden == 'wipe')
 "}}}
 " ctrlp {{{
 let g:ctrlp_map = '<c-f>'
+let g:ctrlp_cmd = 'CtrlPMRU'
 " don't let ctrlp handle the working dir
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_clear_cache_on_exit = 0
@@ -447,6 +448,7 @@ let g:ctrlp_prompt_mappings = {
       \ 'PrtInsert("v")':       ['<F4>', '<M-v>'],
       \ 'PrtInsert("+")':       ['<F6>', '<M-+>'],
       \}
+let g:ctrlp_extensions = ['dir', 'line']
 "}}}
 " Lusty-Juggler/Explorer {{{
 " Lusty-Juggler
@@ -504,15 +506,6 @@ let g:SuperTabLongestHighlight = 1
 "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 "inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 "}}}
-" delimitMate {{{
-" Hacks to deal with delimitMate
-" there are some problems with tpope's eunuch plugin.
-imap <C-g><C-g> <Plug>delimitMateJumpMany
-nmap <plug>NoopDelimitMateJumpMany <Plug>delimitMateJumpMany
-for map in ['Up', 'Down', 'PageUp', 'PageDown', 'S-Down', 'S-Up', 'S-Tab']
-  exec 'imap <plug>NoopDelimitMate'.map.' <Plug>delimitMate'.map
-endfor
-"}}}
 " DirDiff {{{
 " ,dj ,dk per diff
 for map in ['Get', 'Put', 'Next', 'Prev']
@@ -529,6 +522,10 @@ let g:vimroom_width = 80
 " I like it a little bit to the left, note this has to be a nmap.
 nmap ,V <Plug>VimroomToggle wincmd h<CR> vertical res -20<CR> wincmd p<CR>
 "}}}
+" splitJoin {{{
+nmap <Leader>j :SplitjoinJoin<cr>
+nmap <Leader>s :SplitjoinSplit<cr>
+" }}}
 "}}}
 
 " CUSTOM PLUGINS MAPPINGS AND SETTINGS {{{
@@ -542,7 +539,7 @@ function! SynStack()
   endif
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
 endfunc
-nnoremap <leader>s :call SynStack()<CR>
+nnoremap <leader>xs :call SynStack()<CR>
 "}}}
 " * and # in visual {{{
 function! s:VSetSearch()

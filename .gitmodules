@@ -121,3 +121,6 @@
 [submodule "bin/rupa_v"]
 	path = bin/rupa_v
 	url = https://github.com/rupa/v.git
+[submodule "vim/dotvim/bundle/AndrewRadev_splitjoin.vim"]
+	path = vim/dotvim/bundle/AndrewRadev_splitjoin.vim
+	url = git://github.com/AndrewRadev/splitjoin.vim.git
