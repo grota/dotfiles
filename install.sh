@@ -31,6 +31,9 @@ git submodule update --init --recursive
 # [dconf]
  cat ${repohome}/dconf/_org_gnome_libgnomekbd_keyboard | dconf load /org/gnome/libgnomekbd/keyboard/
 
+# [gconf]
+ gconftool-2 --load ${repohome}/gconf/gnome-terminal_gconf_settings.xml
+
 # [ssh]
  mkdir -p ~/.ssh
  chmod 700 ~/.ssh
@@ -56,8 +59,8 @@ git submodule update --init --recursive
 
 # [lftp]
  ln -sf private/lftp ${repohome}
- ln -sf $repohome/private/lftp/_lftrc ~/.lftprc
- ln -sf $repohome/private/lftp/lftp ~/.lftp
+ ln -sf ${repohome}/private/lftp/_lftrc ~/.lftprc
+ ln -sf ${repohome}/private/lftp/lftp/ ~/.lftp
 
 # [alsa]
  ln -sf ${repohome}/alsa/_asoundrc ~/.asoundrc
