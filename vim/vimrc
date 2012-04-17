@@ -578,6 +578,11 @@ autocmd FileType gitcommit setlocal colorcolumn=+1
 autocmd Filetype qf setlocal nonumber
 " this matches the conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+if has("autocmd") && has('GUI_GTK')
+  au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
+  au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
+  au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
+endif
 "}}}
 
 " TO BE EVALUATED {{{

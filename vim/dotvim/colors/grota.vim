@@ -23,6 +23,7 @@ highlight Type cterm=bold ctermfg=83
 highlight PreProc ctermfg=176
 highlight LustySelected cterm=bold ctermbg=235 ctermfg=76 guibg=gray25 guifg=chartreuse
 highlight LustyGrepMatch guibg=DarkGreen ctermbg=22
+highlight MatchParen cterm=bold ctermbg=19 guibg=DarkCyan
 highlight Directory ctermfg=130
 highlight Pmenu ctermbg=8 guibg=SpringGreen4 guifg=gray15
 highlight PmenuSel ctermbg=247 ctermfg=233 guibg=green1 guifg=black
