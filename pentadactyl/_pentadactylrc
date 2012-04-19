@@ -6,7 +6,6 @@
 " Y yank current selection to selection clipboard
 " d D u (close tab, close tab and select left, undo close tab)
 " r R reload (without cache)
-" H L prev/next
 " C-d C-u up/down half screen wise
 " C-n C-p C-^ tab movement
 " s S open a search in current/new tab
@@ -26,35 +25,40 @@ group user
 " }}}
 
 " remapping {{{
-nnoremap j 3j
-nnoremap k 3k
+nmap -builtin j 7j
+nmap -builtin k 7k
 
-nnoremap a <nop>
-nnoremap A <nop>
-nnoremap a <C-6>
-nnoremap e g;b
+nmap -builtin a <nop>
+nmap -builtin A <nop>
+nmap -builtin a <C-6>
+nmap -builtin e g;b
 
-nnoremap <leader>lk :listkeys -mode 
+nmap -builtin <leader>lk :listkeys -mode 
 
-nnoremap <C-c> <Esc>
-cnoremap <C-c> <Esc>
-nnoremap <Esc> <C-c>
+nmap -builtin <C-c> <Esc>
+cmap -builtin <C-c> <Esc>
+nmap -builtin <Esc> <C-c>
 
-noremap <C-a> <C-f>
-noremap <C-f> /
+nmap -builtin <C-a> <C-f>
+nmap -builtin <C-f> /
+nmap -builtin L l
+nmap -builtin H h
+nmap -builtin h H
+nmap -builtin l L
 " }}}
 
 " options and highlighting {{{
 set hlfind
-set mapleader=','
+map , <leader>
 "set newtab=all
 set newtab=help,prefs
 set titlestring="Firefox / Pentadactyl"
-set hintkeys='asdfhjklgqwerpoiuyt'
+"set hintkeys='asdfhjklgqwerpoiuyt'
 set passkeys+=mail.google.com:jkroaefu<CR>gi#l
 "set wildmode=longest,full
 set defsearch=gg
 set go+=B
+"map -m i,c,t <C-v> <Pass>
 
 highlight Hint       font-size: 14px; background: rgba(210,1,133,0.8) !important; border: 2px solid rgb(165,1,105); font-weight: bold; color: white; font-family: Helvetica; line-height:1em;
 highlight HintActive background: rgba(145,197,43,0.8)    !important;
