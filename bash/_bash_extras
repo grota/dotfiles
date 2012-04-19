@@ -57,3 +57,14 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
 # load my private stuff
 [[ -s "${current_pathinrepo}/../private/bash/_bash_aliases" ]] && source "${current_pathinrepo}/../private/bash/_bash_aliases"
+
+# oh god, this feels good
+[[ -n "$DISPLAY" ]] && xset r rate 220 45
+
+# back up file with timestamp
+# useful for administrators and configs
+bu () {
+    filename=$1
+    filetime=$(date +%Y%m%d_%H%M%S)
+    cp ${filename} ${filename}_${filetime}
+}

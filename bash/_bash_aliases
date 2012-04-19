@@ -87,7 +87,7 @@ function pianobar {
   echo -ne "\033]0;pianobar\a"
   command pianobar
 }
-function mkdircd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
+function mkcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
 # vim function that shadows aliases and commands
 function vim {
