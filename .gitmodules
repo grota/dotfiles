@@ -109,9 +109,6 @@
 [submodule "private"]
 	path = private
 	url = /home/grota/Dropbox/Backup/git_repos/private_rcfiles
-[submodule "bin/bashmarks"]
-	path = bin/bashmarks
-	url = git://github.com/huyng/bashmarks.git
 [submodule "bin/git-archive-all"]
 	path = bin/git-archive-all
 	url = git://github.com/mhitza/git-archive-all.sh.git
@@ -124,3 +121,6 @@
 [submodule "vim/dotvim/bundle/AndrewRadev_splitjoin.vim"]
 	path = vim/dotvim/bundle/AndrewRadev_splitjoin.vim
 	url = git://github.com/AndrewRadev/splitjoin.vim.git
+[submodule "bin/autojump"]
+	path = bin/autojump
+	url = git://github.com/joelthelion/autojump.git
