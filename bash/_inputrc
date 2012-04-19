@@ -17,11 +17,12 @@ $include /etc/inputrc
 "\eh":  backward-char
 "\el":  forward-char
 "\C-f": clear-screen
-"\C-b": backward-delete-char
 "\ea":  kill-region
 "\ew":  '\e \C-] \ea'
 "\C-d": backward-kill-word
 "\ek":  kill-line
+"\C-b": backward-delete-char
+"\eb":  delete-char
 
 # Defaults {{{
 # M-t, C-t transpose words/chars
