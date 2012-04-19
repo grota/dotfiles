@@ -67,9 +67,6 @@
 [submodule "vim/dotvim/bundle/vim-scripts_phpfolding"]
 	path = vim/dotvim/bundle/vim-scripts_phpfolding
 	url = git://github.com/vim-scripts/phpfolding.vim.git
-[submodule "vim/dotvim/bundle/SirVer_ultisnips"]
-	path = vim/dotvim/bundle/SirVer_ultisnips
-	url = git://github.com/SirVer/ultisnips.git
 [submodule "vim/dotvim/bundle/tpope_vim-eunuch"]
 	path = vim/dotvim/bundle/tpope_vim-eunuch
 	url = git://github.com/tpope/vim-eunuch.git
@@ -124,3 +121,12 @@
 [submodule "bin/autojump"]
 	path = bin/autojump
 	url = git://github.com/joelthelion/autojump.git
+[submodule "vim/dotvim/bundle/garbas_vim-snipmate"]
+	path = vim/dotvim/bundle/garbas_vim-snipmate
+	url = https://github.com/garbas/vim-snipmate.git
+[submodule "vim/dotvim/bundle/MarcWeber_vim-addon-mw-utils"]
+	path = vim/dotvim/bundle/MarcWeber_vim-addon-mw-utils
+	url = git://github.com/MarcWeber/vim-addon-mw-utils.git
+[submodule "vim/dotvim/bundle/tomtom_tlib_vim"]
+	path = vim/dotvim/bundle/tomtom_tlib_vim
+	url = git://github.com/tomtom/tlib_vim.git
