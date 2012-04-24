@@ -142,16 +142,16 @@ xnoremap <M-h> <left>
 xnoremap <M-l> <right>
 "}}}
 " USE nix_<C-HJKL> TO MOVE BETWEEN WORDS {{{
-inoremap <C-l> <C-o><C-right>
-inoremap <C-h> <C-o><C-left>
+inoremap <C-l> <C-o>E<Right>
+inoremap <C-h> <C-o>B
 inoremap <C-j> <C-o>gj
 inoremap <C-k> <C-o>gk
-nnoremap <C-l> <C-right>
-nnoremap <C-h> <C-left>
+nnoremap <C-l> E<Right>
+nnoremap <C-h> B
 nnoremap <C-j> 3gj
 nnoremap <C-k> 3gk
-xnoremap <C-l> <C-right>
-xnoremap <C-h> <C-left>
+xnoremap <C-l> E<Right>
+xnoremap <C-h> B
 xnoremap <C-j> 3gj
 xnoremap <C-k> 3gk
 " }}}
