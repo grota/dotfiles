@@ -130,3 +130,6 @@
 [submodule "vim/dotvim/bundle/tomtom_tlib_vim"]
 	path = vim/dotvim/bundle/tomtom_tlib_vim
 	url = git://github.com/tomtom/tlib_vim.git
+[submodule "bash/scm_breeze"]
+	path = bash/scm_breeze
+	url = git@github.com:grota/scm_breeze.git
