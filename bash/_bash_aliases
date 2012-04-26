@@ -7,12 +7,14 @@ if [ -f ~/.bash_extras ]; then
 fi
 
 # aliases {{{
+alias L='less -R'
 alias df='df -h'
 alias ll='ls -AlFh'
 alias sl=ls
 alias fire='firefox -Profilemanager -no-remote &'
 alias pg='ps aux| grep '
 alias pw='pwsafe -Eup -l'
+alias pwc='pwsafe -px'
 alias rstty='stty start undef stop undef'
 alias ..="cd .."
 alias ..2="cd ../.."
@@ -51,31 +53,24 @@ alias vs=$(which 2>/dev/null vim)
 #}}}
 
 #git aliases {{{
-alias g=git
-alias gti=git
 alias gb='git branch -vv'
-alias gbr='git branch -vr'
-alias gr='git remote -v'
-alias gdw='git diff --word-diff'
-alias gd='git diff'
-alias gdcw='git diff --cached --word-diff'
-alias gdc='git diff --cached'
-alias gs='git st'
-alias gl='git l -n12'
+alias gdw='exec_git_expand_args git diff --word-diff --'
+alias gdcw='exec_git_expand_args git diff --cached --word-diff --'
+alias gl='exec_git_expand_args git l -n12'
 alias k='git ll -n12'
-alias gau='git add -u'
 alias gk='gitk --all&'
+# from scm_breeze
+alias gsubrm="git_submodule_rm"
 #}}}
 
 
 # old stuff, still used {{{
-alias c='cat /proc/mdstat'
 alias STO='sudo mdadm -S /dev/md0'
 alias STA='sudo mdadm -As /dev/md0'
-alias L='less -R'
+alias vci='vi config.inc.php'
+#alias c='cat /proc/mdstat'
 #alias rs='rsync -av --delete'
 #alias k='kompare -no -'
-alias vci='vi config.inc.php'
 #alias svnd='svn diff --diff-cmd diff'
 #}}}
 #}}}

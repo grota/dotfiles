@@ -18,6 +18,7 @@ git submodule update --init --recursive
  ln -sf ${repohome}/bash/_bash_aliases ~/.bash_aliases
  ln -sf ${repohome}/bash/_bash_extras ~/.bash_extras
  ln -sf ${repohome}/bash/_inputrc ~/.inputrc
+ ln -sf ${repohome}/bash/_git.scmbrc ~/.git.scmbrc
 
 # [vim]
  ln -sf ${repohome}/vim/vimrc ~/.vimrc
