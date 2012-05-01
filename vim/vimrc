@@ -155,29 +155,17 @@ xnoremap <C-h> B
 xnoremap <C-j> 3gj
 xnoremap <C-k> 3gk
 " }}}
-" <C-Up/Down/Left/Right>: EASY WINDOW NAVIGATION {{{
-" the following:
-" http://vim.wikia.com/wiki/Avoid_scrolling_when_switch_buffers
-" does not work because the events BufLeave,BufEnter are called
-" before the <C-w>|<C-w>_ commands
-function! s:Savewinpos()
-  let b:winview = winsaveview()
-endfunc
-function! s:RestoreWinPos()
-  wincmd | | wincmd _
-  if(exists('b:winview')) | call winrestview(b:winview) | endif
-endfunc
-nnoremap <silent> <C-Left>  :call <SID>Savewinpos()<CR><C-w>h:call <SID>RestoreWinPos()<CR>
-nnoremap <silent> <C-Down>  :call <SID>Savewinpos()<CR><C-w>j:call <SID>RestoreWinPos()<CR>
-nnoremap <silent> <C-Up>    :call <SID>Savewinpos()<CR><C-w>k:call <SID>RestoreWinPos()<CR>
-nnoremap <silent> <C-Right> :call <SID>Savewinpos()<CR><C-w>l:call <SID>RestoreWinPos()<CR>
+" <C-Up/Down/Left/Right>: EASY WINDOW RESIZING {{{
+nnoremap <silent> <C-Left>  3<C-W><
+nnoremap <silent> <C-Down>  3<C-W>-
+nnoremap <silent> <C-Up>    3<C-W>+
+nnoremap <silent> <C-Right> 3<C-W>>
 "}}}
+" <C-W>{} WINDOW SWAPPING {{{
+nnoremap <C-w>{ <C-w>R
+nnoremap <C-w>} <C-w>r
+" }}}
 " WINDOWS SPLIT/MAXIMIZE/CLOSE/ONLY/CYCLE {{{
-" splitting and maximizing
-nnoremap <C-w>\| <C-w>v
-nnoremap <C-w>\ <C-w>v
-nnoremap <C-w>m <C-w>\|
-nnoremap <C-w>- <C-w>s
 " cycle through windows
 nnoremap <tab> <C-W>w
 nnoremap <S-tab> <C-W>W
@@ -190,7 +178,7 @@ nnoremap <F2> <C-W>c
 nnoremap <silent> <C-n> :bn<CR>
 nnoremap <silent> <C-p> :bp<CR>
 "}}}
-" <C-Left/Right><M-Up/Down/Left/Right> FOR TMUX {{{
+" <C-Up/Down/Left/Right><M-Up/Down/Left/Right> FOR TMUX {{{
 if $TMUX !=# ''
 
   " TMUX with xterm-key OFF
@@ -216,6 +204,7 @@ if $TMUX !=# ''
   imap [B <C-Down>
   xmap [B <C-Down>
   " vim complains if we try set <M-Left/Right/Up/Down> = ...
+  " for dragging up/down lines
   nmap <Down> <M-Down>
   imap <Down> <M-Down>
   xmap <Down> <M-Down>
@@ -246,13 +235,13 @@ nnoremap j gj
 nnoremap k gk
 nnoremap <up> gk
 nnoremap <down> gj
-vnoremap <up> gk
-vnoremap <down> gj
+xnoremap <up> gk
+xnoremap <down> gj
 " and gj,gk move the cursor by physical line (g<up>, g<down> not mapped, for now)
 nnoremap gj j
 nnoremap gk k
-vnoremap gj <down>
-vnoremap gk <up>
+xnoremap gj <down>
+xnoremap gk <up>
 inoremap <expr> <Up> pumvisible() ?
       \ "\<Up>" :
       \ "\<C-o>gk"
@@ -519,7 +508,6 @@ endfor
 "}}}
 " Gitv {{{
 nnoremap <leader>gl :<C-U>Gitv --all<CR>
-" Gitv does not respect the foldlevelstart setting for working copy and index
 "}}}
 " vimroom {{{
 let g:vimroom_sidebar_height = 1
@@ -545,7 +533,7 @@ autocmd BufEnter * if maparg('<C-N>','n') =~ '^:call .*SparkupNext()<CR>$'
 " ,qf quickfix toggle {{{
 nnoremap <leader>qf :QFix<CR>
 "}}}
-" ,s for syntax class {{{
+" ,xs for syntax class {{{
 function! SynStack()
   if !exists("*synstack")
     return
@@ -580,7 +568,7 @@ if version >= 703
   " Enable relativenumber just for php for now
   autocmd FileType php setlocal relativenumber
 endif
-" Auto close the preview window that pops up in omnicomplete mode
+" Auto close the preview window that pops up in php omnicomplete mode
 " DiffGitCached is opened in a preview window so we check for ft=php
 autocmd InsertLeave * if (pumvisible() == 0 && &ft ==# 'php')|silent! pclose|endif
 " Help on the right
@@ -601,31 +589,10 @@ if has("autocmd") && has('GUI_GTK')
 endif
 "}}}
 
-" TO BE EVALUATED {{{
-set <M-t>=t
-"}}}
-
 " UNUSED / COMMENTED OUT SECTIONS "{{{
-" from steve losh: ,S to vimscript-source the selected text
-" (or till the end of the line) (useful for mappings)
-"vnoremap <leader>S y:execute @@<cr>
-"nnoremap <leader>S ^vg_y:execute @@<cr>
-" only [0-9A-Za-z_] chars are literal. These {}()|+? are regexp constructs
-" http://stevelosh.com/blog/2010/09/coming-home-to-vim/
-" useless with IndexedSearch plugin
-"nnoremap / /\v
-"vnoremap / /\v
 " make p in Visual mode replace the selected text with the yank register
 " yankring works better, we use that.
 " vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
-" vim-indent-guides
-"let g:indent_guides_guide_size = 1
-"let g:indent_guides_start_level = 2
-"" syntastic doesn't conflict anymore with this being set
-"let g:indent_guides_enable_on_vim_startup = 1
-"let g:indent_guides_auto_colors = 0
-"highlight IndentGuidesOdd  ctermbg=237
-"highlight IndentGuidesEven ctermbg=234
 " scroll faster:
 "nnoremap <C-e> 2<C-e>
 "nnoremap <C-y> 2<C-y>
