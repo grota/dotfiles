@@ -175,6 +175,7 @@ nnoremap <silent> <C-Right> :call <SID>Savewinpos()<CR><C-w>l:call <SID>RestoreW
 " WINDOWS SPLIT/MAXIMIZE/CLOSE/ONLY/CYCLE {{{
 " splitting and maximizing
 nnoremap <C-w>\| <C-w>v
+nnoremap <C-w>\ <C-w>v
 nnoremap <C-w>m <C-w>\|
 nnoremap <C-w>- <C-w>s
 " cycle through windows
@@ -529,6 +530,9 @@ nmap ,V <Plug>VimroomToggle wincmd h<CR> vertical res -20<CR> wincmd p<CR>
 nmap <Leader>j :SplitjoinJoin<cr>
 nmap <Leader>s :SplitjoinSplit<cr>
 " }}}
+" delimitMate {{{
+imap <C-G><C-G> <Plug>delimitMateJumpMany
+"}}}
 "}}}
 
 " CUSTOM PLUGINS MAPPINGS AND SETTINGS {{{
@@ -579,6 +583,9 @@ autocmd FileType help wincmd L
 autocmd FileType gitcommit setlocal colorcolumn=+1
 " Quickfix window: no numbers
 autocmd Filetype qf setlocal nonumber
+" html,xhtml,xml: use Omnicomplete for (super)tab, don't autoclose <>
+autocmd Filetype html,xhtml,xml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
+      \| let b:delimitMate_matchpairs = "(:),[:],{:}"
 " this matches the conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 if has("autocmd") && has('GUI_GTK')
