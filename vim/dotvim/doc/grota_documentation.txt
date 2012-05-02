@@ -1,37 +1,59 @@
-*grota_documentation.txt*	Docs for this custom VIM distribution
+*grota_documentation.txt*	Doc for my custom VIM distribution
 
 ==============================================================================
 This file describes the mappings in .vimrc                 *grota_documentation*
 ==============================================================================
 
-                              *grota_maps_to_make_mine*
-i_ <C-l> <C-h> <C-j> <C-k> wordwise movement
-i_<C-g><C-g> delimitMate's jump many
-i_<S-Tab> to see UltiSnips completions.
-<leader>to tab only
+*grota_maps_to_learn*
+i_<C-g><C-g> delimitMate's jump many {[( and quotes
+i_<C-r><Tab> to see SnipMate completions
+<leader>to   tab only
+
+
+*grota_to_strengthen*
+<C-\>         :LustyJuggler
+  v,b           vert/horz buffer opening in lusty-juggler
+<C-b>         :LustyFilesystemExplorerFromHere
+  <C-o>         open selected match in a new h[o]rizontal split
+  <C-v>         open selected match in a new [v]ertical split
+  <C-w>         ascend one directory at prompt
+  <C-r>         [r]efresh directory contents
+  <C-a>         open [a]ll files in current table
+  <C-e>         create new buffer with the given name and path
+  <C-u>         clear prompt
+
+<C-f> :CtrlPMRU
+  <C-a>, <C-e> start,end
+  <C-u>, <C-w> clear all, clear word
+  <C-t>, <C-v>, <C-s> open in tab, vert, horz
+  <C-n>, <C-p> next/prev in ctrlp history
+  <C-y> create with path
+  <c-\> Open dialog to paste one of the below:
+    <M-w> insert word under cursor, <M-s> insert last search pattern
+    <M-v> insert last selected piece, <M-+> insert content of + reg
+
 <leader>gl :<C-U>Gitv --all<CR>
 <leader>qf Quickfix toggle
 <leader>ww :pwd
-<F1> window only
-<F2> window close
-<F3> tab close
+<leader>gg  :Ggrep
+<M-g> :LustyBufferGrep
+<M-b> :LustyBufferExplorer
+|surround|   ysiw'  add '' around the word
+|surround|   cs)(   change only the spacing, since the opening braces {[( do have spacing
 
+
+*grota_consider_removal*
+marvim: record a macro in q and then <F6> to save it in marvim.
+visual select, <F6> to save the template.
+recall macro/template with <F7>. visual select, <F7>: use macro in q.
+
+custom function argument text object
 {dcv}{np}{ia}{a b() d[] B{}} delete-change-visual next-prev inner-around X
 {dcv}    {ia}{a} delete-change-visual inner-around argument
 
-<M-g> :LustyBufferGrep
-<M-b> :LustyBufferExplorer
-overridati da ftplugin: |[[| |]]| ( |[m| |]m| |[M| |]M| )
-record a macro in q and then <F6> to save it in marvim.
-visual select, <F6> to save the template.
-recall macro/template with <F7>.
-visual select, <F7>: use macro in q.
-
-Quelli con * sono quelli effettivamente sensati
-* |surround| ysiw' aggiunge '' attorno alla parola
+*grota_known*
 * |surround| cs'"  cambia tipo di quotes (altro esempio: cs>")
 * |surround| ds)   cancella un set di surrounding ()
-* |surround| cs)(  cambia solo spacing, le parentesi di apertura hanno spacing
 * |surround| vS>   in char visual aggiunge <> al testo selezionato. (altro esempio: vSt aggiunge tag)
 * |surround| yss"  wrappa la linea con ""
 * |surround| ySS}  wrappa la linea con {}. La linea e' su newline indentata. Ma a sto punto usa line visual con S{
@@ -41,43 +63,28 @@ Quelli con * sono quelli effettivamente sensati
 |surround| in line  visual: gS{ wrappa il testo con {}. Il testo e' su newline
 |surround| in line  visual:  S{ wrappa il testo con {}. Il testo e' su newline indenteato
 
-|fugitive|
-<M-d>       :Gdiff
-<leader>gs  :Gstatus
-<leader>gdc :Gdiff -
-<leader>gw  :Gw
-<leader>gg  :Ggrep
-<leader>gc  :Gcommit -v
-
-<C-g> pulisce il search highlight e poi fa <C-g>
+:Linediff (2 volte in visual). :LinediffReset
+i_ <C-l> <C-h> <C-j> <C-k> wordwise movement
+<F1> window only
+<F2> window close
+<F3> tab close
+<F10> to toggle the tagbar panel
+<F12> to enable/disable mouse in vim
+<C-g> clear the search highlight followed by <C-g>
 <C-n> <C-p> :bn :bp
 <M-up><M-down>  move line(s) up/down in normal,insert,visual mode
 |yankring| <M-.> <M-,> Yankring next/prev
 |NERDComFunctionalitySummary| ,cc ,ci ...
-:Linediff (2 volte in visual). :LinediffReset
+|fugitive|
+  <M-d>       :Gdiff
+  <leader>gs  :Gstatus
+  <leader>gw  :Gwrite
+  <leader>gc  :Gcommit -v
 
-<C-\>         :LustyJuggler
-v,b           vert/horz buffer opening in lusty-juggler
-<C-f>         :LustyFilesystemExplorer
-<C-b>         :LustyFilesystemExplorerFromHere
-<C-o>         open selected match in a new h[o]rizontal split
-<C-v>         open selected match in a new [v]ertical split
-<C-w>         ascend one directory at prompt
-<C-r>         [r]efresh directory contents
-<C-a>         open [a]ll files in current table
-<C-e>         create new buffer with the given name and path
-<C-u>         clear prompt
-
-*grota_togglemouse*
-<F12> to enable/disable mouse in vim
-
-*grota_tagbar*
-<F10> to toggle the tagbar panel
-
-*grota_xdebug111*
-disabled by default via a custom global var in .vimrc
 
 *grota_notes*
+usually overridden by ftplugins: |[[| |]]| ( |[m| |]m| |[M| |]M| )
+
 the <M-?> options are set for gnome-terminal and other X terminal
 emulators to enable Alt keys, They seem to work in xterm too. See
 http://vim.wikia.com/wiki/Get_Alt_key_to_work_in_terminal
@@ -89,4 +96,6 @@ set TERM=xterm-256color in gnome-terminal, see
 http://vim.wikia.com/wiki/256_colors_in_vim >
     set t_Co=256
 <
+xdebug is disabled by default via a custom global var in .vimrc
+
 vim:tw=78:ts=8:ft=help:norl:

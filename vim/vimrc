@@ -435,7 +435,7 @@ nnoremap <expr> <C-w><C-d> ((&bufhidden == 'delete') \|\| (&bufhidden == 'wipe')
 "}}}
 " ctrlp {{{
 let g:ctrlp_map = '<c-f>'
-let g:ctrlp_cmd = 'CtrlPMRU'
+let g:ctrlp_cmd = 'CtrlPLastMode'
 " don't let ctrlp handle the working dir
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_clear_cache_on_exit = 0
@@ -452,7 +452,8 @@ let g:ctrlp_prompt_mappings = {
       \ 'PrtInsert("v")':       ['<F4>', '<M-v>'],
       \ 'PrtInsert("+")':       ['<F6>', '<M-+>'],
       \}
-let g:ctrlp_extensions = ['dir', 'line']
+let g:ctrlp_extensions = ['line', 'bookmarkdir']
+nnoremap <leader>ab :<C-u>CtrlPBookmarkDirAdd %:p:h<CR>
 "}}}
 " Lusty-Juggler/Explorer {{{
 " Lusty-Juggler
