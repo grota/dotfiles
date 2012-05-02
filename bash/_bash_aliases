@@ -72,6 +72,25 @@ alias k='git --no-pager ll -n12'
 alias gk='gitk --all&'
 # from scm_breeze
 alias gsubrm="git_submodule_rm"
+alias gl1p="git log -1 -p"
+function _git_abbrev_hash_complete () {
+  local curw
+  IFS=$'\n'
+  MAX_REVS=10
+  COMPREPLY=()
+  if [[ $COMP_CWORD == 2 ]]; then
+    return
+  fi
+  curw=${COMP_WORDS[COMP_CWORD]}
+  #display a reminder
+  if [[ $COMP_TYPE == 9 && $curw == '' ]]; then
+    echo
+    git --no-pager log --oneline -n${MAX_REVS}
+  fi
+  COMPREPLY=($(compgen -W '$(git log --pretty=format:%h -n'$MAX_REVS')' -- $curw))
+}
+complete -F _git_abbrev_hash_complete gsf
+complete -F _git_abbrev_hash_complete gl1p
 #}}}
 
 
