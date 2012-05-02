@@ -43,21 +43,32 @@ alias koff='xinput set-prop "AT Translated Set 2 keyboard" 132 0'
 
 # vim aliases {{{
 # alias for v, vim wrapper at https://github.com/rupa/v.git
+# aka: v list standalone
 alias vls='v -l'
+# aka: v list, reuse vim server session
 alias vl='vim="eval $(type vim  | tail -n +2); vim" v -l'
-# alias v='vim="eval $(type vim  | tail -n +2); vim" v'
+alias vs="exec_git_expand_args $(which 2>/dev/null vim)"
+# vim function that shadows aliases and commands
+function vim {
+  vim_orig=$(which 2>/dev/null vim)
+  $vim_orig --serverlist | grep -q TROLOLOL
+  # if server is running
+  if [ $? -eq 0 ]; then
+      $vim_orig --servername TROLOLOL --remote-silent "$@"
+  else
+      $vim_orig "$@" --servername TROLOLOL
+  fi
+}
 # alias vi to vim (this is to keep using the vim() bash function that uses the vim --remote feature)
-alias vi=vim
-# alias vim=gvim
-alias vs=$(which 2>/dev/null vim)
+alias vi="exec_git_expand_args vim"
 #}}}
 
 #git aliases {{{
 alias gb='git branch -vv'
 alias gdw='exec_git_expand_args git diff --word-diff --'
 alias gdcw='exec_git_expand_args git diff --cached --word-diff --'
-alias gl='exec_git_expand_args git l -n12'
-alias k='git ll -n12'
+alias gl='git --no-pager l -n12'
+alias k='git --no-pager ll -n12'
 alias gk='gitk --all&'
 # from scm_breeze
 alias gsubrm="git_submodule_rm"
@@ -84,17 +95,6 @@ function pianobar {
 }
 function mkcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
-# vim function that shadows aliases and commands
-function vim {
-  vim_orig=$(which 2>/dev/null vim)
-  $vim_orig --serverlist | grep -q TROLOLOL
-  # if server is running
-  if [ $? -eq 0 ]; then
-      $vim_orig --servername TROLOLOL --remote-silent "$@"
-  else
-      $vim_orig "$@" --servername TROLOLOL
-  fi
-}
 # as in bash-title
 function bt {
   export GROTA_TITLE="$*"
