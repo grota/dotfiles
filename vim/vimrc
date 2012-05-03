@@ -534,6 +534,11 @@ nmap <Leader>s :SplitjoinSplit<cr>
 " delimitMate {{{
 imap <C-G><C-G> <Plug>delimitMateJumpMany
 "}}}
+" Sparkup {{{
+autocmd BufEnter * if maparg('<C-N>','n') =~ '^:call .*SparkupNext()<CR>$'
+      \| nunmap <buffer> <C-n>
+      \| endif
+"}}}
 "}}}
 
 " CUSTOM PLUGINS MAPPINGS AND SETTINGS {{{
