@@ -94,6 +94,8 @@ set encoding=utf-8
 if has("balloon_eval") && has("gui_running")
   set ballooneval
 endif
+set showtabline=2
+set tabline=%!GrotaTabLine()
 "}}}
 
 " VIM PLAIN MAPPINGS {{{
@@ -253,7 +255,8 @@ inoremap <expr> <Down> pumvisible() ?
 " go to tag location if only 1 place, or show selection if more than 1 place
 nnoremap <C-]> g<C-]>
 " Close/Only Tab
-nnoremap <F3> :<C-u>tabclose<CR>
+nnoremap <F4> :<C-u>tabclose<CR>
+nnoremap <F3> :<C-u>tabedit<CR>
 nnoremap <leader>to :<C-u>tabonly<CR>
 " gah
 xnoremap <END> <END>h
