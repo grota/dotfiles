@@ -22,22 +22,24 @@ i_<C-r><Tab> to see SnipMate completions
   <C-e>         create new buffer with the given name and path
   <C-u>         clear prompt
 
-<C-f> :CtrlPMRU
+<C-f> :CtrlPLastMode
+  <C-y> create with path
+  <C-z>, <C-o> Mark, Open multi files
   <C-a>, <C-e> start,end
   <C-u>, <C-w> clear all, clear word
   <C-t>, <C-v>, <C-s> open in tab, vert, horz
   <C-n>, <C-p> next/prev in ctrlp history
-  <C-y> create with path
   <c-\> Open dialog to paste one of the below:
     <M-w> insert word under cursor, <M-s> insert last search pattern
-    <M-v> insert last selected piece, <M-+> insert content of + reg
+    <M-v> insert last selected piece, <M-c> insert content of + reg
+<M-g> :CtrlPLine
+<M-b> :CtrlPBuffer
+<leader>ab :CtrlPBookmarkDirAdd %:p:h
 
 <leader>gl :<C-U>Gitv --all<CR>
 <leader>qf Quickfix toggle
 <leader>ww :pwd
 <leader>gg  :Ggrep
-<M-g> :LustyBufferGrep
-<M-b> :LustyBufferExplorer
 |surround|   ysiw'  add '' around the word
 |surround|   cs)(   change only the spacing, since the opening braces {[( do have spacing
 

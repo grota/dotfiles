@@ -429,8 +429,7 @@ let g:ctrlp_cmd = 'CtrlPLastMode'
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_highlight_match = [1, 'Pmenu']
-"let g:ctrlp_arg_map = 1
-"let g:ctrlp_open_multi = 'vr'
+let g:ctrlp_open_multiple_files = '1vr'
 set <M-w>=w
 set <M-s>=s
 set <M-v>=v
@@ -439,10 +438,14 @@ let g:ctrlp_prompt_mappings = {
       \ 'PrtInsert("w")':       ['<F2>', '<M-w>'],
       \ 'PrtInsert("s")':       ['<F3>', '<M-s>'],
       \ 'PrtInsert("v")':       ['<F4>', '<M-v>'],
-      \ 'PrtInsert("+")':       ['<F6>', '<M-+>'],
+      \ 'PrtInsert("c")':       ['<F6>', '<M-+>'],
       \}
 let g:ctrlp_extensions = ['line', 'bookmarkdir']
 nnoremap <leader>ab :<C-u>CtrlPBookmarkDirAdd %:p:h<CR>
+set <M-b>=b
+nnoremap <silent> <M-b> :CtrlPBuffer<CR>
+set <M-g>=g
+nnoremap <silent> <M-g> :CtrlPLine<CR>
 "}}}
 " Lusty-Juggler/Explorer {{{
 " Lusty-Juggler
@@ -451,12 +454,7 @@ let g:LustyJugglerAltTabMode = 1 "enables the mapping below
 nnoremap <silent> <C-\>  :LustyJuggler<CR>
 " Lusty-Explorer
 let g:LustyExplorerDefaultMappings = 0
-"nnoremap <silent> <C-f> :LustyFilesystemExplorer<CR>
 nnoremap <silent> <C-b> :LustyFilesystemExplorerFromHere<CR>
-set <M-g>=g
-nnoremap <silent> <M-g> :LustyBufferGrep<CR>
-set <M-b>=b
-nnoremap <silent> <M-b> :LustyBufferExplorer<CR>
 "}}}
 " Syntastic {{{
 let g:syntastic_enable_signs=1
