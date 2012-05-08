@@ -425,11 +425,13 @@ nnoremap <expr> <C-w><C-d> ((&bufhidden == 'delete') \|\| (&bufhidden == 'wipe')
 " ctrlp {{{
 let g:ctrlp_map = '<c-f>'
 let g:ctrlp_cmd = 'CtrlPLastMode'
-" don't let ctrlp handle the working dir
+" don't let ctrlp handle the current working dir
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_highlight_match = [1, 'Pmenu']
 let g:ctrlp_open_multiple_files = '1vr'
+" only jump to the buffer if it’s opened in the current tab
+let g:ctrlp_switch_buffer = 1
 set <M-w>=w
 set <M-s>=s
 set <M-v>=v

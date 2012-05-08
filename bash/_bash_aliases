@@ -65,11 +65,13 @@ alias vi="exec_git_expand_args vim"
 
 #git aliases {{{
 alias gb='git branch -vv'
+alias gau='git add -u'
 alias gdw='exec_git_expand_args git diff --word-diff --'
 alias gdcw='exec_git_expand_args git diff --cached --word-diff --'
 alias gl='git --no-pager l -n12'
 alias k='git --no-pager ll -n12'
 alias gk='gitk --all&'
+alias gst='git stash'
 # from scm_breeze
 alias gsubrm="git_submodule_rm"
 alias gl1p="git log -1 -p"
