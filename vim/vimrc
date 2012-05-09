@@ -391,7 +391,16 @@ autocmd User Fugitive
       \ endif
 set <M-d>=d
 nnoremap <M-d> :Gdiff<CR>gg]czz
-nnoremap <leader>gg  :Ggrep 
+function! s:MyGgrepWrapper()
+  let l:input=input("git-grep for: ")
+  if l:input == ''
+    echo ""
+    return
+  endif
+  execute "Ggrep! " . shellescape(l:input)
+  copen
+endfunction
+nnoremap <leader>gg  :call <SID>MyGgrepWrapper()<CR>
 nnoremap <leader>gw  :Gw<CR>
 nnoremap <leader>gs  :Gstatus<CR>
 nnoremap <M-s> :Gstatus<CR>
