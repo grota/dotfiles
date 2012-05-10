@@ -36,8 +36,8 @@ highlight DiffChange ctermbg=160
 highlight DiffText ctermbg=241
 highlight DiffAdd ctermbg=22
 highlight DiffDelete ctermbg=52
-highlight TabLineFill ctermfg=239
-highlight TabLine ctermbg=239 ctermfg=white cterm=NONE
-highlight TabLineSel ctermfg=white ctermbg=22 cterm=NONE
+highlight TabLineFill ctermfg=234
+highlight TabLine ctermbg=234 ctermfg=240 cterm=NONE
+highlight TabLineSel ctermfg=250 ctermbg=236 cterm=NONE
 " custom highlight group
 highlight TabLineModifiedMark ctermfg=1 ctermbg=22 cterm=bold
