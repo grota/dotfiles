@@ -36,6 +36,7 @@ git submodule update --init --recursive
  cat ${repohome}/dconf/_org_gnome_libgnomekbd_keyboard | dconf load /org/gnome/libgnomekbd/keyboard/
 
 # [gconf]
+ # gconftool-2 --dump '/apps/gnome-terminal' > gconf/gnome-terminal_gconf_settings.xml
  gconftool-2 --load ${repohome}/gconf/gnome-terminal_gconf_settings.xml
 
 # [ssh]
@@ -75,10 +76,6 @@ git submodule update --init --recursive
 
 # [ctags]
  ln -sf ${repohome}/ctags/_ctags ~/.ctags
-
-# [terminator]
- mkdir -p ~/.config/terminator
- ln -sf ${repohome}/_config/terminator/config ~/.config/terminator/config
 
 # [mercurial]
  ln -sf  ${repohome}/mercurial/_hgrc ~/.hgrc
