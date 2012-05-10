@@ -40,6 +40,8 @@ nunmap <leader>bd
 "}}}
 
 nnoremap \\ ``
+" set by garbas' snipmate
+sunmap \
 
 " CHANGE CASE {{{
 nnoremap U gUiWw

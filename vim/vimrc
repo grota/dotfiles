@@ -174,7 +174,16 @@ nnoremap <S-tab> <C-W>W
 " Close/Only window
 nnoremap <F1> <C-W>o
 nnoremap <F2> <C-W>c
+nnoremap <Leader>z <C-W>c
 "}}}
+" TABS OPEN/CLOSE/NAVIGATE {{{
+nnoremap <F4> :<C-u>tabclose<CR>
+nnoremap <F3> :<C-u>tabedit<CR>
+set <M-.>=.
+set <M-,>=,
+nnoremap <silent> <M-.> :<C-u>tabnext<CR>
+nnoremap <silent> <M-,> :<C-u>tabprevious<CR>
+" }}}
 " <C-n><C-p>: NEXT/PREV BUFFER {{{
 " <C-N> was the same as <Down> and I didn't need it.
 nnoremap <silent> <C-n> :bn<CR>
@@ -254,10 +263,6 @@ inoremap <expr> <Down> pumvisible() ?
 " MISCELLANEOUS {{{
 " go to tag location if only 1 place, or show selection if more than 1 place
 nnoremap <C-]> g<C-]>
-" Close/Only Tab
-nnoremap <F4> :<C-u>tabclose<CR>
-nnoremap <F3> :<C-u>tabedit<CR>
-nnoremap <leader>to :<C-u>tabonly<CR>
 " gah
 xnoremap <END> <END>h
 " Session Save As and Open
@@ -268,8 +273,6 @@ nnoremap <C-g> :nohlsearch<CR><C-g>
 nnoremap <F5> :h grota_documentation<CR>
 " Change Working Directory to that of the current file
 cmap cd. lcd %:p:h
-" I never liked the command history window anyway
-nnoremap q: :q
 cnoremap <C-A> <Home>
 "}}}
 " DIFF {{{
@@ -325,9 +328,7 @@ nnoremap gV `[v`]
 "}}}
 " Y ,y ,Y ,p: YANKING AND PASTING {{{
 " yankring does not map Y so we don't need to put it inside YRRunAfterMaps
-xnoremap Y Y`>
 xnoremap <Leader>y "+y`>
-nnoremap <Leader>Y "+yy$
 nnoremap <Leader>p "+gp
 "}}}
 " <C-s> QUICK SAVING {{{
@@ -407,10 +408,10 @@ nnoremap <M-s> :Gstatus<CR>
 nnoremap <leader>gc  :Gcommit -v<CR>
 "}}}
 " Yankring {{{
-set <M-.>=.
-set <M-,>=,
-let g:yankring_replace_n_pkey = '<M-.>'
-let g:yankring_replace_n_nkey = '<M-,>'
+set <M-n>=n
+set <M-m>=m
+let g:yankring_replace_n_pkey = '<M-n>'
+let g:yankring_replace_n_nkey = '<M-m>'
 " The following is required because it conflicts with tpope's repeat plugin
 let g:yankring_map_dot = 0
 " Move the cursor to end of the selection after yanking in visual mode

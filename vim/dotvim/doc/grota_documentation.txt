@@ -16,6 +16,7 @@ i_<C-r><Tab> to see SnipMate completions
 <C-b>         :LustyFilesystemExplorerFromHere
   <C-o>         open selected match in a new h[o]rizontal split
   <C-v>         open selected match in a new [v]ertical split
+  <C-t>         open selected match in a new [t]ab
   <C-w>         ascend one directory at prompt
   <C-r>         [r]efresh directory contents
   <C-a>         open [a]ll files in current table
