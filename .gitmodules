@@ -43,12 +43,6 @@
 [submodule "vim/dotvim/bundle/Raimondi_delimitMate"]
 	path = vim/dotvim/bundle/Raimondi_delimitMate
 	url = git://github.com/Raimondi/delimitMate.git
-[submodule "vim/dotvim/bundle/git.devnull.li_ikiwiki-nav"]
-	path = vim/dotvim/bundle/git.devnull.li_ikiwiki-nav
-	url = http://git.devnull.li/ikiwiki-nav.git
-[submodule "vim/dotvim/bundle/git.devnull.li_ikiwiki-syntax"]
-	path = vim/dotvim/bundle/git.devnull.li_ikiwiki-syntax
-	url = http://git.devnull.li/ikiwiki-syntax.git
 [submodule "vim/dotvim/bundle/ervandew_supertab"]
 	path = vim/dotvim/bundle/ervandew_supertab
 	url = git://github.com/ervandew/supertab

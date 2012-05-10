@@ -489,11 +489,6 @@ let g:marvim_prefix = 0
 let g:marvim_find_key = '<F7>'
 let g:marvim_store_key = '<F6>'
 "}}}
-" ikiwiki {{{
-nnoremap <silent> <Leader>wh :e ~/grotawiki/index.mdwn<CR>:lcd %:p:h<CR>
-" load tpope's markdown syntax file when editing ikiwiki files
-let g:ikiwiki_render_filetype = 'markdown'
-"}}}
 " Powerline {{{
 let g:Powerline_cache_file = $HOME.'/.vim/vim_powerline.cache'
 let g:Powerline_symbols = 'unicode'
