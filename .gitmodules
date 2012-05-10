@@ -82,9 +82,6 @@
 [submodule "vim/dotvim/bundle/tpope_vim-pathogen"]
 	path = vim/dotvim/bundle/tpope_vim-pathogen
 	url = git://github.com/tpope/vim-pathogen.git
-[submodule "vim/dotvim/bundle/tpope_vim-unimpaired"]
-	path = vim/dotvim/bundle/tpope_vim-unimpaired
-	url = git://github.com/tpope/vim-unimpaired.git
 [submodule "vim/dotvim/bundle/grota_showmarks"]
 	path = vim/dotvim/bundle/grota_showmarks
 	url = git@github.com:grota/ShowMarks.git

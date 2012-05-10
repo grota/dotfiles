@@ -41,12 +41,6 @@ nunmap <leader>bd
 
 nnoremap \\ ``
 
-" fix ]t [t ]T [T from unimpaired {{{
-nnoremap <silent> <Plug>unimpairedTNext :<C-u>tabnext<CR>
-nnoremap <silent> <Plug>unimpairedTPrevious :<C-u>tabprevious<CR>
-nnoremap <silent> <Plug>unimpairedTFirst :<C-u>tabfirst<CR>
-nnoremap <silent> <Plug>unimpairedTLast :<C-u>tablast<CR>
-"}}}
 " CHANGE CASE {{{
 nnoremap U gUiWw
 "}}}
