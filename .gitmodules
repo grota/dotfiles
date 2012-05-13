@@ -1,6 +1,6 @@
 [submodule "vim/dotvim/marvim_store"]
 	path = vim/dotvim/marvim_store
-	url = /home/grota/Dropbox/Backup/git_repos/vim/marvim_store
+	url = /home/grota/Dropbox/git_repos/vim/marvim_store
 [submodule "vim/dotvim/bundle/vim-scripts_YankRing"]
 	path = vim/dotvim/bundle/vim-scripts_YankRing
 	url = git://github.com/vim-scripts/YankRing.vim.git
@@ -96,7 +96,7 @@
 	url = git@github.com:grota/drupal.vim.git
 [submodule "private"]
 	path = private
-	url = /home/grota/Dropbox/Backup/git_repos/private_rcfiles
+	url = /home/grota/Dropbox/git_repos/private_rcfiles
 [submodule "bin/git-archive-all"]
 	path = bin/git-archive-all
 	url = git://github.com/mhitza/git-archive-all.sh.git
