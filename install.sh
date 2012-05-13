@@ -43,18 +43,16 @@ git submodule update --init --recursive
  mkdir -p ~/.ssh
  chmod 700 ~/.ssh
  ln -sf private/ssh ${repohome}
- ln -sf ${repohome}/ssh/_ssh_config ~/.ssh/config
+
+# [gnupg]
+ ln -sf private/gnupg ${repohome}
 
 # [pianobar]
- mkdir -p ~/.config/pianobar
  ln -sf ../private/_config/pianobar ${repohome}/_config/
- ln -sf ${repohome}/private/_config/pianobar/config ~/.config/pianobar/config
 
 # [drush]
  mkdir -p ~/.drush
  ln -sf private/drush ${repohome}
- ln -sf ${repohome}/private/drush/aliases.drushrc.php ~/.drush/aliases.drushrc.php
- ln -sf ${repohome}/private/drush/drushrc.php ~/.drush/drushrc.php
 
 # [mysql]
  ln -sf ${repohome}/mysql/_my.cnf ~/.my.cnf
@@ -64,15 +62,12 @@ git submodule update --init --recursive
 
 # [lftp]
  ln -sf private/lftp ${repohome}
- ln -sf ${repohome}/private/lftp/_lftrc ~/.lftprc
- ln -sf ${repohome}/private/lftp/lftp/ ~/.lftp
 
 # [alsa]
  ln -sf ${repohome}/alsa/_asoundrc ~/.asoundrc
 
 # [rtorrent]
  ln -sf private/rtorrent ${repohome}
- ln -sf ${repohome}/private/rtorrent/_rtorrent.rc  ~/.rtorrent.rc
 
 # [ctags]
  ln -sf ${repohome}/ctags/_ctags ~/.ctags
