@@ -127,3 +127,6 @@
 [submodule "vim/dotvim/bundle/kogakure_vim-sparkup"]
 	path = vim/dotvim/bundle/kogakure_vim-sparkup
 	url = git://github.com/kogakure/vim-sparkup.git
+[submodule "bin/php-build"]
+	path = bin/php-build
+	url = git://github.com/CHH/php-build.git

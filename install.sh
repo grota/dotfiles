@@ -10,8 +10,16 @@ git submodule update --init --recursive
  ln -sf ${repohome}/bin/vimdirdiff.sh ~/local/bin/vimdirdiff.sh
  ln -sf ${repohome}/bin/git-archive-all/git-archive-all.sh ~/local/bin/git-archive-all.sh
  ln -sf ${repohome}/bin/rupa_v/v ~/local/bin/v
+
  cd ${repohome}/bin/autojump
  ./install.sh  --local --prefix ~/local/ > /dev/null
+
+ cd ${repohome}/bin/php-build/
+ # bugfix of php-build
+ mkdir -p $HOME/local/share/man/man1
+ mkdir -p $HOME/local/share/man/man5
+ PREFIX=$HOME/local ./install.sh > /dev/null
+
  cd ${repohome}
 
 # [Bash]
