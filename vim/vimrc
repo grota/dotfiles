@@ -410,8 +410,8 @@ nnoremap <leader>gc  :Gcommit -v<CR>
 " Yankring {{{
 set <M-n>=n
 set <M-m>=m
-let g:yankring_replace_n_pkey = '<M-n>'
-let g:yankring_replace_n_nkey = '<M-m>'
+let g:yankring_replace_n_pkey = '<M-m>'
+let g:yankring_replace_n_nkey = '<M-n>'
 " The following is required because it conflicts with tpope's repeat plugin
 let g:yankring_map_dot = 0
 " Move the cursor to end of the selection after yanking in visual mode
@@ -421,6 +421,7 @@ endfunction
 " defaults, but set just to be sure:
 let g:yankring_clipboard_monitor = 1
 let g:yankring_manual_clipboard_check = 1
+let g:yankring_history_file = '.yankring_history'
 "}}}
 " UltiSnips {{{
 let g:UltiSnipsEditSplit='vertical'
