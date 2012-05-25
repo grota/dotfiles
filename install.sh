@@ -21,6 +21,7 @@ git submodule update --init --recursive
  PREFIX=$HOME/local ./install.sh > /dev/null
 
  cd ${repohome}
+ [[ ! -f ~/local/bin/hub ]] && curl http://defunkt.io/hub/standalone -sLo ~/local/bin/hub && chmod +x ~/local/bin/hub
 
 # [Bash]
  ln -sf ${repohome}/bash/_bash_aliases ~/.bash_aliases
