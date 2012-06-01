@@ -64,6 +64,7 @@ alias vi="exec_git_expand_args vim"
 #}}}
 
 #git aliases {{{
+alias gg='git grep'
 alias gb='git branch -vv'
 alias gau='git add -u'
 alias gdw='exec_git_expand_args git diff --word-diff --'
