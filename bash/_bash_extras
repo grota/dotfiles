@@ -34,8 +34,6 @@ HISTIGNORE="clear:bg:fg:cd:cd -:exit:date:w:"
 [[ -s "$rvm_path/scripts/completion" ]] && source "$rvm_path/scripts/completion"
 #}}}
 
-[[ -s "$HOME/.tmuxinator/scripts/tmuxinator" ]] && source "$HOME/.tmuxinator/scripts/tmuxinator"
-
 # Make Bash append rather than overwrite the history on disk
 shopt -s histappend
 # as per instructions in the script, let's not call ps1_set, but call

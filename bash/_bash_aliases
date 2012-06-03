@@ -1,6 +1,10 @@
 #!env bash
 # vim: set tabstop=2 shiftwidth=2 foldmethod=marker:
 
+# ~/.profile or ~/.bash_profile read only by interactive shells
+# ~/.profile is not read if ~/.bash_profile or ~/.bash_login exists.
+# look into the dropbox-only phpenv_phpbuild branch for a same .bash_profile
+
 # source and extra file for non aliases/function stuff
 if [ -f ~/.bash_extras ]; then
     . ~/.bash_extras
