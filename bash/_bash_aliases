@@ -15,8 +15,8 @@ alias L='less -R'
 alias df='df -h'
 alias ll='ls -AlFh'
 alias sl=ls
-alias fire='firefox -Profilemanager -no-remote &'
-alias pg='ps aux| grep '
+alias fire='firefox -Profilemanager -no-remote &> /dev/null &'
+alias pg='ps aux| grep'
 alias pw='pwsafe -Eup -l'
 alias pwc='pwsafe -px'
 alias rstty='stty start undef stop undef'
@@ -43,6 +43,7 @@ alias je="vim ~/.local/share/autojump/autojump.txt"
 # Acer specific {{{
 alias toff='xinput set-prop "SynPS/2 Synaptics TouchPad" 132 0'
 alias koff='xinput set-prop "AT Translated Set 2 keyboard" 132 0'
+alias kon='xinput set-prop "AT Translated Set 2 keyboard" 132 1'
 #}}}
 
 # vim aliases {{{
@@ -51,6 +52,7 @@ alias koff='xinput set-prop "AT Translated Set 2 keyboard" 132 0'
 alias vls='v -l'
 # aka: v list, reuse vim server session
 alias vl='vim="eval $(type vim  | tail -n +2); vim" v -l'
+# aka: vim standalone
 alias vs="exec_git_expand_args $(which 2>/dev/null vim)"
 # vim function that shadows aliases and commands
 function vim {
@@ -69,7 +71,7 @@ alias vi="exec_git_expand_args vim"
 
 #git aliases {{{
 alias gg='git grep'
-alias gb='git branch -vv'
+alias gb='git branch -avv'
 alias gau='git add -u'
 alias gdw='exec_git_expand_args git diff --word-diff --'
 alias gdcw='exec_git_expand_args git diff --cached --word-diff --'
