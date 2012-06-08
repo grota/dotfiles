@@ -79,9 +79,6 @@
 [submodule "vim/dotvim/bundle/grota_showmarks"]
 	path = vim/dotvim/bundle/grota_showmarks
 	url = git@github.com:grota/ShowMarks.git
-[submodule "vim/dotvim/bundle/grota_AutoTag"]
-	path = vim/dotvim/bundle/grota_AutoTag
-	url = git@github.com:grota/AutoTag.git
 [submodule "vim/dotvim/bundle/grota_vimroom"]
 	path = vim/dotvim/bundle/grota_vimroom
 	url = git@github.com:grota/vimroom.git
@@ -130,3 +127,6 @@
 [submodule "bin/php-build"]
 	path = bin/php-build
 	url = git://github.com/CHH/php-build.git
+[submodule "vim/dotvim/bundle/vim-scripts_AutoTag"]
+	path = vim/dotvim/bundle/vim-scripts_AutoTag
+	url = git://github.com/vim-scripts/AutoTag.git
