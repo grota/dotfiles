@@ -111,7 +111,7 @@ alias vci='vi config.inc.php'
 #alias c='cat /proc/mdstat'
 #alias rs='rsync -av --delete'
 #alias k='kompare -no -'
-#alias svnd='svn diff --diff-cmd diff'
+#alias svnd='svn diff --diff-cmd diff | colordiff | less -r'
 #}}}
 #}}}
 

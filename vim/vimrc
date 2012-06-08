@@ -517,6 +517,7 @@ endfor
 "}}}
 " Gitv {{{
 nnoremap <leader>gl :<C-U>Gitv --all<CR>
+let g:Gitv_DoNotMapCtrlKey = 1
 "}}}
 " vimroom {{{
 let g:vimroom_sidebar_height = 1
