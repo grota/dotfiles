@@ -4,16 +4,21 @@
 This file describes the mappings in .vimrc                 *grota_documentation*
 ==============================================================================
 
-*grota_maps_to_learn*
-i_<C-g><C-g> delimitMate's jump many {[( and quotes
-i_<C-g>s     tpope's surround in insert mode. Accepts <CR> after s.
-i_<C-r><Tab> to see SnipMate completions
-<leader>to   tab only
-g/           IndexedSearch shows at which match index you are
-i_CTRL-f     == from insert mode
-i_CTRL-u     delete till start of line
+      TO LEARN
+i_<C-G>s     tpope's surround in insert mode. Accepts <CR> after s.
+i_<C-G><C-G> delimitMate's jump many {[( and quotes
 
-*grota_to_strengthen*
+i_<C-G><C-H> sparkup: move to next empty html tag
+<leader>se   sparkup: expand sparkup
+
+i_<C-B>      expand SnipMate
+i_<C-R><C-B> to see SnipMate completions
+
+g/           IndexedSearch: shows at which match index you are
+i_CTRL-f     Same as == but from insert mode
+i_CTRL-u     Delete till start of line
+
+      LUSTY
 <C-\>         :LustyJuggler
   v,b           vert/horz buffer opening in lusty-juggler
 <C-b>         :LustyFilesystemExplorerFromHere
@@ -26,6 +31,7 @@ i_CTRL-u     delete till start of line
   <C-e>         create new buffer with the given name and path
   <C-u>         clear prompt
 
+      CTRLP
 <C-f> :CtrlPLastMode
   <C-y> create with path
   <C-z>, <C-o> Mark, Open multi files
@@ -40,26 +46,21 @@ i_CTRL-u     delete till start of line
 <M-b> :CtrlPBuffer
 <leader>ab :CtrlPBookmarkDirAdd %:p:h
 
+      VARIOUS
 <leader>gl :<C-U>Gitv --all<CR>
 <leader>qf Quickfix toggle
 <leader>ww :pwd
 <leader>gg  :Ggrep
+{dcv}    {ia}{a} delete-change-visual inner-around argument
 |surround|   ysiw'  add '' around the word
 |surround|   cs)(   change only the spacing, since the opening braces {[( do have spacing
 
-
-*grota_consider_removal*
 marvim: record a macro in q and then <F6> to save it in marvim.
 visual select, <F6> to save the template.
 recall macro/template with <F7>. visual select, <F7>: use macro in q.
 
-custom function argument text object
-{dcv}{np}{ia}{a b() d[] B{}} delete-change-visual next-prev inner-around X
-{dcv}    {ia}{a} delete-change-visual inner-around argument
-
-*grota_known*
-* |surround| cs'"  cambia tipo di quotes (altro esempio: cs>")
-* |surround| ds)   cancella un set di surrounding ()
+* |surround| cs'"  change quote type (another example: cs>")
+* |surround| ds)   delete the surrounding ()
 * |surround| vS>   in char visual aggiunge <> al testo selezionato. (altro esempio: vSt aggiunge tag)
 * |surround| yss"  wrappa la linea con ""
 * |surround| ySS}  wrappa la linea con {}. La linea e' su newline indentata. Ma a sto punto usa line visual con S{
@@ -69,7 +70,7 @@ custom function argument text object
 |surround| in line  visual: gS{ wrappa il testo con {}. Il testo e' su newline
 |surround| in line  visual:  S{ wrappa il testo con {}. Il testo e' su newline indenteato
 
-:Linediff (2 volte in visual). :LinediffReset
+:Linediff (twice, from visual mode). :LinediffReset
 i_ <C-l> <C-h> <C-j> <C-k> wordwise movement
 <F1> window only
 <F2> window close
@@ -88,7 +89,6 @@ i_ <C-l> <C-h> <C-j> <C-k> wordwise movement
   <leader>gc  :Gcommit -v
 
 
-*grota_notes*
 usually overridden by ftplugins: |[[| |]]| ( |[m| |]m| |[M| |]M| )
 
 the <M-?> options are set for gnome-terminal and other X terminal
