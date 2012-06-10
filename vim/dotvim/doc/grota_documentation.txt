@@ -6,9 +6,12 @@ This file describes the mappings in .vimrc                 *grota_documentation*
 
 *grota_maps_to_learn*
 i_<C-g><C-g> delimitMate's jump many {[( and quotes
+i_<C-g>s     tpope's surround in insert mode. Accepts <CR> after s.
 i_<C-r><Tab> to see SnipMate completions
 <leader>to   tab only
 g/           IndexedSearch shows at which match index you are
+i_CTRL-f     == from insert mode
+i_CTRL-u     delete till start of line
 
 *grota_to_strengthen*
 <C-\>         :LustyJuggler
