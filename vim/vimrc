@@ -530,17 +530,18 @@ let g:vimroom_width = 80
 " I like it a little bit to the left, note this has to be a nmap.
 nmap ,V <Plug>VimroomToggle wincmd h<CR> vertical res -20<CR> wincmd p<CR>
 "}}}
-" splitJoin {{{
-nmap <Leader>j :SplitjoinJoin<cr>
-nmap <Leader>s :SplitjoinSplit<cr>
+" SplitJoin {{{
+nmap <Leader>sj :SplitjoinJoin<cr>
+nmap <Leader>ss :SplitjoinSplit<cr>
 " }}}
 " delimitMate {{{
 imap <C-G><C-G> <Plug>delimitMateJumpMany
 "}}}
 " Sparkup {{{
-autocmd BufEnter * if maparg('<C-N>','n') =~ '^:call .*SparkupNext()<CR>$'
-      \| nunmap <buffer> <C-n>
-      \| endif
+let g:sparkupExecuteMapping = '<Plug>SparkupExecuteMapping'
+let g:sparkupNextMapping = '<Plug>SparkupNextMapping'
+nmap <Leader>se <Plug>SparkupExecuteMapping
+imap <C-G><C-H> <Plug>SparkupNextMapping
 "}}}
 "}}}
 
