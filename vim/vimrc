@@ -260,6 +260,11 @@ inoremap <expr> <Down> pumvisible() ?
       \ "\<Down>" :
       \ "\<C-o>gj"
 "}}}
+" Faster scrolling {{{
+nnoremap <C-E> 4<C-E>
+nnoremap <C-Y> 4<C-Y>
+" }}}
+
 " MISCELLANEOUS {{{
 " go to tag location if only 1 place, or show selection if more than 1 place
 nnoremap <C-]> g<C-]>
@@ -603,16 +608,4 @@ if has("autocmd") && has('GUI_GTK')
   au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
   au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
 endif
-"}}}
-
-" UNUSED / COMMENTED OUT SECTIONS "{{{
-" make p in Visual mode replace the selected text with the yank register
-" yankring works better, we use that.
-" vnoremap p <Esc>:let current_reg = @"<CR>gvdi<C-R>=current_reg<CR><Esc>
-" scroll faster:
-"nnoremap <C-e> 2<C-e>
-"nnoremap <C-y> 2<C-y>
-" if filereadable(expand("~/.vimrc.local"))
-"     source ~/.vimrc.local
-" endif
 "}}}
