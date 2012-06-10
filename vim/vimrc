@@ -496,6 +496,11 @@ let g:Powerline_cache_file = $HOME.'/.vim/vim_powerline.cache'
 let g:Powerline_symbols = 'unicode'
 "let g:Powerline_theme = 'powerline_grota'
 "}}}
+" SnipMate {{{
+" with some unmappings in after_actions.vim to actually making it work.
+" going back is not supported, but whatever.
+let g:snips_trigger_key = '<C-B>'
+" }}}
 " Supertab {{{
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabLongestHighlight = 1
