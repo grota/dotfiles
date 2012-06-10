@@ -130,3 +130,6 @@
 [submodule "vim/dotvim/bundle/vim-scripts_AutoTag"]
 	path = vim/dotvim/bundle/vim-scripts_AutoTag
 	url = git://github.com/vim-scripts/AutoTag.git
+[submodule "vim/dotvim/bundle/vim-scripts_argtextobj.vim"]
+	path = vim/dotvim/bundle/vim-scripts_argtextobj.vim
+	url = git://github.com/vim-scripts/argtextobj.vim.git
