@@ -3,8 +3,8 @@
 " INITIALIZATION "{{{
 set nocompatible
 filetype off
-" pathogen as a submodule. source it explicitly.
 runtime macros/matchit.vim
+" pathogen as a submodule. source it explicitly.
 runtime bundle/tpope_vim-pathogen/autoload/pathogen.vim
 " Pathogen callbacks
 call pathogen#infect()
@@ -545,10 +545,9 @@ nmap <Leader>ss :SplitjoinSplit<cr>
 imap <C-G><C-G> <Plug>delimitMateJumpMany
 "}}}
 " Sparkup {{{
+" see the FileType autocommands below for the real mappings
 let g:sparkupExecuteMapping = '<Plug>SparkupExecuteMapping'
 let g:sparkupNextMapping = '<Plug>SparkupNextMapping'
-nmap <Leader>se <Plug>SparkupExecuteMapping
-imap <C-G><C-H> <Plug>SparkupNextMapping
 "}}}
 "}}}
 
@@ -603,6 +602,8 @@ autocmd Filetype qf setlocal nonumber
 " html,xhtml,xml: use Omnicomplete for (super)tab, don't autoclose <>
 autocmd Filetype html,xhtml,xml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
       \| let b:delimitMate_matchpairs = "(:),[:],{:}"
+autocmd FileType html,xhtml,xml,php nmap <buffer> <leader>se <Plug>SparkupExecuteMapping
+      \| imap <buffer> <C-G><C-H> <Plug>SparkupNextMapping
 " this matches the conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 if has("autocmd") && has('GUI_GTK')
@@ -611,3 +612,8 @@ if has("autocmd") && has('GUI_GTK')
   au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
 endif
 "}}}
+
+" NOTES {{{
+" i_<C-z,b> can be remapped
+" cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+" }}}
