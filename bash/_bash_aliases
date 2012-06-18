@@ -35,8 +35,11 @@ alias grep='grep -n --exclude-dir=.svn --exclude-dir=.git '
 alias pb='vi ~/.config/pianobar/config'
 # {tl,ll,rl}php log {{{
 alias tlphp='tail -F /tmp/php5_apache_errorlog.log'
+alias tlphp52='tail -F /tmp/php5217_fpm_error.log'
 alias llphp='less /tmp/php5_apache_errorlog.log'
+alias llphp52='less /tmp/php5217_fpm_error.log'
 alias rlphp='sudo rm /tmp/php5_apache_errorlog.log'
+alias rlphp52='rm /tmp/php5217_fpm_error.log'
 #}}}
 alias je="vim ~/.local/share/autojump/autojump.txt"
 

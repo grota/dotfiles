@@ -58,9 +58,6 @@
 [submodule "vim/dotvim/bundle/tpope_vim-repeat"]
 	path = vim/dotvim/bundle/tpope_vim-repeat
 	url = git://github.com/tpope/vim-repeat.git
-[submodule "vim/dotvim/bundle/vim-scripts_phpfolding"]
-	path = vim/dotvim/bundle/vim-scripts_phpfolding
-	url = git://github.com/vim-scripts/phpfolding.vim.git
 [submodule "vim/dotvim/bundle/tpope_vim-eunuch"]
 	path = vim/dotvim/bundle/tpope_vim-eunuch
 	url = git://github.com/tpope/vim-eunuch.git

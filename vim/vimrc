@@ -183,6 +183,8 @@ set <M-.>=.
 set <M-,>=,
 nnoremap <silent> <M-.> :<C-u>tabnext<CR>
 nnoremap <silent> <M-,> :<C-u>tabprevious<CR>
+inoremap <silent> <M-,> <Esc>:<C-u>tabprevious<CR>
+inoremap <silent> <M-.> <Esc>:<C-u>tabnext<CR>
 " }}}
 " <C-n><C-p>: NEXT/PREV BUFFER {{{
 " <C-N> was the same as <Down> and I didn't need it.
@@ -365,10 +367,10 @@ let g:vimsyn_folding = 'af'
 let g:is_bash = 1
 let g:sh_fold_enabled=7
 " Display error for unmatched )]}
-let php_parent_error_close=1
-" The following is not necessary, I use a contrib plugin for folding that also
-" folds phpdoc sections.
-"let g:php_folding = 2
+"let php_parent_error_close=1
+" There's also a contrib plugin that fold phpdoc sections out there,
+" but I'm not using it.
+let g:php_folding = 2
 " use K on a proposed line in an interactive gitrebase to see the corresponding diff
 autocmd FileType gitrebase nnoremap <buffer> <silent> S :Cycle<CR>
 autocmd FileType gitcommit nnoremap <buffer> <silent> <leader>d :DiffGitCached<CR>:wincmd L<CR>

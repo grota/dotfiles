@@ -15,10 +15,10 @@ highlight SignColumn term=standout ctermfg=14 ctermbg=232 guifg=Cyan guibg=gray4
 highlight CursorLine term=underline guibg=gray9 ctermbg=235 cterm=NONE
 highlight LineNr guifg=GreenYellow
 highlight Statement guifg=goldenrod
-highlight String term=underline ctermfg=13 guifg=orchid3
-highlight Comment term=bold cterm=bold ctermfg=202 guifg=OrangeRed1
+highlight String term=underline ctermfg=173 guifg=orchid3
+highlight Comment term=bold cterm=bold ctermfg=240 guifg=OrangeRed1
 highlight Normal guifg=DarkSeaGreen1 ctermfg=157
-highlight Constant ctermfg=173
+highlight Constant ctermfg=13
 highlight Type cterm=bold ctermfg=83
 highlight PreProc ctermfg=176
 highlight LustySelected cterm=bold ctermbg=235 ctermfg=76 guibg=gray25 guifg=chartreuse
