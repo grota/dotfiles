@@ -172,7 +172,7 @@ nnoremap <C-w>} <C-w>r
 nnoremap <tab> <C-W>w
 nnoremap <S-tab> <C-W>W
 " Close/Only window
-nnoremap <F1> <C-W>o
+nnoremap <F1> <C-W>ozi`.
 nnoremap <F2> <C-W>c
 nnoremap <Leader>z <C-W>c
 "}}}
