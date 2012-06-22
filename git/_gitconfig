@@ -12,6 +12,7 @@
 	ll = log --oneline --graph --decorate --all
 	l = log --oneline --decorate
 	up = pull --ff-only
+	h = help
 
 # This alias requires git-diffall from https://github.com/thenigan/git-diffall
 # git-diffall prepares 2 temp directory trees: lhs and rhs.
