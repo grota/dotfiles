@@ -1,0 +1,8 @@
+URxvt.background:  #000000
+URxvt.foreground:  #00af00
+URxvt.cursorColor: #ffffff
+URxvt.scrollBar:   false
+URxvt.cursorBlink: true
+URxvt.geometry:    222x53
+URxvt.letterSpace: -1
+URxvt.font: xft:DejaVu Sans Mono:pixelsize=12:antialias=True
