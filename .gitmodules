@@ -40,9 +40,6 @@
 [submodule "vim/dotvim/bundle/nvie_togglemouse"]
 	path = vim/dotvim/bundle/nvie_togglemouse
 	url = git://github.com/nvie/vim-togglemouse.git
-[submodule "vim/dotvim/bundle/Raimondi_delimitMate"]
-	path = vim/dotvim/bundle/Raimondi_delimitMate
-	url = git://github.com/Raimondi/delimitMate.git
 [submodule "vim/dotvim/bundle/ervandew_supertab"]
 	path = vim/dotvim/bundle/ervandew_supertab
 	url = git://github.com/ervandew/supertab
@@ -130,3 +127,6 @@
 [submodule "vim/dotvim/bundle/vim-scripts_argtextobj.vim"]
 	path = vim/dotvim/bundle/vim-scripts_argtextobj.vim
 	url = git://github.com/vim-scripts/argtextobj.vim.git
+[submodule "vim/dotvim/bundle/jiangmiao_auto-pairs"]
+	path = vim/dotvim/bundle/jiangmiao_auto-pairs
+	url = git://github.com/jiangmiao/auto-pairs.git
