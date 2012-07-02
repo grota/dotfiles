@@ -541,8 +541,13 @@ nmap ,V <Plug>VimroomToggle wincmd h<CR> vertical res -20<CR> wincmd p<CR>
 nmap <Leader>sj :SplitjoinJoin<cr>
 nmap <Leader>ss :SplitjoinSplit<cr>
 " }}}
-" delimitMate {{{
-imap <C-G><C-G> <Plug>delimitMateJumpMany
+" autopairs {{{
+let g:AutoPairsFlyMode = 1
+set <M-/>=/
+set <M-e>=e
+set <M-p>=p
+let g:AutoPairsShortcutJump='<M-/>'
+let g:AutoPairsShortcutFastWrap=''
 "}}}
 " Sparkup {{{
 " see the FileType autocommands below for the real mappings
