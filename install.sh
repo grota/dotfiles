@@ -88,4 +88,8 @@ git submodule update --init --recursive
 # conf for laptop dv7-6190sl
  ln -sf ${repohome}/xmodmap/_Xmodmap ~/.Xmodmap
 
+# [X]
+ ln -sf ${repohome}/X/_Xdefaults ~/.Xdefaults
+ ln -sf ${repohome}./X/_xinitrc ~/.xinitrc
+
 ${repohome}/private/install.sh

@@ -23,3 +23,34 @@ URxvt.color12: #729FCF
 URxvt.color13: #AD7FA8
 URxvt.color14: #34E2E2
 URxvt.color15: #EEEEEC
+
+!xterm.fullscreen: 0
+!xterm.maximized: false
+XTerm.termName:  xterm-256color
+xterm.vt100.cursorBlink: true
+xterm.vt100.cursorOnTime: 500
+xterm.vt100.cursorOffTime: 550
+xterm.vt100.cursorColor: #949494
+xterm.vt100.pointerMode: 2
+xterm.vt100.pointerColor: #ff0000
+xterm.vt100.faceName: DejaVu Sans Mono:pixelsize=11:antialias=True:style=Book
+xterm.vt100.color0:  #000000
+xterm.vt100.color1:  #CC0000
+xterm.vt100.color2:  #4E9A06
+xterm.vt100.color3:  #C4A000
+xterm.vt100.color4:  #3465A4
+xterm.vt100.color5:  #75507B
+xterm.vt100.color6:  #06989A
+xterm.vt100.color7:  #D3D7CF
+xterm.vt100.color8:  #555753
+xterm.vt100.color9:  #EF2929
+xterm.vt100.color10: #8AE234
+xterm.vt100.color11: #FCE94F
+xterm.vt100.color12: #729FCF
+xterm.vt100.color13: #AD7FA8
+xterm.vt100.color14: #34E2E2
+xterm.vt100.color15: #EEEEEC
+xterm.vt100.cursorUnderLine: false
+xterm.vt100.foreground: #1ac41a
+xterm.vt100.highlightColor: XtDefaultForeground
+xterm.vt100.metaSendsEscape:  true
