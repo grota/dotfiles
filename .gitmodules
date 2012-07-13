@@ -133,3 +133,6 @@
 [submodule "vim/dotvim/bundle/vim-scripts_ZoomWin"]
 	path = vim/dotvim/bundle/vim-scripts_ZoomWin
 	url = git://github.com/vim-scripts/ZoomWin.git
+[submodule "vim/dotvim/bundle/grota_vitality"]
+	path = vim/dotvim/bundle/grota_vitality
+	url = git@github.com:grota/vitality.vim.git
