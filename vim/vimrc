@@ -611,7 +611,7 @@ autocmd FileType html,xhtml,xml,php nmap <buffer> <leader>se <Plug>SparkupExecut
       \| imap <buffer> <C-G><C-H> <Plug>SparkupNextMapping
 " this matches the conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
-if has("autocmd") && has('GUI_GTK')
+if has("autocmd") && has('GUI_GTK') && $COLORTERM == 'gnome-terminal'
   au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
   au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
   au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
