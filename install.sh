@@ -90,6 +90,8 @@ git submodule update --init --recursive
 
 # [X]
  ln -sf ${repohome}/X/_Xdefaults ~/.Xdefaults
- ln -sf ${repohome}./X/_xinitrc ~/.xinitrc
+ # ubuntu lightdm does not consider ~/.xsession{,rc} nor ~/.xinitrc
+ #ln -sf ${repohome}/X/_xinitrc ~/.xinitrc
+ ln -sf ${repohome}/_config/autostart/xrdb.desktop ~/.config/autostart/xrdb.desktop
 
 ${repohome}/private/install.sh
