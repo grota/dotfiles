@@ -554,6 +554,10 @@ let g:AutoPairsShortcutFastWrap=''
 let g:sparkupExecuteMapping = '<Plug>SparkupExecuteMapping'
 let g:sparkupNextMapping = '<Plug>SparkupNextMapping'
 "}}}
+" vitality {{{
+let g:vitality_fix_cursor = 0
+let g:vitality_color_insertmode = "OrangeRed"
+"}}}
 "}}}
 
 " CUSTOM PLUGINS MAPPINGS AND SETTINGS {{{
