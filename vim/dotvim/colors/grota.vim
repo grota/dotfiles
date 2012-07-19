@@ -12,7 +12,7 @@ let g:colors_name = "grota"
 
 highlight FoldColumn term=standout ctermfg=14 ctermbg=233 guifg=Cyan guibg=gray3
 highlight SignColumn term=standout ctermfg=14 ctermbg=232 guifg=Cyan guibg=gray4
-highlight CursorLine term=underline guibg=gray9 ctermbg=235 cterm=NONE
+highlight CursorLine term=underline guibg=gray9 ctermbg=234 cterm=NONE
 highlight LineNr guifg=GreenYellow
 highlight Statement guifg=goldenrod
 highlight String term=underline ctermfg=173 guifg=orchid3

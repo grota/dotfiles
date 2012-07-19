@@ -501,7 +501,7 @@ let g:marvim_store_key = '<F6>'
 " Powerline {{{
 let g:Powerline_cache_file = $HOME.'/.vim/vim_powerline.cache'
 let g:Powerline_symbols = 'unicode'
-"let g:Powerline_theme = 'powerline_grota'
+let g:Powerline_colorscheme = 'powerline_grota'
 "}}}
 " SnipMate {{{
 " with some unmappings in after_actions.vim to actually making it work.
@@ -556,6 +556,7 @@ let g:sparkupNextMapping = '<Plug>SparkupNextMapping'
 "}}}
 " vitality {{{
 let g:vitality_fix_cursor = 0
+let g:vitality_change_colors = 0
 let g:vitality_color_insertmode = "OrangeRed"
 "}}}
 "}}}
@@ -615,11 +616,8 @@ autocmd FileType html,xhtml,xml,php nmap <buffer> <leader>se <Plug>SparkupExecut
       \| imap <buffer> <C-G><C-H> <Plug>SparkupNextMapping
 " this matches the conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
-if has("autocmd") && has('GUI_GTK') && $COLORTERM == 'gnome-terminal'
-  au InsertEnter * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape ibeam"
-  au InsertLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
-  au VimLeave * silent execute "!gconftool-2 --type string --set /apps/gnome-terminal/profiles/Default/cursor_shape block"
-endif
+au InsertEnter * hi CursorLine ctermbg=17
+au InsertLeave * hi CursorLine ctermbg=234
 "}}}
 
 " NOTES {{{
