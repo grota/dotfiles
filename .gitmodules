@@ -73,9 +73,6 @@
 [submodule "vim/dotvim/bundle/grota_showmarks"]
 	path = vim/dotvim/bundle/grota_showmarks
 	url = git@github.com:grota/ShowMarks.git
-[submodule "vim/dotvim/bundle/grota_vimroom"]
-	path = vim/dotvim/bundle/grota_vimroom
-	url = git@github.com:grota/vimroom.git
 [submodule "vim/dotvim/bundle/shawncplus_phpcomplete.vim"]
 	path = vim/dotvim/bundle/shawncplus_phpcomplete.vim
 	url = git://github.com/shawncplus/phpcomplete.vim.git
