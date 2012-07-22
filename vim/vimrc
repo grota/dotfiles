@@ -559,6 +559,11 @@ let g:vitality_fix_cursor = 0
 let g:vitality_change_colors = 0
 let g:vitality_color_insertmode = "OrangeRed"
 "}}}
+" PreciseJump
+nmap - :call PreciseJumpF(-1, -1, 0)<cr>
+vmap - <ESC>:call PreciseJumpF(-1, -1, 1)<cr>
+omap - v:call PreciseJumpF(-1, -1, 0)<cr>
+" }}}
 "}}}
 
 " CUSTOM PLUGINS MAPPINGS AND SETTINGS {{{
