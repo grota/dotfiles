@@ -127,9 +127,6 @@
 [submodule "vim/dotvim/bundle/jiangmiao_auto-pairs"]
 	path = vim/dotvim/bundle/jiangmiao_auto-pairs
 	url = git://github.com/jiangmiao/auto-pairs.git
-[submodule "vim/dotvim/bundle/vim-scripts_ZoomWin"]
-	path = vim/dotvim/bundle/vim-scripts_ZoomWin
-	url = git://github.com/vim-scripts/ZoomWin.git
 [submodule "vim/dotvim/bundle/vim-scripts_PreciseJump"]
 	path = vim/dotvim/bundle/vim-scripts_PreciseJump
 	url = git://github.com/vim-scripts/PreciseJump.git
