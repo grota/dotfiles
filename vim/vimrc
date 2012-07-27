@@ -172,7 +172,7 @@ nnoremap <C-w>} <C-w>r
 nnoremap <tab> <C-W>w
 nnoremap <S-tab> <C-W>W
 " Close/Only window
-nmap <F1> <C-W>o:diffoff<CR>
+nnoremap <F1> <C-W>o:diffoff<CR>
 nnoremap <F2> <C-W>c
 nnoremap <Leader>z <C-W>c
 "}}}
@@ -543,11 +543,6 @@ let g:AutoPairsShortcutFastWrap=''
 " see the FileType autocommands below for the real mappings
 let g:sparkupExecuteMapping = '<Plug>SparkupExecuteMapping'
 let g:sparkupNextMapping = '<Plug>SparkupNextMapping'
-"}}}
-" vitality {{{
-let g:vitality_fix_cursor = 0
-let g:vitality_change_colors = 0
-let g:vitality_color_insertmode = "OrangeRed"
 "}}}
 " PreciseJump {{{
 nmap - :call PreciseJumpF(-1, -1, 0)<cr>
