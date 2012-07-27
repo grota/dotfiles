@@ -56,9 +56,12 @@ inoremap <silent> <C-B> <c-g>u<c-r>=snipMate#TriggerSnippet()<cr>
 " 3rd step: unmap in select mode, due to shadowing, 1 unmap is enough.
 sunmap <C-B>
 "}}}
+" PreciseJump {{{
 nunmap _F
 vunmap _F
 ounmap _F
 nunmap _f
 vunmap _f
 ounmap _f
+omap - v:call PreciseJumpF(-1, -1, 0)<cr>
+"}}}

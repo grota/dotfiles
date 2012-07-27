@@ -430,16 +430,6 @@ let g:yankring_clipboard_monitor = 1
 let g:yankring_manual_clipboard_check = 1
 let g:yankring_history_file = '.yankring_history'
 "}}}
-" UltiSnips {{{
-let g:UltiSnipsEditSplit='vertical'
-let g:UltiSnipsExpandTrigger="<tab>"
-" These 2 do not collide with yankring's mappings
-let g:UltiSnipsJumpForwardTrigger="<M-.>"
-let g:UltiSnipsJumpBackwardTrigger="<M-,>"
-" it's a insert mode mapping
-let g:UltiSnipsListSnippets="<S-Tab>"
-let g:UltiSnipsDoHash=0
-"}}}
 " Bclose {{{
 nnoremap <expr> <C-w><C-d> ((&bufhidden == 'delete') \|\| (&bufhidden == 'wipe')) ? ":bd\<CR>" : ":Bclose\<CR>"
 "}}}
@@ -559,9 +549,10 @@ let g:vitality_fix_cursor = 0
 let g:vitality_change_colors = 0
 let g:vitality_color_insertmode = "OrangeRed"
 "}}}
-" PreciseJump
+" PreciseJump {{{
 nmap - :call PreciseJumpF(-1, -1, 0)<cr>
 vmap - <ESC>:call PreciseJumpF(-1, -1, 1)<cr>
+" also in after_actions to fix race with Yankring
 omap - v:call PreciseJumpF(-1, -1, 0)<cr>
 " }}}
 "}}}
