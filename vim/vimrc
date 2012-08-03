@@ -106,18 +106,18 @@ nnoremap <space> :
 xnoremap <space> :
 nnoremap \ `
 nnoremap ` '
-nnoremap ' ;
-xnoremap ' ;
-nnoremap ; ,
-xnoremap ; ,
+nnoremap ' g_
+xnoremap ' g_
+nnoremap ; ^
+xnoremap ; ^
 set <M-'>='
-nnoremap <M-'> g_
-xnoremap <M-'> g_
+nnoremap <M-'> ;
+xnoremap <M-'> ;
 inoremap <M-'> <C-o>$
 inoremap <M-Right> <C-o>$
 set <M-;>=;
-nnoremap <M-;> ^
-xnoremap <M-;> ^
+nnoremap <M-;> ,
+xnoremap <M-;> ,
 inoremap <M-;> <C-o>^
 inoremap <M-Left> <C-o>^
 "}}}

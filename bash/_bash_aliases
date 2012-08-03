@@ -82,6 +82,7 @@ alias gl='git --no-pager l -n12'
 alias k='git --no-pager ll -n12'
 alias gk='gitk --all&'
 alias gst='git stash'
+alias gstp='git stash pop --index'
 # from scm_breeze
 alias gsubrm="git_submodule_rm"
 alias gl1p="git log -1 -p"

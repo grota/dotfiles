@@ -261,7 +261,7 @@ s0_texture_compression = false
 
 [extrawm]
 s0_toggle_redirect_key = Disabled
-s0_toggle_fullscreen_key = Disabled
+s0_toggle_fullscreen_key = F11
 s0_toggle_always_on_top_key = Disabled
 s0_toggle_sticky_key = Disabled
 s0_activate_demands_attention_key = Disabled
@@ -1010,7 +1010,7 @@ s0_strength = 20.000000
 s0_on_transformed_screen = false
 
 [core]
-s0_active_plugins = core;bailer;detection;composite;opengl;decor;grid;compiztoolbox;addhelper;staticswitcher;scale;imgpng;scaleaddon;regex;snap;gnomecompat;place;workarounds;vpswitch;move;mousepoll;neg;resize;opacify;expo;session;wall;unityshell;
+s0_active_plugins = core;bailer;detection;composite;opengl;decor;grid;compiztoolbox;addhelper;staticswitcher;scale;imgpng;scaleaddon;regex;snap;gnomecompat;place;workarounds;vpswitch;move;mousepoll;neg;extrawm;resize;opacify;expo;session;wall;unityshell;
 s0_audible_bell = true
 s0_ignore_hints_when_maximized = true
 s0_hide_skip_taskbar_windows = true
