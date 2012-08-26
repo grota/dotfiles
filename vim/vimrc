@@ -492,6 +492,7 @@ let g:marvim_store_key = '<F6>'
 let g:Powerline_cache_file = $HOME.'/.vim/vim_powerline.cache'
 let g:Powerline_symbols = 'unicode'
 let g:Powerline_colorscheme = 'powerline_grota'
+call Pl#Theme#ReplaceSegment('tagbar:currenttag', 'tagbar:fullcurrenttag')
 "}}}
 " SnipMate {{{
 " with some unmappings in after_actions.vim to actually making it work.
@@ -603,7 +604,7 @@ autocmd Filetype qf setlocal nonumber
 " html,xhtml,xml: use Omnicomplete for (super)tab, don't autoclose <>
 autocmd Filetype html,xhtml,xml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
       \| let b:delimitMate_matchpairs = "(:),[:],{:}"
-autocmd FileType html,xhtml,xml,php nmap <buffer> <leader>se <Plug>SparkupExecuteMapping
+autocmd FileType html,xhtml,xml,php,eruby nmap <buffer> <leader>se <Plug>SparkupExecuteMapping
       \| imap <buffer> <C-G><C-H> <Plug>SparkupNextMapping
 " this matches the conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
