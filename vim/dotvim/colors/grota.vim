@@ -41,3 +41,4 @@ highlight TabLine ctermbg=234 ctermfg=240 cterm=NONE
 highlight TabLineSel ctermfg=250 ctermbg=236 cterm=NONE
 " custom highlight group
 highlight TabLineModifiedMark ctermfg=1 ctermbg=22 cterm=bold
+highlight VertSplit ctermfg=235
