@@ -41,6 +41,11 @@ $include /etc/inputrc
 # M-f, M-b move by one word like C-Left/Right.
 # }}}
 
+set mark-symlinked-directories on
+set match-hidden-files on
+set show-all-if-ambiguous on
+set visible-stats on
+set skip-completed-text on
 $if Bash
 $endif
 
