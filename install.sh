@@ -94,4 +94,8 @@ git submodule update --init --recursive
  #ln -sf ${repohome}/X/_xinitrc ~/.xinitrc
  ln -sf ${repohome}/_config/autostart/xrdb.desktop ~/.config/autostart/xrdb.desktop
 
+# [Gnome]
+ mkdir -p $HOME/.config/gtk-3.0
+ ln -sf ${repohome}/_config/gtk-3.0/gtk.css ~/.config/gtk-3.0/gtk.css
+
 ${repohome}/private/install.sh
