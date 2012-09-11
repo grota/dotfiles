@@ -72,6 +72,9 @@ git submodule update --init --recursive
 # [lftp]
  ln -sf private/lftp ${repohome}
 
+# [drush]
+ ln -sf ${repohome}/bin/drush/drush ~/local/bin/drush
+
 # [alsa]
  ln -sf ${repohome}/alsa/_asoundrc ~/.asoundrc
 

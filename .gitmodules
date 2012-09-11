@@ -130,3 +130,6 @@
 [submodule "vim/dotvim/bundle/vim-scripts_PreciseJump"]
 	path = vim/dotvim/bundle/vim-scripts_PreciseJump
 	url = git://github.com/vim-scripts/PreciseJump.git
+[submodule "bin/drush"]
+	path = bin/drush
+	url = http://git.drupal.org/project/drush.git
