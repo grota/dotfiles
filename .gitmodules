@@ -136,3 +136,6 @@
 [submodule "vim/dotvim/bundle/vim-scripts_gitignore"]
 	path = vim/dotvim/bundle/vim-scripts_gitignore
 	url = git://github.com/vim-scripts/gitignore.git
+[submodule "vim/dotvim/bundle/joonty_vdebug"]
+	path = vim/dotvim/bundle/joonty_vdebug
+	url = git://github.com/joonty/vdebug.git
