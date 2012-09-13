@@ -552,6 +552,12 @@ vmap - <ESC>:call PreciseJumpF(-1, -1, 1)<cr>
 " also in after_actions to fix race with Yankring
 omap - v:call PreciseJumpF(-1, -1, 0)<cr>
 " }}}
+" Vdebug {{{
+let g:vdebug_keymap = {
+\    "run" : "<F8>",
+\    "set_breakpoint" : "<F9>",
+\}
+" }}}
 "}}}
 
 " CUSTOM PLUGINS MAPPINGS AND SETTINGS {{{
