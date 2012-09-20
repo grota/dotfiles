@@ -11,7 +11,8 @@ i_<C-G><C-G> delimitMate's jump many {[( and quotes
 i_<C-G><C-H> sparkup: move to next empty html tag
 <leader>se   sparkup: expand sparkup
 
-i_<C-B>      expand SnipMate
+i_<C-B>      expand SnipMate, move to next token
+i_<C-Z>      move to previous snipmate token
 i_<C-R><C-B> to see SnipMate completions
 
 g/           IndexedSearch: shows at which match index you are
@@ -102,6 +103,4 @@ set TERM=xterm-256color in gnome-terminal, see
 http://vim.wikia.com/wiki/256_colors_in_vim >
     set t_Co=256
 <
-xdebug is disabled by default via a custom global var in .vimrc
-
 vim:tw=78:ts=8:ft=help:norl:

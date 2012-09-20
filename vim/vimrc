@@ -499,6 +499,8 @@ call Pl#Theme#ReplaceSegment('tagbar:currenttag', 'tagbar:fullcurrenttag')
 " with some unmappings in after_actions.vim to actually making it work.
 " going back is not supported, but whatever.
 let g:snips_trigger_key = '<C-B>'
+" this is not a typo, sadly
+let g:snips_trigger_key_backwards='<C-Z'
 " }}}
 " Supertab {{{
 let g:SuperTabDefaultCompletionType = "context"
