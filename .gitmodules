@@ -139,3 +139,6 @@
 [submodule "vim/dotvim/bundle/joonty_vdebug"]
 	path = vim/dotvim/bundle/joonty_vdebug
 	url = git://github.com/joonty/vdebug.git
+[submodule "vim/dotvim/bundle/tpope_vim-rails"]
+	path = vim/dotvim/bundle/tpope_vim-rails
+	url = git://github.com/tpope/vim-rails.git
