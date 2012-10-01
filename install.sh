@@ -11,15 +11,18 @@ git submodule update --init --recursive
  ln -sf ${repohome}/bin/git-archive-all/git-archive-all.sh ~/local/bin/git-archive-all.sh
  ln -sf ${repohome}/bin/rupa_v/v ~/local/bin/v
 
+# [autojump]
  cd ${repohome}/bin/autojump
  ./install.sh  --local --prefix ~/local/ > /dev/null
 
+# [phpbuild]
  cd ${repohome}/bin/php-build/
  # bugfix of php-build
  mkdir -p $HOME/local/share/man/man1
  mkdir -p $HOME/local/share/man/man5
  PREFIX=$HOME/local ./install.sh > /dev/null
 
+# [hub]
  cd ${repohome}
  [[ ! -f ~/local/bin/hub ]] && curl http://defunkt.io/hub/standalone -sLo ~/local/bin/hub && chmod +x ~/local/bin/hub
 
@@ -53,9 +56,6 @@ git submodule update --init --recursive
  chmod 700 ~/.ssh
  ln -sf private/ssh ${repohome}
 
-# [gnupg]
- ln -sf private/gnupg ${repohome}
-
 # [pianobar]
  ln -sf ../private/_config/pianobar ${repohome}/_config/
 
@@ -63,11 +63,33 @@ git submodule update --init --recursive
  mkdir -p ~/.drush
  ln -sf private/drush ${repohome}
 
+# [xmodmap]
+# conf for laptop dv7-6190sl
+ ln -sf ${repohome}/xmodmap/_Xmodmap ~/.Xmodmap
+
+# [X]
+ ln -sf ${repohome}/X/_Xdefaults ~/.Xdefaults
+ # ubuntu lightdm does not consider ~/.xsession{,rc} nor ~/.xinitrc
+ #ln -sf ${repohome}/X/_xinitrc ~/.xinitrc
+ ln -sf ${repohome}/_config/autostart/xrdb.desktop ~/.config/autostart/xrdb.desktop
+
+# [Gnome]
+ mkdir -p $HOME/.config/gtk-3.0
+ ln -sf ${repohome}/_config/gtk-3.0/gtk.css ~/.config/gtk-3.0/gtk.css
+
 # [mysql]
  ln -sf ${repohome}/mysql/_my.cnf ~/.my.cnf
 
 # [ikiwiki]
  ln -sf private/ikiwiki ${repohome}
+
+# [vimperator]
+ ln -sf ${repohome}/vimperator/_vimperatorrc ~/.vimperatorrc
+ mkdir -p ~/.vimperator/
+ ln -sfT ${repohome}/vimperator/plugin ~/.vimperator/plugin
+
+# [gnupg]
+ ln -sf private/gnupg ${repohome}
 
 # [lftp]
  ln -sf private/lftp ${repohome}
@@ -87,18 +109,11 @@ git submodule update --init --recursive
 # [mercurial]
  ln -sf  ${repohome}/mercurial/_hgrc ~/.hgrc
 
-# [xmodmap]
-# conf for laptop dv7-6190sl
- ln -sf ${repohome}/xmodmap/_Xmodmap ~/.Xmodmap
+# [alsa]
+ ln -sf ${repohome}/alsa/_asoundrc ~/.asoundrc
 
-# [X]
- ln -sf ${repohome}/X/_Xdefaults ~/.Xdefaults
- # ubuntu lightdm does not consider ~/.xsession{,rc} nor ~/.xinitrc
- #ln -sf ${repohome}/X/_xinitrc ~/.xinitrc
- ln -sf ${repohome}/_config/autostart/xrdb.desktop ~/.config/autostart/xrdb.desktop
+# [rtorrent]
+ ln -sf private/rtorrent ${repohome}
 
-# [Gnome]
- mkdir -p $HOME/.config/gtk-3.0
- ln -sf ${repohome}/_config/gtk-3.0/gtk.css ~/.config/gtk-3.0/gtk.css
-
+# [private]
 ${repohome}/private/install.sh
