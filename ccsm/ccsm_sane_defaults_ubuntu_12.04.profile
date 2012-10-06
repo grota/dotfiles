@@ -785,10 +785,10 @@ s0_pad_right = 0
 s0_pad_top = 0
 s0_pad_bottom = 0
 s0_unfocus_window = false
-s0_window_center = false
+s0_window_center = true
 s0_avoid_offscreen = false
-s0_speed = 2.500000
-s0_timestep = 0.500000
+s0_speed = 6.700000
+s0_timestep = 0.400000
 
 [mousepoll]
 s0_mouse_poll_interval = 40
@@ -979,7 +979,7 @@ s0_speed = 25.000000
 s0_timestep = 1.200000
 
 [core]
-s0_active_plugins = core;composite;opengl;decor;workarounds;opacify;imgpng;scale;gnomecompat;place;neg;snap;grid;dbus;expo;compiztoolbox;regex;vpswitch;mousepoll;resize;session;move;scaleaddon;wall;staticswitcher;unityshell;
+s0_active_plugins = core;composite;opengl;decor;workarounds;opacify;imgpng;scale;gnomecompat;place;neg;snap;grid;dbus;expo;compiztoolbox;regex;vpswitch;put;mousepoll;resize;session;move;scaleaddon;wall;staticswitcher;unityshell;
 s0_audible_bell = true
 s0_ignore_hints_when_maximized = true
 s0_hide_skip_taskbar_windows = true
