@@ -56,9 +56,9 @@ i_CTRL-u     Delete till start of line
 |surround|   ysiw'  add '' around the word
 |surround|   cs)(   change only the spacing, since the opening braces {[( do have spacing
 
-marvim: record a macro in q and then <F6> to save it in marvim.
-visual select, <F6> to save the template.
-recall macro/template with <F7>. visual select, <F7>: use macro in q.
+marvim: record a macro in q and then <F9> to save it in marvim.
+visual select, <F9> to save the template.
+recall macro/template with <F8>. visual select, <F8>: use macro in q.
 
 * |surround| cs'"  change quote type (another example: cs>")
 * |surround| ds)   delete the surrounding ()

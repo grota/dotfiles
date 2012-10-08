@@ -278,7 +278,7 @@ nnoremap ssa :mksession! ~/.vim/sessions/
 nnoremap so :so ~/.vim/sessions/
 nnoremap <leader>ww :<C-u>pwd<cr>
 nnoremap <C-g> :nohlsearch<CR><C-g>
-nnoremap <F5> :h grota_documentation<CR>
+nnoremap <leader><F5> :h grota_documentation<CR>
 " Change Working Directory to that of the current file
 cmap cd. lcd %:p:h
 cnoremap <C-A> <Home>
@@ -486,8 +486,8 @@ let g:autotagmaxTagsFileSize=1024*1024*40
 " marvim {{{
 let g:marvim_store = $HOME.'/.vim/marvim_store/'
 let g:marvim_prefix = 0
-let g:marvim_find_key = '<F7>'
-let g:marvim_store_key = '<F6>'
+let g:marvim_find_key = '<F8>'
+let g:marvim_store_key = '<F9>'
 "}}}
 " Powerline {{{
 let g:Powerline_cache_file = $HOME.'/.vim/vim_powerline.cache'
@@ -557,8 +557,29 @@ omap - v:call PreciseJumpF(-1, -1, 0)<cr>
 " }}}
 " Vdebug {{{
 let g:vdebug_keymap = {
-\    "run" : "<F8>",
-\    "set_breakpoint" : "<F9>",
+\    "run" : "<F5>",
+\    "run_to_cursor" : "<leader><F1>",
+\    "step_over" : "<F6>",
+\    "step_into" : "<F7>",
+\    "step_out" : "<leader><F4>",
+\    "close" : "<leader><F6>",
+\    "detach" : "<leader><F7>",
+\    "set_breakpoint" : "<leader><F10>",
+\    "get_context" : "<leader><F11>",
+\    "eval_under_cursor" : "<leader><F12>",
+\}
+let g:vdebug_options= {
+\    "port" : 9000,
+\    "server" : 'localhost',
+\    "timeout" : 20,
+\    "on_close" : 'detach',
+\    "break_on_open" : 0,
+\    "ide_key" : '',
+\    "remote_path" : "",
+\    "local_path" : "",
+\    "debug_window_level" : 0,
+\    "debug_file_level" : 0,
+\    "debug_file" : "",
 \}
 " }}}
 "}}}
