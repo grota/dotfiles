@@ -32,6 +32,8 @@ alias cd.....="cd ../../../.."
 alias cd......="cd ../../../../.."
 alias bc='bc -l'
 alias grep='grep -n --exclude-dir=.svn --exclude-dir=.git '
+# there's a ss bin but that's ok for me
+alias ss='sudo su -'
 alias pb='vi ~/.config/pianobar/config'
 # {tl,ll,rl}php log {{{
 alias tlphp='tail -F /tmp/php5_apache_errorlog.log'
