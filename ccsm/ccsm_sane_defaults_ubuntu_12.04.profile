@@ -200,7 +200,7 @@ s0_prev_panel_button = Disabled
 s0_prev_panel_key = Disabled
 s0_speed = 41.993702
 s0_timestep = 1.200000
-s0_window_match = (Normal | Dialog | Toolbar | Utility | Unknown) & !(title=pianobar)
+s0_window_match = (Normal | Dialog | Toolbar | Utility | Unknown)
 s0_minimized = true
 s0_auto_change_vp = false
 s0_popup_delay = 0.000000
