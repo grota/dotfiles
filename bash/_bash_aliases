@@ -9,6 +9,10 @@
 if [ -f ~/.bash_extras ]; then
     . ~/.bash_extras
 fi
+# source drush aliases and completion
+if [ -f ~/.drush_bashrc  ]; then
+    . ~/.drush_bashrc
+fi
 
 # aliases {{{
 alias L='less -R'

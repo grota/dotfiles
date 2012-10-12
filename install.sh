@@ -44,6 +44,9 @@ git submodule update --init --recursive
 # [tmux]
  ln -sf ${repohome}/tmux/_tmux.conf ~/.tmux.conf
 
+# [drush]
+ ln -sf ${repohome}/bash/_drush_bashrc ~/.drush_bashrc
+
 # [dconf]
  cat ${repohome}/dconf/_org_gnome_libgnomekbd_keyboard | dconf load /org/gnome/libgnomekbd/keyboard/
 

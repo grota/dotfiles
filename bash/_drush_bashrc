@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+
+# drush aliases
+alias d='drush'
+alias ddl='drush pm-download'
+alias den='drush -y pm-enable'
+alias ddi='drush -y pm-disable'
+alias dcc='drush cache-clear all'
+alias dsq='drush sql-cli'
+
+# copied and modified from drush's own drush.complete.sh:
+# complete den, dis, dcd aliases with module names
+_drush_completion_grota() {
+  local cmd="${1##*/}"
+  local IFS=$'\n'
+  local drush_orig_cmd
+  case "$cmd" in
+    den)
+      drush_orig_cmd='pm-enable'
+      ;;
+    ddi | dcd | _dcd)
+      drush_orig_cmd='pm-disable'
+      ;;
+  esac
+
+  COMPREPLY=( $(drush --early=includes/complete.inc drush "$drush_orig_cmd" "${COMP_WORDS[@]}" < /dev/null) )
+}
+complete -o nospace -F _drush_completion_grota den
+complete -o nospace -F _drush_completion_grota ddi
+
+# cd to the passed parameter, using drush dd
+# parameter is autocompleted (see above) with module name
+alias dcd='_dcd'
+function _dcd() {
+ s="$1"
+  if [ -z "$s" ]
+  then
+    builtin cd
+  else
+    d="$(drush drupal-directory $1 --local 2>/dev/null)"
+    if [ $? == 0 ]
+    then
+      echo "cd $d";
+      builtin cd "$d";
+    else
+      echo "Cannot cd to $s"
+    fi
+  fi
+}
+complete -o nospace -F _drush_completion_grota _dcd dcd
+
+# Find the drush executable and test it.
+d=$(which drush)
+# If no program is found try an alias.
+if [ -z "$d" ]; then
+  d=$(alias drush | cut -f 2 -d '=' | sed "s/'//g")
+fi
+# Test that drush is an executable.
+[ -x "$d" ] || exit 0
+
+# If the file found is a symlink, resolve to the actual file.
+if [ -h "$d" ] ; then
+  # Change `readlink` to `readlink -f` if your drush is a symlink to a symlink. -f is unavailable on OSX's readlink.
+  d=$(readlink $d)
+fi
+
+# Get the directory that drush is stored in.
+d="${d%/*}"
+# If we have found drush.complete.sh, then source it.
+if [ -f "$d/drush.complete.sh" ] ; then
+  . "$d/drush.complete.sh"
+fi
