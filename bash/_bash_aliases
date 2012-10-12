@@ -1,11 +1,11 @@
-#!env bash
+#!/usr/bin/env bash
 # vim: set tabstop=2 shiftwidth=2 foldmethod=marker:
 
 # ~/.profile or ~/.bash_profile read only by interactive shells
 # ~/.profile is not read if ~/.bash_profile or ~/.bash_login exists.
-# look into the dropbox-only phpenv_phpbuild branch for a same .bash_profile
+# look into the dropbox-only phpenv_phpbuild branch for a sane .bash_profile
 
-# source and extra file for non aliases/function stuff
+# source an extra file for non aliases/function stuff
 if [ -f ~/.bash_extras ]; then
     . ~/.bash_extras
 fi
@@ -47,6 +47,7 @@ alias je="vim ~/.local/share/autojump/autojump.txt"
 
 # Acer specific {{{
 alias toff='xinput set-prop "SynPS/2 Synaptics TouchPad" 132 0'
+alias ton='xinput set-prop "SynPS/2 Synaptics TouchPad" 132 1'
 alias koff='xinput set-prop "AT Translated Set 2 keyboard" 132 0'
 alias kon='xinput set-prop "AT Translated Set 2 keyboard" 132 1'
 #}}}
@@ -88,8 +89,10 @@ alias gstp='git stash pop --index'
 # from scm_breeze
 alias gsubrm="git_submodule_rm"
 alias gl1p="git log -1 -p"
+# c --rebuild to rebuild the cache
 function _git_abbrev_hash_complete () {
   local curw
+  local MAX_REVS
   MAX_REVS=10
   COMPREPLY=()
   if [[ $COMP_CWORD == 2 ]]; then
