@@ -27,7 +27,7 @@ highlight MatchParen cterm=bold ctermbg=19 guibg=DarkCyan
 highlight Directory ctermfg=130
 highlight Pmenu ctermbg=8 guibg=SpringGreen4 guifg=gray15
 highlight PmenuSel ctermbg=247 ctermfg=233 guibg=green1 guifg=black
-highlight Search term=reverse ctermfg=0 ctermbg=11 guifg=black guibg=gold
+highlight Search term=reverse ctermfg=0 ctermbg=3 guifg=black guibg=gold
 highlight Folded term=standout ctermfg=14 ctermbg=234 guifg=gray3 guibg=gray23
 highlight InterestingWord1 guifg=#000000 guibg=white ctermfg=0 ctermbg=255
 highlight InterestingWord2 guifg=#000000 guibg=SteelBlue ctermfg=0 ctermbg=57
@@ -42,3 +42,5 @@ highlight TabLineSel ctermfg=250 ctermbg=236 cterm=NONE
 " custom highlight group
 highlight TabLineModifiedMark ctermfg=1 ctermbg=22 cterm=bold
 highlight VertSplit ctermfg=235
+
+highlight TagbarHighlight term=reverse ctermfg=0 ctermbg=11 guifg=black guibg=gold
