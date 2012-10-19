@@ -70,3 +70,46 @@ d="${d%/*}"
 if [ -f "$d/drush.complete.sh" ] ; then
   . "$d/drush.complete.sh"
 fi
+
+_drupal_modules_in_dir()
+{
+  COMPREPLY=( $( compgen -W '$( command find $1 -regex ".*\.module" -exec basename {} .module \; 2> /dev/null | command grep -v "_test" | command grep -v _example )' -- $cur ) )
+}
+
+_drupal_modules()
+{
+  local cur
+  COMPREPLY=()
+  cur=${COMP_WORDS[COMP_CWORD]}
+  local drupal_root=`_drupal_root` && \
+  _drupal_modules_in_dir "$drupal_root/sites $drupal_root/profiles $drupal_root/modules"
+}
+
+_drupal_root() {
+  # Go up until we find index.php
+  current_dir=`pwd`;
+  while [ ${current_dir} != "/" -a -d "${current_dir}" -a \
+          ! -f "${current_dir}/index.php" ] ;
+  do
+    current_dir=$(dirname "${current_dir}") ;
+  done
+  if [ "$current_dir" == "/" ] ; then
+    exit 1 ;
+  else
+    echo "$current_dir" ;
+  fi
+}
+
+cdd()
+{
+  local drupal_root=`_drupal_root`
+  if [ "$1" == ""  ] ; then
+    cd "$drupal_root";
+  elif [[ "$1" == @*  ]] ; then
+    echo "Taking you to the $1 site alias...";
+    pushd `drush dd $1`;
+  else
+    cd `find $drupal_root -regex ".*/$1\.module" -exec dirname {} \;`
+  fi
+}
+complete -F _drupal_modules cdd
