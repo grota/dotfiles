@@ -6,9 +6,7 @@ git submodule update --init --recursive
 
 # [bin]
  mkdir -p ~/local/bin
- ln -sf ${repohome}/bin/git-diffall/git-diffall ~/local/bin/git-diffall
  ln -sf ${repohome}/bin/vimdirdiff.sh ~/local/bin/vimdirdiff.sh
- ln -sf ${repohome}/bin/git-archive-all/git-archive-all.sh ~/local/bin/git-archive-all.sh
  ln -sf ${repohome}/bin/rupa_v/v ~/local/bin/v
 
 # [autojump]
