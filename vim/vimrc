@@ -464,7 +464,7 @@ nnoremap <silent> <M-g> :CtrlPLine<CR>
 " Lusty-Juggler
 let g:LustyJugglerDefaultMappings  = 0
 let g:LustyJugglerAltTabMode = 1 "enables the mapping below
-nnoremap <silent> <C-\>  :LustyJuggler<CR>
+nnoremap <silent> <C-\> :LustyJuggler<CR>
 " Lusty-Explorer
 let g:LustyExplorerDefaultMappings = 0
 nnoremap <silent> <C-b> :LustyFilesystemExplorerFromHere<CR>
@@ -481,12 +481,6 @@ let g:showmarks_ignore_bt    = "nofile"
 " Autotag {{{
 " Specify 40MB as the maximum size of the tags file to be considered by autotag
 let g:autotagmaxTagsFileSize=1024*1024*40
-"}}}
-" marvim {{{
-let g:marvim_store = $HOME.'/.vim/marvim_store/'
-let g:marvim_prefix = 0
-let g:marvim_find_key = '<F8>'
-let g:marvim_store_key = '<F9>'
 "}}}
 " Powerline {{{
 let g:Powerline_cache_file = $HOME.'/.vim/vim_powerline.cache'
@@ -525,15 +519,9 @@ endfor
 nnoremap <leader>gl :<C-U>Gitv --all<CR>
 let g:Gitv_DoNotMapCtrlKey = 1
 "}}}
-" vimroom {{{
-let g:vimroom_sidebar_height = 1
-let g:vimroom_width = 80
-" I like it a little bit to the left, note this has to be a nmap.
-nmap ,V <Plug>VimroomToggle wincmd h<CR> vertical res -20<CR> wincmd p<CR>
-"}}}
 " SplitJoin {{{
-nmap <Leader>sj :SplitjoinJoin<cr>
-nmap <Leader>ss :SplitjoinSplit<cr>
+"let g:splitjoin_split_mapping = '<Leader>ss'
+"let g:splitjoin_join_mapping = '<Leader>sj'
 " }}}
 " autopairs {{{
 let g:AutoPairsFlyMode = 1

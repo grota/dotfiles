@@ -1,6 +1,3 @@
-[submodule "vim/dotvim/marvim_store"]
-	path = vim/dotvim/marvim_store
-	url = /home/grota/Dropbox/git_repos/vim/marvim_store
 [submodule "vim/dotvim/bundle/vim-scripts_YankRing"]
 	path = vim/dotvim/bundle/vim-scripts_YankRing
 	url = git://github.com/vim-scripts/YankRing.vim.git
