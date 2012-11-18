@@ -175,7 +175,6 @@ nnoremap <S-tab> <C-W>W
 " Close/Only window
 nnoremap <F1> <C-W>o:diffoff<CR>
 nnoremap <F2> <C-W>c
-nnoremap <Leader>z <C-W>c
 "}}}
 " TABS OPEN/CLOSE/NAVIGATE {{{
 nnoremap <F4> :<C-u>tabclose<CR>
