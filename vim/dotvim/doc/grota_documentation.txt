@@ -6,7 +6,8 @@ This file describes the mappings in .vimrc                 *grota_documentation*
 
       TO LEARN
 i_<C-G>s     tpope's surround in insert mode. Accepts <CR> after s.
-i_<C-G><C-G> delimitMate's jump many {[( and quotes
+i/n_<M-/>    Autopair Jump
+<leader>fs   current tag
 
 i_<C-G><C-H> sparkup: move to next empty html tag
 <leader>se   sparkup: expand sparkup
@@ -40,12 +41,14 @@ i_CTRL-u     Delete till start of line
   <C-u>, <C-w> clear all, clear word
   <C-t>, <C-v>, <C-s> open in tab, vert, horz
   <C-n>, <C-p> next/prev in ctrlp history
+  <C-r>  ToggleRegex
+  <C-d>  ToggleByFname
   <c-\> Open dialog to paste one of the below:
     <M-w> insert word under cursor, <M-s> insert last search pattern
     <M-v> insert last selected piece, <M-c> insert content of + reg
 <M-g> :CtrlPLine
 <M-b> :CtrlPBuffer
-<leader>ab :CtrlPBookmarkDirAdd %:p:h
+  <C-x> Delete Buffer
 
       VARIOUS
 <leader>gl :<C-U>Gitv --all<CR>

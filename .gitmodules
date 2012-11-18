@@ -58,9 +58,6 @@
 [submodule "vim/dotvim/bundle/scrooloose_syntastic"]
 	path = vim/dotvim/bundle/scrooloose_syntastic
 	url = git://github.com/scrooloose/syntastic.git
-[submodule "vim/dotvim/bundle/vim-scripts_marvim"]
-	path = vim/dotvim/bundle/vim-scripts_marvim
-	url = git://github.com/vim-scripts/marvim.git
 [submodule "vim/dotvim/bundle/tpope_vim-markdown"]
 	path = vim/dotvim/bundle/tpope_vim-markdown
 	url = git://github.com/tpope/vim-markdown.git

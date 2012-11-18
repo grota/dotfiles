@@ -446,19 +446,28 @@ let g:ctrlp_switch_buffer = 1
 set <M-w>=w
 set <M-s>=s
 set <M-v>=v
-set <M-+>=+
+set <M-c>=c
 let g:ctrlp_prompt_mappings = {
+      \ 'AcceptSelection("h")': ['<c-cr>', '<c-s>'],
       \ 'PrtInsert("w")':       ['<F2>', '<M-w>'],
       \ 'PrtInsert("s")':       ['<F3>', '<M-s>'],
       \ 'PrtInsert("v")':       ['<F4>', '<M-v>'],
-      \ 'PrtInsert("c")':       ['<F6>', '<M-+>'],
+      \ 'PrtInsert("c")':       ['<F6>', '<M-c>'],
       \}
 let g:ctrlp_extensions = ['line', 'bookmarkdir']
-nnoremap <leader>ab :<C-u>CtrlPBookmarkDirAdd %:p:h<CR>
 set <M-b>=b
 nnoremap <silent> <M-b> :CtrlPBuffer<CR>
 set <M-g>=g
 nnoremap <silent> <M-g> :CtrlPLine<CR>
+"nnoremap <leader>ab :<C-u>CtrlPBookmarkDirAdd %:p:h<CR>
+let g:ctrlp_buffer_func = { 'enter': 'GrotaDeleteBufferMapping' }
+func! GrotaDeleteBufferMapping()
+    nnoremap <buffer> <silent> <c-x> :call <sid>DeleteBuffer()<cr>
+endfunc
+func! s:DeleteBuffer()
+    exec "bd" fnamemodify(getline('.')[2:], ':p')
+    exec "norm \<F5>"
+endfunc
 "}}}
 " Lusty-Juggler/Explorer {{{
 " Lusty-Juggler
@@ -484,7 +493,8 @@ let g:autotagmaxTagsFileSize=1024*1024*40
 "}}}
 " Powerline {{{
 let g:Powerline_cache_file = $HOME.'/.vim/vim_powerline.cache'
-let g:Powerline_symbols = 'unicode'
+" see: https://github.com/fncll/vimstuff/blob/master/powerline-fonts/SourceCodePro-Semibold-Powerline.otf
+let g:Powerline_symbols = 'fancy'
 let g:Powerline_colorscheme = 'powerline_grota'
 call Pl#Theme#ReplaceSegment('tagbar:currenttag', 'tagbar:fullcurrenttag')
 nnoremap <silent> ,fs :TagbarCurrentTag 'p'<CR>
