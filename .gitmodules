@@ -142,3 +142,6 @@
 [submodule "vim/dotvim/bundle/tpope_vim-rails"]
 	path = vim/dotvim/bundle/tpope_vim-rails
 	url = git://github.com/tpope/vim-rails.git
+[submodule "vim/dotvim/bundle/AndrewRadev_multichange"]
+	path = vim/dotvim/bundle/AndrewRadev_multichange
+	url = git://github.com/AndrewRadev/multichange.vim.git
