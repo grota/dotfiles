@@ -116,5 +116,8 @@ git submodule update --init --recursive
 # [rtorrent]
  ln -sf private/rtorrent ${repohome}
 
+# [libao]
+ ln -sf ${repohome}/libao/_libao ~/.libao
+
 # [private]
 ${repohome}/private/install.sh
