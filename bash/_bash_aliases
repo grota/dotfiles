@@ -63,7 +63,7 @@ alias vls='v -l'
 # aka: v list, reuse vim server session
 alias vl='vim="eval $(type vim  | tail -n +2); vim" v -l'
 # aka: vim standalone
-alias vs="exec_git_expand_args $(which 2>/dev/null vim)"
+alias vs="stty start undef stop undef && exec_git_expand_args $(which 2>/dev/null vim)"
 # vim function that shadows aliases and commands
 function vim {
   vim_orig=$(which 2>/dev/null vim)
@@ -76,7 +76,7 @@ function vim {
   fi
 }
 # alias vi to vim (this is to keep using the vim() bash function that uses the vim --remote feature)
-alias vi="exec_git_expand_args vim"
+alias vi="stty start undef stop undef && exec_git_expand_args vim"
 #}}}
 
 #git aliases {{{

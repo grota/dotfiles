@@ -68,7 +68,7 @@ set keymodel=startsel
 " This will look in the directory of the current file for 'tags', and work up the tree towards root until one is found.
 set tags=./tags;
 set completeopt=longest,menuone,preview
-set virtualedit+=block
+set virtualedit+=block,onemore
 set clipboard=autoselect,unnamed,exclude:cons\|linux
 " don't use the tag file for i_<C-N> and i_<C-P>
 " for php, omnicomplete in autoload/phpcomplete.vim already does that
@@ -269,7 +269,7 @@ nnoremap <C-Y> 4<C-Y>
 
 " MISCELLANEOUS {{{
 " go to tag location if only 1 place, or show selection if more than 1 place
-nnoremap <C-]> g<C-]>
+nnoremap <C-]> <C-w><C-]><C-w>T
 " gah
 xnoremap <END> <END>h
 " Session Save As and Open
