@@ -276,14 +276,14 @@ xnoremap <END> <END>h
 nnoremap ssa :mksession! ~/.vim/sessions/
 nnoremap so :so ~/.vim/sessions/
 nnoremap <leader>ww :<C-u>pwd<cr>
-nnoremap <C-g> :nohlsearch<CR><C-g>
+nnoremap <C-g> :nohlsearch<CR>:call clearmatches()<CR><C-g>
 nnoremap <leader><F5> :h grota_documentation<CR>
 " Change Working Directory to that of the current file
 cmap cd. lcd %:p:h
 cnoremap <C-A> <Home>
 "}}}
 " DIFF {{{
-" Diff mode only mappgins.
+" Diff mode only mappings.
 " Center the screen upon moving to the next diff chunk.
 " I don't care what the manual says, I don't like asymmetry,
 " dg/dp in normal/visual mode.
@@ -358,6 +358,7 @@ nnoremap S i<cr><esc>`.
 " i_<M-w> delete the word after the cursor {{{
 inoremap <M-w> <C-o>dw
 "}}}
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 "}}}
 "}}}
 
@@ -604,11 +605,45 @@ endfunction
 xnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
 xnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
 "}}}
-" ,hh ,h1 ,h2 ,h3 {{{
-nnoremap <silent> <leader>hh :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
-nnoremap <silent> <leader>h1 :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
-nnoremap <silent> <leader>h2 :execute '2match InterestingWord2 /\<<c-r><c-w>\>/'<cr>
-nnoremap <silent> <leader>h3 :execute '3match InterestingWord3 /\<<c-r><c-w>\>/'<cr>
+" Highlight Word {{{
+"
+" This mini-plugin provides a few mappings for highlighting words temporarily.
+"
+" Sometimes you're looking at a hairy piece of code and would like a certain
+" word or two to stand out temporarily.  You can search for it, but that only
+" gives you one color of highlighting.  Now you can use <leader>N where N is
+" a number from 1-6 to highlight the current word in a specific color.
+
+function! HiInterestingWord(n) " {{{
+    " Save our location.
+    normal! mz
+
+    " Yank the current word into the z register.
+    normal! "zyiw
+
+    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
+    let mid = 86750 + a:n
+
+    " Clear existing matches, but don't worry if they don't exist.
+    silent! call matchdelete(mid)
+
+    " Construct a literal pattern that has to match at boundaries.
+    let pat = '\V\<' . escape(@z, '\') . '\>'
+
+    " Actually match the words.
+    call matchadd("InterestingWord" . a:n, pat, 1, mid)
+
+    " Move back to our original location.
+    normal! `z
+endfunction " }}}
+" Mappings {{{
+nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
+nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
+nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
+nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
+nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
+nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
+" }}}
 "}}}
 "}}}
 
@@ -641,6 +676,6 @@ au InsertLeave * hi CursorLine ctermbg=234
 "}}}
 
 " NOTES {{{
-" i_<C-z,b> can be remapped
+" i_<C-z,b,f> can be remapped
 " cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 " }}}
