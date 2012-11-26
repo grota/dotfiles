@@ -542,9 +542,8 @@ let g:SuperTabLongestHighlight = 1
 " these here for future reference.
 " This is done to select the first entry in the menu. Not very useful, but still.
 " This also renders the longest value in completeopt pretty useless.
-"inoremap <C-X><C-O> <C-X><C-O><C-N><C-P><Down>
-"" with menuone in completeopt, the pum is always visible
-""inoremap <expr> <C-X><C-O> pumvisible() ? '<C-X><C-O><C-N><C-P>' : '<C-X><C-O>'
+" with menuone in completeopt, the pum is always visible
+"inoremap <expr> <C-X><C-O> pumvisible() ? '<C-X><C-O><C-N><C-P>' : '<C-X><C-O>'
 "inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
 "inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 "}}}
@@ -682,6 +681,7 @@ autocmd WinEnter * setlocal cursorline
 if version >= 703
   " Enable relativenumber just for php for now
   autocmd FileType php setlocal relativenumber
+        \| call SuperTabSetDefaultCompletionType("<c-p>")
 endif
 " Auto close the preview window that pops up in php omnicomplete mode
 " DiffGitCached is opened in a preview window so we check for ft=php
