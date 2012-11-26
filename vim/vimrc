@@ -298,6 +298,7 @@ autocmd FilterWritePre * if &diff|
       \ nnoremap <buffer> do <nop>|
       \ xnoremap <buffer> dp :diffput<CR>|
       \ xnoremap <buffer> dg :diffget<CR>|
+      \ nnoremap <buffer> <leader>dw :call ToggleDiffWhitespace()<CR>|
       \ normal gg|
       \ endif
 autocmd WinEnter * if &diff==0|
@@ -318,6 +319,33 @@ autocmd WinEnter * if &diff==0|
       \ catch /.*/|
       \ endtry|
       \ endif
+
+let g:diffwhitespaceon = 0
+function! ToggleDiffWhitespace()
+    if g:diffwhitespaceon
+        set diffopt-=iwhite
+        set diffexpr&
+        let g:diffwhitespaceon = 0
+    else
+        set diffopt+=iwhite
+        set diffexpr=CallDiffDashWonIwhite()
+        let g:diffwhitespaceon = 1
+    endif
+    diffupdate
+    " needed to cope with a strange issue with terminal vim
+    tabedit | tabclose
+endfunc
+function CallDiffDashWonIwhite()
+  let opt = ""
+  if &diffopt =~ "icase"
+    let opt = opt . "-i "
+  endif
+  if &diffopt =~ "iwhite"
+    let opt = opt . "-w "
+  endif
+  silent execute "!diff -a --binary " . opt . v:fname_in . " " . v:fname_new . " > " . v:fname_out
+endfunction
+
 "}}}
 " FOLD NAVIGATION {{{
 nnoremap z<Down> zj
