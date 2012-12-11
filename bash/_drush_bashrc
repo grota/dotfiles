@@ -7,6 +7,8 @@ alias den='drush -y pm-enable'
 alias ddi='drush -y pm-disable'
 alias dcc='drush cache-clear all'
 alias dsq='drush sql-cli'
+alias dsa='drush site-alias'
+alias dsaf='drush site-alias --full'
 
 # copied and modified from drush's own drush.complete.sh:
 # complete den, dis, dcd aliases with module names

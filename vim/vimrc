@@ -97,6 +97,8 @@ endif
 set showtabline=2
 set tabline=%!GrotaTabLine()
 set fillchars-=vert:\|
+" Don't consider 007 as octal for <C-a> <C-x> purposes
+set nrformats-=octal
 "}}}
 
 " VIM PLAIN MAPPINGS {{{
@@ -279,7 +281,8 @@ nnoremap <leader>ww :<C-u>pwd<cr>
 nnoremap <C-g> :nohlsearch<CR>:call clearmatches()<CR><C-g>
 nnoremap <leader><F5> :h grota_documentation<CR>
 " Change Working Directory to that of the current file
-cmap cd. lcd %:p:h
+cnoremap <expr> ./. expand('%:p:h').'/'
+"cnoremap <expr> ./. getcmdtype() == ':' ? expand('%:p:h').'/' : './.'
 cnoremap <C-A> <Home>
 "}}}
 " DIFF {{{
@@ -360,6 +363,7 @@ xnoremap < <gv
 xnoremap > >gv
 " Visually select the text that was last edited/pasted
 nnoremap gV `[v`]
+xnoremap <BS> x
 "}}}
 " Y ,y ,Y ,p: YANKING AND PASTING {{{
 " yankring does not map Y so we don't need to put it inside YRRunAfterMaps
