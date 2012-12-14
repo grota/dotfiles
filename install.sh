@@ -73,6 +73,9 @@ git submodule update --init --recursive
  # ubuntu lightdm does not consider ~/.xsession{,rc} nor ~/.xinitrc
  #ln -sf ${repohome}/X/_xinitrc ~/.xinitrc
  ln -sf ${repohome}/_config/autostart/xrdb.desktop ~/.config/autostart/xrdb.desktop
+ ln -sf ${repohome}/_config/autostart/dropbox.desktop ~/.config/autostart/dropbox.desktop
+ ln -sf ${repohome}/_config/autostart/hamster-indicator.desktop ~/.config/autostart/hamster-indicator.desktop
+ ln -sf ${repohome}/_config/autostart/indicator-multiload.desktop ~/.config/autostart/indicator-multiload.desktop
 
 # [Gnome]
  mkdir -p $HOME/.config/gtk-3.0
