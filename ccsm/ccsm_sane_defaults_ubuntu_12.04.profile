@@ -397,7 +397,7 @@ s0_title_text_placement = 0
 [winrules]
 s0_skiptaskbar_match = 
 s0_skippager_match = 
-s0_above_match = 
+s0_above_match = class=Hamster-indicator
 s0_below_match = 
 s0_sticky_match = 
 s0_fullscreen_match = 
@@ -979,7 +979,7 @@ s0_speed = 25.000000
 s0_timestep = 1.200000
 
 [core]
-s0_active_plugins = core;composite;opengl;decor;workarounds;opacify;imgpng;scale;gnomecompat;place;neg;snap;grid;dbus;expo;compiztoolbox;regex;vpswitch;put;mousepoll;resize;session;move;scaleaddon;wall;staticswitcher;unityshell;
+s0_active_plugins = core;composite;opengl;decor;workarounds;opacify;imgpng;scale;gnomecompat;place;neg;snap;grid;dbus;expo;compiztoolbox;regex;vpswitch;put;mousepoll;resize;session;move;scaleaddon;wall;staticswitcher;winrules;unityshell;
 s0_audible_bell = true
 s0_ignore_hints_when_maximized = true
 s0_hide_skip_taskbar_windows = true
@@ -993,8 +993,8 @@ s0_outputs = 640x480+0+0;
 s0_click_to_focus = true
 s0_raise_on_click = true
 s0_autoraise = true
-s0_autoraise_delay = 1000
-s0_focus_prevention_level = 1
+s0_autoraise_delay = 500
+s0_focus_prevention_level = 0
 s0_focus_prevention_match = !(class=Polkit-gnome-authentication-agent-1)
 s0_close_window_key = <Control><Primary>grave
 s0_close_window_button = Disabled
