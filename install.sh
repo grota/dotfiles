@@ -51,6 +51,10 @@ git submodule update --init --recursive
 # [gconf]
  # gconftool-2 --dump '/apps/gnome-terminal' > gconf/gnome-terminal_gconf_settings.xml
  gconftool-2 --load ${repohome}/gconf/gnome-terminal_gconf_settings.xml
+ # gconftool-2 --dump '/desktop/gnome/keybindings/hamster-applet' > gconf/hamster-shortcut.xml
+ gconftool-2 --load ${repohome}/gconf/hamster-shortcut.xml
+ # gconftool-2 --dump '/apps/hamster-indicator' > gconf/hamster-settings.xml
+ gconftool-2 --load ${repohome}/gconf/hamster-settings.xml
 
 # [ssh]
  mkdir -p ~/.ssh

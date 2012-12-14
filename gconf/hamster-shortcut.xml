@@ -1,0 +1,25 @@
+<gconfentryfile>
+  <entrylist base="/desktop/gnome/keybindings/hamster-applet">
+    <entry>
+      <key>action</key>
+      <schema_key>/schemas/desktop/gnome/keybindings/hamster-applet/action</schema_key>
+      <value>
+        <string>hamster-time-tracker toggle</string>
+      </value>
+    </entry>
+    <entry>
+      <key>binding</key>
+      <schema_key>/schemas/desktop/gnome/keybindings/hamster-applet/binding</schema_key>
+      <value>
+        <string>&lt;Super&gt;q</string>
+      </value>
+    </entry>
+    <entry>
+      <key>name</key>
+      <schema_key>/schemas/desktop/gnome/keybindings/hamster-applet/name</schema_key>
+      <value>
+        <string>Toggle hamster application window</string>
+      </value>
+    </entry>
+  </entrylist>
+</gconfentryfile>

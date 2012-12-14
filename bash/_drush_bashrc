@@ -9,6 +9,7 @@ alias dcc='drush cache-clear all'
 alias dsq='drush sql-cli'
 alias dsa='drush site-alias'
 alias dsaf='drush site-alias --full'
+alias dpr='drush user-password admin --password=admin'
 
 # copied and modified from drush's own drush.complete.sh:
 # complete den, dis, dcd aliases with module names
