@@ -31,6 +31,7 @@ syntax enable
 "}}}
 
 " VIM OPTIONS {{{
+let mapleader = ","
 set scrolloff=1 "keep 1 line above and below the cursor
 set mouse=a " let's try using the mouse for a while
 set ignorecase " ignore case if search pattern is all lowercase, case-sensitive otherwise
@@ -50,7 +51,7 @@ set history=400
 set backspace=indent,eol,start
 set hidden " simply hide a modified buffer when switching to another.
 set gdefault " search/replace globally (on a line) by default
-set pastetoggle=<F5>
+set pastetoggle=<F9>
 set sidescrolloff=37 "keep N chars at the left and right of the cursor, see also sidescroll below
 set sidescroll=12 "When vim needs to scroll horizontally do it smoothly by moving 12 chars. 1 is not enough
 set cursorline " the line the cursor is on is underlined
@@ -102,7 +103,6 @@ set nrformats-=octal
 "}}}
 
 " VIM PLAIN MAPPINGS {{{
-let mapleader = ","
 " EASIER NAVIGATION {{{
 " VERY OPINIONATED REMAPPINGS {{{
 nnoremap <space> :
@@ -179,8 +179,9 @@ nnoremap <F1> <C-W>o:diffoff<CR>
 nnoremap <F2> <C-W>c
 "}}}
 " TABS OPEN/CLOSE/NAVIGATE {{{
+nnoremap <F3> <C-W>T
 nnoremap <F4> :<C-u>tabclose<CR>
-nnoremap <F3> :<C-u>tabedit<CR>
+nnoremap <F5> :<C-u>tabedit<CR>
 set <M-.>=.
 set <M-,>=,
 nnoremap <silent> <M-.> :<C-u>tabnext<CR>
@@ -271,7 +272,7 @@ nnoremap <C-Y> 4<C-Y>
 
 " MISCELLANEOUS {{{
 " go to tag location if only 1 place, or show selection if more than 1 place
-nnoremap <C-]> <C-w><C-]><C-w>T
+nnoremap <C-]> :vertical stjump <C-r><C-w><CR>
 " gah
 xnoremap <END> <END>h
 " Session Save As and Open
@@ -467,7 +468,7 @@ let g:yankring_history_file = '.yankring_history'
 nnoremap <expr> <C-w><C-d> ((&bufhidden == 'delete') \|\| (&bufhidden == 'wipe')) ? ":bd\<CR>" : ":Bclose\<CR>"
 "}}}
 " ctrlp {{{
-let g:ctrlp_map = '<c-f>'
+let g:ctrlp_map = '<C-F>'
 let g:ctrlp_cmd = 'CtrlPMRUFiles'
 " don't let ctrlp handle the current working dir
 let g:ctrlp_working_path_mode = 0
@@ -475,24 +476,29 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_highlight_match = [1, 'Pmenu']
 let g:ctrlp_open_multiple_files = '1vr'
 " only jump to the buffer if it’s opened in the current tab
-let g:ctrlp_switch_buffer = 1
+let g:ctrlp_switch_buffer = 'E'
 set <M-w>=w
 set <M-s>=s
 set <M-v>=v
 set <M-c>=c
+" "w": current word
+" "s": search
+" "v": visual
+" "c": clipboard
 let g:ctrlp_prompt_mappings = {
-      \ 'AcceptSelection("h")': ['<c-cr>', '<c-s>'],
       \ 'PrtInsert("w")':       ['<F2>', '<M-w>'],
       \ 'PrtInsert("s")':       ['<F3>', '<M-s>'],
       \ 'PrtInsert("v")':       ['<F4>', '<M-v>'],
       \ 'PrtInsert("c")':       ['<F6>', '<M-c>'],
+      \ 'AcceptSelection("h")': ['<c-cr>', '<c-s>'],
+      \ 'AcceptSelection("t")': ['<c-t>', '<F3>'],
       \}
-let g:ctrlp_extensions = ['line', 'bookmarkdir']
+let g:ctrlp_extensions = ['line']
 set <M-b>=b
-nnoremap <silent> <M-b> :CtrlPBuffer<CR>
+nnoremap <silent> <C-\> :CtrlPBuffer<CR>
 set <M-g>=g
+"nnoremap <silent> <M-b> :CtrlPBuffer<CR>
 nnoremap <silent> <M-g> :CtrlPLine<CR>
-"nnoremap <leader>ab :<C-u>CtrlPBookmarkDirAdd %:p:h<CR>
 let g:ctrlp_buffer_func = { 'enter': 'GrotaDeleteBufferMapping' }
 func! GrotaDeleteBufferMapping()
     nnoremap <buffer> <silent> <c-x> :call <sid>DeleteBuffer()<cr>
@@ -504,9 +510,10 @@ endfunc
 "}}}
 " Lusty-Juggler/Explorer {{{
 " Lusty-Juggler
-let g:LustyJugglerDefaultMappings  = 0
-let g:LustyJugglerAltTabMode = 1 "enables the mapping below
-nnoremap <silent> <C-\> :LustyJuggler<CR>
+let g:loaded_lustyjuggler=1
+"let g:LustyJugglerDefaultMappings  = 0
+"let g:LustyJugglerAltTabMode = 1 "enables the mapping below
+"nnoremap <silent> <C-\> :LustyJuggler<CR>
 " Lusty-Explorer
 let g:LustyExplorerDefaultMappings = 0
 nnoremap <silent> <C-b> :LustyFilesystemExplorerFromHere<CR>
@@ -534,10 +541,8 @@ nnoremap <silent> ,fs :TagbarCurrentTag 'p'<CR>
 "}}}
 " SnipMate {{{
 " with some unmappings in after_actions.vim to actually making it work.
-" going back is not supported, but whatever.
 let g:snips_trigger_key = '<C-B>'
-" this is not a typo, sadly
-let g:snips_trigger_key_backwards='<C-Z'
+let g:snips_trigger_key_backwards='<C-Z>'
 " }}}
 " Supertab {{{
 let g:SuperTabDefaultCompletionType = "context"
@@ -709,5 +714,5 @@ au InsertLeave * hi CursorLine ctermbg=234
 
 " NOTES {{{
 " i_<C-z,b,f> can be remapped
-" cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
+" <F6,7,8> can be mapped
 " }}}
