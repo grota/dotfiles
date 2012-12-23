@@ -60,7 +60,7 @@ set wildmode=longest,full
 set wildignore+=.hg,.git,.svn   " Version control
 set dir-=. " remove current dir as a possibility of where to save the swap file
 set nobackup " default is already off, but just to be sure.
-set splitbelow " horizontal split below as default
+"set splitbelow " horizontal split below as default
 set splitright " vertical split on the right as default
 set whichwrap=b,s,<,>,[,] "left and right, in insert e normal mode wrap lines
 set ruler
@@ -177,6 +177,8 @@ nnoremap <S-tab> <C-W>W
 " Close/Only window
 nnoremap <F1> <C-W>o:diffoff<CR>
 nnoremap <F2> <C-W>c
+" Go to the alternate file in a split window
+nnoremap <C-^> :vertical split #<CR>
 "}}}
 " TABS OPEN/CLOSE/NAVIGATE {{{
 nnoremap <F3> <C-W>T
@@ -591,7 +593,7 @@ omap - v:call PreciseJumpF(-1, -1, 0)<cr>
 " }}}
 " Vdebug {{{
 let g:vdebug_keymap = {
-\    "run" : "<F5>",
+\    "run" : "<F8>",
 \    "run_to_cursor" : "<leader><F1>",
 \    "step_over" : "<F6>",
 \    "step_into" : "<F7>",

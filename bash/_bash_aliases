@@ -41,13 +41,10 @@ alias ss='sudo su -'
 alias pb='vi ~/.config/pianobar/config'
 # {tl,ll,rl}php log {{{
 alias tlphp='tail -F /tmp/php5_apache_errorlog.log'
-alias tlphp52='tail -F /tmp/php5217_fpm_error.log'
 alias llphp='less /tmp/php5_apache_errorlog.log'
-alias llphp52='less /tmp/php5217_fpm_error.log'
 alias rlphp='sudo rm /tmp/php5_apache_errorlog.log'
-alias rlphp52='rm /tmp/php5217_fpm_error.log'
 #}}}
-alias je="vim ~/.local/share/autojump/autojump.txt"
+alias mine='RUBYMINE_JDK=~/Downloads/jdk1.6.0_30 mine'
 
 # Acer specific {{{
 alias toff='xinput set-prop "SynPS/2 Synaptics TouchPad" 132 0'
@@ -139,7 +136,7 @@ function pianobar {
 function mkcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
 # as in bash-title
-function bt {
-  export GROTA_TITLE="$*"
-}
+#function bt {
+  #export GROTA_TITLE="$*"
+#}
 #}}}
