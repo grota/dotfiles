@@ -139,3 +139,6 @@
 [submodule "vim/dotvim/bundle/AndrewRadev_multichange"]
 	path = vim/dotvim/bundle/AndrewRadev_multichange
 	url = git://github.com/AndrewRadev/multichange.vim.git
+[submodule "vim/dotvim/bundle/tpope_vim-endwise"]
+	path = vim/dotvim/bundle/tpope_vim-endwise
+	url = git://github.com/tpope/vim-endwise.git

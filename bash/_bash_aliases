@@ -44,8 +44,8 @@ alias tlphp='tail -F /tmp/php5_apache_errorlog.log'
 alias llphp='less /tmp/php5_apache_errorlog.log'
 alias rlphp='sudo rm /tmp/php5_apache_errorlog.log'
 #}}}
-alias mine='RUBYMINE_JDK=~/Downloads/jdk1.6.0_30 mine'
-
+alias rmine='RUBYMINE_JDK=~/Downloads/jdk1.6.0_30 mine &> /dev/null &'
+alias storm='WEBIDE_JDK=~/Downloads/jdk1.6.0_30 pstorm &> /dev/null &'
 # Acer specific {{{
 alias toff='xinput set-prop "SynPS/2 Synaptics TouchPad" 132 0'
 alias ton='xinput set-prop "SynPS/2 Synaptics TouchPad" 132 1'
