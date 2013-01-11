@@ -159,7 +159,6 @@ snippet def?
 	${1}defined('${2}')${3}
 snippet wh
 	while (${1:/* condition */}) {
-		${2:// code...}
 	}
 # do ... while
 snippet do
@@ -168,7 +167,6 @@ snippet do
 	} while (${1:/* condition */});
 snippet if
 	if (${1}) {
-		${2}
 	}
 snippet ife
 	if (${1}) {
@@ -215,8 +213,10 @@ snippet foreachk
 		${4:// code...}
 	}
 snippet fun
-	${1:public }function ${2:FunctionName}(${3})
-	{
+	function ${1}(${2}) {
+	}
+snippet funp
+	${1:public }function ${2}(${3}) {
 		${4:// code...}
 	}
 # $... = array (...)
@@ -244,7 +244,5 @@ snippet vd
 	var_dump(${1});
 snippet el
 	error_log(print_r(${1}, TRUE));
-snippet http_redirect
-	header ("HTTP/1.1 301 Moved Permanently"); 
-	header ("Location: ".URL); 
-	exit();
+snippet ev
+	error_log(var_export(${1}, TRUE));

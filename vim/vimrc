@@ -124,9 +124,9 @@ xnoremap <M-;> ,
 inoremap <M-;> <C-o>^
 inoremap <M-Left> <C-o>^
 "}}}
-" USE <M-LEFT/RIGHT> TO SCROLL LEFT/RIGHT {{{
-nnoremap <M-Left> 13z<Left>
-nnoremap <M-Right> 13z<Right>
+" USE <M-LEFT/RIGHT> TO Navigate Tabs {{{
+nnoremap <silent> <M-Left> :<C-u>tabprevious<CR>
+nnoremap <silent> <M-Right> :<C-u>tabnext<CR>
 " }}}
 " USE nix_<M-HJKL> TO MOVE IN FINER STEPS {{{
 set <M-k>=k
@@ -175,7 +175,7 @@ nnoremap <C-w>} <C-w>r
 nnoremap <tab> <C-W>w
 nnoremap <S-tab> <C-W>W
 " Close/Only window
-nnoremap <F1> <C-W>o:diffoff<CR>
+nnoremap <F1> <C-W>o:diffoff<CR>:doautocmd User GrotaDiffOff<CR>
 nnoremap <F2> <C-W>c
 " Go to the alternate file in a split window
 nnoremap <C-^> :vertical split #<CR>
@@ -305,6 +305,8 @@ autocmd FilterWritePre * if &diff|
       \ xnoremap <buffer> dp :diffput<CR>|
       \ xnoremap <buffer> dg :diffget<CR>|
       \ nnoremap <buffer> <leader>dw :call ToggleDiffWhitespace()<CR>|
+      \ nnoremap <buffer> <M-Left> 13z<Left>|
+      \ nnoremap <buffer> <M-Right> 13z<Right>|
       \ normal gg|
       \ endif
 autocmd WinEnter * if &diff==0|
@@ -324,6 +326,12 @@ autocmd WinEnter * if &diff==0|
       \ nunmap <buffer> do|
       \ catch /.*/|
       \ endtry|
+      \ endif
+autocmd User GrotaDiffOff if maparg('<M-Left>','n') =~ '13z'|
+      \ nunmap <buffer> <M-Left>|
+      \ endif|
+      \ if maparg('<M-Right>','n') =~ '13z'|
+      \ nunmap <buffer> <M-Right>|
       \ endif
 
 let g:diffwhitespaceon = 0
@@ -472,11 +480,15 @@ nnoremap <expr> <C-w><C-d> ((&bufhidden == 'delete') \|\| (&bufhidden == 'wipe')
 " ctrlp {{{
 let g:ctrlp_map = '<C-F>'
 let g:ctrlp_cmd = 'CtrlPMRUFiles'
-" don't let ctrlp handle the current working dir
-let g:ctrlp_working_path_mode = 0
+" Show only mru files in the current working directory
+let g:ctrlp_mruf_relative = 1
+" Sedd the prompt with the current file's relative path
+"let g:ctrlp_default_input = 1
+"let g:ctrlp_working_path_mode = 0
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_highlight_match = [1, 'Pmenu']
 let g:ctrlp_open_multiple_files = '1vr'
+let g:ctrlp_max_height = 20
 " only jump to the buffer if it’s opened in the current tab
 let g:ctrlp_switch_buffer = 'E'
 set <M-w>=w
@@ -522,6 +534,7 @@ nnoremap <silent> <C-b> :LustyFilesystemExplorerFromHere<CR>
 "}}}
 " Syntastic {{{
 let g:syntastic_enable_signs=1
+let g:syntastic_phpcs_disable = 1
 "}}}
 " Showmarks {{{
 " show only a-z marks in the showmarks plugin
@@ -594,21 +607,22 @@ omap - v:call PreciseJumpF(-1, -1, 0)<cr>
 " Vdebug {{{
 let g:vdebug_keymap = {
 \    "run" : "<F8>",
+\    "set_breakpoint" : "<leader><F10>",
 \    "run_to_cursor" : "<leader><F1>",
 \    "step_over" : "<F6>",
 \    "step_into" : "<F7>",
 \    "step_out" : "<leader><F4>",
 \    "close" : "<leader><F6>",
 \    "detach" : "<leader><F7>",
-\    "set_breakpoint" : "<leader><F10>",
-\    "get_context" : "<leader><F11>",
+\    "get_context" : "<leader><F8>",
 \    "eval_under_cursor" : "<leader><F12>",
 \}
+
 let g:vdebug_options= {
 \    "port" : 9000,
 \    "server" : 'localhost',
 \    "timeout" : 20,
-\    "on_close" : 'detach',
+\    "on_close" : 'close',
 \    "break_on_open" : 0,
 \    "ide_key" : '',
 \    "remote_path" : "",
@@ -616,6 +630,7 @@ let g:vdebug_options= {
 \    "debug_window_level" : 0,
 \    "debug_file_level" : 0,
 \    "debug_file" : "",
+\    "continuous_mode" : 0,
 \}
 " }}}
 "}}}
@@ -703,6 +718,7 @@ autocmd FileType help wincmd L
 autocmd FileType gitcommit setlocal colorcolumn=+1
 " Quickfix window: no numbers
 autocmd Filetype qf setlocal nonumber
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <C-W><CR><C-W>L
 " html,xhtml,xml: use Omnicomplete for (super)tab, don't autoclose <>
 autocmd Filetype html,xhtml,xml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
       \| let b:delimitMate_matchpairs = "(:),[:],{:}"

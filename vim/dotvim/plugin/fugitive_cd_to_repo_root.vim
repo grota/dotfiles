@@ -3,6 +3,6 @@
 augroup fugitive_cd_to_repo_root
     autocmd!
     autocmd BufEnter *
-                \ if exists('b:git_dir') && exists(':Gcd') |
-                \ Gcd
+                \ if exists('b:git_dir') && exists(':Glcd') |
+                \ Glcd
 augroup END

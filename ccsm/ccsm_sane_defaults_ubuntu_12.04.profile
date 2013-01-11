@@ -866,7 +866,7 @@ s0_inactive_shadow_x_offset = 1
 s0_inactive_shadow_y_offset = 1
 s0_command = /usr/bin/compiz-decorator
 s0_mipmap = false
-s0_decoration_match = any
+s0_decoration_match = (any) & !(class=mplayer2)
 s0_shadow_match = any
 
 [composite]
