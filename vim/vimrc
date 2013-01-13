@@ -205,35 +205,55 @@ if $TMUX !=# ''
   "M-udlr <up> <down> <left> <right>
   "S-udlr N/A
 
+  " enable C-left/right with tmux's xterm-key off
+  " vim complains if we try set <C-Up/Down> = ...
+  "set <C-Right>=[C
+  "set <C-Left>=[D
+  "nmap [A <C-Up>
+  "imap [A <C-Up>
+  "xmap [A <C-Up>
+  "nmap [B <C-Down>
+  "imap [B <C-Down>
+  "xmap [B <C-Down>
+  " vim complains if we try set <M-Left/Right/Up/Down> = ...
+  " for dragging up/down lines
+  "nmap <Down> <M-Down>
+  "imap <Down> <M-Down>
+  "xmap <Down> <M-Down>
+  "nmap <Up> <M-Up>
+  "imap <Up> <M-Up>
+  "xmap <Up> <M-Up>
+  " for diff horizontal scrolling and moving to start/end of line
+  "nmap <Left> <M-Left>
+  "imap <Left> <M-Left>
+  "nmap <Right> <M-Right>
+  "imap <Right> <M-Right>
+  "-----------------------
   " TMUX with xterm-key ON
   "udlr OA OB OD OC
   "C-udlr [1;5A [1;5B [1;5D [1;5C
   "M-udlr [1;3A [1;3B [1;3D [1;3C
   "S-udlr [1;2A [1;2B [1;2D [1;2C
 
-  " enable C-left/right with tmux's xterm-key off
-  " vim complains if we try set <C-Up/Down> = ...
-  set <C-Right>=[C
-  set <C-Left>=[D
-  nmap [A <C-Up>
-  imap [A <C-Up>
-  xmap [A <C-Up>
-  nmap [B <C-Down>
-  imap [B <C-Down>
-  xmap [B <C-Down>
+  set <C-Right>=[1;5C
+  set <C-Left>=[1;5D
+  nmap [1;5A <C-Up>
+  imap [1;5A <C-Up>
+  xmap [1;5A <C-Up>
+  nmap [1;5B <C-Down>
+  imap [1;5B <C-Down>
+  xmap [1;5B <C-Down>
   " vim complains if we try set <M-Left/Right/Up/Down> = ...
-  " for dragging up/down lines
-  nmap <Down> <M-Down>
-  imap <Down> <M-Down>
-  xmap <Down> <M-Down>
-  nmap <Up> <M-Up>
-  imap <Up> <M-Up>
-  xmap <Up> <M-Up>
-  " for diff horizontal scrolling and moving to start/end of line
-  nmap <Left> <M-Left>
-  imap <Left> <M-Left>
-  nmap <Right> <M-Right>
-  imap <Right> <M-Right>
+  nmap [1;3A <M-Up>
+  imap [1;3A <M-Up>
+  xmap [1;3A <M-Up>
+  nmap [1;3B <M-Down>
+  imap [1;3B <M-Down>
+  xmap [1;3B <M-Down>
+  nmap [1;3C <M-Right>
+  imap [1;3C <M-Right>
+  nmap [1;3D <M-Left>
+  imap [1;3D <M-Left>
 endif
 " The alternative, if there are other inconsistencies in vim, or if other
 " programs need xterm-like sequences, is to enable xterm-keys in tmux and
@@ -283,7 +303,7 @@ nnoremap so :so ~/.vim/sessions/
 nnoremap <leader>ww :<C-u>pwd<cr>
 nnoremap <C-g> :nohlsearch<CR>:call clearmatches()<CR><C-g>
 nnoremap <leader><F5> :h grota_documentation<CR>
-" Change Working Directory to that of the current file
+" expands to path of the current file
 cnoremap <expr> ./. expand('%:p:h').'/'
 "cnoremap <expr> ./. getcmdtype() == ':' ? expand('%:p:h').'/' : './.'
 cnoremap <C-A> <Home>
