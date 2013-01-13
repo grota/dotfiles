@@ -1,9 +1,21 @@
+" 'N' is the non current window
+" add to autoload/Powerline/Segments.vim
+"\ Pl#Segment#Create('grotaspacer'  , '%{"------------------"}', Pl#Segment#NoPadding(), Pl#Segment#Modes('!n')),
+" add to autoload/Powerline/Themes/default.vim "\ , 'grotaspacer'
+"\ Pl#Hi#Segments(['grotaspacer'], {
+"\ 'n': ['white', 'darkred'],
+"\ 'N': ['black', 'darkestgreen'],
+"\ }),
+"\
+" Here we hide the components of 'N' using colors, another soloution is to
+" override autoload/Powerline/Segments.vim adding Pl#Segment#Modes('!N')
 call Pl#Hi#Allocate({
 	\ 'black'          : 16,
 	\ 'white'          : 231,
 	\
 	\ 'darkestgreen'   : 22,
 	\ 'darkgreen'      : 28,
+	\ 'green34'        : 34,
 	\ 'mediumgreen'    : 70,
 	\ 'brightgreen'    : 148,
 	\
@@ -13,6 +25,7 @@ call Pl#Hi#Allocate({
 	\ 'darkestblue'    : 17,
 	\ 'darkblue'       : 20,
 	\
+	\ 'lightpurple'     : 59,
 	\ 'darkestred'     : 52,
 	\ 'darkred'        : 88,
 	\ 'mediumred'      : 124,
@@ -26,6 +39,7 @@ call Pl#Hi#Allocate({
 	\ 'brightorange'   : 208,
 	\ 'brightestorange': 214,
 	\
+	\ 'almostblack'    : 232,
 	\ 'gray0'          : 233,
 	\ 'gray1'          : 235,
 	\ 'gray2'          : 236,
@@ -41,8 +55,8 @@ call Pl#Hi#Allocate({
 
 let g:Powerline#Colorschemes#powerline_grota#colorscheme = Pl#Colorscheme#Init([
 	\ Pl#Hi#Segments(['SPLIT'], {
-		\ 'n': ['white', 'gray2'],
-		\ 'N': ['white', 'gray0'],
+		\ 'n': ['white', 'gray1'],
+		\ 'N': ['white', 'gray4'],
 		\ 'i': ['white', 'darkestblue'],
 		\ }),
 	\
@@ -55,20 +69,20 @@ let g:Powerline#Colorschemes#powerline_grota#colorscheme = Pl#Colorscheme#Init([
 		\ }),
 	\
 	\ Pl#Hi#Segments(['branch', 'scrollpercent', 'raw', 'filesize'], {
-		\ 'n': ['gray9', 'gray4'],
-		\ 'N': ['gray4', 'gray1'],
+		\ 'n': ['gray9', 'darkgreen'],
+		\ 'N': ['gray4', 'gray4'],
 		\ 'i': ['mediumcyan', 'darkblue'],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['fileinfo', 'filename'], {
-		\ 'n': ['white', 'gray4', ['bold']],
-		\ 'N': ['gray7', 'gray0', ['bold']],
+		\ 'n': ['white', 'darkestgreen', ['bold']],
+		\ 'N': ['gray8', 'gray4', ['bold']],
 		\ 'i': ['white', 'darkblue', ['bold']],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['fileinfo.filepath'], {
 		\ 'n': ['gray10'],
-		\ 'N': ['gray5'],
+		\ 'N': ['gray6'],
 		\ 'i': ['mediumcyan'],
 		\ }),
 	\
@@ -84,14 +98,19 @@ let g:Powerline#Colorschemes#powerline_grota#colorscheme = Pl#Colorscheme#Init([
 		\ 'i': ['brightestred', ['bold']],
 		\ }),
 	\
-	\ Pl#Hi#Segments(['currenttag', 'fullcurrenttag', 'fileformat', 'fileencoding', 'pwd', 'filetype', 'rvm:string', 'rvm:statusline', 'virtualenv:statusline', 'charcode', 'currhigroup'], {
+	\ Pl#Hi#Segments(['fileformat', 'fileencoding', 'pwd', 'filetype', 'rvm:string', 'rvm:statusline', 'virtualenv:statusline', 'charcode', 'currhigroup'], {
+		\ 'n': ['gray8', 'darkestgreen'],
+		\ 'i': ['mediumcyan', 'darkestblue'],
+		\ }),
+	\
+	\ Pl#Hi#Segments(['currenttag', 'fullcurrenttag' ], {
 		\ 'n': ['gray8', 'gray2'],
 		\ 'i': ['mediumcyan', 'darkestblue'],
 		\ }),
 	\
 	\ Pl#Hi#Segments(['lineinfo'], {
-		\ 'n': ['gray2', 'gray10', ['bold']],
-		\ 'N': ['gray7', 'gray1', ['bold']],
+		\ 'n': ['gray2', 'green34', ['bold']],
+		\ 'N': ['gray4', 'gray4', ['bold']],
 		\ 'i': ['darkestcyan', 'mediumcyan', ['bold']],
 		\ }),
 	\
@@ -101,8 +120,8 @@ let g:Powerline#Colorschemes#powerline_grota#colorscheme = Pl#Colorscheme#Init([
 		\ }),
 	\
 	\ Pl#Hi#Segments(['lineinfo.line.tot'], {
-		\ 'n': ['gray6'],
-		\ 'N': ['gray5'],
+		\ 'n': ['gray2'],
+		\ 'N': ['gray4'],
 		\ 'i': ['darkestcyan'],
 		\ }),
 	\

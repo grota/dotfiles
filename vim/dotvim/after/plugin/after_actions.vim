@@ -28,7 +28,7 @@ unlet s:save_cpo
 "}}}
 
 " set here to override the one in the marvim plugin
-vnoremap <F2> :norm!@q<CR>
+"vnoremap <F2> :norm!@q<CR>
 
 " unmappings {{{
 " IndexedSearch: unmap stupid mappings that start with \, use g/ in case
@@ -36,7 +36,7 @@ unmap \\
 unmap \/
 
 " Bclose, unmap default mappings
-nunmap <leader>bd
+"nunmap <leader>bd
 "}}}
 
 nnoremap \\ ``

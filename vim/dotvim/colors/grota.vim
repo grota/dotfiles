@@ -29,6 +29,7 @@ highlight Pmenu ctermbg=8 guibg=SpringGreen4 guifg=gray15
 highlight PmenuSel ctermbg=247 ctermfg=233 guibg=green1 guifg=black
 highlight Search term=reverse ctermfg=0 ctermbg=3 guifg=black guibg=gold
 highlight Folded term=standout ctermfg=14 ctermbg=234 guifg=gray3 guibg=gray23
+highlight StatusLineNC ctermbg=240 cterm=none term=none gui=none
 highlight DiffChange ctermbg=160
 highlight DiffText ctermbg=241
 highlight DiffAdd ctermbg=22
@@ -38,7 +39,7 @@ highlight TabLine ctermbg=234 ctermfg=240 cterm=NONE
 highlight TabLineSel ctermfg=250 ctermbg=236 cterm=NONE
 " custom highlight group
 highlight TabLineModifiedMark ctermfg=1 ctermbg=22 cterm=bold
-highlight VertSplit ctermfg=235
+highlight VertSplit ctermfg=240
 highlight TagbarHighlight term=reverse ctermfg=0 ctermbg=11 guifg=black guibg=gold
 " Default Highlights {{{
 highlight def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
