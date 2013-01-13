@@ -649,10 +649,13 @@ let g:vdebug_options= {
 \    "remote_path" : "",
 \    "local_path" : "",
 \    "debug_window_level" : 0,
-\    "debug_file_level" : 0,
-\    "debug_file" : "",
+\    "debug_file_level" : 10,
+\    "debug_file" : "/tmp/vdebug",
 \    "continuous_mode" : 0,
 \}
+" }}}
+" Ack.vim uses https://github.com/ggreer/the_silver_searcher {{{
+let g:ackprg = 'ag --nogroup --nocolor --column'
 " }}}
 "}}}
 

@@ -17,7 +17,7 @@ highlight LineNr guifg=GreenYellow
 highlight Statement guifg=goldenrod
 highlight String term=underline ctermfg=173 guifg=orchid3
 highlight Comment term=bold cterm=bold ctermfg=240 guifg=OrangeRed1
-highlight Normal guifg=DarkSeaGreen1 ctermfg=157
+highlight Normal guifg=DarkSeaGreen1 ctermfg=157 ctermbg=none
 highlight Constant ctermfg=13
 highlight Type cterm=bold ctermfg=83
 highlight PreProc ctermfg=176

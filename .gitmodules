@@ -142,3 +142,6 @@
 [submodule "vim/dotvim/bundle/tpope_vim-endwise"]
 	path = vim/dotvim/bundle/tpope_vim-endwise
 	url = git://github.com/tpope/vim-endwise.git
+[submodule "vim/dotvim/bundle/mileszs_ack.vim"]
+	path = vim/dotvim/bundle/mileszs_ack.vim
+	url = git://github.com/mileszs/ack.vim.git
