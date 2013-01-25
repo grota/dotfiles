@@ -33,7 +33,7 @@ syntax enable
 " VIM OPTIONS {{{
 let mapleader = ","
 set scrolloff=1 "keep 1 line above and below the cursor
-set mouse=a " let's try using the mouse for a while
+"set mouse=a " let's try using the mouse for a while
 set ignorecase " ignore case if search pattern is all lowercase, case-sensitive otherwise
 set smartcase
 set showcmd " show partial command on last line
