@@ -5,6 +5,8 @@ This file describes the mappings in .vimrc                 *grota_documentation*
 ==============================================================================
 
       TO LEARN
+(a)round/(i)nner  (n)ext/(l)ast  b()/B{}/r[]
+(s)eek/(S)eek xx
 i_<C-G>s     tpope's surround in insert mode. Accepts <CR> after s.
 i/n_<M-/>    Autopair Jump
 <leader>fs   current tag

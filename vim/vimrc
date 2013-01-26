@@ -416,7 +416,7 @@ xnoremap <M-Up> :m-2<CR>gv=gv
 " S SPLIT LINE {{{
 " (sister to [J]oin lines). The normal use of S is covered by cc,
 " so don't worry about shadowing it
-nnoremap S i<cr><esc>`.
+nnoremap <CR> i<cr><esc>`.
 "}}}
 " i_<M-w> delete the word after the cursor {{{
 inoremap <M-w> <C-o>dw
