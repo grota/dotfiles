@@ -145,3 +145,6 @@
 [submodule "vim/dotvim/bundle/mileszs_ack.vim"]
 	path = vim/dotvim/bundle/mileszs_ack.vim
 	url = git://github.com/mileszs/ack.vim.git
+[submodule "vim/dotvim/bundle/robmiller_vim-movar"]
+	path = vim/dotvim/bundle/robmiller_vim-movar
+	url = git://github.com/robmiller/vim-movar.git
