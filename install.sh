@@ -45,6 +45,9 @@ git submodule update --init --recursive
 # [drush]
  ln -sf ${repohome}/bash/_drush_bashrc ~/.drush_bashrc
 
+# [ruby]
+ ln -sf ${repohome}/ruby/_irbrc.rb ~/.irbrc
+
 # [dconf]
  cat ${repohome}/dconf/_org_gnome_libgnomekbd_keyboard | dconf load /org/gnome/libgnomekbd/keyboard/
 
