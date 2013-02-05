@@ -47,6 +47,7 @@ git submodule update --init --recursive
 
 # [ruby]
  ln -sf ${repohome}/ruby/_irbrc.rb ~/.irbrc
+ ln -sf ${repohome}/ruby/_pryrc.rb ~/.pryrc
 
 # [dconf]
  cat ${repohome}/dconf/_org_gnome_libgnomekbd_keyboard | dconf load /org/gnome/libgnomekbd/keyboard/
@@ -128,6 +129,10 @@ git submodule update --init --recursive
 
 # [libao]
  ln -sf ${repohome}/libao/_libao ~/.libao
+
+# [mplayer]
+ mkdir -p ~/.mplayer
+ ln -sf ${repohome}/mplayer/config ~/.mplayer/config
 
 # [private]
 ${repohome}/private/install.sh
