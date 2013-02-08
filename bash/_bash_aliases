@@ -56,6 +56,7 @@ alias ton='xinput set-prop "SynPS/2 Synaptics TouchPad" 132 1'
 alias koff='xinput set-prop "AT Translated Set 2 keyboard" 132 0'
 alias kon='xinput set-prop "AT Translated Set 2 keyboard" 132 1'
 #}}}
+alias unmute='amixer set Speaker,0 unmute &> /dev/null ; amixer set Speaker,0 100% &> /dev/null'
 
 # vim aliases {{{
 # alias for v, vim wrapper at https://github.com/rupa/v.git
