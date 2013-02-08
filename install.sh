@@ -9,6 +9,16 @@ git submodule update --init --recursive
  ln -sf ${repohome}/bin/vimdirdiff.sh ~/local/bin/vimdirdiff.sh
  ln -sf ${repohome}/bin/rupa_v/v ~/local/bin/v
 
+# [Bash]
+ ln -sf ${repohome}/bash/_bash_aliases ~/.bash_aliases
+ ln -sf ${repohome}/bash/_bash_extras ~/.bash_extras
+ ln -sf ${repohome}/bash/_inputrc ~/.inputrc
+ ln -sf ${repohome}/bash/_git.scmbrc ~/.git.scmbrc
+
+# [zsh]
+ ln -sfT ${repohome}/zsh/oh-my-zsh ~/.oh-my-zsh
+ ln -sf ${repohome}/zsh/_zshrc ~/.zshrc
+
 # [autojump]
  cd ${repohome}/bin/autojump
  ./install.sh  --local --prefix ~/local/ > /dev/null
@@ -23,12 +33,6 @@ git submodule update --init --recursive
 # [hub]
  cd ${repohome}
  [[ ! -f ~/local/bin/hub ]] && curl http://defunkt.io/hub/standalone -sLo ~/local/bin/hub && chmod +x ~/local/bin/hub
-
-# [Bash]
- ln -sf ${repohome}/bash/_bash_aliases ~/.bash_aliases
- ln -sf ${repohome}/bash/_bash_extras ~/.bash_extras
- ln -sf ${repohome}/bash/_inputrc ~/.inputrc
- ln -sf ${repohome}/bash/_git.scmbrc ~/.git.scmbrc
 
 # [vim]
  ln -sf ${repohome}/vim/vimrc ~/.vimrc
