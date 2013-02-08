@@ -32,8 +32,11 @@ ZSH_THEME="robbyrussell"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git)
+plugins=(git rvm)
 
 source $ZSH/oh-my-zsh.sh
-
 # Customize to your needs...
+
+autoload -U compinit; compinit
+echo 'before sourcing ~/.autojump/etc/profile.d/autojump.sh'
+[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
