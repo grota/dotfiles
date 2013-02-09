@@ -52,6 +52,7 @@ git submodule update --init --recursive
 # [ruby]
  ln -sf ${repohome}/ruby/_irbrc.rb ~/.irbrc
  ln -sf ${repohome}/ruby/_pryrc.rb ~/.pryrc
+ ln -sf ${repohome}/ruby/_gemrc ~/.gemrc
 
 # [dconf]
  cat ${repohome}/dconf/_org_gnome_libgnomekbd_keyboard | dconf load /org/gnome/libgnomekbd/keyboard/
