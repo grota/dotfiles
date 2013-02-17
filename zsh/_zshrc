@@ -37,6 +37,5 @@ plugins=(git rvm)
 source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 
-autoload -U compinit; compinit
-echo 'before sourcing ~/.autojump/etc/profile.d/autojump.sh'
 [[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && . ~/.autojump/etc/profile.d/autojump.sh
+autoload -U compinit && compinit
