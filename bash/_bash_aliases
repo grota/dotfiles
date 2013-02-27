@@ -122,7 +122,7 @@ complete -F _git_abbrev_hash_complete gl1p
 # old stuff, still used {{{
 alias STO='sudo mdadm -S /dev/md0'
 alias STA='sudo mdadm -As /dev/md0'
-alias vci='vi config.inc.php'
+#alias vci='vi config.inc.php'
 #alias c='cat /proc/mdstat'
 #alias rs='rsync -av --delete'
 #alias k='kompare -no -'

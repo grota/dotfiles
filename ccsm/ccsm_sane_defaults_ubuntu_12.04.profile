@@ -275,7 +275,7 @@ s0_viewport_y_values =
 s0_window_toggle_key = <Super>n
 s0_screen_toggle_key = <Super>m
 s0_neg_match = any
-s0_exclude_match = (type=Desktop) | class=Gnome-terminal | class=Terminator | class=Gvim
+s0_exclude_match = (type=Desktop) | class=Gnome-terminal | class=Terminator
 s0_neg_decorations = false
 
 [shift]
@@ -659,8 +659,8 @@ s0_left_button = Disabled
 s0_right_button = Disabled
 s0_up_button = Disabled
 s0_down_button = Disabled
-s0_next_button = Disabled
-s0_prev_button = Disabled
+s0_next_button = Button5
+s0_prev_button = Button4
 s0_initiate_button = Button2
 s0_init_plugin = rotate
 s0_init_action = initiate_button
@@ -825,6 +825,7 @@ s0_texture_filter = 1
 s0_lighting = false
 s0_sync_to_vblank = true
 s0_texture_compression = false
+s0_unredirect_driver_blacklist = (nouveau|Intel).*Mesa (8.0|9.0)
 
 [cube]
 s0_unfold_key = <Control><Primary><Alt>Down
@@ -873,7 +874,8 @@ s0_shadow_match = any
 s0_slow_animations_key = Disabled
 s0_detect_refresh_rate = true
 s0_refresh_rate = 50
-s0_unredirect_fullscreen_windows = false
+s0_unredirect_fullscreen_windows = true
+s0_unredirect_match = (any) & !(class=Totem) & !(class=MPlayer) & !(class=Vlc) & !(class=Plugin-container) & !(class=Firefox)
 s0_force_independent_output_painting = false
 
 [kdecompat]
