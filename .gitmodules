@@ -157,3 +157,6 @@
 [submodule "vim/dotvim/bundle/kana_vim-textobj-user"]
 	path = vim/dotvim/bundle/kana_vim-textobj-user
 	url = git://github.com/kana/vim-textobj-user.git
+[submodule "vim/dotvim/bundle/airblade_vim-gitgutter"]
+	path = vim/dotvim/bundle/airblade_vim-gitgutter
+	url = git://github.com/kana/vim-textobj-user.git
