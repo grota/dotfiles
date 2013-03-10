@@ -24,7 +24,7 @@ function cc () {
     dirname=$1
     google-chrome --user-data-dir=/home/grota/.config/google-chrome_others/$dirname &> /dev/null &
 }
-alias pg='ps aux| grep'
+alias pg='pgrep -l'
 alias pw='pwsafe -Eup -l'
 alias pwc='pwsafe -px'
 alias rstty='stty start undef stop undef'
@@ -42,7 +42,6 @@ alias bc='bc -l'
 alias grep='grep -n --exclude-dir=.svn --exclude-dir=.git '
 # there's a ss bin but that's ok for me
 alias ss='sudo su -'
-alias pb='vi ~/.config/pianobar/config'
 # {tl,ll,rl}php log {{{
 alias tlphp='tail -F /tmp/php5_apache_errorlog.log'
 alias llphp='less /tmp/php5_apache_errorlog.log'
@@ -82,7 +81,7 @@ alias vi="stty start undef stop undef && exec_git_expand_args vim"
 #}}}
 
 #git aliases {{{
-alias gg='git grep'
+alias gg='git grep --break --heading --line-number'
 alias gb='git branch -avv'
 alias gau='git add -u'
 alias gdw='exec_git_expand_args git diff --word-diff --'
