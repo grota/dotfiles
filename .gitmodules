@@ -163,3 +163,6 @@
 [submodule "vim/dotvim/bundle/benmills_vimux"]
 	path = vim/dotvim/bundle/benmills_vimux
 	url = git://github.com/benmills/vimux.git
+[submodule "vim/dotvim/bundle/jgdavey_vim-turbux"]
+	path = vim/dotvim/bundle/jgdavey_vim-turbux
+	url = git://github.com/jgdavey/vim-turbux.git
