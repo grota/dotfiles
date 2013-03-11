@@ -166,3 +166,6 @@
 [submodule "vim/dotvim/bundle/jgdavey_vim-turbux"]
 	path = vim/dotvim/bundle/jgdavey_vim-turbux
 	url = git://github.com/jgdavey/vim-turbux.git
+[submodule "vim/dotvim/bundle/hlissner_vim-multiedit"]
+	path = vim/dotvim/bundle/hlissner_vim-multiedit
+	url = git://github.com/hlissner/vim-multiedit.git
