@@ -6,6 +6,8 @@ This file describes the mappings in .vimrc                 *grota_documentation*
 
       TO LEARN
 <leader>sm   Space map/unmap
+<leader>t/T  Send Test (focused) to tmux (works with <leader>lc)
+<leader>lc   :VimuxRunLastCommand
 (a)round/(i)nner  (n)ext/(l)ast  b()/B{}/r[]
 (s)eek/(S)eek xx
 i_<C-G>s     tpope's surround in insert mode. Accepts <CR> after s.

@@ -657,6 +657,17 @@ let g:vdebug_options= {
 " Ack.vim uses https://github.com/ggreer/the_silver_searcher {{{
 let g:ackprg = 'ag --nogroup --nocolor --column'
 " }}}
+" Vimux {{{
+let g:VimuxUseNearestPane = 1
+nnoremap <Leader>lc :VimuxRunLastCommand<CR>
+" }}}
+" Turbux {{{
+let g:turbux_command_rspec = 'rspec --drb'
+let g:turbux_command_cucumber = 'cucumber --drb'
+let g:no_turbux_mappings = 1
+map <leader>T <Plug>SendTestToTmux
+map <leader>t <Plug>SendFocusedTestToTmux
+" }}}
 "}}}
 
 " CUSTOM PLUGINS MAPPINGS AND SETTINGS {{{
