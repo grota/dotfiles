@@ -64,7 +64,7 @@ alias vls='v -l'
 # aka: v list, reuse vim server session
 alias vl='vim="eval $(type vim  | tail -n +2); vim" v -l'
 # aka: vim standalone
-alias vs="stty start undef stop undef && exec_git_expand_args $(which 2>/dev/null vim)"
+alias vs="stty start undef stop undef && exec_scmb_expand_args $(which 2>/dev/null vim)"
 # vim function that shadows aliases and commands
 function vim {
   vim_orig=$(which 2>/dev/null vim)
@@ -77,23 +77,23 @@ function vim {
   fi
 }
 # alias vi to vim (this is to keep using the vim() bash function that uses the vim --remote feature)
-alias vi="stty start undef stop undef && exec_git_expand_args vim"
+alias vi="stty start undef stop undef && exec_scmb_expand_args vim"
 #}}}
 
 #git aliases {{{
 alias gg='git grep --break --heading --line-number'
-alias gb='git branch -avv'
+alias gbv='git branch -avv'
+alias gbf='git branch -f'
 alias gau='git add -u'
-alias gdw='exec_git_expand_args git diff --word-diff --'
-alias gdcw='exec_git_expand_args git diff --cached --word-diff --'
+alias gdcw='git diff --cached --word-diff --'
 alias gl='git --no-pager l -n12'
 alias k='git --no-pager ll -n12'
 alias gk='gitk --all&'
 alias gst='git stash'
 alias gstp='git stash pop --index'
+alias gl1p="git log -1 -p"
 # from scm_breeze
 alias gsubrm="git_submodule_rm"
-alias gl1p="git log -1 -p"
 # c --rebuild to rebuild the cache
 function _git_abbrev_hash_complete () {
   local curw
@@ -115,6 +115,9 @@ function _git_abbrev_hash_complete () {
 }
 complete -F _git_abbrev_hash_complete gsf
 complete -F _git_abbrev_hash_complete gl1p
+# from scm_breeze
+__define_git_completion gbf branch
+complete -o default -o nospace -F _git_gbf_shortcut gbf
 #}}}
 
 
@@ -131,12 +134,6 @@ alias STA='sudo mdadm -As /dev/md0'
 #}}}
 
 # functions {{{
-function pianobar {
-  # only way I found, short of unsetting PS1.
-  # due to variable visibility, methinks
-  echo -ne "\033]0;pianobar\a"
-  command pianobar
-}
 function mkcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
 
 # as in bash-title
