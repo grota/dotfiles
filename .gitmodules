@@ -169,3 +169,6 @@
 [submodule "vim/dotvim/bundle/hlissner_vim-multiedit"]
 	path = vim/dotvim/bundle/hlissner_vim-multiedit
 	url = git://github.com/hlissner/vim-multiedit.git
+[submodule "vim/dotvim/bundle/thinca_vim-textobj-between"]
+	path = vim/dotvim/bundle/thinca_vim-textobj-between
+	url = git://github.com/thinca/vim-textobj-between.git
