@@ -70,7 +70,7 @@ set keymodel=startsel
 set tags=./tags;
 set completeopt=longest,menuone,preview
 set virtualedit+=block,onemore
-set clipboard=autoselect,unnamed,exclude:cons\|linux
+set clipboard=autoselect,exclude:cons\|linux
 " don't use the tag file for i_<C-N> and i_<C-P>
 " for php, omnicomplete in autoload/phpcomplete.vim already does that
 set complete-=t
@@ -396,10 +396,10 @@ xnoremap > >gv
 nnoremap gV `[v`]
 xnoremap <BS> x
 "}}}
-" Y ,y ,Y ,p: YANKING AND PASTING {{{
-" yankring does not map Y so we don't need to put it inside YRRunAfterMaps
+" ,y ,p: YANKING AND PASTING {{{
 xnoremap <Leader>y "+y`>
 nnoremap <Leader>p "+gp
+nnoremap <Leader><leader>p :<C-U>put<CR>
 "}}}
 " <C-s> QUICK SAVING {{{
 nnoremap <C-s> :w<CR>
@@ -420,6 +420,10 @@ nnoremap <CR> i<cr><esc>`.
 "}}}
 " i_<M-w> delete the word after the cursor {{{
 inoremap <M-w> <C-o>dw
+"}}}
+" Substitute {{{
+nnoremap & :&&<CR>
+xnoremap & :&&<CR>
 "}}}
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 "}}}
@@ -486,8 +490,9 @@ let g:yankring_replace_n_pkey = '<M-m>'
 let g:yankring_replace_n_nkey = '<M-n>'
 " The following is required because it conflicts with tpope's repeat plugin
 let g:yankring_map_dot = 0
-" Move the cursor to end of the selection after yanking in visual mode
 function! YRRunAfterMaps()
+  nnoremap Y :<C-U>YRYankCount 'y$'<CR>
+  " Move the cursor to end of the selection after yanking in visual mode
   xnoremap y :<C-U>YRYankRange 'v'<CR>`>
 endfunction
 " defaults, but set just to be sure:
@@ -689,9 +694,10 @@ function! s:VSetSearch()
   norm! gvy
   let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
   let @@ = temp
+  call histadd('/', @/)
 endfunction
-xnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
-xnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
+xnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><C-O>
+xnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><C-O>
 "}}}
 " Highlight Word {{{
 "
