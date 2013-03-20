@@ -250,7 +250,7 @@
       <key>keybindings/zoom_in</key>
       <schema_key>/schemas/apps/gnome-terminal/keybindings/zoom_in</schema_key>
       <value>
-        <string>disabled</string>
+        <string>&lt;Primary&gt;plus</string>
       </value>
     </entry>
     <entry>
@@ -264,7 +264,7 @@
       <key>keybindings/zoom_out</key>
       <schema_key>/schemas/apps/gnome-terminal/keybindings/zoom_out</schema_key>
       <value>
-        <string>disabled</string>
+        <string>&lt;Primary&gt;underscore</string>
       </value>
     </entry>
     <entry>
@@ -380,6 +380,13 @@
       </value>
     </entry>
     <entry>
+      <key>profiles/Default/encoding</key>
+      <schema_key>/schemas/apps/gnome-terminal/profiles/Default/encoding</schema_key>
+      <value>
+        <string>current</string>
+      </value>
+    </entry>
+    <entry>
       <key>profiles/Default/exit_action</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/exit_action</schema_key>
       <value>
@@ -390,7 +397,7 @@
       <key>profiles/Default/font</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/font</schema_key>
       <value>
-        <string>Monospace 9</string>
+        <string>Source Code Pro for Powerline Semi-Bold 9</string>
       </value>
     </entry>
     <entry>
