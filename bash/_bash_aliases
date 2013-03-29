@@ -21,8 +21,12 @@ alias ll='ls -AlFh'
 alias sl=ls
 alias fire='firefox -Profilemanager -no-remote &> /dev/null &'
 function cc () {
-    dirname=$1
-    google-chrome --user-data-dir=/home/grota/.config/google-chrome_others/$dirname &> /dev/null &
+  if [ -z "$1" ]; then
+    echo "Error: Argument missing. Specify a chrome session id"
+    return 1;
+  fi
+  dirname=$1
+  google-chrome --user-data-dir=/home/grota/.config/google-chrome_others/$dirname &> /dev/null &
 }
 alias pg='pgrep -l'
 alias pw='pwsafe -Eup -l'
