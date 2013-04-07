@@ -298,8 +298,8 @@ nnoremap <C-]> :vertical stjump <C-r><C-w><CR>
 " gah
 xnoremap <END> <END>h
 " Session Save As and Open
-nnoremap ssa :mksession! ~/.vim/sessions/
-nnoremap so :so ~/.vim/sessions/
+nnoremap <leader>ssa :mksession! ~/.vim/sessions/
+nnoremap <leader>so :source ~/.vim/sessions/
 nnoremap <leader>ww :<C-u>pwd<cr>
 nnoremap <C-g> :nohlsearch<CR>:call clearmatches()<CR><C-g>
 nnoremap <leader><F5> :h grota_documentation<CR>
