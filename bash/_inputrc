@@ -36,6 +36,9 @@ $include /etc/inputrc
 # C-f, C-b move by one char at a time
 # C-k kill-line
 
+"\e[A": history-search-backward
+"\e[B": history-search-forward
+
 # unused
 # C-M-h M-BS backward-kill-word
 # M-f, M-b move by one word like C-Left/Right.
@@ -46,6 +49,7 @@ set match-hidden-files on
 set show-all-if-ambiguous on
 set visible-stats on
 set skip-completed-text on
+set completion-ignore-case on
 $if Bash
 $endif
 
@@ -54,8 +58,10 @@ $endif
 # Can also use !-2 to retrieve the next-to-last line in full.
 # And pick its pieces with !-2:0 (0 means first token)
 Control-Space: magic-space
+
 # add parameters to the last command
 "\C-xx": "\C-p\C-a\e[5C "
+
 # tmux configuration
 $if term=screen-256color
 "\eOC": forward-word
