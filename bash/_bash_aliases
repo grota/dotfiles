@@ -70,7 +70,7 @@ alias vl='vim="eval $(type vim  | tail -n +2); vim" v -l'
 # aka: vim standalone
 alias vs="stty start undef stop undef && exec_scmb_expand_args $(which 2>/dev/null vim)"
 # vim function that shadows aliases and commands
-function vim {
+function vims {
   vim_orig=$(which 2>/dev/null vim)
   $vim_orig --serverlist | grep -q TROLOLOL
   # if server is running
@@ -81,7 +81,8 @@ function vim {
   fi
 }
 # alias vi to vim (this is to keep using the vim() bash function that uses the vim --remote feature)
-alias vi="stty start undef stop undef && exec_scmb_expand_args vim"
+alias vi="stty start undef stop undef && exec_scmb_expand_args vims"
+alias vim="stty start undef stop undef && exec_scmb_expand_args vims"
 #}}}
 
 #git aliases {{{
