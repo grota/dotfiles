@@ -91,8 +91,8 @@ git submodule update --init --recursive
  ln -sf ${repohome}/_config/autostart/indicator-multiload.desktop ~/.config/autostart/indicator-multiload.desktop
 
 # [Gnome]
- mkdir -p $HOME/.config/gtk-3.0
- ln -sf ${repohome}/_config/gtk-3.0/gtk.css ~/.config/gtk-3.0/gtk.css
+ #mkdir -p $HOME/.config/gtk-3.0
+ #ln -sf ${repohome}/_config/gtk-3.0/gtk.css ~/.config/gtk-3.0/gtk.css
 
 # [mysql]
  ln -sf ${repohome}/mysql/_my.cnf ~/.my.cnf

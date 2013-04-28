@@ -128,7 +128,7 @@
       <key>keybindings/next_tab</key>
       <schema_key>/schemas/apps/gnome-terminal/keybindings/next_tab</schema_key>
       <value>
-        <string>&lt;Shift&gt;&lt;Control&gt;Page_Down</string>
+        <string>&lt;Primary&gt;&lt;Shift&gt;Page_Down</string>
       </value>
     </entry>
     <entry>
@@ -142,7 +142,7 @@
       <key>keybindings/prev_tab</key>
       <schema_key>/schemas/apps/gnome-terminal/keybindings/prev_tab</schema_key>
       <value>
-        <string>&lt;Shift&gt;&lt;Control&gt;Page_Up</string>
+        <string>&lt;Primary&gt;&lt;Shift&gt;Page_Up</string>
       </value>
     </entry>
     <entry>
@@ -397,7 +397,7 @@
       <key>profiles/Default/font</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/font</schema_key>
       <value>
-        <string>Source Code Pro for Powerline Semi-Bold 9</string>
+        <string>Source Code Pro for Powerline Semi-Bold 11</string>
       </value>
     </entry>
     <entry>
@@ -453,7 +453,7 @@
       <key>profiles/Default/scrollback_lines</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/scrollback_lines</schema_key>
       <value>
-        <int>1024</int>
+        <int>512</int>
       </value>
     </entry>
     <entry>
