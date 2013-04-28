@@ -49,3 +49,5 @@
     status = true
 [include]
     path = ~/.gitconfig_private
+[push]
+	default = upstream
