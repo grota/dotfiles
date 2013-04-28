@@ -45,3 +45,7 @@
 [tig "bind"]
     generic = up move-up
     generic = down move-down
+[pager]
+    status = true
+[include]
+    path = ~/.gitconfig_private
