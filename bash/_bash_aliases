@@ -51,13 +51,13 @@ alias tlphp='tail -F /tmp/php5_apache_errorlog.log'
 alias llphp='less /tmp/php5_apache_errorlog.log'
 alias rlphp='sudo rm /tmp/php5_apache_errorlog.log'
 #}}}
-alias rmine='RUBYMINE_JDK=~/Downloads/jdk1.6.0_30 mine &> /dev/null &'
-alias storm='WEBIDE_JDK=~/Downloads/jdk1.6.0_30 pstorm &> /dev/null &'
+#alias rmine='RUBYMINE_JDK=~/Downloads/jdk1.6.0_30 mine &> /dev/null &'
+#alias storm='WEBIDE_JDK=~/Downloads/jdk1.6.0_30 pstorm &> /dev/null &'
 # Acer specific {{{
-alias toff='xinput set-prop "SynPS/2 Synaptics TouchPad" 132 0'
-alias ton='xinput set-prop "SynPS/2 Synaptics TouchPad" 132 1'
-alias koff='xinput set-prop "AT Translated Set 2 keyboard" 132 0'
-alias kon='xinput set-prop "AT Translated Set 2 keyboard" 132 1'
+alias toff='xinput set-prop "SynPS/2 Synaptics TouchPad" 140 0'
+alias ton='xinput set-prop "SynPS/2 Synaptics TouchPad" 140 1'
+alias koff='xinput set-prop "AT Translated Set 2 keyboard" 140 0'
+alias kon='xinput set-prop "AT Translated Set 2 keyboard" 140 1'
 #}}}
 alias unmute='amixer set Speaker,0 unmute &> /dev/null ; amixer set Speaker,0 100% &> /dev/null'
 
@@ -139,10 +139,18 @@ alias STA='sudo mdadm -As /dev/md0'
 #}}}
 
 # functions {{{
-function mkcd () { mkdir -p "$@" && eval cd "\"\$$#\""; }
-
-# as in bash-title
-#function bt {
-  #export GROTA_TITLE="$*"
-#}
+function rec() {
+  if [ -z "$1" ]; then
+    echo 'provide an output file'
+    return
+  fi
+  count=4
+  while [ $count -gt 0  ]; do
+    echo $count ...
+    count=$(( $count - 1  ))
+    sleep 1
+  done
+  gst-launch-1.0 -e pulsesrc device="alsa_output.pci-0000_00_1b.0.analog-surround-40.monitor" ! audioconvert ! lamemp3enc target=1 bitrate=128 cbr=true ! filesink location=${1}.mp3
+}
+function mkcd() { mkdir -p "$@" && eval cd "\"\$$#\""; }
 #}}}

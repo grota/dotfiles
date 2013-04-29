@@ -347,7 +347,7 @@ s0_start_wm = false
 s0_wm_cmd = 
 
 [unityshell]
-s0_show_hud = Disabled
+s0_show_hud = <Alt>
 s0_execute_command = <Alt>F2
 s0_panel_first_menu = <Alt>F10
 s0_panel_opacity = 1,000000
@@ -754,7 +754,7 @@ s0_run_command_screenshot_key = Print
 s0_command_window_screenshot = gnome-screenshot -w
 s0_run_command_window_screenshot_key = <Alt>Print
 s0_command_terminal = gnome-terminal
-s0_run_command_terminal_key = <Control><Alt>t
+s0_run_command_terminal_key = <Alt>x
 
 [thumbnail]
 s0_always_on_top = true
@@ -876,7 +876,7 @@ s0_toggle_key = <Alt><Super>r
 s0_intensity = 20
 
 [core]
-s0_active_plugins = core;composite;opengl;decor;compiztoolbox;place;imgpng;vpswitch;unitymtgrabhandles;resize;grid;snap;move;gnomecompat;mousepoll;regex;animation;session;expo;wall;ezoom;fade;workarounds;scale;unityshell;
+s0_active_plugins = core;composite;opengl;decor;compiztoolbox;place;imgpng;vpswitch;unitymtgrabhandles;neg;resize;grid;snap;move;gnomecompat;mousepoll;regex;animation;session;expo;wall;ezoom;fade;workarounds;scale;unityshell;
 s0_audible_bell = true
 s0_ignore_hints_when_maximized = true
 s0_hide_skip_taskbar_windows = true
@@ -889,8 +889,8 @@ s0_detect_outputs = true
 s0_outputs = 640x480+0+0;
 s0_click_to_focus = true
 s0_raise_on_click = true
-s0_autoraise = true
-s0_autoraise_delay = 1000
+s0_autoraise = false
+s0_autoraise_delay = 500
 s0_focus_prevention_level = 1
 s0_focus_prevention_match = !(class=Polkit-gnome-authentication-agent-1)
 s0_close_window_key = <Control>grave

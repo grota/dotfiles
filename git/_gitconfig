@@ -39,6 +39,7 @@
 	enabled = 1
 [core]
     excludesfile = ~/.global_gitignore
+	filemode = false
 [gui]
     fontui = -family FreeSans -size 11 -weight bold -slant roman -underline 0 -overstrike 0
     fontdiff = -family \"Courier 10 Pitch\" -size 11 -weight normal -slant roman -underline 0 -overstrike 0
