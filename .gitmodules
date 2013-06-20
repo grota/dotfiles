@@ -105,7 +105,7 @@
 	url = git://github.com/tomtom/tlib_vim.git
 [submodule "bash/scm_breeze"]
 	path = bash/scm_breeze
-	url = git@github.com:grota/scm_breeze.git
+	url = git://github.com/ndbroadbent/scm_breeze.git
 [submodule "vim/dotvim/bundle/kogakure_vim-sparkup"]
 	path = vim/dotvim/bundle/kogakure_vim-sparkup
 	url = git://github.com/kogakure/vim-sparkup.git
@@ -159,7 +159,7 @@
 	url = git://github.com/kana/vim-textobj-user.git
 [submodule "vim/dotvim/bundle/airblade_vim-gitgutter"]
 	path = vim/dotvim/bundle/airblade_vim-gitgutter
-	url = git://github.com/kana/vim-textobj-user.git
+	url = git://github.com/airblade/vim-gitgutter.git
 [submodule "vim/dotvim/bundle/benmills_vimux"]
 	path = vim/dotvim/bundle/benmills_vimux
 	url = git://github.com/benmills/vimux.git
