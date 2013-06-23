@@ -4,6 +4,8 @@
 current_pathinrepo=$( dirname $(readlink -f "${BASH_SOURCE[0]}") )
 export PATH=$HOME/local/bin:$PATH
 export EDITOR=vim
+HISTFILESIZE=80000
+HISTSIZE=5000
 
 # disable <CTRL-S> and <CTRL-Q> terminal settings, I want to use them in vim
 # maybe there's a better way, see :h term.txt in vim

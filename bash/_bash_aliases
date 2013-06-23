@@ -28,7 +28,7 @@ function cc () {
   dirname=$1
   google-chrome --user-data-dir=/home/grota/.config/google-chrome_others/$dirname &> /dev/null &
 }
-alias pg='pgrep -l'
+alias pg='ps aux|grep '
 alias pw='pwsafe -Eup -l'
 alias pwc='pwsafe -px'
 alias rstty='stty start undef stop undef'
@@ -150,7 +150,7 @@ function rec() {
     count=$(( $count - 1  ))
     sleep 1
   done
-  gst-launch-1.0 -e pulsesrc device="alsa_output.pci-0000_00_1b.0.analog-surround-40.monitor" ! audioconvert ! lamemp3enc target=1 bitrate=128 cbr=true ! filesink location=${1}.mp3
+  gst-launch-1.0 -e pulsesrc device="alsa_output.pci-0000_00_1b.0.analog-surround-40.monitor" ! audioconvert ! lamemp3enc target=1 bitrate=128 cbr=true ! filesink location="${1}.mp3"
 }
 function mkcd() { mkdir -p "$@" && eval cd "\"\$$#\""; }
 #}}}
