@@ -169,3 +169,6 @@
 [submodule "vim/dotvim/bundle/thinca_vim-textobj-between"]
 	path = vim/dotvim/bundle/thinca_vim-textobj-between
 	url = git://github.com/thinca/vim-textobj-between.git
+[submodule "vim/dotvim/bundle/evidens_vim-twig"]
+	path = vim/dotvim/bundle/evidens_vim-twig
+	url = git://github.com/evidens/vim-twig.git
