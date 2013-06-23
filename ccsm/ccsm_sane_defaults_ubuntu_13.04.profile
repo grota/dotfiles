@@ -765,7 +765,7 @@ s0_border = 16
 s0_thumb_color = #0000007f
 s0_window_like = true
 s0_mipmap = false
-s0_current_viewport = true
+s0_current_viewport = false
 s0_title_enabled = true
 s0_font_bold = true
 s0_text_distance = 10
@@ -915,8 +915,8 @@ s0_toggle_window_maximized_button = Disabled
 s0_toggle_window_maximized_horizontally_key = Disabled
 s0_toggle_window_maximized_vertically_key = Disabled
 s0_toggle_window_shaded_key = <Control><Alt>s
-s0_hsize = 2
-s0_vsize = 2
+s0_hsize = 3
+s0_vsize = 3
 s0_number_of_desktops = 1
 
 [mag]

@@ -1,0 +1,329 @@
+snippet y
+	:yields: ${1:arguments}
+snippet if
+	if ${1:condition}
+		${2}
+	end
+snippet ife
+	if ${1:condition}
+		${2}
+	else
+		${3}
+	end
+snippet elsif
+	elsif ${1:condition}
+		${2}
+snippet beg
+	begin
+		${3}
+	rescue ${1:Exception} => ${2:e}
+	end
+snippet bege
+	begin
+		${4}
+	rescue ${1:Exception} => ${2:e}
+	ensure
+		${3}
+	end
+snippet begee
+	begin
+		${5}
+	rescue ${1:Exception} => ${2:e}
+	else
+		${3}
+	ensure
+		${4}
+	end
+snippet req
+	require "${1}"${2}
+snippet case
+	case ${1:object}
+	when ${2:condition}
+		${3}
+	end
+snippet when
+	when ${1:condition}
+		${2}
+snippet def
+	def ${1:method_name}
+		${2}
+	end
+snippet while
+	while ${1:condition}
+		${2}
+	end
+snippet for
+	for ${1:e} in ${2:c}
+		${3}
+	end
+snippet until
+	until ${1:condition}
+		${2}
+	end
+snippet cla class .. end
+	class ${1:`substitute(Filename(), '^.', '\u&', '')`}
+		${2}
+	end
+snippet cla class .. initialize .. end
+	class ${1:`substitute(Filename(), '^.', '\u&', '')`}
+		def initialize(${2:args})
+			${3}
+		end
+
+
+	end
+snippet cla class .. < ParentClass .. initialize .. end
+	class ${1:`substitute(Filename(), '^.', '\u&', '')`} < ${2:ParentClass}
+		def initialize(${3:args})
+			${4}
+		end
+
+
+	end
+snippet mod module .. end
+	module ${1:`substitute(Filename(), '^.', '\u&', '')`}
+		${2}
+	end
+snippet mod module .. module_function .. end
+	module ${1:`substitute(Filename(), '^.', '\u&', '')`}
+		module_function
+
+		${2}
+	end
+snippet mod module .. ClassMethods .. end
+	module ${1:`substitute(Filename(), '^.', '\u&', '')`}
+		module ClassMethods
+			${2}
+		end
+
+		module InstanceMethods
+
+		end
+
+		def self.included(receiver)
+			receiver.extend         ClassMethods
+			receiver.send :include, InstanceMethods
+		end
+	end
+# attr_reader
+snippet r
+	attr_reader :${1:attr_names}
+# attr_writer
+snippet w
+	attr_writer :${1:attr_names}
+# attr_accessor
+snippet rw
+	attr_accessor :${1:attr_names}
+# include Enumerable
+snippet Enum
+	include Enumerable
+
+	def each(&block)
+		${1}
+	end
+# include Comparable
+snippet Comp
+	include Comparable
+
+	def <=>(other)
+		${1}
+	end
+# def self
+snippet defs
+	def self.${1:class_method_name}
+		${2}
+	end
+# def method_missing
+snippet defmm
+	def method_missing(meth, *args, &blk)
+		${1}
+	end
+snippet app
+	if __FILE__ == $PROGRAM_NAME
+		${1}
+	end
+snippet array
+	Array.new(${1:10}) { |${2:i}| ${3} }
+snippet hash
+	Hash.new { |${1:hash}, ${2:key}| $1[$2] = ${3} }
+snippet file File.foreach() { |line| .. }
+	File.foreach(${1:"path/to/file"}) { |${2:line}| ${3} }
+snippet file File.read()
+	File.read(${1:"path/to/file"})${2}
+snippet Dir Dir.global() { |file| .. }
+	Dir.glob(${1:"dir/glob/*"}) { |${2:file}| ${3} }
+snippet Dir Dir[".."]
+	Dir[${1:"glob/**/*.rb"}]${2}
+snippet dir
+	Filename.dirname(__FILE__)
+snippet deli
+	delete_if { |${1:e}| ${2} }
+snippet fil
+	fill(${1:range}) { |${2:i}| ${3} }
+# flatten_once()
+snippet flao
+	inject(Array.new) { |${1:arr}, ${2:a}| $1.push(*$2)}${3}
+snippet zip
+	zip(${1:enums}) { |${2:row}| ${3} }
+# downto(0) { |n| .. }
+snippet dow
+	downto(${1:0}) { |${2:n}| ${3} }
+snippet ste
+	step(${1:2}) { |${2:n}| ${3} }
+snippet tim
+	times { |${1:n}| ${2} }
+snippet upt
+	upto(${1:1.0/0.0}) { |${2:n}| ${3} }
+snippet loo
+	loop { ${1} }
+snippet ea
+	each { |${1:e}| ${2} }
+snippet ead
+	each do |${1:e}|
+		${2}
+	end
+snippet eai
+	each_index { |${1:i}| ${2} }
+snippet eaid
+	each_index do |${1:i}|
+		${2}
+	end
+snippet eak
+	each_key { |${1:key}| ${2} }
+snippet eakd
+	each_key do |${1:key}|
+		${2}
+	end
+snippet eal
+	each_line { |${1:line}| ${2} }
+snippet eald
+	each_line do |${1:line}|
+		${2}
+	end
+snippet eap
+	each_pair { |${1:name}, ${2:val}| ${3} }
+snippet eapd
+	each_pair do |${1:name}, ${2:val}|
+		${3}
+	end
+snippet eav
+	each_value { |${1:val}| ${2} }
+snippet eavd
+	each_value do |${1:val}|
+		${2}
+	end
+snippet eawi
+	each_with_index { |${1:e}, ${2:i}| ${3} }
+snippet eawid
+	each_with_index do |${1:e},${2:i}|
+		${3}
+	end
+snippet reve
+	reverse_each { |${1:e}| ${2} }
+snippet reved
+	reverse_each do |${1:e}|
+		${2}
+	end
+snippet inj
+	inject(${1:init}) { |${2:mem}, ${3:var}| ${4} }
+snippet injd
+	inject(${1:init}) do |${2:mem}, ${3:var}|
+		${4}
+	end
+snippet map
+	map { |${1:e}| ${2} }
+snippet mapd
+	map do |${1:e}|
+		${2}
+	end
+snippet mapwi-
+	enum_with_index.map { |${1:e}, ${2:i}| ${3} }
+snippet sor
+	sort { |a, b| ${1} }
+snippet sorb
+	sort_by { |${1:e}| ${2} }
+snippet ran
+	sort_by { rand }
+snippet all
+	all? { |${1:e}| ${2} }
+snippet any
+	any? { |${1:e}| ${2} }
+snippet cl
+	classify { |${1:e}| ${2} }
+snippet col
+	collect { |${1:e}| ${2} }
+snippet cold
+	collect do |${1:e}|
+		${2}
+	end
+snippet fin
+	find { |${1:e}| ${2} }
+snippet find
+	find do |${1:e}|
+		${2}
+	end
+snippet fina
+	find_all { |${1:e}| ${2} }
+snippet finad
+	find_all do |${1:e}|
+		${2}
+	end
+snippet gre
+	grep(${1:/pattern/}) { |${2:match}| ${3} }
+snippet sub
+	${1:g}sub(${2:/pattern/}) { |${3:match}| ${4} }
+snippet sca
+	scan(${1:/pattern/}) { |${2:match}| ${3} }
+snippet scad
+	scan(${1:/pattern/}) do |${2:match}|
+		${3}
+	end
+snippet max
+	max { |a, b| ${1} }
+snippet min
+	min { |a, b| ${1} }
+snippet par
+	partition { |${1:e}| ${2} }
+snippet pard
+	partition do |${1:e}|
+		${2}
+	end
+snippet rej
+	reject { |${1:e}| ${2} }
+snippet rejd
+	reject do |${1:e}|
+		${2}
+	end
+snippet sel
+	select { |${1:e}| ${2} }
+snippet seld
+	select do |${1:e}|
+		${2}
+	end
+snippet lam
+	lambda { |${1:args}| ${2} }
+snippet do
+	do
+		${1}
+	end
+snippet dov
+	do |${1:variable}|
+		${2}
+	end
+snippet :
+	:${1:key} => ${2:"value"}${3}
+# singleton_class()
+snippet sinc
+	class << self; self end
+snippet nam
+	namespace :${1:`Filename()`} do
+		${2}
+	end
+snippet tas
+	desc "${1:Task description\}"
+	task :${2:task_name => [:dependent, :tasks]} do
+		${3}
+	end
+# block
+snippet b
+	{|${1:var}| ${2}}
