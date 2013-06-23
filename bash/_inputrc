@@ -2,7 +2,8 @@ $include /etc/inputrc
 # bash's bind offers the same functionalities. See `help bind'.
 #"\C-xp": dump-functions
 #"\C-xc": dump-macros
-
+#"\C-xv": dump-variables
+#
 # RATIONALE:
 # C-hjkl to move between words like C-arrows (h/j=up/down in history)
 # M-hl to move left/right charwise like in vim
