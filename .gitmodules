@@ -172,3 +172,6 @@
 [submodule "vim/dotvim/bundle/evidens_vim-twig"]
 	path = vim/dotvim/bundle/evidens_vim-twig
 	url = git://github.com/evidens/vim-twig.git
+[submodule "vim/dotvim/bundle/vim-ruby_vim-ruby"]
+	path = vim/dotvim/bundle/vim-ruby_vim-ruby
+	url = https://github.com/vim-ruby/vim-ruby.git
