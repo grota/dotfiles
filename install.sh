@@ -8,6 +8,7 @@ git submodule update --init --recursive
  mkdir -p ~/local/bin
  ln -sf ${repohome}/bin/vimdirdiff.sh ~/local/bin/vimdirdiff.sh
  ln -sf ${repohome}/bin/rupa_v/v ~/local/bin/v
+ ln -sf ${repohome}/bin/bd ~/local/bin/bd
 
 # [Bash]
  ln -sf ${repohome}/bash/_bash_aliases ~/.bash_aliases
