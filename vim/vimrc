@@ -664,7 +664,18 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 " }}}
 " Vimux {{{
 let g:VimuxUseNearestPane = 1
+let g:VimuxOrientation = "h"
+let g:VimuxHeight = "40"
+function! VimuxSlime()
+  if !exists("g:VimuxRunnerPaneIndex") || _VimuxHasPane(g:VimuxRunnerPaneIndex) == -1
+    call VimuxOpenPane()
+  endif
+  call VimuxSendText(@v)
+  call VimuxSendKeys("Enter")
+endfunction
 nnoremap <Leader>lc :VimuxRunLastCommand<CR>
+vnoremap <Leader>v "vy  :call VimuxSlime()<CR>
+nnoremap <Leader>v "vyy :call VimuxSlime()<CR>
 " }}}
 " Turbux {{{
 let g:turbux_command_rspec = 'rspec --drb'
