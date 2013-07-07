@@ -445,6 +445,11 @@ autocmd FileType gitcommit nnoremap <buffer> <silent> <leader>d :DiffGitCached<C
 " }}}
 
 " CONTRIB PLUGINS MAPPINGS AND SETTINGS {{{
+" vim-cycle {{{
+let g:cycle_no_mappings = 1
+autocmd FileType php call AddCycleGroup('php', ['TRUE', 'FALSE'])
+nmap <leader>C <Plug>CycleNext
+" }}}
 " tagbar plugin {{{
 nnoremap <silent> <F10> :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
@@ -618,6 +623,8 @@ set <M-e>=e
 set <M-p>=p
 let g:AutoPairsShortcutJump='<M-/>'
 let g:AutoPairsShortcutFastWrap=''
+" Oddly enough this isn't called for ruby (?)
+autocmd BufEnter * call AutoPairsTryInit()
 "}}}
 " Sparkup {{{
 " see the FileType autocommands below for the real mappings
@@ -658,9 +665,6 @@ let g:vdebug_options= {
 \    "debug_file" : "/tmp/vdebug",
 \    "continuous_mode" : 0,
 \}
-" }}}
-" Ack.vim uses https://github.com/ggreer/the_silver_searcher {{{
-let g:ackprg = 'ag --nogroup --nocolor --column'
 " }}}
 " Vimux {{{
 let g:VimuxUseNearestPane = 1

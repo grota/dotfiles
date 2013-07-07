@@ -175,3 +175,6 @@
 [submodule "vim/dotvim/bundle/vim-ruby_vim-ruby"]
 	path = vim/dotvim/bundle/vim-ruby_vim-ruby
 	url = https://github.com/vim-ruby/vim-ruby.git
+[submodule "vim/dotvim/bundle/zef_vim-cycle"]
+	path = vim/dotvim/bundle/zef_vim-cycle
+	url = git@github.com:zef/vim-cycle.git
