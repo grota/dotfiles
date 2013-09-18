@@ -487,6 +487,9 @@ nnoremap <leader>gs  :Gstatus<CR>
 nnoremap <M-s> :Gstatus<CR>
 nnoremap <leader>gc  :Gcommit -v<CR>
 "}}}
+" Surround {{{
+autocmd FileType php let b:surround_97 = "array('\r')"
+"}}}
 " Yankring {{{
 set <M-n>=n
 set <M-m>=m

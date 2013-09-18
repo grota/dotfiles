@@ -16,7 +16,7 @@ highlight CursorLine term=underline guibg=gray9 ctermbg=234 cterm=NONE
 highlight LineNr guifg=GreenYellow
 highlight Statement guifg=goldenrod
 highlight String term=underline ctermfg=173 guifg=orchid3
-highlight Comment term=bold cterm=bold ctermfg=240 guifg=OrangeRed1
+highlight Comment term=bold cterm=bold ctermfg=242 guifg=OrangeRed1
 highlight Normal guifg=DarkSeaGreen1 ctermfg=157 ctermbg=none
 highlight Constant ctermfg=13
 highlight Type cterm=bold ctermfg=83
@@ -39,6 +39,7 @@ highlight TabLine ctermbg=234 ctermfg=240 cterm=NONE
 highlight TabLineSel ctermfg=250 ctermbg=236 cterm=NONE
 " custom highlight group
 highlight TabLineModifiedMark ctermfg=1 ctermbg=22 cterm=bold
+highlight TabLineNotModifiableMark ctermfg=240 ctermbg=234 cterm=bold
 highlight VertSplit ctermfg=240
 highlight TagbarHighlight term=reverse ctermfg=0 ctermbg=11 guifg=black guibg=gold
 " Default Highlights {{{
