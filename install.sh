@@ -144,4 +144,6 @@ git submodule update --init --recursive
 # [private]
 ${repohome}/private/install.sh
 
-# the old vimperator stuff has been removed but can be found in the git history, see commit after 8b619de
+# NOTES:
+# The old vimperator stuff has been removed but can be found in the git history, see commit after 8b619de
+# See http://github.com/evidens/vim-twig for a twig php plugin
