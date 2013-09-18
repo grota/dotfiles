@@ -175,3 +175,6 @@
 [submodule "vim/dotvim/bundle/zef_vim-cycle"]
 	path = vim/dotvim/bundle/zef_vim-cycle
 	url = git@github.com:zef/vim-cycle.git
+[submodule "vim/dotvim/bundle/tristen_vim-sparkup"]
+	path = vim/dotvim/bundle/tristen_vim-sparkup
+	url = git://github.com/tristen/vim-sparkup.git
