@@ -466,6 +466,7 @@ nnoremap <silent> ,fs :TagbarCurrentTag 'p'<CR>
 " Fugitive {{{
 " Map .. to go back to the parent dir when you are in a git (fugitive)
 " tree|blob buffer
+autocmd BufEnter fugitive://**//[0-3]/** let b:autotagDisabled=1
 autocmd User Fugitive
       \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
       \   nnoremap <buffer> .. :edit %:h/<CR> |

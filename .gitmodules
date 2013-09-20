@@ -40,9 +40,6 @@
 [submodule "vim/dotvim/bundle/ervandew_supertab"]
 	path = vim/dotvim/bundle/ervandew_supertab
 	url = git://github.com/ervandew/supertab
-[submodule "vim/dotvim/bundle/grota_dirdiff"]
-	path = vim/dotvim/bundle/grota_dirdiff
-	url = git@github.com:grota/DirDiff.vim.git
 [submodule "vim/dotvim/bundle/tpope_vim-surround"]
 	path = vim/dotvim/bundle/tpope_vim-surround
 	url = git://github.com/tpope/vim-surround
@@ -115,9 +112,6 @@
 [submodule "vim/dotvim/bundle/jiangmiao_auto-pairs"]
 	path = vim/dotvim/bundle/jiangmiao_auto-pairs
 	url = git://github.com/jiangmiao/auto-pairs.git
-[submodule "vim/dotvim/bundle/vim-scripts_PreciseJump"]
-	path = vim/dotvim/bundle/vim-scripts_PreciseJump
-	url = git://github.com/vim-scripts/PreciseJump.git
 [submodule "bin/drush"]
 	path = bin/drush
 	url = http://git.drupal.org/project/drush.git
