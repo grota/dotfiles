@@ -109,9 +109,6 @@
 [submodule "bin/php-build"]
 	path = bin/php-build
 	url = git://github.com/CHH/php-build.git
-[submodule "vim/dotvim/bundle/vim-scripts_AutoTag"]
-	path = vim/dotvim/bundle/vim-scripts_AutoTag
-	url = git://github.com/vim-scripts/AutoTag.git
 [submodule "vim/dotvim/bundle/vim-scripts_argtextobj.vim"]
 	path = vim/dotvim/bundle/vim-scripts_argtextobj.vim
 	url = git://github.com/vim-scripts/argtextobj.vim.git
@@ -175,3 +172,6 @@
 [submodule "vim/dotvim/bundle/tristen_vim-sparkup"]
 	path = vim/dotvim/bundle/tristen_vim-sparkup
 	url = git://github.com/tristen/vim-sparkup.git
+[submodule "vim/dotvim/bundle/craigemery_vim-autotag"]
+	path = vim/dotvim/bundle/craigemery_vim-autotag
+	url = git@github.com:craigemery/vim-autotag.git
