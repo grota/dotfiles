@@ -34,34 +34,10 @@ unlet s:save_cpo
 " IndexedSearch: unmap stupid mappings that start with \, use g/ in case
 unmap \\
 unmap \/
-
-" Bclose, unmap default mappings
-"nunmap <leader>bd
 "}}}
 
 nnoremap \\ ``
-" set by garbas' snipmate
-sunmap \
 
 " CHANGE CASE {{{
 nnoremap U gUiWw
-"}}}
-" SnipMate {{{
-" the S-C-B mappings shadow the C-B ones, due to the fact that they are
-" unrecognizable to vim.
-" 1st step: unmap the backwards shadow in insert mode.
-iunmap <S-C-B>
-" 2nd step: map correctly the <C-B> to what we want.
-inoremap <silent> <C-B> <c-g>u<c-r>=snipMate#TriggerSnippet()<cr>
-" 3rd step: unmap in select mode, due to shadowing, 1 unmap is enough.
-sunmap <C-B>
-"}}}
-" PreciseJump {{{
-nunmap _F
-vunmap _F
-ounmap _F
-nunmap _f
-vunmap _f
-ounmap _f
-omap - v:call PreciseJumpF(-1, -1, 0)<cr>
 "}}}
