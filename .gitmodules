@@ -112,9 +112,6 @@
 [submodule "vim/dotvim/bundle/jiangmiao_auto-pairs"]
 	path = vim/dotvim/bundle/jiangmiao_auto-pairs
 	url = git://github.com/jiangmiao/auto-pairs.git
-[submodule "bin/drush"]
-	path = bin/drush
-	url = http://git.drupal.org/project/drush.git
 [submodule "vim/dotvim/bundle/vim-scripts_gitignore"]
 	path = vim/dotvim/bundle/vim-scripts_gitignore
 	url = git://github.com/vim-scripts/gitignore.git
@@ -169,3 +166,6 @@
 [submodule "vim/dotvim/bundle/craigemery_vim-autotag"]
 	path = vim/dotvim/bundle/craigemery_vim-autotag
 	url = git@github.com:craigemery/vim-autotag.git
+[submodule "bin/drush"]
+	path = bin/drush
+	url = git@github.com:drush-ops/drush.git
