@@ -46,7 +46,7 @@ export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 
 # load my private stuff
-[[ -s "${current_pathinrepo}/../private/bash/_bash_aliases" ]] && source "${current_pathinrepo}/../private/bash/_bash_aliases"
+[[ -s "${DOTFILESREPO}/private/bash/_bash_aliases" ]] && source "${DOTFILESREPO}/private/bash/_bash_aliases"
 
 # oh god, this feels good
 [[ -n "$DISPLAY" ]] && xset r rate 200 90

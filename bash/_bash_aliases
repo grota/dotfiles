@@ -5,6 +5,7 @@
 # ~/.profile is not read if ~/.bash_profile or ~/.bash_login exists.
 # look into the dropbox-only phpenv_phpbuild branch for a sane .bash_profile
 
+export DOTFILESREPO=$(readlink -f $( dirname $(readlink -f "${BASH_SOURCE[0]}"))"/..")
 # source an extra file for non aliases/function stuff
 if [ -f ~/.bash_extras ]; then
     . ~/.bash_extras

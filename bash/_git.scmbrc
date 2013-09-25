@@ -17,7 +17,7 @@ export git_setup_aliases="yes"
 # Git Index Config
 # ----------------------------------------------
 # Repos will be automatically added from this directory.
-export GIT_REPO_DIR="$HOME/rcfiles"
+export GIT_REPO_DIR="$DOTFILESREPO"
 # Add the full paths of any extra repos to GIT_REPOS, separated with ':'
 # e.g. "/opt/rails/project:/opt/rails/another project:$HOME/other/repo"
 export GIT_REPOS=""
