@@ -13,6 +13,7 @@
 	l = log --oneline --decorate
 	up = pull --ff-only
 	h = help
+	ctags = !${DOTFILESREPO}/bin/create_ctags_file
 
 # This alias requires git-diffall from https://github.com/thenigan/git-diffall
 # git-diffall prepares 2 temp directory trees: lhs and rhs.
