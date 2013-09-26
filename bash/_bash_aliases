@@ -55,10 +55,10 @@ alias rlphp='sudo rm /tmp/php5_apache_errorlog.log'
 #alias rmine='RUBYMINE_JDK=~/Downloads/jdk1.6.0_30 mine &> /dev/null &'
 #alias storm='WEBIDE_JDK=~/Downloads/jdk1.6.0_30 pstorm &> /dev/null &'
 # Acer specific {{{
-alias toff='xinput set-prop "SynPS/2 Synaptics TouchPad" 140 0'
-alias ton='xinput set-prop "SynPS/2 Synaptics TouchPad" 140 1'
-alias koff='xinput set-prop "AT Translated Set 2 keyboard" 140 0'
-alias kon='xinput set-prop "AT Translated Set 2 keyboard" 140 1'
+alias toff='xinput set-prop "SynPS/2 Synaptics TouchPad" 139 0'
+alias ton='xinput set-prop "SynPS/2 Synaptics TouchPad" 139 1'
+alias koff='xinput set-prop "AT Translated Set 2 keyboard" 139 0'
+alias kon='xinput set-prop "AT Translated Set 2 keyboard" 139 1'
 #}}}
 alias unmute='amixer set Speaker,0 unmute &> /dev/null ; amixer set Speaker,0 100% &> /dev/null'
 
