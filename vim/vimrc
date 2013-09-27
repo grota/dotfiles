@@ -424,7 +424,7 @@ inoremap <M-w> <C-o>dw
 nnoremap & :&&<CR>
 xnoremap & :&&<CR>
 "}}}
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>ev :vsplit $DOTFILESREPO/vim/vimrc<cr>
 "}}}
 "}}}
 
@@ -589,6 +589,10 @@ let g:Powerline_colorscheme = 'powerline_grota'
 call Pl#Theme#ReplaceSegment('tagbar:currenttag', 'tagbar:fullcurrenttag')
 "}}}
 " SnipMate {{{
+imap <C-B> <Plug>snipMateNextOrTrigger
+smap <C-B> <Plug>snipMateNextOrTrigger
+imap <C-R><C-B> <Plug>snipMateShow
+"imap ... <Plug>snipMateBack
 " }}}
 " Supertab {{{
 let g:SuperTabDefaultCompletionType = "context"
@@ -625,6 +629,8 @@ let g:AutoPairsShortcutJump='<M-/>'
 let g:AutoPairsShortcutFastWrap=''
 " Oddly enough this isn't called for ruby (?)
 autocmd BufEnter * call AutoPairsTryInit()
+let g:AutoPairsMapBS = 0
+inoremap <BS> <C-R>=AutoPairsDelete()<CR>
 "}}}
 " Sparkup {{{
 " see the FileType autocommands below for the real mappings
