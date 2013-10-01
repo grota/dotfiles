@@ -95,7 +95,8 @@ alias gdcw='git diff --cached --word-diff --'
 alias gl='git --no-pager l -n12'
 alias k='git --no-pager ll -n12'
 alias gk='gitk --all&'
-alias gst='git stash'
+alias gsts='git stash save '
+alias gst='git stash list'
 alias gstp='git stash pop --index'
 alias gl1p="git log -1 -p"
 # from scm_breeze

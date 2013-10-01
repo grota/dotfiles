@@ -18,7 +18,7 @@ if exists("+showtabline")
                 if file =~ '\/.'
                     let file = substitute(file, '.*\/\ze.', '', '')
                 endif
-            elseif &l:buftype == 'quickfix'
+            elseif (&l:buftype == 'quickfix' && i == currenttab)
               let file = 'QF '
             else
                 let file = fnamemodify(file, ':p:t')
