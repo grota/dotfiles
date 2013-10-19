@@ -59,6 +59,8 @@ alias toff='xinput set-prop "SynPS/2 Synaptics TouchPad" 139 0'
 alias ton='xinput set-prop "SynPS/2 Synaptics TouchPad" 139 1'
 alias koff='xinput set-prop "AT Translated Set 2 keyboard" 139 0'
 alias kon='xinput set-prop "AT Translated Set 2 keyboard" 139 1'
+alias don='xrandr --output HDMI1 --auto --right-of LVDS1'
+alias doff='xrandr --output HDMI1 --off'
 #}}}
 alias unmute='amixer set Speaker,0 unmute &> /dev/null ; amixer set Speaker,0 100% &> /dev/null'
 

@@ -403,8 +403,8 @@ nnoremap <Leader><leader>p :<C-U>put<CR>
 inoremap <C-o>p <Left><Right><C-o>p<End>
 "}}}
 " <C-s> QUICK SAVING {{{
-nnoremap <C-s> :w<CR>
-inoremap <C-s> <C-o>:w<CR>
+nnoremap <C-s> :update<CR>
+inoremap <C-s> <C-o>:update<CR>
 "}}}
 " nix_<M-UP/DOWN> MOVE LINES UP/DOWN {{{
 nnoremap <M-Down> :m+<CR>==
@@ -489,7 +489,10 @@ nnoremap <M-s> :Gstatus<CR>
 nnoremap <leader>gc  :Gcommit -v<CR>
 "}}}
 " Surround {{{
+" a
 autocmd FileType php let b:surround_97 = "array('\r')"
+" S
+autocmd FileType php let b:surround_83 = "var_export(\r, TRUE)"
 "}}}
 " Yankring {{{
 set <M-n>=n

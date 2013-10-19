@@ -1,7 +1,7 @@
 $include /etc/inputrc
 # bash's bind offers the same functionalities. See `help bind'.
 #"\C-xp": dump-functions
-#"\C-xc": dump-macros
+#"\C-xz": dump-macros
 #"\C-xv": dump-variables
 #
 # RATIONALE:
