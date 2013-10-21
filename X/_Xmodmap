@@ -1,0 +1,4 @@
+! lines starting with ! are comments.
+! See personal wiki for additional notes
+!keycode 107 = Insert NoSymbol
+!keycode 118 = Print Sys_Req

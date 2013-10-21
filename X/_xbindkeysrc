@@ -1,0 +1,8 @@
+"sleep 0.1 && for run in `seq 1 10`; do xdotool key --clearmodifiers XF86MonBrightnessDown; done"
+Alt + F5
+"sleep 0.1 && for run in `seq 1 10`; do xdotool key --clearmodifiers XF86MonBrightnessUp; done"
+Alt + F6
+"sleep 0.2 && for run in `seq 1 2`; do xdotool key --clearmodifiers XF86AudioLowerVolume; done"
+Alt + F7
+"sleep 0.2 && for run in `seq 1 2`; do xdotool key --clearmodifiers XF86AudioRaiseVolume; done"
+Alt + F8

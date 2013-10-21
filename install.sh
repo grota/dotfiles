@@ -79,14 +79,15 @@ git submodule update --init --recursive
  mkdir -p ~/.drush
  ln -sf private/drush ${repohome}
 
-# [xmodmap]
-# conf for laptop dv7-6190sl
- ln -sf ${repohome}/xmodmap/_Xmodmap ~/.Xmodmap
-
 # [X]
+ # xproperties, old stuff
  ln -sf ${repohome}/X/_Xdefaults ~/.Xdefaults
  # ubuntu lightdm does not consider ~/.xsession{,rc} nor ~/.xinitrc
  #ln -sf ${repohome}/X/_xinitrc ~/.xinitrc
+ ln -sf ${repohome}/X/_xbindkeysrc  ~/.xbindkeysrc
+ # xmodmap, switch a couple of keys, for laptop dv7-6190sl, disabled by default
+ ln -sf ${repohome}/X/_Xmodmap ~/.Xmodmap
+ # what to autostart in X
  ln -sf ${repohome}/_config/autostart/xrdb.desktop ~/.config/autostart/xrdb.desktop
  ln -sf ${repohome}/_config/autostart/dropbox.desktop ~/.config/autostart/dropbox.desktop
  ln -sf ${repohome}/_config/autostart/hamster-indicator.desktop ~/.config/autostart/hamster-indicator.desktop

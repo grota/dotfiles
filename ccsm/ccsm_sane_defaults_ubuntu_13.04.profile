@@ -523,7 +523,7 @@ s0_alldesktop_sticky_match = any
 
 [resize]
 s0_initiate_button = <Alt>Button2
-s0_initiate_key = <Alt>F8
+s0_initiate_key = <Shift><Alt>F8
 s0_mode = 2
 s0_resize_from_center = false
 s0_maximize_vertically = true
@@ -699,7 +699,7 @@ s0_prev_panel_button = Disabled
 s0_prev_panel_key = Disabled
 s0_speed = 6,000000
 s0_timestep = 1,200000
-s0_window_match = (Normal | Dialog | Toolbar | Utility | Unknown) 
+s0_window_match = (Normal | Dialog | Toolbar | Utility | Unknown)
 s0_minimized = true
 s0_auto_change_vp = false
 s0_popup_delay = 0,010000
@@ -713,15 +713,15 @@ s0_mipmap = true
 s0_row_align = 1
 s0_focus_on_switch = false
 s0_bring_to_front = false
-s0_highlight_mode = 0
+s0_highlight_mode = 2
 s0_highlight_rect_hidden = 1
-s0_highlight_color = #00000096
-s0_highlight_border_color = #000000c8
-s0_highlight_border_inlay_color = #c8c8c8c8
+s0_highlight_color = #b31212ff
+s0_highlight_border_color = #edff3dff
+s0_highlight_border_inlay_color = #7cf326c8
 
 [move]
 s0_initiate_button = <Alt>Button1
-s0_initiate_key = <Alt>F7
+s0_initiate_key = <Shift><Alt>F7
 s0_opacity = 100
 s0_constrain_y = true
 s0_snapoff_maximized = true
@@ -876,7 +876,7 @@ s0_toggle_key = <Alt><Super>r
 s0_intensity = 20
 
 [core]
-s0_active_plugins = core;crashhandler;composite;opengl;decor;copytex;compiztoolbox;place;imgpng;vpswitch;unitymtgrabhandles;put;neg;notification;resize;text;grid;snap;move;gnomecompat;mousepoll;regex;dbus;animation;session;expo;wall;ezoom;workarounds;workspacenames;shelf;staticswitcher;thumbnail;fade;scale;unityshell;scaleaddon;
+s0_active_plugins = core;crashhandler;composite;opengl;decor;copytex;compiztoolbox;place;imgpng;vpswitch;unitymtgrabhandles;put;neg;notification;resize;text;grid;snap;move;gnomecompat;mousepoll;regex;dbus;animation;session;expo;wall;ezoom;workarounds;workspacenames;shelf;staticswitcher;fade;scale;unityshell;scaleaddon;
 s0_audible_bell = true
 s0_ignore_hints_when_maximized = true
 s0_hide_skip_taskbar_windows = true
@@ -890,7 +890,7 @@ s0_outputs = 1600x900+0+0;
 s0_click_to_focus = true
 s0_raise_on_click = true
 s0_autoraise = false
-s0_autoraise_delay = 1000
+s0_autoraise_delay = 500
 s0_focus_prevention_level = 1
 s0_focus_prevention_match = !(class=Polkit-gnome-authentication-agent-1)
 s0_close_window_key = <Control>grave
@@ -973,8 +973,8 @@ s0_decoration_match = any
 s0_shadow_match = any
 
 [commands]
-s0_command0 = 
-s0_command1 = 
+s0_command0 = xdotool key XF86MonBrightnessDown
+s0_command1 = xdotool key XF86MonBrightnessUp
 s0_command2 = 
 s0_command3 = 
 s0_command4 = 
