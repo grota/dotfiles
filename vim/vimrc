@@ -109,8 +109,8 @@ nnoremap <space> :
 xnoremap <space> :
 nnoremap \ `
 nnoremap ` '
-nnoremap ' g_
-xnoremap ' g_
+nnoremap ' g_l
+xnoremap ' g_l
 nnoremap ; ^
 xnoremap ; ^
 set <M-'>='
@@ -798,4 +798,5 @@ au InsertLeave * hi CursorLine ctermbg=234
 " NOTES {{{
 " i_<C-z,b,f> can be remapped
 " <F6,7,8> can be mapped
+" NoMatchParen ?
 " }}}

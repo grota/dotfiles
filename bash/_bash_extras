@@ -2,7 +2,7 @@
 # vim: set tabstop=2 shiftwidth=2 foldmethod=marker:
 
 current_pathinrepo=$( dirname $(readlink -f "${BASH_SOURCE[0]}") )
-export PATH=$HOME/local/bin:$PATH
+export PATH=$HOME/local/bin:~/.composer/vendor/bin:$PATH
 export EDITOR=vim
 HISTFILESIZE=80000
 HISTSIZE=5000
