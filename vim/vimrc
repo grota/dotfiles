@@ -697,6 +697,10 @@ let g:no_turbux_mappings = 1
 map <leader>T <Plug>SendTestToTmux
 map <leader>t <Plug>SendFocusedTestToTmux
 " }}}
+" Signify {{{
+let g:signify_vcs_list = ['git']
+let g:signify_sign_change = '~'
+" }}}
 "}}}
 
 " CUSTOM PLUGINS MAPPINGS AND SETTINGS {{{

@@ -142,9 +142,6 @@
 [submodule "vim/dotvim/bundle/kana_vim-textobj-user"]
 	path = vim/dotvim/bundle/kana_vim-textobj-user
 	url = git://github.com/kana/vim-textobj-user.git
-[submodule "vim/dotvim/bundle/airblade_vim-gitgutter"]
-	path = vim/dotvim/bundle/airblade_vim-gitgutter
-	url = git://github.com/airblade/vim-gitgutter.git
 [submodule "vim/dotvim/bundle/benmills_vimux"]
 	path = vim/dotvim/bundle/benmills_vimux
 	url = git://github.com/benmills/vimux.git
@@ -169,3 +166,6 @@
 [submodule "bin/drush"]
 	path = bin/drush
 	url = git@github.com:drush-ops/drush.git
+[submodule "vim/dotvim/bundle/mhinz_vim-signify"]
+	path = vim/dotvim/bundle/mhinz_vim-signify
+	url = https://github.com/mhinz/vim-signify
