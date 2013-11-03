@@ -169,3 +169,6 @@
 [submodule "vim/dotvim/bundle/mhinz_vim-signify"]
 	path = vim/dotvim/bundle/mhinz_vim-signify
 	url = https://github.com/mhinz/vim-signify
+[submodule "vim/dotvim/bundle/justinmk_vim-sneak"]
+	path = vim/dotvim/bundle/justinmk_vim-sneak
+	url = git@github.com:justinmk/vim-sneak.git

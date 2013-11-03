@@ -113,14 +113,8 @@ nnoremap ' g_l
 xnoremap ' g_l
 nnoremap ; ^
 xnoremap ; ^
-set <M-'>='
-nnoremap <M-'> ;
-xnoremap <M-'> ;
 inoremap <M-'> <C-o>$
 inoremap <M-Right> <C-o>$
-set <M-;>=;
-nnoremap <M-;> ,
-xnoremap <M-;> ,
 inoremap <M-;> <C-o>^
 inoremap <M-Left> <C-o>^
 "}}}
@@ -184,12 +178,12 @@ nnoremap <C-^> :vertical split #<CR>
 nnoremap <F3> <C-W>T
 nnoremap <F4> :<C-u>tabclose<CR>
 nnoremap <F5> :<C-u>tabedit<CR>
-set <M-.>=.
-set <M-,>=,
-nnoremap <silent> <M-.> :<C-u>tabnext<CR>
-nnoremap <silent> <M-,> :<C-u>tabprevious<CR>
-inoremap <silent> <M-,> <Esc>:<C-u>tabprevious<CR>
-inoremap <silent> <M-.> <Esc>:<C-u>tabnext<CR>
+set <M-=>==
+set <M-->=-
+nnoremap <silent> <M-=> :<C-u>tabnext<CR>
+nnoremap <silent> <M--> :<C-u>tabprevious<CR>
+inoremap <silent> <M-=> <Esc>:<C-u>tabnext<CR>
+inoremap <silent> <M--> <Esc>:<C-u>tabprevious<CR>
 " }}}
 " <C-n><C-p>: NEXT/PREV BUFFER {{{
 " <C-N> was the same as <Down> and I didn't need it.
@@ -627,6 +621,7 @@ let g:Gitv_DoNotMapCtrlKey = 1
 let g:AutoPairsFlyMode = 1
 set <M-/>=/
 set <M-e>=e
+" <M-p> mapped to AutoPairsToggle
 set <M-p>=p
 let g:AutoPairsShortcutJump='<M-/>'
 let g:AutoPairsShortcutFastWrap=''
@@ -700,6 +695,16 @@ map <leader>t <Plug>SendFocusedTestToTmux
 " Signify {{{
 let g:signify_vcs_list = ['git']
 let g:signify_sign_change = '~'
+" }}}
+" vim-sneak {{{
+set <M-'>='
+nmap <M-'> <Plug>SneakNext
+xmap <M-'> <Plug>VSneakNext
+let g:sneak#f_reset = 0
+let g:sneak#t_reset = 0
+set <M-;>=;
+nmap <M-;> <Plug>SneakPrevious
+xmap <M-;> <Plug>VSneakPrevious
 " }}}
 "}}}
 
