@@ -109,10 +109,12 @@ nnoremap <space> :
 xnoremap <space> :
 nnoremap \ `
 nnoremap ` '
-nnoremap ' g_l
-xnoremap ' g_l
-nnoremap ; ^
-xnoremap ; ^
+set <M-'>='
+nnoremap <M-'> g_l
+xnoremap <M-'> g_l
+set <M-;>=;
+nnoremap <M-;> ^
+xnoremap <M-;> ^
 inoremap <M-'> <C-o>$
 inoremap <M-Right> <C-o>$
 inoremap <M-;> <C-o>^
@@ -178,12 +180,18 @@ nnoremap <C-^> :vertical split #<CR>
 nnoremap <F3> <C-W>T
 nnoremap <F4> :<C-u>tabclose<CR>
 nnoremap <F5> :<C-u>tabedit<CR>
-set <M-=>==
 set <M-->=-
-nnoremap <silent> <M-=> :<C-u>tabnext<CR>
 nnoremap <silent> <M--> :<C-u>tabprevious<CR>
-inoremap <silent> <M-=> <Esc>:<C-u>tabnext<CR>
 inoremap <silent> <M--> <Esc>:<C-u>tabprevious<CR>
+set <M-=>==
+nnoremap <silent> <M-=> :<C-u>tabnext<CR>
+inoremap <silent> <M-=> <Esc>:<C-u>tabnext<CR>
+set <M-`>=`
+nnoremap <silent> <M-`> :<C-u>tabprevious<CR>
+inoremap <silent> <M-`> <Esc>:<C-u>tabprevious<CR>
+set <M-1>=1
+nnoremap <silent> <M-1> :<C-u>tabnext<CR>
+inoremap <silent> <M-1> <Esc>:<C-u>tabnext<CR>
 " }}}
 " <C-n><C-p>: NEXT/PREV BUFFER {{{
 " <C-N> was the same as <Down> and I didn't need it.
@@ -310,8 +318,6 @@ cnoremap <C-A> <Home>
 " Don't ask me why, but I need to remap dp to dp,
 " I thinks this is yankring's fault.
 autocmd FilterWritePre * if &diff|
-      \ nnoremap <buffer> ]c ]czz|
-      \ nnoremap <buffer> [c [czz|
       \ nnoremap <buffer> <leader>du :let l=line(".")<CR>\|:<C-U>diffupdate<CR>\|:exe "normal! ".l."G"<CR>zz|
       \ nnoremap <buffer> dp dp]czz|
       \ nnoremap <buffer> dg do]czz|
@@ -635,12 +641,6 @@ inoremap <BS> <C-R>=AutoPairsDelete()<CR>
 let g:sparkupExecuteMapping = '<Plug>SparkupExecuteMapping'
 let g:sparkupNextMapping = '<Plug>SparkupNextMapping'
 "}}}
-" PreciseJump {{{
-nmap - :call PreciseJumpF(-1, -1, 0)<cr>
-vmap - <ESC>:call PreciseJumpF(-1, -1, 1)<cr>
-" also in after_actions to fix race with Yankring
-omap - v:call PreciseJumpF(-1, -1, 0)<cr>
-" }}}
 " Vdebug {{{
 let g:vdebug_keymap = {
 \    "run" : "<F8>",
@@ -697,14 +697,12 @@ let g:signify_vcs_list = ['git']
 let g:signify_sign_change = '~'
 " }}}
 " vim-sneak {{{
-set <M-'>='
-nmap <M-'> <Plug>SneakNext
-xmap <M-'> <Plug>VSneakNext
+nmap ' <Plug>SneakNext
+xmap ' <Plug>VSneakNext
 let g:sneak#f_reset = 0
 let g:sneak#t_reset = 0
-set <M-;>=;
-nmap <M-;> <Plug>SneakPrevious
-xmap <M-;> <Plug>VSneakPrevious
+nmap ; <Plug>SneakPrevious
+xmap ; <Plug>VSneakPrevious
 " }}}
 "}}}
 
