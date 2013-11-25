@@ -83,6 +83,9 @@ if [[ -s "$HOME/.git.scmbrc" ]]; then
 fi
 # }}}
 
+function ff() { echo "*$**" ; find . -type f -iname "*$**" ; }
+function whichpkg() { PACKAGE=$(dpkg -S $(which $1) | cut -d':' -f1); echo "[${PACKAGE}]"; dpkg -s "${PACKAGE}" ;}
+
 # old notes {{{
 # PS1 overrides the one from .bashrc. Color prompt by default
 # the title of xterms is set only to \w (the current working directory,

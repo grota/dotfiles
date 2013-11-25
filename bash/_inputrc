@@ -25,6 +25,10 @@ $include /etc/inputrc
 "\C-b": backward-delete-char
 "\eb":  delete-char
 
+# Idea: readline macro to quote the arguments:
+# It can move to the beginning of the line like C-xC-x does,
+# plant a quote, move to the end and plant another
+
 # Defaults {{{
 # M-t, C-t transpose words/chars
 # C-r, C-s reverse/forward search history
@@ -61,7 +65,7 @@ $endif
 Control-Space: magic-space
 
 # add parameters to the last command
-"\C-xx": "\C-p\C-a\e[5C "
+"\C-x\C-x": "\C-p\C-a\e[5C "
 
 # tmux configuration
 $if term=screen-256color
