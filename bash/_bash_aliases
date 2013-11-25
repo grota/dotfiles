@@ -130,6 +130,82 @@ complete -F _git_abbrev_hash_complete gl1p
 # from scm_breeze
 __define_git_completion gbf branch
 complete -o default -o nospace -F _git_gbf_shortcut gbf
+alias fzf="ruby --disable-gems "${DOTFILESREPO}"/bin/fzf/fzf"
+
+function _my_fzf_dir_completion() {
+  local cur prev MAX_NUM_OF_DIRS match_fav match match_dir
+  # save the cursor position, see below as to why
+  tput sc
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+  IFS=$'\n'
+  MAX_NUM_OF_DIRS=1000;
+  # use only "favorites" for home
+  if [[ "$PWD" != "$HOME" ]]; then
+    match_dir="$(find_breadth_first_dirs $MAX_NUM_OF_DIRS)"
+  else
+    match_dir=""
+  fi
+  match_fav="$(tac $AUTOJUMP_DATA_DIR/autojump.txt|cut -f 2|sort)"
+  match=$(echo -e "$match_fav\r\n$match_dir"| fzf -q "$cur")
+  # don't specify $cur after the --, otherwise compgen filters out
+  # unmatching (wrt $cur) paths that instead we want
+  COMPREPLY=($(compgen -W "$match" --))
+  IFS=$' \t\n'
+  # ruby's curses stdlib does not play well with the cursor position,
+  # we saved the position before and now we restore it
+  tput rc
+}
+
+for cmd in "cd"; do
+  complete -F _my_fzf_dir_completion $cmd
+done
+
+# This function finds the directories below the current one in
+# a breadth-first fashion, this is because we want to be sure to
+# get the shallowest dirs. Doing find ... | head -n 2000
+# stops find after 2000 results but does not guarantee that we
+# end up with the shallowest ones.
+# This is wasteful but there doesn't seems to be a better way
+# Optional param: MAX_RESULTS
+function find_breadth_first_dirs () {
+  local result depth MAX_RESULTS level_result
+  depth=0
+  # use a default for MAX_RESULTS if not provided
+  if [ -z "$1" ]; then
+    MAX_RESULTS=2000
+  else
+    MAX_RESULTS=$1
+  fi
+  level_result=1
+  while [[ ( -n "$level_result" ) ]]; do
+    depth=$((depth + 1))
+    # execute find for the current level depth
+    level_result=$(_find_for_level $depth)
+    # stupid hack to avoid a newline at the beginning
+    if [[ $depth -lt 2 ]]; then
+      result+=$(echo "${level_result}")
+    else
+      result+=$(echo -e "\r\n${level_result}")
+    fi
+    # stop and prune if we reached the maximum
+    if [[ ( $(echo "$result" | wc -l) -gt $MAX_RESULTS ) ]]; then
+      result=$(echo "$result" | head -n $MAX_RESULTS)
+    fi
+  done
+  # bash functions are stupid, this is the only way of returning that I could find
+  echo "$result"
+}
+
+# Utility function used by find_breadth_first_dirs that finds dirs at level x, where x is the input param
+function _find_for_level () {
+  local temp
+  if [ -z "$1" ]; then return 1; fi
+  # Using -regex '\./.git.*' -prune doesn't seem to work when using maxdepth/mindepth
+  temp=$(find -maxdepth "$1" -mindepth "$1" -type d -print 2> /dev/null| \grep -v '\.git'| cut -b 3-)
+  echo "$temp"
+}
 #}}}
 
 

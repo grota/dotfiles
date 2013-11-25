@@ -172,3 +172,6 @@
 [submodule "vim/dotvim/bundle/justinmk_vim-sneak"]
 	path = vim/dotvim/bundle/justinmk_vim-sneak
 	url = git@github.com:justinmk/vim-sneak.git
+[submodule "bin/fzf"]
+	path = bin/fzf
+	url = git@github.com:junegunn/fzf.git
