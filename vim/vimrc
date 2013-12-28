@@ -695,6 +695,7 @@ map <leader>t <Plug>SendFocusedTestToTmux
 " Signify {{{
 let g:signify_vcs_list = ['git']
 let g:signify_sign_change = '~'
+let g:signify_diffoptions = { 'git': '--patience' }
 " }}}
 " vim-sneak {{{
 nmap ' <Plug>SneakNext
@@ -802,6 +803,11 @@ au InsertEnter * hi CursorLine ctermbg=17
 au InsertLeave * hi CursorLine ctermbg=234
 "}}}
 
+"augroup last_search
+  "autocmd!
+  "autocmd WinLeave * let w:last_search = @/
+  "autocmd WinEnter * if exists('w:last_search') | let @/ = w:last_search | endif
+"augroup END
 " NOTES {{{
 " i_<C-z,b,f> can be remapped
 " <F6,7,8> can be mapped

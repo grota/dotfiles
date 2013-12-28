@@ -31,7 +31,7 @@ highlight Search term=reverse ctermfg=0 ctermbg=3 guifg=black guibg=gold
 highlight Folded term=standout ctermfg=14 ctermbg=234 guifg=gray3 guibg=gray23
 highlight StatusLineNC ctermbg=240 cterm=none term=none gui=none
 highlight DiffChange ctermbg=53
-highlight DiffText ctermbg=241
+highlight DiffText ctermbg=235
 highlight DiffAdd ctermbg=22
 highlight DiffDelete ctermbg=52
 highlight TabLineFill ctermfg=234
