@@ -24,21 +24,9 @@ $include /etc/inputrc
 "\ek":  kill-line
 "\C-b": backward-delete-char
 "\eb":  delete-char
-# add parameters to the last command
-"\C-x\C-x": "\C-p\C-a\e[5C "
+# add parameters to the last command: (previous-history, beginning-of-line, forward-word)
+"\C-x\C-x": "\C-p\C-a\C-l "
 
-# The following was added to cope with fzf, the idea is to call readline's complete
-# when tab (C-i) is pressed followed by a redraw-current-line, see:
-# http://stackoverflow.com/questions/8366450/complex-keybinding-in-bash
-# http://stackoverflow.com/a/19805303/449291
-# The problem is caused by ruby's handling of the prompt when using its ncurses stdlib
-# This works but we don't use this currently because there's already a workaround
-# in the fzf based comspec.
-#"\er": redraw-current-line
-#"\C-t1": complete
-## even if complete is available through \e\e we have to explicitly use another binding (\C-t1 in this case)
-#"\C-i": "\C-t1\er"
-#
 # Idea: readline macro to quote the arguments:
 # It can move to the beginning of the line like C-xC-x does,
 # plant a quote, move to the end and plant another
@@ -54,6 +42,8 @@ $include /etc/inputrc
 # defaults overridden
 # C-f, C-b move by one char at a time
 # C-k kill-line
+# C-](char) character-search (char)
+# M-C-](char) character-search-backward (char)
 
 "\e[A": history-search-backward
 "\e[B": history-search-forward
