@@ -175,3 +175,6 @@
 [submodule "bin/fzf"]
 	path = bin/fzf
 	url = git@github.com:junegunn/fzf.git
+[submodule "vim/dotvim/bundle/tommcdo_vim-exchange"]
+	path = vim/dotvim/bundle/tommcdo_vim-exchange
+	url = git@github.com:tommcdo/vim-exchange.git
