@@ -22,7 +22,8 @@ git submodule update --init --recursive
 
 # [autojump]
  cd ${repohome}/bin/autojump
- ./install.sh  --local > /dev/null
+# hardcoded installation to ~/.autojump
+ ./install.sh --local > /dev/null
 
 # [phpbuild]
  cd ${repohome}/bin/php-build/

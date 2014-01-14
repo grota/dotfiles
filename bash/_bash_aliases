@@ -16,6 +16,7 @@ if [ -f ~/.drush_bashrc  ]; then
 fi
 
 # aliases {{{
+alias tmxu=tmux
 alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias L='less -R'
 alias df='df -h'

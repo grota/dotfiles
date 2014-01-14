@@ -2,7 +2,29 @@
 # vim: set tabstop=2 shiftwidth=2 foldmethod=marker:
 
 current_pathinrepo=$( dirname $(readlink -f "${BASH_SOURCE[0]}") )
-export PATH=$HOME/local/bin:~/.composer/vendor/bin:$PATH
+
+# Make Bash append rather than overwrite the history on disk
+shopt -s histappend
+
+# as per instructions in the script, let's not call ps1_set, but call
+# ps1_update inside PROMPT_COMMAND.
+if [[ "$PROMPT_COMMAND" != *"ps1_update"* ]]; then
+  export PROMPT_COMMAND="history -a; ps1_update --notime --prompt ❯"
+fi
+[[ -s "${current_pathinrepo}/ps1_functions" ]] && source "${current_pathinrepo}/ps1_functions"
+
+# bash autojump, appends to PROMPT_COMMAND
+[[ -s ~/.autojump/etc/profile.d/autojump.sh  ]] && . ~/.autojump/etc/profile.d/autojump.sh
+
+if [[ ! ( "$PATH" == *"$HOME/local/bin:$HOME/.composer/vendor/bin"* ) ]]; then
+  export PATH=$HOME/local/bin:$HOME/.composer/vendor/bin:$PATH
+fi
+
+# if autojump path is at the beginning it's a duplicate
+if [[ ( "$PATH" == "$HOME/.autojump/bin"* ) ]]; then
+  PATH=${PATH#$HOME/.autojump/bin:}
+fi
+
 export EDITOR=vim
 HISTFILESIZE=80000
 HISTSIZE=5000
@@ -25,16 +47,6 @@ HISTIGNORE="clear:bg:fg:cd:cd -:exit:date:w:"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 [[ -s "$rvm_path/scripts/completion" ]] && source "$rvm_path/scripts/completion"
 #}}}
-
-# Make Bash append rather than overwrite the history on disk
-shopt -s histappend
-# as per instructions in the script, let's not call ps1_set, but call
-# ps1_update inside PROMPT_COMMAND.
-PROMPT_COMMAND="history -a; ps1_update --notime --prompt ❯"
-[[ -s "${current_pathinrepo}/ps1_functions" ]] && source "${current_pathinrepo}/ps1_functions"
-
-# bash autojump, modifies PROMPT_COMMAND
-[[ -s ~/.autojump/etc/profile.d/autojump.sh  ]] && . ~/.autojump/etc/profile.d/autojump.sh
 
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
