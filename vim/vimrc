@@ -474,7 +474,7 @@ autocmd User Fugitive
 set <M-d>=d
 nnoremap <M-d> :Gdiff<CR>gg]czz
 function! s:MyGgrepWrapper()
-  let l:input=input("git-grep for: ")
+  let l:input=input("git-grep for: ", expand("<cword>"))
   if l:input == ''
     echo ""
     return
