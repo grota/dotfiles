@@ -25,11 +25,10 @@ $include /etc/inputrc
 "\C-b": backward-delete-char
 "\eb":  delete-char
 # add parameters to the last command: (previous-history, beginning-of-line, forward-word)
-"\C-x\C-x": "\C-p\C-a\C-l "
+"\C-x\C-s": "\C-p\C-a\C-l "
 
-# Idea: readline macro to quote the arguments:
-# It can move to the beginning of the line like C-xC-x does,
-# plant a quote, move to the end and plant another
+# quote args: (beginning-of-line, forward-word, forward-char, ', eol, ')
+"\C-x\C-x": "\C-a\C-l\el'\C-e'"
 
 # Defaults {{{
 # M-t, C-t transpose words/chars
