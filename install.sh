@@ -25,13 +25,6 @@ git submodule update --init --recursive
 # hardcoded installation to ~/.autojump
  ./install.sh --local > /dev/null
 
-# [phpbuild]
- cd ${repohome}/bin/php-build/
- # bugfix of php-build
- mkdir -p $HOME/local/share/man/man1
- mkdir -p $HOME/local/share/man/man5
- PREFIX=$HOME/local ./install.sh > /dev/null
-
 # [hub]
  cd ${repohome}
  [[ ! -f ~/local/bin/hub ]] && curl http://defunkt.io/hub/standalone -sLo ~/local/bin/hub && chmod +x ~/local/bin/hub
@@ -61,6 +54,8 @@ git submodule update --init --recursive
  cat ${repohome}/dconf/_org_gnome_libgnomekbd_keyboard | dconf load /org/gnome/libgnomekbd/keyboard/
 
 # [gconf]
+ mkdir -p ~/.fonts
+ ln -sf ${repohome}/_fonts/SourceCodePro-Semibold-Powerline.otf ~/.fonts/
  # gconftool-2 --dump '/apps/gnome-terminal' > gconf/gnome-terminal_gconf_settings.xml
  gconftool-2 --load ${repohome}/gconf/gnome-terminal_gconf_settings.xml
  # gconftool-2 --dump '/desktop/gnome/keybindings/hamster-applet' > gconf/hamster-shortcut.xml
