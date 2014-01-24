@@ -36,7 +36,7 @@ git submodule update --init --recursive
 # [vim]
  ln -sf ${repohome}/vim/vimrc ~/.vimrc
  ln -sfT ${repohome}/vim/dotvim ~/.vim
- [[ ! -d ~/Documents/git_repos/spf13_PIV ]] && git clone git@github.com:spf13/PIV.git
+ [[ ! -d ~/Documents/git_repos/spf13_PIV ]] && git clone git@github.com:spf13/PIV.git ~/Documents/git_repos/spf13_PIV
 
 # [git]
  ln -sf ${repohome}/git/_gitconfig ~/.gitconfig
