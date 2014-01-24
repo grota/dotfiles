@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 repohome=$( dirname $(readlink -f "${BASH_SOURCE[0]}") )
 cd ${repohome}
 git submodule update --init --recursive
@@ -88,6 +89,7 @@ git submodule update --init --recursive
  # xmodmap, switch a couple of keys, for laptop dv7-6190sl, disabled by default
  ln -sf ${repohome}/X/_Xmodmap ~/.Xmodmap
  # what to autostart in X
+ [[ ! -d ~/.config/autostart ]] && mkdir -p ~/.config/autostart
  ln -sf ${repohome}/_config/autostart/xrdb.desktop ~/.config/autostart/xrdb.desktop
  ln -sf ${repohome}/_config/autostart/dropbox.desktop ~/.config/autostart/dropbox.desktop
  ln -sf ${repohome}/_config/autostart/hamster-indicator.desktop ~/.config/autostart/hamster-indicator.desktop
