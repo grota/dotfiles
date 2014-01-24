@@ -27,7 +27,11 @@ git submodule update --init --recursive
 
 # [hub]
  cd ${repohome}
- [[ ! -f ~/local/bin/hub ]] && curl http://defunkt.io/hub/standalone -sLo ~/local/bin/hub && chmod +x ~/local/bin/hub
+ if [[ ! -f ~/local/bin/hub ]]; then
+   cd vendor/hub
+   rake install prefix=~/local
+   cd ${repohome}
+ fi
 
 # [vim]
  ln -sf ${repohome}/vim/vimrc ~/.vimrc

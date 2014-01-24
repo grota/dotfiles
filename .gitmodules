@@ -175,3 +175,6 @@
 [submodule "vim/dotvim/bundle/tommcdo_vim-exchange"]
 	path = vim/dotvim/bundle/tommcdo_vim-exchange
 	url = git@github.com:tommcdo/vim-exchange.git
+[submodule "vendor/hub"]
+	path = vendor/hub
+	url = https://github.com/defunkt/hub.git
