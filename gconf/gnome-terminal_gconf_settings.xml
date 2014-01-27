@@ -397,7 +397,7 @@
       <key>profiles/Default/font</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/font</schema_key>
       <value>
-        <string>Source Code Pro for Powerline Semi-Bold 11</string>
+        <string>Source Code Pro for Powerline Semi-Bold 12</string>
       </value>
     </entry>
     <entry>
@@ -467,7 +467,7 @@
       <key>profiles/Default/scrollbar_position</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/scrollbar_position</schema_key>
       <value>
-        <string>right</string>
+        <string>hidden</string>
       </value>
     </entry>
     <entry>

@@ -1,6 +1,16 @@
 #!/bin/bash
 
 set -e
+
+exists() {
+  if command -v $1 >/dev/null 2>&1
+  then
+    return 0
+  else
+    return 1
+  fi
+}
+
 repohome=$( dirname $(readlink -f "${BASH_SOURCE[0]}") )
 cd ${repohome}
 git submodule update --init --recursive
@@ -40,6 +50,12 @@ fi
    cd ${repohome}
  fi
 
+# [composer]
+ if ! exists composer; then
+   curl -sS https://getcomposer.org/installer | php
+   mv composer.phar $HOME/local/bin/composer
+ fi
+
 # [vim]
  ln -sf ${repohome}/vim/vimrc $HOME/.vimrc
  ln -sfT ${repohome}/vim/dotvim $HOME/.vim
@@ -62,19 +78,21 @@ fi
  ln -sf ${repohome}/ruby/_gemrc $HOME/.gemrc
 
 # [dconf]
-if [ -n "$DISPLAY" ]; then
- cat ${repohome}/dconf/_org_gnome_libgnomekbd_keyboard | dconf load /org/gnome/libgnomekbd/keyboard/
+if exists dconf; then
+  cat ${repohome}/dconf/_org_gnome_libgnomekbd_keyboard | dconf load /org/gnome/libgnomekbd/keyboard/
 fi
 
 # [gconf]
  mkdir -p $HOME/.fonts
  ln -sf ${repohome}/_fonts/SourceCodePro-Semibold-Powerline.otf $HOME/.fonts/
- # gconftool-2 --dump '/apps/gnome-terminal' > gconf/gnome-terminal_gconf_settings.xml
- gconftool-2 --load ${repohome}/gconf/gnome-terminal_gconf_settings.xml
- # gconftool-2 --dump '/desktop/gnome/keybindings/hamster-applet' > gconf/hamster-shortcut.xml
- gconftool-2 --load ${repohome}/gconf/hamster-shortcut.xml
- # gconftool-2 --dump '/apps/hamster-indicator' > gconf/hamster-settings.xml
- gconftool-2 --load ${repohome}/gconf/hamster-settings.xml
+if exists gconftool-2; then
+  # gconftool-2 --dump '/apps/gnome-terminal' > gconf/gnome-terminal_gconf_settings.xml
+  gconftool-2 --load ${repohome}/gconf/gnome-terminal_gconf_settings.xml
+  # gconftool-2 --dump '/desktop/gnome/keybindings/hamster-applet' > gconf/hamster-shortcut.xml
+  gconftool-2 --load ${repohome}/gconf/hamster-shortcut.xml
+  # gconftool-2 --dump '/apps/hamster-indicator' > gconf/hamster-settings.xml
+  gconftool-2 --load ${repohome}/gconf/hamster-settings.xml
+fi
 
 # [ssh]
  mkdir -p $HOME/.ssh
@@ -82,7 +100,7 @@ fi
  ln -sf private/ssh ${repohome}
 
 # [pianobar]
- ln -sf ../private/_config/pianobar ${repohome}/_config/
+ ln -sfT ../private/_config/pianobar ${repohome}/_config/pianobar
 
 # [drush]
  mkdir -p $HOME/.drush
@@ -154,7 +172,7 @@ fi
 
 # [private]
 ${repohome}/private/install.sh
+echo "dotfiles installed"
 
 # NOTES:
 # The old vimperator stuff has been removed but can be found in the git history, see commit after 8b619de
-# See http://github.com/evidens/vim-twig for a twig php plugin

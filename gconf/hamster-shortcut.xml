@@ -8,10 +8,10 @@
       </value>
     </entry>
     <entry>
-      <key>binding</key>
-      <schema_key>/schemas/desktop/gnome/keybindings/hamster-applet/binding</schema_key>
+      <key>activate_hamster_window</key>
+      <schema_key>/schemas/desktop/gnome/keybindings/hamster-applet/activate_hamster_window</schema_key>
       <value>
-        <string>&lt;Super&gt;q</string>
+        <string></string>
       </value>
     </entry>
     <entry>
