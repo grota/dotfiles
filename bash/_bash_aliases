@@ -132,7 +132,7 @@ complete -F _git_abbrev_hash_complete gl1p
 # from scm_breeze
 __define_git_completion gbf branch
 complete -o default -o nospace -F _git_gbf_shortcut gbf
-alias fzf="ruby --disable-gems "${DOTFILESREPO}"/bin/fzf/fzf"
+alias fzf="ruby "${DOTFILESREPO}"/bin/fzf/fzf"
 
 function _my_fzf_dir_completion() {
   local cur prev MAX_NUM_OF_DIRS match_fav match match_dir
