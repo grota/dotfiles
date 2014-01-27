@@ -55,6 +55,13 @@ fi
    curl -sS https://getcomposer.org/installer | php
    mv composer.phar $HOME/local/bin/composer
  fi
+ # php's psysh https://github.com/bobthecow/psysh
+ if [ ! -d $HOME/.psysh ]; then
+   mkdir $HOME/.psysh
+ fi
+ if [ ! -f $HOME/.psysh/php_manual.sqlite ]; then
+   curl -sS http://psysh.org/manual/en/php_manual.sqlite > $HOME/.psysh/php_manual.sqlite
+ fi
 
 # [vim]
  ln -sf ${repohome}/vim/vimrc $HOME/.vimrc
