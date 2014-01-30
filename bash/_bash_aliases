@@ -48,7 +48,7 @@ alias cd....="cd ../../.."
 alias cd.....="cd ../../../.."
 alias cd......="cd ../../../../.."
 alias bc='bc -l'
-alias grep='grep -n --exclude-dir=.svn --exclude-dir=.git '
+alias grep='grep --color=always -n --exclude-dir=.svn --exclude-dir=.git '
 # there's a ss bin but that's ok for me
 alias ss='sudo su -'
 # {tl,ll,rl}php log {{{

@@ -5,23 +5,24 @@ This file describes the mappings in .vimrc                 *grota_documentation*
 ==============================================================================
 
       TO LEARN
-i/n_<M-/>    Autopair Jump
+<leader><leader>p linewise paste
+cx<movement like w,ia,i'> followed by . or by another cx<movement>
 (a)round/(i)nner  (n)ext/(l)ast  b()/B{}/r[]
 (a)round/(i)nner  (v)ariable (php, js, ruby)
 (a)round/(i)nner  (f) x (mnemonic: "font" x)
 (a)round/(i)nner  (r)   (mnemonic: "ruby block")
-<leader>C    Cycle between TRUE/FALSE, ==/!=
-<leader><leader>p linewise paste
 blockwise visual mode works well to enclose each line in quotes.
 i_<C-G>s     tpope's surround in insert mode. Accepts <CR> after s.
 (also, look out for new possible surroundings like <?php, html or erb
 that you may want, surround is flexible)
-(s)eek/(S)eek xx
-<leader>v    Send to imux
+<leader>v    Send to tmux
 <leader>t/T  Send Test (focused) to tmux (works with <leader>lc)
 <leader>lc   :VimuxRunLastCommand
-<leader>fs   current tag
 <leader>sm   Space map/unmap
+i/n_<M-/>    Autopair Jump
+(s)eek/(S)eek xx
+<leader>fs   current tag
+<leader>C    Cycle between TRUE/FALSE, ==/!=
 
 i_<C-G><C-H> sparkup: move to next empty html tag
 <leader>se   sparkup: expand sparkup
