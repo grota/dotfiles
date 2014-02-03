@@ -493,6 +493,7 @@ nnoremap <leader>gc  :Gcommit -v<CR>
 autocmd FileType php let b:surround_97 = "array('\r')"
 " S
 autocmd FileType php let b:surround_83 = "var_export(\r, TRUE)"
+autocmd FileType markdown let b:surround_108 = "[\r][\1link number: \1]"
 "}}}
 " Yankring {{{
 set <M-n>=n

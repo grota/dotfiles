@@ -178,3 +178,6 @@
 [submodule "vendor/hub"]
 	path = vendor/hub
 	url = https://github.com/defunkt/hub.git
+[submodule "vim/dotvim/bundle/suan_vim-instant-markdown"]
+	path = vim/dotvim/bundle/suan_vim-instant-markdown
+	url = https://github.com/suan/vim-instant-markdown.git

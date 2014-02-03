@@ -1,4 +1,5 @@
 #!/bin/bash
+# TODO add node ubuntu repo and npm -g install instant-markdown-d
 
 set -e
 
@@ -85,7 +86,7 @@ fi
  ln -sf ${repohome}/ruby/_gemrc $HOME/.gemrc
 
 # [dconf]
-if exists dconf; then
+if exists dconf && [ -n "$DISPLAY" ]; then
   cat ${repohome}/dconf/_org_gnome_libgnomekbd_keyboard | dconf load /org/gnome/libgnomekbd/keyboard/
 fi
 
