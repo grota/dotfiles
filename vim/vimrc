@@ -100,6 +100,9 @@ set tabline=%!GrotaTabLine()
 set fillchars-=vert:\|
 " Don't consider 007 as octal for <C-a> <C-x> purposes
 set nrformats-=octal
+" Insert only one space when joining lines that contain sentence-terminating
+" punctuation like `.`.
+set nojoinspaces
 "}}}
 
 " VIM PLAIN MAPPINGS {{{
