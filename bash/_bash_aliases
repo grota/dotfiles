@@ -25,6 +25,8 @@ alias ll='ls -AlFh --group-directories-first'
 alias ls='ls --color=auto --group-directories-first'
 alias sl=ls
 alias fire='firefox -Profilemanager -no-remote &> /dev/null &'
+alias dk='sudo docker'
+alias dkrmc='sudo docker rm $(sudo docker ps -a -q)'
 function cc () {
   if [ -z "$1" ]; then
     echo "Error: Argument missing. Specify a chrome session id"
