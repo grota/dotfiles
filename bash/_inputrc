@@ -24,6 +24,10 @@ $include /etc/inputrc
 "\ek":  kill-line
 "\C-b": backward-delete-char
 "\eb":  delete-char
+# make C-p and C-n behave like up/down arrows
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+
 # add parameters to the last command: (previous-history, beginning-of-line, forward-word)
 "\C-x\C-s": "\C-p\C-a\C-l "
 
