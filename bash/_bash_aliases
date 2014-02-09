@@ -142,6 +142,10 @@ function _my_fzf_dir_completion() {
   tput sc
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
+  #fallback to normal cd completion if empty or not regex match to /
+  if [[ (-z "$cur") || ! ("$cur" =~ '/') ]]; then
+    return
+  fi
   prev="${COMP_WORDS[COMP_CWORD-1]}"
   IFS=$'\n'
   MAX_NUM_OF_DIRS=1000;
@@ -163,7 +167,7 @@ function _my_fzf_dir_completion() {
 }
 
 for cmd in "cd"; do
-  complete -F _my_fzf_dir_completion $cmd
+  complete -o bashdefault -o default -F _my_fzf_dir_completion $cmd
 done
 
 # This function finds the directories below the current one in
