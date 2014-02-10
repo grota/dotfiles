@@ -69,7 +69,7 @@ $endif
 # Use it on the cli in after !^ !$ !* !:1 !:2 !:3 !:0
 # Can also use !-2 to retrieve the next-to-last line in full.
 # And pick its pieces with !-2:0 (0 means first token)
-Control-Space: magic-space
+Space: magic-space
 
 # tmux configuration
 $if term=screen-256color

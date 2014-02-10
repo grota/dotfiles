@@ -16,6 +16,23 @@ fi
 # bash autojump, appends to PROMPT_COMMAND
 [[ -s ~/.autojump/etc/profile.d/autojump.sh  ]] && . ~/.autojump/etc/profile.d/autojump.sh
 
+_dotfiles_preexec () {
+  # Set the tmux pane title before executing a command, see man tmux
+  echo -ne "\033]2;$1\033\\"
+}
+# used to guard execution of _dotfiles_preexec
+_dotfiles_guard_preexec () {
+  [ -n "$COMP_LINE" ] && return  # do nothing if completing
+  [ "$BASH_COMMAND" = "$PROMPT_COMMAND" ] && return # don't cause a _dotfiles_preexec for $PROMPT_COMMAND
+  local this_command=`history 1 | sed -e "s/^[ ]*[0-9]*[ ]*//g"`;
+  _dotfiles_preexec "$this_command"
+}
+trap '_dotfiles_guard_preexec' DEBUG
+# reset tmux pane title after command execution, i.e. during PROMPT_COMMAND exection
+if [[ "$PROMPT_COMMAND" != *"_reset_tmux_pane_title"* ]]; then
+  export PROMPT_COMMAND="$PROMPT_COMMAND ; _dotfiles_preexec ''"
+fi
+
 if [[ ! ( "$PATH" == *"$HOME/local/bin:$HOME/.composer/vendor/bin"* ) ]]; then
   export PATH=$HOME/local/bin:$HOME/.composer/vendor/bin:$PATH
 fi
