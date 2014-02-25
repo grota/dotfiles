@@ -784,6 +784,7 @@ autocmd WinEnter * setlocal cursorline
 if version >= 703
   " Enable relativenumber just for php for now
   autocmd FileType php setlocal relativenumber
+        \| setlocal number
         \| call SuperTabSetDefaultCompletionType("<c-p>")
 endif
 " Auto close the preview window that pops up in php omnicomplete mode
