@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Just to be sure if you invoke it directly and not via git ctags (where pwd is already root of repo)
+if [ ! -d .git ]; then
+  echo Not in root dir of git repo, doing nothing. 1>&2
+  exit 1
+fi
+
+trap "rm -f .git/tags.$$" EXIT
+
+EXTRA_EXCLUDE=''
+if [ -f index.php -a -d sites -a -d modules -a -d themes ]; then
+  echo Found Drupal, excluding 'sites/*/files'
+  EXTRA_EXCLUDE="--exclude=sites/*/files"
+fi
+ctags --tag-relative -Rf.git/tags.$$ --exclude=.git --languages=-javascript,sql $EXTRA_EXCLUDE
+mv .git/tags.$$ .git/tags

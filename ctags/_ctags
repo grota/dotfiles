@@ -1,6 +1,5 @@
 --fields=+l
 --c-kinds=+p
 --c++-kinds=+p
---tag-relative=no
 --langmap=php:+.module.engine.inc.theme.install
 --php-kinds=cdfi

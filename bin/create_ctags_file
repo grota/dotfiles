@@ -1,6 +1,0 @@
-#!/bin/sh
-
-if [ -f index.php -a -d sites -a -d modules -a -d themes ]; then
-  echo Found Drupal, excluding 'sites/*/files'
-  echo '--exclude=sites/*/files' >>  .ctags
-fi

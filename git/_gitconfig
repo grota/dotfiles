@@ -13,16 +13,8 @@
 	l = log --oneline --decorate
 	up = pull --ff-only
 	h = help
-	ctags = !${DOTFILESREPO}/bin/create_ctags_file
-
-# This alias requires git-diffall from https://github.com/thenigan/git-diffall
-# git-diffall prepares 2 temp directory trees: lhs and rhs.
-# It then calls merge.tool or diff.tool on those trees.
-# Passing --extcmd bypasses diff.tool and merge.tool (a valid option must be set, though)
-# --copy-back applies the modifications made on the temp rhs tree back to git's working copy.
-# ONLY the rhs tree will be copied to the working copy. The lhs will be discarded.
-	dd = diffall --extcmd=/home/grota/local/bin/vimdirdiff.sh
-	vdd = -c merge.tool=meld diffall --copy-back
+	ctags = !.git/hooks/ctags
+	insthooks = !${DOTFILESREPO}/bin/install_git_hooks
 
 # Defines a diff mode, you can then put in .gitattributes
 # *.prpt diff=unzipca
