@@ -13,7 +13,7 @@ if [ -z "$1" ]; then
 fi
 if [ "$1" == "list-panes" ]; then
   PANES_IN_CURRENT_WINDOW="$(tmux list-panes -F "#{pane_id}")"
-  tmux list-panes -s -F "[w]#{window_index} | #{pane_current_command} | #{pane_title} | #{pane_id}" | grep -vF "$PANES_IN_CURRENT_WINDOW" | column -s\| -t -x | tr '\n' ,
+  tmux list-panes -s -F "[w]#{window_index} | #{pane_current_command} | #{pane_title} | #{pane_id}" | grep -wvF "$PANES_IN_CURRENT_WINDOW" | column -s\| -t -x | tr '\n' ,
 fi
 # expects a pane_id (i.e. %0 or %1) in last position
 if [ "$1" == 'join-selected-pane' ]; then

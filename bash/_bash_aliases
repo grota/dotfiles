@@ -143,7 +143,7 @@ function _my_fzf_dir_completion() {
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
   #fallback to normal cd completion if empty or not regex match to /
-  if [[ (-z "$cur") || ! ("$cur" =~ '/') ]]; then
+  if [[ (-z "$cur") ||  ( ! ( "$cur" =~ (/.*){2} ) && ("$PWD" != "$HOME")) ]]; then
     return
   fi
   prev="${COMP_WORDS[COMP_CWORD-1]}"
@@ -151,12 +151,13 @@ function _my_fzf_dir_completion() {
   MAX_NUM_OF_DIRS=1000;
   # use only "favorites" for home
   if [[ "$PWD" != "$HOME" ]]; then
-    match_dir="$(find_breadth_first_dirs $MAX_NUM_OF_DIRS)"
+    # for dirs with space in it need to unquote the cur value, so we remove the \
+    match_dir="$(find_breadth_first_dirs $MAX_NUM_OF_DIRS ${cur//\\/})"
   else
     match_dir=""
   fi
-  match_fav="$(tac $AUTOJUMP_DATA_DIR/autojump.txt|cut -f 2|sort)"
-  match=$(echo -e "$match_fav\r\n$match_dir"| fzf -q "$cur")
+  match_fav="$(tac ~/.local/share/autojump/autojump.txt|cut -f 2|sort)"
+  match=$(echo -e "$match_fav\r\n$match_dir"| fzf -q "${cur//\\/}")
   # don't specify $cur after the --, otherwise compgen filters out
   # unmatching (wrt $cur) paths that instead we want
   COMPREPLY=($(compgen -W "$match" --))
@@ -167,7 +168,7 @@ function _my_fzf_dir_completion() {
 }
 
 for cmd in "cd"; do
-  complete -o bashdefault -o default -F _my_fzf_dir_completion $cmd
+  complete -o bashdefault -o filenames -o default -F _my_fzf_dir_completion $cmd
 done
 
 # This function finds the directories below the current one in
@@ -190,7 +191,7 @@ function find_breadth_first_dirs () {
   while [[ ( -n "$level_result" ) ]]; do
     depth=$((depth + 1))
     # execute find for the current level depth
-    level_result=$(_find_for_level $depth)
+    level_result=$(_find_for_level $depth "$2")
     # stupid hack to avoid a newline at the beginning
     if [[ $depth -lt 2 ]]; then
       result+=$(echo "${level_result}")
@@ -211,7 +212,7 @@ function _find_for_level () {
   local temp
   if [ -z "$1" ]; then return 1; fi
   # Using -regex '\./.git.*' -prune doesn't seem to work when using maxdepth/mindepth
-  temp=$(find -maxdepth "$1" -mindepth "$1" -type d -print 2> /dev/null| \grep -v '\.git'| cut -b 3-)
+  temp=$(find "$2" -maxdepth "$1" -mindepth "$1" -type d -print 2> /dev/null| \grep -v '\.git')
   echo "$temp"
 }
 #}}}

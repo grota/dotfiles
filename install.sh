@@ -40,8 +40,8 @@ fi
 
 # [autojump]
  cd ${repohome}/bin/autojump
-# hardcoded installation to $HOME/.autojump
- ./install.sh --local > /dev/null
+# installation to $HOME/.autojump
+ ./install.py > /dev/null
 
 # [hub]
  cd ${repohome}

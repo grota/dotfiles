@@ -680,7 +680,7 @@ let g:VimuxOrientation = "h"
 let g:VimuxHeight = "40"
 function! VimuxSlime()
   if !exists("g:VimuxRunnerPaneIndex") || _VimuxHasPane(g:VimuxRunnerPaneIndex) == -1
-    call VimuxOpenPane()
+    call VimuxOpenRunner()
   endif
   call VimuxSendText(@v)
   call VimuxSendKeys("Enter")
