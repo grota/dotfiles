@@ -132,6 +132,9 @@ fi
  ln -sf ${repohome}/_config/autostart/hamster-indicator.desktop $HOME/.config/autostart/hamster-indicator.desktop
  ln -sf ${repohome}/_config/autostart/indicator-multiload.desktop $HOME/.config/autostart/indicator-multiload.desktop
 
+# [beets] https://github.com/sampsyo/beets/
+ ln -sfT ${repohome}/_config/beets $HOME/.config/beets
+
 # [Gnome]
  #mkdir -p $HOME/.config/gtk-3.0
  #ln -sf ${repohome}/_config/gtk-3.0/gtk.css $HOME/.config/gtk-3.0/gtk.css

@@ -1,0 +1,15 @@
+directory: ~/music
+plugins: fromfilename info chroma web fuzzy bpd
+import:
+  copy: yes
+  write: yes
+  move: no
+  log: ~/music/log_import.log
+  incremental: yes
+  default_action: skip
+threaded: yes
+color: yes
+paths:
+  singleton: $artist/$artist - $title
+fuzzy:
+  prefix: '@'
