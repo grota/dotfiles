@@ -33,6 +33,9 @@ fi
  ln -sf ${repohome}/bash/_bash_extras $HOME/.bash_extras
  ln -sf ${repohome}/bash/_inputrc $HOME/.inputrc
  ln -sf ${repohome}/bash/_git.scmbrc $HOME/.git.scmbrc
+ ln -sf ${repohome}/bash/_vim_bash $HOME/.vim_bash
+ ln -sf ${repohome}/bash/_git_bash $HOME/.git_bash
+ ln -sf ${repohome}/bash/_fzf_bash $HOME/.fzf_bash
 
 # [zsh]
  ln -sfT ${repohome}/zsh/oh-my-zsh $HOME/.oh-my-zsh
