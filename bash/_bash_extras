@@ -14,7 +14,7 @@ fi
 [[ -s "${current_pathinrepo}/ps1_functions" ]] && source "${current_pathinrepo}/ps1_functions"
 
 # bash autojump, appends to PROMPT_COMMAND
-[[ -s ~/.autojump/etc/profile.d/autojump.sh  ]] && . ~/.autojump/etc/profile.d/autojump.sh
+[[ -f ${DOTFILESREPO}/bin/autojump/bin/autojump.bash ]] && . ${DOTFILESREPO}/bin/autojump/bin/autojump.bash
 
 _dotfiles_preexec () {
   # Set the tmux pane title before executing a command, see man tmux
@@ -38,8 +38,10 @@ if [[ ! ( "$PATH" == *"$HOME/local/bin:$HOME/.composer/vendor/bin"* ) ]]; then
 fi
 
 # if autojump path is at the beginning it's a duplicate
-if [[ ( "$PATH" == "$HOME/.autojump/bin"* ) ]]; then
-  PATH=${PATH#$HOME/.autojump/bin:}
+if [[ ( "$PATH" == "$DOTFILESREPO/bin/autojump/bin"* ) ]]; then
+  PATH=${PATH#$DOTFILESREPO/bin/autojump/bin:}
+else
+  export PATH=$DOTFILESREPO/bin/autojump/bin:"${PATH}"
 fi
 
 export EDITOR=vim
