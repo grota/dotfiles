@@ -23,6 +23,8 @@ i/n_<M-/>    Autopair Jump
 (s)eek/(S)eek xx
 <leader>fs   current tag
 <leader>C    Cycle between TRUE/FALSE, ==/!=
+s search forward, S backwards
+s<enter>
 
 i_<C-G><C-H> sparkup: move to next empty html tag
 <leader>se   sparkup: expand sparkup

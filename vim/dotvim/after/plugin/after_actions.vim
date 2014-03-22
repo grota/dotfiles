@@ -36,7 +36,7 @@ unmap \\
 unmap \/
 "}}}
 
-nnoremap \\ ``
+"nnoremap \\ ``
 
 " CHANGE CASE {{{
 nnoremap U gUiWw

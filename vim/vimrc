@@ -1,15 +1,14 @@
 " vim:ft=vim:foldmethod=marker:foldcolumn=3:foldlevel=0
+" Mappable Keys {{{
+" ` (currently default but we use \)
+" }}}
 
 " INITIALIZATION "{{{
 set nocompatible
-filetype off
 runtime macros/matchit.vim
-" pathogen as a submodule. source it explicitly.
 runtime bundle/tpope_vim-pathogen/autoload/pathogen.vim
-" Pathogen callbacks
 call pathogen#infect()
 call pathogen#helptags()
-" vim's filetype specific code is good stuff
 filetype plugin indent on
 if has("gui_running")
   " a nice coloscheme easy to the eye, it sets the 'background' option
@@ -111,7 +110,6 @@ set nojoinspaces
 nnoremap <space> :
 xnoremap <space> :
 nnoremap \ `
-nnoremap ` '
 set <M-'>='
 nnoremap <M-'> g_l
 xnoremap <M-'> g_l
@@ -372,7 +370,7 @@ function! ToggleDiffWhitespace()
     " needed to cope with a strange issue with terminal vim
     tabedit | tabclose
 endfunc
-function CallDiffDashWonIwhite()
+function! CallDiffDashWonIwhite()
   let opt = ""
   if &diffopt =~ "icase"
     let opt = opt . "-i "
@@ -702,12 +700,30 @@ let g:signify_sign_change = '~'
 let g:signify_diffoptions = { 'git': '--patience' }
 " }}}
 " vim-sneak {{{
-nmap ' <Plug>SneakNext
-xmap ' <Plug>VSneakNext
-let g:sneak#f_reset = 0
-let g:sneak#t_reset = 0
+" Disable streak mode, it's not easy to see where the cursor is at the
+" beginning
+"let g:sneak#streak = 1
+let g:sneak#use_ic_scs = 1
 nmap ; <Plug>SneakPrevious
-xmap ; <Plug>VSneakPrevious
+omap ; <Plug>SneakPrevious
+xmap ; <Plug>SneakPrevious
+nmap ' <Plug>SneakNext
+omap ' <Plug>SneakNext
+xmap ' <Plug>SneakNext
+"replace 'f' with inclusive 1-char Sneak
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+"replace 't' with exclusive 1-char Sneak
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
 " }}}
 "}}}
 
