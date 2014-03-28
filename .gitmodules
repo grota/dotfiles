@@ -181,3 +181,6 @@
 [submodule "old_private"]
 	path = old_private
 	url = /home/grota/Dropbox/git_repos/private_rcfiles
+[submodule "private"]
+	path = private
+	url = git@github.com:grota/git-crypt.git
