@@ -105,15 +105,15 @@ fi
 # [ssh]
  mkdir -p $HOME/.ssh
  chmod 700 $HOME/.ssh
- ln -sf old_private/ssh ${repohome}
+ ln -sf private/ssh ${repohome}
 
 # [pianobar]
- ln -sfT ../old_private/_config/pianobar ${repohome}/_config/pianobar
+ ln -sfT ../private/_config/pianobar ${repohome}/_config/pianobar
 
 # [drush]
  ln -sf ${repohome}/bash/_drush_bashrc $HOME/.drush_bashrc
  mkdir -p $HOME/.drush
- ln -sf old_private/drush ${repohome}
+ ln -sf private/drush ${repohome}
 
 # [X]
  # xproperties, old stuff
@@ -141,7 +141,7 @@ fi
  ln -sf ${repohome}/mysql/_my.cnf $HOME/.my.cnf
 
 # [ikiwiki]
- ln -sf old_private/ikiwiki ${repohome}
+ ln -sf private/ikiwiki ${repohome}
 
 # [vimperator]
  ln -sf ${repohome}/vimperator/_vimperatorrc $HOME/.vimperatorrc
@@ -149,10 +149,10 @@ fi
  ln -sfT ${repohome}/vimperator/plugin $HOME/.vimperator/plugin
 
 # [gnupg]
- ln -sf old_private/gnupg ${repohome}
+ ln -sf private/gnupg ${repohome}
 
 # [lftp]
- ln -sf old_private/lftp ${repohome}
+ ln -sf private/lftp ${repohome}
 
 # [drush]
  ln -sf ${repohome}/bin/drush/drush $HOME/local/bin/drush
@@ -161,7 +161,7 @@ fi
  ln -sf ${repohome}/alsa/_asoundrc $HOME/.asoundrc
 
 # [rtorrent]
- ln -sf old_private/rtorrent ${repohome}
+ ln -sf private/rtorrent ${repohome}
 
 # [ctags]
  ln -sf ${repohome}/ctags/_ctags $HOME/.ctags
@@ -173,7 +173,7 @@ fi
  ln -sf ${repohome}/alsa/_asoundrc $HOME/.asoundrc
 
 # [rtorrent]
- ln -sf old_private/rtorrent ${repohome}
+ ln -sf private/rtorrent ${repohome}
 
 # [libao]
  ln -sf ${repohome}/libao/_libao $HOME/.libao
@@ -182,8 +182,8 @@ fi
  mkdir -p $HOME/.mplayer
  ln -sf ${repohome}/mplayer/config $HOME/.mplayer/config
 
-# [old_private]
-${repohome}/old_private/install.sh
+# [private]
+${repohome}/private/install.sh
 echo "dotfiles installed"
 
 # NOTES:

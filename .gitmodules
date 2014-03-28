@@ -178,9 +178,6 @@
 [submodule "vim/dotvim/bundle/jeetsukumaran_vim-markology"]
 	path = vim/dotvim/bundle/jeetsukumaran_vim-markology
 	url = https://github.com/jeetsukumaran/vim-markology.git
-[submodule "old_private"]
-	path = old_private
-	url = /home/grota/Dropbox/git_repos/private_rcfiles
 [submodule "private"]
 	path = private
 	url = git@bitbucket.org:grota/private-dotfiles.git
