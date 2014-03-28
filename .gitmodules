@@ -70,9 +70,6 @@
 [submodule "vim/dotvim/bundle/grota_drupal.vim"]
 	path = vim/dotvim/bundle/grota_drupal.vim
 	url = git@github.com:grota/drupal.vim.git
-[submodule "private"]
-	path = private
-	url = /home/grota/Dropbox/git_repos/private_rcfiles
 [submodule "bin/git-archive-all"]
 	path = bin/git-archive-all
 	url = git://github.com/mhitza/git-archive-all.sh.git
@@ -181,3 +178,6 @@
 [submodule "vim/dotvim/bundle/jeetsukumaran_vim-markology"]
 	path = vim/dotvim/bundle/jeetsukumaran_vim-markology
 	url = https://github.com/jeetsukumaran/vim-markology.git
+[submodule "old_private"]
+	path = old_private
+	url = /home/grota/Dropbox/git_repos/private_rcfiles
