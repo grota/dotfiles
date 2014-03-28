@@ -83,14 +83,14 @@ cat <<EOF
 ##################### OLD STUFF #######################
 #alias STO='sudo mdadm -S /dev/md0'
 #alias STA='sudo mdadm -As /dev/md0'
+##################### SCMBREEZE #######################
+c --rebuild to rebuild the cache
 ##################### CURL ############################
 -d form_key=CnbzMWzxaSkQkAJJOZNm POST PARAMS
 -H 'Accept: text/html,...' header -H can be repeated
 --trace filename To check that all headers/params are ok
 -A '...' Sets the user agent
 -e 'http://...' referer
-##################### SCMBREEZE #######################
-c --rebuild to rebuild the cache
 ######################## BEETS ########################
 # I don't know why this doesn't always work.
 beet ls 'artist::^$'
@@ -98,6 +98,18 @@ beet ls 'artist::^$'
 cd ~/music && find -type f -exec beet info '{}' \; | \grep  ' artist: $'
 # should coincide with:
 beet write -p
+######################## BASH #########################
+https://github.com/shawncplus/bash-classes/blob/master/historymanipulation.mkd
+!* (all but the 0th)
+!:n (n-th component)
+!:$ (last component)
+!:^ (first component)
+!command
+<sub>:h (head of sub)
+<sub>:t (tail of sub)
+<sub>:r (remove .xxx part from substitution)
+<sub>:q (quotes)
+<sub>:x (break into space separated words and quote)
 #######################################################
 EOF
 }

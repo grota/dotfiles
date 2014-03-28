@@ -1,6 +1,7 @@
 " vim:ft=vim:foldmethod=marker:foldcolumn=3:foldlevel=0
 " Mappable Keys {{{
 " ` (currently default but we use \)
+" <M-e>
 " }}}
 
 " INITIALIZATION "{{{
@@ -626,7 +627,6 @@ let g:Gitv_DoNotMapCtrlKey = 1
 "let g:splitjoin_join_mapping = '<Leader>sj'
 " }}}
 " autopairs {{{
-let g:AutoPairsFlyMode = 1
 set <M-/>=/
 set <M-e>=e
 " <M-p> mapped to AutoPairsToggle
@@ -636,7 +636,9 @@ let g:AutoPairsShortcutFastWrap=''
 " Oddly enough this isn't called for ruby (?)
 autocmd BufEnter * call AutoPairsTryInit()
 let g:AutoPairsMapBS = 0
-inoremap <BS> <C-R>=AutoPairsDelete()<CR>
+let g:AutoPairsMapCR = 0
+"inoremap <BS> <C-R>=AutoPairsDelete()<CR>
+"let g:AutoPairsFlyMode = 1
 "}}}
 " Sparkup {{{
 " see the FileType autocommands below for the real mappings
