@@ -577,11 +577,7 @@ nnoremap <silent> <C-b> :LustyFilesystemExplorerFromHere<CR>
 let g:syntastic_enable_signs=1
 let g:syntastic_phpcs_disable = 1
 "}}}
-" Showmarks {{{
-" show only a-z marks in the showmarks plugin
-let g:showmarks_include="abcdefghijklmnopqrstuvwxyz"
-highlight ShowMarksHLl ctermfg=darkblue ctermbg=blue cterm=NONE guifg=blue guibg=lightblue gui=bold
-let g:showmarks_ignore_bt    = "nofile"
+" vim-markology {{{
 "}}}
 " Autotag {{{
 " Specify 40MB as the maximum size of the tags file to be considered by autotag

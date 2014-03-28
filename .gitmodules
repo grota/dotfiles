@@ -61,9 +61,6 @@
 [submodule "vim/dotvim/bundle/tpope_vim-pathogen"]
 	path = vim/dotvim/bundle/tpope_vim-pathogen
 	url = git://github.com/tpope/vim-pathogen.git
-[submodule "vim/dotvim/bundle/grota_showmarks"]
-	path = vim/dotvim/bundle/grota_showmarks
-	url = git@github.com:grota/ShowMarks.git
 [submodule "vim/dotvim/bundle/shawncplus_phpcomplete.vim"]
 	path = vim/dotvim/bundle/shawncplus_phpcomplete.vim
 	url = git://github.com/shawncplus/phpcomplete.vim.git
@@ -181,3 +178,6 @@
 [submodule "vim/dotvim/bundle/suan_vim-instant-markdown"]
 	path = vim/dotvim/bundle/suan_vim-instant-markdown
 	url = https://github.com/suan/vim-instant-markdown.git
+[submodule "vim/dotvim/bundle/jeetsukumaran_vim-markology"]
+	path = vim/dotvim/bundle/jeetsukumaran_vim-markology
+	url = https://github.com/jeetsukumaran/vim-markology.git
