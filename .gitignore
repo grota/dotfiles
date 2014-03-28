@@ -6,3 +6,10 @@
 # scm_breeze's index file
 /.git_index
 /_config/beets/state.pickle
+/drush
+/_config/pianobar
+/gnupg
+/ikiwiki
+/rtorrent
+/ssh
+/lftp

@@ -80,9 +80,6 @@ fi
 # [tmux]
  ln -sf ${repohome}/tmux/_tmux.conf $HOME/.tmux.conf
 
-# [drush]
- ln -sf ${repohome}/bash/_drush_bashrc $HOME/.drush_bashrc
-
 # [ruby]
  ln -sf ${repohome}/ruby/_irbrc.rb $HOME/.irbrc
  ln -sf ${repohome}/ruby/_pryrc.rb $HOME/.pryrc
@@ -108,14 +105,15 @@ fi
 # [ssh]
  mkdir -p $HOME/.ssh
  chmod 700 $HOME/.ssh
- ln -sf private/ssh ${repohome}
+ ln -sf old_private/ssh ${repohome}
 
 # [pianobar]
- ln -sfT ../private/_config/pianobar ${repohome}/_config/pianobar
+ ln -sfT ../old_private/_config/pianobar ${repohome}/_config/pianobar
 
 # [drush]
+ ln -sf ${repohome}/bash/_drush_bashrc $HOME/.drush_bashrc
  mkdir -p $HOME/.drush
- ln -sf private/drush ${repohome}
+ ln -sf old_private/drush ${repohome}
 
 # [X]
  # xproperties, old stuff
@@ -143,7 +141,7 @@ fi
  ln -sf ${repohome}/mysql/_my.cnf $HOME/.my.cnf
 
 # [ikiwiki]
- ln -sf private/ikiwiki ${repohome}
+ ln -sf old_private/ikiwiki ${repohome}
 
 # [vimperator]
  ln -sf ${repohome}/vimperator/_vimperatorrc $HOME/.vimperatorrc
@@ -151,10 +149,10 @@ fi
  ln -sfT ${repohome}/vimperator/plugin $HOME/.vimperator/plugin
 
 # [gnupg]
- ln -sf private/gnupg ${repohome}
+ ln -sf old_private/gnupg ${repohome}
 
 # [lftp]
- ln -sf private/lftp ${repohome}
+ ln -sf old_private/lftp ${repohome}
 
 # [drush]
  ln -sf ${repohome}/bin/drush/drush $HOME/local/bin/drush
@@ -163,7 +161,7 @@ fi
  ln -sf ${repohome}/alsa/_asoundrc $HOME/.asoundrc
 
 # [rtorrent]
- ln -sf private/rtorrent ${repohome}
+ ln -sf old_private/rtorrent ${repohome}
 
 # [ctags]
  ln -sf ${repohome}/ctags/_ctags $HOME/.ctags
@@ -175,7 +173,7 @@ fi
  ln -sf ${repohome}/alsa/_asoundrc $HOME/.asoundrc
 
 # [rtorrent]
- ln -sf private/rtorrent ${repohome}
+ ln -sf old_private/rtorrent ${repohome}
 
 # [libao]
  ln -sf ${repohome}/libao/_libao $HOME/.libao
@@ -184,8 +182,8 @@ fi
  mkdir -p $HOME/.mplayer
  ln -sf ${repohome}/mplayer/config $HOME/.mplayer/config
 
-# [private]
-${repohome}/private/install.sh
+# [old_private]
+${repohome}/old_private/install.sh
 echo "dotfiles installed"
 
 # NOTES:
