@@ -183,4 +183,4 @@
 	url = /home/grota/Dropbox/git_repos/private_rcfiles
 [submodule "private"]
 	path = private
-	url = git@github.com:grota/git-crypt.git
+	url = git@bitbucket.org:grota/private-dotfiles.git
