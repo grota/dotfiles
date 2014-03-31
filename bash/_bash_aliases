@@ -77,7 +77,7 @@ alias auint='pactl set-card-profile 0 output:analog-stereo+input:analog-stereo'
 #}}}
 alias unmute='amixer set Speaker,0 unmute &> /dev/null ; amixer set Speaker,0 100% &> /dev/null'
 #}}}
-
+# see also https://github.com/jahendrie/cheat
 function hints() {
 cat <<EOF
 ##################### OLD STUFF #######################

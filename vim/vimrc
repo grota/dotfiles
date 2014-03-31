@@ -491,11 +491,18 @@ nnoremap <M-s> :Gstatus<CR>
 nnoremap <leader>gc  :Gcommit -v<CR>
 "}}}
 " Surround {{{
-" a
+" php: a => array(xxx)
 autocmd FileType php let b:surround_97 = "array('\r')"
-" S
+" php: S => var_export(xxx, true);
 autocmd FileType php let b:surround_83 = "var_export(\r, TRUE)"
-autocmd FileType markdown let b:surround_108 = "[\r][\1link number: \1]"
+" markdown: l => [xxx]
+autocmd FileType markdown let b:surround_108 = "[\r][\1link text or number: \1]"
+" markdown 6 => ***xxx***
+autocmd FileType markdown let b:surround_54 = "***\r***"
+" markdown 7 => **xxx**
+autocmd FileType markdown let b:surround_55 = "**\r**"
+" 8 => *xxx*
+let g:surround_56 = "*\r*"
 "}}}
 " Yankring {{{
 set <M-n>=n

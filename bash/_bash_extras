@@ -45,8 +45,8 @@ else
 fi
 
 export EDITOR=vim
-HISTFILESIZE=80000
-HISTSIZE=5000
+HISTFILESIZE=1000000
+HISTSIZE=500000
 
 # disable <CTRL-S> and <CTRL-Q> terminal settings, I want to use them in vim
 # maybe there's a better way, see :h term.txt in vim
