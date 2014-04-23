@@ -463,7 +463,7 @@ let g:tagbar_type_php = {
       \ 'j:javascript functions:1',
       \ ]
       \ }
-nnoremap <silent> ,fs :TagbarCurrentTag 'p'<CR>
+nnoremap <silent> <leader>fs :TagbarCurrentTag 'p'<CR>
 "}}}
 " Fugitive {{{
 " Map .. to go back to the parent dir when you are in a git (fugitive)

@@ -6,7 +6,6 @@ alias gg='git grep --break --heading --line-number'
 alias gbv='git branch -avv'
 alias gbf='git branch -f'
 alias gau='git add -u'
-alias gdcw='git diff --cached --word-diff --'
 alias gl='git --no-pager l -n12'
 alias k='git --no-pager ll -n12'
 alias gk='gitk --all&'
@@ -14,6 +13,9 @@ alias gsts='git stash save '
 alias gst='git stash list'
 alias gstp='git stash pop --index'
 alias gl1p="git log -1 -p"
+__git_alias "gdw" "git" "diff" "-w --"
+__git_alias "gdcw" "git" "diff" "--cached -w --"
+__git_alias "gdcwd" "git" "diff" "--word-diff --cached --"
 # from scm_breeze
 alias gsubrm="git_submodule_rm"
 function _git_abbrev_hash_complete () {
