@@ -194,6 +194,9 @@ inoremap <silent> <M-`> <Esc>:<C-u>tabprevious<CR>
 set <M-1>=1
 nnoremap <silent> <M-1> :<C-u>tabnext<CR>
 inoremap <silent> <M-1> <Esc>:<C-u>tabnext<CR>
+set <M-!>=!
+nnoremap <silent> <M-!> :<C-u>tabnext<CR>
+inoremap <silent> <M-!> <Esc>:<C-u>tabnext<CR>
 " }}}
 " <C-n><C-p>: NEXT/PREV BUFFER {{{
 " <C-N> was the same as <Down> and I didn't need it.

@@ -1,1 +1,4 @@
-  [[ -f ~/.Xdefaults ]] && xrdb -merge ~/.Xdefaults
+#!/usr/bin/env bash
+
+[[ -f ~/.Xdefaults ]] && xrdb -merge ~/.Xdefaults
+xmodmap ~/.Xmodmap

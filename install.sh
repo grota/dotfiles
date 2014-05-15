@@ -119,16 +119,19 @@ fi
  # xproperties, old stuff
  ln -sf ${repohome}/X/_Xdefaults $HOME/.Xdefaults
  # ubuntu lightdm does not consider $HOME/.xsession{,rc} nor $HOME/.xinitrc
- #ln -sf ${repohome}/X/_xinitrc $HOME/.xinitrc
+ ln -sf ${repohome}/X/_xinitrc $HOME/.xinitrc
  ln -sf ${repohome}/X/_xbindkeysrc  $HOME/.xbindkeysrc
  # xmodmap, switch a couple of keys, for laptop dv7-6190sl, disabled by default
  ln -sf ${repohome}/X/_Xmodmap $HOME/.Xmodmap
  # what to autostart in X
  [[ ! -d $HOME/.config/autostart ]] && mkdir -p $HOME/.config/autostart
+ ln -sf ${repohome}/_config/autostart/xinitrc.desktop $HOME/.config/autostart/xinitrc.desktop
  ln -sf ${repohome}/_config/autostart/xrdb.desktop $HOME/.config/autostart/xrdb.desktop
  ln -sf ${repohome}/_config/autostart/dropbox.desktop $HOME/.config/autostart/dropbox.desktop
  ln -sf ${repohome}/_config/autostart/hamster-indicator.desktop $HOME/.config/autostart/hamster-indicator.desktop
  ln -sf ${repohome}/_config/autostart/indicator-multiload.desktop $HOME/.config/autostart/indicator-multiload.desktop
+ ln -sf ${repohome}/_config/autostart/shutter.desktop $HOME/.config/autostart/shutter.desktop
+ ln -sf ${repohome}/_config/autostart/gnome-terminal.desktop $HOME/.config/autostart/gnome-terminal.desktop
 
 # [beets] https://github.com/sampsyo/beets/
  ln -sfT ${repohome}/_config/beets $HOME/.config/beets

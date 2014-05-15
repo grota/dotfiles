@@ -2,3 +2,15 @@
 ! See personal wiki for additional notes
 !keycode 107 = Insert NoSymbol
 !keycode 118 = Print Sys_Req
+
+! Invert the normal/shifted values of the numbers row
+keycode  10 = exclam      1 1 exclam
+keycode  11 = at          2 2 quotedbl
+keycode  12 = numbersign  3 3 sterling
+keycode  13 = dollar      4 4 dollar onequarter oneeighth
+keycode  14 = percent     5 5 percent
+keycode  15 = asciicircum 6 6 ampersand
+keycode  16 = ampersand   7 7 slash
+keycode  17 = asterisk    8 8 parenleft
+keycode  18 = parenleft   9 9 parenright
+keycode  19 = parenright  0 0 equal
