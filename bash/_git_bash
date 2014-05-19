@@ -14,9 +14,9 @@ __git_alias "gdw" "git" "diff" "-w --"
 __git_alias "gdcw" "git" "diff" "--cached -w --"
 __git_alias "gdcwd" "git" "diff" "--word-diff --cached --"
 # current autocomplete for stash is broken
-__git_alias "gst" "git" "stash"
-__git_alias "gsta" "git" "stash" "apply"
+__git_alias "gst" "git" "stash" "list"
 __git_alias "gsts" "git" "stash" "save"
+__git_alias "gsta" "git" "stash" "apply"
 __git_alias "gstp" "git" "stash" "pop --index"
 __git_alias "gstd" "git" "stash" "drop"
 # from scm_breeze
