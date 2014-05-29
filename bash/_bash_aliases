@@ -29,19 +29,21 @@ alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias L='less -R'
 alias df='df -h'
 alias l='ls -CF --group-directories-first'
-alias ll='ls -AlFh --group-directories-first'
+alias ll='ls -AlFhrt --group-directories-first'
 alias ls='ls --color=auto --group-directories-first'
 alias sl=ls
 alias fire='firefox -Profilemanager -no-remote &> /dev/null &'
 alias dk='sudo docker'
 alias dkrmc='sudo docker rm $(sudo docker ps -a -q)'
 function cc () {
-  if [ -z "$1" ]; then
-    echo "Error: Argument missing. Specify a chrome session id"
-    return 1;
+  local CHROME=chromium-browser
+  if [ ! -z "$1" ]; then
+    local PROFILE_DIR=$1
+    local CHROME_ARGS="--user-data-dir=/home/grota/.config/${CHROME}_others/$PROFILE_DIR"
   fi
-  dirname=$1
-  google-chrome --user-data-dir=/home/grota/.config/google-chrome_others/$dirname &> /dev/null &
+  local CHROME_ARGS="$CHROME_ARGS --password-store=basic"
+  echo "Running: " "$CHROME" "$CHROME_ARGS"
+  $CHROME "$CHROME_ARGS" &> /dev/null &
 }
 alias pg='ps aux|grep '
 alias pw='pwsafe -Eup -l'

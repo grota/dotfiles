@@ -665,10 +665,11 @@ let g:vdebug_keymap = {
 \    "eval_under_cursor" : "<leader><F12>",
 \}
 
+" port must match the parameter in /etc/php5/conf.d/20-xdebug.ini
 let g:vdebug_options= {
-\    "port" : 9000,
+\    "port" : 8585,
 \    "server" : 'localhost',
-\    "timeout" : 20,
+\    "timeout" : 2000,
 \    "on_close" : 'close',
 \    "break_on_open" : 0,
 \    "ide_key" : '',
