@@ -19,6 +19,7 @@ __git_alias "gsts" "git" "stash" "save"
 __git_alias "gsta" "git" "stash" "apply"
 __git_alias "gstp" "git" "stash" "pop --index"
 __git_alias "gstd" "git" "stash" "drop"
+__git_alias "gstsh" "git" "stash" "show -p"
 # from scm_breeze
 alias gsubrm="git_submodule_rm"
 function _git_abbrev_hash_complete () {

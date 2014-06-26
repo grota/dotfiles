@@ -93,10 +93,13 @@ c --rebuild to rebuild the cache
 --trace filename To check that all headers/params are ok
 -A '...' Sets the user agent
 -e 'http://...' referer
+################### BASH SCRIPTING ####################
+# (( \$# )) || set -- .
+# sets $1=. (useful to set a default for "\$@")
 ######################## BEETS ########################
 # I don't know why this doesn't always work.
 beet ls 'artist::^$'
-# the following looks into the filesystem (slow, obviously) :/
+# the following looks into the filesystem (slow)
 cd ~/music && find -type f -exec beet info '{}' \; | \grep  ' artist: $'
 # should coincide with:
 beet write -p

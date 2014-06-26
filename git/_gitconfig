@@ -14,7 +14,7 @@
 	up = pull --ff-only
 	h = help
 	ctags = !.git/hooks/ctags
-	standup = log --all --author="Giuseppe Rota" --since="2 days ago" --name-status --no-merges
+	standup = log --all --author=\"Giuseppe Rota\" --since=\"3 days ago\" --name-status --no-merges
 	insthooks = !${DOTFILESREPO}/bin/install_git_hooks
 
 # Defines a diff mode, you can then put in .gitattributes

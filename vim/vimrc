@@ -584,10 +584,12 @@ let g:LustyExplorerDefaultMappings = 0
 nnoremap <silent> <C-b> :LustyFilesystemExplorerFromHere<CR>
 "}}}
 " Syntastic {{{
-let g:syntastic_enable_signs=1
-let g:syntastic_phpcs_disable = 1
+"let g:syntastic_enable_signs = 1
+"let g:syntastic_phpcs_disable = 1
+let g:syntastic_php_phpcs_args = '--standard=Drupal'
 "}}}
 " vim-markology {{{
+let g:markology_enable = 0
 "}}}
 " Autotag {{{
 " Specify 40MB as the maximum size of the tags file to be considered by autotag
@@ -706,7 +708,7 @@ map <leader>t <Plug>SendFocusedTestToTmux
 " Signify {{{
 let g:signify_vcs_list = ['git']
 let g:signify_sign_change = '~'
-let g:signify_diffoptions = { 'git': '--patience' }
+"let g:signify_diffoptions = { 'git': '--patience' }
 " }}}
 " vim-sneak {{{
 " Disable streak mode, it's not easy to see where the cursor is at the
