@@ -1,0 +1,10 @@
+! vim: set ft=xmodmap :
+! These invert my laptop's key (which has ins and print on the same key)
+! Apply with xmodmap $DOTFILESREPO/X/_Xmodmap_laptop
+!
+! defaults:
+! keycode 107 = Print Sys_Req Print Sys_Req
+! keycode 118 = Insert NoSymbol Insert
+
+keycode 107 = Insert NoSymbol
+keycode 118 = Print Sys_Req
