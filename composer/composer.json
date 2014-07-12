@@ -2,6 +2,9 @@
     "require": {
         "psy/psysh": "0.1.0.*@dev",
         "phing/phing": "dev-master",
-        "zerkalica/phpcs": "dev-master"
+        "squizlabs/php_codesniffer": "1.4.8",
+        "phpdocumentor/phpdocumentor": "2.*",
+        "drupal/coder": "dev-7.x-2.x",
+        "phpunit/phpunit": "3.7.*"
     }
 }

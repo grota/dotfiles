@@ -85,6 +85,9 @@ cat <<EOF
 ##################### OLD STUFF #######################
 #alias STO='sudo mdadm -S /dev/md0'
 #alias STA='sudo mdadm -As /dev/md0'
+#####################    HEX    #######################
+HEX -> DEC echo \$((0x32))
+DEC -> HEX printf '%x\n' 50
 ##################### SCMBREEZE #######################
 c --rebuild to rebuild the cache
 ##################### CURL ############################

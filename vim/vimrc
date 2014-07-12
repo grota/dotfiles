@@ -314,6 +314,7 @@ nnoremap <leader><F5> :h grota_documentation<CR>
 cnoremap <expr> ./. expand('%:p:h').'/'
 "cnoremap <expr> ./. getcmdtype() == ':' ? expand('%:p:h').'/' : './.'
 cnoremap <C-A> <Home>
+cnoremap <C-P> <Up>
 "}}}
 " DIFF {{{
 " Diff mode only mappings.
@@ -485,7 +486,7 @@ function! s:MyGgrepWrapper()
     return
   endif
   execute "Ggrep! " . shellescape(l:input)
-  copen
+  botright copen
 endfunction
 nnoremap <leader>gg  :call <SID>MyGgrepWrapper()<CR>
 nnoremap <leader>gw  :Gw<CR>
@@ -498,6 +499,10 @@ nnoremap <leader>gc  :Gcommit -v<CR>
 autocmd FileType php let b:surround_97 = "array('\r')"
 " php: S => var_export(xxx, true);
 autocmd FileType php let b:surround_83 = "var_export(\r, TRUE)"
+" php: p => ['xxx']
+autocmd FileType php let b:surround_112 = "'[\r]'"
+" php: l => ->xxx
+autocmd FileType php let b:surround_108 = "->\r"
 " markdown: l => [xxx]
 autocmd FileType markdown let b:surround_108 = "[\r][\1link text or number: \1]"
 " markdown 6 => ***xxx***
@@ -586,7 +591,7 @@ nnoremap <silent> <C-b> :LustyFilesystemExplorerFromHere<CR>
 " Syntastic {{{
 "let g:syntastic_enable_signs = 1
 "let g:syntastic_phpcs_disable = 1
-let g:syntastic_php_phpcs_args = '--standard=Drupal'
+let g:syntastic_php_phpcs_args = '--standard=' . $HOME . '/.composer/vendor/drupal/coder/coder_sniffer/Drupal'
 "}}}
 " vim-markology {{{
 let g:markology_enable = 0
@@ -835,6 +840,8 @@ au InsertEnter * hi CursorLine ctermbg=17
 au InsertLeave * hi CursorLine ctermbg=234
 "}}}
 
+iabbrev FLASE FALSE
+iabbrev flase false
 "augroup last_search
   "autocmd!
   "autocmd WinLeave * let w:last_search = @/
