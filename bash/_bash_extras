@@ -38,8 +38,8 @@ if [[ ! ( "$PATH" == *"$HOME/local/bin:$HOME/.composer/vendor/bin"* ) ]]; then
 fi
 
 # if autojump path is at the beginning it's a duplicate
-if [[ ( "$PATH" == "$DOTFILESREPO/bin/autojump/bin"* ) ]]; then
-  PATH=${PATH#$DOTFILESREPO/bin/autojump/bin:}
+if [[ ( "$PATH" == $HOME/.autojump/bin* ) ]]; then
+  PATH=${PATH#$HOME/.autojump/bin:}
 else
   export PATH=$DOTFILESREPO/bin/autojump/bin:"${PATH}"
 fi
@@ -113,6 +113,10 @@ if [[ -s "$HOME/.git.scmbrc" ]]; then
   fi
 fi
 # }}}
+
+if ( (type gem) && gem query -l -i tmuxinator) > /dev/null 2>&1; then
+  . $(gem contents tmuxinator|grep completion.*bash)
+fi
 
 function ff() { echo "*$**" ; find . -type f -iname "*$**" ; }
 function whichpkg() { PACKAGE=$(dpkg -S $(which $1) | cut -d':' -f1); echo "[${PACKAGE}]"; dpkg -s "${PACKAGE}" ;}
