@@ -13,10 +13,12 @@ cnoremap <C-H> <C-\>e<SID>BackwardWord()<CR>
 cnoremap <C-L> <C-\>e<SID>ForwardWord()<CR>
 cnoremap <M-h> <Left>
 cnoremap <M-l> <Right>
+" C-w/C-d delete WORDS/words LEFT  of the cursor
 cnoremap <C-W> <C-\>e<SID>DeleteBackwardsToWhiteSpace()<CR>
 cnoremap <C-D> <C-\>e<SID>BackwardKillWord()<CR>
+" M-w/M-d delete WORDS/words RIGHT of the cursor
+cnoremap <M-w> <C-\>e<SID>DeleteForwardToWhiteSpace()<CR>
 cnoremap <M-d> <C-\>e<SID>KillWord()<CR>
-"missing M-w
 cnoremap <C-Y> <C-\>e<SID>Yank()<CR>
 " as builtin, but with history
 cnoremap <C-U> <C-\>e<SID>BackwardKillLine()<CR>
@@ -50,6 +52,28 @@ function! <SID>BackwardWord()
     let @c = l:rem
     call setcmdpos(strlen(l:loc) - strlen(l:rem) + 1)
     return getcmdline()
+endfunction
+
+function! <SID>DeleteForwardToWhiteSpace()
+    call <SID>saveUndoHistory(getcmdline(), getcmdpos())
+    let l:loc = strpart(getcmdline(), 0, getcmdpos() - 1)
+    let l:roc = strpart(getcmdline(), getcmdpos() - 1)
+    echom "roc=".l:roc
+    if (l:roc =~ '\v^\S\s*')
+        let l:rem = matchstr(l:roc, '\v^\S+\s*')
+        "echom 'rem='.l:rem
+    elseif (l:roc =~ '\v^\s+$')
+        let @c = l:roc
+        call setcmdpos(1)
+        return l:loc
+    else
+        return getcmdline()
+    endif
+    let @c = l:rem
+    let l:ret = l:loc . strpart(l:roc, strlen(l:rem))
+    echom 'ret='.l:ret
+    call <SID>saveUndoHistory(l:ret, getcmdpos())
+    return l:ret
 endfunction
 
 function! <SID>DeleteBackwardsToWhiteSpace()
