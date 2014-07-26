@@ -19,7 +19,10 @@ $include /etc/inputrc
 "\el":  forward-char
 "\C-f": clear-screen
 "\ea":  kill-region
-"\ew":  '\e \C-] \ea'
+"\C-x\C-w": exchange-point-and-mark
+# mark, go to end, space, exchange-point-and-mark,
+# mark, go to space, kill-region
+"\ew":  '\e \C-e \C-x\C-w\e \C-] \ea'
 "\C-d": backward-kill-word
 "\ek":  kill-line
 "\C-b": backward-delete-char
