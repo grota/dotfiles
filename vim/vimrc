@@ -310,11 +310,6 @@ nnoremap <leader>so :source ~/.vim/sessions/
 nnoremap <leader>ww :<C-u>pwd<cr>
 nnoremap <C-g> :nohlsearch<CR>:call clearmatches()<CR><C-g>
 nnoremap <leader><F5> :h grota_documentation<CR>
-" expands to path of the current file
-cnoremap <expr> ./. expand('%:p:h').'/'
-"cnoremap <expr> ./. getcmdtype() == ':' ? expand('%:p:h').'/' : './.'
-cnoremap <C-A> <Home>
-cnoremap <C-P> <Up>
 "}}}
 " DIFF {{{
 " Diff mode only mappings.

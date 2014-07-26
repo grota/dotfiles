@@ -7,8 +7,8 @@ $include /etc/inputrc
 # RATIONALE:
 # C-hjkl to move between words like C-arrows (h/j=up/down in history)
 # M-hl to move left/right charwise like in vim
-# C-w M-w to delete WORDS on the left/right of the cursor (space-separated)
-# C-d M-d to delete words on the left/right of the cursor
+# C-w/C-d delete WORDS/words LEFT  of the cursor
+# M-w/M-d delete WORDS/words RIGHT of the cursor
 # C-b like backspace
 
 "\C-l": forward-word
