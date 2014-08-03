@@ -79,6 +79,7 @@ fi
 
 # [tmux]
  ln -sf ${repohome}/tmux/_tmux.conf $HOME/.tmux.conf
+ ln -sfT ${repohome}/tmux $HOME/.tmux
  ln -sfT ../private/tmux/tmuxinator ${repohome}/tmux/tmuxinator
 
 # [ruby]
