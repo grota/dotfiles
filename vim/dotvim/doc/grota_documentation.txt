@@ -17,7 +17,7 @@ i_<C-G>s     tpope's surround in insert mode. Accepts <CR> after s.
 that you may want, surround is flexible)
 <leader>v    Send to tmux
 <leader>t/T  Send Test (focused) to tmux (works with <leader>lc)
-<leader>lc   :VimuxRunLastCommand
+<leader>rl   :VimuxRunLastCommand
 <leader>sm   Space map/unmap
 i/n_<M-/>    Autopair Jump
 (s)eek/(S)eek xx
@@ -69,9 +69,11 @@ i_CTRL-u     Delete till start of line
 
       VARIOUS
 <leader>gl :<C-U>Gitv --all<CR>
-<leader>qf Quickfix toggle
+<leader>q Quickfix toggle
+<leader>l Loclist  toggle
 <leader>ww :pwd
-<leader>gg  :Ggrep
+<leader>gg  :Glgrep
+<leader>gq  :lgrep
 {dcv}    {ia}{a} delete-change-visual inner-around argument
 |surround|   ysiw'  add '' around the word
 |surround|   cs)(   change only the spacing, since the opening braces {[( do have spacing

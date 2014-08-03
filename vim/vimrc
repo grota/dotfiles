@@ -474,16 +474,22 @@ autocmd User Fugitive
       \ endif
 set <M-d>=d
 nnoremap <M-d> :Gdiff<CR>gg]czz
-function! s:MyGgrepWrapper()
+function! s:MyGgrepWrapper(pfx)
   let l:input=input("git-grep for: ", expand("<cword>"))
   if l:input == ''
     echo ""
     return
   endif
-  execute "Ggrep! " . shellescape(l:input)
-  botright copen
+  if (a:pfx == 'c')
+    execute "Ggrep! " . shellescape(l:input)
+    botright copen
+  else
+    execute "Glgrep! " . shellescape(l:input)
+    botright lopen
+  endif
 endfunction
-nnoremap <leader>gg  :call <SID>MyGgrepWrapper()<CR>
+nnoremap <leader>gg  :call <SID>MyGgrepWrapper('l')<CR>
+nnoremap <leader>gq  :call <SID>MyGgrepWrapper('c')<CR>
 nnoremap <leader>gw  :Gw<CR>
 nnoremap <leader>gs  :Gstatus<CR>
 nnoremap <M-s> :Gstatus<CR>
@@ -694,7 +700,7 @@ function! VimuxSlime()
   call VimuxSendText(@v)
   call VimuxSendKeys("Enter")
 endfunction
-nnoremap <Leader>lc :VimuxRunLastCommand<CR>
+nnoremap <Leader>rl :VimuxRunLastCommand<CR>
 vnoremap <Leader>v "vy  :call VimuxSlime()<CR>
 nnoremap <Leader>v "vyy :call VimuxSlime()<CR>
 " }}}
@@ -739,8 +745,9 @@ omap T <Plug>Sneak_T
 "}}}
 
 " CUSTOM PLUGINS MAPPINGS AND SETTINGS {{{
-" ,qf quickfix toggle {{{
-nnoremap <leader>qf :QFix<CR>
+" ,q/,l quickfix/location list toggle {{{
+nnoremap <leader>q :QFToggle<CR>
+nnoremap <leader>l :LLToggle<CR>
 "}}}
 " ,xs for syntax class {{{
 function! SynStack()
