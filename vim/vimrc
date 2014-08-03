@@ -531,7 +531,6 @@ let g:yankring_manual_clipboard_check = 1
 let g:yankring_history_file = '.yankring_history'
 "}}}
 " Bclose {{{
-"nnoremap <expr> <C-w><C-d> ((&bufhidden == 'delete') \|\| (&bufhidden == 'wipe')) ? ":bd\<CR>" : ":Bclose\<CR>"
 nnoremap <C-w><C-d> :bd<CR>
 "}}}
 " ctrlp {{{
@@ -593,6 +592,7 @@ nnoremap <silent> <C-b> :LustyFilesystemExplorerFromHere<CR>
 "let g:syntastic_enable_signs = 1
 "let g:syntastic_phpcs_disable = 1
 let g:syntastic_php_phpcs_args = '--standard=' . $HOME . '/.composer/vendor/drupal/coder/coder_sniffer/Drupal'
+let g:syntastic_auto_loc_list = 0
 "}}}
 " vim-markology {{{
 let g:markology_enable = 0
@@ -830,7 +830,8 @@ autocmd FileType help wincmd L
 autocmd FileType gitcommit setlocal colorcolumn=+1
 " Quickfix window: no numbers
 autocmd Filetype qf setlocal nonumber
-autocmd BufReadPost quickfix nnoremap <buffer> <CR> <C-W><CR><C-W>L
+" restore default functionality.
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 " html,xhtml,xml: use Omnicomplete for (super)tab, don't autoclose <>
 autocmd Filetype html,xhtml,xml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
       \| let b:delimitMate_matchpairs = "(:),[:],{:}"
