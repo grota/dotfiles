@@ -2,7 +2,7 @@
 s0_initiate_button = <Shift><Super>Button1
 
 [expo]
-s0_expo_key = <Super>s
+s0_expo_key = <Super>x
 s0_expo_button = Disabled
 s0_expo_edge = 
 s0_double_click_time = 500
@@ -552,7 +552,7 @@ s0_unredirect_driver_blacklist = (nouveau|Intel).*Mesa 8.0
 [workspacenames]
 s0_viewports = 1;2;3;4;
 s0_names = Viewport 1;Viewport 2;Viewport 3;Viewport 4;
-s0_display_time = 0,400000
+s0_display_time = 0,250000
 s0_fade_time = 0,000000
 s0_bold_text = true
 s0_text_font_size = 20
@@ -678,11 +678,11 @@ s0_stroke_width = 3,000000
 
 [staticswitcher]
 s0_next_button = Disabled
-s0_next_key = <Alt>Tab
+s0_next_key = <Super>Tab
 s0_prev_button = Disabled
 s0_prev_key = <Shift><Alt>Tab
 s0_next_all_button = Disabled
-s0_next_all_key = <Super>Tab
+s0_next_all_key = <Alt>Tab
 s0_prev_all_button = Disabled
 s0_prev_all_key = <Shift><Control><Alt>Tab
 s0_next_group_button = Disabled
