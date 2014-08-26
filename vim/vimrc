@@ -31,7 +31,7 @@ syntax enable
 "}}}
 
 " VIM OPTIONS {{{
-let mapleader = ","
+let mapleader = "\<Space>"
 set scrolloff=1 "keep 1 line above and below the cursor
 "set mouse=a " let's try using the mouse for a while
 set ignorecase " ignore case if search pattern is all lowercase, case-sensitive otherwise
@@ -108,8 +108,8 @@ set nojoinspaces
 " VIM PLAIN MAPPINGS {{{
 " EASIER NAVIGATION {{{
 " VERY OPINIONATED REMAPPINGS {{{
-nnoremap <space> :
-xnoremap <space> :
+nnoremap <leader><space> :
+xnoremap <leader><space> :
 nnoremap \ `
 set <M-'>='
 nnoremap <M-'> g_l
@@ -400,7 +400,7 @@ xnoremap <BS> x
 " ,y ,p: YANKING AND PASTING {{{
 xnoremap <Leader>y "+y`>
 nnoremap <Leader>p "+gp
-nnoremap <Leader><leader>p :<C-U>put<CR>
+nnoremap <Leader>P :<C-U>put<CR>
 inoremap <C-o>p <Left><Right><C-o>p<End>
 "}}}
 " <C-s> QUICK SAVING {{{
@@ -593,6 +593,7 @@ nnoremap <silent> <C-b> :LustyFilesystemExplorerFromHere<CR>
 "let g:syntastic_phpcs_disable = 1
 let g:syntastic_php_phpcs_args = '--standard=' . $HOME . '/.composer/vendor/drupal/coder/coder_sniffer/Drupal'
 let g:syntastic_auto_loc_list = 0
+nnoremap <Leader>st :SyntasticToggleMode<cr>
 "}}}
 " vim-markology {{{
 let g:markology_enable = 0
@@ -651,6 +652,7 @@ let g:AutoPairsShortcutFastWrap=''
 autocmd BufEnter * call AutoPairsTryInit()
 let g:AutoPairsMapBS = 0
 let g:AutoPairsMapCR = 0
+let g:AutoPairsMapSpace = 0
 "inoremap <BS> <C-R>=AutoPairsDelete()<CR>
 "let g:AutoPairsFlyMode = 1
 "}}}
@@ -688,6 +690,7 @@ let g:vdebug_options= {
 \    "debug_file" : "/tmp/vdebug",
 \    "continuous_mode" : 0,
 \}
+nnoremap <Leader>br :BreakpointRemove *<CR>
 " }}}
 " Vimux {{{
 let g:VimuxUseNearestPane = 1

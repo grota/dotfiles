@@ -121,6 +121,29 @@ https://github.com/shawncplus/bash-classes/blob/master/historymanipulation.mkd
 ####################### GIT ###########################
 git clean -ndX
 git status -s --ignored
+####################### TMUX ##########################
+prefix+?   list-keys
+prefix+C-x list-keys in copy-mode
+
+prefix+/ search
+prefix+C-f search files
+prefix+C-u search urls
+prefix+C-d search digits
+prefix+C-g search git-status files
+
+prefix+y copy command to system clipboard
+prefix+p paste tmux buffer
+prefix+= select tmux buffer to paste
+
+        -- copy mode --
+o (other side of selection)
+
+Enter (xdg-open)
+C-o   (open with $EDITOR)
+
+  y (copy selection to system clipboard)
+M-y (copy selection to system clipboard and paste it)
+C-y (add selection only to tmux buffer list and paste it)
 #######################################################
 EOF
 }
