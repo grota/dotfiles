@@ -15,9 +15,9 @@ keycode  17 = asterisk    8 8 parenleft
 keycode  18 = parenleft   9 9 parenright
 keycode  19 = parenright  0 0 equal
 
-! invert [] and {} shitwise.
-keycode  34 = braceleft bracketleft bracketleft braceleft egrave eacute
-keycode  35 = braceright bracketright bracketright braceright plus asterisk
+! use { and } when Mode_switch
+keycode  34 = bracketleft braceleft braceleft bracketleft egrave eacute
+keycode  35 = bracketright braceright braceright bracketright plus asterisk
 
 ! shift+space is NoSymbol as default, most vt cannot handle it anyways.
 keycode  65 = space NoSymbol Prior Next

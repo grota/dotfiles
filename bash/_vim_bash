@@ -10,7 +10,7 @@ function _vimserver {
   if [ $? -eq 0 ]; then
       command vim --servername TROLOLOL --remote-tab-silent "$@"
   else
-      command vim "$@" --servername TROLOLOL
+      command vim --servername TROLOLOL "$@"
   fi
 }
 alias vi="stty start undef stop undef && exec_scmb_expand_args _vimserver"

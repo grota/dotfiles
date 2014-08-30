@@ -846,14 +846,17 @@ au InsertEnter * hi CursorLine ctermbg=17
 au InsertLeave * hi CursorLine ctermbg=234
 "}}}
 
+" ABBREVIATIONS {{{
 iabbrev FLASE FALSE
 iabbrev flase false
+" }}}
+
+" NOTES {{{
 "augroup last_search
   "autocmd!
   "autocmd WinLeave * let w:last_search = @/
   "autocmd WinEnter * if exists('w:last_search') | let @/ = w:last_search | endif
 "augroup END
-" NOTES {{{
 " i_<C-z,b,f> can be remapped
 " <F6,7,8> can be mapped
 " NoMatchParen ?

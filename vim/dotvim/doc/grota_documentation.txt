@@ -5,7 +5,7 @@ This file describes the mappings in .vimrc                 *grota_documentation*
 ==============================================================================
 
       TO LEARN
-<leader><leader>p linewise paste
+<leader>P linewise paste
 cx<movement like w,ia,i'> followed by . or by another cx<movement>
 (a)round/(i)nner  (n)ext/(l)ast  b()/B{}/r[]
 (a)round/(i)nner  (v)ariable (php, js, ruby)
@@ -15,22 +15,18 @@ blockwise visual mode works well to enclose each line in quotes.
 i_<C-G>s     tpope's surround in insert mode. Accepts <CR> after s.
 (also, look out for new possible surroundings like <?php, html or erb
 that you may want, surround is flexible)
+i/n_<M-/>    Autopair Jump
+(s)eek/(S)eek xx
+<leader>C    Cycle between TRUE/FALSE, ==/!=
+<leader>fs   current tag
+s search forward, S backwards
+s<enter>
+<leader>sm   Space map/unmap
 <leader>v    Send to tmux
 <leader>t/T  Send Test (focused) to tmux (works with <leader>lc)
 <leader>rl   :VimuxRunLastCommand
-<leader>sm   Space map/unmap
-i/n_<M-/>    Autopair Jump
-(s)eek/(S)eek xx
-<leader>fs   current tag
-<leader>C    Cycle between TRUE/FALSE, ==/!=
-s search forward, S backwards
-s<enter>
-
-i_<C-G><C-H> sparkup: move to next empty html tag
-<leader>se   sparkup: expand sparkup
 
 i_<C-B>      expand SnipMate, move to next token
-i_<C-Z>      move to previous snipmate token
 i_<C-R><C-B> to see SnipMate completions
 
 g/           IndexedSearch: shows at which match index you are

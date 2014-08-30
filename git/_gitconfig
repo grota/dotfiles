@@ -37,9 +37,6 @@
 [gui]
     fontui = -family FreeSans -size 11 -weight bold -slant roman -underline 0 -overstrike 0
     fontdiff = -family \"Courier 10 Pitch\" -size 11 -weight normal -slant roman -underline 0 -overstrike 0
-[tig "bind"]
-    generic = up move-up
-    generic = down move-down
 [pager]
     status = true
 [include]
