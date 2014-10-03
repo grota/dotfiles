@@ -26,7 +26,7 @@ fi
  mkdir -p $HOME/local/bin
  ln -sf ${repohome}/bin/vimdirdiff.sh $HOME/local/bin/vimdirdiff.sh
  ln -sf ${repohome}/bin/rupa_v/v $HOME/local/bin/v
- ln -sf ${repohome}/bin/bd $HOME/local/bin/bd
+ ln -sf ${repohome}/bin/myrepos/mr $HOME/local/bin/mr
 
 # [Bash]
  ln -sf ${repohome}/bash/_bash_aliases $HOME/.bash_aliases
