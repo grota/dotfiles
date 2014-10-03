@@ -3,23 +3,25 @@
 ! The keycode can be found using xev
 ! The third and fourth values are the Mode_switch and Shift+Mode_switch values
 
-! Invert the normal/shifted values of the numbers row
-keycode  10 = exclam      1 1 exclam
-keycode  11 = at          2 2 quotedbl
-keycode  12 = numbersign  3 3 sterling
-keycode  13 = dollar      4 4 dollar onequarter oneeighth
-keycode  14 = percent     5 5 percent
-keycode  15 = asciicircum 6 6 ampersand
-keycode  16 = ampersand   7 7 slash
-keycode  17 = asterisk    8 8 parenleft
-keycode  18 = parenleft   9 9 parenright
-keycode  19 = parenright  0 0 equal
-
-! use { and } when Mode_switch
-keycode  34 = bracketleft braceleft braceleft bracketleft egrave eacute
-keycode  35 = bracketright braceright braceright bracketright plus asterisk
-
 ! shift+space is NoSymbol as default, most vt cannot handle it anyways.
 keycode  65 = space NoSymbol Prior Next
 ! Alt_R as Mode_switch
 keycode 108 = Mode_switch
+
+keycode  10 = 1 exclam      exclam      1
+keycode  11 = 2 at          at          2
+keycode  12 = 3 numbersign  numbersign  3
+keycode  13 = 4 dollar      dollar      4
+keycode  14 = 5 percent     percent     5
+keycode  15 = 6 asciicircum asciicircum 6
+keycode  16 = 7 ampersand   ampersand   7
+keycode  17 = 8 asterisk    asterisk    8
+keycode  18 = 9 parenleft   parenleft   9
+keycode  19 = 0 parenright  parenright  0
+! use { and } when Mode_switch
+keycode  34 = bracketleft braceleft braceleft bracketleft egrave eacute
+keycode  35 = bracketright braceright braceright bracketright plus asterisk
+! Mode_switch works like shift
+keycode  47 = semicolon colon colon colon
+keycode  59 = comma less less less
+keycode  60 = period greater greater greater

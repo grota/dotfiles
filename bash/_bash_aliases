@@ -41,9 +41,9 @@ function cc () {
     local PROFILE_DIR=$1
     local CHROME_ARGS="--user-data-dir=/home/grota/.config/${CHROME}_others/$PROFILE_DIR"
   fi
-  local CHROME_ARGS="$CHROME_ARGS --password-store=basic"
+  local CHROME_ARGS="--password-store=basic $CHROME_ARGS"
   echo "Running: " "$CHROME" "$CHROME_ARGS"
-  $CHROME "$CHROME_ARGS" &> /dev/null &
+  $CHROME $CHROME_ARGS &> /dev/null &
 }
 alias pg='ps aux|grep '
 alias pw='pwsafe -Eup -l'
