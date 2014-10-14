@@ -10,6 +10,7 @@ if exists("syntax_on")
 endif
 let g:colors_name = "grota"
 
+highlight Visual term=reverse ctermbg=236 guibg=DarkGrey
 highlight FoldColumn term=standout ctermfg=14 ctermbg=233 guifg=Cyan guibg=gray3
 highlight SignColumn term=standout ctermfg=14 ctermbg=232 guifg=Cyan guibg=gray4
 highlight CursorLine term=underline guibg=gray9 ctermbg=234 cterm=NONE

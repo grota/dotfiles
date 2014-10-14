@@ -190,3 +190,9 @@
 [submodule "bin/myrepos"]
 	path = bin/myrepos
 	url = https://github.com/joeyh/myrepos.git
+[submodule "vim/dotvim/bundle/stefandtw_quickfix-reflector"]
+	path = vim/dotvim/bundle/stefandtw_quickfix-reflector
+	url = https://github.com/stefandtw/quickfix-reflector.vim.git
+[submodule "vim/dotvim/bundle/dkprice_vim-easygrep"]
+	path = vim/dotvim/bundle/dkprice_vim-easygrep
+	url = https://github.com/dkprice/vim-easygrep.git
