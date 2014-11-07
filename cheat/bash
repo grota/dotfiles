@@ -1,0 +1,10 @@
+!* (all but the 0th)
+!:n (n-th component)
+!:$ (last component)
+!:^ (first component)
+!command
+<sub>:h (head of sub)
+<sub>:t (tail of sub)
+<sub>:r (remove .xxx part from substitution)
+<sub>:q (quotes)
+<sub>:x (break into space separated words and quote)

@@ -1,0 +1,5 @@
+-d form_key=CnbzMWzxaSkQkAJJOZNm POST PARAMS
+-H 'Accept: text/html,...' header -H can be repeated
+--trace filename To check that all headers/params are ok
+-A '...' Sets the user agent
+-e 'http://...' referer

@@ -121,6 +121,15 @@ fi
 function ff() { echo "*$**" ; find . -type f -iname "*$**" ; }
 function whichpkg() { PACKAGE=$(dpkg -S $(which $1) | cut -d':' -f1); echo "[${PACKAGE}]"; dpkg -s "${PACKAGE}" ;}
 
+function _cheat_autocomplete {
+    sheets=$(cheat -l | cut -d' ' -f1)
+    COMPREPLY=()
+    if [ $COMP_CWORD = 1 ]; then
+  COMPREPLY=(`compgen -W "$sheets" -- $2`)
+    fi
+}
+complete -F _cheat_autocomplete cheat
+
 # old notes {{{
 # PS1 overrides the one from .bashrc. Color prompt by default
 # the title of xterms is set only to \w (the current working directory,

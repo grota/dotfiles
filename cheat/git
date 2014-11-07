@@ -1,0 +1,2 @@
+git clean -ndX
+git status -s --ignored

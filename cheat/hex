@@ -1,0 +1,2 @@
+HEX -> DEC echo \$((0x32))
+DEC -> HEX printf '%x\n' 50

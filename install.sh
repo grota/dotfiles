@@ -37,6 +37,10 @@ fi
  ln -sf ${repohome}/bash/_git_bash $HOME/.git_bash
  ln -sf ${repohome}/bash/_fzf_bash $HOME/.fzf_bash
 
+# [cheat]
+# https://github.com/chrisallenlane/cheat
+ ln -sfT ${repohome}/cheat $HOME/.cheat
+
 # [zsh]
  ln -sfT ${repohome}/zsh/oh-my-zsh $HOME/.oh-my-zsh
  ln -sf ${repohome}/zsh/_zshrc $HOME/.zshrc

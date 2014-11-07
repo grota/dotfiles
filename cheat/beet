@@ -1,0 +1,6 @@
+# I don't know why this doesn't always work.
+beet ls 'artist::^$'
+# the following looks into the filesystem (slow)
+cd ~/music && find -type f -exec beet info '{}' \; | \grep  ' artist: $'
+# should coincide with:
+beet write -p
