@@ -94,6 +94,8 @@ fi
 # [dconf]
 if exists dconf && [ -n "$DISPLAY" ]; then
   cat ${repohome}/dconf/_org_gnome_libgnomekbd_keyboard | dconf load /org/gnome/libgnomekbd/keyboard/
+  cat ${repohome}/dconf/org_gnome_desktop_wm_keybindings.dconf | dconf load /org/gnome/desktop/wm/keybindings/
+  cat ${repohome}/dconf/org_gnome_settings-daemon_plugins_media-keys_custom-keybindings.dconf | dconf load /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/
 fi
 
 # [gconf]
