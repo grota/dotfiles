@@ -13,6 +13,7 @@
 	l = log --oneline --decorate
 	up = pull --ff-only
 	h = help
+	d = diff
 	ctags = !.git/hooks/ctags
 	standup = log --all --author=\"Giuseppe Rota\" --since=\"3 days ago\" --name-status --no-merges
 	insthooks = !${DOTFILESREPO}/bin/install_git_hooks
