@@ -128,7 +128,8 @@ function _cheat_autocomplete {
   COMPREPLY=(`compgen -W "$sheets" -- $2`)
     fi
 }
-complete -F _cheat_autocomplete cheat
+alias h=cheat
+complete -F _cheat_autocomplete cheat h
 
 # old notes {{{
 # PS1 overrides the one from .bashrc. Color prompt by default
