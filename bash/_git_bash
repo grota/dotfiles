@@ -5,7 +5,8 @@
 alias gg='git grep --break --heading --line-number'
 alias gbv='git branch -avv'
 alias gbf='git branch -f'
-alias gau='git add -u'
+alias gau='git add -u :/'
+alias gaud='git add -u .'
 alias gl='git --no-pager l -n12'
 alias k='git --no-pager ll -n12'
 alias gk='gitk --all&'
@@ -16,11 +17,14 @@ __git_alias "gdcwd" "git" "diff" "--word-diff --cached --"
 # current autocomplete for stash is broken
 __git_alias "gst" "git" "stash" "list"
 __git_alias "gsts" "git" "stash" "save"
-__git_alias "gsta" "git" "stash" "apply"
-__git_alias "gstp" "git" "stash" "pop --index"
-__git_alias "gstd" "git" "stash" "drop"
 alias gstsh='git stash show -p'
+alias gsta='git stash apply'
+alias gstd='git stash drop'
+alias gstp='git stash pop --index'
 __git_complete gstsh _git_gstsh
+__git_complete gsta _git_gstsh
+__git_complete gstd _git_gstsh
+__git_complete gstp _git_gstsh
 function _git_gstsh () {
   cword=2
   words[1]=show

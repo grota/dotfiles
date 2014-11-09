@@ -4,13 +4,6 @@ $include /etc/inputrc
 #"\C-xz": dump-macros
 #"\C-xv": dump-variables
 #
-# RATIONALE:
-# C-hjkl to move between words like C-arrows (h/j=up/down in history)
-# M-hl to move left/right charwise like in vim
-# C-w/C-d delete WORDS/words LEFT  of the cursor
-# M-w/M-d delete WORDS/words RIGHT of the cursor
-# C-b like backspace
-
 "\C-l": forward-word
 "\C-h": backward-word
 "\C-k": previous-history

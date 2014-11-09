@@ -1,0 +1,18 @@
+#"\C-xp": dump-functions
+#"\C-xz": dump-macros
+#"\C-xv": dump-variables
+
+C-hjkl to move between words like C-arrows (h/j=up/down in history)
+M-hl to move left/right charwise like in vim
+C-b like backspace
+
+C-x C-s add parameters to the last command
+C-x C-x quote params
+
+      +-------------+
+      | WORD | word |
++-----+-------------+
+|Left | C-w  | C-d  |
+|-----+-------------+
+|Right| M-w  | M-d  |
++-----+-------------+
