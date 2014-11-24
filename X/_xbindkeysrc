@@ -6,5 +6,5 @@ Alt + F6
 Alt + F7
 "sleep 0.2 && for run in 1 2; do xdotool key --clearmodifiers XF86AudioRaiseVolume; done &"
 Alt + F8
-"sleep 0.1 && xdotool keyup Shift_L type --delay 0 "$(xsel)" &"
+"sleep 0.1 && xdotool keyup Shift_L type --delay 1 "$(xsel)" &"
 Shift + Insert

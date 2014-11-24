@@ -399,7 +399,7 @@ nnoremap gV `[v`]
 xnoremap <BS> x
 "}}}
 " ,y ,p: YANKING AND PASTING {{{
-xnoremap <Leader>y "+y`>
+xnoremap <Leader>y "+ygv"*y`>
 nnoremap <Leader>p "+gp
 nnoremap <Leader>P :<C-U>put<CR>
 inoremap <C-o>p <Left><Right><C-o>p<End>
@@ -745,6 +745,11 @@ xmap t <Plug>Sneak_t
 xmap T <Plug>Sneak_T
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
+" }}}
+" EasyGrep {{{
+let g:EasyGrepCommand=1
+let g:EasyGrepSearchCurrentBufferDir=0
+let g:EasyGrepRecursive=1
 " }}}
 "}}}
 

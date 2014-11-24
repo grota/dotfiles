@@ -103,5 +103,6 @@ function fixperms() {
 }
 function resunity() {
   dbus-send --print-reply --dest=org.freedesktop.compiz /org/freedesktop/compiz/unityshell/screen0/alt_tab_next_window org.freedesktop.compiz.set string:Disabled &> /dev/null
+  xset r rate 200 90 && xmodmap ~/.Xmodmap
 }
 #}}}
