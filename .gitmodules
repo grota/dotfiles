@@ -1,6 +1,3 @@
-[submodule "vim/dotvim/bundle/vim-scripts_YankRing"]
-	path = vim/dotvim/bundle/vim-scripts_YankRing
-	url = git://github.com/vim-scripts/YankRing.vim.git
 [submodule "vim/dotvim/bundle/scrooloose_nerdcommenter"]
 	path = vim/dotvim/bundle/scrooloose_nerdcommenter
 	url = git://github.com/scrooloose/nerdcommenter.git
@@ -97,9 +94,6 @@
 [submodule "bash/scm_breeze"]
 	path = bash/scm_breeze
 	url = git://github.com/ndbroadbent/scm_breeze.git
-[submodule "vim/dotvim/bundle/vim-scripts_argtextobj.vim"]
-	path = vim/dotvim/bundle/vim-scripts_argtextobj.vim
-	url = git://github.com/vim-scripts/argtextobj.vim.git
 [submodule "vim/dotvim/bundle/jiangmiao_auto-pairs"]
 	path = vim/dotvim/bundle/jiangmiao_auto-pairs
 	url = git://github.com/jiangmiao/auto-pairs.git
@@ -196,3 +190,9 @@
 [submodule "vim/dotvim/bundle/dkprice_vim-easygrep"]
 	path = vim/dotvim/bundle/dkprice_vim-easygrep
 	url = https://github.com/dkprice/vim-easygrep.git
+[submodule "vim/dotvim/bundle/sgur_textobj-parameter"]
+	path = vim/dotvim/bundle/sgur_textobj-parameter
+	url = https://github.com/sgur/vim-textobj-parameter.git
+[submodule "vim/dotvim/bundle/maxbrunsfeld_vim-yankstack"]
+	path = vim/dotvim/bundle/maxbrunsfeld_vim-yankstack
+	url = https://github.com/maxbrunsfeld/vim-yankstack.git

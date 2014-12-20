@@ -6,8 +6,8 @@ $include /etc/inputrc
 #
 "\C-l": forward-word
 "\C-h": backward-word
-"\C-k": previous-history
-"\C-j": next-history
+"\C-k": history-search-backward
+"\C-j": history-search-forward
 "\eh":  backward-char
 "\el":  forward-char
 "\C-f": clear-screen

@@ -31,6 +31,17 @@ syntax enable
 "}}}
 
 " VIM OPTIONS {{{
+" Automatic mapping of <M-> keys. I think there's room to explore
+" <M-S-> mapping using toupper see http://vim.wikia.com/wiki/VimTip738
+let s:c='a'
+while s:c <= 'z'
+  exec "set <M-".(s:c).">=\e".s:c
+  exec "imap \e".s:c." <M-".(s:c).">"
+  let s:c = nr2char(1+char2nr(s:c))
+endwhile
+set <M-/>=/
+set <M-'>='
+set <M-;>=;
 let mapleader = "\<Space>"
 set scrolloff=1 "keep 1 line above and below the cursor
 "set mouse=a " let's try using the mouse for a while
@@ -111,10 +122,8 @@ set nojoinspaces
 nnoremap <leader><space> :
 xnoremap <leader><space> :
 nnoremap \ `
-set <M-'>='
 nnoremap <M-'> g_l
 xnoremap <M-'> g_l
-set <M-;>=;
 nnoremap <M-;> ^
 xnoremap <M-;> ^
 inoremap <M-'> <C-o>$
@@ -127,10 +136,6 @@ nnoremap <silent> <M-Left> :<C-u>tabprevious<CR>
 nnoremap <silent> <M-Right> :<C-u>tabnext<CR>
 " }}}
 " USE nix_<M-HJKL> TO MOVE IN FINER STEPS {{{
-set <M-k>=k
-set <M-j>=j
-set <M-h>=h
-set <M-l>=l
 inoremap <M-k> <C-o>gk
 inoremap <M-j> <C-o>gj
 inoremap <M-h> <left>
@@ -167,6 +172,7 @@ nnoremap <silent> <C-Right> 3<C-W>>
 " <C-W>{} WINDOW SWAPPING {{{
 nnoremap <C-w>{ <C-w>R
 nnoremap <C-w>} <C-w>r
+nnoremap <C-w><C-d> :bd<CR>
 " }}}
 " WINDOWS SPLIT/MAXIMIZE/CLOSE/ONLY/CYCLE {{{
 " cycle through windows
@@ -473,7 +479,6 @@ autocmd User Fugitive
       \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
       \   nnoremap <buffer> .. :edit %:h/<CR> |
       \ endif
-set <M-d>=d
 nnoremap <M-d> :Gdiff<CR>gg]czz
 function! s:MyGgrepWrapper(pfx)
   let l:input=input("git-grep for: ", expand("<cword>"))
@@ -514,25 +519,17 @@ autocmd FileType markdown let b:surround_55 = "**\r**"
 " 8 => *xxx*
 let g:surround_56 = "*\r*"
 "}}}
-" Yankring {{{
-set <M-n>=n
-set <M-m>=m
-let g:yankring_replace_n_pkey = '<M-m>'
-let g:yankring_replace_n_nkey = '<M-n>'
-" The following is required because it conflicts with tpope's repeat plugin
-let g:yankring_map_dot = 0
-function! YRRunAfterMaps()
-  nnoremap Y :<C-U>YRYankCount 'y$'<CR>
-  " Move the cursor to end of the selection after yanking in visual mode
-  xnoremap y :<C-U>YRYankRange 'v'<CR>`>
-endfunction
-" defaults, but set just to be sure:
-let g:yankring_clipboard_monitor = 1
-let g:yankring_manual_clipboard_check = 1
-let g:yankring_history_file = '.yankring_history'
-"}}}
-" Bclose {{{
-nnoremap <C-w><C-d> :bd<CR>
+" Yankstack {{{
+let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
+let g:yankstack_map_keys = 0
+call yankstack#setup()
+nmap Y y$
+nmap <M-m> <Plug>yankstack_substitute_older_paste
+xmap <M-m> <Plug>yankstack_substitute_older_paste
+imap <M-m> <Plug>yankstack_substitute_older_paste
+nmap <M-n> <Plug>yankstack_substitute_newer_paste
+xmap <M-n> <Plug>yankstack_substitute_newer_paste
+imap <M-n> <Plug>yankstack_substitute_newer_paste
 "}}}
 " ctrlp {{{
 let g:ctrlp_map = '<C-F>'
@@ -548,10 +545,6 @@ let g:ctrlp_open_multiple_files = '1vr'
 let g:ctrlp_max_height = 20
 " only jump to the buffer if it’s opened in the current tab
 let g:ctrlp_switch_buffer = 'E'
-set <M-w>=w
-set <M-s>=s
-set <M-v>=v
-set <M-c>=c
 " "w": current word
 " "s": search
 " "v": visual
@@ -565,9 +558,7 @@ let g:ctrlp_prompt_mappings = {
       \ 'AcceptSelection("t")': ['<c-t>', '<F3>'],
       \}
 let g:ctrlp_extensions = ['line']
-set <M-b>=b
 nnoremap <silent> <C-\> :CtrlPBuffer<CR>
-set <M-g>=g
 "nnoremap <silent> <M-b> :CtrlPBuffer<CR>
 nnoremap <silent> <M-g> :CtrlPLine<CR>
 let g:ctrlp_buffer_func = { 'enter': 'GrotaDeleteBufferMapping' }
@@ -643,10 +634,7 @@ let g:Gitv_DoNotMapCtrlKey = 1
 "let g:splitjoin_join_mapping = '<Leader>sj'
 " }}}
 " autopairs {{{
-set <M-/>=/
-set <M-e>=e
 " <M-p> mapped to AutoPairsToggle
-set <M-p>=p
 let g:AutoPairsShortcutJump='<M-/>'
 let g:AutoPairsShortcutFastWrap=''
 " Oddly enough this isn't called for ruby (?)
@@ -654,8 +642,6 @@ autocmd BufEnter * call AutoPairsTryInit()
 let g:AutoPairsMapBS = 0
 let g:AutoPairsMapCR = 0
 let g:AutoPairsMapSpace = 0
-"inoremap <BS> <C-R>=AutoPairsDelete()<CR>
-"let g:AutoPairsFlyMode = 1
 "}}}
 " Sparkup {{{
 " see the FileType autocommands below for the real mappings

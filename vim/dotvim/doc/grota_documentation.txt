@@ -6,12 +6,17 @@ This file describes the mappings in .vimrc                 *grota_documentation*
 
       TO LEARN
 <leader>P linewise paste
-cx<movement like w,ia,i'> followed by . or by another cx<movement>
+cx<movement like w,i'> followed by . or by another cx<movement>
 (a)round/(i)nner  (n)ext/(l)ast  b()/B{}/r[]
 (a)round/(i)nner  (v)ariable (php, js, ruby)
 (a)round/(i)nner  (f) x (mnemonic: "font" x)
 (a)round/(i)nner  (r)   (mnemonic: "ruby block")
 blockwise visual mode works well to enclose each line in quotes.
+repeat last commandline command: @:
+<leader>q Quickfix toggle
+<leader>l Loclist  toggle
+<leader>gg  :Glgrep
+<leader>gq  :lgrep
 i_<C-G>s     tpope's surround in insert mode. Accepts <CR> after s.
 (also, look out for new possible surroundings like <?php, html or erb
 that you may want, surround is flexible)
@@ -48,7 +53,6 @@ i_CTRL-u     Delete till start of line
 
       CTRLP
 <C-f> :CtrlPLastMode
-  <C-y> create with path
   <C-z>, <C-o> Mark, Open multi files
   <C-a>, <C-e> start,end
   <C-u>, <C-w> clear all, clear word
@@ -65,12 +69,8 @@ i_CTRL-u     Delete till start of line
 
       VARIOUS
 <leader>gl :<C-U>Gitv --all<CR>
-<leader>q Quickfix toggle
-<leader>l Loclist  toggle
 <leader>ww :pwd
-<leader>gg  :Glgrep
-<leader>gq  :lgrep
-{dcv}    {ia}{a} delete-change-visual inner-around argument
+{dcv}    {ia}{,} delete-change-visual inner-around argument
 |surround|   ysiw'  add '' around the word
 |surround|   cs)(   change only the spacing, since the opening braces {[( do have spacing
 
