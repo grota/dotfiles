@@ -737,6 +737,10 @@ let g:EasyGrepCommand=1
 let g:EasyGrepSearchCurrentBufferDir=0
 let g:EasyGrepRecursive=1
 " }}}
+" vim-easy-align {{{
+vmap <leader>a <Plug>(EasyAlign)
+nmap <leader>a <Plug>(EasyAlign)
+" }}}
 "}}}
 
 " CUSTOM PLUGINS MAPPINGS AND SETTINGS {{{

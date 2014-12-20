@@ -6,6 +6,7 @@ This file describes the mappings in .vimrc                 *grota_documentation*
 
       TO LEARN
 <leader>P linewise paste
+nx_<leader>a to align
 cx<movement like w,i'> followed by . or by another cx<movement>
 (a)round/(i)nner  (n)ext/(l)ast  b()/B{}/r[]
 (a)round/(i)nner  (v)ariable (php, js, ruby)

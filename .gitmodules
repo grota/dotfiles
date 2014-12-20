@@ -16,9 +16,6 @@
 [submodule "vim/dotvim/bundle/AndrewRadev_linediff.vim"]
 	path = vim/dotvim/bundle/AndrewRadev_linediff.vim
 	url = git://github.com/AndrewRadev/linediff.vim.git
-[submodule "vim/dotvim/bundle/godlygeek_tabular"]
-	path = vim/dotvim/bundle/godlygeek_tabular
-	url = git://github.com/godlygeek/tabular.git
 [submodule "vim/dotvim/bundle/rbgrouleff_bclose.vim"]
 	path = vim/dotvim/bundle/rbgrouleff_bclose.vim
 	url = git://github.com/rbgrouleff/bclose.vim.git
@@ -196,3 +193,9 @@
 [submodule "vim/dotvim/bundle/maxbrunsfeld_vim-yankstack"]
 	path = vim/dotvim/bundle/maxbrunsfeld_vim-yankstack
 	url = https://github.com/maxbrunsfeld/vim-yankstack.git
+[submodule "vim/dotvim/bundle/vim-scripts_visualrepeat"]
+	path = vim/dotvim/bundle/vim-scripts_visualrepeat
+	url = https://github.com/vim-scripts/visualrepeat.git
+[submodule "vim/dotvim/bundle/junegunn_vim-easy-align"]
+	path = vim/dotvim/bundle/junegunn_vim-easy-align
+	url = https://github.com/junegunn/vim-easy-align.git

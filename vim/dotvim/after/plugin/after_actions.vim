@@ -16,27 +16,11 @@ augroup SetPhpFolds
 augroup end
 "}}}
 
-" Tabularize additions {{{
-if !exists(':Tabularize')
-  finish " Tabular.vim wasn't loaded
-endif
-let s:save_cpo = &cpo
-set cpo&vim
-AddTabularPattern! equalgt /^[^=>]*\zs=>/
-let &cpo = s:save_cpo
-unlet s:save_cpo
-"}}}
-
-" set here to override the one in the marvim plugin
-"vnoremap <F2> :norm!@q<CR>
-
 " unmappings {{{
 " IndexedSearch: unmap stupid mappings that start with \, use g/ in case
 unmap \\
 unmap \/
 "}}}
-
-"nnoremap \\ ``
 
 " CHANGE CASE {{{
 nnoremap U gUiWw
