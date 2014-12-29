@@ -30,7 +30,7 @@ colorscheme grota
 syntax enable
 "}}}
 
-" VIM OPTIONS {{{
+" Meta mappings {{{
 " Automatic mapping of <M-> keys. I think there's room to explore
 " <M-S-> mapping using toupper see http://vim.wikia.com/wiki/VimTip738
 let s:c='a'
@@ -39,9 +39,22 @@ while s:c <= 'z'
   exec "imap \e".s:c." <M-".(s:c).">"
   let s:c = nr2char(1+char2nr(s:c))
 endwhile
+let s:c='0'
+while s:c <= '9'
+  exec "set <M-".(s:c).">=\e".s:c
+  exec "imap \e".s:c." <M-".(s:c).">"
+  let s:c = nr2char(1+char2nr(s:c))
+endwhile
 set <M-/>=/
 set <M-'>='
 set <M-;>=;
+set <M-->=-
+set <M-=>==
+set <M-`>=`
+set <M-!>=!
+"}}}
+
+" VIM OPTIONS {{{
 let mapleader = "\<Space>"
 set scrolloff=1 "keep 1 line above and below the cursor
 "set mouse=a " let's try using the mouse for a while
@@ -189,19 +202,14 @@ nnoremap <C-^> :vertical split #<CR>
 nnoremap <F3> <C-W>T
 nnoremap <F4> :<C-u>tabclose<CR>
 nnoremap <F5> :<C-u>tabedit<CR>
-set <M-->=-
 nnoremap <silent> <M--> :<C-u>tabprevious<CR>
 inoremap <silent> <M--> <Esc>:<C-u>tabprevious<CR>
-set <M-=>==
 nnoremap <silent> <M-=> :<C-u>tabnext<CR>
 inoremap <silent> <M-=> <Esc>:<C-u>tabnext<CR>
-set <M-`>=`
 nnoremap <silent> <M-`> :<C-u>tabprevious<CR>
 inoremap <silent> <M-`> <Esc>:<C-u>tabprevious<CR>
-set <M-1>=1
 nnoremap <silent> <M-1> :<C-u>tabnext<CR>
 inoremap <silent> <M-1> <Esc>:<C-u>tabnext<CR>
-set <M-!>=!
 nnoremap <silent> <M-!> :<C-u>tabnext<CR>
 inoremap <silent> <M-!> <Esc>:<C-u>tabnext<CR>
 " }}}
