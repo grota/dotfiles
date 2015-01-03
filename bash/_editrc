@@ -1,0 +1,10 @@
+#http://www.freebsd.org/cgi/man.cgi?query=editrc&sektion=5
+bind "" em-next-word
+bind "" ed-prev-word
+bind "" em-inc-search-prev
+#bind -k up ed-search-prev-history
+#bind -k down ed-search-next-history
+bind "\e[A" ed-search-prev-history
+bind "\e[B" ed-search-next-history
+bind "" ed-prev-history
+bind "" ed-next-history
