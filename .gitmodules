@@ -199,3 +199,6 @@
 [submodule "vim/dotvim/bundle/junegunn_vim-easy-align"]
 	path = vim/dotvim/bundle/junegunn_vim-easy-align
 	url = https://github.com/junegunn/vim-easy-align.git
+[submodule "bin/rupa_z"]
+	path = bin/rupa_z
+	url = https://github.com/rupa/z.git
