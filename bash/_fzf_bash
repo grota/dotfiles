@@ -35,9 +35,9 @@ function _my_fzf_dir_completion() {
   tput rc
 }
 
-for cmd in "cd"; do
-  complete -o bashdefault -o filenames -o default -F _my_fzf_dir_completion $cmd
-done
+#for cmd in "cd"; do
+  #complete -o bashdefault -o filenames -o default -F _my_fzf_dir_completion $cmd
+#done
 
 # This function finds the directories below the current one in
 # a breadth-first fashion, this is because we want to be sure to

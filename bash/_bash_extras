@@ -13,9 +13,6 @@ if [[ "$PROMPT_COMMAND" != *"ps1_update"* ]]; then
 fi
 [[ -s "${current_pathinrepo}/ps1_functions" ]] && source "${current_pathinrepo}/ps1_functions"
 
-# bash autojump, appends to PROMPT_COMMAND
-[[ -f ${DOTFILESREPO}/bin/autojump/bin/autojump.bash ]] && . ${DOTFILESREPO}/bin/autojump/bin/autojump.bash
-
 _dotfiles_preexec () {
   # Set the tmux pane title before executing a command, see man tmux
   echo -ne "\033]2;$1\033\\"
@@ -28,21 +25,16 @@ _dotfiles_guard_preexec () {
   _dotfiles_preexec "$this_command"
 }
 trap '_dotfiles_guard_preexec' DEBUG
-# reset tmux pane title after command execution, i.e. during PROMPT_COMMAND exection
-if [[ "$PROMPT_COMMAND" != *"_reset_tmux_pane_title"* ]]; then
-  export PROMPT_COMMAND="$PROMPT_COMMAND ; _dotfiles_preexec ''"
+# reset tmux pane title after command execution, i.e. during PROMPT_COMMAND execution
+if [[ "$PROMPT_COMMAND" != *"_dotfiles_preexec"* ]]; then
+  export PROMPT_COMMAND="$PROMPT_COMMAND ; _dotfiles_preexec ''; "
 fi
 
 if [[ ! ( "$PATH" == *"$HOME/local/bin:$HOME/.composer/vendor/bin"* ) ]]; then
   export PATH=$HOME/local/bin:$HOME/.composer/vendor/bin:$PATH
 fi
 
-# if autojump path is at the beginning it's a duplicate
-if [[ ( "$PATH" == $HOME/.autojump/bin* ) ]]; then
-  PATH=${PATH#$HOME/.autojump/bin:}
-else
-  export PATH=$DOTFILESREPO/bin/autojump/bin:"${PATH}"
-fi
+_Z_CMD=j . ${DOTFILESREPO}/bin/z/z.sh
 
 export EDITOR=vim
 HISTFILESIZE=1000000

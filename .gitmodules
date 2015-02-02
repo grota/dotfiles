@@ -73,9 +73,6 @@
 [submodule "vim/dotvim/bundle/AndrewRadev_splitjoin.vim"]
 	path = vim/dotvim/bundle/AndrewRadev_splitjoin.vim
 	url = git://github.com/AndrewRadev/splitjoin.vim.git
-[submodule "bin/autojump"]
-	path = bin/autojump
-	url = git://github.com/joelthelion/autojump.git
 [submodule "vim/dotvim/bundle/garbas_vim-snipmate"]
 	path = vim/dotvim/bundle/garbas_vim-snipmate
 	url = https://github.com/garbas/vim-snipmate.git
@@ -184,9 +181,6 @@
 [submodule "vim/dotvim/bundle/dkprice_vim-easygrep"]
 	path = vim/dotvim/bundle/dkprice_vim-easygrep
 	url = https://github.com/dkprice/vim-easygrep.git
-[submodule "vim/dotvim/bundle/sgur_textobj-parameter"]
-	path = vim/dotvim/bundle/sgur_textobj-parameter
-	url = https://github.com/sgur/vim-textobj-parameter.git
 [submodule "vim/dotvim/bundle/maxbrunsfeld_vim-yankstack"]
 	path = vim/dotvim/bundle/maxbrunsfeld_vim-yankstack
 	url = https://github.com/maxbrunsfeld/vim-yankstack.git
@@ -199,3 +193,9 @@
 [submodule "bin/rupa_z"]
 	path = bin/rupa_z
 	url = https://github.com/rupa/z.git
+[submodule "bin/z"]
+	path = bin/z
+	url = https://github.com/rupa/z.git
+[submodule "vim/dotvim/bundle/wellle_targets.vim"]
+	path = vim/dotvim/bundle/wellle_targets.vim
+	url = https://github.com/wellle/targets.vim.git

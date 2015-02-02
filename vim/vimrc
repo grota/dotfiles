@@ -312,7 +312,6 @@ inoremap <expr> <Down> pumvisible() ?
 nnoremap <C-E> 4<C-E>
 nnoremap <C-Y> 4<C-Y>
 " }}}
-
 " MISCELLANEOUS {{{
 " go to tag location if only 1 place, or show selection if more than 1 place
 nnoremap <C-]> :vertical stjump <C-r><C-w><CR>

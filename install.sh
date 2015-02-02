@@ -45,11 +45,6 @@ fi
  ln -sfT ${repohome}/zsh/oh-my-zsh $HOME/.oh-my-zsh
  ln -sf ${repohome}/zsh/_zshrc $HOME/.zshrc
 
-# [autojump]
- cd ${repohome}/bin/autojump
-# installation to $HOME/.autojump
- ./install.py > /dev/null
-
 # [hub]
  cd ${repohome}
  if [[ ! -f $HOME/local/bin/hub ]]; then
