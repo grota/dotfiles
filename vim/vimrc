@@ -52,6 +52,7 @@ set <M-->=-
 set <M-=>==
 set <M-`>=`
 set <M-!>=!
+set <M-~>=~
 "}}}
 
 " VIM OPTIONS {{{
@@ -202,16 +203,14 @@ nnoremap <C-^> :vertical split #<CR>
 nnoremap <F3> <C-W>T
 nnoremap <F4> :<C-u>tabclose<CR>
 nnoremap <F5> :<C-u>tabedit<CR>
-nnoremap <silent> <M--> :<C-u>tabprevious<CR>
-inoremap <silent> <M--> <Esc>:<C-u>tabprevious<CR>
-nnoremap <silent> <M-=> :<C-u>tabnext<CR>
-inoremap <silent> <M-=> <Esc>:<C-u>tabnext<CR>
 nnoremap <silent> <M-`> :<C-u>tabprevious<CR>
 inoremap <silent> <M-`> <Esc>:<C-u>tabprevious<CR>
 nnoremap <silent> <M-1> :<C-u>tabnext<CR>
 inoremap <silent> <M-1> <Esc>:<C-u>tabnext<CR>
-nnoremap <silent> <M-!> :<C-u>tabnext<CR>
-inoremap <silent> <M-!> <Esc>:<C-u>tabnext<CR>
+nnoremap <silent> <M-~> :<C-u>tabmove -1<CR>
+inoremap <silent> <M-~> <Esc>:<C-u>tabmove -1<CR>
+nnoremap <silent> <M-!> :<C-u>tabmove +1<CR>
+inoremap <silent> <M-!> <Esc>:<C-u>tabmove +1<CR>
 " }}}
 " <C-n><C-p>: NEXT/PREV BUFFER {{{
 " <C-N> was the same as <Down> and I didn't need it.

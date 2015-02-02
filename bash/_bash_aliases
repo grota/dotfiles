@@ -36,12 +36,11 @@ alias fire='firefox -Profilemanager -no-remote &> /dev/null &'
 alias dk='sudo docker'
 alias dkrmc='sudo docker rm $(sudo docker ps -a -q)'
 function cc () {
-  local CHROME=chromium-browser
+  local CHROME=google-chrome
   if [ ! -z "$1" ]; then
     local PROFILE_DIR=$1
     local CHROME_ARGS="--user-data-dir=/home/grota/.config/${CHROME}_others/$PROFILE_DIR"
   fi
-  local CHROME_ARGS="--password-store=basic $CHROME_ARGS"
   echo "Running: " "$CHROME" "$CHROME_ARGS"
   $CHROME $CHROME_ARGS &> /dev/null &
 }

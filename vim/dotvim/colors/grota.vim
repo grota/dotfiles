@@ -42,7 +42,7 @@ highlight TabLineSel ctermfg=250 ctermbg=236 cterm=NONE
 highlight TabLineModifiedMark ctermfg=1 ctermbg=22 cterm=bold
 highlight TabLineNotModifiableMark ctermfg=240 ctermbg=234 cterm=bold
 highlight VertSplit ctermfg=240
-highlight TagbarHighlight term=reverse ctermfg=0 ctermbg=11 guifg=black guibg=gold
+highlight TagbarHighlight term=reverse ctermfg=0 ctermbg=57 guifg=black guibg=blue
 " Default Highlights {{{
 highlight def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
 highlight def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154

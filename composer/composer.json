@@ -1,10 +1,11 @@
 {
     "require": {
-        "psy/psysh": "0.1.0.*@dev",
+        "psy/psysh": "dev-master",
         "phing/phing": "dev-master",
         "squizlabs/php_codesniffer": "1.4.8",
         "phpdocumentor/phpdocumentor": "2.*",
         "drupal/coder": "dev-7.x-2.x",
         "phpunit/phpunit": "3.7.*"
-    }
+    },
+    "minimum-stability": "dev"
 }
