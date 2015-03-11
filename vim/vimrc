@@ -572,8 +572,14 @@ func! GrotaDeleteBufferMapping()
     nnoremap <buffer> <silent> <c-x> :call <sid>DeleteBuffer()<cr>
 endfunc
 func! s:DeleteBuffer()
-    exec "bd" fnamemodify(getline('.')[2:], ':p')
-    exec "norm \<F5>"
+  let bufname = getline('.')[2:]
+  if bufname =~# 'No Name'
+    let bufname = bufname[1]
+  else
+    let bufname = fnamemodify(bufname, ':p')
+  endif
+  exec "bd" bufname
+  exec "norm \<F5>"
 endfunc
 "}}}
 " Lusty-Juggler/Explorer {{{
