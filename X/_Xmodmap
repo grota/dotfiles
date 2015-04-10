@@ -3,11 +3,14 @@
 ! The keycode can be found using xev
 ! The third and fourth values are the Mode_switch and Shift+Mode_switch values
 
+! Mode_switch+Space=PageUp
 ! shift+space is NoSymbol as default, most vt cannot handle it anyways.
 keycode  65 = space NoSymbol Prior Next
 ! Alt_R as Mode_switch
 keycode 108 = Mode_switch
 
+! shift-escape=~, Mode_switch+escape=`
+keycode   9 = Escape asciitilde grave asciitilde
 keycode  10 = 1 exclam      exclam      1
 keycode  11 = 2 at          at          2
 keycode  12 = 3 numbersign  numbersign  3

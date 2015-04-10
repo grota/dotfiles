@@ -316,13 +316,15 @@ nnoremap <C-Y> 4<C-Y>
 " go to tag location if only 1 place, or show selection if more than 1 place
 nnoremap <C-]> :vertical stjump <C-r><C-w><CR>
 " gah
-xnoremap <END> <END>h
+xnoremap <END> g_
+xnoremap $ g_
 " Session Save As and Open
 nnoremap <leader>ssa :mksession! ~/.vim/sessions/
 nnoremap <leader>so :source ~/.vim/sessions/
 nnoremap <leader>ww :<C-u>pwd<cr>
 nnoremap <C-g> :nohlsearch<CR>:call clearmatches()<CR><C-g>
 nnoremap <leader><F5> :h grota_documentation<CR>
+nnoremap <leader>ev :vsplit $DOTFILESREPO/vim/vimrc<cr>
 "}}}
 " DIFF {{{
 " Diff mode only mappings.
@@ -439,7 +441,6 @@ inoremap <M-w> <C-o>dw
 nnoremap & :&&<CR>
 xnoremap & :&&<CR>
 "}}}
-nnoremap <leader>ev :vsplit $DOTFILESREPO/vim/vimrc<cr>
 "}}}
 "}}}
 
