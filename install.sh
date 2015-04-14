@@ -24,9 +24,9 @@ fi
 
 # [bin]
  mkdir -p $HOME/local/bin
- ln -sf ${repohome}/bin/vimdirdiff.sh $HOME/local/bin/vimdirdiff.sh
+ #ln -sf ${repohome}/bin/vimdirdiff.sh $HOME/local/bin/vimdirdiff.sh
  ln -sf ${repohome}/bin/rupa_v/v $HOME/local/bin/v
- ln -sf ${repohome}/bin/myrepos/mr $HOME/local/bin/mr
+ #ln -sf ${repohome}/bin/myrepos/mr $HOME/local/bin/mr
 
 # [Bash]
  ln -sf ${repohome}/bash/_bash_aliases $HOME/.bash_aliases
@@ -37,9 +37,11 @@ fi
  ln -sf ${repohome}/bash/_git_bash $HOME/.git_bash
  ln -sf ${repohome}/bash/_fzf_bash $HOME/.fzf_bash
 
-# [cheat]
-# https://github.com/chrisallenlane/cheat
+# [cheat] https://github.com/chrisallenlane/cheat
  ln -sfT ${repohome}/cheat $HOME/.cheat
+
+# [ranger]
+ ln -sfT ${repohome}/ranger $HOME/.config/ranger
 
 # [zsh]
  ln -sfT ${repohome}/zsh/oh-my-zsh $HOME/.oh-my-zsh
@@ -100,9 +102,9 @@ if exists gconftool-2; then
   # gconftool-2 --dump '/apps/gnome-terminal' > gconf/gnome-terminal_gconf_settings.xml
   gconftool-2 --load ${repohome}/gconf/gnome-terminal_gconf_settings.xml
   # gconftool-2 --dump '/desktop/gnome/keybindings/hamster-applet' > gconf/hamster-shortcut.xml
-  gconftool-2 --load ${repohome}/gconf/hamster-shortcut.xml
+  #gconftool-2 --load ${repohome}/gconf/hamster-shortcut.xml
   # gconftool-2 --dump '/apps/hamster-indicator' > gconf/hamster-settings.xml
-  gconftool-2 --load ${repohome}/gconf/hamster-settings.xml
+  #gconftool-2 --load ${repohome}/gconf/hamster-settings.xml
 fi
 
 # [ssh]
@@ -131,7 +133,7 @@ fi
  ln -sf ${repohome}/_config/autostart/xinitrc.desktop $HOME/.config/autostart/xinitrc.desktop
  ln -sf ${repohome}/_config/autostart/xrdb.desktop $HOME/.config/autostart/xrdb.desktop
  ln -sf ${repohome}/_config/autostart/dropbox.desktop $HOME/.config/autostart/dropbox.desktop
- ln -sf ${repohome}/_config/autostart/hamster-indicator.desktop $HOME/.config/autostart/hamster-indicator.desktop
+ #ln -sf ${repohome}/_config/autostart/hamster-indicator.desktop $HOME/.config/autostart/hamster-indicator.desktop
  ln -sf ${repohome}/_config/autostart/indicator-multiload.desktop $HOME/.config/autostart/indicator-multiload.desktop
  ln -sf ${repohome}/_config/autostart/shutter.desktop $HOME/.config/autostart/shutter.desktop
  ln -sf ${repohome}/_config/autostart/gnome-terminal.desktop $HOME/.config/autostart/gnome-terminal.desktop
@@ -173,7 +175,7 @@ fi
  ln -sf ${repohome}/ctags/_ctags $HOME/.ctags
 
 # [mercurial]
- ln -sf  ${repohome}/mercurial/_hgrc $HOME/.hgrc
+ #ln -sf  ${repohome}/mercurial/_hgrc $HOME/.hgrc
 
 # [alsa]
  ln -sf ${repohome}/alsa/_asoundrc $HOME/.asoundrc
