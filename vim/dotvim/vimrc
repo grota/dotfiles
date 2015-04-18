@@ -327,7 +327,7 @@ nnoremap <leader>so :source ~/.vim/sessions/
 nnoremap <leader>ww :<C-u>pwd<cr>
 nnoremap <C-g> :nohlsearch<CR>:call clearmatches()<CR><C-g>
 nnoremap <leader><F5> :h grota_documentation<CR>
-nnoremap <leader>ev :vsplit $DOTFILESREPO/vim/vimrc<cr>
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 "}}}
 " DIFF {{{
 " Diff mode only mappings.

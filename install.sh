@@ -69,7 +69,6 @@ fi
  fi
 
 # [vim]
- ln -sf ${repohome}/vim/vimrc $HOME/.vimrc
  ln -sfT ${repohome}/vim/dotvim $HOME/.vim
  [[ ! -d $HOME/Documents/git_repos/spf13_PIV ]] && git clone git@github.com:spf13/PIV.git $HOME/Documents/git_repos/spf13_PIV
 
@@ -173,9 +172,6 @@ fi
 
 # [ctags]
  ln -sf ${repohome}/ctags/_ctags $HOME/.ctags
-
-# [mercurial]
- #ln -sf  ${repohome}/mercurial/_hgrc $HOME/.hgrc
 
 # [alsa]
  ln -sf ${repohome}/alsa/_asoundrc $HOME/.asoundrc
