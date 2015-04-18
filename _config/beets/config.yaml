@@ -8,7 +8,6 @@ import:
   incremental: yes
   default_action: skip
 threaded: yes
-color: yes
 paths:
   singleton: $artist/$artist - $title
 fuzzy:
