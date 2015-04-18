@@ -2,7 +2,6 @@
 /vim/dotvim/.netrwbook
 /vim/dotvim/sessions/*
 /vim/dotvim/doc/tags
-/vim/dotvim/vim_powerline.cache
 # scm_breeze's index file
 /.git_index
 /_config/beets/state.pickle

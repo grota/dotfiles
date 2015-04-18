@@ -611,13 +611,18 @@ let g:markology_enable = 0
 " Specify 40MB as the maximum size of the tags file to be considered by autotag
 let g:autotagmaxTagsFileSize=1024*1024*40
 "}}}
-" Powerline {{{
-let g:Powerline_cache_file = $HOME.'/.vim/vim_powerline.cache'
-" see: https://github.com/fncll/vimstuff/blob/master/powerline-fonts/SourceCodePro-Semibold-Powerline.otf
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_colorscheme = 'powerline_grota'
-call Pl#Theme#ReplaceSegment('tagbar:currenttag', 'tagbar:fullcurrenttag')
-"}}}
+" vim-airline {{{
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#hunks#enabled = 0
+let g:airline_theme= 'powerlineish'
+let g:airline_theme_patch_func = 'AirlineThemePatch'
+function! AirlineThemePatch(palette)
+  let a:palette['normal']['airline_a'][2] = 247
+  let a:palette['normal']['airline_a'][3] = 22
+  let a:palette['normal']['airline_z'][2] = 247
+  let a:palette['normal']['airline_z'][3] = 22
+endfunction
+" }}}
 " SnipMate {{{
 imap <C-B> <Plug>snipMateNextOrTrigger
 smap <C-B> <Plug>snipMateNextOrTrigger
