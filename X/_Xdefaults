@@ -1,3 +1,20 @@
+! to start from a blank state:
+! xrdb -remove && xrdb -merge ~/.Xdefaults
+! This is the reason for these system defaults here.
+*customization:	-color
+Xft.antialias:	1
+Xft.dpi:	96
+Xft.hinting:	1
+Xft.hintstyle:	hintslight
+Xft.rgba:	rgb
+
+! This is still a WIP
+URxvt*font: xft:Source\ Code\ Pro\ Semibold:pixelsize=15:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Semibold:pixelsize=14:antialias=true:hinting=true
+!URxvt.letterSpace: -1
+!URxvt.lineSpace: 2
+URxvt.depth: 24
+! due to tmux own buffer
+URxvt.saveLines: 0
 URxvt.background:  #000000
 URxvt.foreground:  #1ac41a
 URxvt.cursorColor: #ffffff
@@ -5,8 +22,6 @@ URxvt.cursorColor2: #ff0000
 URxvt.scrollBar:   false
 URxvt.cursorBlink: true
 URxvt.geometry:    222x53
-URxvt.letterSpace: -1
-URxvt.font: xft:DejaVu Sans Mono:pixelsize=12:antialias=True
 URxvt.color0:  #000000
 URxvt.color1:  #CC0000
 URxvt.color2:  #4E9A06
@@ -24,9 +39,29 @@ URxvt.color13: #AD7FA8
 URxvt.color14: #34E2E2
 URxvt.color15: #EEEEEC
 
+! The problem with xterm is that it does not support xft (fontconfig).
+! Instead you can select only one font (and one for the doublewide i.e. CJK chars).
+! also the following does not work:
+! XTerm.*.faceName: xft:Source Code Pro for Powerline,xft:DejaVu Sans Mono
+! So it does not have a fallback mechanism if the selected font does not have a glyph,
+! and it shows a box for the missing glyph.
+
+! fc-list :scalable=true:spacing=mono: family
+! then xfd -fa 'one of those fams' and from there, you can see the codepoint.
+! echo -e "\u2620" where 2620 is the unicode CODEPOINT.
+! gucharmap helps to find out what to what font a specific glyph resolves to.
+
+! some cli switches and X resource names
+! -fa faceName
+! -fs faceSize
+! -fn font (normal bitmap non xft font)
+! -bc -bcf -bcn
+! -cr green
 !xterm.fullscreen: 0
 !xterm.maximized: false
-XTerm.termName:  xterm-256color
+xterm.vt100.utf8: 1
+xterm.vt100.locale: true
+xterm.termName:  xterm-256color
 xterm.vt100.cursorBlink: true
 xterm.vt100.cursorOnTime: 500
 xterm.vt100.cursorOffTime: 550
