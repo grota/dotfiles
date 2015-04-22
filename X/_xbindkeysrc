@@ -6,5 +6,7 @@ Alt + F6
 Alt + F7
 "sleep 0.2 && for run in 1 2; do xdotool key --clearmodifiers XF86AudioRaiseVolume; done &"
 Alt + F8
-"sleep 0.1 && xdotool keyup Shift_L type --delay 1 "$(xsel)" &"
+# A value of 60 is slow but is needed under urxvt for utf8 symbols
+# Keyup Shift_L is to cope with a strange behavior with ergodox's macro.
+"DELAY=0; CLASS=$(xprop -id $(xdotool getwindowfocus) WM_CLASS); echo $CLASS | grep -q gnome-term && DELAY=2; echo $CLASS | grep -iq urxvt && DELAY=60; xdotool keyup Shift_L type --delay $DELAY "$(xsel)" &"
 Shift + Insert

@@ -3,15 +3,30 @@
 ! This is the reason for these system defaults here.
 *customization:	-color
 Xft.antialias:	1
-Xft.dpi:	96
+! The default is 96, this is a test.
+Xft.dpi:	106
 Xft.hinting:	1
 Xft.hintstyle:	hintslight
 Xft.rgba:	rgb
+! These two settings are here for reference, they are somehow related to URxvt font spacing issue.
+! Xft.rgba:	none
+! Xft.hintstyle:	hintfull
 
-! This is still a WIP
-URxvt*font: xft:Source\ Code\ Pro\ Semibold:pixelsize=15:antialias=true:hinting=true,xft:Source\ Code\ Pro\ Semibold:pixelsize=14:antialias=true:hinting=true
-!URxvt.letterSpace: -1
-!URxvt.lineSpace: 2
+! This is to take care of: letter spacing, powerline glyphs, ranger w3mimgdisplay.
+URxvt*font: \
+    xft:Source\ Code\ Pro\ Semibold:pixelsize=11:antialias=true:hinting=true,\
+    xft:Source\ Code\ Pro\ Semibold:pixelsize=11:antialias=true:hinting=true,
+
+URxvt.perl-ext-common: selection,matcher,font-size,clipboard
+! I do not have URxvt v9.20 yet.
+URxvt.keysym.C-C: perl:clipboard:copy
+URxvt.keysym.C-V: perl:clipboard:paste
+URxvt.keysym.C-plus:   perl:font-size:increase
+URxvt.keysym.C-underscore: perl:font-size:decrease
+URxvt.underlineColor:   yellow
+URxvt.letterSpace: -1
+URxvt.lineSpace: -1
+URxvt.geometry:    222x53
 URxvt.depth: 24
 ! due to tmux own buffer
 URxvt.saveLines: 0
@@ -21,7 +36,6 @@ URxvt.cursorColor: #ffffff
 URxvt.cursorColor2: #ff0000
 URxvt.scrollBar:   false
 URxvt.cursorBlink: true
-URxvt.geometry:    222x53
 URxvt.color0:  #000000
 URxvt.color1:  #CC0000
 URxvt.color2:  #4E9A06
@@ -38,6 +52,8 @@ URxvt.color12: #729FCF
 URxvt.color13: #AD7FA8
 URxvt.color14: #34E2E2
 URxvt.color15: #EEEEEC
+URxvt.iso14755: false
+URxvt.iso14755_52: false
 
 ! The problem with xterm is that it does not support xft (fontconfig).
 ! Instead you can select only one font (and one for the doublewide i.e. CJK chars).

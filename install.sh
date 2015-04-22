@@ -94,9 +94,14 @@ if exists dconf && [ -n "$DISPLAY" ]; then
   cat ${repohome}/dconf/org_gnome_settings-daemon_plugins_media-keys_custom-keybindings.dconf | dconf load /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/
 fi
 
+ if [ ! -d $HOME/.fonts ]; then
+   mkdir -p $HOME/.fonts
+ fi
+ if [ ! -f $HOME/.fonts/Sauce\ Code\ Powerline\ Semibold.otf ]; then
+   curl https://raw.githubusercontent.com/powerline/fonts/master/SourceCodePro/Sauce%20Code%20Powerline%20Semibold.otf -o $HOME/.fonts/Sauce\ Code\ Powerline\ Semibold.otf
+ fi
+
 # [gconf]
- mkdir -p $HOME/.fonts
- ln -sf ${repohome}/_fonts/SourceCodePro-Semibold-Powerline.otf $HOME/.fonts/
 if exists gconftool-2; then
   # gconftool-2 --dump '/apps/gnome-terminal' > gconf/gnome-terminal_gconf_settings.xml
   gconftool-2 --load ${repohome}/gconf/gnome-terminal_gconf_settings.xml

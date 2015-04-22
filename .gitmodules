@@ -199,3 +199,9 @@
 [submodule "vim/dotvim/bundle/bling_vim-airline"]
 	path = vim/dotvim/bundle/bling_vim-airline
 	url = https://github.com/bling/vim-airline.git
+[submodule "bin/urxvt-font-size"]
+	path = bin/urxvt-font-size
+	url = https://github.com/majutsushi/urxvt-font-size.git
+[submodule "bin/urxvt-perls"]
+	path = bin/urxvt-perls
+	url = https://github.com/muennich/urxvt-perls.git
