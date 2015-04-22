@@ -285,8 +285,8 @@ s0_speed = 2,500000
 s0_timestep = 0,500000
 
 [neg]
-s0_window_toggle_key = <Super>n
-s0_screen_toggle_key = <Super>m
+s0_window_toggle_key = <Super>slash
+s0_screen_toggle_key = Disabled
 s0_neg_match = any
 s0_exclude_match = type=Desktop
 s0_neg_decorations = false
@@ -625,7 +625,7 @@ s0_show_root = true
 [shelf]
 s0_trigger_key = <Super>l
 s0_reset_key = Disabled
-s0_triggerscreen_key = <Super>p
+s0_triggerscreen_key = Disabled
 s0_dec_button = <Alt><Super>Button4
 s0_inc_button = <Alt><Super>Button5
 s0_animtime = 150
@@ -784,7 +784,7 @@ s0_command_screenshot = gnome-screenshot
 s0_run_command_screenshot_key = Print
 s0_command_window_screenshot = gnome-screenshot -w
 s0_run_command_window_screenshot_key = <Alt>Print
-s0_command_terminal = gnome-terminal
+s0_command_terminal = urxvt
 s0_run_command_terminal_key = <Alt>x
 
 [thumbnail]
@@ -918,7 +918,7 @@ s0_default_icon = icon
 s0_do_serialize = false
 s0_overlapping_outputs = 0
 s0_detect_outputs = true
-s0_outputs = 1600x900+0+0;1360x768+1600+132;
+s0_outputs = 1600x900+0+0;1360x768+1600+0;
 s0_click_to_focus = true
 s0_raise_on_click = true
 s0_autoraise = false
