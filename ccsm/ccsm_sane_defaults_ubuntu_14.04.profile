@@ -475,14 +475,14 @@ s0_window_match = Toolbar | Utility | Dialog | Normal | Unknown
 
 [trailfocus]
 s0_window_match = (type=toolbar | type=utility | type=dialog | type=normal) & !(state=skiptaskbar | state=skippager)
-s0_windows_count = 5
-s0_windows_start = 2
+s0_windows_count = 1
+s0_windows_start = 1
 s0_max_opacity = 100
-s0_min_opacity = 70
+s0_min_opacity = 100
 s0_max_brightness = 100
-s0_min_brightness = 100
+s0_min_brightness = 52
 s0_max_saturation = 100
-s0_min_saturation = 100
+s0_min_saturation = 10
 
 [splash]
 s0_initiate_key = <Control>F11
@@ -496,21 +496,21 @@ s0_brightness = 50,000000
 
 [fade]
 s0_fade_mode = 0
-s0_fade_speed = 5,000000
-s0_fade_time = 100
+s0_fade_speed = 25,000000
+s0_fade_time = 200
 s0_window_match = any & !(title=notify-osd)
-s0_visual_bell = false
+s0_visual_bell = true
 s0_fullscreen_visual_bell = false
 s0_dim_unresponsive = true
 s0_unresponsive_brightness = 65
 s0_unresponsive_saturation = 0
 
 [addhelper]
-s0_toggle_key = <Super>p
+s0_toggle_key = <Super>comma
 s0_window_types = Toolbar | Utility | Dialog | ModalDialog | Fullscreen | Normal
-s0_ononinit = false
-s0_brightness = 30
-s0_saturation = 50
+s0_ononinit = true
+s0_brightness = 32
+s0_saturation = 10
 s0_opacity = 100
 
 [water]
@@ -738,8 +738,8 @@ s0_icon = true
 s0_icon_only = false
 s0_mipmap = true
 s0_row_align = 1
-s0_focus_on_switch = false
-s0_bring_to_front = false
+s0_focus_on_switch = true
+s0_bring_to_front = true
 s0_highlight_mode = 1
 s0_highlight_rect_hidden = 2
 s0_highlight_color = #6524003d
@@ -908,7 +908,7 @@ s0_toggle_key = <Alt><Super>r
 s0_intensity = 20
 
 [core]
-s0_active_plugins = core;crashhandler;composite;opengl;decor;copytex;compiztoolbox;place;imgpng;unitymtgrabhandles;wall;put;neg;notification;resize;text;shelf;grid;snap;move;gnomecompat;mousepoll;regex;dbus;animation;session;expo;ezoom;workarounds;workspacenames;staticswitcher;fade;scale;unityshell;scaleaddon;
+s0_active_plugins = core;crashhandler;composite;opengl;decor;copytex;compiztoolbox;place;imgpng;unitymtgrabhandles;wall;put;neg;notification;resize;text;shelf;grid;snap;move;gnomecompat;mousepoll;regex;dbus;animation;session;expo;ezoom;workarounds;workspacenames;staticswitcher;fade;addhelper;scale;unityshell;scaleaddon;
 s0_audible_bell = true
 s0_ignore_hints_when_maximized = true
 s0_hide_skip_taskbar_windows = true
@@ -918,7 +918,7 @@ s0_default_icon = icon
 s0_do_serialize = false
 s0_overlapping_outputs = 0
 s0_detect_outputs = true
-s0_outputs = 1600x900+0+0;1360x768+1600+0;
+s0_outputs = 1600x900+0+0;
 s0_click_to_focus = true
 s0_raise_on_click = true
 s0_autoraise = false

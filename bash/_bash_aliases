@@ -24,6 +24,7 @@ if [ -f ~/.fzf_bash ]; then
 fi
 
 # aliases {{{
+alias r='PAGER=less urxvt -e ranger'
 alias tmxu=tmux
 alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias L='less -R'
@@ -41,6 +42,7 @@ function cc () {
     local PROFILE_DIR=$1
     local CHROME_ARGS="--user-data-dir=/home/grota/.config/${CHROME}_others/$PROFILE_DIR"
   fi
+  local CHROME_ARGS="--password-store=basic $CHROME_ARGS"
   echo "Running: " "$CHROME" "$CHROME_ARGS"
   $CHROME $CHROME_ARGS &> /dev/null &
 }

@@ -8,6 +8,7 @@ alias gbf='git branch -f'
 alias gau='git add -u :/'
 alias gaud='git add -u .'
 alias gl='git --no-pager l -n12'
+__git_alias "gf" "git" "fetch" "-p"
 alias k='git --no-pager ll -n12'
 alias gk='gitk --all&'
 alias gl1p="git log -1 -p"
