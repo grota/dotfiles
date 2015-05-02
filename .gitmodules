@@ -166,9 +166,6 @@
 [submodule "tmux/plugins/tmux-open"]
 	path = tmux/plugins/tmux-open
 	url = https://github.com/tmux-plugins/tmux-open.git
-[submodule "bin/myrepos"]
-	path = bin/myrepos
-	url = https://github.com/joeyh/myrepos.git
 [submodule "vim/dotvim/bundle/stefandtw_quickfix-reflector"]
 	path = vim/dotvim/bundle/stefandtw_quickfix-reflector
 	url = https://github.com/stefandtw/quickfix-reflector.vim.git

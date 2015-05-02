@@ -622,6 +622,9 @@ function! AirlineThemePatch(palette)
   let a:palette['normal']['airline_z'][2] = 247
   let a:palette['normal']['airline_z'][3] = 22
 endfunction
+" Targets {{{
+let g:targets_aiAI = 'aIAi'
+" }}}
 " }}}
 " SnipMate {{{
 imap <C-B> <Plug>snipMateNextOrTrigger

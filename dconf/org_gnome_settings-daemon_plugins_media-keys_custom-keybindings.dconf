@@ -1,4 +1,0 @@
-[custom0]
-binding='<Primary><Alt>Delete'
-command='gnome-session-quit --reboot'
-name='reboot'

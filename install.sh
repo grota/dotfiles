@@ -24,9 +24,7 @@ fi
 
 # [bin]
  mkdir -p $HOME/local/bin
- #ln -sf ${repohome}/bin/vimdirdiff.sh $HOME/local/bin/vimdirdiff.sh
  ln -sf ${repohome}/bin/rupa_v/v $HOME/local/bin/v
- #ln -sf ${repohome}/bin/myrepos/mr $HOME/local/bin/mr
 
 # [Bash]
  ln -sf ${repohome}/bash/_bash_aliases $HOME/.bash_aliases
@@ -91,7 +89,8 @@ fi
 if exists dconf && [ -n "$DISPLAY" ]; then
   cat ${repohome}/dconf/_org_gnome_libgnomekbd_keyboard | dconf load /org/gnome/libgnomekbd/keyboard/
   cat ${repohome}/dconf/org_gnome_desktop_wm_keybindings.dconf | dconf load /org/gnome/desktop/wm/keybindings/
-  cat ${repohome}/dconf/org_gnome_settings-daemon_plugins_media-keys_custom-keybindings.dconf | dconf load /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/
+  # dconf dump /org/gnome/settings-daemon/plugins/media-keys/ > dconf/dconf_gnome_settings_daemon_keys.dconf
+  cat ${repohome}/dconf/dconf_gnome_settings_daemon_keys.dconf | dconf load /org/gnome/settings-daemon/plugins/media-keys/
 fi
 
  if [ ! -d $HOME/.fonts ]; then
@@ -130,7 +129,6 @@ fi
  # ubuntu lightdm does not consider $HOME/.xsession{,rc} nor $HOME/.xinitrc
  ln -sf ${repohome}/X/_xinitrc $HOME/.xinitrc
  ln -sf ${repohome}/X/_xbindkeysrc  $HOME/.xbindkeysrc
- # xmodmap, switch a couple of keys, for laptop dv7-6190sl, disabled by default
  ln -sf ${repohome}/X/_Xmodmap $HOME/.Xmodmap
  # what to autostart in X
  [[ ! -d $HOME/.config/autostart ]] && mkdir -p $HOME/.config/autostart
