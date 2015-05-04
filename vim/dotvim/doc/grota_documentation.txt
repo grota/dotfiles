@@ -5,9 +5,13 @@ This file describes the mappings in .vimrc                 *grota_documentation*
 ==============================================================================
 
       TO LEARN
-<leader>P linewise paste
+<leader>P   linewise paste
+v_r         visual mode replace (with unnamed register)
+o_il        inner line
+o_i#        inner comment
+o_[iao]i    inner/around/only indent
+<leader>I/A Prepend/Append to all adjacent lines with same indentation
 <leader>bd delete buffer without save confirmation
-nx_<leader>a to align
 cx<movement like w,i'> followed by . or by another cx<movement>
 (a)round/(i)nner  (n)ext/(l)ast  b()/B{}/r[]
 (a)round/(i)nner  (v)ariable (php, js, ruby)
@@ -27,6 +31,7 @@ i/n_<M-/>    Autopair Jump
 <leader>C    Cycle between TRUE/FALSE, ==/!=
 <leader>fs   current tag
 s search forward, S backwards
+nx_<leader>a to align
 s<enter>
 <leader>sm   Space map/unmap
 <leader>v    Send to tmux
