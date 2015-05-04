@@ -6,6 +6,7 @@ This file describes the mappings in .vimrc                 *grota_documentation*
 
       TO LEARN
 <leader>P linewise paste
+<leader>bd delete buffer without save confirmation
 nx_<leader>a to align
 cx<movement like w,i'> followed by . or by another cx<movement>
 (a)round/(i)nner  (n)ext/(l)ast  b()/B{}/r[]
@@ -92,7 +93,6 @@ i_ <C-l> <C-h> <C-j> <C-k> wordwise movement
 <F2> window close
 <F3> tab close
 <F10> to toggle the tagbar panel
-<F12> to enable/disable mouse in vim
 <C-g> clear the search highlight followed by <C-g>
 <C-n> <C-p> :bn :bp
 <M-up><M-down>  move line(s) up/down in normal,insert,visual mode

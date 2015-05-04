@@ -187,7 +187,6 @@ nnoremap <silent> <C-Right> 3<C-W>>
 " <C-W>{} WINDOW SWAPPING {{{
 nnoremap <C-w>{ <C-w>R
 nnoremap <C-w>} <C-w>r
-nnoremap <C-w><C-d> :bd<CR>
 " }}}
 " WINDOWS SPLIT/MAXIMIZE/CLOSE/ONLY/CYCLE {{{
 " cycle through windows
@@ -334,44 +333,46 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " Center the screen upon moving to the next diff chunk.
 " I don't care what the manual says, I don't like asymmetry,
 " dg/dp in normal/visual mode.
-" Don't ask me why, but I need to remap dp to dp,
-" I thinks this is yankring's fault.
-autocmd FilterWritePre * if &diff|
-      \ nnoremap <buffer> <leader>du :let l=line(".")<CR>\|:<C-U>diffupdate<CR>\|:exe "normal! ".l."G"<CR>zz|
-      \ nnoremap <buffer> dp dp]czz|
-      \ nnoremap <buffer> dg do]czz|
-      \ nnoremap <buffer> do <nop>|
-      \ xnoremap <buffer> dp :diffput<CR>|
-      \ xnoremap <buffer> dg :diffget<CR>|
-      \ nnoremap <buffer> <leader>dw :call ToggleDiffWhitespace()<CR>|
-      \ nnoremap <buffer> <M-Left> 13z<Left>|
-      \ nnoremap <buffer> <M-Right> 13z<Right>|
-      \ normal gg|
-      \ endif
-autocmd WinEnter * if &diff==0|
-      \ if maparg('dp','x') !=# ''|
-      \ xunmap <buffer> dp|
-      \ endif|
-      \ if maparg('dg','x') !=# ''|
-      \ xunmap <buffer> dg|
-      \ endif|
-      \ if maparg('dp','n') !=# ''|
-      \ nunmap <buffer> dp|
-      \ endif|
-      \ if maparg('dg','n') !=# ''|
-      \ nunmap <buffer> dg|
-      \ endif|
-      \ try|
-      \ nunmap <buffer> do|
-      \ catch /.*/|
-      \ endtry|
-      \ endif
-autocmd User GrotaDiffOff if maparg('<M-Left>','n') =~ '13z'|
-      \ nunmap <buffer> <M-Left>|
-      \ endif|
-      \ if maparg('<M-Right>','n') =~ '13z'|
-      \ nunmap <buffer> <M-Right>|
-      \ endif
+augroup grota_autocommands
+  autocmd!
+augroup END
+augroup grota_autocommands
+  autocmd FilterWritePre * if &diff|
+        \ nnoremap <buffer> <leader>du :<C-U>diffupdate<CR>|
+        \ nnoremap <buffer> dp dp]czz|
+        \ nnoremap <buffer> dg do]czz|
+        \ nnoremap <buffer> do <nop>|
+        \ xnoremap <buffer> dp :diffput<CR>|
+        \ xnoremap <buffer> dg :diffget<CR>|
+        \ nnoremap <buffer> <leader>dw :call ToggleDiffWhitespace()<CR>|
+        \ nnoremap <buffer> <M-Left> 13z<Left>|
+        \ nnoremap <buffer> <M-Right> 13z<Right>|
+        \ endif
+  autocmd WinEnter * if &diff==0|
+        \ if maparg('dp','x') !=# ''|
+        \ xunmap <buffer> dp|
+        \ endif|
+        \ if maparg('dg','x') !=# ''|
+        \ xunmap <buffer> dg|
+        \ endif|
+        \ if maparg('dp','n') !=# ''|
+        \ nunmap <buffer> dp|
+        \ endif|
+        \ if maparg('dg','n') !=# ''|
+        \ nunmap <buffer> dg|
+        \ endif|
+        \ try|
+        \ nunmap <buffer> do|
+        \ catch /.*/|
+        \ endtry|
+        \ endif
+  autocmd User GrotaDiffOff if maparg('<M-Left>','n') =~ '13z'|
+        \ nunmap <buffer> <M-Left>|
+        \ endif|
+        \ if maparg('<M-Right>','n') =~ '13z'|
+        \ nunmap <buffer> <M-Right>|
+        \ endif
+augroup END
 
 let g:diffwhitespaceon = 0
 function! ToggleDiffWhitespace()
@@ -385,8 +386,7 @@ function! ToggleDiffWhitespace()
         let g:diffwhitespaceon = 1
     endif
     diffupdate
-    " needed to cope with a strange issue with terminal vim
-    tabedit | tabclose
+    redraw!
 endfunc
 function! CallDiffDashWonIwhite()
   let opt = ""
@@ -439,6 +439,8 @@ nnoremap <CR> i<cr><esc>`.
 "}}}
 " i_<M-w> delete the word after the cursor {{{
 inoremap <M-w> <C-o>dw
+nnoremap <C-w><C-d> :bd<CR>
+nnoremap <leader>bd :bd!<CR>
 "}}}
 " Substitute {{{
 nnoremap & :&&<CR>
@@ -458,14 +460,18 @@ let g:sh_fold_enabled=7
 " but I'm not using it.
 let g:php_folding = 2
 " use K on a proposed line in an interactive gitrebase to see the corresponding diff
-autocmd FileType gitrebase nnoremap <buffer> <silent> S :Cycle<CR>
-autocmd FileType gitcommit nnoremap <buffer> <silent> <leader>d :DiffGitCached<CR>:wincmd L<CR>
+augroup grota_autocommands
+  autocmd FileType gitrebase nnoremap <buffer> <silent> S :Cycle<CR>
+  autocmd FileType gitcommit nnoremap <buffer> <silent> <leader>d :DiffGitCached<CR>:wincmd L<CR>
+augroup END
 " }}}
 
 " CONTRIB PLUGINS MAPPINGS AND SETTINGS {{{
 " vim-cycle {{{
 let g:cycle_no_mappings = 1
-autocmd FileType php call AddCycleGroup('php', ['TRUE', 'FALSE'])
+augroup grota_autocommands
+  autocmd FileType php call AddCycleGroup('php', ['TRUE', 'FALSE'])
+augroup END
 nmap <leader>C <Plug>CycleNext
 " }}}
 " tagbar plugin {{{
@@ -485,11 +491,13 @@ nnoremap <silent> <leader>fs :TagbarCurrentTag 'p'<CR>
 " Fugitive {{{
 " Map .. to go back to the parent dir when you are in a git (fugitive)
 " tree|blob buffer
-autocmd BufEnter fugitive://**//[0-3]/** let b:autotagDisabled=1
-autocmd User Fugitive
-      \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-      \   nnoremap <buffer> .. :edit %:h/<CR> |
-      \ endif
+augroup grota_autocommands
+  autocmd BufEnter fugitive://**//[0-3]/** let b:autotagDisabled=1
+  autocmd User Fugitive
+        \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+        \   nnoremap <buffer> .. :edit %:h/<CR> |
+        \ endif
+augroup END
 nnoremap <M-d> :Gdiff<CR>gg]czz
 function! s:MyGgrepWrapper(pfx)
   let l:input=input("git-grep for: ", expand("<cword>"))
@@ -514,19 +522,21 @@ nnoremap <leader>gc  :Gcommit -v<CR>
 "}}}
 " Surround {{{
 " php: a => array(xxx)
-autocmd FileType php let b:surround_97 = "array('\r')"
-" php: S => var_export(xxx, true);
-autocmd FileType php let b:surround_83 = "var_export(\r, TRUE)"
-" php: p => ['xxx']
-autocmd FileType php let b:surround_112 = "'[\r]'"
-" php: l => ->xxx
-autocmd FileType php let b:surround_108 = "->\r"
-" markdown: l => [xxx]
-autocmd FileType markdown let b:surround_108 = "[\r][\1link text or number: \1]"
-" markdown 6 => ***xxx***
-autocmd FileType markdown let b:surround_54 = "***\r***"
-" markdown 7 => **xxx**
-autocmd FileType markdown let b:surround_55 = "**\r**"
+augroup grota_autocommands
+  autocmd FileType php let b:surround_97 = "array('\r')"
+  " php: S => var_export(xxx, true);
+  autocmd FileType php let b:surround_83 = "var_export(\r, TRUE)"
+  " php: p => ['xxx']
+  autocmd FileType php let b:surround_112 = "'[\r]'"
+  " php: l => ->xxx
+  autocmd FileType php let b:surround_108 = "->\r"
+  " markdown: l => [xxx]
+  autocmd FileType markdown let b:surround_108 = "[\r][\1link text or number: \1]"
+  " markdown 6 => ***xxx***
+  autocmd FileType markdown let b:surround_54 = "***\r***"
+  " markdown 7 => **xxx**
+  autocmd FileType markdown let b:surround_55 = "**\r**"
+augroup END
 " 8 => *xxx*
 let g:surround_56 = "*\r*"
 "}}}
@@ -663,15 +673,12 @@ let g:Gitv_DoNotMapCtrlKey = 1
 let g:AutoPairsShortcutJump='<M-/>'
 let g:AutoPairsShortcutFastWrap=''
 " Oddly enough this isn't called for ruby (?)
-autocmd BufEnter * call AutoPairsTryInit()
+augroup grota_autocommands
+  autocmd BufEnter * call AutoPairsTryInit()
+augroup END
 let g:AutoPairsMapBS = 0
 let g:AutoPairsMapCR = 0
 let g:AutoPairsMapSpace = 0
-"}}}
-" Sparkup {{{
-" see the FileType autocommands below for the real mappings
-let g:sparkupExecuteMapping = '<Plug>SparkupExecuteMapping'
-let g:sparkupNextMapping = '<Plug>SparkupNextMapping'
 "}}}
 " Vdebug {{{
 let g:vdebug_keymap = {
@@ -836,35 +843,50 @@ nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
 "}}}
 
 " AUTOCOMMANDS {{{
-" highlight cursorline only for current window
-autocmd WinLeave * setlocal nocursorline
-autocmd WinEnter * setlocal cursorline
-if version >= 703
-  " Enable relativenumber just for php for now
-  autocmd FileType php setlocal relativenumber
-        \| setlocal number
-        \| call SuperTabSetDefaultCompletionType("<c-p>")
-endif
-" Auto close the preview window that pops up in php omnicomplete mode
-" DiffGitCached is opened in a preview window so we check for ft=php
-autocmd InsertLeave * if (pumvisible() == 0 && &ft ==# 'php')|silent! pclose|endif
-" Help on the right
-autocmd FileType help wincmd L
-" Red line for gitcommit
-autocmd FileType gitcommit setlocal colorcolumn=+1
-" Quickfix window: no numbers
-autocmd Filetype qf setlocal nonumber
-" restore default functionality.
-autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-" html,xhtml,xml: use Omnicomplete for (super)tab, don't autoclose <>
-autocmd Filetype html,xhtml,xml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
-      \| let b:delimitMate_matchpairs = "(:),[:],{:}"
-autocmd FileType html,xhtml,xml,php,eruby nmap <buffer> <leader>se <Plug>SparkupExecuteMapping
-      \| imap <buffer> <C-G><C-H> <Plug>SparkupNextMapping
+augroup grota_autocommands
+  " highlight cursorline only for current window
+  autocmd WinLeave * setlocal nocursorline
+  autocmd WinEnter * setlocal cursorline
+  if version >= 703
+    " Enable relativenumber just for php for now
+    autocmd FileType php setlocal relativenumber
+          \| setlocal number
+          \| call SuperTabSetDefaultCompletionType("<c-p>")
+  endif
+  " Auto close the preview window that pops up in php omnicomplete mode
+  " DiffGitCached is opened in a preview window so we check for ft=php
+  autocmd InsertLeave * if (pumvisible() == 0 && &ft ==# 'php')|silent! pclose|endif
+  " Help on the right
+  function! s:move_help_to_right()
+    if &buftype == 'help'
+      wincmd L
+    endif
+  endfunction
+  autocmd BufEnter *.txt call s:move_help_to_right()
+  " Red line for gitcommit
+  autocmd FileType gitcommit setlocal colorcolumn=+1
+  " Quickfix window: no numbers
+  autocmd Filetype qf setlocal nonumber
+  " restore default functionality.
+  autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+  " html,xhtml,xml: use Omnicomplete for (super)tab, don't autoclose <>
+  autocmd Filetype html,xhtml,xml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
+        \| let b:delimitMate_matchpairs = "(:),[:],{:}"
+  autocmd InsertEnter *
+        \ if &background == 'dark' |
+        \ hi CursorLine ctermbg=17 |
+        \ else |
+        \ hi CursorLine ctermbg=249 |
+        \ endif
+  autocmd InsertLeave *
+        \ if &background == 'dark' |
+        \ hi CursorLine ctermbg=234 |
+        \ else |
+        \ hi CursorLine ctermbg=253 |
+        \ endif
+augroup END
 " this matches the conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
-au InsertEnter * hi CursorLine ctermbg=17
-au InsertLeave * hi CursorLine ctermbg=234
 "}}}
 
 " ABBREVIATIONS {{{
@@ -881,4 +903,12 @@ iabbrev flase false
 " i_<C-z,b,f> can be remapped
 " <F6,7,8> can be mapped
 " NoMatchParen ?
+" }}}
+
+" Old stuff {{{
+" Sparkup {{{
+" see the FileType autocommands below for the real mappings
+let g:sparkupExecuteMapping = '<Plug>SparkupExecuteMapping'
+let g:sparkupNextMapping = '<Plug>SparkupNextMapping'
+"}}}
 " }}}
