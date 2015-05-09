@@ -24,7 +24,7 @@ fi
 
 # [bin]
  mkdir -p $HOME/local/bin
- ln -sf ${repohome}/bin/rupa_v/v $HOME/local/bin/v
+ #ln -sf ${repohome}/bin/rupa_v/v $HOME/local/bin/v
 
 # [Bash]
  ln -sf ${repohome}/bash/_bash_aliases $HOME/.bash_aliases
@@ -51,6 +51,11 @@ fi
    cd vendor/hub
    rake install prefix=$HOME/local
    cd ${repohome}
+ fi
+
+ if [[ ! -f $HOME/local/bin/trans ]]; then
+   wget git.io/trans -O $HOME/local/bin/trans
+   chmod u+x $HOME/local/bin/trans
  fi
 
 # [composer]

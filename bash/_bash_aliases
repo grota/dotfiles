@@ -34,8 +34,7 @@ alias ll='ls -AlFhrt --group-directories-first'
 alias ls='ls --color=auto --group-directories-first'
 alias sl=ls
 alias fire='firefox -Profilemanager -no-remote &> /dev/null &'
-alias dk='sudo docker'
-alias dkrmc='sudo docker rm $(sudo docker ps -a -q)'
+alias t=trans
 function cc () {
   local CHROME=google-chrome
   if [ ! -z "$1" ]; then
@@ -104,6 +103,7 @@ function fixperms() {
 }
 function resunity() {
   dbus-send --print-reply --dest=org.freedesktop.compiz /org/freedesktop/compiz/unityshell/screen0/alt_tab_next_window org.freedesktop.compiz.set string:Disabled &> /dev/null
+  killall xbindkeys; xbindkeys
   xset r rate 200 90 && xmodmap ~/.Xmodmap
 }
 #}}}

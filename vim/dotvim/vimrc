@@ -430,7 +430,13 @@ xnoremap <M-Up> :m-2<CR>gv=gv
 nnoremap <CR> i<cr><esc>`.
 "}}}
 " i_<M-w> delete the word after the cursor {{{
-inoremap <M-w> <C-o>dw
+inoremap <M-w> <C-o>dW
+inoremap <M-d> <C-o>dw
+inoremap <C-w> <C-o>dB
+inoremap <C-d> <C-o>db
+inoremap <C-y> <C-o>P
+" this is actually <C-->
+inoremap <C-_> <C-y>
 nnoremap <C-w><C-d> :bd<CR>
 nnoremap <leader>bd :bd!<CR>
 "}}}
@@ -562,11 +568,8 @@ xnoremap <END> (mode() == "\<C-V>") ? "$" : "g_"
 let g:vimsyn_folding = 'af'
 let g:is_bash = 1
 let g:sh_fold_enabled=7
-" Display error for unmatched )]}
-"let php_parent_error_close=1
-" There's also a contrib plugin that fold phpdoc sections out there,
-" but I'm not using it.
-let g:php_folding = 2
+" This is disabled because it's slow.
+"let g:php_folding = 2
 " use K on a proposed line in an interactive gitrebase to see the corresponding diff
 augroup grota_autocommands
   autocmd FileType gitrebase nnoremap <buffer> <silent> S :Cycle<CR>
@@ -746,6 +749,7 @@ let g:targets_aiAI = 'aIAi'
 " The rhs with the above is by default targets#e('i'), but there are
 " other xmaps starting with i so there would be lag.
 xnoremap <expr> <silent> <unique> I targets#e('I')
+xnoremap <expr> <silent> <unique> i targets#e('i')
 " }}}
 " SnipMate {{{
 imap <C-B> <Plug>snipMateNextOrTrigger

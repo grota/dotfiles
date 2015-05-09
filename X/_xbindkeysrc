@@ -6,15 +6,13 @@ Alt + F6
 Alt + F7
 "sleep 0.2 && for run in 1 2; do xdotool key --clearmodifiers XF86AudioRaiseVolume; done &"
 Alt + F8
-# A value of 60 is slow but is needed under urxvt for utf8 symbols
-# Keyup Shift_L is to cope with a strange behavior with ergodox's macro.
-"DELAY=0; CLASS=$(xprop -id $(xdotool getwindowfocus) WM_CLASS); echo $CLASS | grep -q gnome-term && DELAY=2; echo $CLASS | grep -iq urxvt && DELAY=60; xdotool keyup Shift_L type --delay $DELAY "$(xsel)" &"
-Shift + Insert
 "xcalib -i -a"
 Mod4+n
-"send-key-to-chrome.sh XF86AudioPlay &"
+"${DOTFILESREPO}/bin/shiftins.sh &"
+Shift + Insert
+"${DOTFILESREPO}/bin/send-key-to-chrome.sh XF86AudioPlay &"
 XF86AudioPlay
-"send-key-to-chrome.sh XF86AudioNext &"
+"${DOTFILESREPO}/bin/send-key-to-chrome.sh XF86AudioNext &"
 XF86AudioNext
-"send-key-to-chrome.sh XF86AudioPrev &"
+"${DOTFILESREPO}/bin/send-key-to-chrome.sh XF86AudioPrev &"
 XF86AudioPrev
