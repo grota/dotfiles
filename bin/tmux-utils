@@ -1,26 +1,36 @@
 #!/bin/bash
 
-#TEMP_TMUX_DIR=/tmp/tmux-grota/temp
-#if [ ! -d $TEMP_TMUX_DIR ]; then
-  #mkdir -p $TEMP_TMUX_DIR
-#fi
-#TEMP_TMUX_FILE_LASTPANE_ID=$TEMP_TMUX_DIR/tmux_last_chosen_pane
-#echo "$*" > $TEMP_TMUX_FILE_LASTPANE_ID
-#printf %q "$*" > $TEMP_TMUX_FILE_LASTPANE_ID
+select_pane () {
+  local PROMPT=$1
+  shift
+  local THIS_SELECTION_PANE_ID="$(tmux list-panes -F "#{pane_id}")"
+  local PANES_IN_STARTING_WIN=$*
+  # pattern must be in \n separated format for grep -F
+  local EXCLUDED_PANES=$(echo "$PANES_IN_STARTING_WIN" "$THIS_SELECTION_PANE_ID"| tr ' ' '\n')
+  tmux list-panes -s -F "[w]#{window_index} #{window_name} | #{pane_current_command} | #{pane_title} | #{pane_id}" | tac | grep -wvF "$EXCLUDED_PANES"| column -s\| -t -x | $DOTFILESREPO/bin/fzf/fzf --prompt "$PROMPT"
+}
 
-if [ -z "$1" ]; then
-  exit 1
-fi
-if [ "$1" == "list-panes" ]; then
-  PANES_IN_CURRENT_WINDOW="$(tmux list-panes -F "#{pane_id}")"
-  tmux list-panes -s -F "[w]#{window_index} | #{pane_current_command} | #{pane_title} | #{pane_id}" | grep -wvF "$PANES_IN_CURRENT_WINDOW" | column -s\| -t -x | tr '\n' ,
-fi
-# expects a pane_id (i.e. %0 or %1) in last position
-if [ "$1" == 'join-selected-pane' ]; then
-  PANE_ID=$(printf %q "$*" | rev | cut -d' ' -f1 | rev)
-  tmux join-pane -h -s "$PANE_ID"
-fi
-if [ "$1" == 'send-selected-pane' ]; then
-  PANE_ID=$(printf %q "$*" | rev | cut -d' ' -f1 | rev)
-  tmux join-pane -h -t "$PANE_ID"
-fi
+main() {
+  if [ -z "$1" ]; then
+    exit 1
+  fi
+  if [ "$1" == 'join-selected-pane' ]; then
+    shift
+    local TARGET_PANE=$1
+    shift
+    SELECTED_PANE=$(select_pane "Join the pane: " "$*" | rev | cut -d' ' -f1 | rev)
+    if [ ! -z $SELECTED_PANE ]; then
+      tmux join-pane -h -s "$SELECTED_PANE" -t "$TARGET_PANE"
+    fi
+  fi
+  if [ "$1" == 'send-selected-pane' ]; then
+    shift
+    local SOURCE_PANE=$1
+    shift
+    SELECTED_PANE=$(select_pane "Send to: " "$*" | rev | cut -d' ' -f1 | rev)
+    if [ ! -z $SELECTED_PANE ]; then
+      tmux join-pane -h -s "$SOURCE_PANE" -t "$SELECTED_PANE"
+    fi
+  fi
+}
+main $@

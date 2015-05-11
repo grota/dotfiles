@@ -2,7 +2,8 @@
 # vim: set tabstop=2 shiftwidth=2 foldmethod=marker:
 
 # fzf {{{
-alias fzf="ruby "${DOTFILESREPO}"/bin/fzf/fzf"
+# Get binaries from https://github.com/junegunn/fzf-bin/releases
+#alias fzf="ruby "${DOTFILESREPO}"/bin/fzf/fzf"
 
 function _my_fzf_dir_completion() {
   local cur prev MAX_NUM_OF_DIRS match_fav match match_dir
