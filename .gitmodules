@@ -202,3 +202,6 @@
 [submodule "bin/urxvt-perls"]
 	path = bin/urxvt-perls
 	url = https://github.com/muennich/urxvt-perls.git
+[submodule "vim/dotvim/bundle/thinca_vim-localrc"]
+	path = vim/dotvim/bundle/thinca_vim-localrc
+	url = https://github.com/thinca/vim-localrc.git

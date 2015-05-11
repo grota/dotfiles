@@ -499,7 +499,7 @@ s0_fade_mode = 0
 s0_fade_speed = 25,000000
 s0_fade_time = 200
 s0_window_match = any & !(title=notify-osd)
-s0_visual_bell = true
+s0_visual_bell = false
 s0_fullscreen_visual_bell = false
 s0_dim_unresponsive = true
 s0_unresponsive_brightness = 65

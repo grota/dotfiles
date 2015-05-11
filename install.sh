@@ -70,6 +70,13 @@ fi
  if [ ! -f $HOME/.psysh/php_manual.sqlite ]; then
    curl -sS http://psysh.org/manual/en/php_manual.sqlite > $HOME/.psysh/php_manual.sqlite
  fi
+ if ! exists phpcs; then
+   composer global install
+ fi
+ # phpcs config file is CodeSniffer.conf in phpcs global composer vendor dir.
+ if ! phpcs --config-show|grep -q installed_paths; then
+   phpcs --config-set installed_paths $HOME/.composer/vendor/drupal/coder/coder_sniffer
+ fi
 
 # [vim]
  ln -sfT ${repohome}/vim/dotvim $HOME/.vim

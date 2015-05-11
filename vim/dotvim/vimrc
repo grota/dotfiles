@@ -3,8 +3,8 @@
 set nocompatible
 runtime macros/matchit.vim
 runtime bundle/tpope_vim-pathogen/autoload/pathogen.vim
-call pathogen#infect()
-call pathogen#helptags()
+execute pathogen#infect()
+Helptags
 filetype plugin indent on
 if has("gui_running")
   " a nice coloscheme easy to the eye, it sets the 'background' option
@@ -721,7 +721,7 @@ nnoremap <silent> <C-b> :LustyFilesystemExplorerFromHere<CR>
 " Syntastic {{{
 "let g:syntastic_enable_signs = 1
 "let g:syntastic_phpcs_disable = 1
-let g:syntastic_php_phpcs_args = '--standard=' . $HOME . '/.composer/vendor/drupal/coder/coder_sniffer/Drupal'
+let g:syntastic_php_phpcs_args = '--standard=Drupal'
 let g:syntastic_auto_loc_list = 0
 nnoremap <Leader>st :SyntasticToggleMode<cr>
 "}}}
@@ -887,6 +887,9 @@ let g:EasyGrepRecursive=1
 " vim-easy-align {{{
 vmap <leader>a <Plug>(EasyAlign)
 nmap <leader>a <Plug>(EasyAlign)
+" }}}
+" thinca vim-localrc {{{
+let g:localrc_filename = 'local.vimrc'
 " }}}
 "}}}
 
