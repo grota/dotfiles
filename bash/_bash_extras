@@ -34,7 +34,19 @@ if [[ ! ( "$PATH" == *"$HOME/local/bin:$HOME/.composer/vendor/bin"* ) ]]; then
   export PATH=$HOME/local/bin:$HOME/.composer/vendor/bin:$PATH
 fi
 
-_Z_CMD=j . ${DOTFILESREPO}/bin/z/z.sh
+_Z_CMD=j . ${DOTFILESREPO}/bin/rupa_z/z.sh
+__j_fzf_autocomplete() {
+  local cur prev chosen
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+  local datafile="${_Z_DATA:-$HOME/.z}"
+  tput sc
+  chosen=$(j | sort -g | cut -b12- | fzf -q "$cur" --select-1 --exit-0 --no-sort --tac)
+  tput rc
+  COMPREPLY=($(compgen -W "$chosen" --))
+}
+complete -F __j_fzf_autocomplete j
 
 export EDITOR=vim
 HISTFILESIZE=1000000
@@ -117,7 +129,7 @@ function _cheat_autocomplete {
     sheets=$(cheat -l | cut -d' ' -f1)
     COMPREPLY=()
     if [ $COMP_CWORD = 1 ]; then
-  COMPREPLY=(`compgen -W "$sheets" -- $2`)
+      COMPREPLY=(`compgen -W "$sheets" -- $2`)
     fi
 }
 alias h=cheat

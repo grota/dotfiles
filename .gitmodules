@@ -184,9 +184,6 @@
 [submodule "bin/rupa_z"]
 	path = bin/rupa_z
 	url = https://github.com/rupa/z.git
-[submodule "bin/z"]
-	path = bin/z
-	url = https://github.com/rupa/z.git
 [submodule "vim/dotvim/bundle/wellle_targets.vim"]
 	path = vim/dotvim/bundle/wellle_targets.vim
 	url = https://github.com/wellle/targets.vim.git
