@@ -123,6 +123,7 @@ set nrformats-=octal
 " Insert only one space when joining lines that contain sentence-terminating
 " punctuation like `.`.
 set nojoinspaces
+set formatoptions+=j
 "}}}
 
 " VIM PLAIN MAPPINGS {{{
@@ -582,6 +583,7 @@ augroup END
 let g:cycle_no_mappings = 1
 augroup grota_autocommands
   autocmd FileType php call AddCycleGroup('php', ['TRUE', 'FALSE'])
+  autocmd FileType php call AddCycleGroup('php', ['true', 'false'])
 augroup END
 nmap <leader>C <Plug>CycleNext
 " }}}
@@ -700,7 +702,9 @@ endfunc
 func! s:DeleteBuffer()
   let bufname = getline('.')[2:]
   if bufname =~# 'No Name'
-    let bufname = bufname[1]
+    let starsep = split(bufname, '*')
+    let other = starsep[0][1:]
+    let bufname = other
   else
     let bufname = fnamemodify(bufname, ':p')
   endif
@@ -724,6 +728,7 @@ nnoremap <silent> <C-b> :LustyFilesystemExplorerFromHere<CR>
 let g:syntastic_php_phpcs_args = '--standard=Drupal'
 let g:syntastic_auto_loc_list = 0
 nnoremap <Leader>st :SyntasticToggleMode<cr>
+nnoremap <Leader>e :Errors<cr>
 "}}}
 " vim-markology {{{
 let g:markology_enable = 0
@@ -807,6 +812,7 @@ let g:vdebug_keymap = {
 \    "detach" : "<leader><F7>",
 \    "get_context" : "<leader><F8>",
 \    "eval_under_cursor" : "<leader><F12>",
+\    "eval_visual" : "<Leader>E",
 \}
 
 " port must match the parameter in /etc/php5/conf.d/20-xdebug.ini

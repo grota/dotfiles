@@ -1,11 +1,12 @@
 prefix+?   list-keys
 prefix+C-x list-keys in copy-mode
 
-prefix+/ search
+M+/ search
 prefix+C-f search files
 prefix+C-u search urls
 prefix+C-d search digits
 prefix+C-g search git-status files
+prefix+C-c search gitlab refs:... commit strings
 
 prefix+y copy command to system clipboard
 prefix+p paste tmux buffer
@@ -19,4 +20,4 @@ Enter (open with $EDITOR)
 
   y (copy selection to system clipboard)
 M-y (copy selection to system clipboard and paste it)
-C-y (add selection only to tmux buffer list and paste it)
+  Y (add selection only to tmux buffer list and paste it)
