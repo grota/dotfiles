@@ -12,3 +12,6 @@
 /rtorrent
 /ssh
 /lftp
+/_kde/socket-*
+/_kde/tmp-*
+/_kde/cache-*

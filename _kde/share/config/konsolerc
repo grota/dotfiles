@@ -1,0 +1,20 @@
+[Colors]
+CurrentPalette=Forty Colors
+
+[Desktop Entry]
+DefaultProfile=Shell.profile
+
+[Favorite Profiles]
+Favorites=Shell.profile
+
+[KonsoleWindow]
+ShowAppNameOnTitleBar=false
+
+[MainWindow]
+Height 900=901
+State=AAAA/wAAAAD9AAAAAAAABkAAAANsAAAABAAAAAQAAAAIAAAACPwAAAAA
+ToolBarsMovable=Disabled
+Width 1600=1601
+
+[TabBar]
+TabBarVisibility=ShowTabBarWhenNeeded
