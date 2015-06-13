@@ -9,7 +9,7 @@ shopt -s histappend
 # as per instructions in the script, let's not call ps1_set, but call
 # ps1_update inside PROMPT_COMMAND.
 if [[ "$PROMPT_COMMAND" != *"ps1_update"* ]]; then
-  export PROMPT_COMMAND="history -a; ps1_update --notime --prompt ❯"
+  export PROMPT_COMMAND="history -a; ps1_update --notime --prompt \>"
 fi
 [[ -s "${current_pathinrepo}/ps1_functions" ]] && source "${current_pathinrepo}/ps1_functions"
 
@@ -34,7 +34,7 @@ if [[ ! ( "$PATH" == *"$HOME/local/bin:$HOME/.composer/vendor/bin"* ) ]]; then
   export PATH=$HOME/local/bin:$HOME/.composer/vendor/bin:$PATH
 fi
 
-_Z_CMD=j . ${DOTFILESREPO}/bin/rupa_z/z.sh
+_Z_CMD=j . "${DOTFILESREPO}"/bin/rupa_z/z.sh
 __j_fzf_autocomplete() {
   local cur prev chosen
   COMPREPLY=()
@@ -91,7 +91,7 @@ export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
 bu () {
     filename=$1
     filetime=$(date +%Y%m%d_%H%M%S)
-    cp ${filename} ${filename}_${filetime}
+    cp "${filename}" "${filename}_${filetime}"
 }
 
 # scm_breeze {{{
@@ -119,7 +119,7 @@ fi
 # }}}
 
 if ( (type gem) && gem query -l -i tmuxinator) > /dev/null 2>&1; then
-  . $(gem contents tmuxinator|grep completion.*bash)
+  . "$(gem contents tmuxinator|\grep "completion.*bash")"
 fi
 
 function ff() { echo "*$**" ; find . -type f -iname "*$**" ; }

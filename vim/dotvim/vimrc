@@ -90,7 +90,9 @@ set keymodel=startsel
 set tags=./tags;
 set completeopt=longest,menuone,preview
 set virtualedit+=block,onemore
-set clipboard=autoselect,exclude:cons\|linux
+if !has('nvim')
+  set clipboard=autoselect,exclude:cons\|linux
+endif
 " don't use the tag file for i_<C-N> and i_<C-P>
 " for php, omnicomplete in autoload/phpcomplete.vim already does that
 set complete-=t
