@@ -1,9 +1,6 @@
 [submodule "vim/dotvim/bundle/scrooloose_nerdcommenter"]
 	path = vim/dotvim/bundle/scrooloose_nerdcommenter
 	url = git://github.com/scrooloose/nerdcommenter.git
-[submodule "vim/dotvim/bundle/sjbach_lusty"]
-	path = vim/dotvim/bundle/sjbach_lusty
-	url = git://github.com/sjbach/lusty.git
 [submodule "vim/dotvim/bundle/majutsushi_tagbar"]
 	path = vim/dotvim/bundle/majutsushi_tagbar
 	url = git://github.com/majutsushi/tagbar.git

@@ -1,7 +1,7 @@
 #!env bash
 # vim: set tabstop=2 shiftwidth=2 foldmethod=marker:
 
-current_pathinrepo=$( dirname $(readlink -f "${BASH_SOURCE[0]}") )
+current_pathinrepo=$( dirname "$(readlink -f "${BASH_SOURCE[0]}")" )
 
 # Make Bash append rather than overwrite the history on disk
 shopt -s histappend
@@ -21,7 +21,7 @@ _dotfiles_preexec () {
 _dotfiles_guard_preexec () {
   [ -n "$COMP_LINE" ] && return  # do nothing if completing
   [ "$BASH_COMMAND" = "$PROMPT_COMMAND" ] && return # don't cause a _dotfiles_preexec for $PROMPT_COMMAND
-  local this_command=`history 1 | sed -e "s/^[ ]*[0-9]*[ ]*//g"`;
+  local this_command=$(history 1 | sed -e "s/^[ ]*[0-9]*[ ]*//g");
   _dotfiles_preexec "$this_command"
 }
 trap '_dotfiles_guard_preexec' DEBUG
@@ -39,8 +39,6 @@ __j_fzf_autocomplete() {
   local cur prev chosen
   COMPREPLY=()
   cur="${COMP_WORDS[COMP_CWORD]}"
-  prev="${COMP_WORDS[COMP_CWORD-1]}"
-  local datafile="${_Z_DATA:-$HOME/.z}"
   tput sc
   chosen=$(j | sort -g | cut -b12- | fzf -q "$cur" --select-1 --exit-0 --no-sort --tac)
   tput rc
@@ -57,7 +55,7 @@ HISTSIZE=500000
 stty stop undef
 stty start undef
 
-[ -n "$PS1" ] && whatis $(ls ${PATH//:/ } 2>/dev/null| shuf -n 1)
+[ -n "$PS1" ] && (export BINPATHS=(${PATH//:/ }) && whatis "$(find "${BINPATHS[@]}" -maxdepth 1 -printf '%f\n' -type f 2>/dev/null| shuf -n 1)")
 
 if [ "$TERM" = "xterm" -a "$COLORTERM" = "gnome-terminal" ]; then
     TERM="xterm-256color"
@@ -119,17 +117,17 @@ fi
 # }}}
 
 if ( (type gem) && gem query -l -i tmuxinator) > /dev/null 2>&1; then
-  . "$(gem contents tmuxinator|\grep "completion.*bash")"
+  . "$(gem contents tmuxinator|grep "completion.*bash")"
 fi
 
-function ff() { echo "*$**" ; find . -type f -iname "*$**" ; }
-function whichpkg() { PACKAGE=$(dpkg -S $(which $1) | cut -d':' -f1); echo "[${PACKAGE}]"; dpkg -s "${PACKAGE}" ;}
+function ff() { echo "*${*}*" ; find . -type f -iname "*${*}*" ; }
+function whichpkg() { PACKAGE=$(dpkg -S "$(which "$1")" | cut -d':' -f1); echo "[${PACKAGE}]"; dpkg -s "${PACKAGE}" ;}
 
 function _cheat_autocomplete {
     sheets=$(cheat -l | cut -d' ' -f1)
     COMPREPLY=()
-    if [ $COMP_CWORD = 1 ]; then
-      COMPREPLY=(`compgen -W "$sheets" -- $2`)
+    if [ "$COMP_CWORD" = 1 ]; then
+      COMPREPLY=($(compgen -W "$sheets" -- "$2"))
     fi
 }
 alias h=cheat

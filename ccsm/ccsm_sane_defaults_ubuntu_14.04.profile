@@ -784,7 +784,7 @@ s0_command_screenshot = gnome-screenshot
 s0_run_command_screenshot_key = Print
 s0_command_window_screenshot = gnome-screenshot -w
 s0_run_command_window_screenshot_key = <Alt>Print
-s0_command_terminal = urxvt
+s0_command_terminal = konsole
 s0_run_command_terminal_key = <Alt>x
 
 [thumbnail]
