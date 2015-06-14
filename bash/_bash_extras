@@ -22,7 +22,10 @@ _dotfiles_guard_preexec () {
   [ -n "$COMP_LINE" ] && return  # do nothing if completing
   [ "$BASH_COMMAND" = "$PROMPT_COMMAND" ] && return # don't cause a _dotfiles_preexec for $PROMPT_COMMAND
   local this_command=$(history 1 | sed -e "s/^[ ]*[0-9]*[ ]*//g");
-  _dotfiles_preexec "$this_command"
+  if [[ -n "$this_command"  && "$__grota_prev_command_guard" != "$this_command" ]]; then
+    __grota_prev_command_guard="$this_command"
+    _dotfiles_preexec "$this_command"
+  fi
 }
 trap '_dotfiles_guard_preexec' DEBUG
 # reset tmux pane title after command execution, i.e. during PROMPT_COMMAND execution
