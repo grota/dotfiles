@@ -199,3 +199,6 @@
 [submodule "vim/dotvim/bundle/thinca_vim-localrc"]
 	path = vim/dotvim/bundle/thinca_vim-localrc
 	url = https://github.com/thinca/vim-localrc.git
+[submodule "vim/dotvim/bundle/tpope_vinegar"]
+	path = vim/dotvim/bundle/tpope_vinegar
+	url = https://github.com/tpope/vim-vinegar.git

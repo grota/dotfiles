@@ -12,6 +12,7 @@ ShowAppNameOnTitleBar=false
 
 [MainWindow]
 Height 900=901
+MenuBar=Disabled
 State=AAAA/wAAAAD9AAAAAAAABkAAAANsAAAABAAAAAQAAAAIAAAACPwAAAAA
 ToolBarsMovable=Disabled
 Width 1600=1601

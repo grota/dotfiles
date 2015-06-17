@@ -5,7 +5,7 @@
 # ~/.profile is not read if ~/.bash_profile or ~/.bash_login exists.
 # look into the dropbox-only phpenv_phpbuild branch for a sane .bash_profile
 
-export DOTFILESREPO=$(readlink -f $( dirname $(readlink -f "${BASH_SOURCE[0]}"))"/..")
+export DOTFILESREPO=$(readlink -f "$( dirname "$(readlink -f "${BASH_SOURCE[0]}")")""/..")
 # source an extra file for non aliases/function stuff
 if [ -f ~/.bash_extras ]; then
     . ~/.bash_extras
@@ -43,7 +43,7 @@ function cc () {
   fi
   local CHROME_ARGS="--password-store=basic $CHROME_ARGS"
   echo "Running: " "$CHROME" "$CHROME_ARGS"
-  $CHROME $CHROME_ARGS &> /dev/null &
+  $CHROME "$CHROME_ARGS" &> /dev/null &
 }
 alias pg='ps aux|grep '
 alias pw='pwsafe -Eup -l'
@@ -90,16 +90,16 @@ function rec() {
   count=4
   while [ $count -gt 0  ]; do
     echo $count ...
-    count=$(( $count - 1  ))
+    count=$((count - 1))
     sleep 1
   done
   gst-launch-1.0 -e pulsesrc device="alsa_output.pci-0000_00_1b.0.analog-stereo.monitor" ! audioconvert ! lamemp3enc target=1 bitrate=128 cbr=true ! filesink location="${1}.mp3"
 }
 function mkcd() { mkdir -p "$@" && eval cd "\"\$$#\""; }
 function fixperms() {
-  APACHEUSER=`ps aux | \grep -E '[a]pache|[h]ttpd' | \grep -v root | head -1 | cut -d\  -f1`
-  sudo setfacl -R -m u:$APACHEUSER:rwX -m u:`whoami`:rwX "$@"
-  sudo setfacl -dR -m u:$APACHEUSER:rwX -m u:`whoami`:rwX "$@"
+  APACHEUSER=$(ps aux | grep -E '[a]pache|[h]ttpd' | grep -v root | head -1 | cut -d\  -f1)
+  sudo setfacl -R -m u:"$APACHEUSER":rwX -m u:"$(whoami)":rwX "$@"
+  sudo setfacl -dR -m u:"$APACHEUSER":rwX -m u:"$(whoami)":rwX "$@"
 }
 function resunity() {
   dbus-send --print-reply --dest=org.freedesktop.compiz /org/freedesktop/compiz/unityshell/screen0/alt_tab_next_window org.freedesktop.compiz.set string:Disabled &> /dev/null

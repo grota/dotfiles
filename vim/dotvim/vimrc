@@ -667,10 +667,14 @@ nmap <M-n> <Plug>yankstack_substitute_newer_paste
 xmap <M-n> <Plug>yankstack_substitute_newer_paste
 imap <M-n> <Plug>yankstack_substitute_newer_paste
 "}}}
+" vinegar {{{
+nmap - <Plug>VinegarVerticalSplitUp
+"}}}
 " ctrlp {{{
 let g:ctrlp_map = '<C-F>'
 let g:ctrlp_cmd = 'CtrlPMRUFiles'
 let g:ctrlp_extensions = ['dir']
+let g:ctrlp_max_files = 0
 nnoremap <silent> <C-\> :CtrlPBuffer<CR>
 " Seed the prompt with the current file's relative path
 " silent echo is required for some fucking reason
