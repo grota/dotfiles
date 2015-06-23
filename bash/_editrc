@@ -1,10 +1,20 @@
 #http://www.freebsd.org/cgi/man.cgi?query=editrc&sektion=5
 bind "" em-next-word
 bind "" ed-prev-word
+bind "[1;5D" ed-prev-word
+bind "[1;5C" em-next-word
 bind "" em-inc-search-prev
-#bind -k up ed-search-prev-history
-#bind -k down ed-search-next-history
-#bind "\e[A" ed-search-prev-history
-#bind "\e[B" ed-search-next-history
+bind "" ed-delete-prev-word
+bind "d" em-delete-next-word
 bind "" ed-prev-history
 bind "" ed-next-history
+bind "\e " em-set-mark
+bind "\ea" em-kill-region
+#bind "" em-exchange-mark
+bind "]" vi-next-big-word
+bind "[" vi-prev-big-word
+# mark, go to end, space, exchange-point-and-mark,
+# mark, go to next-big-word, kill-region
+bind -s "\ew" '\e  \e ]\ea'
+# mark, go to prev-big-word, kill-region
+bind -s "" '\e [\ea'
