@@ -15,4 +15,6 @@
 /_kde/socket-*
 /_kde/tmp-*
 /_kde/cache-*
+/_kde/*
+/ranger/*
 /vim/dotvim/nvimrc
