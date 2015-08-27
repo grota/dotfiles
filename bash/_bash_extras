@@ -96,27 +96,7 @@ bu () {
 }
 
 # scm_breeze {{{
-export scmbDir="${current_pathinrepo}/scm_breeze"
-# Shared functions
-. "$scmbDir/lib/scm_breeze.sh"
-# Git
-if [[ -s "$HOME/.git.scmbrc" ]]; then
-  # Load git config
-  source "$HOME/.git.scmbrc"
-  source "$scmbDir/lib/git/helpers.sh"
-  source "$scmbDir/lib/git/aliases.sh"
-  source "$scmbDir/lib/git/keybindings.sh"
-  source "$scmbDir/lib/git/status_shortcuts.sh"
-  source "$scmbDir/lib/git/branch_shortcuts.sh"
-  source "$scmbDir/lib/git/shell_shortcuts.sh"
-  source "$scmbDir/lib/git/repo_index.sh"
-  source "$scmbDir/lib/git/tools.sh"
-  if ! type ruby > /dev/null 2>&1; then
-    # If Ruby is not installed, fall back to the
-    # slower bash/zsh implementation of 'git_status_shortcuts'
-    source "$scmbDir/lib/git/fallback/status_shortcuts_shell.sh"
-  fi
-fi
+source "${current_pathinrepo}/scm_breeze/scm_breeze.sh"
 # }}}
 
 if ( (type gem) && gem query -l -i tmuxinator) > /dev/null 2>&1; then
@@ -135,6 +115,11 @@ function _cheat_autocomplete {
 }
 alias h=cheat
 complete -F _cheat_autocomplete cheat h
+
+export COMMACD_SEQSTART=1
+source "${current_pathinrepo}/shyiko_commacd/commacd.bash"
+
+source "${current_pathinrepo}/enhancd/enhancd.sh"
 
 # old notes {{{
 # PS1 overrides the one from .bashrc. Color prompt by default
