@@ -28,12 +28,8 @@ fi
 
 # [Bash]
  ln -sf ${repohome}/bash/_bash_aliases $HOME/.bash_aliases
- ln -sf ${repohome}/bash/_bash_extras $HOME/.bash_extras
  ln -sf ${repohome}/bash/_inputrc $HOME/.inputrc
  ln -sf ${repohome}/bash/_git.scmbrc $HOME/.git.scmbrc
- ln -sf ${repohome}/bash/_vim_bash $HOME/.vim_bash
- ln -sf ${repohome}/bash/_git_bash $HOME/.git_bash
- ln -sf ${repohome}/bash/_fzf_bash $HOME/.fzf_bash
 
 # [cheat] https://github.com/chrisallenlane/cheat
  ln -sfT ${repohome}/cheat $HOME/.cheat
@@ -131,7 +127,6 @@ fi
  ln -sfT ../private/_config/pianobar ${repohome}/_config/pianobar
 
 # [drush]
- ln -sf ${repohome}/bash/_drush_bashrc $HOME/.drush_bashrc
  mkdir -p $HOME/.drush
  ln -sf private/drush ${repohome}
 

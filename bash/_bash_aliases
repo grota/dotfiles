@@ -6,22 +6,11 @@
 # look into the dropbox-only phpenv_phpbuild branch for a sane .bash_profile
 
 export DOTFILESREPO=$(readlink -f "$( dirname "$(readlink -f "${BASH_SOURCE[0]}")")""/..")
-# source an extra file for non aliases/function stuff
-if [ -f ~/.bash_extras ]; then
-    . ~/.bash_extras
-fi
-if [ -f ~/.drush_bashrc ]; then
-    . ~/.drush_bashrc
-fi
-if [ -f ~/.vim_bash ]; then
-    . ~/.vim_bash
-fi
-if [ -f ~/.git_bash ]; then
-    . ~/.git_bash
-fi
-if [ -f ~/.fzf_bash ]; then
-    . ~/.fzf_bash
-fi
+. "${DOTFILESREPO}"/bash/_bash_extras
+. "${DOTFILESREPO}"/bash/_drush_bashrc
+. "${DOTFILESREPO}"/bash/_vim_bash
+. "${DOTFILESREPO}"/bash/_git_bash
+. "${DOTFILESREPO}"/bash/_fzf_bash
 
 # aliases {{{
 alias r='PAGER=less urxvt -e ranger'
