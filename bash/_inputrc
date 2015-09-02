@@ -1,9 +1,5 @@
 $include /etc/inputrc
-# bash's bind offers the same functionalities. See `help bind'.
-#"\C-xp": dump-functions
-#"\C-xz": dump-macros
-#"\C-xv": dump-variables
-#
+
 "\C-l": forward-word
 "\C-h": backward-word
 "\C-k": history-search-backward

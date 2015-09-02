@@ -243,6 +243,8 @@ snippet pdd
 snippet vd
 	var_dump(${1});
 snippet el
+	error_log('${1:var}');
+snippet elv
 	error_log('${1:var}= ' . print_r($$1, TRUE));
 snippet elf
 	error_log(print_r(__FUNCTION__, TRUE));

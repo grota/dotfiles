@@ -1,6 +1,6 @@
-#"\C-xp": dump-functions
-#"\C-xz": dump-macros
-#"\C-xv": dump-variables
+# bind -P/p: dump-functions  (bind -p|\grep -v '^#'|\grep -v 'self-insert')
+# bind -S/s: dump-macros
+# bind -V/v: dump-variables
 
 C-hjkl to move between words like C-arrows (h/j=up/down in history)
 M-hl to move left/right charwise like in vim

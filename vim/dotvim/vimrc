@@ -926,18 +926,6 @@ nnoremap <Leader>rl :VimuxRunLastCommand<CR>
 vnoremap <Leader>v "vy  :call VimuxSlime()<CR>
 nnoremap <Leader>v "vyy :call VimuxSlime()<CR>
 " }}}
-" Turbux {{{
-let g:turbux_command_rspec = 'rspec --drb'
-let g:turbux_command_cucumber = 'cucumber --drb'
-let g:no_turbux_mappings = 1
-map <leader>T <Plug>SendTestToTmux
-map <leader>t <Plug>SendFocusedTestToTmux
-" }}}
-" Signify {{{
-let g:signify_vcs_list = ['git']
-let g:signify_sign_change = '~'
-"let g:signify_diffoptions = { 'git': '--patience' }
-" }}}
 " vim-sneak {{{
 " Disable streak mode, it's not easy to see where the cursor is at the
 " beginning
