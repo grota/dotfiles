@@ -559,7 +559,7 @@ onoremap <silent> oi :<c-u>call <SID>indent_object('==', 0, line('.'), line('.')
 nnoremap <leader>I ^v:<c-u>call <SID>indent_object('==', 0, line("'<"), line("'>"), 0, 0)<cr><C-V>I
 nmap <silent> <leader>A ^voi<C-V>$A
 xnoremap <expr> $ (mode() == "\<C-V>") ? "$" : "g_"
-xnoremap <END> (mode() == "\<C-V>") ? "$" : "g_"
+xnoremap <expr> <END> (mode() == "\<C-V>") ? "$" : "g_"
 " }}}
 "}}}
 "}}}
@@ -963,6 +963,9 @@ nmap <leader>a <Plug>(EasyAlign)
 " }}}
 " thinca vim-localrc {{{
 let g:localrc_filename = 'local.vimrc'
+" }}}
+" airblade gitgutter {{{
+let g:gitgutter_eager = 0
 " }}}
 "}}}
 

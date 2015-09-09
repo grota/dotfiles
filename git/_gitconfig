@@ -11,7 +11,6 @@
 	psuh = push
 	ll = log --oneline --graph --decorate --all
 	l = log --oneline --decorate
-	up = pull --ff-only
 	h = help
 	d = diff
 	ctags = !.git/hooks/ctags
@@ -44,3 +43,6 @@
     path = ~/.gitconfig_private
 [push]
 	default = current
+[tig "bind"]
+    diff = <up> move-up
+    diff = <down> move-down

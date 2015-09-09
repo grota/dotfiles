@@ -19,7 +19,7 @@ alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias L='less -R'
 alias df='df -h'
 alias l='ls -CF --group-directories-first'
-alias ll='ls -AlFhrt --group-directories-first'
+#alias ll='ls -AlFhrt --group-directories-first'
 alias ls='ls --color=auto --group-directories-first'
 alias sl=ls
 alias fire='firefox -Profilemanager -no-remote &> /dev/null &'
@@ -37,16 +37,17 @@ function cc () {
 alias pg='ps aux|grep '
 alias pw='pwsafe -Eup -l'
 alias rstty='stty start undef stop undef'
-alias ..="cd .."
-alias ...="cd ../.."
-alias ....="cd ../../.."
-alias .....="cd ../../../.."
-alias ......="cd ../../../../.."
+alias ..="cd ../"
+alias ...="cd ../../"
+alias ....="cd ../../../"
+alias .....="cd ../../../../"
+alias ......="cd ../../../../../"
+alias cd-="\cd -"
 alias cd..="cd ../"
-alias cd...="cd ../.."
-alias cd....="cd ../../.."
-alias cd.....="cd ../../../.."
-alias cd......="cd ../../../../.."
+alias cd...="cd ../../"
+alias cd....="cd ../../../"
+alias cd.....="cd ../../../../"
+alias cd......="cd ../../../../../"
 alias bc='bc -l'
 alias grep='grep --color=always -n --exclude-dir=.svn --exclude-dir=.git '
 # there's a ss bin but that's ok for me

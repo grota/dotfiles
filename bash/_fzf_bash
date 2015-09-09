@@ -6,7 +6,7 @@
 #alias fzf="ruby "${DOTFILESREPO}"/bin/fzf/fzf"
 
 function _my_fzf_dir_completion() {
-  local cur prev MAX_NUM_OF_DIRS match_fav match match_dir
+  local cur MAX_NUM_OF_DIRS match_fav match match_dir
   # save the cursor position, see below as to why
   tput sc
   COMPREPLY=()
@@ -15,7 +15,6 @@ function _my_fzf_dir_completion() {
   if [[ (-z "$cur") ||  ( ! ( "$cur" =~ (/.*){2} ) && ("$PWD" != "$HOME")) ]]; then
     return
   fi
-  prev="${COMP_WORDS[COMP_CWORD-1]}"
   IFS=$'\n'
   MAX_NUM_OF_DIRS=1000;
   # use only "favorites" for home

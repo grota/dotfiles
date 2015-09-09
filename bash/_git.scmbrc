@@ -101,3 +101,5 @@ git_add_and_commit_keys="\C-xc"    		  # CTRL+x, c
 shell_command_wrapping_enabled="true"
 # Here you can tweak the list of wrapped commands.
 scmb_wrapped_shell_commands="cat rm cp mv ln"
+# Add numbered shortcuts to output of ls -l, just like 'git status'
+shell_ls_aliases_enabled="true"

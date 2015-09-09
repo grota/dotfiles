@@ -1,4 +1,3 @@
-! lines starting with ! are comments.
 ! See personal wiki for additional notes
 ! The keycode can be found using xev
 ! The third and fourth values are the Mode_switch and Shift+Mode_switch values
@@ -9,7 +8,7 @@ keycode  65 = space NoSymbol Prior Next
 ! Alt_R as Mode_switch
 keycode 108 = Mode_switch
 
-! shift-escape=~, Mode_switch+escape=`
+! shift-escape=~  Mode_switch+escape=`
 keycode   9 = Escape asciitilde grave asciitilde
 keycode  10 = 1 exclam      exclam      1
 keycode  11 = 2 at          at          2
