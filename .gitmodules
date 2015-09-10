@@ -61,9 +61,6 @@
 [submodule "vim/dotvim/bundle/AndrewRadev_splitjoin.vim"]
 	path = vim/dotvim/bundle/AndrewRadev_splitjoin.vim
 	url = git://github.com/AndrewRadev/splitjoin.vim.git
-[submodule "vim/dotvim/bundle/garbas_vim-snipmate"]
-	path = vim/dotvim/bundle/garbas_vim-snipmate
-	url = https://github.com/garbas/vim-snipmate.git
 [submodule "vim/dotvim/bundle/MarcWeber_vim-addon-mw-utils"]
 	path = vim/dotvim/bundle/MarcWeber_vim-addon-mw-utils
 	url = git://github.com/MarcWeber/vim-addon-mw-utils.git
@@ -205,3 +202,6 @@
 [submodule "vim/dotvim/bundle/airblade_vim-gitgutter"]
 	path = vim/dotvim/bundle/airblade_vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter.git
+[submodule "vim/dotvim/bundle/sirver-ultisnips"]
+	path = vim/dotvim/bundle/sirver-ultisnips
+	url = https://github.com/SirVer/ultisnips.git

@@ -835,12 +835,6 @@ let g:targets_aiAI = 'aIAi'
 xnoremap <expr> <silent> <unique> I targets#e('I')
 xnoremap <expr> <silent> <unique> i targets#e('i')
 " }}}
-" SnipMate {{{
-imap <C-B> <Plug>snipMateNextOrTrigger
-smap <C-B> <Plug>snipMateNextOrTrigger
-imap <C-R><C-B> <Plug>snipMateShow
-"imap ... <Plug>snipMateBack
-" }}}
 " Supertab {{{
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabLongestHighlight = 1
