@@ -3,7 +3,87 @@
 
 # fzf {{{
 # Get binaries from https://github.com/junegunn/fzf-bin/releases
-#alias fzf="ruby "${DOTFILESREPO}"/bin/fzf/fzf"
+__fzf_history__() (
+  local line
+  shopt -u nocaseglob nocasematch
+  line=$(
+    HISTTIMEFORMAT= history |
+    fzf +s --tac +m -n2..,.. --tiebreak=index --toggle-sort=ctrl-r |
+    \grep '^ *[0-9]') &&
+    if [[ $- =~ H ]]; then
+      sed 's/^ *\([0-9]*\)\** .*/!\1/' <<< "$line"
+    else
+      sed 's/^ *\([0-9]*\)\** *//' <<< "$line"
+    fi
+)
+bind '"\er": redraw-current-line'
+bind '"\e^": history-expand-line'
+bind '"\C-r": " \C-e\C-u$(__fzf_history__)\e\C-e\e^\er"'
+
+_fzf_handle_dynamic_completion() {
+  local cmd orig ret orig_cmd
+  cmd="$1"
+  shift
+  orig_cmd="$1"
+
+  orig=$(eval "echo \$_fzf_orig_completion_$cmd")
+  if [ -n "$orig" ] && type "$orig" > /dev/null 2>&1; then
+    $orig "$@"
+  elif [ -n "$_fzf_completion_loader" ]; then
+    _completion_loader "$@"
+    ret=$?
+    eval $(complete | \grep "\-F.* $orig_cmd$" | _fzf_orig_completion_filter)
+    source $BASH_SOURCE
+    return $ret
+  fi
+}
+_fzf_path_completion() {
+  local cur base dir leftover matches trigger cmd fzf
+  [ ${FZF_TMUX:-1} -eq 1 ] && fzf="fzf-tmux -d ${FZF_TMUX_HEIGHT:-40%}" || fzf="fzf"
+  fzf="fzf"
+  cmd=$(echo ${COMP_WORDS[0]} | sed 's/[^a-z0-9_=]/_/g')
+  COMPREPLY=()
+  trigger=${FZF_COMPLETION_TRIGGER-'**'}
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  if [[ ${cur} == *"$trigger" ]]; then
+    base=${cur:0:${#cur}-${#trigger}}
+    eval base=$base
+
+    dir="$base"
+    while [ 1 ]; do
+      if [ -z "$dir" -o -d "$dir" ]; then
+        leftover=${base/#"$dir"}
+        leftover=${leftover/#\/}
+        [ "$dir" = './' ] && dir=''
+        tput sc
+        matches=$(find -L "$dir"* $1 2> /dev/null | $fzf $FZF_COMPLETION_OPTS $2 -q "$leftover" | while read item; do
+          printf "%q$3 " "$item"
+        done)
+        matches=${matches% }
+        if [ -n "$matches" ]; then
+          COMPREPLY=( "$matches" )
+        else
+          COMPREPLY=( "$cur" )
+        fi
+        tput rc
+        return 0
+      fi
+      dir=$(dirname "$dir")
+      [[ "$dir" =~ /$ ]] || dir="$dir"/
+    done
+  else
+    shift
+    shift
+    shift
+    _fzf_handle_dynamic_completion "$cmd" "$@"
+  fi
+}
+_fzf_dir_completion() {
+  _fzf_path_completion \
+    "-name .git -prune -o -name .svn -prune -o -type d -print" \
+    "" "/" "$@"
+}
+complete -F _fzf_dir_completion -o nospace -o plusdirs cd
 
 function _my_fzf_dir_completion() {
   local cur MAX_NUM_OF_DIRS match_fav match match_dir
