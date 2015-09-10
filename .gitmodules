@@ -79,27 +79,15 @@
 [submodule "vim/dotvim/bundle/joonty_vdebug"]
 	path = vim/dotvim/bundle/joonty_vdebug
 	url = git://github.com/joonty/vdebug.git
-[submodule "vim/dotvim/bundle/tpope_vim-rails"]
-	path = vim/dotvim/bundle/tpope_vim-rails
-	url = git://github.com/tpope/vim-rails.git
 [submodule "vim/dotvim/bundle/AndrewRadev_multichange"]
 	path = vim/dotvim/bundle/AndrewRadev_multichange
 	url = git://github.com/AndrewRadev/multichange.vim.git
-[submodule "vim/dotvim/bundle/tpope_vim-endwise"]
-	path = vim/dotvim/bundle/tpope_vim-endwise
-	url = git://github.com/tpope/vim-endwise.git
-[submodule "vim/dotvim/bundle/mileszs_ack.vim"]
-	path = vim/dotvim/bundle/mileszs_ack.vim
-	url = git://github.com/mileszs/ack.vim.git
 [submodule "vim/dotvim/bundle/robmiller_vim-movar"]
 	path = vim/dotvim/bundle/robmiller_vim-movar
 	url = git://github.com/robmiller/vim-movar.git
 [submodule "zsh/oh-my-zsh"]
 	path = zsh/oh-my-zsh
 	url = git://github.com/robbyrussell/oh-my-zsh.git
-[submodule "vim/dotvim/bundle/nelstrom_vim-textobj-rubyblock"]
-	path = vim/dotvim/bundle/nelstrom_vim-textobj-rubyblock
-	url = git://github.com/nelstrom/vim-textobj-rubyblock.git
 [submodule "vim/dotvim/bundle/kana_vim-textobj-user"]
 	path = vim/dotvim/bundle/kana_vim-textobj-user
 	url = git://github.com/kana/vim-textobj-user.git
