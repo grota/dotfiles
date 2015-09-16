@@ -69,6 +69,7 @@ alias auint='pactl set-card-profile 0 output:analog-stereo+input:analog-stereo'
 #}}}
 alias unmute='amixer set "Speaker Front",0 unmute &> /dev/null'
 alias mute='amixer set "Speaker Front",0 mute &> /dev/null'
+alias update_all_dotfiles_submodules="g submodule foreach '[ \"\$path\" = \"bin/drush\" ] || (git fetch origin; git merge origin/master)'"
 #}}}
 
 # functions {{{
