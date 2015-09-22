@@ -602,14 +602,8 @@ let g:tagbar_type_php = {
 nnoremap <silent> <leader>fs :TagbarCurrentTag 'p'<CR>
 "}}}
 " Fugitive {{{
-" Map .. to go back to the parent dir when you are in a git (fugitive)
-" tree|blob buffer
 augroup grota_autocommands
   autocmd BufEnter fugitive://**//[0-3]/** let b:autotagDisabled=1
-  autocmd User Fugitive
-        \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-        \   nnoremap <buffer> .. :edit %:h/<CR> |
-        \ endif
 augroup END
 nnoremap <M-d> :Gdiff<CR>gg]czz
 function! s:MyGgrepWrapper(pfx)
@@ -771,7 +765,7 @@ let g:ctrlp_buffer_func = {
       \ 'exit':  'UnsetCtrlpGlobalSeedOpt',
       \ }
 
-function UnsetCtrlpGlobalSeedOpt()
+function! UnsetCtrlpGlobalSeedOpt()
   " This is set by the <C-b> mapping
   let g:ctrlp_default_input = 0
 endfunction
@@ -791,8 +785,17 @@ func! s:DeleteBuffer()
   else
     let bufname = fnamemodify(bufname, ':p')
   endif
-  exec "bd" bufname
+  exec "silent! bdelete" bufname
   exec "norm \<F5>"
+  " unmark buffers that have been deleted
+  silent! call ctrlp#clearmarkedlist()
+
+  let currln = line('.')
+  let lastln = line('$')
+  " preserve line selection
+  if line('.') == currln && line('$') < lastln
+    exec "normal \<up>"
+  endif
 endfunc
 "}}}
 " Syntastic {{{
@@ -804,6 +807,7 @@ nnoremap <Leader>ee :Errors<cr>
 "}}}
 " vim-markology {{{
 let g:markology_enable = 0
+let g:markology_suppress_default_meta_key_maps = 1
 "}}}
 " Autotag {{{
 " Specify 40MB as the maximum size of the tags file to be considered by autotag
@@ -832,8 +836,8 @@ endfunction
 let g:targets_aiAI = 'aIAi'
 " The rhs with the above is by default targets#e('i'), but there are
 " other xmaps starting with i so there would be lag.
-xnoremap <expr> <silent> <unique> I targets#e('I')
-xnoremap <expr> <silent> <unique> i targets#e('i')
+xnoremap <expr> <silent> I targets#e('I')
+xnoremap <expr> <silent> i targets#e('i')
 " }}}
 " Supertab {{{
 let g:SuperTabDefaultCompletionType = "context"
@@ -910,15 +914,11 @@ let g:VimuxUseNearestPane = 1
 let g:VimuxOrientation = "h"
 let g:VimuxHeight = "40"
 function! VimuxSlime()
-  if !exists("g:VimuxRunnerPaneIndex") || _VimuxHasPane(g:VimuxRunnerPaneIndex) == -1
-    call VimuxOpenRunner()
-  endif
   call VimuxSendText(@v)
   call VimuxSendKeys("Enter")
 endfunction
 nnoremap <Leader>rl :VimuxRunLastCommand<CR>
 vnoremap <Leader>v "vy  :call VimuxSlime()<CR>
-nnoremap <Leader>v "vyy :call VimuxSlime()<CR>
 " }}}
 " vim-sneak {{{
 " Disable streak mode, it's not easy to see where the cursor is at the

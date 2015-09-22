@@ -6,6 +6,7 @@ prefix+C-f search files
 prefix+C-u search urls
 prefix+C-d search digits
 prefix+C-g search git-status files
+prefix+M-h search git shas
 prefix+C-c search gitlab refs:... commit strings
 
 prefix+y copy command to system clipboard

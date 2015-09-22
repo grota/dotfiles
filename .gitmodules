@@ -193,3 +193,9 @@
 [submodule "vim/dotvim/bundle/sirver-ultisnips"]
 	path = vim/dotvim/bundle/sirver-ultisnips
 	url = https://github.com/SirVer/ultisnips.git
+[submodule "bin/the_silver_searcher"]
+	path = bin/the_silver_searcher
+	url = https://github.com/ggreer/the_silver_searcher.git
+[submodule "vim/dotvim/bundle/2072_php-indenting-for-vim"]
+	path = vim/dotvim/bundle/2072_php-indenting-for-vim
+	url = https://github.com/2072/PHP-Indenting-for-VIm.git
