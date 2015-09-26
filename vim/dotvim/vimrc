@@ -867,15 +867,12 @@ let g:Gitv_DoNotMapCtrlKey = 1
 " }}}
 " autopairs {{{
 " <M-p> mapped to AutoPairsToggle
-let g:AutoPairsShortcutJump='<M-/>'
+let g:AutoPairsShortcutJump='<M-o>'
 let g:AutoPairsShortcutFastWrap=''
-" Oddly enough this isn't called for ruby (?)
-augroup grota_autocommands
-  autocmd BufEnter * call AutoPairsTryInit()
-augroup END
 let g:AutoPairsMapBS = 0
 let g:AutoPairsMapCR = 0
 let g:AutoPairsMapSpace = 0
+let g:AutoPairsFlyMode = 1
 "}}}
 " Vdebug {{{
 let g:vdebug_keymap = {
@@ -945,11 +942,6 @@ xmap t <Plug>Sneak_t
 xmap T <Plug>Sneak_T
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
-" }}}
-" EasyGrep {{{
-let g:EasyGrepCommand=1
-let g:EasyGrepSearchCurrentBufferDir=0
-let g:EasyGrepRecursive=1
 " }}}
 " vim-easy-align {{{
 vmap <leader>a <Plug>(EasyAlign)

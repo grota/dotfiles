@@ -26,7 +26,7 @@ repeat last commandline command: @:
 i_<C-G>s     tpope's surround in insert mode. Accepts <CR> after s.
 (also, look out for new possible surroundings like <?php, html or erb
 that you may want, surround is flexible)
-i/n_<M-/>    Autopair Jump
+i/n_<M-o>    Autopair Jump
 (s)eek/(S)eek xx
 <leader>C    Cycle between TRUE/FALSE, ==/!=
 <leader>fs   current tag

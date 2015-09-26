@@ -42,9 +42,8 @@ function _git_abbrev_hash_complete () {
   fi
   IFS=$'\n'
   curw=${COMP_WORDS[COMP_CWORD]}
-  # display a reminder, on first tab press (9 is the ascii value of TAB, see man bash, COMP_TYPE)
-  if [[ $COMP_TYPE == 9 && $curw == '' ]]; then
-    echo
+  # display a reminder, on first tab press
+  if [[ $COMP_CWORD == 1 && $curw == '' ]]; then
     git --no-pager log --oneline -n${MAX_REVS}
   fi
   COMPREPLY=($(compgen -W '$(git log --pretty=format:%h -n'$MAX_REVS')' -- $curw))

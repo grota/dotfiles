@@ -1,0 +1,5 @@
+   | .gitignore | .agignore |   hidden  |   binary  |
+-u | non segue  | non segue | considera | considera | considera tutto
+-a | non segue  | non segue |           | considera | considera tutto esclusi gli hidden
+-t | non segue  | non segue |           |           | considera tutto esclusi gli hidden e binary
+-U | non segue  |           |           |           | smette solo di rispettare .gitignore

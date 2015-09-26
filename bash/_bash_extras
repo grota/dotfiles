@@ -119,7 +119,8 @@ complete -F _cheat_autocomplete cheat h
 export COMMACD_SEQSTART=1
 source "${current_pathinrepo}/shyiko_commacd/commacd.bash"
 
-source "${current_pathinrepo}/enhancd/enhancd.sh"
+source "${DOTFILESREPO}/bash/enhancd/enhancd.sh"
+source "${DOTFILESREPO}/bin/the_silver_searcher/ag.bashcomp.sh"
 
 # old notes {{{
 # PS1 overrides the one from .bashrc. Color prompt by default

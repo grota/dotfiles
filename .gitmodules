@@ -142,9 +142,6 @@
 [submodule "vim/dotvim/bundle/stefandtw_quickfix-reflector"]
 	path = vim/dotvim/bundle/stefandtw_quickfix-reflector
 	url = https://github.com/stefandtw/quickfix-reflector.vim.git
-[submodule "vim/dotvim/bundle/dkprice_vim-easygrep"]
-	path = vim/dotvim/bundle/dkprice_vim-easygrep
-	url = https://github.com/dkprice/vim-easygrep.git
 [submodule "vim/dotvim/bundle/maxbrunsfeld_vim-yankstack"]
 	path = vim/dotvim/bundle/maxbrunsfeld_vim-yankstack
 	url = https://github.com/maxbrunsfeld/vim-yankstack.git
