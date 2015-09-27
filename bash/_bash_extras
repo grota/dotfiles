@@ -115,6 +115,7 @@ function _cheat_autocomplete {
 }
 alias h=cheat
 complete -F _cheat_autocomplete cheat h
+complete -f -W '-get-subtitles' filebot
 
 export COMMACD_SEQSTART=1
 source "${current_pathinrepo}/shyiko_commacd/commacd.bash"
