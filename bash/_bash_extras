@@ -80,6 +80,7 @@ export LESS_TERMCAP_se=$'\E[0m'           # end standout-mode
 export LESS_TERMCAP_so=$'\E[38;5;246m'    # begin standout-mode - info box
 export LESS_TERMCAP_ue=$'\E[0m'           # end underline
 export LESS_TERMCAP_us=$'\E[04;38;5;146m' # begin underline
+export LESS="-iRSFX"
 
 # load my private stuff
 [[ -s "${DOTFILESREPO}/private/bash/_bash_aliases" ]] && source "${DOTFILESREPO}/private/bash/_bash_aliases"
@@ -103,7 +104,6 @@ if ( (type gem) && gem query -l -i tmuxinator) > /dev/null 2>&1; then
   . "$(gem contents tmuxinator|grep "completion.*bash")"
 fi
 
-function ff() { echo "*${*}*" ; find . -type f -iname "*${*}*" ; }
 function whichpkg() { PACKAGE=$(dpkg -S "$(which "$1")" | cut -d':' -f1); echo "[${PACKAGE}]"; dpkg -s "${PACKAGE}" ;}
 
 function _cheat_autocomplete {

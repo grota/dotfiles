@@ -35,6 +35,7 @@ highlight DiffChange ctermbg=53
 highlight DiffText ctermbg=235
 highlight DiffAdd ctermbg=22
 highlight DiffDelete ctermbg=52
+highlight Question ctermfg=123
 highlight TabLineFill ctermfg=234
 highlight TabLine ctermbg=234 ctermfg=240 cterm=NONE
 highlight TabLineSel ctermfg=250 ctermbg=236 cterm=NONE

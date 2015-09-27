@@ -613,10 +613,10 @@ function! s:MyGgrepWrapper(pfx)
     return
   endif
   if (a:pfx == 'c')
-    execute "Ggrep! " . shellescape(l:input)
+    execute "Ggrep! " . l:input
     botright copen
   else
-    execute "Glgrep! " . shellescape(l:input)
+    execute "Glgrep! " . l:input
     botright lopen
   endif
 endfunction
@@ -918,9 +918,6 @@ nnoremap <Leader>rl :VimuxRunLastCommand<CR>
 vnoremap <Leader>v "vy  :call VimuxSlime()<CR>
 " }}}
 " vim-sneak {{{
-" Disable streak mode, it's not easy to see where the cursor is at the
-" beginning
-"let g:sneak#streak = 1
 let g:sneak#use_ic_scs = 1
 nmap ; <Plug>SneakPrevious
 omap ; <Plug>SneakPrevious
@@ -952,6 +949,7 @@ let g:localrc_filename = 'local.vimrc'
 " }}}
 " airblade gitgutter {{{
 let g:gitgutter_eager = 0
+let g:gitgutter_escape_grep = 1
 " }}}
 "}}}
 
