@@ -38,16 +38,6 @@ if [[ ! ( "$PATH" == *"$HOME/local/bin:$HOME/.composer/vendor/bin"* ) ]]; then
 fi
 
 _Z_CMD=j . "${DOTFILESREPO}"/bin/rupa_z/z.sh
-__j_fzf_autocomplete() {
-  local cur prev chosen
-  COMPREPLY=()
-  cur="${COMP_WORDS[COMP_CWORD]}"
-  tput sc
-  chosen=$(j | sort -g | cut -b12- | fzf -q "$cur" --select-1 --exit-0 --no-sort --tac)
-  tput rc
-  COMPREPLY=($(compgen -W "$chosen" --))
-}
-complete -F __j_fzf_autocomplete j
 
 export EDITOR=vim
 HISTFILESIZE=1000000
@@ -114,8 +104,6 @@ function _cheat_autocomplete {
     fi
 }
 alias h=cheat
-complete -F _cheat_autocomplete cheat h
-complete -f -W '-get-subtitles' filebot
 
 export COMMACD_SEQSTART=1
 source "${current_pathinrepo}/shyiko_commacd/commacd.bash"
@@ -123,6 +111,11 @@ source "${current_pathinrepo}/shyiko_commacd/commacd.bash"
 source "${DOTFILESREPO}/bash/enhancd/enhancd.sh"
 source "${DOTFILESREPO}/bin/the_silver_searcher/ag.bashcomp.sh"
 
+# Cannot use a ~/.bash_completion (that ~/.bashrc would source)
+# because this needs to happen after our actions.
+for f in "$DOTFILESREPO"/bash/completions/*; do
+  source "$f"
+done
 # old notes {{{
 # PS1 overrides the one from .bashrc. Color prompt by default
 # the title of xterms is set only to \w (the current working directory,

@@ -1,0 +1,13 @@
+# vim: set ft=sh:
+
+__j_fzf_autocomplete() {
+  local cur prev chosen
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  tput sc
+  chosen=$(j | sort -g | cut -b12- | fzf -q "$cur" --select-1 --exit-0 --no-sort --tac)
+  tput rc
+  COMPREPLY=($(compgen -W "$chosen" --))
+}
+complete -F __j_fzf_autocomplete j
+

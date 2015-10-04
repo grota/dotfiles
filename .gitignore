@@ -18,3 +18,4 @@
 /_kde/*
 /ranger/*
 /vim/dotvim/nvimrc
+/bash/completions/docker-compose

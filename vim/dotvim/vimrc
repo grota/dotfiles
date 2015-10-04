@@ -950,6 +950,7 @@ let g:localrc_filename = 'local.vimrc'
 " airblade gitgutter {{{
 let g:gitgutter_eager = 0
 let g:gitgutter_escape_grep = 1
+let g:gitgutter_realtime = 0
 " }}}
 "}}}
 
