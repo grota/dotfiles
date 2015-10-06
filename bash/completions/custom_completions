@@ -1,0 +1,4 @@
+# vim: set ft=sh:
+
+complete -F _cheat_autocomplete cheat h
+complete -f -W '-get-subtitles' filebot
