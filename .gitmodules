@@ -16,9 +16,6 @@
 [submodule "vim/dotvim/bundle/gregsexton_gitv"]
 	path = vim/dotvim/bundle/gregsexton_gitv
 	url = git://github.com/gregsexton/gitv.git
-[submodule "vim/dotvim/bundle/vim-scripts_lastpos"]
-	path = vim/dotvim/bundle/vim-scripts_lastpos
-	url = git://github.com/vim-scripts/lastpos.vim.git
 [submodule "vim/dotvim/bundle/ervandew_supertab"]
 	path = vim/dotvim/bundle/ervandew_supertab
 	url = git://github.com/ervandew/supertab
@@ -175,9 +172,6 @@
 [submodule "bash/shyiko_commacd"]
 	path = bash/shyiko_commacd
 	url = https://github.com/shyiko/commacd.git
-[submodule "vim/dotvim/bundle/junegunn_vim-peekaboo"]
-	path = vim/dotvim/bundle/junegunn_vim-peekaboo
-	url = https://github.com/junegunn/vim-peekaboo.git
 [submodule "bash/enhancd"]
 	path = bash/enhancd
 	url = https://github.com/b4b4r07/enhancd.git

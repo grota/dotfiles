@@ -580,12 +580,9 @@ augroup END
 
 " CONTRIB PLUGINS MAPPINGS AND SETTINGS {{{
 " vim-cycle {{{
-let g:cycle_no_mappings = 1
 augroup grota_autocommands
-  autocmd FileType php call AddCycleGroup('php', ['TRUE', 'FALSE'])
-  autocmd FileType php call AddCycleGroup('php', ['true', 'false'])
+  autocmd FileType php call AddCycleGroup('php.drupal', ['TRUE', 'FALSE', 'false', 'true'])
 augroup END
-nmap <leader>C <Plug>CycleNext
 " }}}
 " tagbar plugin {{{
 nnoremap <silent> <F10> :TagbarToggle<CR>
@@ -607,6 +604,7 @@ augroup grota_autocommands
 augroup END
 nnoremap <M-d> :Gdiff<CR>gg]czz
 function! s:MyGgrepWrapper(pfx)
+  "let l:input=input("git-grep for: ", @+)
   let l:input=input("git-grep for: ", expand("<cword>"))
   if l:input == ''
     echo ""
@@ -630,22 +628,14 @@ nnoremap <leader>gc  :Gcommit -v<CR>
 " Surround {{{
 " php: a => array(xxx)
 augroup grota_autocommands
-  autocmd FileType php let b:surround_97 = "array('\r')"
-  " php: S => var_export(xxx, true);
-  autocmd FileType php let b:surround_83 = "var_export(\r, TRUE)"
-  " php: p => ['xxx']
-  autocmd FileType php let b:surround_112 = "'[\r]'"
-  " php: l => ->xxx
-  autocmd FileType php let b:surround_108 = "->\r"
-  " markdown: l => [xxx]
-  autocmd FileType markdown let b:surround_108 = "[\r][\1link text or number: \1]"
-  " markdown 6 => ***xxx***
-  autocmd FileType markdown let b:surround_54 = "***\r***"
-  " markdown 7 => **xxx**
-  autocmd FileType markdown let b:surround_55 = "**\r**"
+  autocmd FileType php let b:surround_{char2nr("a")} = "array(\r)"
+  autocmd FileType php let b:surround_{char2nr("r")} = "['\r']"
+  autocmd FileType php let b:surround_{char2nr("l")} = "->\r"
+  autocmd FileType markdown let b:surround_{char2nr("l")} = "[\r][\1link text or number: \1]"
+  autocmd FileType markdown let b:surround_{char2nr("6")} = "***\r***"
+  autocmd FileType markdown let b:surround_{char2nr("7")} = "**\r**"
 augroup END
-" 8 => *xxx*
-let g:surround_56 = "*\r*"
+let g:surround_{char2nr("8")} = "*\r*"
 "}}}
 " Yankstack {{{
 let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
@@ -980,14 +970,6 @@ xnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><C-O>
 xnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><C-O>
 "}}}
 " Highlight Word {{{
-"
-" This mini-plugin provides a few mappings for highlighting words temporarily.
-"
-" Sometimes you're looking at a hairy piece of code and would like a certain
-" word or two to stand out temporarily.  You can search for it, but that only
-" gives you one color of highlighting.  Now you can use <leader>N where N is
-" a number from 1-6 to highlight the current word in a specific color.
-
 function! HiInterestingWord(n) " {{{
     " Save our location.
     normal! mz
