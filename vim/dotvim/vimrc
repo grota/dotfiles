@@ -415,9 +415,10 @@ nnoremap <Leader>p "+gp
 nnoremap <Leader>P :<C-U>put<CR>
 inoremap <C-o>p <Left><Right><C-o>p<End>
 "}}}
-" <C-s> QUICK SAVING {{{
+" <C-s> QUICK SAVING, <leader>ee -> :e {{{
 nnoremap <C-s> :update<CR>
 inoremap <C-s> <C-o>:update<CR>
+nnoremap <Leader>ee :e<cr>
 "}}}
 " nix_<M-UP/DOWN> MOVE LINES UP/DOWN {{{
 nnoremap <M-Down> :m+<CR>==
@@ -622,6 +623,8 @@ nnoremap <leader>gg  :call <SID>MyGgrepWrapper('l')<CR>
 nnoremap <leader>gq  :call <SID>MyGgrepWrapper('c')<CR>
 nnoremap <leader>gw  :Gw<CR>
 nnoremap <leader>gs  :Gstatus<CR>
+nnoremap <leader>gb  :Gblame<CR>
+nnoremap <leader>ge  :Gedit<CR>
 nnoremap <M-s> :Gstatus<CR>
 nnoremap <leader>gc  :Gcommit -v<CR>
 "}}}
@@ -793,7 +796,7 @@ endfunc
 "Use local.vimrc + b:syntastic_php_phpcs_args and b:syntastic_php_phpcs_exec
 let g:syntastic_auto_loc_list = 0
 nnoremap <Leader>st :SyntasticToggleMode<cr>
-nnoremap <Leader>ee :Errors<cr>
+nnoremap <Leader>er :Errors<cr>
 "}}}
 " vim-markology {{{
 let g:markology_enable = 0
@@ -882,17 +885,19 @@ let g:vdebug_keymap = {
 " port must match the parameter in /etc/php5/conf.d/20-xdebug.ini
 let g:vdebug_options= {
 \    "port" : 8585,
-\    "server" : 'localhost',
+\    "server" : '',
 \    "timeout" : 2000,
 \    "on_close" : 'close',
 \    "break_on_open" : 0,
 \    "ide_key" : '',
-\    "remote_path" : "",
-\    "local_path" : "",
+\    "path_maps" : {},
 \    "debug_window_level" : 0,
 \    "debug_file_level" : 10,
 \    "debug_file" : "/tmp/vdebug",
-\    "continuous_mode" : 0,
+\    "continuous_mode" : 1,
+\    "marker_default" : '⬦',
+\    "marker_closed_tree" : '▸',
+\    "marker_open_tree" : '▾'
 \}
 nnoremap <Leader>br :BreakpointRemove *<CR>
 " }}}

@@ -105,9 +105,6 @@ function _cheat_autocomplete {
 }
 alias h=cheat
 
-export COMMACD_SEQSTART=1
-source "${current_pathinrepo}/shyiko_commacd/commacd.bash"
-
 source "${DOTFILESREPO}/bash/enhancd/enhancd.sh"
 source "${DOTFILESREPO}/bin/the_silver_searcher/ag.bashcomp.sh"
 
