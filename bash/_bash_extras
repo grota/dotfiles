@@ -42,6 +42,8 @@ _Z_CMD=j . "${DOTFILESREPO}"/bin/rupa_z/z.sh
 export EDITOR=vim
 HISTFILESIZE=1000000
 HISTSIZE=500000
+HISTCONTROL="erasedups:ignoreboth"
+HISTIGNORE="clear:bg:fg:cd:cd -:exit:date:w:"
 
 # disable <CTRL-S> and <CTRL-Q> terminal settings, I want to use them in vim
 # maybe there's a better way, see :h term.txt in vim
@@ -53,8 +55,6 @@ stty start undef
 if [ "$TERM" = "xterm" -a "$COLORTERM" = "gnome-terminal" ]; then
     TERM="xterm-256color"
 fi
-
-HISTIGNORE="clear:bg:fg:cd:cd -:exit:date:w:"
 
 # rvm enable+completion+prompt {{{
 # Load RVM into a shell session *as a function*

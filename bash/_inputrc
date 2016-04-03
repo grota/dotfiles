@@ -19,6 +19,8 @@ $include /etc/inputrc
 # make C-p and C-n behave like up/down arrows
 "\C-p": history-search-backward
 "\C-n": history-search-forward
+"\C-i": menu-complete
+"\e[Z": menu-complete-backward
 
 # add parameters to the last command: (previous-history, beginning-of-line, forward-word)
 "\C-x\C-s": "\C-p\C-a\C-l "
@@ -51,9 +53,11 @@ $include /etc/inputrc
 set mark-symlinked-directories on
 set match-hidden-files on
 set show-all-if-ambiguous on
+set show-all-if-unmodified on
 set visible-stats on
 set skip-completed-text on
 set completion-ignore-case on
+set completion-map-case on
 
 $if Bash
   # performs bash's HISTORY EXPANSION.

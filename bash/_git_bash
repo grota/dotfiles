@@ -11,13 +11,12 @@ alias gl='git --no-pager l -n12'
 __git_alias "gf" "git" "fetch" "-p"
 alias k='git --no-pager ll -n12'
 alias gk='gitk --all&'
-alias gl1p="git log -1 -p"
+__git_alias "gshw" "git" "show" "-w"
 __git_alias "gdw" "git" "diff" "-w --"
 __git_alias "gdcw" "git" "diff" "--cached -w --"
 __git_alias "gdcwd" "git" "diff" "--word-diff --cached --"
 __git_alias "gst" "git" "stash" "list"
 __git_alias "gsts" "git" "stash" "save"
-__git_alias "gcmh" "git" "commit" "--amend -C HEAD"
 alias gstsh='git stash show -p'
 alias gsta='git stash apply'
 alias gstd='git stash drop'
@@ -31,6 +30,11 @@ function _git_gstsh () {
   words[1]=show
   _git_stash
 }
+alias gcmh="git commit --amend -C HEAD"
+alias gcmhnv="gcmh --no-verify"
+alias gcmnv="gcm --no-verify"
+__git_complete gcmh _git_commit
+__git_complete gcm _git_commit
 # from scm_breeze
 alias gsubrm="git_submodule_rm"
 function _git_abbrev_hash_complete () {

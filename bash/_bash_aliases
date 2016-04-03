@@ -13,6 +13,14 @@ export DOTFILESREPO=$(readlink -f "$( dirname "$(readlink -f "${BASH_SOURCE[0]}"
 . "${DOTFILESREPO}"/bash/_fzf_bash
 
 # aliases {{{
+function cleandocker () {
+  VOLUMES="$(docker volume ls -f dangling=true -q | awk '{print $2}')"
+  [ -n "$VOLUMES" ] && docker volume rm "$VOLUMES"
+  CONTAINERS="$(docker ps -a | command grep Exited | command grep -v data | awk '{print $1}')"
+  [ -n "$CONTAINERS" ] && docker rm -vf ${CONTAINERS//$'\n'/ }
+  IMAGES="$(docker images -f dangling=true -q)"
+  [ -n "$IMAGES" ] && docker rmi ${IMAGES//$'\n'/ }
+}
 alias r='PAGER=less urxvt -e ranger'
 alias tmxu=tmux
 alias ccat='pygmentize -O style=monokai -f console256 -g'
@@ -54,7 +62,7 @@ alias ff='ag --pager=less -g'
 # there's a ss bin but that's ok for me
 alias ss='sudo su -'
 # {tl,ll,rl}php log {{{
-alias tlphp='tail -F /tmp/php5_apache_errorlog.log'
+#alias tlphp='tail -F /tmp/php5_apache_errorlog.log'
 alias llphp='less /tmp/php5_apache_errorlog.log'
 alias rlphp='sudo rm /tmp/php5_apache_errorlog.log'
 #}}}
@@ -65,8 +73,8 @@ alias koff='xinput --disable "AT Translated Set 2 keyboard"'
 alias kon='xinput --enable "AT Translated Set 2 keyboard"'
 alias don='xrandr --output HDMI1 --auto --right-of LVDS1'
 alias doff='xrandr --output HDMI1 --off'
-alias auext='pactl set-card-profile 0 output:hdmi-stereo+input:analog-stereo'
-alias auint='pactl set-card-profile 0 output:analog-stereo+input:analog-stereo'
+#alias auext='pactl set-card-profile 0 output:hdmi-stereo+input:analog-stereo'
+#alias auint='pactl set-card-profile 0 output:analog-stereo+input:analog-stereo'
 #}}}
 alias unmute='amixer set "Speaker Front",0 unmute &> /dev/null'
 alias mute='amixer set "Speaker Front",0 mute &> /dev/null'
@@ -87,7 +95,7 @@ function rec() {
     sleep 1
   done
   local device=$(pactl list sinks|command grep Monitor\ Source|awk '{ print $3; }')
-  gst-launch-1.0 -e pulsesrc device="$device" ! audioconvert ! lamemp3enc target=1 bitrate=128 cbr=true ! filesink location="${1}.mp3"
+  gst-launch-1.0 -e pulsesrc device="$device" ! "audio/x-raw,channels=2" ! audioconvert ! lamemp3enc target=1 bitrate=128 cbr=true ! filesink location="${1}.mp3"
 }
 function mkcd() { mkdir -p "$@" && eval cd "\"\$$#\""; }
 function fixperms() {
