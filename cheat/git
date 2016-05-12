@@ -1,2 +1,3 @@
 git clean -ndX
 git status -s --ignored
+git grep patten -- './*' ':!*.js'

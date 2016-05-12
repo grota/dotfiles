@@ -1,9 +1,7 @@
-# Mappings with <Super>
-x
-w
-n/m
-shift super left
-super l
-super p
-ctrl super d
-tab
+super x: view of workspaces.
+super w: view of windows.
+super / n: negative window/all.
+super shift right: move to other viweport.
+super l: lock.
+super ctrl d: see desktop.
+super tab: cycle between windows of desktop.

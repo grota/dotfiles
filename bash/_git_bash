@@ -13,8 +13,9 @@ alias k='git --no-pager ll -n12'
 alias gk='gitk --all&'
 __git_alias "gshw" "git" "show" "-w"
 __git_alias "gdw" "git" "diff" "-w --"
-__git_alias "gdcw" "git" "diff" "--cached -w --"
-__git_alias "gdcwd" "git" "diff" "--word-diff --cached --"
+__git_alias "gdcw" "git" "diff" "--cached"
+__git_alias "gdcw" "git" "diff" "--cached -w"
+__git_alias "gdcwd" "git" "diff" "--word-diff --cached"
 __git_alias "gst" "git" "stash" "list"
 __git_alias "gsts" "git" "stash" "save"
 alias gstsh='git stash show -p'

@@ -96,6 +96,17 @@ fi
 
 function whichpkg() { PACKAGE=$(dpkg -S "$(which "$1")" | cut -d':' -f1); echo "[${PACKAGE}]"; dpkg -s "${PACKAGE}" ;}
 
+function get_spotify_artists_and_title () {
+local tempfile=$(mktemp)
+local json_url=$(xclip -o | sed 's-play.spotify.com/track-api.spotify.com/v1/tracks-')
+curl -s "$json_url" > "$tempfile"
+local artists=$(jq -r -M '[.artists[].name]|join(", ")+" - "' < "$tempfile")
+local title=$(jq -r -M '.name' < "$tempfile")
+local total="${artists}${title}"
+rm -f "$tempfile"
+echo "$total"
+}
+
 function _cheat_autocomplete {
     sheets=$(cheat -l | cut -d' ' -f1)
     COMPREPLY=()

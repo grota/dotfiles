@@ -1,15 +1,3 @@
-# bind -P/p: dump-functions  (bind -p|\grep -v '^#'|\grep -v 'self-insert')
-# bind -S/s: dump-macros
-# bind -V/v: dump-variables
-
-C-hjkl to move between words like C-arrows (h/j=up/down in history)
-M-hl to move left/right charwise like in vim
-C-b like backspace
-M-b like del
-
-C-x C-s add parameters to the last command
-C-x C-x quote params
-
       +-------------+
       | WORD | word |
 +-----+-------------+
@@ -17,3 +5,17 @@ C-x C-x quote params
 |-----+-------------+
 |Right| M-w  | M-d  |
 +-----+-------------+
+
+C-hjkl to move between words like C-arrows (h/j=up/down in history)
+M-hl to move left/right charwise like in vim
+
+C-b like backspace
+M-b like del
+
+C-x C-s add parameters to the last command
+C-x C-x quote params
+
+# bind -P/p: dump-functions  (bind -p|\grep -v '^#'|\grep -v 'self-insert')
+# bind -S/s: dump-macros
+# bind -V/v: dump-variables
+

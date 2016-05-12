@@ -196,6 +196,7 @@ inoremap <F1> <Nop>
 nnoremap <F2> <C-W>c
 " Go to the alternate file in a split window
 nnoremap <C-^> :vertical split #<CR>
+nnoremap <leader>bd :bd!<CR>
 "}}}
 " TABS OPEN/CLOSE/NAVIGATE {{{
 nnoremap <F3> <C-W>T
@@ -431,7 +432,7 @@ xnoremap <M-Up> :m-2<CR>gv=gv
 " <CR> SPLIT LINE {{{
 nnoremap <CR> i<cr><esc>`.
 "}}}
-" i_<M-w> delete the word after the cursor {{{
+" i_<M-w,d> i_<C-w,d> i_<C-y> i_<C--> {{{
 inoremap <M-w> <C-o>dW
 inoremap <M-d> <C-o>dw
 inoremap <C-w> <C-o>dB
@@ -439,8 +440,6 @@ inoremap <C-d> <C-o>db
 inoremap <C-y> <C-o>P
 " this is actually <C-->
 inoremap <C-_> <C-y>
-nnoremap <C-w><C-d> :bd<CR>
-nnoremap <leader>bd :bd!<CR>
 "}}}
 " [xn]_&: Substitute {{{
 nnoremap & :&&<CR>
@@ -894,6 +893,7 @@ let g:vdebug_options= {
 \    "debug_window_level" : 0,
 \    "debug_file_level" : 10,
 \    "debug_file" : "/tmp/vdebug",
+\    "watch_window_style" : "expanded",
 \    "continuous_mode" : 1,
 \    "marker_default" : '⬦',
 \    "marker_closed_tree" : '▸',
