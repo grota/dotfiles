@@ -211,11 +211,6 @@ inoremap <silent> <M-!> <Esc>:<C-u>tabmove -1<CR>
 nnoremap <silent> <Esc>@ :<C-u>tabmove +1<CR>
 inoremap <silent> <Esc>@ <Esc>:<C-u>tabmove +1<CR>
 " }}}
-" <C-n><C-p>: NEXT/PREV BUFFER {{{
-" <C-N> was the same as <Down> and I didn't need it.
-nnoremap <silent> <C-n> :bn<CR>
-nnoremap <silent> <C-p> :bp<CR>
-"}}}
 " <C-Up/Down/Left/Right><M-Up/Down/Left/Right> FOR TMUX {{{
 if $TMUX !=# ''
 
@@ -314,6 +309,7 @@ nnoremap <C-Y> 4<C-Y>
 " MISCELLANEOUS {{{
 " go to tag location if only 1 place, or show selection if more than 1 place
 nnoremap <C-]> :vertical stjump <C-r><C-w><CR>
+nnoremap <leader>tc :vertical stjump <C-r>+<CR><C-w>T
 " Session Save As and Open
 nnoremap <leader>ssa :mksession! ~/.vim/sessions/
 nnoremap <leader>so :source ~/.vim/sessions/
@@ -413,13 +409,13 @@ xnoremap <BS> x
 xnoremap <Leader>y "+ygv"*y`>
 nnoremap <Leader>yf :let @+=expand("%")<CR>:echo 'copied '.expand("%")<CR>
 nnoremap <Leader>p "+gp
-nnoremap <Leader>P :<C-U>put<CR>
 inoremap <C-o>p <Left><Right><C-o>p<End>
 "}}}
 " <C-s> QUICK SAVING, <leader>ee -> :e {{{
 nnoremap <C-s> :update<CR>
 inoremap <C-s> <C-o>:update<CR>
 nnoremap <Leader>ee :e<cr>
+nnoremap <Leader>oc :tabe <C-r>+<CR>
 "}}}
 " nix_<M-UP/DOWN> MOVE LINES UP/DOWN {{{
 nnoremap <M-Down> :m+<CR>==
@@ -430,7 +426,7 @@ xnoremap <M-Down> :m'>+<CR>gv=gv
 xnoremap <M-Up> :m-2<CR>gv=gv
 "}}}
 " <CR> SPLIT LINE {{{
-nnoremap <CR> i<cr><esc>`.
+nnoremap <CR> i<cr><esc>
 "}}}
 " i_<M-w,d> i_<C-w,d> i_<C-y> i_<C--> {{{
 inoremap <M-w> <C-o>dW
@@ -440,6 +436,8 @@ inoremap <C-d> <C-o>db
 inoremap <C-y> <C-o>P
 " this is actually <C-->
 inoremap <C-_> <C-y>
+inoremap <C-b> <BS>
+" I was not able to map <M-b>
 "}}}
 " [xn]_&: Substitute {{{
 nnoremap & :&&<CR>
@@ -603,14 +601,17 @@ augroup grota_autocommands
   autocmd BufEnter fugitive://**//[0-3]/** let b:autotagDisabled=1
 augroup END
 nnoremap <M-d> :Gdiff<CR>gg]czz
-function! s:MyGgrepWrapper(pfx)
-  "let l:input=input("git-grep for: ", @+)
-  let l:input=input("git-grep for: ", expand("<cword>"))
+function! s:MyGgrepWrapper(target_type, word_to_search)
+  if (a:word_to_search == 'word')
+    let l:input=input("git-grep for: ", expand("<cword>"))
+  else
+    let l:input=input("git-grep for: ", @+)
+  endif
   if l:input == ''
     echo ""
     return
   endif
-  if (a:pfx == 'c')
+  if (a:target_type == 'quickfix')
     execute "Ggrep! " . l:input
     botright copen
   else
@@ -618,14 +619,14 @@ function! s:MyGgrepWrapper(pfx)
     botright lopen
   endif
 endfunction
-nnoremap <leader>gg  :call <SID>MyGgrepWrapper('l')<CR>
-nnoremap <leader>gq  :call <SID>MyGgrepWrapper('c')<CR>
+nnoremap <leader>gc  :call <SID>MyGgrepWrapper('location', 'clipboard')<CR>
+nnoremap <leader>gg  :call <SID>MyGgrepWrapper('location', 'word')<CR>
+nnoremap <leader>gq  :call <SID>MyGgrepWrapper('quickfix', 'word')<CR>
 nnoremap <leader>gw  :Gw<CR>
 nnoremap <leader>gs  :Gstatus<CR>
 nnoremap <leader>gb  :Gblame<CR>
 nnoremap <leader>ge  :Gedit<CR>
 nnoremap <M-s> :Gstatus<CR>
-nnoremap <leader>gc  :Gcommit -v<CR>
 "}}}
 " Surround {{{
 " php: a => array(xxx)
