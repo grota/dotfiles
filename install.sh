@@ -198,6 +198,7 @@ fi
  mkdir -p "$HOME"/.mplayer
  ln -sf "${repohome}"/mplayer/config "$HOME"/.mplayer/config
 
+ gsettings set com.canonical.desktop.interface scrollbar-mode normal
 # [private]
 "${repohome}"/private/install.sh
 echo "dotfiles installed"

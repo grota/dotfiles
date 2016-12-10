@@ -31,9 +31,11 @@ alias l='ls -CF --group-directories-first'
 alias ls='ls --color=auto --group-directories-first'
 alias sl=ls
 alias fire='firefox -Profilemanager -no-remote &> /dev/null &'
-alias t=trans
+alias ffmpeg='ffmpeg -hide_banner'
+alias ffprobe='ffprobe -hide_banner'
 function cc () {
-  local CHROME=google-chrome
+  #local CHROME=google-chrome
+  local CHROME=chromium-browser
   if [ ! -z "$1" ]; then
     local PROFILE_DIR=$1
     local CHROME_ARGS="--user-data-dir=/home/grota/.config/${CHROME}_others/$PROFILE_DIR"
@@ -42,6 +44,9 @@ function cc () {
   echo "Running: " "$CHROME" "$CHROME_ARGS"
   $CHROME $CHROME_ARGS &> /dev/null &
 }
+#function n () {
+  #zenity --info --text="Job finished"
+#}
 alias pg='ps aux|grep '
 alias pw='pwsafe -Eup -l'
 alias rstty='stty start undef stop undef'

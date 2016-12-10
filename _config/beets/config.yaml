@@ -1,5 +1,5 @@
 directory: ~/music
-plugins: fromfilename info chroma web fuzzy bpd
+plugins: fromfilename info chroma web fuzzy mpdupdate
 import:
   copy: yes
   write: yes
@@ -12,3 +12,5 @@ paths:
   singleton: $artist/$artist - $title
 fuzzy:
   prefix: '@'
+ui:
+    color: yes

@@ -21,6 +21,7 @@ keycode  17 = 8 asterisk    asterisk    8
 keycode  18 = 9 parenleft   parenleft   9
 keycode  19 = 0 parenright  parenright  0
 keycode  25 = w W Up Up w W
+keycode  26 = e E EuroSign E
 ! use { and } when Mode_switch
 keycode  34 = bracketleft braceleft braceleft bracketleft egrave eacute
 keycode  35 = bracketright braceright braceright bracketright plus asterisk

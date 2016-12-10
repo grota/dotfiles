@@ -400,7 +400,7 @@
       <key>profiles/Default/font</key>
       <schema_key>/schemas/apps/gnome-terminal/profiles/Default/font</schema_key>
       <value>
-        <string>Source Code Pro for Powerline Semi-Bold 11</string>
+        <string>Fira Mono for Powerline 11</string>
       </value>
     </entry>
     <entry>

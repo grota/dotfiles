@@ -2,7 +2,6 @@
     "require": {
         "psy/psysh": "dev-master",
         "phing/phing": "dev-master",
-        "phpdocumentor/phpdocumentor": "2.*",
         "phpunit/phpunit": "3.7.*",
         "drupal/coder": "~8.2",
         "squizlabs/PHP_CodeSniffer": ">=2"
