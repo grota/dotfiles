@@ -102,6 +102,7 @@ if exists dconf && [ -n "$DISPLAY" ]; then
   # dconf dump /org/gnome/settings-daemon/plugins/media-keys/ > dconf/dconf_gnome_settings_daemon_keys.dconf
   dconf load /org/gnome/settings-daemon/plugins/media-keys/ < "${repohome}"/dconf/dconf_gnome_settings_daemon_keys.dconf
 fi
+ gsettings set com.canonical.desktop.interface scrollbar-mode normal
 
  if [ ! -d "$HOME"/.fonts ]; then
    mkdir -p "$HOME"/.fonts
@@ -198,7 +199,15 @@ fi
  mkdir -p "$HOME"/.mplayer
  ln -sf "${repohome}"/mplayer/config "$HOME"/.mplayer/config
 
- gsettings set com.canonical.desktop.interface scrollbar-mode normal
+# [mpd]
+ mkdir -p ~/.config/mpd
+ ln -sf "${repohome}"/mpd/mpd.conf "$HOME"/.config/mpd/mpd.conf
+
+# [ncmpcpp]
+ mkdir ~/.config/ncmpcpp
+ ln -sf "${repohome}"/ncmpcpp/config "$HOME"/.config/ncmpcpp/config
+ ln -sf "${repohome}"/ncmpcpp/bindings "$HOME"/.config/ncmpcpp/bindings
+
 # [private]
 "${repohome}"/private/install.sh
 echo "dotfiles installed"
