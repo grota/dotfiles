@@ -34,8 +34,8 @@ alias fire='firefox -Profilemanager -no-remote &> /dev/null &'
 alias ffmpeg='ffmpeg -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
 function cc () {
-  #local CHROME=google-chrome
-  local CHROME=chromium-browser
+  local CHROME=google-chrome
+  #local CHROME=chromium-browser
   if [ ! -z "$1" ]; then
     local PROFILE_DIR=$1
     local CHROME_ARGS="--user-data-dir=/home/grota/.config/${CHROME}_others/$PROFILE_DIR"
@@ -89,9 +89,14 @@ alias update_all_dotfiles_submodules="g submodule foreach '[ \"\$path\" = \"bin/
 # functions {{{
 # list of pulseaudio devices can be fetched via pactl list
 function rec() {
-local outfile="$1"
+local outfile
+outfile="$1"
   if [ -z "$1" ]; then
-    local outfile=$(get_spotify_artists_and_title)
+    outfile=$(get_spotify_artists_and_title)
+    if [ $? == 1 ]; then
+      echo "$outfile"
+      return 1
+    fi
   fi
   outfile="$outfile".mp3
   echo "Writing to file '$outfile'"

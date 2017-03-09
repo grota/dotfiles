@@ -625,7 +625,9 @@ nnoremap <leader>gq  :call <SID>MyGgrepWrapper('quickfix', 'word')<CR>
 nnoremap <leader>gw  :Gw<CR>
 nnoremap <leader>gs  :Gstatus<CR>
 nnoremap <leader>gb  :Gblame<CR>
-nnoremap <leader>ge  :Gedit<CR>
+nnoremap <leader>gef  :Gedit<CR>
+nnoremap <leader>gec  :Gedit @<CR>
+nnoremap <leader>gtec  :Gtabedit @<CR>
 nnoremap <M-s> :Gstatus<CR>
 "}}}
 " Surround {{{

@@ -43,7 +43,7 @@ export EDITOR=vim
 HISTFILESIZE=1000000
 HISTSIZE=500000
 HISTCONTROL="erasedups:ignoreboth"
-HISTIGNORE="clear:bg:fg:cd:cd -:exit:date:w:"
+HISTIGNORE="clear:bg:fg:cd:cd -:exit:date:w:gs:gss:ga:gau:gk:gd:gdc:gf:gb:grbi:gcm*:l:resunity:ss:"
 
 # disable <CTRL-S> and <CTRL-Q> terminal settings, I want to use them in vim
 # maybe there's a better way, see :h term.txt in vim
@@ -97,11 +97,20 @@ fi
 function whichpkg() { PACKAGE=$(dpkg -S "$(which "$1")" | cut -d':' -f1); echo "[${PACKAGE}]"; dpkg -s "${PACKAGE}" ;}
 
 function get_spotify_artists_and_title () {
-local tempfile=$(mktemp)
-local json_url=$(xclip -o | sed 's-play.spotify.com/track-api.spotify.com/v1/tracks-')
+local tempfile title artists value_in_clipboard
+tempfile=$(mktemp)
+value_in_clipboard=$(xclip -o)
+local json_url=${value_in_clipboard/play.spotify.com\/track/api.spotify.com\/v1\/tracks}
+if [ "$json_url" == "$value_in_clipboard" ]; then
+  json_url=${value_in_clipboard/open.spotify.com\/track/api.spotify.com\/v1\/tracks}
+fi
+if [ "$json_url" == "$value_in_clipboard" ]; then
+  echo "error parsing clipboard value: \"$value_in_clipboard\""
+  return 1
+fi
 curl -s "$json_url" > "$tempfile"
-local artists=$(jq -r -M '[.artists[].name]|join(", ")+" - "' < "$tempfile")
-local title=$(jq -r -M '.name' < "$tempfile")
+artists=$(jq -r -M '[.artists[].name]|join(", ")+" - "' < "$tempfile")
+title=$(jq -r -M '.name' < "$tempfile")
 local total="${artists}${title}"
 rm -f "$tempfile"
 echo "$total"
