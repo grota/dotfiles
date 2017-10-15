@@ -33,9 +33,10 @@ if [[ "$PROMPT_COMMAND" != *"_dotfiles_preexec"* ]]; then
   export PROMPT_COMMAND="$PROMPT_COMMAND ; _dotfiles_preexec ''; "
 fi
 
-if [[ ! ( "$PATH" == *"$HOME/local/bin:$HOME/.composer/vendor/bin"* ) ]]; then
-  export PATH=$HOME/local/bin:$HOME/.composer/vendor/bin:$PATH
+if [[ ! ( "$PATH" == *"$HOME/local/bin:$HOME/.config/composer/vendor/bin"* ) ]]; then
+  export PATH=$HOME/local/bin:$HOME/.config/composer/vendor/bin:$PATH
 fi
+export PATH="$HOME/local/bin:$HOME/.local/bin/:$PATH"
 
 _Z_CMD=j . "${DOTFILESREPO}"/bin/rupa_z/z.sh
 
@@ -96,24 +97,27 @@ fi
 
 function whichpkg() { PACKAGE=$(dpkg -S "$(which "$1")" | cut -d':' -f1); echo "[${PACKAGE}]"; dpkg -s "${PACKAGE}" ;}
 
-function get_spotify_artists_and_title () {
-local tempfile title artists value_in_clipboard
-tempfile=$(mktemp)
-value_in_clipboard=$(xclip -o)
-local json_url=${value_in_clipboard/play.spotify.com\/track/api.spotify.com\/v1\/tracks}
-if [ "$json_url" == "$value_in_clipboard" ]; then
-  json_url=${value_in_clipboard/open.spotify.com\/track/api.spotify.com\/v1\/tracks}
-fi
-if [ "$json_url" == "$value_in_clipboard" ]; then
-  echo "error parsing clipboard value: \"$value_in_clipboard\""
-  return 1
-fi
-curl -s "$json_url" > "$tempfile"
-artists=$(jq -r -M '[.artists[].name]|join(", ")+" - "' < "$tempfile")
-title=$(jq -r -M '.name' < "$tempfile")
-local total="${artists}${title}"
-rm -f "$tempfile"
-echo "$total"
+function _get_spotify_artists_and_title () {
+  local tempfile title artists value_in_clipboard
+  tempfile=$(mktemp)
+  value_in_clipboard=$(xclip -o)
+  local json_url=${value_in_clipboard/play.spotify.com\/track/api.spotify.com\/v1\/tracks}
+  if [ "$json_url" == "$value_in_clipboard" ]; then
+    json_url=${value_in_clipboard/open.spotify.com\/track/api.spotify.com\/v1\/tracks}
+  fi
+  if [ "$json_url" == "$value_in_clipboard" ]; then
+    echo "error parsing clipboard value: \"$value_in_clipboard\""
+    return 1
+  fi
+  # https://developer.spotify.com/web-api/console/get-track/
+  local TOKEN=BQCOpDf8y8FkkiZWAxkUJVSGffsYLIMsUGTjCMcjeoeofRwgRUUhSDgSvimAJ8Gfn6owc0Gr6D4pGHPK6D8CBH4q5zZF0OSrQ6u-C9VOird0jnhSIJM1e0EHlEODHOTtjvWar-M3Xbs
+  echo curl  "$json_url" -H \"Authorization: Bearer $TOKEN\"
+  curl  "$json_url" -H "Authorization: Bearer $TOKEN" > "$tempfile"
+  artists=$(jq -r -M '[.artists[].name]|join(", ")+" - "' < "$tempfile")
+  title=$(jq -r -M '.name' < "$tempfile")
+  local total="${artists}${title}"
+  command rm -f "$tempfile"
+  echo "$total"
 }
 
 function _cheat_autocomplete {

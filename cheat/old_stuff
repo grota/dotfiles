@@ -1,3 +1,3 @@
 #alias STO='sudo mdadm -S /dev/md0'
-#alias STA='sudo mdadm -As /dev/md0'
+#alias STA='sudo mdadm -As /dev/md0' #mdadm /dev/md0 --re-add /dev/sda
 c --rebuild to rebuild the cache

@@ -1054,7 +1054,7 @@ s0_autoraise_delay = 500
 s0_focus_desktop = true
 s0_focus_prevention_level = 0
 s0_focus_prevention_match = !(class=Polkit-gnome-authentication-agent-1)
-s0_close_window_key = <Control>grave
+s0_close_window_key = <Control><Alt>BackSpace
 s0_close_window_button = Disabled
 s0_raise_window_key = Disabled
 s0_raise_window_button = <Control>Button6

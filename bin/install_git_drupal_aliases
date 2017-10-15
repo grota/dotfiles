@@ -1,0 +1,7 @@
+#!/bin/sh
+if [ ! -d .git ]; then
+  echo Not in root dir of git repo, doing nothing. 1>&2
+  exit 1
+fi
+
+git config alias.grepours '!f(){ git grep --break --heading --line-number "$@" -- '\''./*'\'' '\'':!/includes'\'' '\'':!/misc'\'' '\'':!/modules'\'' '\'':!/profiles'\'' '\'':!/scripts'\'' '\'':!/themes'\'' '\'':!/sites/all/libraries'\''  '\'':!/sites/all/modules/contrib'\''; };f'

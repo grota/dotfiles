@@ -3,7 +3,9 @@
 
 #git aliases {{{
 alias gg='git grep --break --heading --line-number'
-alias gbv='git branch -avv'
+__git_complete gg _git_grep
+alias ggo='git grepours'
+#alias gbv='git branch -avv'
 alias gbf='git branch -f'
 alias gau='git add -u :/'
 alias gaud='git add -u .'
@@ -18,6 +20,7 @@ __git_alias "gdcw" "git" "diff" "--cached -w"
 __git_alias "gdcwd" "git" "diff" "--word-diff --cached"
 __git_alias "gst" "git" "stash" "list"
 __git_alias "gsts" "git" "stash" "save"
+alias gpfn='git push -f --no-verify'
 alias gstsh='git stash show -p'
 alias gsta='git stash apply'
 alias gstd='git stash drop'
@@ -26,6 +29,7 @@ __git_complete gstsh _git_gstsh
 __git_complete gsta _git_gstsh
 __git_complete gstd _git_gstsh
 __git_complete gstp _git_gstsh
+__git_complete gpfn _git_push
 function _git_gstsh () {
   cword=2
   words[1]=show

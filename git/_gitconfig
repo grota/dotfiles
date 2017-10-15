@@ -16,6 +16,7 @@
 	ctags = !.git/hooks/ctags
 	standup = log --all --author=\"Giuseppe Rota\" --since=\"3 days ago\" --name-status --no-merges
 	insthooks = !${DOTFILESREPO}/bin/install_git_hooks
+	instdrupalaliases = "!${DOTFILESREPO}/bin/install_git_drupal_aliases;"
 
 # Defines a diff mode, you can then put in .gitattributes
 # *.prpt diff=unzipca
@@ -46,3 +47,5 @@
 [tig "bind"]
     diff = <up> move-up
     diff = <down> move-down
+[credential]
+	helper = store

@@ -1,4 +1,5 @@
 -d form_key=CnbzMWzxaSkQkAJJOZNm POST PARAMS
+-d @filename.json (json in request body)
 -H 'Accept: text/html,...' header -H can be repeated
 --trace filename To check that all headers/params are ok
 -A '...' Sets the user agent

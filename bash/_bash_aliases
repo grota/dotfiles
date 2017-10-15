@@ -92,7 +92,7 @@ function rec() {
 local outfile
 outfile="$1"
   if [ -z "$1" ]; then
-    outfile=$(get_spotify_artists_and_title)
+    outfile=$(_get_spotify_artists_and_title)
     if [ $? == 1 ]; then
       echo "$outfile"
       return 1
@@ -116,8 +116,11 @@ function fixperms() {
   sudo setfacl -dR -m u:"$APACHEUSER":rwX -m u:"$(whoami)":rwX "$@"
 }
 function resunity() {
-  dbus-send --print-reply --dest=org.freedesktop.compiz /org/freedesktop/compiz/unityshell/screen0/alt_tab_next_window org.freedesktop.compiz.set string:Disabled &> /dev/null
-  killall xbindkeys; xbindkeys
+  #killall xbindkeys; xbindkeys
   xset r rate 200 90 && xmodmap ~/.Xmodmap
+  xinput set-prop 'DLL07BE:01 06CB:7A13 Touchpad' "Synaptics Palm Detection" 1
+  xinput set-prop 'DLL07BE:01 06CB:7A13 Touchpad' "Synaptics Palm Dimensions" 5, 5
+  xinput set-prop 'DLL07BE:01 06CB:7A13 Touchpad' "Synaptics Tap Action" 2 3 0 0 1 2 3
+  #killall syndaemon; syndaemon -i 3.0 -k -R -d
 }
 #}}}
