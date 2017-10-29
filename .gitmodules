@@ -31,9 +31,6 @@
 [submodule "vim/dotvim/bundle/tpope_vim-eunuch"]
 	path = vim/dotvim/bundle/tpope_vim-eunuch
 	url = git://github.com/tpope/vim-eunuch.git
-[submodule "vim/dotvim/bundle/scrooloose_syntastic"]
-	path = vim/dotvim/bundle/scrooloose_syntastic
-	url = git://github.com/scrooloose/syntastic.git
 [submodule "vim/dotvim/bundle/tpope_vim-markdown"]
 	path = vim/dotvim/bundle/tpope_vim-markdown
 	url = git://github.com/tpope/vim-markdown.git
@@ -184,3 +181,9 @@
 [submodule "vim/dotvim/bundle/2072_php-indenting-for-vim"]
 	path = vim/dotvim/bundle/2072_php-indenting-for-vim
 	url = https://github.com/2072/PHP-Indenting-for-VIm.git
+[submodule "vim/dotvim/bundle/w0rp_ale"]
+	path = vim/dotvim/bundle/w0rp_ale
+	url = https://github.com/w0rp/ale.git
+[submodule "vim/dotvim/bundle/vim-airline-themes"]
+	path = vim/dotvim/bundle/vim-airline-themes
+	url = https://github.com/vim-airline/vim-airline-themes.git

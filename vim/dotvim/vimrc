@@ -793,12 +793,9 @@ func! s:DeleteBuffer()
   endif
 endfunc
 "}}}
-" Syntastic {{{
-"let g:syntastic_enable_signs = 1
-"Use local.vimrc + b:syntastic_php_phpcs_args and b:syntastic_php_phpcs_exec
-let g:syntastic_auto_loc_list = 0
-nnoremap <Leader>st :SyntasticToggleMode<cr>
-nnoremap <Leader>er :Errors<cr>
+" w0rp/ale {{{
+let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_enter = 0
 "}}}
 " vim-markology {{{
 let g:markology_enable = 0
@@ -885,23 +882,25 @@ let g:vdebug_keymap = {
 \}
 
 " port must match the parameter in /etc/php5/conf.d/20-xdebug.ini
-let g:vdebug_options= {
-\    "port" : 8585,
-\    "server" : '',
-\    "timeout" : 2000,
-\    "on_close" : 'close',
-\    "break_on_open" : 0,
-\    "ide_key" : '',
-\    "path_maps" : {},
-\    "debug_window_level" : 0,
-\    "debug_file_level" : 10,
-\    "debug_file" : "/tmp/vdebug",
-\    "watch_window_style" : "expanded",
-\    "continuous_mode" : 1,
-\    "marker_default" : '⬦',
-\    "marker_closed_tree" : '▸',
-\    "marker_open_tree" : '▾'
-\}
+" There is a bug in vdebug for which if path_maps is set here
+" it won't get considered in a project-local vimrc.
+"let g:vdebug_options= {
+"\    "port" : 9000,
+"\    "server" : '',
+"\    "timeout" : 2000,
+"\    "on_close" : 'close',
+"\    "break_on_open" : 0,
+"\    "ide_key" : '',
+"\    "path_maps" : {"/mnt/app/drupal-elite-exchange": "/home/grota/Projects/sparkfabrik/borsa/git"},
+"\    "debug_window_level" : 0,
+"\    "debug_file_level" : 10,
+"\    "debug_file" : "/tmp/vdebug",
+"\    "watch_window_style" : "expanded",
+"\    "continuous_mode" : 1,
+"\    "marker_default" : '⬦',
+"\    "marker_closed_tree" : '▸',
+"\    "marker_open_tree" : '▾'
+"\}
 nnoremap <Leader>br :BreakpointRemove *<CR>
 " }}}
 " Vimux {{{
