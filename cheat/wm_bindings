@@ -1,7 +1,9 @@
-super x: view of workspaces.
+#super shift right: move to other viewport.
+
+super s: view of workspaces.
 super w: view of windows.
-super / n: negative window/all.
-super shift right: move to other viweport.
+super n m: negative window/all.
 super l: lock.
 super ctrl d: see desktop.
 super tab: cycle between windows of desktop.
+ctrl alt backslash: window menu

@@ -1,1 +1,2 @@
 ffmpeg -i input.avi -vcodec copy -acodec copy -ss 00:00:00 -t 00:30:00 output1.avi
+ffmpeg -i INPUT.MP4 -c:v libx265 -preset slow -crf 28  -c:a libmp3lame -qscale:a 2 OUT.MP4

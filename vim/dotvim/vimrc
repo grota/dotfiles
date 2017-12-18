@@ -794,8 +794,11 @@ func! s:DeleteBuffer()
 endfunc
 "}}}
 " w0rp/ale {{{
-let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
+"let g:ale_set_loclist = 0
+"let g:ale_set_quickfix = 1
+nnoremap <leader>st :ALEToggle<CR>
 "}}}
 " vim-markology {{{
 let g:markology_enable = 0
@@ -949,6 +952,9 @@ let g:gitgutter_eager = 0
 let g:gitgutter_escape_grep = 1
 let g:gitgutter_realtime = 0
 " }}}
+" junegunn Goyo {{{
+map <leader>go :Goyo<CR>
+" }}}
 "}}}
 
 " CUSTOM PLUGINS MAPPINGS AND SETTINGS {{{
@@ -1084,3 +1090,5 @@ let g:sparkupExecuteMapping = '<Plug>SparkupExecuteMapping'
 let g:sparkupNextMapping = '<Plug>SparkupNextMapping'
 "}}}
 " }}}
+
+silent! so local.vimrc
