@@ -184,6 +184,6 @@
 [submodule "vim/dotvim/bundle/vim-airline-themes"]
 	path = vim/dotvim/bundle/vim-airline-themes
 	url = https://github.com/vim-airline/vim-airline-themes.git
-[submodule "vim/dotvim/bundle/othree_javascript_libraries_syntax"]
-	path = vim/dotvim/bundle/othree_javascript_libraries_syntax
-	url = https://github.com/othree/javascript-libraries-syntax.vim.git
+[submodule "vim/dotvim/bundle/posva_vim-vue"]
+	path = vim/dotvim/bundle/posva_vim-vue
+	url = https://github.com/posva/vim-vue.git

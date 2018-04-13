@@ -9,9 +9,9 @@ fi
 trap "rm -f .git/tags.$$" EXIT
 
 EXTRA_EXCLUDE=''
-if [ -f index.php -a -d sites -a -d modules -a -d themes ]; then
+if [ -f index.php ] && [ -d sites ] && [ -d modules ] && [ -d themes ]; then
   echo Found Drupal, excluding 'sites/*/files'
-  EXTRA_EXCLUDE="--exclude=sites/*/files"
+  EXTRA_EXCLUDE="--exclude=sites/*/files --exclude=cache --exclude=spark.phar --exclude=node_modules"
 fi
-ctags --tag-relative -Rf.git/tags.$$ --exclude=.git --languages=-javascript,sql $EXTRA_EXCLUDE
+ctags --tag-relative=yes -Rf.git/tags.$$ --exclude=.git --languages=-javascript,sql,C++,C,HTML,Ruby --kinds-PHP=-a $EXTRA_EXCLUDE
 mv .git/tags.$$ .git/tags

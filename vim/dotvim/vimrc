@@ -408,6 +408,7 @@ xnoremap <BS> x
 " ,y ,p ,yf ,P : YANKING AND PASTING {{{
 xnoremap <Leader>y "+ygv"*y`>
 nnoremap <Leader>yf :let @+=expand("%")<CR>:echo 'copied '.expand("%")<CR>
+nnoremap <Leader>yo :let @+=expand("%:t")<CR>:echo 'copied '.expand("%:o")<CR>
 nnoremap <Leader>p "+gp
 inoremap <C-o>p <Left><Right><C-o>p<End>
 "}}}
@@ -626,8 +627,9 @@ nnoremap <leader>gw  :Gw<CR>
 nnoremap <leader>gs  :Gstatus<CR>
 nnoremap <leader>gb  :Gblame<CR>
 nnoremap <leader>gef  :Gedit<CR>
-nnoremap <leader>gec  :Gedit @<CR>
-nnoremap <leader>gtec  :Gtabedit @<CR>
+nnoremap <leader>gec  :Gedit @^{}<CR>
+nnoremap <leader>gtel  :Gtabedit <C-r>+<CR>
+nnoremap <leader>gtec  :Gtabedit @^{}<CR>
 nnoremap <M-s> :Gstatus<CR>
 "}}}
 " Surround {{{

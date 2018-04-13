@@ -116,11 +116,13 @@ function fixperms() {
   sudo setfacl -dR -m u:"$APACHEUSER":rwX -m u:"$(whoami)":rwX "$@"
 }
 function resunity() {
-  #killall xbindkeys; xbindkeys
-  xset r rate 200 90 && xmodmap ~/.Xmodmap
-  xinput set-prop 'DLL07BE:01 06CB:7A13 Touchpad' "Synaptics Palm Detection" 1
-  xinput set-prop 'DLL07BE:01 06CB:7A13 Touchpad' "Synaptics Palm Dimensions" 5, 5
-  xinput set-prop 'DLL07BE:01 06CB:7A13 Touchpad' "Synaptics Tap Action" 2 3 0 0 1 2 3
+  xset r rate 200 90
+  synclient HorizTwoFingerScroll=1
+  setxkbmap -print | sed -e '/xkb_symbols/s/"[[:space:]]/+beppe_xkb_syms(beppe)&/' | xkbcomp -I${HOME}/.xkb - $DISPLAY >/dev/null  2>&1
+  #xinput set-prop 'DLL07BE:01 06CB:7A13 Touchpad' "Synaptics Palm Detection" 1
+  #xinput set-prop 'DLL07BE:01 06CB:7A13 Touchpad' "Synaptics Palm Dimensions" 5, 5
+  #xinput set-prop 'DLL07BE:01 06CB:7A13 Touchpad' "Synaptics Tap Action" 2 3 0 0 1 2 3
   #killall syndaemon; syndaemon -i 3.0 -k -R -d
+  #killall xbindkeys; xbindkeys
 }
 #}}}

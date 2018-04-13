@@ -2,4 +2,3 @@
 --c-kinds=+p
 --c++-kinds=+p
 --langmap=php:+.module.engine.inc.theme.install
---php-kinds=cdfi
