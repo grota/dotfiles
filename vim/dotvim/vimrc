@@ -28,6 +28,7 @@ syntax enable
 " Meta mappings {{{
 " Automatic mapping of <M-> keys. I think there's room to explore
 " <M-S-> mapping using toupper see http://vim.wikia.com/wiki/VimTip738
+if !has('nvim')
 let s:c='a'
 while s:c <= 'z'
   exec "set <M-".(s:c).">=\e".s:c
@@ -48,6 +49,7 @@ set <M-=>==
 set <M-`>=`
 set <M-!>=!
 set <M-~>=~
+endif
 "}}}
 
 " VIM OPTIONS {{{
@@ -208,8 +210,10 @@ nnoremap <silent> <M-2> :<C-u>tabnext<CR>
 inoremap <silent> <M-2> <Esc>:<C-u>tabnext<CR>
 nnoremap <silent> <M-!> :<C-u>tabmove -1<CR>
 inoremap <silent> <M-!> <Esc>:<C-u>tabmove -1<CR>
-nnoremap <silent> <Esc>@ :<C-u>tabmove +1<CR>
-inoremap <silent> <Esc>@ <Esc>:<C-u>tabmove +1<CR>
+"nnoremap <silent> <Esc>@ :<C-u>tabmove +1<CR>
+"inoremap <silent> <Esc>@ <Esc>:<C-u>tabmove +1<CR>
+nnoremap <silent> <M-@> :<C-u>tabmove +1<CR>
+inoremap <silent> <M-@> <Esc>:<C-u>tabmove +1<CR>
 " }}}
 " <C-Up/Down/Left/Right><M-Up/Down/Left/Right> FOR TMUX {{{
 if $TMUX !=# ''
@@ -408,7 +412,7 @@ xnoremap <BS> x
 " ,y ,p ,yf ,P : YANKING AND PASTING {{{
 xnoremap <Leader>y "+ygv"*y`>
 nnoremap <Leader>yf :let @+=expand("%")<CR>:echo 'copied '.expand("%")<CR>
-nnoremap <Leader>yo :let @+=expand("%:t")<CR>:echo 'copied '.expand("%:o")<CR>
+nnoremap <Leader>yo :let @+=expand("%:t")<CR>:echo 'copied '.expand("%:t")<CR>
 nnoremap <Leader>p "+gp
 inoremap <C-o>p <Left><Right><C-o>p<End>
 "}}}

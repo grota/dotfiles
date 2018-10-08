@@ -16,9 +16,6 @@
 [submodule "vim/dotvim/bundle/gregsexton_gitv"]
 	path = vim/dotvim/bundle/gregsexton_gitv
 	url = git://github.com/gregsexton/gitv.git
-[submodule "vim/dotvim/bundle/ervandew_supertab"]
-	path = vim/dotvim/bundle/ervandew_supertab
-	url = git://github.com/ervandew/supertab
 [submodule "vim/dotvim/bundle/tpope_vim-surround"]
 	path = vim/dotvim/bundle/tpope_vim-surround
 	url = git://github.com/tpope/vim-surround
@@ -70,9 +67,6 @@
 [submodule "vim/dotvim/bundle/vim-scripts_gitignore"]
 	path = vim/dotvim/bundle/vim-scripts_gitignore
 	url = git://github.com/vim-scripts/gitignore.git
-[submodule "vim/dotvim/bundle/joonty_vdebug"]
-	path = vim/dotvim/bundle/joonty_vdebug
-	url = git://github.com/joonty/vdebug.git
 [submodule "vim/dotvim/bundle/AndrewRadev_multichange"]
 	path = vim/dotvim/bundle/AndrewRadev_multichange
 	url = git://github.com/AndrewRadev/multichange.vim.git
@@ -187,3 +181,6 @@
 [submodule "vim/dotvim/bundle/posva_vim-vue"]
 	path = vim/dotvim/bundle/posva_vim-vue
 	url = https://github.com/posva/vim-vue.git
+[submodule "vim/dotvim/bundle/vdebug_vdebug"]
+	path = vim/dotvim/bundle/vdebug_vdebug
+	url = https://github.com/vim-vdebug/vdebug.git

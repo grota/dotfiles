@@ -27,7 +27,7 @@ alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias L='less -R'
 alias df='df -h'
 alias l='ls -CF --group-directories-first'
-#alias ll='ls -AlFhrt --group-directories-first'
+alias ll='ls -AlFhrt --group-directories-first'
 alias ls='ls --color=auto --group-directories-first'
 alias sl=ls
 alias fire='firefox -Profilemanager -no-remote &> /dev/null &'
