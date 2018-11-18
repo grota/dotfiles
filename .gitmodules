@@ -34,9 +34,6 @@
 [submodule "vim/dotvim/bundle/tpope_vim-pathogen"]
 	path = vim/dotvim/bundle/tpope_vim-pathogen
 	url = git://github.com/tpope/vim-pathogen.git
-[submodule "vim/dotvim/bundle/shawncplus_phpcomplete.vim"]
-	path = vim/dotvim/bundle/shawncplus_phpcomplete.vim
-	url = git://github.com/shawncplus/phpcomplete.vim.git
 [submodule "vim/dotvim/bundle/guns_xterm_color_table.vim"]
 	path = vim/dotvim/bundle/guns_xterm_color_table.vim
 	url = git://github.com/guns/xterm-color-table.vim.git
@@ -184,3 +181,36 @@
 [submodule "vim/dotvim/bundle/vdebug_vdebug"]
 	path = vim/dotvim/bundle/vdebug_vdebug
 	url = https://github.com/vim-vdebug/vdebug.git
+[submodule "vim/dotvim/bundle/leafgarland_typescript-vim"]
+	path = vim/dotvim/bundle/leafgarland_typescript-vim
+	url = https://github.com/leafgarland/typescript-vim.git
+[submodule "vim/dotvim/bundle/HerringtonDarkholme_yats-vim"]
+	path = vim/dotvim/bundle/HerringtonDarkholme_yats-vim
+	url = https://github.com/HerringtonDarkholme/yats.vim.git
+[submodule "vim/dotvim/bundle/ervandew_supertab"]
+	path = vim/dotvim/bundle/ervandew_supertab
+	url = https://github.com/ervandew/supertab.git
+[submodule "vim/dotvim/bundle/JamshedVesuna_vim-markdown-preview"]
+	path = vim/dotvim/bundle/JamshedVesuna_vim-markdown-preview
+	url = https://github.com/JamshedVesuna/vim-markdown-preview.git
+[submodule "vim/dotvim/bundle/autozimu_LanguageClient-neovim"]
+	path = vim/dotvim/bundle/autozimu_LanguageClient-neovim
+	url = https://github.com/autozimu/LanguageClient-neovim.git
+[submodule "vim/dotvim/bundle/mattn_emmet-vim"]
+	path = vim/dotvim/bundle/mattn_emmet-vim
+	url = https://github.com/mattn/emmet-vim.git
+[submodule "vim/dotvim/bundle/mhartington_nvim-typescript"]
+	path = vim/dotvim/bundle/mhartington_nvim-typescript
+	url = https://github.com/mhartington/nvim-typescript.git
+[submodule "vim/dotvim/bundle/pangloss_vim-javascript"]
+	path = vim/dotvim/bundle/pangloss_vim-javascript
+	url = https://github.com/pangloss/vim-javascript.git
+[submodule "vim/dotvim/bundle/roxma_LanguageServer-php-neovim"]
+	path = vim/dotvim/bundle/roxma_LanguageServer-php-neovim
+	url = https://github.com/roxma/LanguageServer-php-neovim.git
+[submodule "vim/dotvim/bundle/shougo_deoplete.nvim"]
+	path = vim/dotvim/bundle/shougo_deoplete.nvim
+	url = https://github.com/Shougo/deoplete.nvim.git
+[submodule "vim/dotvim/bundle/shougo_echodoc.vim"]
+	path = vim/dotvim/bundle/shougo_echodoc.vim
+	url = https://github.com/Shougo/echodoc.vim.git

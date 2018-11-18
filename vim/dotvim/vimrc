@@ -128,6 +128,7 @@ set nrformats-=octal
 " punctuation like `.`.
 set nojoinspaces
 set formatoptions+=j
+set noshowmode
 "}}}
 
 " VIM PLAIN MAPPINGS {{{
@@ -438,7 +439,7 @@ inoremap <M-w> <C-o>dW
 inoremap <M-d> <C-o>dw
 inoremap <C-w> <C-o>dB
 inoremap <C-d> <C-o>db
-inoremap <C-y> <C-o>P
+"inoremap <C-y> <C-o>P
 " this is actually <C-->
 inoremap <C-_> <C-y>
 inoremap <C-b> <BS>
@@ -843,14 +844,6 @@ xnoremap <expr> <silent> i targets#e('i')
 " Supertab {{{
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabLongestHighlight = 1
-" Supertab takes care of the following, which are not needed anymore, I keep
-" these here for future reference.
-" This is done to select the first entry in the menu. Not very useful, but still.
-" This also renders the longest value in completeopt pretty useless.
-" with menuone in completeopt, the pum is always visible
-"inoremap <expr> <C-X><C-O> pumvisible() ? '<C-X><C-O><C-N><C-P>' : '<C-X><C-O>'
-"inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-"inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
 "}}}
 " DirDiff {{{
 " ,dj ,dk per diff
@@ -1032,7 +1025,6 @@ augroup grota_autocommands
     autocmd FileType php setlocal relativenumber
           \| setlocal number
           \| setlocal formatoptions-=w
-          \| call SuperTabSetDefaultCompletionType("<c-p>")
   endif
   " Auto close the preview window that pops up in php omnicomplete mode
   " DiffGitCached is opened in a preview window so we check for ft=php
@@ -1050,9 +1042,6 @@ augroup grota_autocommands
   autocmd Filetype qf setlocal nonumber
   " restore default functionality.
   autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-  " html,xhtml,xml: use Omnicomplete for (super)tab, don't autoclose <>
-  autocmd Filetype html,xhtml,xml call SuperTabSetDefaultCompletionType("<c-x><c-o>")
-        \| let b:delimitMate_matchpairs = "(:),[:],{:}"
   autocmd InsertEnter *
         \ if &background == 'dark' |
         \ hi CursorLine ctermbg=17 |

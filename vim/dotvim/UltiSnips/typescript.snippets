@@ -1,0 +1,14 @@
+snippet ancl "export class"
+import { Component } from '@angular/core'
+
+@Component({
+	selector: 'app-${2}',
+  templateUrl: '${3}.html'
+})
+export class $1 {
+}
+endsnippet
+
+snippet cl
+console.log('$1', $1);
+endsnippet
