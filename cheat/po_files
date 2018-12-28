@@ -1,0 +1,21 @@
+# How to generate a .pot file from a .po file.
+
+`msgfilter -i xx.po -o new.pot true`
+
+# How to update a .po file with new strings coming from an updated .pot file
+
+Vedi <http://www.gnu.org/savannah-checkouts/gnu/gettext/manual/html_node/msgmerge-Invocation.html>
+
+
+[[!format txt """
+msgmerge -U --previous existing.po reference.po[t]
+
+-U         = update existing.po
+--previous = Keep the previous msgids of translated messages, marked with #|, when adding the fuzzy marker to such messages.
+"""]]
+
+The `reference.po[t]` file is:
+
+* the last created PO file with up-to-date source references but old translations
+* or a POT Template file; any translations or comments in the file will be discarded, however dot comments and file positions will be preserved.
+

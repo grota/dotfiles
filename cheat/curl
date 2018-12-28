@@ -1,6 +1,8 @@
--d form_key=CnbzMWzxaSkQkAJJOZNm POST PARAMS
+-X POST
+-d 'form_key=value1&anotherkey=value2&.....' POST PARAMS
 -d @filename.json (json in request body)
--H 'Accept: text/html,...' header -H can be repeated
 --trace filename To check that all headers/params are ok
 -A '...' Sets the user agent
 -e 'http://...' referer
+-H 'Accept: text/html,...' header -H can be repeated
+-i get response headers

@@ -1,51 +1,59 @@
 # vim: set ft=gitconfig:
-[color]
-	ui = true
-
-[alias]
-	st = status -s
-	ci = commit
-	civ = commit -v
-	co = checkout
-	rv = remote -v
-	psuh = push
-	ll = log --oneline --graph --decorate --all
-	l = log --oneline --decorate
-	h = help
-	d = diff
-	ctags = !.git/hooks/ctags
-	standup = log --all --author=\"Giuseppe Rota\" --name-status --no-merges --author-date-order --since=\"3 days ago\"
-	insthooks = !${DOTFILESREPO}/bin/install_git_hooks
-	instdrupalaliases = "!${DOTFILESREPO}/bin/install_git_drupal_aliases;"
-
-# Defines a diff mode, you can then put in .gitattributes
-# *.prpt diff=unzipca
-[diff "unzipca"]
-	textconv = unzip -c -aa
-
-[advice]
-	statusHints = false
-[diff]
-	mnemonicprefix = true
-[merge]
-	tool = vimdiff
-
-[rerere]
-	enabled = 1
 [core]
-    excludesfile = ~/.global_gitignore
-	filemode = false
+  excludesfile = ~/.global_gitignore
+  filemode = false
+[color]
+  ui = true
+[color "diff-highlight"]
+  oldNormal = "red bold"
+  oldHighlight = "red bold 52"
+  newNormal = "green bold"
+  newHighlight = "green bold 22"
+[color "diff"]
+  meta = "yellow dim"
+  frag = magenta
+  commit = "yellow bold"
+  old = "red bold"
+  new = "green bold"
+  whitespace = "red reverse"
+[alias]
+  st = status -s
+  ci = commit
+  civ = commit -v
+  co = checkout
+  rv = remote -v
+  psuh = push
+  ll = log --oneline --graph --decorate --all
+  l = log --oneline --decorate
+  h = help
+  d = diff
+  ctags = !.git/hooks/ctags
+  standup = log --all --author=\"Giuseppe Rota\" --name-status --no-merges --author-date-order --since=\"3 days ago\"
+  insthooks = !${DOTFILESREPO}/bin/install_git_hooks
+  instdrupalaliases = "!${DOTFILESREPO}/bin/install_git_drupal_aliases;"
+  ;df = "!f() { [ -z \"$GIT_PREFIX\" ] || cd \"$GIT_PREFIX\" && git diff --color \"$@\" | diff-so-fancy  | less --tabs=4 -RFX -+S --pattern '^(added|deleted|modified): |^commit'; }; f"
+[advice]
+  statusHints = false
+[diff]
+  mnemonicprefix = true
+[rerere]
+  enabled = 1
 [gui]
-    fontui = -family FreeSans -size 11 -weight bold -slant roman -underline 0 -overstrike 0
-    fontdiff = -family \"Courier 10 Pitch\" -size 11 -weight normal -slant roman -underline 0 -overstrike 0
+  fontui = -family FreeSans -size 11 -weight bold -slant roman -underline 0 -overstrike 0
+  fontdiff = -family \"Courier 10 Pitch\" -size 11 -weight normal -slant roman -underline 0 -overstrike 0
 [pager]
-    status = true
+  status = cat
+  ;diff-highlight is in git-contrib, diff-so-fancy lives here https://github.com/so-fancy/diff-so-fancy
+  ;show = diff-highlight | less --tabs=4 -RFX
+  ;diff = diff-highlight | less --tabs=4 -RFX
+  diff = diff-so-fancy | less --tabs=4 -RFX -+S --pattern '^(added|deleted|modified): |^commit'
+  show = diff-so-fancy | less --tabs=4 -RFX -+S --pattern '^(added|deleted|modified): |^commit'
 [include]
-    path = ~/.gitconfig_private
+  path = ~/.gitconfig_private
 [push]
-	default = current
+  default = current
 [tig "bind"]
-    diff = <up> move-up
-    diff = <down> move-down
+  diff = <up> move-up
+  diff = <down> move-down
 [credential]
-	helper = store
+  helper = store

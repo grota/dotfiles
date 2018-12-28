@@ -1,0 +1,7 @@
+GENERATE LIST IN ARCHIVE: find . > /home/grota/Dropbox/Docs/aws_glacier/lista_.......txt
+GENERATE ARCHIVE: tar cfJ ../some_archive.tar.xz .
+
+https://github.com/uskudnik/amazon-glacier-cmd-interface
+glacier-cmd upload --partsize 1 --description="some desc" Ricordi some_archive.tar.xz
+
+https://github.com/vsespb/mt-aws-glacier

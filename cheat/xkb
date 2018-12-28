@@ -1,0 +1,1 @@
+xkbcomp $DISPLAY /tmp/xkb.dump
