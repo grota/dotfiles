@@ -8,10 +8,13 @@ fi
 
 trap "rm -f .git/tags.$$" EXIT
 
-EXTRA_EXCLUDE=''
+EXTRA_OPTION=''
 if [ -f index.php ] && [ -d sites ] && [ -d modules ] && [ -d themes ]; then
-  echo Found Drupal, excluding 'sites/*/files'
-  EXTRA_EXCLUDE="--exclude=sites/*/files --exclude=cache --exclude=spark.phar --exclude=node_modules"
+  echo Found Drupal
+  EXTRA_OPTION="--options=$DOTFILESREPO/ctags/drupal.ctags"
 fi
-ctags --tag-relative=yes -Rf.git/tags.$$ --exclude=.git --languages=-javascript,sql,C++,C,HTML,Ruby --kinds-PHP=-a $EXTRA_EXCLUDE
+# forced for the moment
+EXTRA_OPTION="--options=$DOTFILESREPO/ctags/drupal.ctags"
+FUGITIVE_COMPATIBLE_OPTION="--options=$DOTFILESREPO/ctags/relative_format.ctags"
+ctags -Rf.git/tags.$$ $EXTRA_OPTION "$FUGITIVE_COMPATIBLE_OPTION"
 mv .git/tags.$$ .git/tags

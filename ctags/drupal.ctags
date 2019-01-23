@@ -1,0 +1,7 @@
+--langmap=php:+.module.engine.inc.theme.install
+#exclude use statements
+--kinds-PHP=-a
+--exclude=sites/*/files
+--languages=-javascript,sql,C++,C,HTML,Ruby,CSS,JSON,Diff
+--exclude=node_modules
+--exclude=cache

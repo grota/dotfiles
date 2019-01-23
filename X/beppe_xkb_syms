@@ -1,0 +1,10 @@
+xkb_symbols "beppe" {
+    key <SPCE> { [ space, space, Prior, Next ] };
+    key <BKSP> { [ BackSpace, BackSpace, Delete, BackSpace ] };
+    key <AE01> { [ 1, exclam, F1, exclamdown ] };
+    key <AE02> { [ 2, at, F2, twosuperior ] };
+    key <AE03> { [ 3, numbersign, F3,  threesuperior ] };
+    key <AE04> { [ 4, dollar, F4, currency ] };
+    key <AE05> { [ 5, percent, F5, Eurosign ] };
+    key <ESC>  { [ Escape, grave, asciitilde ] };
+};

@@ -585,11 +585,11 @@ augroup END
 " CONTRIB PLUGINS MAPPINGS AND SETTINGS {{{
 " vim-cycle {{{
 augroup grota_autocommands
-  autocmd FileType php call AddCycleGroup('php.drupal', ['TRUE', 'FALSE', 'false', 'true'])
+  autocmd FileType php call AddCycleGroup('php', ['TRUE', 'FALSE', 'false', 'true'])
 augroup END
 " }}}
 " tagbar plugin {{{
-nnoremap <silent> <F10> :TagbarToggle<CR>
+nnoremap <silent> <leader>tb :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
 let g:tagbar_type_php = {
       \ 'kinds' : [
@@ -602,6 +602,11 @@ let g:tagbar_type_php = {
       \ }
 nnoremap <silent> <leader>fs :TagbarCurrentTag 'p'<CR>
 "}}}
+" Gutentags {{{
+let g:gutentags_ctags_tagfile = './.git/tags'
+" Use same options as git hooks
+let g:gutentags_ctags_extra_args = ['--options=' . $DOTFILESREPO . '/ctags/relative_format.ctags']
+" }}}
 " Fugitive {{{
 augroup grota_autocommands
   autocmd BufEnter fugitive://**//[0-3]/** let b:autotagDisabled=1
@@ -676,26 +681,15 @@ nnoremap <C-b> :let g:ctrlp_default_input = 1\|:silent echo g:ctrlp_default_inpu
 " Show only mru files in the current working directory
 let g:ctrlp_mruf_relative = 1
 let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_highlight_match = [1, 'Pmenu']
-let g:ctrlp_open_multiple_files = '1vr'
-let g:ctrlp_max_height = 20
 " only jump to the buffer if it’s opened in the current tab
-let g:ctrlp_switch_buffer = 'E'
-" "w": current word
-" "s": search
-" "v": visual
-" "c": clipboard
 let g:ctrlp_prompt_mappings = {
-      \ 'PrtInsert("w")':       ['<F2>', '<M-w>'],
-      \ 'PrtInsert("s")':       ['<F3>', '<M-s>'],
-      \ 'PrtInsert("v")':       ['<F4>', '<M-v>'],
-      \ 'PrtInsert("c")':       ['<F6>', '<M-c>'],
-      \ 'PrtCurLeft()':         ['<m-h>', '<left>', '<c-^>'],
+      \ 'PrtCurLeft()':         ['<m-h>', '<left>'],
       \ 'AcceptSelection("h")': ['<c-h>', '<c-s>'],
-      \ 'AcceptSelection("t")': ['<c-t>', '<F3>'],
+      \ 'AcceptSelection("t")': ['<c-t>'],
       \ 'PrtDeleteWord()':      ['<plug>Noop'],
       \ 'PrtExpandDir()':       ['<plug>Noop'],
       \ 'AcceptSelection("e")': ['<plug>Noop'],
+      \ 'PrtDeleteEnt()':       ['<c-x>'],
       \}
 
 function! s:AcceptSelectionE()
@@ -776,35 +770,13 @@ func! GrotaCtrlpMappings()
     nnoremap <buffer> <silent> <C-w> :<C-u>call <sid>PrtDeleteWord()<cr>
     nnoremap <buffer> <silent> <Tab> :<C-u>call <sid>PrtExpandDir()<cr>
     nnoremap <buffer> <silent> <cr>  :<C-u>call <sid>AcceptSelectionE()<cr>
-    nnoremap <buffer> <silent> <C-x> :<C-u>call <sid>DeleteBuffer()<cr>
-endfunc
-func! s:DeleteBuffer()
-  let bufname = getline('.')[2:]
-  if bufname =~# 'No Name'
-    let starsep = split(bufname, '*')
-    let other = starsep[0][1:]
-    let bufname = other
-  else
-    let bufname = fnamemodify(bufname, ':p')
-  endif
-  exec "silent! bdelete" bufname
-  exec "norm \<F5>"
-  " unmark buffers that have been deleted
-  silent! call ctrlp#clearmarkedlist()
-
-  let currln = line('.')
-  let lastln = line('$')
-  " preserve line selection
-  if line('.') == currln && line('$') < lastln
-    exec "normal \<up>"
-  endif
 endfunc
 "}}}
 " w0rp/ale {{{
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 "let g:ale_set_loclist = 0
-"let g:ale_set_quickfix = 1
+let g:ale_set_quickfix = 1
 nnoremap <leader>st :ALEToggle<CR>
 "}}}
 " vim-markology {{{
@@ -942,9 +914,6 @@ omap T <Plug>Sneak_T
 " vim-easy-align {{{
 vmap <leader>a <Plug>(EasyAlign)
 nmap <leader>a <Plug>(EasyAlign)
-" }}}
-" thinca vim-localrc {{{
-let g:localrc_filename = 'local.vimrc'
 " }}}
 " airblade gitgutter {{{
 let g:gitgutter_eager = 0
@@ -1086,4 +1055,4 @@ let g:sparkupNextMapping = '<Plug>SparkupNextMapping'
 "}}}
 " }}}
 
-silent! so local.vimrc
+silent! so .local.vimrc

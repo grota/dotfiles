@@ -1,0 +1,100 @@
+#snippet php
+#<?php
+#${1}
+#?>
+#endsnippet
+
+#snippet phpil
+#<?php ${1} ?>
+#endsnippet
+
+snippet el
+error_log('${1:var}');
+endsnippet
+
+snippet elv
+error_log('${1:var}= ' . print_r($$1, TRUE));
+endsnippet
+
+snippet elf
+error_log(print_r(__FUNCTION__, TRUE));
+endsnippet
+
+snippet ev
+error_log('${1:var}= ' . var_export($$1, TRUE));
+endsnippet
+
+snippet fun
+function ${1}(${2}) {
+}
+endsnippet
+
+snippet funp
+${1:public }function ${2}(${3}) {
+${4:// code...}
+}
+endsnippet
+
+snippet try
+try {
+${2}
+} catch (${1:Exception} $e) {
+}
+endsnippet
+
+snippet foreachk
+foreach ($${1:variable} as $${2:key} => $${3:value}) {
+${4:// code...}
+}
+endsnippet
+
+snippet if
+if (${1}) {
+}
+endsnippet
+
+snippet ife
+if (${1}) {
+${2}
+} else {
+${3}
+}
+${4}
+endsnippet
+
+snippet else
+else {
+${1}
+}
+endsnippet
+
+snippet elseif
+elseif (${1:/* condition */}) {
+${2:// code...}
+}
+endsnippet
+
+snippet /*
+/**
+ * ${1}
+ */
+endsnippet
+
+snippet inhdoc
+/**
+ * {@inheritdoc}
+ */
+endsnippet
+
+snippet switch
+switch ($${1:variable}) {
+case '${2:value}':
+${3:// code...}
+break;
+${5}
+default:
+${4:// code...}
+break;
+}
+endsnippet
+

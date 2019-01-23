@@ -1,5 +1,8 @@
-   | .gitignore | .agignore |   hidden  |   binary  |
--u | non segue  | non segue | considera | considera | considera tutto
--a | non segue  | non segue |           | considera | considera tutto esclusi gli hidden
--t | non segue  | non segue |           |           | considera tutto esclusi gli hidden e binary
--U | non segue  |           |           |           | smette solo di rispettare .gitignore
+Makes sense to use -U during development and in case switch to -t when you need to ignore the `.ignore`.
+Also remember alias ff to search files matching a pattern: `ff Render -U`
+
+   | .gitignore       | .ignore          | hidden   | binary   |
+-u | non lo considera | non lo considera | li cerca | li cerca | cerca in tutto
+-a | non lo considera | non lo considera |          | li cerca | cerca in tutto meno gli hidden
+-t | non lo considera | non lo considera |          |          | cerca in tutto meno gli hidden e binary
+-U | non lo considera |                  |          |          | smette solo di rispettare .gitignore

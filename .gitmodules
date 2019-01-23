@@ -85,9 +85,6 @@
 [submodule "vim/dotvim/bundle/zef_vim-cycle"]
 	path = vim/dotvim/bundle/zef_vim-cycle
 	url = git@github.com:zef/vim-cycle.git
-[submodule "vim/dotvim/bundle/craigemery_vim-autotag"]
-	path = vim/dotvim/bundle/craigemery_vim-autotag
-	url = git@github.com:craigemery/vim-autotag.git
 [submodule "bin/drush"]
 	path = bin/drush
 	url = git@github.com:drush-ops/drush.git
@@ -214,3 +211,9 @@
 [submodule "vim/dotvim/bundle/shougo_echodoc.vim"]
 	path = vim/dotvim/bundle/shougo_echodoc.vim
 	url = https://github.com/Shougo/echodoc.vim.git
+[submodule "vim/dotvim/bundle/ludovicchabant-vim-gutentags"]
+	path = vim/dotvim/bundle/ludovicchabant-vim-gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags.git
+[submodule "vim/dotvim/bundle/arnaud-lb-vim-php-namespace"]
+	path = vim/dotvim/bundle/arnaud-lb-vim-php-namespace
+	url = https://github.com/arnaud-lb/vim-php-namespace.git

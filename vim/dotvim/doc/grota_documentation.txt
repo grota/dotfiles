@@ -5,13 +5,12 @@ This file describes the mappings in .vimrc                 *grota_documentation*
 ==============================================================================
 
       TO LEARN
-<leader>P   linewise paste
-v_r         visual mode replace (with unnamed register)
-o_il        inner line
+i_CTRL-f     Same as == but from insert mode
 o_i#        inner comment
 o_[iao]i    inner/around/only indent
 <leader>I/A Prepend/Append to all adjacent lines with same indentation
 <leader>bd delete buffer without save confirmation
+
 cx<movement like w,i'> followed by . or by another cx<movement>
 (a)round/(i)nner  (n)ext/(l)ast  b()/B{}/r[]
 (a)round/(i)nner  (v)ariable (php, js, ruby)
@@ -19,70 +18,31 @@ cx<movement like w,i'> followed by . or by another cx<movement>
 (a)round/(i)nner  (r)   (mnemonic: "ruby block")
 blockwise visual mode works well to enclose each line in quotes.
 repeat last commandline command: @:
-<leader>q Quickfix toggle
-<leader>l Loclist  toggle
-<leader>gg  :Glgrep
-<leader>gq  :lgrep
 i_<C-G>s     tpope's surround in insert mode. Accepts <CR> after s.
 (also, look out for new possible surroundings like <?php, html or erb
 that you may want, surround is flexible)
 i/n_<M-o>    Autopair Jump
 (s)eek/(S)eek xx
-<leader>C    Cycle between TRUE/FALSE, ==/!=
-<leader>fs   current tag
 s search forward, S backwards
-nx_<leader>a to align
 s<enter>
 <leader>sm   Space map/unmap
-<leader>v    Send to tmux
-<leader>t/T  Send Test (focused) to tmux (works with <leader>lc)
-<leader>rl   :VimuxRunLastCommand
-
-i_<C-B>      expand SnipMate, move to next token
-i_<C-R><C-B> to see SnipMate completions
 
 g/           IndexedSearch: shows at which match index you are
-i_CTRL-f     Same as == but from insert mode
 i_CTRL-u     Delete till start of line
 
-      LUSTY
-<C-\>         :LustyJuggler
-  v,b           vert/horz buffer opening in lusty-juggler
-<C-b>         :LustyFilesystemExplorerFromHere
-  <C-o>         open selected match in a new h[o]rizontal split
-  <C-v>         open selected match in a new [v]ertical split
-  <C-t>         open selected match in a new [t]ab
-  <C-w>         ascend one directory at prompt
-  <C-r>         [r]efresh directory contents
-  <C-a>         open [a]ll files in current table
-  <C-e>         create new buffer with the given name and path
-  <C-u>         clear prompt
-
       CTRLP
-<C-f> :CtrlPLastMode
   <C-z>, <C-o> Mark, Open multi files
   <C-a>, <C-e> start,end
   <C-u>, <C-w> clear all, clear word
   <C-t>, <C-v>, <C-s> open in tab, vert, horz
-  <C-n>, <C-p> next/prev in ctrlp history
-  <C-r>  ToggleRegex
-  <C-d>  ToggleByFname
-  <c-\> Open dialog to paste one of the below:
-    <M-w> insert word under cursor, <M-s> insert last search pattern
-    <M-v> insert last selected piece, <M-c> insert content of + reg
-<M-g> :CtrlPLine
-<M-b> :CtrlPBuffer
-  <C-x> Delete Buffer
 
       VARIOUS
 <leader>gl :<C-U>Gitv --all<CR>
-<leader>ww :pwd
 {dcv}    {ia}{,} delete-change-visual inner-around argument
 |surround|   ysiw'  add '' around the word
 |surround|   cs)(   change only the spacing, since the opening braces {[( do have spacing
 
 * |surround| cs'"  change quote type (another example: cs>")
-* |surround| ds)   delete the surrounding ()
 * |surround| vS>   in char visual aggiunge <> al testo selezionato. (altro esempio: vSt aggiunge tag)
 * |surround| yss"  wrappa la linea con ""
 * |surround| ySS}  wrappa la linea con {}. La linea e' su newline indentata. Ma a sto punto usa line visual con S{
@@ -94,11 +54,6 @@ i_CTRL-u     Delete till start of line
 
 :Linediff (twice, from visual mode). :LinediffReset
 i_ <C-l> <C-h> <C-j> <C-k> wordwise movement
-<F1> window only
-<F2> window close
-<F3> tab close
-<F10> to toggle the tagbar panel
-<C-g> clear the search highlight followed by <C-g>
 <C-n> <C-p> :bn :bp
 <M-up><M-down>  move line(s) up/down in normal,insert,visual mode
 |yankring| <M-.> <M-,> Yankring next/prev
@@ -106,21 +61,29 @@ i_ <C-l> <C-h> <C-j> <C-k> wordwise movement
 |fugitive|
   <M-d>       :Gdiff
   <leader>gs  :Gstatus
-  <leader>gw  :Gwrite
-  <leader>gc  :Gcommit -v
-
 
 usually overridden by ftplugins: |[[| |]]| ( |[m| |]m| |[M| |]M| )
 
-the <M-?> options are set for gnome-terminal and other X terminal
-emulators to enable Alt keys, They seem to work in xterm too. See
-http://vim.wikia.com/wiki/Get_Alt_key_to_work_in_terminal
-The catch is that also <Esc>? works :/ even if that does not seem
-to be a problem for now.
 
-The following should already be set in vim because my shell rc files
-set TERM=xterm-256color in gnome-terminal, see
-http://vim.wikia.com/wiki/256_colors_in_vim >
-    set t_Co=256
-<
+      LEARNED (reminder)
+
+<leader>P   linewise paste
+v_r         visual mode replace (with unnamed register)
+o_il        inner line
+<leader>q <leader>l
+<leader>gg <leader>gq
+<leader>fs   current tag
+<leader>ww :pwd
+|surround| ds)   delete the surrounding ()
+<C-g> clear the search highlight followed by <C-g>
+<M-d>  :Gdiff <M-s>  :Gstatus
+<leader>gw  :Gwrite
+
+      CTRLP
+<C-\> Open dialog
+<C-n> <C-p> next/prev in ctrlp history
+<C-r> ToggleRegex
+<C-d> ToggleByFname
+<C-x> Delete Buffer
+
 vim:tw=78:ts=8:ft=help:norl:
