@@ -42,7 +42,12 @@ ${2}
 }
 endsnippet
 
-snippet foreachk
+snippet fea
+foreach ($${1:variable} as $${2:value}) {
+}
+endsnippet
+
+snippet feak
 foreach ($${1:variable} as $${2:key} => $${3:value}) {
 ${4:// code...}
 }
@@ -89,12 +94,10 @@ endsnippet
 snippet switch
 switch ($${1:variable}) {
 case '${2:value}':
-${3:// code...}
-break;
-${5}
+  break;
+
 default:
-${4:// code...}
-break;
+  break;
 }
 endsnippet
 

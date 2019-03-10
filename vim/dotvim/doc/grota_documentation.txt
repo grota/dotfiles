@@ -5,6 +5,7 @@ This file describes the mappings in .vimrc                 *grota_documentation*
 ==============================================================================
 
       TO LEARN
+i_<C-j> i_<C-k> UltiSnips placeholders nav once expanded.
 i_CTRL-f     Same as == but from insert mode
 o_i#        inner comment
 o_[iao]i    inner/around/only indent

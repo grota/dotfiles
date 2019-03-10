@@ -560,7 +560,7 @@ onoremap <silent> oi :<c-u>call <SID>indent_object('==', 0, line('.'), line('.')
 " }}}
 " Prepend/Append to all adjacent lines with same indentation: <leader>I <leader> A {{{
 " For I we need to use nnoremap because wellle_targets defines the x_I... mappings.
-nnoremap <leader>I ^v:<c-u>call <SID>indent_object('==', 0, line("'<"), line("'>"), 0, 0)<cr><C-V>I
+"nnoremap <leader>I ^v:<c-u>call <SID>indent_object('==', 0, line("'<"), line("'>"), 0, 0)<cr><C-V>I
 nmap <silent> <leader>A ^voi<C-V>$A
 xnoremap <expr> $ (mode() == "\<C-V>") ? "$" : "g_"
 xnoremap <expr> <END> (mode() == "\<C-V>") ? "$" : "g_"
@@ -583,6 +583,16 @@ augroup END
 " }}}
 
 " CONTRIB PLUGINS MAPPINGS AND SETTINGS {{{
+" phpactor {{{
+nnoremap <Leader>mm :call phpactor#ContextMenu()<CR>
+nnoremap <Leader>tt :call phpactor#Transform()<CR>
+" Extract expression (normal mode)
+nnoremap <silent><Leader>ex :call phpactor#ExtractExpression(v:false)<CR>
+" Extract expression from selection
+xnoremap <silent><Leader>ex:<C-U>call phpactor#ExtractExpression(v:true)<CR>
+" Extract method from selection
+xnoremap <silent><Leader>em :<C-U>call phpactor#ExtractMethod()<CR>
+" }}}
 " vim-cycle {{{
 augroup grota_autocommands
   autocmd FileType php call AddCycleGroup('php', ['TRUE', 'FALSE', 'false', 'true'])
@@ -776,7 +786,7 @@ endfunc
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 "let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
+"let g:ale_set_quickfix = 1
 nnoremap <leader>st :ALEToggle<CR>
 "}}}
 " vim-markology {{{
@@ -806,12 +816,12 @@ function! AirlineThemePatch(palette)
           \ a:palette['replace']['airline_a'])
 endfunction
 " }}}
-" Targets {{{
-let g:targets_aiAI = 'aIAi'
+" wellle_targets {{{
+"let g:targets_aiAI = 'aIAi'
 " The rhs with the above is by default targets#e('i'), but there are
 " other xmaps starting with i so there would be lag.
-xnoremap <expr> <silent> I targets#e('I')
-xnoremap <expr> <silent> i targets#e('i')
+"xnoremap <expr> <silent> I targets#e('I')
+"xnoremap <expr> <silent> i targets#e('i')
 " }}}
 " Supertab {{{
 let g:SuperTabDefaultCompletionType = "context"
@@ -834,11 +844,9 @@ let g:Gitv_DoNotMapCtrlKey = 1
 " autopairs {{{
 " <M-p> mapped to AutoPairsToggle
 let g:AutoPairsShortcutJump='<M-o>'
-let g:AutoPairsShortcutFastWrap=''
 let g:AutoPairsMapBS = 0
 let g:AutoPairsMapCR = 0
 let g:AutoPairsMapSpace = 0
-let g:AutoPairsFlyMode = 1
 "}}}
 " Vdebug {{{
 let g:vdebug_keymap = {

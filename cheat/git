@@ -1,3 +1,5 @@
 git clean -ndX
 git status -s --ignored
 git grep patten -- './*' ':!*.js'
+
+add a line like this to .git/info/attributes: web/themes/custom/wfpspa/css/spa.css ggex. already added to gg and g g. trick is pathspec ':(attr:!ggex)'

@@ -1,0 +1,2 @@
+save as mng
+convert -reverse document.mng document.pdf

@@ -1,2 +1,0 @@
-# (( \$# )) || set -- .
-# sets \$1=. (useful to set a default for "\$@")

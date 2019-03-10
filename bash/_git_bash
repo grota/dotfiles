@@ -2,9 +2,8 @@
 # vim: set tabstop=2 shiftwidth=2 foldmethod=marker:
 
 #git aliases {{{
-alias gg='git grep --break --heading --line-number'
+alias gg="git g"
 __git_complete gg _git_grep
-alias ggo='git grepours'
 #alias gbv='git branch -avv'
 alias gbf='git branch -f'
 alias gau='git add -u :/'
