@@ -38,7 +38,8 @@ endsnippet
 snippet try
 try {
 ${2}
-} catch (${1:Exception} $e) {
+}
+catch (${1:Exception} $e) {
 }
 endsnippet
 
@@ -55,6 +56,28 @@ endsnippet
 
 snippet if
 if (${1}) {
+}
+endsnippet
+
+snippet staticdone
+static $done = FALSE;
+if (!$done) {
+	$done = TRUE;
+	${1}
+}
+endsnippet
+
+snippet globalset
+$GLOBALS['${1:grota_debug}'] = 1;
+endsnippet
+
+snippet globalunset
+unset($GLOBALS['${1:grota_debug}']);
+endsnippet
+
+snippet globalif
+if ($GLOBALS['${2:grota_debug}'] ?? 0) {
+	${1}
 }
 endsnippet
 
@@ -91,13 +114,16 @@ snippet inhdoc
  */
 endsnippet
 
+snippet log
+\Drupal::logger('temp')->debug(var_export($${1:var}, TRUE), []);
+endsnippet
+
 snippet switch
 switch ($${1:variable}) {
-case '${2:value}':
-  break;
-
-default:
-  break;
+	case '${2:value}':
+		break;
+	default:
+		break;
 }
 endsnippet
 

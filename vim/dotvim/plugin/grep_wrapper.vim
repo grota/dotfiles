@@ -1,6 +1,6 @@
 " Other possibilities include https://github.com/mileszs/ack.vim.git
 " and https://github.com/mhinz/vim-grepper.git
-nnoremap <leader>ga :call <SID>SearchWithAG('ag --vimgrep -U', '%f:%l:%c:%m')<CR>
+nnoremap <leader>ga :call <SID>SearchWithAG('ag --vimgrep -U --ignore node_modules --ignore tests --ignore Tests --ignore private/logs', '%f:%l:%c:%m')<CR>
 
 let s:loc_or_qf="loc"
 function s:SearchWithAG(grepprg, grepformat)
@@ -13,7 +13,9 @@ function s:SearchWithAG(grepprg, grepformat)
     let &l:grepprg  = a:grepprg
     let &grepformat = a:grepformat
 
-    let l:input = s:prompt(expand("<cword>"), &l:grepprg)
+    "let l:input = s:prompt(expand("<cword>"), &l:grepprg)
+    let l:input = s:prompt(@+, &l:grepprg)
+
     if (!empty(l:input))
       let l:string_cmd = ((s:loc_or_qf ==# 'loc') ? 'l' : '') . "grep! " . l:input
       execute l:string_cmd

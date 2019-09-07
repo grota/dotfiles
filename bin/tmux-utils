@@ -7,7 +7,7 @@ select_pane () {
   local PANES_IN_STARTING_WIN=$*
   # pattern must be in \n separated format for grep -F
   local EXCLUDED_PANES=$(echo "$PANES_IN_STARTING_WIN" "$THIS_SELECTION_PANE_ID"| tr ' ' '\n')
-  tmux list-panes -s -F "[w]#{window_index} #{window_name} | #{pane_current_command} | #{pane_title} | #{pane_id}" | tac | grep -wvF "$EXCLUDED_PANES"| column -s\| -t -x | $DOTFILESREPO/bin/fzf/fzf --prompt "$PROMPT"
+  tmux list-panes -s -F "[w]#{window_index} #{window_name} | #{pane_current_command} | #{pane_title} | #{pane_id}" | tac | grep -wvF "$EXCLUDED_PANES"| column -s\| -t -x | fzf --prompt "$PROMPT"
 }
 
 main() {

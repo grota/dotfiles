@@ -10,7 +10,19 @@ export DOTFILESREPO=$(readlink -f "$( dirname "$(readlink -f "${BASH_SOURCE[0]}"
 . "${DOTFILESREPO}"/bash/_drush_bashrc
 . "${DOTFILESREPO}"/bash/_vim_bash
 . "${DOTFILESREPO}"/bash/_git_bash
-. "${DOTFILESREPO}"/bash/_fzf_bash
+
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+source "${DOTFILESREPO}/bin/fzf/shell/key-bindings.bash"
+[[ $- == *i* ]] && source "${DOTFILESREPO}/bin/fzf/shell/completion.bash" 2> /dev/null
+export FZF_DEFAULT_COMMAND='(fd --no-ignore-vcs --type f --hidden --follow --exclude .git) 2> /dev/null'
+export FZF_CTRL_T_COMMAND='(fd --no-ignore-vcs --hidden --follow --exclude .git) 2> /dev/null'
 
 # aliases {{{
 function cleandocker () {
@@ -30,9 +42,9 @@ alias l='ls -CF --group-directories-first'
 alias ll='ls -AlFhrt --group-directories-first'
 alias ls='ls --color=auto --group-directories-first'
 alias sl=ls
-alias fire='firefox -Profilemanager -no-remote &> /dev/null &'
+#alias fire='firefox -Profilemanager -no-remote &> /dev/null &'
 alias ffmpeg='ffmpeg -hide_banner'
-alias ffprobe='ffprobe -hide_banner'
+#alias ffprobe='ffprobe -hide_banner'
 function cc () {
   local CHROME=google-chrome
   #local CHROME=chromium-browser
@@ -66,23 +78,6 @@ alias grep='grep --color=always -n --exclude-dir=.svn --exclude-dir=.git '
 alias ff='ag --pager=less -g'
 # there's a ss bin but that's ok for me
 alias ss='sudo su -'
-# {tl,ll,rl}php log {{{
-#alias tlphp='tail -F /tmp/php5_apache_errorlog.log'
-alias llphp='less /tmp/php5_apache_errorlog.log'
-alias rlphp='sudo rm /tmp/php5_apache_errorlog.log'
-#}}}
-# Acer specific {{{
-alias toff='xinput --disable "SynPS/2 Synaptics TouchPad"'
-alias ton='xinput --enable "SynPS/2 Synaptics TouchPad"'
-alias koff='xinput --disable "AT Translated Set 2 keyboard"'
-alias kon='xinput --enable "AT Translated Set 2 keyboard"'
-alias don='xrandr --output HDMI1 --auto --right-of LVDS1'
-alias doff='xrandr --output HDMI1 --off'
-#alias auext='pactl set-card-profile 0 output:hdmi-stereo+input:analog-stereo'
-#alias auint='pactl set-card-profile 0 output:analog-stereo+input:analog-stereo'
-#}}}
-alias unmute='amixer set "Speaker Front",0 unmute &> /dev/null'
-alias mute='amixer set "Speaker Front",0 mute &> /dev/null'
 alias update_all_dotfiles_submodules="g submodule foreach '[ \"\$path\" = \"bin/drush\" ] || (git fetch origin; git merge origin/master)'"
 #}}}
 

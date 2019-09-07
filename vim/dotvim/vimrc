@@ -129,6 +129,7 @@ set nrformats-=octal
 set nojoinspaces
 set formatoptions+=j
 set noshowmode
+set viminfo='400,<50,s10,h
 "}}}
 
 " VIM PLAIN MAPPINGS {{{
@@ -679,109 +680,13 @@ imap <M-n> <Plug>yankstack_substitute_newer_paste
 " vinegar {{{
 nmap - <Plug>VinegarVerticalSplitUp
 "}}}
-" ctrlp {{{
-let g:ctrlp_map = '<C-F>'
-let g:ctrlp_cmd = 'CtrlPMRUFiles'
-let g:ctrlp_extensions = ['dir']
-let g:ctrlp_max_files = 0
-nnoremap <silent> <C-\> :CtrlPBuffer<CR>
-" Seed the prompt with the current file's relative path
-" silent echo is required for some fucking reason
-nnoremap <C-b> :let g:ctrlp_default_input = 1\|:silent echo g:ctrlp_default_input <cr>\|:<C-u>CtrlPDir<CR>
-" Show only mru files in the current working directory
-let g:ctrlp_mruf_relative = 1
-let g:ctrlp_clear_cache_on_exit = 0
-" only jump to the buffer if it’s opened in the current tab
-let g:ctrlp_prompt_mappings = {
-      \ 'PrtCurLeft()':         ['<m-h>', '<left>'],
-      \ 'AcceptSelection("h")': ['<c-h>', '<c-s>'],
-      \ 'AcceptSelection("t")': ['<c-t>'],
-      \ 'PrtDeleteWord()':      ['<plug>Noop'],
-      \ 'PrtExpandDir()':       ['<plug>Noop'],
-      \ 'AcceptSelection("e")': ['<plug>Noop'],
-      \ 'PrtDeleteEnt()':       ['<c-x>'],
-      \}
-
-function! s:AcceptSelectionE()
-  call ctrlp#call('s:AcceptSelection', 'e')
-  " If we are in dir mode and there are no results then move on
-  " to the next type (file) to search files in that dir
-  if s:CtrlpIsInDirModeAndNoResults()
-      call ctrlp#call('s:ToggleType', 1)
-  endif
-endfunction
-
-function! s:PrtExpandDir()
-  " Call the original function for <tab>
-  call ctrlp#call('s:PrtExpandDir')
-  " make it so that an input like ... at the beginning
-  " of the line is dealt with <tab>
-  let l:input = ctrlp#call('s:getinput')
-  call ctrlp#call('s:SpecInputs', l:input)
-  " If we are in dir mode and there are no results then move on
-  " to the next type (file) to search files in that dir
-  if s:CtrlpIsInDirModeAndNoResults()
-      call feedkeys("\<bs>\<cr>")
-  endif
-endfunction
-
-function! s:CtrlpIsInDirMode()
-  let l:ctrlp_typename = ctrlp#call('s:CurTypeName')
-  if l:ctrlp_typename[0] == 'dirs' && l:ctrlp_typename[1] == 'dir'
-      return 1
-  endif
-  return 0
-endfunction
-
-function! s:CtrlpIsInDirModeAndNoResults()
-  if s:CtrlpIsInDirMode()
-    let l:matched = ctrlp#getvar('s:matched')
-    let l:lines = ctrlp#getvar('s:lines')
-    if empty(l:matched) && empty(l:lines)
-      return 1
-    endif
-  endif
-  return 0
-endfunction
-
-function! s:PrtDeleteWord()
-  let l:input = ctrlp#call('s:getinput')
-  if empty(l:input)
-    call ctrlp#call('s:SpecInputs', '..')
-    return
-  endif
-
-  let l:focus = ctrlp#getvar('s:focus')
-  if !l:focus | return | endif
-  let l:prompt = ctrlp#getvar('s:prompt')
-  let l:matches = ctrlp#getvar('s:matches')
-  call ctrlp#call('s:PrtClear')
-  let [str, l:matches] = [l:prompt[0], 1]
-  let str = str =~ '\w\W\+$' ? matchstr(str, '^.\+\w\ze\W\+$') : str
-  let str = str =~ '\W\w\+$' ? matchstr(str, '^.\+\W\ze\w\+$')
-        \ : str =~ '\s\+$' ? matchstr(str, '^.*\S\ze\s\+$')
-        \ : str =~ '\v^(\S+|\s+)$' ? '' : str
-  let l:prompt = ctrlp#getvar('s:prompt')
-  let l:prompt[0] = str
-  call ctrlp#call('s:BuildPrompt', 1)
-endfunction
-
-let g:ctrlp_buffer_func = {
-      \ 'enter': 'GrotaCtrlpMappings',
-      \ 'exit':  'UnsetCtrlpGlobalSeedOpt',
-      \ }
-
-function! UnsetCtrlpGlobalSeedOpt()
-  " This is set by the <C-b> mapping
-  let g:ctrlp_default_input = 0
-endfunction
-
-func! GrotaCtrlpMappings()
-    nnoremap <buffer> <silent> <C-w> :<C-u>call <sid>PrtDeleteWord()<cr>
-    nnoremap <buffer> <silent> <Tab> :<C-u>call <sid>PrtExpandDir()<cr>
-    nnoremap <buffer> <silent> <cr>  :<C-u>call <sid>AcceptSelectionE()<cr>
-endfunc
-"}}}
+" fzf.vim {{{
+let g:fzf_command_prefix = 'FZF'
+nnoremap <C-\> :GrotaWipeEmptyBuffers<CR>:FZFBuffers<CR>
+nnoremap <C-f> :FZFHistory<CR>
+nnoremap <leader>ff :FZFFiles<CR>
+let $FZF_DEFAULT_COMMAND='(fd --no-ignore-vcs --type f --hidden --follow --exclude .git --exclude tests/ --exclude Tests/) 2> /dev/null'
+""}}}
 " w0rp/ale {{{
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
@@ -810,10 +715,10 @@ function! AirlineThemePatch(palette)
 
   let l:replace_b = copy(a:palette['replace']['airline_b'])
   let l:replace_b[2] = 196
-  let g:airline#themes#powerlineish#palette.ctrlp = airline#extensions#ctrlp#generate_color_map(
-          \ a:palette['replace']['airline_c'],
-          \ l:replace_b,
-          \ a:palette['replace']['airline_a'])
+  "let g:airline#themes#powerlineish#palette.ctrlp = airline#extensions#ctrlp#generate_color_map(
+          "\ a:palette['replace']['airline_c'],
+          "\ l:replace_b,
+          "\ a:palette['replace']['airline_a'])
 endfunction
 " }}}
 " wellle_targets {{{
@@ -928,9 +833,9 @@ let g:gitgutter_eager = 0
 let g:gitgutter_escape_grep = 1
 let g:gitgutter_realtime = 0
 " }}}
-" junegunn Goyo {{{
-map <leader>go :Goyo<CR>
-" }}}
+" LanguageClient {{{
+let g:LanguageClient_autoStart = 0
+"}}}
 "}}}
 
 " CUSTOM PLUGINS MAPPINGS AND SETTINGS {{{

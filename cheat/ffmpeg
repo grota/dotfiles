@@ -1,3 +1,8 @@
-ffmpeg -i INPUT.avi -vcodec copy -acodec copy -ss 00:00:00 -t 00:30:00 OUTPUT.avi
-ffmpeg -i INPUT.mp4 -c:v libx265 -preset slow -crf 28  -c:a libmp3lame -qscale:a 2 OUT.mp4
-ffmpeg -i INPUT.webm -codec:a libmp3lame -b:a 192k  OUT.mp3
+get only first 30 sec
+  ffmpeg -i INPUT.avi -vcodec copy -acodec copy -ss 00:00:00 -t 00:30:00 OUTPUT.avi
+encode x265
+  ffmpeg -i INPUT.mp4 -c:v libx265 -preset slow -crf 28  -c:a libmp3lame -qscale:a 2 OUT.mp4
+audio convert webm->mp3
+  ffmpeg -i INPUT.webm -codec:a libmp3lame -b:a 192k  OUT.mp3
+join audio and video
+ffmpeg -i INPUTVIDEO.mp4 -i INPUTAUDIO.mp4 -c:v copy -c:a copy OUT.mp4

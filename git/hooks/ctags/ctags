@@ -10,11 +10,18 @@ trap "rm -f .git/tags.$$" EXIT
 
 EXTRA_OPTION=''
 if [ -f index.php ] && [ -d sites ] && [ -d modules ] && [ -d themes ]; then
-  echo Found Drupal
+  echo Found Drupal 7
   EXTRA_OPTION="--options=$DOTFILESREPO/ctags/drupal.ctags"
 fi
-# forced for the moment
-EXTRA_OPTION="--options=$DOTFILESREPO/ctags/drupal.ctags"
+if [ -f web/index.php ] && [ -d web/sites ] && [ -d web/modules ] && [ -d web/themes ]; then
+  echo Found Drupal 8
+  EXTRA_OPTION="--options=$DOTFILESREPO/ctags/drupal.ctags"
+fi
+if [ -f .git/hooks/ctags_local_options ]; then
+  echo Adding local exclude
+  cat .git/hooks/ctags_local_options
+  EXTRA_OPTION="$EXTRA_OPTION --options=.git/hooks/ctags_local_options"
+fi
 FUGITIVE_COMPATIBLE_OPTION="--options=$DOTFILESREPO/ctags/relative_format.ctags"
 ctags -Rf.git/tags.$$ $EXTRA_OPTION "$FUGITIVE_COMPATIBLE_OPTION"
 mv .git/tags.$$ .git/tags

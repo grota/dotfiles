@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ ! -d .git ]; then
+  echo Not in root dir of git repo, doing nothing. 1>&2
+  exit 1
+fi
+# git ignore project spec psysh config file
+echo /web/.psysh.php >> .git/info/exclude
+echo /grota >> .git/info/exclude
+cp "${DOTFILESREPO}/psysh/.psysh.php" web/
+mkdir -p grota/psysh
+cp -r "${DOTFILESREPO}/psysh/Command" grota/psysh

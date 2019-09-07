@@ -223,3 +223,6 @@
 [submodule "vim/dotvim/bundle/phpactor_phpactor"]
 	path = vim/dotvim/bundle/phpactor_phpactor
 	url = https://github.com/phpactor/phpactor.git
+[submodule "vim/dotvim/bundle/junegunn_fzf.vim"]
+	path = vim/dotvim/bundle/junegunn_fzf.vim
+	url = https://github.com/junegunn/fzf.vim.git
