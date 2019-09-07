@@ -1,1 +1,14 @@
 xkbcomp $DISPLAY /tmp/xkb.dump
+
+# This is to add a variant (not a layout).
+# Edit /usr/share/X11/xkb/rules/base.{xml,lst}
+# Edit /usr/share/X11/xkb/rules/evdev.{xml,lst}
+# Add following stanza to /usr/share/X11/xkb/symbols/us
+partial alphanumeric_keys
+xkb_symbols "beppe" {
+   include "us(altgr-intl)"
+   name[Group1]= "English (Beppe intl., with AltGr dead keys)";
+   key <SPCE> { [ space, space, Prior, Next ] };
+   key <BKSP> { [ BackSpace, BackSpace, Delete, BackSpace ] };
+};
+# dpkg-reconfigure xkb-data && reboot

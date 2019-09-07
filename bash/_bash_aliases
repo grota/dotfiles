@@ -110,19 +110,10 @@ function fixperms() {
   sudo setfacl -R -m u:"$APACHEUSER":rwX -m u:"$(whoami)":rwX "$@"
   sudo setfacl -dR -m u:"$APACHEUSER":rwX -m u:"$(whoami)":rwX "$@"
 }
-# This is to add a variant (not a layout).
-# In /usr/share/X11/xkb/ edit rules/base.{xml,lst} (in case also evdev.{xml,lst})
-# add stanza to symbols/us.
-# dpkg-reconfigure xkb-data && reboot
 function resunity() {
   xset r rate 200 90
   synclient HorizTwoFingerScroll=1
-  echo /usr/share/X11/xkb/symbols/us
+  echo h xkb
   #setxkbmap -print | sed -e '/xkb_symbols/s/"[[:space:]]/+beppe_xkb_syms(beppe)&/' | xkbcomp -I${HOME}/.xkb - $DISPLAY >/dev/null  2>&1
-  #xinput set-prop 'DLL07BE:01 06CB:7A13 Touchpad' "Synaptics Palm Detection" 1
-  #xinput set-prop 'DLL07BE:01 06CB:7A13 Touchpad' "Synaptics Palm Dimensions" 5, 5
-  #xinput set-prop 'DLL07BE:01 06CB:7A13 Touchpad' "Synaptics Tap Action" 2 3 0 0 1 2 3
-  #killall syndaemon; syndaemon -i 3.0 -k -R -d
-  #killall xbindkeys; xbindkeys
 }
 #}}}
