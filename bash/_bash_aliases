@@ -33,7 +33,7 @@ function cleandocker () {
   IMAGES="$(docker images -f dangling=true -q)"
   [ -n "$IMAGES" ] && docker rmi ${IMAGES//$'\n'/ }
 }
-alias r='PAGER=less urxvt -e ranger&'
+alias r='PAGER=less ranger&'
 alias tmxu=tmux
 alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias L='less -R'
