@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
 # drush aliases
-alias d='drush'
 alias ddl='drush pm-download'
 alias den='drush -y pm-enable'
 alias ddi='drush -y pm-disable'

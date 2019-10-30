@@ -226,3 +226,6 @@
 [submodule "vim/dotvim/bundle/junegunn_fzf.vim"]
 	path = vim/dotvim/bundle/junegunn_fzf.vim
 	url = https://github.com/junegunn/fzf.vim.git
+[submodule "vim/dotvim/bundle/tpope_vim-abolish"]
+	path = vim/dotvim/bundle/tpope_vim-abolish
+	url = https://github.com/tpope/vim-abolish.git

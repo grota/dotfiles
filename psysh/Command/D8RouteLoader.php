@@ -11,9 +11,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Psy\Command\ReflectingCommand;
 
 /**
- * D8 Service helper.
+ * D8 Route loader helper.
  */
-class D8Service extends ReflectingCommand implements PresenterAware
+class D8RouteLoader extends ReflectingCommand implements PresenterAware
 {
     private $presenter;
 
@@ -33,11 +33,11 @@ class D8Service extends ReflectingCommand implements PresenterAware
     protected function configure()
     {
         $this
-            ->setName('serv')
+            ->setName('loadroute')
             ->setDefinition([
-                new CodeArgument('service_name', CodeArgument::REQUIRED, 'The D8 service name'),
+                new CodeArgument('route_name', CodeArgument::REQUIRED, 'The D8 route name'),
             ])
-            ->setDescription('Drupal service helper');
+            ->setDescription('Drupal route loader helper');
     }
 
     /**
@@ -45,9 +45,9 @@ class D8Service extends ReflectingCommand implements PresenterAware
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-      $name = $input->getArgument('service_name');
-      $this->getApplication()->addInput('$s = Drupal::service(\'' . $name . '\'); class_implements($s);');
-      $this->getApplication()->addInput('ls $s');
+      $name = $input->getArgument('route_name');
+      $this->getApplication()->addInput('$route_provider = Drupal::service(\'router.route_provider\'); $route=$route_provider->getRouteByName(\'' . $name . '\');');
+      $this->getApplication()->addInput('dump -a $route');
     }
 
     /**
@@ -64,3 +64,4 @@ class D8Service extends ReflectingCommand implements PresenterAware
         return $this->resolveCode($name);
     }
 }
+

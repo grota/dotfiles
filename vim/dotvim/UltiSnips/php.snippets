@@ -115,7 +115,16 @@ snippet inhdoc
 endsnippet
 
 snippet log
-\Drupal::logger('temp')->debug(var_export($${1:var}, TRUE), []);
+\Drupal::logger('$1')->debug(var_export($${1}, TRUE), []);
+endsnippet
+
+snippet serv
+$${2:service} = \Drupal::service('$1');$0
+endsnippet
+
+snippet proph
+$${2:mock} = $this->prophesize($1::class);
+$$2->$3()->shouldBeCalledOnce()->willReturn($4);
 endsnippet
 
 snippet switch

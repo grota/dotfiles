@@ -41,7 +41,9 @@ alias df='df -h'
 alias l='ls -CF --group-directories-first'
 alias ll='ls -AlFhrt --group-directories-first'
 alias ls='ls --color=auto --group-directories-first'
-alias sl=ls
+alias nv=nordvpn
+alias d=docker
+alias dc=docker-compose
 #alias fire='firefox -Profilemanager -no-remote &> /dev/null &'
 alias ffmpeg='ffmpeg -hide_banner'
 #alias ffprobe='ffprobe -hide_banner'
