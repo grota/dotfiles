@@ -11,12 +11,22 @@ o_i#        inner comment
 o_[iao]i    inner/around/only indent
 <leader>I/A Prepend/Append to all adjacent lines with same indentation
 <leader>bd delete buffer without save confirmation
+nnoremap <Leader>mm :call phpactor#ContextMenu()<CR>
+nnoremap <Leader>tt :call phpactor#Transform()<CR>
+nnoremap <silent><Leader>ex :call phpactor#ExtractExpression(v:false)<CR>
+xnoremap <silent><Leader>em :<C-U>call phpactor#ExtractMethod()<CR>
+xnoremap <silent><Leader>ee :<C-U>call phpactor#ExtractExpression(v:true)<CR>
+nnoremap <buffer> <C-]> :vertical call LanguageClient#textDocument_definition()<CR>
+nnoremap <buffer> <leader>lrn :call LanguageClient#textDocument_rename()<CR>
+nnoremap <buffer> <leader>lcm :call LanguageClient_contextMenu()<CR>
+call LanguageClient#textDocument_references()
+call LanguageClient#textDocument_documentHighlight()
+:h abolish-coercion
 
 cx<movement like w,i'> followed by . or by another cx<movement>
 (a)round/(i)nner  (n)ext/(l)ast  b()/B{}/r[]
 (a)round/(i)nner  (v)ariable (php, js, ruby)
 (a)round/(i)nner  (f) x (mnemonic: "font" x)
-(a)round/(i)nner  (r)   (mnemonic: "ruby block")
 blockwise visual mode works well to enclose each line in quotes.
 repeat last commandline command: @:
 i_<C-G>s     tpope's surround in insert mode. Accepts <CR> after s.
@@ -28,17 +38,9 @@ s search forward, S backwards
 s<enter>
 <leader>sm   Space map/unmap
 
-g/           IndexedSearch: shows at which match index you are
 i_CTRL-u     Delete till start of line
 
-      CTRLP
-  <C-z>, <C-o> Mark, Open multi files
-  <C-a>, <C-e> start,end
-  <C-u>, <C-w> clear all, clear word
-  <C-t>, <C-v>, <C-s> open in tab, vert, horz
-
       VARIOUS
-<leader>gl :<C-U>Gitv --all<CR>
 {dcv}    {ia}{,} delete-change-visual inner-around argument
 |surround|   ysiw'  add '' around the word
 |surround|   cs)(   change only the spacing, since the opening braces {[( do have spacing

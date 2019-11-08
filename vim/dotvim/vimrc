@@ -115,10 +115,6 @@ set foldlevelstart=99
 " used for knowing when to save to the swap file and for the CursorHold event
 set updatetime=500
 set encoding=utf-8
-" doesn't really work on terminal vim
-if has("balloon_eval") && has("gui_running")
-  set ballooneval
-endif
 set showtabline=2
 set tabline=%!GrotaTabLine()
 set fillchars-=vert:\|
@@ -219,43 +215,6 @@ inoremap <silent> <M-@> <Esc>:<C-u>tabmove +1<CR>
 " }}}
 " <C-Up/Down/Left/Right><M-Up/Down/Left/Right> FOR TMUX {{{
 if $TMUX !=# ''
-
-  " TMUX with xterm-key OFF
-  "udlr OA OB OD OC
-  "C-udlr [A [B [D [C
-  "M-udlr <up> <down> <left> <right>
-  "S-udlr N/A
-
-  " enable C-left/right with tmux's xterm-key off
-  " vim complains if we try set <C-Up/Down> = ...
-  "set <C-Right>=[C
-  "set <C-Left>=[D
-  "nmap [A <C-Up>
-  "imap [A <C-Up>
-  "xmap [A <C-Up>
-  "nmap [B <C-Down>
-  "imap [B <C-Down>
-  "xmap [B <C-Down>
-  " vim complains if we try set <M-Left/Right/Up/Down> = ...
-  " for dragging up/down lines
-  "nmap <Down> <M-Down>
-  "imap <Down> <M-Down>
-  "xmap <Down> <M-Down>
-  "nmap <Up> <M-Up>
-  "imap <Up> <M-Up>
-  "xmap <Up> <M-Up>
-  " for diff horizontal scrolling and moving to start/end of line
-  "nmap <Left> <M-Left>
-  "imap <Left> <M-Left>
-  "nmap <Right> <M-Right>
-  "imap <Right> <M-Right>
-  "-----------------------
-  " TMUX with xterm-key ON
-  "udlr OA OB OD OC
-  "C-udlr [1;5A [1;5B [1;5D [1;5C
-  "M-udlr [1;3A [1;3B [1;3D [1;3C
-  "S-udlr [1;2A [1;2B [1;2D [1;2C
-
   set <C-Right>=[1;5C
   set <C-Left>=[1;5D
   nmap [1;5A <C-Up>
@@ -301,12 +260,12 @@ nnoremap gj j
 nnoremap gk k
 xnoremap gj <down>
 xnoremap gk <up>
-inoremap <expr> <Up> pumvisible() ?
-      \ "\<Up>" :
-      \ "\<C-o>gk"
-inoremap <expr> <Down> pumvisible() ?
-      \ "\<Down>" :
-      \ "\<C-o>gj"
+"inoremap <expr> <Up> pumvisible() ?
+      "\ "\<Up>" :
+      "\ "\<C-o>gk"
+"inoremap <expr> <Down> pumvisible() ?
+      "\ "\<Down>" :
+      "\ "\<C-o>gj"
 "}}}
 " Faster scrolling {{{
 nnoremap <C-E> 4<C-E>
@@ -584,11 +543,15 @@ augroup END
 " }}}
 
 " CONTRIB PLUGINS MAPPINGS AND SETTINGS {{{
+" LanguageClient {{{
+let g:LanguageClient_autoStart = 0
+" see also vim/dotvim/ftplugin/php.vim
+"}}}
 " vim-php-namespace {{{
-" see vim/dotvim/after/ftplugin/php.vim
+" see vim/dotvim/ftplugin/php.vim
 " }}}
 " phpactor {{{
-" see vim/dotvim/after/ftplugin/php.vim
+" see vim/dotvim/ftplugin/php.vim
 " }}}
 " vim-cycle {{{
 augroup grota_autocommands
@@ -829,9 +792,6 @@ let g:gitgutter_eager = 0
 let g:gitgutter_escape_grep = 1
 let g:gitgutter_realtime = 0
 " }}}
-" LanguageClient {{{
-let g:LanguageClient_autoStart = 0
-"}}}
 "}}}
 
 " CUSTOM PLUGINS MAPPINGS AND SETTINGS {{{
@@ -906,7 +866,7 @@ augroup grota_autocommands
   endif
   " Auto close the preview window that pops up in php omnicomplete mode
   " DiffGitCached is opened in a preview window so we check for ft=php
-  autocmd InsertLeave * if (pumvisible() == 0 && &ft ==# 'php')|silent! pclose|endif
+  "autocmd InsertLeave * if (pumvisible() == 0 && &ft ==# 'php')|silent! pclose|endif
   " Help on the right
   function! s:move_help_to_right()
     if &buftype == 'help'
@@ -938,8 +898,6 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 "}}}
 
 " ABBREVIATIONS {{{
-iabbrev FLASE FALSE
-iabbrev flase false
 " }}}
 
 " NOTES {{{

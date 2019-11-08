@@ -57,12 +57,6 @@ if [ "$TERM" = "xterm" -a "$COLORTERM" = "gnome-terminal" ]; then
     TERM="xterm-256color"
 fi
 
-# rvm enable+completion+prompt {{{
-# Load RVM into a shell session *as a function*
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-[[ -s "$rvm_path/scripts/completion" ]] && source "$rvm_path/scripts/completion"
-#}}}
-
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
 export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold

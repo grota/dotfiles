@@ -79,9 +79,6 @@
 [submodule "vim/dotvim/bundle/thinca_vim-textobj-between"]
 	path = vim/dotvim/bundle/thinca_vim-textobj-between
 	url = git://github.com/thinca/vim-textobj-between.git
-[submodule "vim/dotvim/bundle/vim-ruby_vim-ruby"]
-	path = vim/dotvim/bundle/vim-ruby_vim-ruby
-	url = https://github.com/vim-ruby/vim-ruby.git
 [submodule "vim/dotvim/bundle/zef_vim-cycle"]
 	path = vim/dotvim/bundle/zef_vim-cycle
 	url = git@github.com:zef/vim-cycle.git
@@ -97,9 +94,6 @@
 [submodule "vim/dotvim/bundle/tommcdo_vim-exchange"]
 	path = vim/dotvim/bundle/tommcdo_vim-exchange
 	url = git@github.com:tommcdo/vim-exchange.git
-[submodule "vendor/hub"]
-	path = vendor/hub
-	url = https://github.com/defunkt/hub.git
 [submodule "vim/dotvim/bundle/suan_vim-instant-markdown"]
 	path = vim/dotvim/bundle/suan_vim-instant-markdown
 	url = https://github.com/suan/vim-instant-markdown.git
