@@ -1,3 +1,3 @@
-ncdu -2 -o ~/ncdu_internal_storage --exclude somepattern .
-ncdu -f ~/ncdu_internal_storage
+Generate statistics file: ncdu -2 -o ~/ncdu_internal_storage --exclude somepattern .
+View dir usage: ncdu -f ~/ncdu_internal_storage
 -X Exclude files that match any pattern listed in FILE.

@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+
+#see https://github.com/alphabetum/bash-boilerplate/blob/master/bash-simple-plus
+set -o nounset
+set -o errexit
+trap 'echo "Aborting due to errexit on line $LINENO. Exit code: $?" >&2' ERR
+set -o errtrace
+set -o pipefail
+IFS=$'\n\t'
+_ME=$(basename "${0}")
+__DEBUG_COUNTER=0
+_debug() {
+  if [[ "${_USE_DEBUG:-"0"}" -eq 1 ]]
+  then
+    __DEBUG_COUNTER=$((__DEBUG_COUNTER+1))
+    # Prefix debug message with "bug (U+1F41B)"
+    printf "🐛  %s " "${__DEBUG_COUNTER}"
+    "${@}"
+    printf "――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――\\n"
+  fi
+}
+debug() {
+  _debug echo "${@}"
+}
+_die() {
+  printf "❌  "
+  "${@}" 1>&2
+  exit 1
+}
+die() {
+  _die echo "${@}"
+}
+_print_help() {
+  cat <<HEREDOC
+Usage:
+  ${_ME} [<arguments>]
+  ${_ME} -h | --help
+Options:
+  -h --help  Show this screen.
+HEREDOC
+}
+declare -A SETTINGS
+SETTINGS[command]=rsync
+SETTINGS[initial_opts]="-avzz"
+SETTINGS[common_opts]="--no-perms --no-times --size-only"
+SETTINGS[port]=2222
+SETTINGS[hostname]="Galaxy_A50.local"
+SETTINGS[cell_path]="/storage/C26A-9D23/DCIM/Camera/"
+SETTINGS[host_path]="/home/grota/Downloads/Android/DCIM/Camera/"
+SETTINGS[flip]=0
+SETTINGS[dry_run]=0
+_change_paths() {
+  declare -a PRESET_DIRS_cell_path=("/storage/C26A-9D23/DCIM/Camera/" "/sdcard/Music/mps" "/sdcard/WhatsApp/Media/")
+  declare -a PRESET_DIRS_host_path=("/home/grota/Downloads/Android/DCIM/Camera/" "/home/grota/Downloads/mps/" "/home/grota/Downloads/Android/Whatsapp_Media/")
+  if [[ "${1:-}" == "cell_path" ]];
+  then
+    mchoices=( ${PRESET_DIRS_cell_path[@]} )
+  else
+    mchoices=( ${PRESET_DIRS_host_path[@]} )
+  fi
+  PS3="$1, current: ${SETTINGS[$1]}> "
+  select choice in "${mchoices[@]}"; do
+    if [[ "$choice" ]]; then
+      val="$choice"
+    else
+      val="$REPLY"
+    fi
+    SETTINGS["$1"]="$val"
+    break
+  done
+}
+_set_command() {
+  COMMAND=(${SETTINGS[command]} ${SETTINGS[initial_opts]} ${SETTINGS[common_opts]} "-e 'ssh -p ${SETTINGS[port]}'")
+  if ((SETTINGS[dry_run])); then
+    COMMAND+=("-n")
+  fi
+  if ((SETTINGS[flip])); then
+    COMMAND+=("root@${SETTINGS[hostname]}:${SETTINGS[cell_path]}" ${SETTINGS[host_path]})
+  else
+    COMMAND+=(${SETTINGS[host_path]} "root@${SETTINGS[hostname]}:${SETTINGS[cell_path]}")
+  fi
+}
+declare -a COMMAND
+_set_command
+finished_configuring=''
+_provide_choices() {
+choices=("execute" "port" "hostname" "cell_path" "host_path" "flip" "dry_run")
+PS3="${COMMAND[@]}"$'\n'
+select choice in "${choices[@]}"
+do
+    case $choice in
+        "port" | "hostname")
+          read -i "${SETTINGS[$choice]}" -e -r -p "$choice> " val
+          SETTINGS[$choice]="$val"
+            break ;;
+        "cell_path" | "host_path")
+          _change_paths "$choice"
+          break ;;
+        "flip" | "dry_run")
+          SETTINGS[$choice]=$((1-SETTINGS["$choice"]))
+          break ;;
+        "execute")
+          finished_configuring=1
+          break ;;
+        "")
+            break ;;
+        *) echo "invalid option $REPLY";;
+    esac
+done
+_set_command
+}
+_main() {
+  if [[ "${1:-}" =~ ^-h|--help$  ]]
+  then
+    _print_help
+  else
+    while [ "$finished_configuring" != 1 ]; do
+      _provide_choices;
+    done
+    echo EXECUTING
+    echo "${COMMAND[@]}"
+    read -p "Are you sure? " -n 1 -r
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+      eval "${COMMAND[@]}"
+      #COMMAND[@]
+    fi
+  fi
+}
+
+_main "$@"

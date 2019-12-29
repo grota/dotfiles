@@ -211,9 +211,6 @@
 [submodule "vim/dotvim/bundle/arnaud-lb-vim-php-namespace"]
 	path = vim/dotvim/bundle/arnaud-lb-vim-php-namespace
 	url = https://github.com/arnaud-lb/vim-php-namespace.git
-[submodule "vim/dotvim/bundle/lumiliet_vim-twig"]
-	path = vim/dotvim/bundle/lumiliet_vim-twig
-	url = https://github.com/lumiliet/vim-twig.git
 [submodule "vim/dotvim/bundle/phpactor_phpactor"]
 	path = vim/dotvim/bundle/phpactor_phpactor
 	url = https://github.com/phpactor/phpactor.git
