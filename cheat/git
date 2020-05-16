@@ -4,4 +4,10 @@ git grep patten -- './*' ':!*.js'
 git config core.fileMode false
 git oldest-ancestor B1 B2
 
-add a line like this to .git/info/attributes: web/themes/custom/wfpspa/css/spa.css ggex. already added to gg and g g. trick is pathspec ':(attr:!ggex)'
+add lines like these to .git/info/attributes:
+/config/*yml d8config
+**/tests/src/** d8tests
+*.js js
+*.css css
+
+g grep '\bpage_field_storage\b' --  ':(attr:!d8config !d8tests !js !css !csv !yml !twig)'

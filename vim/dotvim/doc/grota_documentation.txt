@@ -82,11 +82,4 @@ o_il        inner line
 <M-d>  :Gdiff <M-s>  :Gstatus
 <leader>gw  :Gwrite
 
-      CTRLP
-<C-\> Open dialog
-<C-n> <C-p> next/prev in ctrlp history
-<C-r> ToggleRegex
-<C-d> ToggleByFname
-<C-x> Delete Buffer
-
 vim:tw=78:ts=8:ft=help:norl:

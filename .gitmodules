@@ -37,9 +37,6 @@
 [submodule "vim/dotvim/bundle/guns_xterm_color_table.vim"]
 	path = vim/dotvim/bundle/guns_xterm_color_table.vim
 	url = git://github.com/guns/xterm-color-table.vim.git
-[submodule "vim/dotvim/bundle/grota_drupal.vim"]
-	path = vim/dotvim/bundle/grota_drupal.vim
-	url = git@github.com:grota/drupal.vim.git
 [submodule "bin/git-archive-all"]
 	path = bin/git-archive-all
 	url = git://github.com/mhitza/git-archive-all.sh.git
@@ -73,9 +70,6 @@
 [submodule "vim/dotvim/bundle/kana_vim-textobj-user"]
 	path = vim/dotvim/bundle/kana_vim-textobj-user
 	url = git://github.com/kana/vim-textobj-user.git
-[submodule "vim/dotvim/bundle/benmills_vimux"]
-	path = vim/dotvim/bundle/benmills_vimux
-	url = git://github.com/benmills/vimux.git
 [submodule "vim/dotvim/bundle/thinca_vim-textobj-between"]
 	path = vim/dotvim/bundle/thinca_vim-textobj-between
 	url = git://github.com/thinca/vim-textobj-between.git
@@ -157,9 +151,6 @@
 [submodule "bin/the_silver_searcher"]
 	path = bin/the_silver_searcher
 	url = https://github.com/ggreer/the_silver_searcher.git
-[submodule "vim/dotvim/bundle/2072_php-indenting-for-vim"]
-	path = vim/dotvim/bundle/2072_php-indenting-for-vim
-	url = https://github.com/2072/PHP-Indenting-for-VIm.git
 [submodule "vim/dotvim/bundle/w0rp_ale"]
 	path = vim/dotvim/bundle/w0rp_ale
 	url = https://github.com/w0rp/ale.git
@@ -193,15 +184,9 @@
 [submodule "vim/dotvim/bundle/mhartington_nvim-typescript"]
 	path = vim/dotvim/bundle/mhartington_nvim-typescript
 	url = https://github.com/mhartington/nvim-typescript.git
-[submodule "vim/dotvim/bundle/pangloss_vim-javascript"]
-	path = vim/dotvim/bundle/pangloss_vim-javascript
-	url = https://github.com/pangloss/vim-javascript.git
 [submodule "vim/dotvim/bundle/roxma_LanguageServer-php-neovim"]
 	path = vim/dotvim/bundle/roxma_LanguageServer-php-neovim
 	url = https://github.com/roxma/LanguageServer-php-neovim.git
-[submodule "vim/dotvim/bundle/shougo_deoplete.nvim"]
-	path = vim/dotvim/bundle/shougo_deoplete.nvim
-	url = https://github.com/Shougo/deoplete.nvim.git
 [submodule "vim/dotvim/bundle/shougo_echodoc.vim"]
 	path = vim/dotvim/bundle/shougo_echodoc.vim
 	url = https://github.com/Shougo/echodoc.vim.git

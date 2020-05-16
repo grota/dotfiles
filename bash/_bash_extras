@@ -73,14 +73,6 @@ export LESS="-iRSFX"
 # oh god, this feels good
 [[ -n "$DISPLAY" ]] && xset r rate 200 90
 
-# back up file with timestamp
-# useful for administrators and configs
-bu () {
-    filename=$1
-    filetime=$(date +%Y%m%d_%H%M%S)
-    cp "${filename}" "${filename}_${filetime}"
-}
-
 # scm_breeze {{{
 source "${current_pathinrepo}/scm_breeze/scm_breeze.sh"
 # }}}
@@ -90,29 +82,6 @@ if ( (type gem) && gem query -l -i tmuxinator) > /dev/null 2>&1; then
 fi
 
 function whichpkg() { PACKAGE=$(dpkg -S "$(which "$1")" | cut -d':' -f1); echo "[${PACKAGE}]"; dpkg -s "${PACKAGE}" ;}
-
-function _get_spotify_artists_and_title () {
-  local tempfile title artists value_in_clipboard
-  tempfile=$(mktemp)
-  value_in_clipboard=$(xclip -o)
-  local json_url=${value_in_clipboard/play.spotify.com\/track/api.spotify.com\/v1\/tracks}
-  if [ "$json_url" == "$value_in_clipboard" ]; then
-    json_url=${value_in_clipboard/open.spotify.com\/track/api.spotify.com\/v1\/tracks}
-  fi
-  if [ "$json_url" == "$value_in_clipboard" ]; then
-    echo "error parsing clipboard value: \"$value_in_clipboard\""
-    return 1
-  fi
-  # https://developer.spotify.com/web-api/console/get-track/
-  local TOKEN=BQCOpDf8y8FkkiZWAxkUJVSGffsYLIMsUGTjCMcjeoeofRwgRUUhSDgSvimAJ8Gfn6owc0Gr6D4pGHPK6D8CBH4q5zZF0OSrQ6u-C9VOird0jnhSIJM1e0EHlEODHOTtjvWar-M3Xbs
-  echo curl  "$json_url" -H \"Authorization: Bearer $TOKEN\"
-  curl  "$json_url" -H "Authorization: Bearer $TOKEN" > "$tempfile"
-  artists=$(jq -r -M '[.artists[].name]|join(", ")+" - "' < "$tempfile")
-  title=$(jq -r -M '.name' < "$tempfile")
-  local total="${artists}${title}"
-  command rm -f "$tempfile"
-  echo "$total"
-}
 
 function _cheat_autocomplete {
     sheets=$(cheat -l | cut -d' ' -f1)
@@ -131,14 +100,3 @@ source "${DOTFILESREPO}/bin/the_silver_searcher/ag.bashcomp.sh"
 for f in "$DOTFILESREPO"/bash/completions/*; do
   source "$f"
 done
-# old notes {{{
-# PS1 overrides the one from .bashrc. Color prompt by default
-# the title of xterms is set only to \w (the current working directory,
-# with $HOME abbreviated with a tilde)
-# See man bash (PROMPTING), http://en.wikipedia.org/wiki/ANSI_escape_code
-# \033=\e esempio: \e[01;32m sets normal, then bold (not really sure why you
-# can use more than 1 char), then green.
-#
-# We now use the ps1_functions above
-#PS1='\[\e]0;${GROTA_TITLE:-\w}\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\] \w\[\033[00m\]\$ '
-# }}}

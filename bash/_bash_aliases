@@ -19,19 +19,43 @@ _fzf_compgen_path() {
 _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
+
 source "${DOTFILESREPO}/bin/fzf/shell/key-bindings.bash"
 [[ $- == *i* ]] && source "${DOTFILESREPO}/bin/fzf/shell/completion.bash" 2> /dev/null
 export FZF_DEFAULT_COMMAND='(fd --no-ignore-vcs --type f --hidden --follow --exclude .git) 2> /dev/null'
 export FZF_CTRL_T_COMMAND='(fd --no-ignore-vcs --hidden --follow --exclude .git) 2> /dev/null'
+
+# functions {{{
+function mdu() {
+  FF=$(mktemp -u); ncdu -2 -o "$FF" "$*"; ncdu -f "$FF"; rm -f "$FF";
+}
+function mkcd() { mkdir -p "$@" && eval cd "\"\$$#\""; }
+function resunity() {
+  xset r rate 200 90
+  synclient HorizTwoFingerScroll=1
+  echo h xkb
+  #setxkbmap -print | sed -e '/xkb_symbols/s/"[[:space:]]/+beppe_xkb_syms(beppe)&/' | xkbcomp -I${HOME}/.xkb - $DISPLAY >/dev/null  2>&1
+}
+# back up file with timestamp
+# useful for administrators and configs
+function bu() {
+    filename=$1
+    filetime=$(date +%Y%m%d_%H%M%S)
+    cp "${filename}" "${filename}_${filetime}"
+}
+function myalert () {
+  zenity --info --text="Job finished"
+}
+# }}}
 
 # aliases {{{
 function cleandocker () {
   VOLUMES="$(docker volume ls -f dangling=true -q | awk '{print $2}')"
   [ -n "$VOLUMES" ] && docker volume rm "$VOLUMES"
   CONTAINERS="$(docker ps -a | command grep Exited | command grep -v data | awk '{print $1}')"
-  [ -n "$CONTAINERS" ] && docker rm -vf ${CONTAINERS//$'\n'/ }
+  [ -n "$CONTAINERS" ] && docker rm -vf "${CONTAINERS//$'\n'/ }"
   IMAGES="$(docker images -f dangling=true -q)"
-  [ -n "$IMAGES" ] && docker rmi ${IMAGES//$'\n'/ }
+  [ -n "$IMAGES" ] && docker rmi "${IMAGES//$'\n'/ }"
 }
 alias r='PAGER=less ranger&'
 alias tmxu=tmux
@@ -44,12 +68,10 @@ alias ls='ls --color=auto --group-directories-first'
 alias nv=nordvpn
 alias d=docker
 alias dc=docker-compose
-#alias fire='firefox -Profilemanager -no-remote &> /dev/null &'
 alias ffmpeg='ffmpeg -hide_banner'
 #alias ffprobe='ffprobe -hide_banner'
 function cc () {
   local CHROME=google-chrome
-  #local CHROME=chromium-browser
   if [ ! -z "$1" ]; then
     local PROFILE_DIR=$1
     local CHROME_ARGS="--user-data-dir=/home/grota/.config/${CHROME}_others/$PROFILE_DIR"
@@ -58,11 +80,7 @@ function cc () {
   echo "Running: " "$CHROME" "$CHROME_ARGS"
   $CHROME $CHROME_ARGS &> /dev/null &
 }
-#function n () {
-  #zenity --info --text="Job finished"
-#}
 alias pg='ps aux|grep '
-alias pw='pwsafe -Eup -l'
 alias rstty='stty start undef stop undef'
 alias ..="cd ../"
 alias ...="cd ../../"
@@ -76,46 +94,9 @@ alias cd....="cd ../../../"
 alias cd.....="cd ../../../../"
 alias cd......="cd ../../../../../"
 alias bc='bc -l'
-alias grep='grep --color=always -n --exclude-dir=.svn --exclude-dir=.git '
+alias grep='grep --color=always -n --exclude-dir=.git '
 alias ff='ag --pager=less -g'
+alias agui='ag -U -i --pager less --ignore=.js --ignore node_modules --ignore tests --ignore Tests --ignore private/logs --ignore web/core/tags'
 # there's a ss bin but that's ok for me
 alias ss='sudo su -'
-alias update_all_dotfiles_submodules="g submodule foreach '[ \"\$path\" = \"bin/drush\" ] || (git fetch origin; git merge origin/master)'"
-#}}}
-
-# functions {{{
-# list of pulseaudio devices can be fetched via pactl list
-function rec() {
-local outfile
-outfile="$1"
-  if [ -z "$1" ]; then
-    outfile=$(_get_spotify_artists_and_title)
-    if [ $? == 1 ]; then
-      echo "$outfile"
-      return 1
-    fi
-  fi
-  outfile="$outfile".mp3
-  echo "Writing to file '$outfile'"
-  count=3
-  while [ $count -gt 0  ]; do
-    echo $count ...
-    count=$((count - 1))
-    sleep 1
-  done
-  local device=$(pactl list sinks|command grep Monitor\ Source|awk '{ print $3; }')
-  gst-launch-1.0 -e pulsesrc device="$device" ! "audio/x-raw,channels=2" ! audioconvert ! lamemp3enc target=1 bitrate=128 cbr=true ! filesink location="${outfile}"
-}
-function mkcd() { mkdir -p "$@" && eval cd "\"\$$#\""; }
-function fixperms() {
-  APACHEUSER=$(ps aux | \grep -E '[a]pache|[h]ttpd' | \grep -v root | head -1 | cut -d\  -f1)
-  sudo setfacl -R -m u:"$APACHEUSER":rwX -m u:"$(whoami)":rwX "$@"
-  sudo setfacl -dR -m u:"$APACHEUSER":rwX -m u:"$(whoami)":rwX "$@"
-}
-function resunity() {
-  xset r rate 200 90
-  synclient HorizTwoFingerScroll=1
-  echo h xkb
-  #setxkbmap -print | sed -e '/xkb_symbols/s/"[[:space:]]/+beppe_xkb_syms(beppe)&/' | xkbcomp -I${HOME}/.xkb - $DISPLAY >/dev/null  2>&1
-}
 #}}}

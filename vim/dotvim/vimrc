@@ -374,6 +374,7 @@ xnoremap <BS> x
 xnoremap <Leader>y "+ygv"*y`>
 nnoremap <Leader>yf :let @+=expand("%")<CR>:echo 'copied '.expand("%")<CR>
 nnoremap <Leader>yo :let @+=expand("%:t")<CR>:echo 'copied '.expand("%:t")<CR>
+nnoremap <Leader>yO :let @+=expand("%:t:r")<CR>:echo 'copied '.expand("%:t:r")<CR>
 nnoremap <Leader>p "+gp
 inoremap <C-o>p <Left><Right><C-o>p<End>
 "}}}
@@ -691,12 +692,6 @@ endfunction
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabLongestHighlight = 1
 "}}}
-" DirDiff {{{
-" ,dj ,dk per diff
-for map in ['Get', 'Put', 'Next', 'Prev']
-  exec 'nmap <plug>NoopDirDiff'.map.' <Plug>DirDiff'.map
-endfor
-"}}}
 " Gitv {{{
 nnoremap <leader>gl :<C-U>Gitv --all<CR>
 let g:Gitv_DoNotMapCtrlKey = 1
@@ -856,42 +851,42 @@ nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
 " AUTOCOMMANDS {{{
 augroup grota_autocommands
   " highlight cursorline only for current window
-  autocmd WinLeave * setlocal nocursorline
-  autocmd WinEnter * setlocal cursorline
-  if version >= 703
-    " Enable relativenumber just for php for now
-    autocmd FileType php setlocal relativenumber
-          \| setlocal number
-          \| setlocal formatoptions-=w
-  endif
+  "autocmd WinLeave * setlocal nocursorline
+  "autocmd WinEnter * setlocal cursorline
+  "if version >= 703
+    "" Enable relativenumber just for php for now
+    "autocmd FileType php setlocal relativenumber
+          "\| setlocal number
+          "\| setlocal formatoptions-=w
+  "endif
   " Auto close the preview window that pops up in php omnicomplete mode
   " DiffGitCached is opened in a preview window so we check for ft=php
   "autocmd InsertLeave * if (pumvisible() == 0 && &ft ==# 'php')|silent! pclose|endif
   " Help on the right
-  function! s:move_help_to_right()
-    if &buftype == 'help'
-      wincmd L
-    endif
-  endfunction
-  autocmd BufEnter *.txt call s:move_help_to_right()
+  "function! s:move_help_to_right()
+    "if &buftype == 'help'
+      "wincmd L
+    "endif
+  "endfunction
+  "autocmd BufEnter *.txt call s:move_help_to_right()
   " Red line for gitcommit
   autocmd FileType gitcommit setlocal colorcolumn=+1
   " Quickfix window: no numbers
   autocmd Filetype qf setlocal nonumber
   " restore default functionality.
   autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-  autocmd InsertEnter *
-        \ if &background == 'dark' |
-        \ hi CursorLine ctermbg=17 |
-        \ else |
-        \ hi CursorLine ctermbg=249 |
-        \ endif
-  autocmd InsertLeave *
-        \ if &background == 'dark' |
-        \ hi CursorLine ctermbg=234 |
-        \ else |
-        \ hi CursorLine ctermbg=253 |
-        \ endif
+  "autocmd InsertEnter *
+        "\ if &background == 'dark' |
+        "\ hi CursorLine ctermbg=17 |
+        "\ else |
+        "\ hi CursorLine ctermbg=249 |
+        "\ endif
+  "autocmd InsertLeave *
+        "\ if &background == 'dark' |
+        "\ hi CursorLine ctermbg=234 |
+        "\ else |
+        "\ hi CursorLine ctermbg=253 |
+        "\ endif
 augroup END
 " this matches the conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'

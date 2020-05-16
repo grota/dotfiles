@@ -12,6 +12,14 @@ snippet el
 error_log('${1:var}');
 endsnippet
 
+snippet ec
+echo '${1}' . PHP_EOL;
+endsnippet
+
+snippet pr
+print_r($${1});
+endsnippet
+
 snippet elv
 error_log('${1:var}= ' . print_r($$1, TRUE));
 endsnippet
