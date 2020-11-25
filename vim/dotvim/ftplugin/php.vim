@@ -14,4 +14,5 @@ nnoremap <silent><Leader>ex :call phpactor#ExtractExpression(v:false)<CR>
 xnoremap <silent><Leader>em :<C-U>call phpactor#ExtractMethod()<CR>
 " Extract expression from selection
 xnoremap <silent><Leader>ee :<C-U>call phpactor#ExtractExpression(v:true)<CR>
+setlocal keywordprg=pman
 " }}}

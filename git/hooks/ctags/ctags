@@ -23,5 +23,8 @@ if [ -f .git/hooks/ctags_local_options ]; then
   EXTRA_OPTION="$EXTRA_OPTION --options=.git/hooks/ctags_local_options"
 fi
 FUGITIVE_COMPATIBLE_OPTION="--options=$DOTFILESREPO/ctags/relative_format.ctags"
-ctags -Rf.git/tags.$$ $EXTRA_OPTION "$FUGITIVE_COMPATIBLE_OPTION"
+#temp
+EXTRA_OPTION="--options=$DOTFILESREPO/ctags/drupal.ctags"
+echo calling ctags with $EXTRA_OPTION "$FUGITIVE_COMPATIBLE_OPTION" "$@"
+ctags -Rf.git/tags.$$ $EXTRA_OPTION "$FUGITIVE_COMPATIBLE_OPTION" "$@"
 mv .git/tags.$$ .git/tags

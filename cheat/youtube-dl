@@ -1,1 +1,3 @@
 youtube-dl -f bestvideo+bestaudio 
+ youtube-dl --batch-file todown --write-sub --continue --convert-subs srt
+ youtube-dl -x --audio-format mp3 -c http://....

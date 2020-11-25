@@ -1,1 +1,1 @@
-call LanguageClient_registerServerCommands({'javascript': ['/usr/bin/javascript-typescript-stdio']})
+"call LanguageClient_registerServerCommands({'javascript': ['/usr/bin/javascript-typescript-stdio']})

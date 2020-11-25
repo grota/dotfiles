@@ -1,11 +1,44 @@
 " vim:ft=vim:foldmethod=marker:foldcolumn=3:foldlevel=0
 " INITIALIZATION "{{{
 set nocompatible
-runtime macros/matchit.vim
-runtime bundle/tpope_vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
-Helptags
-filetype plugin indent on
+if empty(glob("~/.vim/autoload/plug.vim"))
+    execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+endif
+
+call plug#begin('~/.vim/plugged')
+Plug 'junegunn/vim-easy-align'
+Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install --no-dev -o', 'branch': 'develop'}
+Plug 'AndrewRadev/linediff.vim'
+Plug 'AndrewRadev/splitjoin.vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'kana/vim-textobj-user'
+Plug 'thinca/vim-textobj-between'
+Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
+Plug 'scrooloose/nerdcommenter'
+Plug 'wellle/targets.vim'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-abolish'
+Plug 'majutsushi/tagbar'
+Plug 'tommcdo/vim-exchange'
+Plug 'dense-analysis/ale'
+Plug 'SirVer/ultisnips'
+Plug 'arnaud-lb/vim-php-namespace'
+Plug 'vim-vdebug/vdebug'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'vim-airline/vim-airline'
+Plug 'jiangmiao/auto-pairs'
+Plug 'zef/vim-cycle'
+Plug 'justinmk/vim-sneak'
+Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'vim-airline/vim-airline-themes'
+call plug#end()
+
 if has("gui_running")
   " a nice coloscheme easy to the eye, it sets the 'background' option
   colorscheme koehler
@@ -22,7 +55,6 @@ else
   set background=dark
 endif
 colorscheme grota
-syntax enable
 "}}}
 
 " Meta mappings {{{
@@ -260,12 +292,6 @@ nnoremap gj j
 nnoremap gk k
 xnoremap gj <down>
 xnoremap gk <up>
-"inoremap <expr> <Up> pumvisible() ?
-      "\ "\<Up>" :
-      "\ "\<C-o>gk"
-"inoremap <expr> <Down> pumvisible() ?
-      "\ "\<Down>" :
-      "\ "\<C-o>gj"
 "}}}
 " Faster scrolling {{{
 nnoremap <C-E> 4<C-E>
@@ -377,6 +403,7 @@ nnoremap <Leader>yo :let @+=expand("%:t")<CR>:echo 'copied '.expand("%:t")<CR>
 nnoremap <Leader>yO :let @+=expand("%:t:r")<CR>:echo 'copied '.expand("%:t:r")<CR>
 nnoremap <Leader>p "+gp
 inoremap <C-o>p <Left><Right><C-o>p<End>
+nnoremap Y y$
 "}}}
 " <C-s> QUICK SAVING, <leader>ee -> :e {{{
 nnoremap <C-s> :update<CR>
@@ -519,13 +546,6 @@ onoremap <silent> ai :<c-u>call <SID>indent_object('>=', 1, line('.'), line('.')
 xnoremap <silent> oi :<c-u>call <SID>indent_object('==', 0, line("'<"), line("'>"), 0, 0)<cr>
 onoremap <silent> oi :<c-u>call <SID>indent_object('==', 0, line('.'), line('.'), 0, 0)<cr>
 " }}}
-" Prepend/Append to all adjacent lines with same indentation: <leader>I <leader> A {{{
-" For I we need to use nnoremap because wellle_targets defines the x_I... mappings.
-"nnoremap <leader>I ^v:<c-u>call <SID>indent_object('==', 0, line("'<"), line("'>"), 0, 0)<cr><C-V>I
-nmap <silent> <leader>A ^voi<C-V>$A
-xnoremap <expr> $ (mode() == "\<C-V>") ? "$" : "g_"
-xnoremap <expr> <END> (mode() == "\<C-V>") ? "$" : "g_"
-" }}}
 "}}}
 "}}}
 
@@ -562,15 +582,6 @@ augroup END
 " tagbar plugin {{{
 nnoremap <silent> <leader>tb :TagbarToggle<CR>
 let g:tagbar_autofocus = 1
-let g:tagbar_type_php = {
-      \ 'kinds' : [
-      \ 'd:constant definitions:1',
-      \ 'i:interfaces:1',
-      \ 'c:classes:1',
-      \ 'f:functions:0',
-      \ 'j:javascript functions:1',
-      \ ]
-      \ }
 nnoremap <silent> <leader>fs :TagbarCurrentTag 'p'<CR>
 "}}}
 " Gutentags {{{
@@ -625,18 +636,6 @@ augroup grota_autocommands
 augroup END
 let g:surround_{char2nr("8")} = "*\r*"
 "}}}
-" Yankstack {{{
-let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y', 'Y']
-let g:yankstack_map_keys = 0
-call yankstack#setup()
-nmap Y y$
-nmap <M-m> <Plug>yankstack_substitute_older_paste
-xmap <M-m> <Plug>yankstack_substitute_older_paste
-imap <M-m> <Plug>yankstack_substitute_older_paste
-nmap <M-n> <Plug>yankstack_substitute_newer_paste
-xmap <M-n> <Plug>yankstack_substitute_newer_paste
-imap <M-n> <Plug>yankstack_substitute_newer_paste
-"}}}
 " vinegar {{{
 nmap - <Plug>VinegarVerticalSplitUp
 "}}}
@@ -675,18 +674,7 @@ function! AirlineThemePatch(palette)
 
   let l:replace_b = copy(a:palette['replace']['airline_b'])
   let l:replace_b[2] = 196
-  "let g:airline#themes#powerlineish#palette.ctrlp = airline#extensions#ctrlp#generate_color_map(
-          "\ a:palette['replace']['airline_c'],
-          "\ l:replace_b,
-          "\ a:palette['replace']['airline_a'])
 endfunction
-" }}}
-" wellle_targets {{{
-"let g:targets_aiAI = 'aIAi'
-" The rhs with the above is by default targets#e('i'), but there are
-" other xmaps starting with i so there would be lag.
-"xnoremap <expr> <silent> I targets#e('I')
-"xnoremap <expr> <silent> i targets#e('i')
 " }}}
 " Supertab {{{
 let g:SuperTabDefaultCompletionType = "context"
@@ -696,10 +684,6 @@ let g:SuperTabLongestHighlight = 1
 nnoremap <leader>gl :<C-U>Gitv --all<CR>
 let g:Gitv_DoNotMapCtrlKey = 1
 "}}}
-" SplitJoin {{{
-"let g:splitjoin_split_mapping = '<Leader>ss'
-"let g:splitjoin_join_mapping = '<Leader>sj'
-" }}}
 " autopairs {{{
 " <M-p> mapped to AutoPairsToggle
 let g:AutoPairsShortcutJump='<M-o>'
@@ -850,43 +834,12 @@ nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
 
 " AUTOCOMMANDS {{{
 augroup grota_autocommands
-  " highlight cursorline only for current window
-  "autocmd WinLeave * setlocal nocursorline
-  "autocmd WinEnter * setlocal cursorline
-  "if version >= 703
-    "" Enable relativenumber just for php for now
-    "autocmd FileType php setlocal relativenumber
-          "\| setlocal number
-          "\| setlocal formatoptions-=w
-  "endif
-  " Auto close the preview window that pops up in php omnicomplete mode
-  " DiffGitCached is opened in a preview window so we check for ft=php
-  "autocmd InsertLeave * if (pumvisible() == 0 && &ft ==# 'php')|silent! pclose|endif
-  " Help on the right
-  "function! s:move_help_to_right()
-    "if &buftype == 'help'
-      "wincmd L
-    "endif
-  "endfunction
-  "autocmd BufEnter *.txt call s:move_help_to_right()
   " Red line for gitcommit
   autocmd FileType gitcommit setlocal colorcolumn=+1
   " Quickfix window: no numbers
   autocmd Filetype qf setlocal nonumber
   " restore default functionality.
   autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-  "autocmd InsertEnter *
-        "\ if &background == 'dark' |
-        "\ hi CursorLine ctermbg=17 |
-        "\ else |
-        "\ hi CursorLine ctermbg=249 |
-        "\ endif
-  "autocmd InsertLeave *
-        "\ if &background == 'dark' |
-        "\ hi CursorLine ctermbg=234 |
-        "\ else |
-        "\ hi CursorLine ctermbg=253 |
-        "\ endif
 augroup END
 " this matches the conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'

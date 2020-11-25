@@ -20,8 +20,8 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-source "${DOTFILESREPO}/bin/fzf/shell/key-bindings.bash"
-[[ $- == *i* ]] && source "${DOTFILESREPO}/bin/fzf/shell/completion.bash" 2> /dev/null
+source "${DOTFILESREPO}/vim/dotvim/plugged/fzf/shell/key-bindings.bash"
+[[ $- == *i* ]] && source "${DOTFILESREPO}/vim/dotvim/plugged/fzf/shell/completion.bash" 2> /dev/null
 export FZF_DEFAULT_COMMAND='(fd --no-ignore-vcs --type f --hidden --follow --exclude .git) 2> /dev/null'
 export FZF_CTRL_T_COMMAND='(fd --no-ignore-vcs --hidden --follow --exclude .git) 2> /dev/null'
 
@@ -32,19 +32,9 @@ function mdu() {
 function mkcd() { mkdir -p "$@" && eval cd "\"\$$#\""; }
 function resunity() {
   xset r rate 200 90
-  synclient HorizTwoFingerScroll=1
+  #synclient HorizTwoFingerScroll=1
   echo h xkb
   #setxkbmap -print | sed -e '/xkb_symbols/s/"[[:space:]]/+beppe_xkb_syms(beppe)&/' | xkbcomp -I${HOME}/.xkb - $DISPLAY >/dev/null  2>&1
-}
-# back up file with timestamp
-# useful for administrators and configs
-function bu() {
-    filename=$1
-    filetime=$(date +%Y%m%d_%H%M%S)
-    cp "${filename}" "${filename}_${filetime}"
-}
-function myalert () {
-  zenity --info --text="Job finished"
 }
 # }}}
 
@@ -57,9 +47,7 @@ function cleandocker () {
   IMAGES="$(docker images -f dangling=true -q)"
   [ -n "$IMAGES" ] && docker rmi "${IMAGES//$'\n'/ }"
 }
-alias r='PAGER=less ranger&'
 alias tmxu=tmux
-alias ccat='pygmentize -O style=monokai -f console256 -g'
 alias L='less -R'
 alias df='df -h'
 alias l='ls -CF --group-directories-first'
@@ -88,15 +76,11 @@ alias ....="cd ../../../"
 alias .....="cd ../../../../"
 alias ......="cd ../../../../../"
 alias cd-="\cd -"
-alias cd..="cd ../"
-alias cd...="cd ../../"
-alias cd....="cd ../../../"
-alias cd.....="cd ../../../../"
-alias cd......="cd ../../../../../"
 alias bc='bc -l'
 alias grep='grep --color=always -n --exclude-dir=.git '
 alias ff='ag --pager=less -g'
 alias agui='ag -U -i --pager less --ignore=.js --ignore node_modules --ignore tests --ignore Tests --ignore private/logs --ignore web/core/tags'
 # there's a ss bin but that's ok for me
 alias ss='sudo su -'
+alias xc='sleep 1.0; xdotool type "$(xclip -o -selection clipboard)"'
 #}}}

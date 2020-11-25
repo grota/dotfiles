@@ -1,0 +1,2 @@
+crea un pdf con solo pags 3-8 11 16
+  pdftk INPUT.pdf cat 3-8 11 16 output OUT.pdf

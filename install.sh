@@ -25,7 +25,7 @@ fi
  mkdir -p "$HOME"/local/bin
  curl -s https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -o ~/local/bin/diff-so-fancy
  cp /usr/share/doc/git/contrib/diff-highlight/diff-highlight ~/local/bin/
- ln -s "${repohome}"/vim/dotvim/bundle/phpactor_phpactor/bin/phpactor ~/local/bin/
+ ln -s "${repohome}"/vim/dotvim/plugged/phpactor/bin/phpactor ~/local/bin/
 
 # [Bash]
  ln -sf "${repohome}"/bash/_bash_aliases "$HOME"/.bash_aliases

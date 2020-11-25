@@ -10,3 +10,4 @@
 <sub>:x (break into space separated words and quote)
 Redirect stderr to stdout 2>&1
 Redirect stdout to stderr 1>&2
+set -euo pipefail

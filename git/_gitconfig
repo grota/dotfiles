@@ -44,10 +44,10 @@
 [pager]
   status = cat
   ;diff-highlight is in git-contrib, diff-so-fancy lives here https://github.com/so-fancy/diff-so-fancy
-  ;show = diff-highlight | less --tabs=4 -RFX
-  ;diff = diff-highlight | less --tabs=4 -RFX
-  diff = diff-so-fancy | less --tabs=4 -RFX -+S --pattern '^(added|deleted|modified|renamed): |^commit'
-  show = diff-so-fancy | less --tabs=4 -RFX -+S --pattern '^(added|deleted|modified|renamed): |^commit'
+  ;show = diff-highlight | less --tabs=4 -R
+  ;diff = diff-highlight | less --tabs=4 -R
+  diff = diff-so-fancy | less --tabs=4 -R -+S --pattern '^(added|deleted|modified|renamed): |^commit'
+  show = diff-so-fancy | less --tabs=4 -R -+S --pattern '^(added|deleted|modified|renamed): |^commit'
 [include]
   path = ~/.gitconfig_private
 [push]

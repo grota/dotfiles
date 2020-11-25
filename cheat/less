@@ -1,0 +1,9 @@
+-i or --ignore-case (really a smartcase)
+-R or --RAW-CONTROL-CHARS
+-S or --chop-long-lines
+-F or --quit-if-one-screen
+-X or --no-init Disables sending the termcap initialization and deinitialization strings to the terminal.
+
+kitty needs less to NOT have the -X because otherwise the scrollwheel does not
+work in less, therefore also -F cannot be used because without -X a single page
+result wold quit and ALSO clear the screen showing nothing.

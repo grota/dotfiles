@@ -3,6 +3,7 @@ git status -s --ignored
 git grep patten -- './*' ':!*.js'
 git config core.fileMode false
 git oldest-ancestor B1 B2
+git check-ignore -v path_to_file
 
 add lines like these to .git/info/attributes:
 /config/*yml d8config

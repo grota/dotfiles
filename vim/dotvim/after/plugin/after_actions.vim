@@ -18,10 +18,10 @@ augroup end
 
 " unmappings {{{
 " IndexedSearch: unmap stupid mappings that start with \, use g/ in case
-unmap \\
-unmap \/
+"unmap \\
+"unmap \/
 "}}}
 
 " CHANGE CASE {{{
-nnoremap U gUiWw
+"nnoremap U gUiWw
 "}}}
