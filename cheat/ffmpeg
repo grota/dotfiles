@@ -7,5 +7,5 @@ encode x265
 audio convert webm->mp3
   ffmpeg -i INPUT.webm -codec:a libmp3lame -b:a 192k  OUT.mp3
 join audio and video
-ffmpeg -i INPUTVIDEO.mp4 -i INPUTAUDIO.mp4 -c:v copy -c:a copy OUT.mp4
+ffmpeg -i INPUTVIDEO.mp4 -i INPUTAUDIO.mp4 -c:v copy -c:a copy -map 0:v:0 -map 1:a:0 OUT.mp4
 ffmpeg -f concat -i lista -c copy out.mp3

@@ -1,0 +1,3 @@
+journalctl -u bumblebeed.service
+service systemd-resolved restart
+apt list --installed | grep 

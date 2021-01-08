@@ -7,8 +7,6 @@
 
 export DOTFILESREPO=$(readlink -f "$( dirname "$(readlink -f "${BASH_SOURCE[0]}")")""/..")
 . "${DOTFILESREPO}"/bash/_bash_extras
-. "${DOTFILESREPO}"/bash/_drush_bashrc
-. "${DOTFILESREPO}"/bash/_vim_bash
 . "${DOTFILESREPO}"/bash/_git_bash
 
 _fzf_compgen_path() {
@@ -64,7 +62,6 @@ function cc () {
     local PROFILE_DIR=$1
     local CHROME_ARGS="--user-data-dir=/home/grota/.config/${CHROME}_others/$PROFILE_DIR"
   fi
-  local CHROME_ARGS="--password-store=basic $CHROME_ARGS"
   echo "Running: " "$CHROME" "$CHROME_ARGS"
   $CHROME $CHROME_ARGS &> /dev/null &
 }
@@ -83,4 +80,5 @@ alias agui='ag -U -i --pager less --ignore=.js --ignore node_modules --ignore te
 # there's a ss bin but that's ok for me
 alias ss='sudo su -'
 alias xc='sleep 1.0; xdotool type "$(xclip -o -selection clipboard)"'
+alias cat=bat
 #}}}

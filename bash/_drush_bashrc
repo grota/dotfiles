@@ -1,15 +1,6 @@
 #!/usr/bin/env bash
 
-# drush aliases
-alias ddl='drush pm-download'
-alias den='drush -y pm-enable'
-alias ddi='drush -y pm-disable'
-alias dcc='drush cache-clear all'
-alias dsq='drush sql-cli'
-alias dsqlc='drush sql-connect'
-alias dsa='drush site-alias'
-alias dsaf='drush site-alias --full'
-alias dpr='drush user-password admin --password=admin'
+# Currently unused.
 
 function dsqld() {
   if [ -z "$1" ]
@@ -41,26 +32,6 @@ _drush_completion_grota() {
 complete -o nospace -F _drush_completion_grota den
 complete -o nospace -F _drush_completion_grota ddi
 
-# cd to the passed parameter, using drush dd
-# parameter is autocompleted (see above) with module name
-#alias dcd='_dcd'
-#function _dcd() {
-# s="$1"
-#  if [ -z "$s" ]
-#  then
-#    builtin cd
-#  else
-#    d="$(drush drupal-directory $1 --local 2>/dev/null)"
-#    if [ $? == 0 ]
-#    then
-#      echo "cd $d";
-#      builtin cd "$d";
-#    else
-#      echo "Cannot cd to $s"
-#    fi
-#  fi
-#}
-#complete -o nospace -F _drush_completion_grota _dcd dcd
 
 # Find the drush executable and test it.
 d=$(which drush)

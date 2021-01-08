@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 exists() {
   if command -v "$1" >/dev/null 2>&1
@@ -14,12 +14,6 @@ exists() {
 repohome=$( dirname "$(readlink -f "${BASH_SOURCE[0]}")" )
 cd "${repohome}"
 git submodule update --init --recursive
-
-# When running in Vagrant we need to get the right home path, and sudo does not
-# expose this envvar automatically
-if [ -n "$SUDO_USER"  ]; then
-  export HOME=$(bash <<< "echo ~$SUDO_USER")
-fi
 
 # [bin]
  mkdir -p "$HOME"/local/bin
@@ -35,11 +29,11 @@ fi
    curl https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose -o "${repohome}"/bash/completions/docker-compose
  fi
 
+# [kitty]
+ ln -sfT "${repohome}"/kitty "$HOME"/.config/kitty
+
 # [cheat] https://github.com/chrisallenlane/cheat
  ln -sfT "${repohome}"/cheat "$HOME"/.cheat
-
-# [ranger]
- ln -sfT "${repohome}"/ranger "$HOME"/.config/ranger
 
 # [composer]
  if ! exists composer; then
@@ -103,7 +97,7 @@ fi
  ln -sf "${repohome}"/_config/autostart/dropbox.desktop "$HOME"/.config/autostart/dropbox.desktop
  ln -sf "${repohome}"/_config/autostart/indicator-multiload.desktop "$HOME"/.config/autostart/indicator-multiload.desktop
  ln -sf "${repohome}"/_config/autostart/shutter.desktop "$HOME"/.config/autostart/shutter.desktop
- ln -sf "${repohome}"/_config/autostart/gnome-terminal.desktop "$HOME"/.config/autostart/gnome-terminal.desktop
+ #ln -sf "${repohome}"/_config/autostart/gnome-terminal.desktop "$HOME"/.config/autostart/gnome-terminal.desktop
 
 # [beets] https://github.com/sampsyo/beets/
  ln -sfT "${repohome}"/_config/beets "$HOME"/.config/beets
@@ -126,18 +120,11 @@ fi
 # [ctags]
  ln -sf "${repohome}"/ctags/_ctags "$HOME"/.ctags
 
-# [alsa]
- ln -sf "${repohome}"/alsa/_asoundrc "$HOME"/.asoundrc
-
 # [rtorrent]
  ln -sf private/rtorrent "${repohome}"
 
 # [libao]
  ln -sf "${repohome}"/libao/_libao "$HOME"/.libao
-
-# [mplayer]
- mkdir -p "$HOME"/.mplayer
- ln -sf "${repohome}"/mplayer/config "$HOME"/.mplayer/config
 
 # [mpd]
  mkdir -p ~/.config/mpd

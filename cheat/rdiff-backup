@@ -1,0 +1,1 @@
+\grep -v '^#' ~/rsync_exclude_from_for_homebackup |while read line; do echo "$HOME/$line"; done | rdiff-backup --exclude-filelist-stdin -v5 ~ backups/homebackup

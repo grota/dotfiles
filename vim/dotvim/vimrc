@@ -644,7 +644,7 @@ let g:fzf_command_prefix = 'FZF'
 nnoremap <C-\> :GrotaWipeEmptyBuffers<CR>:FZFBuffers<CR>
 nnoremap <C-f> :FZFHistory<CR>
 nnoremap <leader>ff :FZFFiles<CR>
-let $FZF_DEFAULT_COMMAND='(fd --no-ignore-vcs --type f --hidden --follow --exclude .git --exclude tests/ --exclude Tests/) 2> /dev/null'
+let $FZF_DEFAULT_COMMAND='(fd --no-ignore-vcs --type f --hidden --follow --exclude .git --exclude Tests/) 2> /dev/null'
 ""}}}
 " w0rp/ale {{{
 let g:ale_lint_on_text_changed = 'never'
