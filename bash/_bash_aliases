@@ -73,10 +73,10 @@ alias ....="cd ../../../"
 alias .....="cd ../../../../"
 alias ......="cd ../../../../../"
 alias cd-="\cd -"
-alias bc='bc -l'
+alias bc='rlwrap -a bc -l'
 alias grep='grep --color=always -n --exclude-dir=.git '
 alias ff='ag --pager=less -g'
-alias agui='ag -U -i --pager less --ignore=.js --ignore node_modules --ignore tests --ignore Tests --ignore private/logs --ignore web/core/tags'
+alias agu='ag -U --pager bat --ignore=.js --ignore node_modules --ignore tests --ignore Tests --ignore private/logs --ignore web/core/tags'
 # there's a ss bin but that's ok for me
 alias ss='sudo su -'
 alias xc='sleep 1.0; xdotool type "$(xclip -o -selection clipboard)"'

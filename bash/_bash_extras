@@ -101,13 +101,15 @@ source "${DOTFILESREPO}/bin/the_silver_searcher/ag.bashcomp.sh"
 for f in "$DOTFILESREPO"/bash/completions/*; do
   source "$f"
 done
+complete -C "$HOME"/local/bin/aws_completer aws
 export NNN_BMS='d:~/Downloads/;p:~/Dropbox/;c:~/Documents/encrypted_dropbox_data/burocrazia/banche'
 export NNN_TRASH=1
 export NNN_COLORS=7321
 #auto-setup temporary NNN_FIFO
 #indicates that the opener is a cli-only opener
-#export NNN_OPTS="ace"
-n ()
+export NNN_OPTS="acx"
+export NNN_PLUG='c:fzz'
+function n ()
 {
     # Block nesting of nnn in subshells
     if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
@@ -131,6 +133,6 @@ n ()
 
     if [ -f "$NNN_TMPFILE" ]; then
             . "$NNN_TMPFILE"
-            rm -f "$NNN_TMPFILE" > /dev/null
+            \rm -f "$NNN_TMPFILE" > /dev/null
     fi
 }

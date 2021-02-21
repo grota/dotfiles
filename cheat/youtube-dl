@@ -1,3 +1,4 @@
 youtube-dl -f bestvideo+bestaudio 
-youtube-dl --batch-file todown --write-sub --continue --convert-subs srt
+youtube-dl --batch-file todown --write-sub --all-subs --continue --convert-subs srt
 youtube-dl -x --audio-format mp3 -c http://....
+--add-metadata --write-all-thumbnails --embed-thumbnail --write-info-json --embed-subs
