@@ -107,8 +107,8 @@ export NNN_TRASH=1
 export NNN_COLORS=7321
 #auto-setup temporary NNN_FIFO
 #indicates that the opener is a cli-only opener
-export NNN_OPTS="acx"
-export NNN_PLUG='c:fzz'
+export NNN_OPTS="acox"
+export NNN_PLUG='c:fzz;p:preview-tui;i:imgview'
 function n ()
 {
     # Block nesting of nnn in subshells

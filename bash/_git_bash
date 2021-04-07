@@ -19,7 +19,7 @@ __git_alias "gdcw" "git" "diff" "--cached -w"
 __git_alias "gdcwd" "git" "diff" "--word-diff --cached"
 __git_alias "gst" "git" "stash" "list"
 __git_alias "gsts" "git" "stash" "save"
-alias gpfn='git push -f --no-verify'
+alias gpfn='git push --force-with-lease --no-verify'
 alias gstsh='git stash show -p'
 alias gsta='git stash apply'
 alias gstd='git stash drop'

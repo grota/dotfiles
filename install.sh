@@ -32,6 +32,8 @@ git submodule update --init --recursive
 # [kitty]
  ln -sfT "${repohome}"/kitty "$HOME"/.config/kitty
 
+ ln -sfT "${repohome}"/sxiv "$HOME"/.config/sxiv
+
 # [cheat] https://github.com/chrisallenlane/cheat
  ln -sfT "${repohome}"/cheat "$HOME"/.cheat
 
