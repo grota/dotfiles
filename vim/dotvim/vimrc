@@ -6,6 +6,7 @@ if empty(glob("~/.vim/autoload/plug.vim"))
 endif
 
 call plug#begin('~/.vim/plugged')
+Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'phpactor/phpactor', {'for': 'php', 'do': 'composer install --no-dev -o', 'branch': 'develop'}
 Plug 'AndrewRadev/linediff.vim'
@@ -641,7 +642,8 @@ nmap - <Plug>VinegarVerticalSplitUp
 "}}}
 " fzf.vim {{{
 let g:fzf_command_prefix = 'FZF'
-nnoremap <C-\> :GrotaWipeEmptyBuffers<CR>:GrotaInvokeFZFForBufDelete<CR>
+nnoremap <C-\> :GrotaWipeEmptyBuffers<CR>:FZFBuffers<CR>
+nnoremap <F7> :GrotaWipeEmptyBuffers<CR>:GrotaInvokeFZFForBufDelete<CR>
 nnoremap <C-f> :FZFHistory<CR>
 nnoremap <leader>ff :FZFFiles<CR>
 let $FZF_DEFAULT_COMMAND='(fd --no-ignore-vcs --type f --hidden --follow --exclude .git --exclude Tests/) 2> /dev/null'

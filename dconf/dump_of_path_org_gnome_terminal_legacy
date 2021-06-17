@@ -1,0 +1,69 @@
+[/]
+default-show-menubar=false
+headerbar=@mb false
+menu-accelerator-enabled=false
+mnemonics-enabled=false
+schema-version=uint32 3
+theme-variant='dark'
+
+[keybindings]
+close-tab='disabled'
+close-window='disabled'
+help='disabled'
+move-tab-left='disabled'
+move-tab-right='disabled'
+new-window='disabled'
+next-tab='disabled'
+prev-tab='disabled'
+switch-to-tab-1='disabled'
+switch-to-tab-10='disabled'
+switch-to-tab-2='disabled'
+switch-to-tab-3='disabled'
+switch-to-tab-4='disabled'
+switch-to-tab-5='disabled'
+switch-to-tab-6='disabled'
+switch-to-tab-7='disabled'
+switch-to-tab-8='disabled'
+switch-to-tab-9='disabled'
+
+[profiles:]
+default='103d8d3a-6f4a-4634-90fd-6e0fba41027b'
+list=['6aa334d3-d152-4154-b094-9a06abd15bd0', '103d8d3a-6f4a-4634-90fd-6e0fba41027b']
+
+[profiles:/:103d8d3a-6f4a-4634-90fd-6e0fba41027b]
+audible-bell=false
+background-color='rgb(0,0,0)'
+bold-color='rgb(147,16,16)'
+bold-color-same-as-fg=true
+bold-is-bright=true
+cell-height-scale=1.0
+cursor-background-color='rgb(136,207,148)'
+cursor-blink-mode='on'
+cursor-colors-set=true
+cursor-foreground-color='rgb(84,9,9)'
+font='Ubuntu Mono 14'
+foreground-color='rgb(175,182,167)'
+highlight-colors-set=false
+palette=['rgb(0,0,0)', 'rgb(205,0,0)', 'rgb(0,205,0)', 'rgb(205,205,0)', 'rgb(0,0,238)', 'rgb(205,0,205)', 'rgb(0,205,205)', 'rgb(229,229,229)', 'rgb(127,127,127)', 'rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(255,255,0)', 'rgb(92,92,255)', 'rgb(255,0,255)', 'rgb(0,255,255)', 'rgb(255,255,255)']
+rewrap-on-resize=true
+scrollbar-policy='never'
+use-system-font=true
+use-theme-colors=false
+use-theme-transparency=false
+visible-name='colors'
+
+[profiles:/:6aa334d3-d152-4154-b094-9a06abd15bd0]
+audible-bell=false
+background-color='rgb(0,0,0)'
+font='Source Code Pro Medium 11'
+foreground-color='rgb(0,255,0)'
+palette=['rgb(0,0,0)', 'rgb(205,0,0)', 'rgb(0,205,0)', 'rgb(205,205,0)', 'rgb(0,0,238)', 'rgb(205,0,205)', 'rgb(0,205,205)', 'rgb(229,229,229)', 'rgb(127,127,127)', 'rgb(255,0,0)', 'rgb(0,255,0)', 'rgb(255,255,0)', 'rgb(92,92,255)', 'rgb(255,0,255)', 'rgb(0,255,255)', 'rgb(255,255,255)']
+rewrap-on-resize=true
+use-system-font=true
+use-theme-colors=false
+use-theme-transparency=false
+visible-name='Default'
+
+[profiles:/:b1dcc9dd-5262-4d8d-a863-c897e6d979b9]
+foreground-color='rgb(78,154,6)'
+use-theme-colors=false

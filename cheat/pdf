@@ -1,2 +1,8 @@
 crea un pdf con solo pags 3-8 11 16
   pdftk INPUT.pdf cat 3-8 11 16 output OUT.pdf
+
+OCR:
+  convert -density 300 INPUT.pdf -depth 8 -strip -background white -alpha off OUTPUT.tiff
+  # la versione pdf (ultimo arg) magari non ha tutto, butta fuori anche il txt cioé senza ultimo arg.
+  tesseract -l spa INPUT.tiff OUTPUT pdf
+

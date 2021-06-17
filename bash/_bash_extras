@@ -54,9 +54,9 @@ stty start undef
 
 [ -n "$PS1" ] && (export BINPATHS=(${PATH//:/ }) && whatis "$(find "${BINPATHS[@]}" -maxdepth 1 -printf '%f\n' -type f 2>/dev/null| shuf -n 1)")
 
-if [ "$TERM" = "xterm" -a "$COLORTERM" = "gnome-terminal" ]; then
-    TERM="xterm-256color"
-fi
+#if [ "$TERM" = "xterm" -a "$COLORTERM" = "gnome-terminal" ]; then
+    #TERM="xterm-256color"
+#fi
 
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
