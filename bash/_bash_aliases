@@ -24,9 +24,6 @@ export FZF_DEFAULT_COMMAND='(fd --no-ignore-vcs --type f --hidden --follow --exc
 export FZF_CTRL_T_COMMAND='(fd --no-ignore-vcs --hidden --follow --exclude .git) 2> /dev/null'
 
 # functions {{{
-function mdu() {
-  FF=$(mktemp -u); ncdu -2 -o "$FF" "$*"; ncdu -f "$FF"; rm -f "$FF";
-}
 function mkcd() { mkdir -p "$@" && eval cd "\"\$$#\""; }
 function resunity() {
   xset r rate 200 90
@@ -37,20 +34,16 @@ function resunity() {
 # }}}
 
 # aliases {{{
-function cleandocker () {
-  VOLUMES="$(docker volume ls -f dangling=true -q | awk '{print $2}')"
-  [ -n "$VOLUMES" ] && docker volume rm "$VOLUMES"
-  CONTAINERS="$(docker ps -a | command grep Exited | command grep -v data | awk '{print $1}')"
-  [ -n "$CONTAINERS" ] && docker rm -vf "${CONTAINERS//$'\n'/ }"
-  IMAGES="$(docker images -f dangling=true -q)"
-  [ -n "$IMAGES" ] && docker rmi "${IMAGES//$'\n'/ }"
-}
 alias tmxu=tmux
 alias L='less -R'
 alias df='df -h'
-alias l='ls -CF --group-directories-first'
-alias ll='ls -AlFhrt --group-directories-first'
-alias ls='ls --color=auto --group-directories-first'
+# https://github.com/Peltoche/lsd
+alias ls='lsd'
+alias ll='lsd --tree'
+alias l='lsd -l'
+#alias l='ls -CF --group-directories-first'
+#alias ll='ls -AlFhrt --group-directories-first'
+#alias ls='ls --color=auto --group-directories-first'
 alias nv=nordvpn
 alias d=docker
 alias dc=docker-compose
@@ -72,13 +65,13 @@ alias ...="cd ../../"
 alias ....="cd ../../../"
 alias .....="cd ../../../../"
 alias ......="cd ../../../../../"
-alias cd-="\cd -"
+#alias cd-="\cd -"
 alias bc='rlwrap -a bc -l'
-alias grep='grep --color=always -n --exclude-dir=.git '
+#alias grep='grep --color=always -n --exclude-dir=.git '
 alias ff='ag --pager=less -g'
 alias agu='ag -U --pager bat --ignore=.js --ignore node_modules --ignore tests --ignore Tests --ignore private/logs --ignore web/core/tags'
 # there's a ss bin but that's ok for me
 alias ss='sudo su -'
-alias xc='sleep 1.0; xdotool type "$(xclip -o -selection clipboard)"'
+#alias xc='sleep 1.0; xdotool type "$(xclip -o -selection clipboard)"'
 alias cat=bat
 #}}}

@@ -1,4 +1,4 @@
-#!env bash
+#!/usr/bin/env bash
 # vim: set tabstop=2 shiftwidth=2 foldmethod=marker:
 
 current_pathinrepo=$( dirname "$(readlink -f "${BASH_SOURCE[0]}")" )
@@ -12,26 +12,6 @@ if [[ "$PROMPT_COMMAND" != *"ps1_update"* ]]; then
   export PROMPT_COMMAND="history -a; history -n; ps1_update --prompt \>"
 fi
 [[ -s "${current_pathinrepo}/ps1_functions" ]] && source "${current_pathinrepo}/ps1_functions"
-
-_dotfiles_preexec () {
-  # Set the tmux pane title before executing a command, see man tmux
-  echo -ne "\033]2;$1\033\\"
-}
-# used to guard execution of _dotfiles_preexec
-_dotfiles_guard_preexec () {
-  [ -n "$COMP_LINE" ] && return  # do nothing if completing
-  [ "$BASH_COMMAND" = "$PROMPT_COMMAND" ] && return # don't cause a _dotfiles_preexec for $PROMPT_COMMAND
-  local this_command=$(history 1 | sed -e "s/^[ ]*[0-9]*[ ]*//g");
-  if [[ -n "$this_command"  && "$__grota_prev_command_guard" != "$this_command" ]]; then
-    __grota_prev_command_guard="$this_command"
-    _dotfiles_preexec "$this_command"
-  fi
-}
-trap '_dotfiles_guard_preexec' DEBUG
-# reset tmux pane title after command execution, i.e. during PROMPT_COMMAND execution
-if [[ "$PROMPT_COMMAND" != *"_dotfiles_preexec"* ]]; then
-  export PROMPT_COMMAND="$PROMPT_COMMAND ; _dotfiles_preexec ''; "
-fi
 
 if [[ ! ( "$PATH" == *"$HOME/local/bin:$HOME/.config/composer/vendor/bin"* ) ]]; then
   export PATH=$HOME/local/bin:$HOME/.config/composer/vendor/bin:$PATH
@@ -54,10 +34,6 @@ stty start undef
 
 [ -n "$PS1" ] && (export BINPATHS=(${PATH//:/ }) && whatis "$(find "${BINPATHS[@]}" -maxdepth 1 -printf '%f\n' -type f 2>/dev/null| shuf -n 1)")
 
-#if [ "$TERM" = "xterm" -a "$COLORTERM" = "gnome-terminal" ]; then
-    #TERM="xterm-256color"
-#fi
-
 # Less Colors for Man Pages
 export LESS_TERMCAP_mb=$'\E[01;31m'       # begin blinking
 export LESS_TERMCAP_md=$'\E[01;38;5;74m'  # begin bold
@@ -78,9 +54,9 @@ export LESS="-iRS"
 source "${current_pathinrepo}/scm_breeze/scm_breeze.sh"
 # }}}
 
-if ( (type gem) && gem query -l -i tmuxinator) > /dev/null 2>&1; then
-  . "$(gem contents tmuxinator|grep "completion.*bash")"
-fi
+#if ( (type gem) && gem query -l -i tmuxinator) > /dev/null 2>&1; then
+  #. "$(gem contents tmuxinator|grep "completion.*bash")"
+#fi
 
 function whichpkg() { PACKAGE=$(dpkg -S "$(which "$1")" | cut -d':' -f1); echo "[${PACKAGE}]"; dpkg -s "${PACKAGE}" ;}
 
@@ -93,7 +69,9 @@ function _cheat_autocomplete {
 }
 alias h=cheat
 
-source "${DOTFILESREPO}/bash/enhancd/enhancd.sh"
+#export ENHANCD_DISABLE_HYPHEN=1
+#export ENHANCD_DISABLE_HOME=1
+#source "${DOTFILESREPO}/bash/enhancd/init.sh"
 source "${DOTFILESREPO}/bin/the_silver_searcher/ag.bashcomp.sh"
 
 # Cannot use a ~/.bash_completion (that ~/.bashrc would source)
