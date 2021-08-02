@@ -1,24 +1,20 @@
 prefix+?   list-keys
-prefix+C-x list-keys in copy-mode
 
-M+/ search
-prefix+C-f search files
-prefix+C-u search urls
-prefix+C-d search digits
-prefix+C-g search git-status files
-prefix+M-h search git shas
-prefix+C-c search gitlab refs:... commit strings
+tmux-plugins/tmux-sensible
+  prev window        prefix+C-p
+  next window        prefix+C-n
+  reload .tmux.conf  prefix+R
+  last window        prefix+b
 
-prefix+y copy command to system clipboard
-prefix+p paste tmux buffer
-prefix+= select tmux buffer to paste
+tmux-plugins/tmux-pain-control
+  new window    prefix+c
+  select pane   prefix+h/j/k/l  prefix+C-h/C-j/C-k/C-l
+  resize pane   prefix+H/J/K/L
+  split pane    vert/horz prefix+|-\_
+  move window   prefix+<>
 
-        -- copy mode --
-o (other side of selection)
+tmux-plugins/tmux-resurrect
+  save/restore session  prefix+C-s/prefix+C-r
 
-C-o   (xdg-open)
-Enter (open with $EDITOR)
-
-  y (copy selection to system clipboard)
-M-y (copy selection to system clipboard and paste it)
-  Y (add selection only to tmux buffer list and paste it)
+tmux-plugins/tpm
+  install/update/clean plugins  prefix+I/U/Alt-u

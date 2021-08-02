@@ -1,1 +1,2 @@
 aws s3 cp configs.tar.gz s3://grota.backups/raspberry/ --storage-class GLACIER
+aws s3 cp configs.tar.gz s3://grota.backups/raspberry/ --storage-class DEEP_ARCHIVE

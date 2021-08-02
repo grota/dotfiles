@@ -11,3 +11,8 @@
 Redirect stderr to stdout 2>&1
 Redirect stdout to stderr 1>&2
 set -euo pipefail
+https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html
+${parameter#word} begin remove shortest word
+${parameter##word} begin remove longest word
+${parameter%word} trailing remove shortest word
+${parameter%%word} trailing remove longest word

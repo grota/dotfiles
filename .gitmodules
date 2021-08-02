@@ -40,15 +40,6 @@
 [submodule "private"]
 	path = private
 	url = git@bitbucket.org:grota/private-dotfiles.git
-[submodule "tmux/plugins/tmux-copycat"]
-	path = tmux/plugins/tmux-copycat
-	url = https://github.com/tmux-plugins/tmux-copycat
-[submodule "tmux/plugins/tmux-yank"]
-	path = tmux/plugins/tmux-yank
-	url = https://github.com/tmux-plugins/tmux-yank
-[submodule "tmux/plugins/tmux-open"]
-	path = tmux/plugins/tmux-open
-	url = https://github.com/tmux-plugins/tmux-open.git
 [submodule "vim/dotvim/bundle/maxbrunsfeld_vim-yankstack"]
 	path = vim/dotvim/bundle/maxbrunsfeld_vim-yankstack
 	url = https://github.com/maxbrunsfeld/vim-yankstack.git
@@ -85,15 +76,9 @@
 [submodule "vim/dotvim/bundle/HerringtonDarkholme_yats-vim"]
 	path = vim/dotvim/bundle/HerringtonDarkholme_yats-vim
 	url = https://github.com/HerringtonDarkholme/yats.vim.git
-[submodule "vim/dotvim/bundle/ervandew_supertab"]
-	path = vim/dotvim/bundle/ervandew_supertab
-	url = https://github.com/ervandew/supertab.git
 [submodule "vim/dotvim/bundle/JamshedVesuna_vim-markdown-preview"]
 	path = vim/dotvim/bundle/JamshedVesuna_vim-markdown-preview
 	url = https://github.com/JamshedVesuna/vim-markdown-preview.git
-[submodule "vim/dotvim/bundle/mattn_emmet-vim"]
-	path = vim/dotvim/bundle/mattn_emmet-vim
-	url = https://github.com/mattn/emmet-vim.git
 [submodule "vim/dotvim/bundle/mhartington_nvim-typescript"]
 	path = vim/dotvim/bundle/mhartington_nvim-typescript
 	url = https://github.com/mhartington/nvim-typescript.git
@@ -106,3 +91,6 @@
 [submodule "vim/dotvim/bundle/phpactor_phpactor"]
 	path = vim/dotvim/bundle/phpactor_phpactor
 	url = https://github.com/phpactor/phpactor.git
+[submodule "tmux/plugins/tpm"]
+	path = tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm

@@ -16,7 +16,7 @@ fi
 if [[ ! ( "$PATH" == *"$HOME/local/bin:$HOME/.config/composer/vendor/bin"* ) ]]; then
   export PATH=$HOME/local/bin:$HOME/.config/composer/vendor/bin:$PATH
 fi
-export PATH="$HOME/local/bin:$HOME/.local/bin/:$PATH"
+export PATH="$(go env GOPATH)/bin:$HOME/.local/bin/:$PATH"
 
 _Z_CMD=j . "${DOTFILESREPO}"/bin/rupa_z/z.sh
 
@@ -54,24 +54,8 @@ export LESS="-iRS"
 source "${current_pathinrepo}/scm_breeze/scm_breeze.sh"
 # }}}
 
-#if ( (type gem) && gem query -l -i tmuxinator) > /dev/null 2>&1; then
-  #. "$(gem contents tmuxinator|grep "completion.*bash")"
-#fi
-
 function whichpkg() { PACKAGE=$(dpkg -S "$(which "$1")" | cut -d':' -f1); echo "[${PACKAGE}]"; dpkg -s "${PACKAGE}" ;}
 
-function _cheat_autocomplete {
-    sheets=$(cheat -l | cut -d' ' -f1)
-    COMPREPLY=()
-    if [ "$COMP_CWORD" = 1 ]; then
-      COMPREPLY=($(compgen -W "$sheets" -- "$2"))
-    fi
-}
-alias h=cheat
-
-#export ENHANCD_DISABLE_HYPHEN=1
-#export ENHANCD_DISABLE_HOME=1
-#source "${DOTFILESREPO}/bash/enhancd/init.sh"
 source "${DOTFILESREPO}/bin/the_silver_searcher/ag.bashcomp.sh"
 
 # Cannot use a ~/.bash_completion (that ~/.bashrc would source)

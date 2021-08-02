@@ -1,3 +1,4 @@
 # Needed for tags read by fugitive that stay in .git
 --tag-relative=yes
 --exclude=.git
+--kinds-PHP=-avn
