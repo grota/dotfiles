@@ -16,12 +16,9 @@ augroup SetPhpFolds
 augroup end
 "}}}
 
-" unmappings {{{
-" IndexedSearch: unmap stupid mappings that start with \, use g/ in case
-"unmap \\
-"unmap \/
-"}}}
-
-" CHANGE CASE {{{
-"nnoremap U gUiWw
-"}}}
+" Airline {{{
+augroup grota_autocommands
+  autocmd User AirlineAfterTheme highlight airline_tabmod ctermfg=88 ctermbg=22 guifg=#870000 guibg=#005f00
+  autocmd User AirlineAfterTheme highlight airline_tabmod_right ctermfg=88 ctermbg=22 guifg=#870000 guibg=#005f00
+augroup END
+" }}}

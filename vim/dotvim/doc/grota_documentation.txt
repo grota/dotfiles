@@ -9,34 +9,22 @@ i_<C-j> i_<C-k> UltiSnips placeholders nav once expanded.
 i_CTRL-f     Same as == but from insert mode
 o_i#        inner comment
 o_[iao]i    inner/around/only indent
-<leader>I/A Prepend/Append to all adjacent lines with same indentation
-<leader>bd delete buffer without save confirmation
 nnoremap <Leader>mm :call phpactor#ContextMenu()<CR>
 nnoremap <Leader>tt :call phpactor#Transform()<CR>
-nnoremap <silent><Leader>ex :call phpactor#ExtractExpression(v:false)<CR>
-xnoremap <silent><Leader>em :<C-U>call phpactor#ExtractMethod()<CR>
-xnoremap <silent><Leader>ee :<C-U>call phpactor#ExtractExpression(v:true)<CR>
-nnoremap <buffer> <C-]> :vertical call LanguageClient#textDocument_definition()<CR>
-nnoremap <buffer> <leader>lrn :call LanguageClient#textDocument_rename()<CR>
-nnoremap <buffer> <leader>lcm :call LanguageClient_contextMenu()<CR>
-call LanguageClient#textDocument_references()
-call LanguageClient#textDocument_documentHighlight()
+xnoremap <silent><Leader>ee :<C-u>PhpactorExtractExpression<CR>
+xnoremap <silent><Leader>em :<C-u>PhpactorExtractMethod<CR>
 :h abolish-coercion
 
+i/n_<M-o>    Autopair Jump
 cx<movement like w,i'> followed by . or by another cx<movement>
 (a)round/(i)nner  (n)ext/(l)ast  b()/B{}/r[]
-(a)round/(i)nner  (v)ariable (php, js, ruby)
 (a)round/(i)nner  (f) x (mnemonic: "font" x)
 blockwise visual mode works well to enclose each line in quotes.
 repeat last commandline command: @:
 i_<C-G>s     tpope's surround in insert mode. Accepts <CR> after s.
-(also, look out for new possible surroundings like <?php, html or erb
-that you may want, surround is flexible)
-i/n_<M-o>    Autopair Jump
-(s)eek/(S)eek xx
-s search forward, S backwards
 s<enter>
 <leader>sm   Space map/unmap
+<leader>y f/o/O/p (yank full oOnly path)
 
 i_CTRL-u     Delete till start of line
 
@@ -53,17 +41,11 @@ i_CTRL-u     Delete till start of line
 |surround| in char  visual: gS{ wrappa il testo con {}. Il testo e' su newline indentato
 |surround| in char  visual:  S{ wrappa il testo con {}.
 |surround| in line  visual: gS{ wrappa il testo con {}. Il testo e' su newline
-|surround| in line  visual:  S{ wrappa il testo con {}. Il testo e' su newline indenteato
+|surround| in line  visual:  S{ wrappa il testo con {}. Il testo e' su newline indentato
 
 :Linediff (twice, from visual mode). :LinediffReset
 i_ <C-l> <C-h> <C-j> <C-k> wordwise movement
-<C-n> <C-p> :bn :bp
-<M-up><M-down>  move line(s) up/down in normal,insert,visual mode
 |yankring| <M-.> <M-,> Yankring next/prev
-|NERDComFunctionalitySummary| ,cc ,ci ...
-|fugitive|
-  <M-d>       :Gdiff
-  <leader>gs  :Gstatus
 
 usually overridden by ftplugins: |[[| |]]| ( |[m| |]m| |[M| |]M| )
 
@@ -81,5 +63,9 @@ o_il        inner line
 <C-g> clear the search highlight followed by <C-g>
 <M-d>  :Gdiff <M-s>  :Gstatus
 <leader>gw  :Gwrite
+<leader>bd delete buffer without save confirmation
+(s)eek/(S)eek xx
+s search forward, S backwards
+<M-up><M-down>  move line(s) up/down in normal,insert,visual mode
 
 vim:tw=78:ts=8:ft=help:norl:

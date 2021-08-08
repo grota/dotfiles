@@ -1,96 +1,18 @@
-[submodule "vim/dotvim/bundle/vim-scripts_IndexedSearch"]
-	path = vim/dotvim/bundle/vim-scripts_IndexedSearch
-	url = git://github.com/vim-scripts/IndexedSearch.git
-[submodule "vim/dotvim/bundle/rbgrouleff_bclose.vim"]
-	path = vim/dotvim/bundle/rbgrouleff_bclose.vim
-	url = git://github.com/rbgrouleff/bclose.vim.git
-[submodule "vim/dotvim/bundle/gregsexton_gitv"]
-	path = vim/dotvim/bundle/gregsexton_gitv
-	url = git://github.com/gregsexton/gitv.git
-[submodule "vim/dotvim/bundle/tpope_vim-pathogen"]
-	path = vim/dotvim/bundle/tpope_vim-pathogen
-	url = git://github.com/tpope/vim-pathogen.git
-[submodule "bin/git-archive-all"]
-	path = bin/git-archive-all
-	url = git://github.com/mhitza/git-archive-all.sh.git
-[submodule "bin/git-diffall"]
-	path = bin/git-diffall
-	url = git@github.com:grota/git-diffall.git
-[submodule "vim/dotvim/bundle/MarcWeber_vim-addon-mw-utils"]
-	path = vim/dotvim/bundle/MarcWeber_vim-addon-mw-utils
-	url = git://github.com/MarcWeber/vim-addon-mw-utils.git
-[submodule "vim/dotvim/bundle/tomtom_tlib_vim"]
-	path = vim/dotvim/bundle/tomtom_tlib_vim
-	url = git://github.com/tomtom/tlib_vim.git
 [submodule "bash/scm_breeze"]
 	path = bash/scm_breeze
 	url = git://github.com/ndbroadbent/scm_breeze.git
-[submodule "vim/dotvim/bundle/vim-scripts_gitignore"]
-	path = vim/dotvim/bundle/vim-scripts_gitignore
-	url = git://github.com/vim-scripts/gitignore.git
-[submodule "vim/dotvim/bundle/AndrewRadev_multichange"]
-	path = vim/dotvim/bundle/AndrewRadev_multichange
-	url = git://github.com/AndrewRadev/multichange.vim.git
-[submodule "vim/dotvim/bundle/robmiller_vim-movar"]
-	path = vim/dotvim/bundle/robmiller_vim-movar
-	url = git://github.com/robmiller/vim-movar.git
-[submodule "vim/dotvim/bundle/suan_vim-instant-markdown"]
-	path = vim/dotvim/bundle/suan_vim-instant-markdown
-	url = https://github.com/suan/vim-instant-markdown.git
 [submodule "private"]
 	path = private
 	url = git@bitbucket.org:grota/private-dotfiles.git
-[submodule "vim/dotvim/bundle/maxbrunsfeld_vim-yankstack"]
-	path = vim/dotvim/bundle/maxbrunsfeld_vim-yankstack
-	url = https://github.com/maxbrunsfeld/vim-yankstack.git
-[submodule "vim/dotvim/bundle/vim-scripts_visualrepeat"]
-	path = vim/dotvim/bundle/vim-scripts_visualrepeat
-	url = https://github.com/vim-scripts/visualrepeat.git
 [submodule "bin/rupa_z"]
 	path = bin/rupa_z
 	url = https://github.com/rupa/z.git
-[submodule "vim/dotvim/bundle/ctrlpvim_ctrlp.vim"]
-	path = vim/dotvim/bundle/ctrlpvim_ctrlp.vim
-	url = https://github.com/ctrlpvim/ctrlp.vim.git
-[submodule "bin/urxvt-font-size"]
-	path = bin/urxvt-font-size
-	url = https://github.com/majutsushi/urxvt-font-size.git
-[submodule "bin/urxvt-perls"]
-	path = bin/urxvt-perls
-	url = https://github.com/muennich/urxvt-perls.git
 [submodule "bash/enhancd"]
 	path = bash/enhancd
 	url = https://github.com/b4b4r07/enhancd.git
 [submodule "bin/the_silver_searcher"]
 	path = bin/the_silver_searcher
 	url = https://github.com/ggreer/the_silver_searcher.git
-[submodule "vim/dotvim/bundle/vim-airline-themes"]
-	path = vim/dotvim/bundle/vim-airline-themes
-	url = https://github.com/vim-airline/vim-airline-themes.git
-[submodule "vim/dotvim/bundle/posva_vim-vue"]
-	path = vim/dotvim/bundle/posva_vim-vue
-	url = https://github.com/posva/vim-vue.git
-[submodule "vim/dotvim/bundle/leafgarland_typescript-vim"]
-	path = vim/dotvim/bundle/leafgarland_typescript-vim
-	url = https://github.com/leafgarland/typescript-vim.git
-[submodule "vim/dotvim/bundle/HerringtonDarkholme_yats-vim"]
-	path = vim/dotvim/bundle/HerringtonDarkholme_yats-vim
-	url = https://github.com/HerringtonDarkholme/yats.vim.git
-[submodule "vim/dotvim/bundle/JamshedVesuna_vim-markdown-preview"]
-	path = vim/dotvim/bundle/JamshedVesuna_vim-markdown-preview
-	url = https://github.com/JamshedVesuna/vim-markdown-preview.git
-[submodule "vim/dotvim/bundle/mhartington_nvim-typescript"]
-	path = vim/dotvim/bundle/mhartington_nvim-typescript
-	url = https://github.com/mhartington/nvim-typescript.git
-[submodule "vim/dotvim/bundle/roxma_LanguageServer-php-neovim"]
-	path = vim/dotvim/bundle/roxma_LanguageServer-php-neovim
-	url = https://github.com/roxma/LanguageServer-php-neovim.git
-[submodule "vim/dotvim/bundle/shougo_echodoc.vim"]
-	path = vim/dotvim/bundle/shougo_echodoc.vim
-	url = https://github.com/Shougo/echodoc.vim.git
-[submodule "vim/dotvim/bundle/phpactor_phpactor"]
-	path = vim/dotvim/bundle/phpactor_phpactor
-	url = https://github.com/phpactor/phpactor.git
 [submodule "tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm

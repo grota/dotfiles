@@ -6,6 +6,8 @@ if empty(glob("~/.vim/autoload/plug.vim"))
 endif
 
 call plug#begin('~/.vim/plugged')
+" self require, for help.
+Plug 'junegunn/vim-plug'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
@@ -27,17 +29,26 @@ Plug 'majutsushi/tagbar'
 Plug 'tommcdo/vim-exchange'
 Plug 'dense-analysis/ale'
 Plug 'SirVer/ultisnips'
-Plug 'arnaud-lb/vim-php-namespace'
 Plug 'vim-vdebug/vdebug'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'vim-airline/vim-airline'
 Plug 'jiangmiao/auto-pairs'
 Plug 'zef/vim-cycle'
 Plug 'justinmk/vim-sneak'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'mbbill/undotree'
+Plug 'mhinz/vim-grepper'
+Plug 'maxbrunsfeld/vim-yankstack'
+if has('nvim')
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'folke/lsp-colors.nvim'
+  Plug 'folke/trouble.nvim'
+  Plug 'gennaro-tedesco/nvim-peekup'
+endif
 call plug#end()
 
 if has("gui_running")
@@ -54,6 +65,9 @@ if has("gui_running")
   set guifont=Monospace\ 10
 else
   set background=dark
+endif
+if has('nvim')
+  set termguicolors
 endif
 colorscheme grota
 "}}}
@@ -149,7 +163,7 @@ set foldlevelstart=99
 set updatetime=500
 set encoding=utf-8
 set showtabline=2
-set tabline=%!GrotaTabLine()
+"set tabline=%!GrotaTabLine()
 set fillchars-=vert:\|
 " Don't consider 007 as octal for <C-a> <C-x> purposes
 set nrformats-=octal
@@ -402,9 +416,9 @@ xnoremap <Leader>y "+ygv"*y`>
 nnoremap <Leader>yf :let @+=expand("%")<CR>:echo 'copied '.expand("%")<CR>
 nnoremap <Leader>yo :let @+=expand("%:t")<CR>:echo 'copied '.expand("%:t")<CR>
 nnoremap <Leader>yO :let @+=expand("%:t:r")<CR>:echo 'copied '.expand("%:t:r")<CR>
+nnoremap <Leader>yp :let @+=expand("%:p:h")<CR>:echo 'copied '.expand("%:p:h")<CR>
 nnoremap <Leader>p "+gp
-inoremap <C-o>p <Left><Right><C-o>p<End>
-nnoremap Y y$
+nmap Y y$
 "}}}
 " <C-s> QUICK SAVING, <leader>ee -> :e {{{
 nnoremap <C-s> :update<CR>
@@ -504,7 +518,7 @@ endfunction
 noremap         <Plug>(TOC) <nop>
 inoremap <expr> <Plug>(TOC) exists('#textobj_undo_empty_change')?"\<esc>":''
 " }}}
-" Text Objects: indent: ii (inner) ai (around) oi (only), <leader>I <leader> A {{{
+" Text Objects: indent: ii (inner) ai (around) oi (only)
 function! s:indent_len(str)
   return type(a:str) == 1 ? len(matchstr(a:str, '^\s*')) : 0
 endfunction
@@ -556,7 +570,6 @@ let g:vimsyn_folding = 'af'
 let g:is_bash = 1
 let g:sh_fold_enabled=7
 " This is disabled because it's slow.
-"let g:php_folding = 2
 " use K on a proposed line in an interactive gitrebase to see the corresponding diff
 augroup grota_autocommands
   autocmd FileType gitrebase nnoremap <buffer> <silent> S :Cycle<CR>
@@ -565,13 +578,6 @@ augroup END
 " }}}
 
 " CONTRIB PLUGINS MAPPINGS AND SETTINGS {{{
-" LanguageClient {{{
-let g:LanguageClient_autoStart = 0
-" see also vim/dotvim/ftplugin/php.vim
-"}}}
-" vim-php-namespace {{{
-" see vim/dotvim/ftplugin/php.vim
-" }}}
 " phpactor {{{
 " see vim/dotvim/ftplugin/php.vim
 " }}}
@@ -595,27 +601,6 @@ augroup grota_autocommands
   autocmd BufEnter fugitive://**//[0-3]/** let b:autotagDisabled=1
 augroup END
 nnoremap <M-d> :Gdiff<CR>gg]czz
-function! s:MyGgrepWrapper(target_type, word_to_search)
-  if (a:word_to_search == 'word')
-    let l:input=input("git-grep for: ", expand("<cword>"))
-  else
-    let l:input=input("git-grep for: ", @+)
-  endif
-  if l:input == ''
-    echo ""
-    return
-  endif
-  if (a:target_type == 'quickfix')
-    execute "Ggrep! " . l:input
-    botright copen
-  else
-    execute "Glgrep! " . l:input
-    botright lopen
-  endif
-endfunction
-nnoremap <leader>gc  :call <SID>MyGgrepWrapper('location', 'clipboard')<CR>
-nnoremap <leader>gg  :call <SID>MyGgrepWrapper('location', 'word')<CR>
-nnoremap <leader>gq  :call <SID>MyGgrepWrapper('quickfix', 'word')<CR>
 nnoremap <leader>gw  :Gw<CR>
 nnoremap <leader>gs  :Gstatus<CR>
 nnoremap <leader>gb  :Gblame<CR>
@@ -623,17 +608,12 @@ nnoremap <leader>gef  :Gedit<CR>
 nnoremap <leader>gec  :Gedit @^{}<CR>
 nnoremap <leader>gtel  :Gtabedit <C-r>+<CR>
 nnoremap <leader>gtec  :Gtabedit @^{}<CR>
-nnoremap <M-s> :Gstatus<CR>
+nnoremap <M-s> :Git<CR>
 "}}}
 " Surround {{{
-" php: a => array(xxx)
 augroup grota_autocommands
-  autocmd FileType php let b:surround_{char2nr("a")} = "array(\r)"
   autocmd FileType php let b:surround_{char2nr("r")} = "['\r']"
   autocmd FileType php let b:surround_{char2nr("l")} = "->\r"
-  autocmd FileType markdown let b:surround_{char2nr("l")} = "[\r][\1link text or number: \1]"
-  autocmd FileType markdown let b:surround_{char2nr("6")} = "***\r***"
-  autocmd FileType markdown let b:surround_{char2nr("7")} = "**\r**"
 augroup END
 let g:surround_{char2nr("8")} = "*\r*"
 "}}}
@@ -655,43 +635,37 @@ let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
 nnoremap <leader>st :ALEToggle<CR>
 "}}}
-" vim-markology {{{
-let g:markology_enable = 0
-let g:markology_suppress_default_meta_key_maps = 1
-"}}}
-" Autotag {{{
-" Specify 40MB as the maximum size of the tags file to be considered by autotag
-let g:autotagmaxTagsFileSize=1024*1024*40
-"}}}
 " vim-airline {{{
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#tabline#show_buffers = 0
+let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#hunks#enabled = 0
 let g:airline_theme= 'powerlineish'
 let g:airline_theme_patch_func = 'AirlineThemePatch'
 function! AirlineThemePatch(palette)
+  " foreground (text)
+  let a:palette['normal']['airline_a'][0] = '#9e9e9e'
+  " background (green)
+  let a:palette['normal']['airline_a'][1] = '#005f00'
+  " foreground (text)
   let a:palette['normal']['airline_a'][2] = 247
+  " background (green)
   let a:palette['normal']['airline_a'][3] = 22
+  let a:palette['normal']['airline_z'][0] = '#9e9e9e'
+  let a:palette['normal']['airline_z'][1] = '#005f00'
   let a:palette['normal']['airline_z'][2] = 247
   let a:palette['normal']['airline_z'][3] = 22
-
-  let l:replace_b = copy(a:palette['replace']['airline_b'])
-  let l:replace_b[2] = 196
 endfunction
 " }}}
-" Supertab {{{
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabLongestHighlight = 1
-"}}}
-" Gitv {{{
-nnoremap <leader>gl :<C-U>Gitv --all<CR>
-let g:Gitv_DoNotMapCtrlKey = 1
-"}}}
 " autopairs {{{
-" <M-p> mapped to AutoPairsToggle
 let g:AutoPairsShortcutJump='<M-o>'
 let g:AutoPairsMapBS = 0
 let g:AutoPairsMapCR = 0
 let g:AutoPairsMapSpace = 0
+" <M-p> reserved for yankstack
+let g:AutoPairsShortcutToggle = ''
 "}}}
 " Vdebug {{{
 let g:vdebug_keymap = {
@@ -730,19 +704,9 @@ let g:vdebug_keymap = {
 "\}
 nnoremap <Leader>br :BreakpointRemove *<CR>
 " }}}
-" Vimux {{{
-let g:VimuxUseNearestPane = 1
-let g:VimuxOrientation = "h"
-let g:VimuxHeight = "40"
-function! VimuxSlime()
-  call VimuxSendText(@v)
-  call VimuxSendKeys("Enter")
-endfunction
-nnoremap <Leader>rl :VimuxRunLastCommand<CR>
-vnoremap <Leader>v "vy  :call VimuxSlime()<CR>
-" }}}
 " vim-sneak {{{
 let g:sneak#use_ic_scs = 1
+let g:sneak#label = 1
 nmap ; <Plug>SneakPrevious
 omap ; <Plug>SneakPrevious
 xmap ; <Plug>SneakPrevious
@@ -773,21 +737,33 @@ let g:gitgutter_eager = 0
 let g:gitgutter_escape_grep = 1
 let g:gitgutter_realtime = 0
 " }}}
+" mbbill/undotree {{{
+nnoremap <leader>tu :UndotreeToggle<CR>
+" }}}
+" mhinz/vim-grepper {{{
+let g:grepper = {}
+" search uses loclist, ale uses quickfix.
+let g:grepper.quickfix = 0
+let g:grepper.searchreg = 1
+nnoremap <leader>gg :Grepper<CR>
+let g:grepper.prompt_mapping_tool = '<leader>gg'
+let g:grepper.tools = ['git', 'ag']
+" }}}
 "}}}
 
 " CUSTOM PLUGINS MAPPINGS AND SETTINGS {{{
-" ,q/,l quickfix/location list toggle {{{
-nnoremap <leader>q :QFToggle<CR>
-nnoremap <leader>l :LLToggle<CR>
+" <leader>q/<leader>l quickfix/location list toggle {{{
+nnoremap <silent> <leader>q :QFToggle<CR>
+nnoremap <silent> <leader>l :LLToggle<CR>
 "}}}
-" ,xs for syntax class {{{
+" <leader>xs for syntax class {{{
 function! SynStack()
   if !exists("*synstack")
     return
   endif
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
 endfunc
-nnoremap <leader>xs :call SynStack()<CR>
+nnoremap <silent> <leader>xs :call SynStack()<CR>
 "}}}
 " * and # in visual {{{
 function! s:VSetSearch()
@@ -851,25 +827,12 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 " }}}
 
 " NOTES {{{
-"augroup last_search
-  "autocmd!
-  "autocmd WinLeave * let w:last_search = @/
-  "autocmd WinEnter * if exists('w:last_search') | let @/ = w:last_search | endif
-"augroup END
 " Mappable Keys {{{
 " ` (currently default but we use \)
 " <M-e>
 " i_<C-z,b,f> can be remapped
 " <F6,7,8> can be mapped
 " }}}
-" }}}
-
-" Old stuff {{{
-" Sparkup {{{
-" see the FileType autocommands below for the real mappings
-let g:sparkupExecuteMapping = '<Plug>SparkupExecuteMapping'
-let g:sparkupNextMapping = '<Plug>SparkupNextMapping'
-"}}}
 " }}}
 
 silent! so .local.vimrc
