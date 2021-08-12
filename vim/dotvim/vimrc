@@ -8,6 +8,8 @@ endif
 call plug#begin('~/.vim/plugged')
 " self require, for help.
 Plug 'junegunn/vim-plug'
+Plug 'justinmk/vim-sneak'
+Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'phpactor/phpactor', {'for': 'php', 'tag': '*', 'do': 'composer install --no-dev -o'}
@@ -33,7 +35,6 @@ Plug 'vim-vdebug/vdebug'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'jiangmiao/auto-pairs'
 Plug 'zef/vim-cycle'
-Plug 'justinmk/vim-sneak'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -41,13 +42,13 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper'
-Plug 'maxbrunsfeld/vim-yankstack'
+Plug 'lfv89/vim-interestingwords'
 if has('nvim')
   Plug 'neovim/nvim-lspconfig'
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'folke/lsp-colors.nvim'
-  Plug 'folke/trouble.nvim'
   Plug 'gennaro-tedesco/nvim-peekup'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'branch' : '0.5-compat'}
 endif
 call plug#end()
 
@@ -255,8 +256,6 @@ nnoremap <silent> <M-2> :<C-u>tabnext<CR>
 inoremap <silent> <M-2> <Esc>:<C-u>tabnext<CR>
 nnoremap <silent> <M-!> :<C-u>tabmove -1<CR>
 inoremap <silent> <M-!> <Esc>:<C-u>tabmove -1<CR>
-"nnoremap <silent> <Esc>@ :<C-u>tabmove +1<CR>
-"inoremap <silent> <Esc>@ <Esc>:<C-u>tabmove +1<CR>
 nnoremap <silent> <M-@> :<C-u>tabmove +1<CR>
 inoremap <silent> <M-@> <Esc>:<C-u>tabmove +1<CR>
 " }}}
@@ -411,12 +410,12 @@ xnoremap > >gv
 nnoremap gV `[v`]
 xnoremap <BS> x
 "}}}
-" ,y ,p ,yf ,P : YANKING AND PASTING {{{
+" <leader>y/yf/yo/yO/yp/p : YANKING AND PASTING {{{
 xnoremap <Leader>y "+ygv"*y`>
 nnoremap <Leader>yf :let @+=expand("%")<CR>:echo 'copied '.expand("%")<CR>
 nnoremap <Leader>yo :let @+=expand("%:t")<CR>:echo 'copied '.expand("%:t")<CR>
 nnoremap <Leader>yO :let @+=expand("%:t:r")<CR>:echo 'copied '.expand("%:t:r")<CR>
-nnoremap <Leader>yp :let @+=expand("%:p:h")<CR>:echo 'copied '.expand("%:p:h")<CR>
+nnoremap <Leader>yp :let @+=expand("%:h")<CR>:echo 'copied '.expand("%:h")<CR>
 nnoremap <Leader>p "+gp
 nmap Y y$
 "}}}
@@ -442,15 +441,8 @@ inoremap <M-w> <C-o>dW
 inoremap <M-d> <C-o>dw
 inoremap <C-w> <C-o>dB
 inoremap <C-d> <C-o>db
-"inoremap <C-y> <C-o>P
-" this is actually <C-->
 inoremap <C-_> <C-y>
 inoremap <C-b> <BS>
-" I was not able to map <M-b>
-"}}}
-" [xn]_&: Substitute {{{
-nnoremap & :&&<CR>
-xnoremap & :&&<CR>
 "}}}
 " v_r Replace {{{
 function! s:replace()
@@ -518,7 +510,7 @@ endfunction
 noremap         <Plug>(TOC) <nop>
 inoremap <expr> <Plug>(TOC) exists('#textobj_undo_empty_change')?"\<esc>":''
 " }}}
-" Text Objects: indent: ii (inner) ai (around) oi (only)
+" Text Objects: indent: ii (inner) ai (around) oi (only) {{{
 function! s:indent_len(str)
   return type(a:str) == 1 ? len(matchstr(a:str, '^\s*')) : 0
 endfunction
@@ -640,6 +632,9 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_tab_type = 0
+let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#show_close_button = 0
+
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#hunks#enabled = 0
 let g:airline_theme= 'powerlineish'
@@ -658,6 +653,17 @@ function! AirlineThemePatch(palette)
   let a:palette['normal']['airline_z'][2] = 247
   let a:palette['normal']['airline_z'][3] = 22
 endfunction
+" }}}
+" vim-yankstack {{{
+" sneak, as a scriptname, could stay before or after yankstack, it does not
+" matter: sneak is polite (does not map if a map already exists) and yankstack
+" is not (always maps) so if it stays before its mappings get overwritten and
+" if it stays after it does not overwrite.
+" So take s/S off of this var of yankstack below since they are used by
+" sneak+surround (normal+visual).
+" Remove also Y from the list since I want to remap it to y$ anyway
+" (I can avoid explicitly `call yankstack#setup()`)
+let g:yankstack_yank_keys = ['c', 'C', 'd', 'D', 'x', 'X', 'y']
 " }}}
 " autopairs {{{
 let g:AutoPairsShortcutJump='<M-o>'
@@ -775,38 +781,6 @@ function! s:VSetSearch()
 endfunction
 xnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><C-O>
 xnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><C-O>
-"}}}
-" Highlight Word {{{
-function! HiInterestingWord(n) " {{{
-    " Save our location.
-    normal! mz
-
-    " Yank the current word into the z register.
-    normal! "zyiw
-
-    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
-    let mid = 86750 + a:n
-
-    " Clear existing matches, but don't worry if they don't exist.
-    silent! call matchdelete(mid)
-
-    " Construct a literal pattern that has to match at boundaries.
-    let pat = '\V\<' . escape(@z, '\') . '\>'
-
-    " Actually match the words.
-    call matchadd("InterestingWord" . a:n, pat, 1, mid)
-
-    " Move back to our original location.
-    normal! `z
-endfunction " }}}
-" Mappings {{{
-nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
-nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
-nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
-nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
-nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
-nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
-" }}}
 "}}}
 "}}}
 

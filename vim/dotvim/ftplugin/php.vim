@@ -13,3 +13,5 @@ xnoremap <silent><Leader>ee :<C-u>PhpactorExtractExpression<CR>
 xnoremap <silent><Leader>em :<C-u>PhpactorExtractMethod<CR>
 " }}}
 setlocal keywordprg=pman
+setlocal foldmethod=expr
+setlocal foldexpr=nvim_treesitter#foldexpr()

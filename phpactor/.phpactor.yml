@@ -1,0 +1,4 @@
+composer.autoload_deregister: false
+code_transform.indentation: "  "
+composer.autoloader_path: "%project_root%/.phpactor_autoloader/vendor/autoload.php"
+

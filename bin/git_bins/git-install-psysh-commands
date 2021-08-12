@@ -4,9 +4,20 @@ if [ ! -d .git ]; then
   echo Not in root dir of git repo, doing nothing. 1>&2
   exit 1
 fi
+
+DEFAULT_PATH_TO_WEB=src/drupal/web
+path_to_web=$1
+if [ -z "$1" ]; then
+  echo missing web dir of drupal defaulting to $DEFAULT_PATH_TO_WEB
+  path_to_web=$DEFAULT_PATH_TO_WEB
+fi
+export path_to_web
+
 # git ignore project spec psysh config file
-echo /web/.psysh.php >> .git/info/exclude
-echo /grota >> .git/info/exclude
-cp "${DOTFILESREPO}/psysh/.psysh.php" web/
-mkdir -p grota/psysh
-cp -r "${DOTFILESREPO}/psysh/Command" grota/psysh
+echo /$path_to_web/.psysh.php >> .git/info/exclude
+echo /"$(realpath src/drupal/web/../grota --relative-to=.)" >> .git/info/exclude
+
+cp "${DOTFILESREPO}/psysh/.psysh.php" $path_to_web
+mkdir -p $path_to_web/../grota/psysh
+cp -r "${DOTFILESREPO}/psysh/Command" $path_to_web/../grota/psysh
+echo "all done"

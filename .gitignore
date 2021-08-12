@@ -25,3 +25,4 @@
 /bash/completions/ddev_bash_completion.sh
 /tmux/plugins
 /tmux/resurrect
+/phpactor/vendor

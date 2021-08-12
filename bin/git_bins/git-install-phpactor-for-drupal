@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ ! -d .git ]; then
+  echo Not in root dir of git repo, doing nothing. 1>&2
+  exit 1
+fi
+
+DEFAULT_PATH_TO_WEB=src/drupal/web
+path_to_web=$1
+if [ -z "$1" ]; then
+  echo missing web dir of drupal defaulting to $DEFAULT_PATH_TO_WEB
+  path_to_web=$DEFAULT_PATH_TO_WEB
+fi
+export path_to_web
+
+rm -fr .phpactor_autoloader
+cp -r "$DOTFILESREPO/phpactor/" .phpactor_autoloader
+envsubst '$path_to_web' < "$DOTFILESREPO/phpactor/composer.json" > .phpactor_autoloader/composer.json
+mv .phpactor_autoloader/.phpactor.yml .
+echo /.phpactor.yml >> .git/info/exclude
+echo /.phpactor_autoloader >> .git/info/exclude
+cd .phpactor_autoloader && composer up --lock
+echo "all done"
