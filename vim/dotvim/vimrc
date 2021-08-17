@@ -19,7 +19,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'kana/vim-textobj-user'
 Plug 'thinca/vim-textobj-between'
 Plug 'guns/xterm-color-table.vim', {'on': 'XtermColorTable'}
-Plug 'scrooloose/nerdcommenter'
+Plug 'preservim/nerdcommenter'
 Plug 'wellle/targets.vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -27,7 +27,7 @@ Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-abolish'
-Plug 'majutsushi/tagbar'
+Plug 'preservim/tagbar'
 Plug 'tommcdo/vim-exchange'
 Plug 'dense-analysis/ale'
 Plug 'SirVer/ultisnips'
@@ -43,12 +43,15 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper'
 Plug 'lfv89/vim-interestingwords'
+Plug 'pbogut/fzf-mru.vim'
+Plug 'haya14busa/vim-asterisk'
 if has('nvim')
   Plug 'neovim/nvim-lspconfig'
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'folke/lsp-colors.nvim'
   Plug 'gennaro-tedesco/nvim-peekup'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'branch' : '0.5-compat'}
+  Plug 'gfanto/fzf-lsp.nvim'
 endif
 call plug#end()
 
@@ -138,7 +141,7 @@ set laststatus=2 " when to show the extra status line: 2=always, 1=only if there
 set keymodel=startsel
 " This will look in the directory of the current file for 'tags', and work up the tree towards root until one is found.
 set tags=./tags;
-set completeopt=longest,menuone,preview
+set completeopt=longest,menuone,preview,noselect
 set virtualedit+=block,onemore
 if !has('nvim')
   set clipboard=autoselect,exclude:cons\|linux
@@ -616,10 +619,15 @@ nmap - <Plug>VinegarVerticalSplitUp
 let g:fzf_command_prefix = 'FZF'
 nnoremap <C-\> :GrotaWipeEmptyBuffers<CR>:FZFBuffers<CR>
 nnoremap <F7> :GrotaWipeEmptyBuffers<CR>:GrotaInvokeFZFForBufDelete<CR>
-nnoremap <C-f> :FZFHistory<CR>
 nnoremap <leader>ff :FZFFiles<CR>
 let $FZF_DEFAULT_COMMAND='(fd --no-ignore-vcs --type f --hidden --follow --exclude .git --exclude Tests/) 2> /dev/null'
 ""}}}
+" pbogut/fzf-mru.vim {{{
+nnoremap <C-f> :FZFMru<CR>
+let g:fzf_mru_relative = 1
+let g:fzf_mru_exclude = '^/tmp'
+nnoremap <F6> :let g:fzf_mru_relative = !g:fzf_mru_relative<CR>:echo 'fzf mru is ' . (g:fzf_mru_relative ? 'ONLY_RELATIVE' : 'ALL_FILES')<CR>
+" }}}
 " w0rp/ale {{{
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
@@ -629,11 +637,27 @@ nnoremap <leader>st :ALEToggle<CR>
 "}}}
 " vim-airline {{{
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_tab_type = 0
 let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#show_close_button = 0
+let g:airline#extensions#tabline#fnamecollapse = 0
+let g:airline#extensions#tabline#tabtitle_formatter = 'TabTitleFormatterPreferCurrentBuffer'
+function TabTitleFormatterPreferCurrentBuffer(n)
+  let buflist = tabpagebuflist(a:n)
+  let winnr = tabpagewinnr(a:n)
+  let bufnr = buflist[winnr - 1]
+  let all_buffers = airline#extensions#tabline#buflist#list()
+  if index(all_buffers, bufnr) != -1
+    return airline#extensions#tabline#get_buffer_name(bufnr)
+  endif
+  let curbuf = filter(buflist, 'index(all_buffers, v:val) != -1')
+  if len(curbuf) ==  0
+    call add(curbuf, tabpagebuflist()[0])
+  endif
+  return airline#extensions#tabline#get_buffer_name(curbuf[0], curbuf)
+endfunction
 
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#hunks#enabled = 0
@@ -746,14 +770,29 @@ let g:gitgutter_realtime = 0
 " mbbill/undotree {{{
 nnoremap <leader>tu :UndotreeToggle<CR>
 " }}}
+" gfanto/fzf-lsp.nvim {{{
+nnoremap <leader>fws :FZFWorkspaceSymbols <C-r><C-w><CR>
+nnoremap <leader>fr :FZFReferences
+" }}}
 " mhinz/vim-grepper {{{
 let g:grepper = {}
 " search uses loclist, ale uses quickfix.
 let g:grepper.quickfix = 0
 let g:grepper.searchreg = 1
-nnoremap <leader>gg :Grepper<CR>
 let g:grepper.prompt_mapping_tool = '<leader>gg'
 let g:grepper.tools = ['git', 'ag']
+nnoremap <leader>gg :Grepper -cword<CR>
+" }}}
+" haya14busa/vim-asterisk {{{
+let g:asterisk#keeppos = 1
+nmap *  <Plug>(asterisk-z*)
+nmap #  <Plug>(asterisk-z#)
+nmap g* <Plug>(asterisk-gz*)
+nmap g# <Plug>(asterisk-gz#)
+xmap *  <Plug>(asterisk-z*)
+xmap #  <Plug>(asterisk-z#)
+xmap g* <Plug>(asterisk-gz*)
+xmap g# <Plug>(asterisk-gz#)
 " }}}
 "}}}
 
@@ -770,17 +809,6 @@ function! SynStack()
   echo join(map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")'), " > ")
 endfunc
 nnoremap <silent> <leader>xs :call SynStack()<CR>
-"}}}
-" * and # in visual {{{
-function! s:VSetSearch()
-  let temp = @@
-  norm! gvy
-  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-  let @@ = temp
-  call histadd('/', @/)
-endfunction
-xnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><C-O>
-xnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><C-O>
 "}}}
 "}}}
 
