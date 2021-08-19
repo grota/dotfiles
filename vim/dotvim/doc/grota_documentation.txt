@@ -9,14 +9,10 @@ i_<C-j> i_<C-k> UltiSnips placeholders nav once expanded.
 i_CTRL-f     Same as == but from insert mode
 o_i#        inner comment
 o_[iao]i    inner/around/only indent
-nnoremap <Leader>mm :call phpactor#ContextMenu()<CR>
-nnoremap <Leader>tt :call phpactor#Transform()<CR>
-xnoremap <silent><Leader>ee :<C-u>PhpactorExtractExpression<CR>
-xnoremap <silent><Leader>em :<C-u>PhpactorExtractMethod<CR>
+<f6>        toggles fzf_mru's only relative or all behavior (on <C-f>)
 :h abolish-coercion
 
 i/n_<M-o>    Autopair Jump
-cx<movement like w,i'> followed by . or by another cx<movement>
 (a)round/(i)nner  (n)ext/(l)ast  b()/B{}/r[]
 (a)round/(i)nner  (f) x (mnemonic: "font" x)
 blockwise visual mode works well to enclose each line in quotes.
@@ -24,9 +20,18 @@ repeat last commandline command: @:
 i_<C-G>s     tpope's surround in insert mode. Accepts <CR> after s.
 s<enter>
 <leader>sm   Space map/unmap
-<leader>y f/o/O/p (yank full oOnly path)
+<leader>fws :FZFWorkspaceSymbols
+<leader>fr  :FZFReferences
 
 i_CTRL-u     Delete till start of line
+
+      SEMI LEARNED
+nnoremap <Leader>mm :call phpactor#ContextMenu()<CR>
+nnoremap <Leader>tt :call phpactor#Transform()<CR>
+xnoremap <silent><Leader>ee :<C-u>PhpactorExtractExpression<CR>
+xnoremap <silent><Leader>em :<C-u>PhpactorExtractMethod<CR>
+<leader>y f/o/O/p (yank full oOnly path)
+cx<movement like w,i'> followed by . or by another cx<movement>
 
       VARIOUS
 {dcv}    {ia}{,} delete-change-visual inner-around argument

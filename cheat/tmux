@@ -1,20 +1,9 @@
 prefix+?   list-keys
 
-tmux-plugins/tmux-sensible
-  prev window        prefix+C-p
-  next window        prefix+C-n
-  reload .tmux.conf  prefix+R
-  last window        prefix+b
+PREFIX
+  t next-layout
 
-tmux-plugins/tmux-pain-control
-  new window    prefix+c
-  select pane   prefix+h/j/k/l  prefix+C-h/C-j/C-k/C-l
-  resize pane   prefix+H/J/K/L
-  split pane    vert/horz prefix+|-\_
-  move window   prefix+<>
+COPY-MODE
+  v     begin-selection
+  <C-v> rectangle-toggle
 
-tmux-plugins/tmux-resurrect
-  save/restore session  prefix+C-s/prefix+C-r
-
-tmux-plugins/tpm
-  install/update/clean plugins  prefix+I/U/Alt-u

@@ -1,0 +1,37 @@
+tmux-plugins/tmux-yank
+  IN NORMAL MODE <prefix>y  copy current cli command to system clipboard
+  IN NORMAL MODE <prefix>Y  copy current shell PWD to system clipboard
+  IN COPY   MODE y          copy selection to system clipboard
+  IN COPY   MODE Y          paste selection into pane (no copy to system clipboard)
+
+Morantron/tmux-fingers
+  <prefix> f  enter finger mode then ?
+
+IngoMeyer441/tmux-easy-motion
+  <prefix><space><movement>
+  o <space><movement> in copymode
+  movements:
+  b, B, w, W, e, E, ge, gE, j, k, f, F, t, T
+  J, K (like j/k but EOL), c (camelcase)
+
+laktak/extrakto
+  <prefix>e lauch extrakto
+
+tmux-plugins/tmux-sensible
+  prev window        prefix+C-p
+  next window        prefix+C-n
+  reload .tmux.conf  prefix+R
+  last window        prefix+b
+
+tmux-plugins/tmux-pain-control
+  new window    prefix+c
+  select pane   prefix+h/j/k/l  prefix+C-h/C-j/C-k/C-l
+  resize pane   prefix+H/J/K/L
+  split pane    vert/horz prefix + |-\_
+  move window   prefix+<>
+
+tmux-plugins/tmux-resurrect
+  save/restore session  prefix+C-s/prefix+C-r
+
+tmux-plugins/tpm
+  install/update/clean plugins  prefix+I/U/Alt-u

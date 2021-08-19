@@ -772,7 +772,7 @@ nnoremap <leader>tu :UndotreeToggle<CR>
 " }}}
 " gfanto/fzf-lsp.nvim {{{
 nnoremap <leader>fws :FZFWorkspaceSymbols <C-r><C-w><CR>
-nnoremap <leader>fr :FZFReferences
+nnoremap <leader>fr :FZFReferences<CR>
 " }}}
 " mhinz/vim-grepper {{{
 let g:grepper = {}
