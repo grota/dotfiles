@@ -26,3 +26,6 @@
 /tmux/plugins
 /tmux/resurrect
 /phpactor/vendor
+/bash/completions/cheat.bash
+/bash/completions/fz.sh
+/bash/kube-ps1.sh

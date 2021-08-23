@@ -45,6 +45,7 @@ Plug 'mhinz/vim-grepper'
 Plug 'lfv89/vim-interestingwords'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'haya14busa/vim-asterisk'
+Plug 'christoomey/vim-tmux-navigator'
 if has('nvim')
   Plug 'neovim/nvim-lspconfig'
   Plug 'kyazdani42/nvim-web-devicons'
@@ -80,26 +81,27 @@ colorscheme grota
 " Automatic mapping of <M-> keys. I think there's room to explore
 " <M-S-> mapping using toupper see http://vim.wikia.com/wiki/VimTip738
 if !has('nvim')
-let s:c='a'
-while s:c <= 'z'
-  exec "set <M-".(s:c).">=\e".s:c
-  exec "imap \e".s:c." <M-".(s:c).">"
-  let s:c = nr2char(1+char2nr(s:c))
-endwhile
-let s:c='0'
-while s:c <= '9'
-  exec "set <M-".(s:c).">=\e".s:c
-  exec "imap \e".s:c." <M-".(s:c).">"
-  let s:c = nr2char(1+char2nr(s:c))
-endwhile
-set <M-/>=/
-set <M-'>='
-set <M-;>=;
-set <M-->=-
-set <M-=>==
-set <M-`>=`
-set <M-!>=!
-set <M-~>=~
+  let s:c='a'
+  while s:c <= 'z'
+    exec "set <M-".(s:c).">=\e".s:c
+    exec "imap \e".s:c." <M-".(s:c).">"
+    let s:c = nr2char(1+char2nr(s:c))
+  endwhile
+  let s:c='0'
+  while s:c <= '9'
+    exec "set <M-".(s:c).">=\e".s:c
+    exec "imap \e".s:c." <M-".(s:c).">"
+    let s:c = nr2char(1+char2nr(s:c))
+  endwhile
+  set <M-/>=/
+  set <M-'>='
+  set <M-;>=;
+  set <M-->=-
+  set <M-=>==
+  set <M-`>=`
+  set <M-!>=!
+  set <M-~>=~
+  set <M-\|>=|
 endif
 "}}}
 
@@ -141,7 +143,9 @@ set laststatus=2 " when to show the extra status line: 2=always, 1=only if there
 set keymodel=startsel
 " This will look in the directory of the current file for 'tags', and work up the tree towards root until one is found.
 set tags=./tags;
-set completeopt=longest,menuone,preview,noselect
+set completeopt=menuone,noinsert,noselect
+" Avoid showing message extra message when using completion
+set shortmess+=c
 set virtualedit+=block,onemore
 if !has('nvim')
   set clipboard=autoselect,exclude:cons\|linux
@@ -263,7 +267,7 @@ nnoremap <silent> <M-@> :<C-u>tabmove +1<CR>
 inoremap <silent> <M-@> <Esc>:<C-u>tabmove +1<CR>
 " }}}
 " <C-Up/Down/Left/Right><M-Up/Down/Left/Right> FOR TMUX {{{
-if $TMUX !=# ''
+if $TMUX !=# '' && !has('nvim')
   set <C-Right>=[1;5C
   set <C-Left>=[1;5D
   nmap [1;5A <C-Up>
@@ -283,6 +287,11 @@ if $TMUX !=# ''
   imap [1;3C <M-Right>
   nmap [1;3D <M-Left>
   imap [1;3D <M-Left>
+
+  nmap [1;4D <M-S-left>
+  nmap [1;4C <M-S-right>
+  nmap [1;4A <M-S-up>
+  nmap [1;4B <M-S-down>
 endif
 " The alternative, if there are other inconsistencies in vim, or if other
 " programs need xterm-like sequences, is to enable xterm-keys in tmux and
@@ -438,6 +447,7 @@ xnoremap <M-Up> :m-2<CR>gv=gv
 "}}}
 " <CR> SPLIT LINE {{{
 nnoremap <CR> i<cr><esc>
+imap <expr> <CR> pumvisible() ? "\<C-y>\<CR>" : "\<CR>"
 "}}}
 " i_<M-w,d> i_<C-w,d> i_<C-y> i_<C--> {{{
 inoremap <M-w> <C-o>dW
@@ -597,8 +607,7 @@ augroup grota_autocommands
 augroup END
 nnoremap <M-d> :Gdiff<CR>gg]czz
 nnoremap <leader>gw  :Gw<CR>
-nnoremap <leader>gs  :Gstatus<CR>
-nnoremap <leader>gb  :Gblame<CR>
+nnoremap <leader>gb  :Git blame<CR>
 nnoremap <leader>gef  :Gedit<CR>
 nnoremap <leader>gec  :Gedit @^{}<CR>
 nnoremap <leader>gtel  :Gtabedit <C-r>+<CR>
@@ -793,6 +802,14 @@ xmap *  <Plug>(asterisk-z*)
 xmap #  <Plug>(asterisk-z#)
 xmap g* <Plug>(asterisk-gz*)
 xmap g# <Plug>(asterisk-gz#)
+" }}}
+" christoomey/vim-tmux-navigator {{{
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> <M-S-left> :TmuxNavigateLeft<cr>
+nnoremap <silent> <M-S-down> :TmuxNavigateDown<cr>
+nnoremap <silent> <M-S-up> :TmuxNavigateUp<cr>
+nnoremap <silent> <M-S-right> :TmuxNavigateRight<cr>
+nnoremap <silent> <M-\|> :TmuxNavigatePrevious<cr>
 " }}}
 "}}}
 

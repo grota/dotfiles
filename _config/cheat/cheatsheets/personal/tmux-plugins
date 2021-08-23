@@ -9,10 +9,14 @@ Morantron/tmux-fingers
 
 IngoMeyer441/tmux-easy-motion
   <prefix><space><movement>
-  o <space><movement> in copymode
+  in copymode <space><movement>
   movements:
   b, B, w, W, e, E, ge, gE, j, k, f, F, t, T
   J, K (like j/k but EOL), c (camelcase)
+
+christoomey_vim-tmux-navigator.conf
+  M-Shift-Left/Right/Up/Down
+  M-Shift-\ switch to last pane
 
 laktak/extrakto
   <prefix>e lauch extrakto
@@ -25,7 +29,7 @@ tmux-plugins/tmux-sensible
 
 tmux-plugins/tmux-pain-control
   new window    prefix+c
-  select pane   prefix+h/j/k/l  prefix+C-h/C-j/C-k/C-l
+  select pane   prefix+C-h/C-j/C-k/C-l
   resize pane   prefix+H/J/K/L
   split pane    vert/horz prefix + |-\_
   move window   prefix+<>

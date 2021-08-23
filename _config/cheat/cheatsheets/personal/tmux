@@ -1,0 +1,14 @@
+prefix+?   list-keys
+
+PREFIX
+  t next-layout
+  j join pane
+
+COPY-MODE
+  v     begin-selection
+  <C-v> rectangle-toggle
+
+AVAILABLE KEYS
+prefix+h/j/k/l can be remapped, they would be the select-pane of
+tmux-plugins/tmux-pain-control but there is the prefix+C-h/C-j/C-k/C-l
+alternative.

@@ -17,9 +17,10 @@ git submodule update --init --recursive
 
 # [bin]
  mkdir -p "$HOME"/local/bin
- curl -s https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -o ~/local/bin/diff-so-fancy
- cp /usr/share/doc/git/contrib/diff-highlight/diff-highlight ~/local/bin/
- ln -s "${repohome}"/vim/dotvim/plugged/phpactor/bin/phpactor ~/local/bin/
+ curl -s https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -o "$HOME"/local/bin/diff-so-fancy
+ cp /usr/share/doc/git/contrib/diff-highlight/diff-highlight "$HOME"/local/bin/
+ ln -sf "${repohome}"/vim/dotvim/plugged/phpactor/bin/phpactor "$HOME"/local/bin/
+ ln -sf "${repohome}"/bin/git-fuzzy/bin/fit-fuzzy "$HOME"/local/bin/
 
 # [Bash]
  ln -sf "${repohome}"/bash/_bash_aliases "$HOME"/.bash_aliases
@@ -28,14 +29,26 @@ git submodule update --init --recursive
  if [[ ! -f "${repohome}"/bash/completions/docker-compose ]]; then
    curl https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose -o "${repohome}"/bash/completions/docker-compose
  fi
+ if [[ ! -f "${repohome}"/bash/kube-ps1.sh ]]; then
+   curl https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh -o "${repohome}"/bash/kube-ps1.sh
+ fi
 
 # [kitty]
- ln -sfT "${repohome}"/kitty "$HOME"/.config/kitty
+ #ln -sfT "${repohome}"/kitty "$HOME"/.config/kitty
 
  ln -sfT "${repohome}"/sxiv "$HOME"/.config/sxiv
 
-# [cheat] https://github.com/chrisallenlane/cheat
- ln -sfT "${repohome}"/cheat "$HOME"/.cheat
+# [cheat] https://github.com/cheat/cheat
+ if ! exists cheat; then
+  go get -u github.com/cheat/cheat/cmd/cheat
+ fi
+ ln -sfT "${repohome}"/cheat "$HOME"/.config/cheat
+ if [[ ! -f "${repohome}"/bash/completions/cheat.bash ]]; then
+   curl https://github.com/cheat/cheat/raw/master/scripts/cheat.bash -o "${repohome}"/bash/completions/cheat.bash
+ fi
+ if [[ ! -f "${repohome}"/bash/completions/fz.sh ]]; then
+   curl https://github.com/changyuheng/fz/raw/master/fz.sh -o "${repohome}"/bash/completions/fz.sh
+ fi
 
 # [composer]
  if ! exists composer; then
@@ -63,6 +76,13 @@ git submodule update --init --recursive
  ln -sf "${repohome}"/tmux/_tmux.conf "$HOME"/.tmux.conf
  ln -sfT "${repohome}"/tmux "$HOME"/.tmux
  ln -sfT ../private/tmux/tmuxinator "${repohome}"/tmux/tmuxinator
+
+ if ! exists lsd; then
+   echo "download from https://github.com/Peltoche/lsd/releases"
+ fi
+ if ! exists bat; then
+   echo "download from https://github.com/sharkdp/bat/releases"
+ fi
 
 # [dconf]
 #if exists dconf && [ -n "$DISPLAY" ]; then
@@ -98,7 +118,6 @@ git submodule update --init --recursive
  ln -sf "${repohome}"/_config/autostart/xrdb.desktop "$HOME"/.config/autostart/xrdb.desktop
  ln -sf "${repohome}"/_config/autostart/dropbox.desktop "$HOME"/.config/autostart/dropbox.desktop
  ln -sf "${repohome}"/_config/autostart/indicator-multiload.desktop "$HOME"/.config/autostart/indicator-multiload.desktop
- ln -sf "${repohome}"/_config/autostart/shutter.desktop "$HOME"/.config/autostart/shutter.desktop
  #ln -sf "${repohome}"/_config/autostart/gnome-terminal.desktop "$HOME"/.config/autostart/gnome-terminal.desktop
 
 # [beets] https://github.com/sampsyo/beets/

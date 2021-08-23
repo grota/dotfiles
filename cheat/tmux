@@ -1,9 +1,0 @@
-prefix+?   list-keys
-
-PREFIX
-  t next-layout
-
-COPY-MODE
-  v     begin-selection
-  <C-v> rectangle-toggle
-

@@ -9,16 +9,20 @@ shopt -s histappend
 # as per instructions in the script, let's not call ps1_set, but call
 # ps1_update inside PROMPT_COMMAND.
 if [[ "$PROMPT_COMMAND" != *"ps1_update"* ]]; then
-  export PROMPT_COMMAND="history -a; history -n; ps1_update --prompt \>"
+  export PROMPT_COMMAND="history -a; history -n; ps1_update --notime --prompt \>"
 fi
 [[ -s "${current_pathinrepo}/ps1_functions" ]] && source "${current_pathinrepo}/ps1_functions"
+KUBE_PS1_NS_COLOR=green
+KUBE_PS1_CTX_COLOR=yellow
+[[ -s "${current_pathinrepo}/kube-ps1.sh" ]] && source "${current_pathinrepo}/kube-ps1.sh"
 
 if [[ ! ( "$PATH" == *"$HOME/local/bin:$HOME/.config/composer/vendor/bin"* ) ]]; then
   export PATH=$HOME/local/bin:$HOME/.config/composer/vendor/bin:$PATH
 fi
 export PATH="$(go env GOPATH)/bin:$HOME/.local/bin/:$PATH"
 
-_Z_CMD=j . "${DOTFILESREPO}"/bin/rupa_z/z.sh
+#_Z_CMD=j . "${DOTFILESREPO}"/bin/rupa_z/z.sh
+. "${DOTFILESREPO}"/bin/rupa_z/z.sh
 
 export EDITOR=nvim
 export MANPAGER="sh -c 'col -bx | bat --language=man -p'"
