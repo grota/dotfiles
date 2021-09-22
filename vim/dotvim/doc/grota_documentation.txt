@@ -57,7 +57,6 @@ usually overridden by ftplugins: |[[| |]]| ( |[m| |]m| |[M| |]M| )
 
       LEARNED (reminder)
 
-<leader>P   linewise paste
 v_r         visual mode replace (with unnamed register)
 o_il        inner line
 <leader>q <leader>l

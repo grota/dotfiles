@@ -14,7 +14,22 @@
 
 # See /usr/share/doc/sxiv/examples/key-handler
 
-case "$1" in
-"x")      while read file; do trash-put "$file"; done ;;
-esac
+while read file; do
+  case "$1" in
+  "x")      trash-put "$file"
+    ;;
+  "d")
+    echo trash-put "$file"
+    trash-put "$file"
+    movie=$(echo "$file" | sed 's/.png$//' | sed 's;.\+/;;')
+    echo trash-put "$movie"
+    trash-put "$movie"
+    ;;
+  "v")
+    movie=$(echo "$file" | sed 's/.png$//' | sed 's;.\+/;;')
+    echo mpv "$movie"
+    mpv "$movie"
+    ;;
+  esac
+done
 

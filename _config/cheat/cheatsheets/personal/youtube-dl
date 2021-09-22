@@ -1,4 +1,6 @@
-youtube-dl -f bestvideo+bestaudio 
-youtube-dl --batch-file todown --write-sub --all-subs --continue --convert-subs srt
-youtube-dl -x --audio-format mp3 -c http://....
+--write-sub --all-subs --continue --convert-subs srt
+-extract-audio --audio-format mp3 -c http://....
+-f bestvideo+bestaudio
+--batch-file todown
+-r 5M #--limit-rate
 --add-metadata --write-all-thumbnails --embed-thumbnail --write-info-json --embed-subs

@@ -16,6 +16,3 @@
 [submodule "tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
-[submodule "bin/git-fuzzy"]
-	path = bin/git-fuzzy
-	url = https://github.com/bigH/git-fuzzy.git

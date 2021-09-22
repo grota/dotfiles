@@ -46,6 +46,7 @@ Plug 'lfv89/vim-interestingwords'
 Plug 'pbogut/fzf-mru.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'junegunn/gv.vim'
 if has('nvim')
   Plug 'neovim/nvim-lspconfig'
   Plug 'kyazdani42/nvim-web-devicons'
@@ -637,11 +638,12 @@ let g:fzf_mru_relative = 1
 let g:fzf_mru_exclude = '^/tmp'
 nnoremap <F6> :let g:fzf_mru_relative = !g:fzf_mru_relative<CR>:echo 'fzf mru is ' . (g:fzf_mru_relative ? 'ONLY_RELATIVE' : 'ALL_FILES')<CR>
 " }}}
-" w0rp/ale {{{
+" dense-analysis/ale {{{
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 1
+let g:ale_disable_lsp = 1
 nnoremap <leader>st :ALEToggle<CR>
 "}}}
 " vim-airline {{{
