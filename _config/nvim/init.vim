@@ -33,16 +33,12 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', ']d', '<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<leader>dl', '<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
   buf_set_keymap("n", '<leader>fb', '<Cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  -- buf_set_keymap('n', '<leader>wa', '<Cmd>vertical split<CR><Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  -- buf_set_keymap('n', '<leader>wr', '<Cmd>vertical split<CR><Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  -- buf_set_keymap('n', '<leader>wl', '<Cmd>vertical split<CR><Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 end
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local servers = { "intelephense", "phpactor" }
--- local servers = { "intelephense" }
-for _, lsp in ipairs(servers) do
+local phpservers = { "intelephense", "phpactor" }
+for _, lsp in ipairs(phpservers) do
   nvim_lsp[lsp].setup {
     on_attach = on_attach,
     filetypes = { "php", "module", "theme", "profile", "inc" },
@@ -59,6 +55,9 @@ for _, lsp in ipairs(servers) do
     },
   }
 end
+nvim_lsp.tsserver.setup {
+    on_attach = on_attach,
+}
 
 require'nvim-treesitter.configs'.setup {
   highlight = {

@@ -1,0 +1,17 @@
+# versions of a package and which repo they come from
+apt policy pkg_name
+
+# intalled packages from a specific repo matching regex Backports (see `apt policy` for the list of defined repos)
+aptitude search "?origin (Backports) ?installed"
+
+#Get download url for pkg
+apt-get download --print-uris
+
+# Rollback all apt-get packages to the maximum available under the actual sources.list
+/etc/apt/preferences.d/back.pref with the following contents:
+Package: *
+Pin: release o=*
+Pin-Priority: 1001
+
+#configure all unpacked but unconfigured packages.
+dpkg --configure -a

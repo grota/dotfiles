@@ -78,7 +78,7 @@ export NNN_PLUG='c:fzz;p:preview-tui;i:imgview'
 function n ()
 {
     # Block nesting of nnn in subshells
-    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+    if [ -n "$NNNLVL" ] && [ "${NNNLVL:-0}" -ge 1 ]; then
         echo "nnn is already running"
         return
     fi
@@ -105,4 +105,4 @@ function n ()
 
 export COMPOSE_DOCKER_CLI_BUILD=1
 export DOCKER_BUILDKIT=1
-#export LD_LIBRARY_PATH=/usr/local/lib
+eval "$(navi widget bash)"

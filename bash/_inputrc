@@ -20,6 +20,7 @@ $include /etc/inputrc
 "\C-p": history-search-backward
 "\C-n": history-search-forward
 "\C-o": menu-complete
+# shift-tab
 "\e[Z": menu-complete-backward
 
 # add parameters to the last command: (previous-history, beginning-of-line, forward-word)
