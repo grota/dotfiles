@@ -54,6 +54,7 @@ if has('nvim')
   Plug 'gennaro-tedesco/nvim-peekup'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate', 'branch' : '0.5-compat'}
   Plug 'gfanto/fzf-lsp.nvim'
+  Plug 'lukas-reineke/indent-blankline.nvim'
 endif
 call plug#end()
 
@@ -628,6 +629,7 @@ nmap - <Plug>VinegarVerticalSplitUp
 " fzf.vim {{{
 let g:fzf_command_prefix = 'FZF'
 nnoremap <C-\> :GrotaWipeEmptyBuffers<CR>:FZFBuffers<CR>
+nnoremap <M-Bslash> :FZFWindows<CR>
 nnoremap <F7> :GrotaWipeEmptyBuffers<CR>:GrotaInvokeFZFForBufDelete<CR>
 nnoremap <leader>ff :FZFFiles<CR>
 let $FZF_DEFAULT_COMMAND='(fd --no-ignore-vcs --type f --hidden --follow --exclude .git --exclude Tests/) 2> /dev/null'

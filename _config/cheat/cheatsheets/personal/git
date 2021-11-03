@@ -5,6 +5,8 @@ git config core.fileMode false
 git oldest-ancestor B1 B2
 git check-ignore -v path_to_file
 
+--push-option="ci.skip" #same as [ci-skip] in commit message
+
 add lines like these to .git/info/attributes:
 /config/*yml d8config
 **/tests/src/** d8tests

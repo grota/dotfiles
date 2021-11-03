@@ -22,6 +22,7 @@ s<enter>
 <leader>sm   Space map/unmap
 <leader>fws :FZFWorkspaceSymbols
 <leader>fr  :FZFReferences
+g<Tab>      go to last tab
 
 i_CTRL-u     Delete till start of line
 

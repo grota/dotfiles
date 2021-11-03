@@ -16,12 +16,14 @@ KUBE_PS1_NS_COLOR=green
 KUBE_PS1_CTX_COLOR=yellow
 [[ -s "${current_pathinrepo}/kube-ps1.sh" ]] && source "${current_pathinrepo}/kube-ps1.sh"
 
-if [[ ! ( "$PATH" == *"$HOME/local/bin:$HOME/.config/composer/vendor/bin"* ) ]]; then
+if [ -z "$TMUX" ]; then
   export PATH=$HOME/local/bin:$HOME/.config/composer/vendor/bin:$PATH
+  export PATH=$PATH:/usr/local/go/bin
+  export PATH="$(go env GOPATH)/bin:$HOME/.local/bin/:$PATH"
+  # from beginner yt video instructions.
+  export GOPATH="$(go env GOPATH):/home/grota/Projects/personal/gocode"
 fi
-export PATH="$(go env GOPATH)/bin:$HOME/.local/bin/:$PATH"
 
-#_Z_CMD=j . "${DOTFILESREPO}"/bin/rupa_z/z.sh
 . "${DOTFILESREPO}"/bin/rupa_z/z.sh
 
 export EDITOR=nvim
@@ -32,7 +34,6 @@ HISTCONTROL="erasedups:ignoreboth"
 HISTIGNORE="clear:bg:fg:cd:cd -:exit:date:w:gs:gss:ga:gau:gk:gd:gdc:gf:gb:grbi:gcm*:l:resunity:ss:"
 
 # disable <CTRL-S> and <CTRL-Q> terminal settings, I want to use them in vim
-# maybe there's a better way, see :h term.txt in vim
 stty stop undef
 stty start undef
 
