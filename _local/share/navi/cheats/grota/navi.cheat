@@ -1,0 +1,10 @@
+% navi
+
+# Edit cheats
+$EDITOR ~/.local/share/navi/cheats/grota/
+
+# welcome
+navi fn welcome
+
+# cheatsheet syntax
+navi fn url::open https://github.com/denisidoro/navi/blob/master/docs/cheatsheet_syntax.md

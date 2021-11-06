@@ -1,0 +1,5 @@
+% shell
+
+# sed substitute recursive
+grep -rl '<word>'  |xargs -I@ sed -i 's/<word>/<replace>/g' @
+
