@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-[[ -f ~/.Xdefaults ]] && xrdb -merge ~/.Xdefaults
-xmodmap ~/.Xmodmap
