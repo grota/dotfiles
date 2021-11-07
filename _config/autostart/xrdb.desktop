@@ -1,8 +1,0 @@
-[Desktop Entry]
-Name=xrdb
-Type=Application
-Exec=xrdb -merge /home/grota/.Xdefaults
-Hidden=false
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
-Comment=lightdb does not run .xsession or .xsessionrc

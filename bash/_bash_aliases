@@ -3,7 +3,6 @@
 
 # ~/.profile or ~/.bash_profile read only by interactive shells
 # ~/.profile is not read if ~/.bash_profile or ~/.bash_login exists.
-# look into the dropbox-only phpenv_phpbuild branch for a sane .bash_profile
 
 export DOTFILESREPO=$(readlink -f "$( dirname "$(readlink -f "${BASH_SOURCE[0]}")")""/..")
 . "${DOTFILESREPO}"/bash/_bash_extras
@@ -47,14 +46,11 @@ alias df='df -h'
 alias ls='lsd'
 alias ll='lsd --tree'
 alias l='lsd -l'
-#alias l='ls -CF --group-directories-first'
-#alias ll='ls -AlFhrt --group-directories-first'
-#alias ls='ls --color=auto --group-directories-first'
 alias nv=nordvpn
 alias d=docker
 alias dc=docker-compose
 alias ffmpeg='ffmpeg -hide_banner'
-#alias ffprobe='ffprobe -hide_banner'
+alias ffprobe='ffprobe -hide_banner'
 function cc () {
   local CHROME=google-chrome
   if [ ! -z "$1" ]; then
