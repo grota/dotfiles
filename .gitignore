@@ -20,12 +20,13 @@
 /_kde/*
 /ranger/*
 /vim/dotvim/nvimrc
-/bash/completions/docker-compose
 /vim/dotvim/LanguageClient.log
 /bash/completions/ddev_bash_completion.sh
+/bash/completions/docker-compose
+/bash/completions/cheat.bash
+/bash/completions/fz.sh
+/bash/completions/chezmoi
 /tmux/plugins
 /tmux/resurrect
 /phpactor/vendor
-/bash/completions/cheat.bash
-/bash/completions/fz.sh
 /bash/kube-ps1.sh

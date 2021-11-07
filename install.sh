@@ -32,6 +32,14 @@ git submodule update --init --recursive
  if [[ ! -f "${repohome}"/bash/kube-ps1.sh ]]; then
    curl https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh -o "${repohome}"/bash/kube-ps1.sh
  fi
+ if ! exists chezmoi; then
+   cd "$HOME"/local/bin
+   sh -c "$(curl -fsLS git.io/chezmoi)"
+   cd -
+ fi
+ if [[ ! -f "${repohome}"/bash/completions/chezmoi ]]; then
+   chezmoi completion bash --output="${repohome}"/bash/completions/chezmoi
+ fi
 
  ln -sfT "${repohome}"/sxiv "$HOME"/.config/sxiv
 

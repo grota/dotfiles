@@ -79,4 +79,5 @@ alias ss='sudo su -'
 #alias xc='sleep 1.0; xdotool type "$(xclip -o -selection clipboard)"'
 alias cat=bat
 alias h=cheat
+alias cm=chezmoi
 #}}}
