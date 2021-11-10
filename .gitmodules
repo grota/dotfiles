@@ -7,12 +7,6 @@
 [submodule "bin/rupa_z"]
 	path = bin/rupa_z
 	url = https://github.com/rupa/z.git
-[submodule "bash/enhancd"]
-	path = bash/enhancd
-	url = https://github.com/b4b4r07/enhancd.git
-[submodule "bin/the_silver_searcher"]
-	path = bin/the_silver_searcher
-	url = https://github.com/ggreer/the_silver_searcher.git
 [submodule "tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm

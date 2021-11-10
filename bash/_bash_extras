@@ -61,8 +61,6 @@ source "${current_pathinrepo}/scm_breeze/scm_breeze.sh"
 
 function whichpkg() { PACKAGE=$(dpkg -S "$(which "$1")" | cut -d':' -f1); echo "[${PACKAGE}]"; dpkg -s "${PACKAGE}" ;}
 
-source "${DOTFILESREPO}/bin/the_silver_searcher/ag.bashcomp.sh"
-
 # Cannot use a ~/.bash_completion (that ~/.bashrc would source)
 # because this needs to happen after our actions.
 for f in "$DOTFILESREPO"/bash/completions/*; do

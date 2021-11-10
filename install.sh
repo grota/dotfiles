@@ -33,9 +33,15 @@ git submodule update --init --recursive
    curl https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh -o "${repohome}"/bash/kube-ps1.sh
  fi
  if ! exists chezmoi; then
-   cd "$HOME"/local/bin
-   sh -c "$(curl -fsLS git.io/chezmoi)"
-   cd -
+  bin_dir="$HOME/local/bin"
+  if [ "$(command -v curl)" ]; then
+    sh -c "$(curl -fsLS https://git.io/chezmoi)" -- -b "$bin_dir"
+  elif [ "$(command -v wget)" ]; then
+    sh -c "$(wget -qO- https://git.io/chezmoi)" -- -b "$bin_dir"
+  else
+    echo "To install chezmoi, you must have curl or wget installed." >&2
+    exit 1
+  fi
  fi
  if [[ ! -f "${repohome}"/bash/completions/chezmoi ]]; then
    chezmoi completion bash --output="${repohome}"/bash/completions/chezmoi
@@ -86,6 +92,9 @@ git submodule update --init --recursive
  fi
  if ! exists bat; then
    echo "download from https://github.com/sharkdp/bat/releases"
+ fi
+ if ! exists ag; then
+   sudo apt install silversearcher-ag
  fi
 
 # [ssh]
