@@ -1,0 +1,4 @@
+% javascript
+
+# jest coverage
+./node_modules/.bin/jest --coverage --coverageDirectory coverage --collectCoverageFrom=src/**/*js
