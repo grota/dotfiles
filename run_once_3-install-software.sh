@@ -4,7 +4,7 @@ if [ "$(lsb_release -si)" != Ubuntu ]; then
   echo Only Ubuntu handled ATM.
   exit 0;
 fi
-sudo apt install curl build-essential git bash-completion universal-ctags php8.0-cli
+sudo apt install curl build-essential git bash-completion universal-ctags php-cli
 
 exists() {
   if command -v "$1" >/dev/null 2>&1
