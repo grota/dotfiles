@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+# FZF {{{
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+
+source "$HOME/.vim/plugged/fzf/shell/key-bindings.bash"
+# fzf's ALT-C rewritten using our readline overrides (~/.inputrc)
+# space backward-char(\eh not \C-b) kill-line(\ek not \C-k) space unix-line-discard(\C-u) `fzf_cd`
+# shell-expand-line(\e\C-e) redraw-current-line(\er) accept-line(\C-m)
+# yank(\C-y) backward-delete-char(\C-b not \C-h) set-mark(\e ) yank(\C-y) yank-pop(\ey)
+# exchange-point-and-mark (\C-x\C-w not \C-x\C-x) delete-char(\eb not \C-d)
+bind -m emacs-standard '"\ec": " \eh\ek \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-b\e \C-y\ey\C-x\C-w\eb"'
+[[ $- == *i* ]] && source "$HOME/.vim/plugged/fzf/shell/completion.bash" 2> /dev/null
+export FZF_DEFAULT_COMMAND='(fd --no-ignore-vcs --type f --hidden --follow --exclude .git) 2> /dev/null'
+export FZF_CTRL_T_COMMAND='(fd --no-ignore-vcs --hidden --follow --exclude .git) 2> /dev/null'
+# }}}

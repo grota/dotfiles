@@ -1,32 +1,7 @@
-/vim/dotvim/.netrwhist
-/vim/dotvim/.netrwbook
-/vim/dotvim/sessions/*
-/vim/dotvim/doc/tags
-/vim/dotvim/autoload
-/vim/dotvim/plugged
-# scm_breeze's index file
-/.git_index
-/_config/beets/state.pickle
-/drush
-/_config/pianobar
-/gnupg
-/ikiwiki
-/rtorrent
-/ssh
-/lftp
-/_kde/socket-*
-/_kde/tmp-*
-/_kde/cache-*
-/_kde/*
-/ranger/*
-/vim/dotvim/nvimrc
-/vim/dotvim/LanguageClient.log
-/bash/completions/ddev_bash_completion.sh
-/bash/completions/docker-compose
-/bash/completions/cheat.bash
-/bash/completions/fz.sh
-/bash/completions/chezmoi
-/tmux/plugins
-/tmux/resurrect
-/phpactor/vendor
-/bash/kube-ps1.sh
+# adding a pattern to .gitignore means that when you do a `chezmoi add ...`
+# chezmoi doesn't GIT-TRACK the files in its dotfiles repo (sourceDir).
+
+# The files are still added to the sourceDir (~/.local/share/chezmoi/) though.
+
+# So you also need to add the pattern to `.chezmoiignore` in order to not have
+# chezmoi copy the files back to the home dir when you do a `chezmoi apply`.

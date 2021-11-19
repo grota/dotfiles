@@ -1,130 +1,38 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# execute with bash -c "$(wget -O - https://raw.githubusercontent.com/grota/chezmoitest/master/install.sh)"
 
-set -euo pipefail
+set -e
 
-exists() {
-  if command -v "$1" >/dev/null 2>&1
-  then
-    return 0
-  else
-    return 1
-  fi
-}
+BIN_DIR="$HOME/local/bin"
 
-repohome=$( dirname "$(readlink -f "${BASH_SOURCE[0]}")" )
-cd "${repohome}"
-git submodule update --init --recursive
+if [ ! -d "$BIN_DIR" ]; then
+  mkdir -p "$BIN_DIR"
+fi
 
-# [bin]
- mkdir -p "$HOME"/local/bin
- curl -s https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy -o "$HOME"/local/bin/diff-so-fancy
- cp /usr/share/doc/git/contrib/diff-highlight/diff-highlight "$HOME"/local/bin/
- ln -sf "${repohome}"/vim/dotvim/plugged/phpactor/bin/phpactor "$HOME"/local/bin/
- ln -sf "${repohome}"/bin/git-fuzzy/bin/fit-fuzzy "$HOME"/local/bin/
+export PATH="$PATH:$BIN_DIR"
 
-# [Bash]
- ln -sf "${repohome}"/bash/_bash_aliases "$HOME"/.bash_aliases
- ln -sf "${repohome}"/bash/_inputrc "$HOME"/.inputrc
- ln -sf "${repohome}"/bash/_git.scmbrc "$HOME"/.git.scmbrc
- if [[ ! -f "${repohome}"/bash/completions/docker-compose ]]; then
-   curl https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose -o "${repohome}"/bash/completions/docker-compose
- fi
- if [[ ! -f "${repohome}"/bash/kube-ps1.sh ]]; then
-   curl https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh -o "${repohome}"/bash/kube-ps1.sh
- fi
- if ! exists chezmoi; then
-  bin_dir="$HOME/local/bin"
+if [ ! "$(command -v chezmoi)" ]; then
   if [ "$(command -v curl)" ]; then
-    sh -c "$(curl -fsLS https://git.io/chezmoi)" -- -b "$bin_dir"
+    sh -c "$(curl -fsSL https://git.io/chezmoi)" -- -b "$BIN_DIR"
   elif [ "$(command -v wget)" ]; then
-    sh -c "$(wget -qO- https://git.io/chezmoi)" -- -b "$bin_dir"
+    sh -c "$(wget -qO- https://git.io/chezmoi)" -- -b "$BIN_DIR"
   else
     echo "To install chezmoi, you must have curl or wget installed." >&2
     exit 1
   fi
- fi
- if [[ ! -f "${repohome}"/bash/completions/chezmoi ]]; then
-   chezmoi completion bash --output="${repohome}"/bash/completions/chezmoi
- fi
+  echo "Installed chezmoi in $BIN_DIR"
+fi
 
- ln -sfT "${repohome}"/sxiv "$HOME"/.config/sxiv
+if [ ! "$(command -v bw)" ]; then
+  TMPFILE=$(mktemp)
+  wget -q -O "$TMPFILE" "https://vault.bitwarden.com/download/?app=cli&platform=linux"
+  unzip "$TMPFILE" -d "$BIN_DIR"
+  rm "$TMPFILE"
+  chmod u+x "$BIN_DIR/bw"
+  echo "Installed bitwarden cli bw in $BIN_DIR"
+fi
 
-# [cheat] https://github.com/cheat/cheat
- if ! exists cheat; then
-  go get -u github.com/cheat/cheat/cmd/cheat
- fi
- ln -sfT "${repohome}"/cheat "$HOME"/.config/cheat
- if [[ ! -f "${repohome}"/bash/completions/cheat.bash ]]; then
-   curl https://github.com/cheat/cheat/raw/master/scripts/cheat.bash -o "${repohome}"/bash/completions/cheat.bash
- fi
- if [[ ! -f "${repohome}"/bash/completions/fz.sh ]]; then
-   curl https://github.com/changyuheng/fz/raw/master/fz.sh -o "${repohome}"/bash/completions/fz.sh
- fi
-
-# [composer]
- if ! exists composer; then
-   curl -sS https://getcomposer.org/installer | php
-   mv composer.phar "$HOME"/local/bin/composer
- fi
- # php's psysh https://github.com/bobthecow/psysh
- if [ ! -d "$HOME"/.psysh ]; then
-   mkdir "$HOME"/.psysh
- fi
- if [ ! -f "$HOME"/.psysh/php_manual.sqlite ]; then
-   curl -sS http://psysh.org/manual/en/php_manual.sqlite > "$HOME"/.psysh/php_manual.sqlite
- fi
-
-# [vim]
- ln -sfT "${repohome}"/vim/dotvim "$HOME"/.vim
-
-# [git]
- ln -sf "${repohome}"/git/_gitconfig "$HOME"/.gitconfig
- ln -sf "${repohome}"/git/_global_gitignore "$HOME"/.global_gitignore
- ln -sf "${repohome}"/git/_gitk "$HOME"/.gitk
-
-# [tmux]
- ln -sf "${repohome}"/tmux/_tmux.conf "$HOME"/.tmux.conf
- ln -sfT "${repohome}"/tmux "$HOME"/.tmux
- ln -sfT ../private/tmux/tmuxinator "${repohome}"/tmux/tmuxinator
-
- if ! exists lsd; then
-   echo "download from https://github.com/Peltoche/lsd/releases"
- fi
- if ! exists bat; then
-   echo "download from https://github.com/sharkdp/bat/releases"
- fi
- if ! exists ag; then
-   sudo apt install silversearcher-ag
- fi
-
-# [ssh]
- mkdir -p "$HOME"/.ssh
- chmod 700 "$HOME"/.ssh
- ln -sf private/ssh "${repohome}"
-
-# [X]
- # what to autostart in X
- [[ ! -d "$HOME"/.config/autostart ]] && mkdir -p "$HOME"/.config/autostart
- ln -sf "${repohome}"/_config/autostart/xinitrc.desktop "$HOME"/.config/autostart/xinitrc.desktop
- ln -sf "${repohome}"/_config/autostart/xrdb.desktop "$HOME"/.config/autostart/xrdb.desktop
- ln -sf "${repohome}"/_config/autostart/dropbox.desktop "$HOME"/.config/autostart/dropbox.desktop
- ln -sf "${repohome}"/_config/autostart/indicator-multiload.desktop "$HOME"/.config/autostart/indicator-multiload.desktop
-
-# [beets] https://github.com/sampsyo/beets/
- ln -sfT "${repohome}"/_config/beets "$HOME"/.config/beets
-
-# [ctags]
- ln -sf "${repohome}"/ctags/_ctags "$HOME"/.ctags
-
-# [mpd]
- mkdir -p ~/.config/mpd
- ln -sf "${repohome}"/mpd/mpd.conf "$HOME"/.config/mpd/mpd.conf
-
-# [ncmpcpp]
- mkdir ~/.config/ncmpcpp
- ln -sf "${repohome}"/ncmpcpp/config "$HOME"/.config/ncmpcpp/config
- ln -sf "${repohome}"/ncmpcpp/bindings "$HOME"/.config/ncmpcpp/bindings
-
-# [private]
-"${repohome}"/private/install.sh
-echo "dotfiles installed"
+echo "Login with bitwarden cli."
+read -p "Your Bitwarden email: " BW_EMAIL
+read -p "Your Bitwarden master password: " BW_PASSWORD
+bw login "$BW_EMAIL" "$BW_PASSWORD"

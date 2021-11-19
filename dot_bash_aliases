@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+# vim: set tabstop=2 shiftwidth=2 foldmethod=marker:
+
+# ~/.bashrc:
+# sources first ~/.bash_aliases, which sources
+#   - ~/.local/grota/bash/* populated by
+#     - from $(chezmoi source-path)/.chezmoiexternal.yaml
+#     - from $(chezmoi source-path)/dot_local/grota/bash/*
+# Then all files in ~/.bash_completion.d/*
+# (if system pkg bash-completion is present + ~/.bash_completion)
+# useful for git aliases which use __git_complete from bash-completion pkg.
+
+if [ -z "$TMUX" ]; then
+  PATH=$HOME/local/bin:$HOME/.config/composer/vendor/bin:$PATH
+  PATH=$PATH:/usr/local/go/bin
+  PATH="$(go env GOPATH)/bin:$HOME/.local/bin/:$PATH"
+  export PATH
+  # from beginner yt video instructions.
+  GOPATH="$(go env GOPATH):/home/grota/Projects/personal/gocode"
+  export GOPATH
+fi
+
+for file in ~/.local/grota/bash/* ; do
+  #echo "sourcing $file"
+  . "$file"
+done
+
+# as per instructions in the script, let's not call ps1_set, but call
+# ps1_update inside PROMPT_COMMAND.
+export PROMPT_COMMAND="history -a; history -n; ps1_update --notime --prompt \>"
+
+complete -C "$HOME"/local/bin/aws_completer aws
+
+DOTFILESREPO="$("$HOME"/local/bin/chezmoi source-path)"
+
+# load my private stuff
+[[ -s "${DOTFILESREPO}/private/bash/_bash_aliases" ]] && source "${DOTFILESREPO}/private/bash/_bash_aliases"
+
+export EDITOR=nvim
+export MANPAGER="sh -c 'col -bx | bat --language=man -p'"
+HISTFILESIZE=1000000
+HISTSIZE=500000
+HISTCONTROL="erasedups:ignoreboth"
+HISTIGNORE="clear:bg:fg:cd:cd -:exit:date:w:gs:gss:ga:gau:gk:gd:gdc:gf:gb:grbi:gcm*:l:resunity:ss:"
+
+export COMPOSE_DOCKER_CLI_BUILD=1
+export DOCKER_BUILDKIT=1
+
+# oh god, this feels good
+[[ -n "$DISPLAY" ]] && xset r rate 200 90
+
+# disable <CTRL-S> and <CTRL-Q> terminal settings, I want to use them in vim
+stty stop undef
+stty start undef
+
+# MOTD kind of output
+[ -n "$PS1" ] && (export BINPATHS=(${PATH//:/ }) && whatis "$(find "${BINPATHS[@]}" -maxdepth 1 -printf '%f\n' -type f 2>/dev/null| shuf -n 1)")
+
+# Make Bash append rather than overwrite the history on disk
+shopt -s histappend

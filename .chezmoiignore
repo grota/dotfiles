@@ -1,0 +1,14 @@
+# adding a pattern to .chezmoiignore means that:
+# - for a `chezmoi apply` chezmoi ignores that patten when it copies files to $HOME.
+# - for a `chezmoi unmanaged` chezmoi will not show files in $HOME matching that pattern.
+# Patterns have to match the target path (i.e. after chezmoi transformation).
+
+# Files in sourceDir not to be copied to $HOME:
+install.sh
+.editrc
+chezmoi_ignored
+
+# Files in ~ to be hidden from `chezmoi unmanaged`:
+.vim/autoload/plug.vim
+.vim/sessions/*
+.vim/plugged

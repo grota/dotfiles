@@ -1,0 +1,64 @@
+# vim: set ft=gitconfig:
+[core]
+  excludesfile = ~/.global_gitignore
+  filemode = false
+[color]
+  ui = true
+[color "diff-highlight"]
+  oldNormal = "red bold"
+  oldHighlight = "red bold 52"
+  newNormal = "green bold"
+  newHighlight = "green bold 22"
+[color "diff"]
+  meta = "yellow"
+  frag = magenta
+  commit = "yellow bold"
+  old = "red bold"
+  new = "green bold"
+  whitespace = "red reverse"
+[alias]
+  st = status -s
+  ci = commit
+  civ = commit -v
+  co = checkout
+  rv = remote -v
+  psuh = push
+  ll = log --oneline --graph --decorate --all
+  l = log --oneline --decorate
+  h = help
+  d = diff
+  g = grep
+  ctags = !.git/hooks/ctags
+  standup = "!f() { git log --all --author=\"Giuseppe Rota\" --name-status --no-merges --author-date-order --since=\"${1-3} days ago\"; }; f"
+  rmstaletags = fetch --prune origin +refs/tags/*:refs/tags/*
+[advice]
+  statusHints = false
+[diff]
+  mnemonicprefix = true
+  colorMoved = default
+[rerere]
+  enabled = 1
+[gui]
+  fontui = -family FreeSans -size 11 -weight bold -slant roman -underline 0 -overstrike 0
+  fontdiff = -family \"Courier 10 Pitch\" -size 11 -weight normal -slant roman -underline 0 -overstrike 0
+[pager]
+  status = cat
+  ;diff-highlight is in git-contrib, diff-so-fancy lives here https://github.com/so-fancy/diff-so-fancy
+  ;show = diff-highlight | less --tabs=4 -R
+  ;diff = diff-highlight | less --tabs=4 -R
+  diff = diff-so-fancy | less --tabs=4 -R -+S --pattern '^(added|deleted|modified|renamed): |^commit'
+  show = diff-so-fancy | less --tabs=4 -R -+S --pattern '^(added|deleted|modified|renamed): |^commit'
+  ;diff = delta
+  ;show = delta
+[include]
+  path = ~/.gitconfig_private
+[push]
+  default = current
+[tig "bind"]
+  diff = <up> move-up
+  diff = <down> move-down
+[credential]
+  helper = store
+[user]
+	email = 403432+grota@users.noreply.github.com
+	name = Giuseppe Rota

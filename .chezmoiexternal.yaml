@@ -1,0 +1,39 @@
+.tmux/plugins/tpm:
+  type: archive
+  url: https://github.com/tmux-plugins/tpm/archive/master.tar.gz
+  stripComponents: 1
+
+.local/grota/bash/30-completion-cheat.bash:
+  type: file
+  url: https://github.com/cheat/cheat/raw/master/scripts/cheat.bash
+
+.local/grota/bash/30-completion-docker-compose:
+  type: file
+  url: https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose
+
+.local/grota/bash/40-kube-ps1.sh:
+  type: file
+  url: https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh
+
+.local/grota/bash/40-forgit.sh:
+  type: file
+  url: https://raw.githubusercontent.com/wfxr/forgit/master/forgit.plugin.zsh
+
+.local/grota/bash/40-z.sh:
+  type: file
+  url: https://raw.githubusercontent.com/rupa/z/master/z.sh
+
+# make sure it's sourced after z.sh
+# And use an older version until https://github.com/changyuheng/fz/issues/27 is fixed.
+.local/grota/bash/45-fz.sh:
+  type: file
+  url: https://raw.githubusercontent.com/changyuheng/fz/ae0cd3ab0f0daebc80256f1236eda3a3283e4c1c/fz.sh
+
+local/bin/diff-so-fancy:
+  type: file
+  url: https://github.com/so-fancy/diff-so-fancy/releases/download/v1.4.2/diff-so-fancy
+  executable: true
+
+.psysh/php_manual.sqlite:
+  type: file
+  url: http://psysh.org/manual/en/php_manual.sqlite

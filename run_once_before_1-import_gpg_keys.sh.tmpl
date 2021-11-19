@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+echo -n '{{ (bitwarden "item" "83f1da69-e790-4a93-82fe-add90129a2ec").notes }}' |gpg --import
+# newline needed to import gnupg trustdb
+echo -n '{{ (bitwarden "item" "a15212f0-bfef-4917-a005-add9016bff6f").notes }}
+' |gpg --import-ownertrust

@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+# vim: set tabstop=2 shiftwidth=2 foldmethod=marker:
+
+#git aliases {{{
+alias g="git"
+#alias gsf=
+alias gco="git checkout"
+alias gcob="git checkout -b"
+alias gc="git commit"
+alias grs="git reset"
+alias grsh="git reset --hard"
+alias grm="git rm"
+alias gd="git diff"
+alias gdwd="git diff --word-diff"
+alias gdc="git diff --cached"
+alias gcl="git clone"
+alias gps="git push"
+alias gs="git status -s"
+alias gaa="git add --all ."
+alias gcm="git commit --amend"
+alias gr="git remote -v"
+alias gb="git branch"
+alias gbd="git branch -d"
+alias gbD="git branch -D"
+alias grbi="git rebase -i"
+alias gcp="git cherry-pick"
+alias gsh="git show"
+alias gg="git g"
+alias gbf='git branch -f'
+alias gau='git add -u :/'
+alias gl='git --no-pager l -n12'
+alias gf='git fetch --prune'
+alias gshw='git show -w'
+alias gdw='git diff -w'
+alias gdcw='git diff --cached -w'
+alias gdcwd='git diff --word-diff --cached'
+alias gpfn='git push --force-with-lease --no-verify'
+alias gst='git stash list'
+alias gsts='git stash save'
+alias gstsh='git stash show -p'
+alias gsta='git stash apply'
+alias gstd='git stash drop'
+alias gstp='git stash pop --index'
+alias gcmh="git commit --amend -C HEAD"
+alias gcmhnv="gcmh --no-verify"
+alias gcmnv="gcm --no-verify"
+
+function gsubrm() {
+  if [ -z "$1" ]; then
+    echo "Usage: $0 path/to/submodule (no trailing slash)"
+    return
+  fi
+  git config -f .git/config --remove-section "submodule.$1"
+  git config -f .gitmodules --remove-section "submodule.$1"
+  git add .gitmodules
+  rm -rf "$1"
+  git rm --cached "$1"
+}
+function _git_abbrev_hash_complete () {
+  local curw MAX_REVS
+  MAX_REVS=10
+  COMPREPLY=()
+  if [[ $COMP_CWORD == 2 ]]; then
+    return
+  fi
+  IFS=$'\n'
+  curw=${COMP_WORDS[COMP_CWORD]}
+  # display a reminder, on first tab press
+  if [[ $COMP_CWORD == 1 && $curw == '' ]]; then
+    git --no-pager log --oneline -n${MAX_REVS}
+  fi
+  COMPREPLY=($(compgen -W '$(git log --pretty=format:%h -n'$MAX_REVS')' -- $curw))
+  IFS=$' \t\n'
+}
+complete -F _git_abbrev_hash_complete gsf
+#}}}

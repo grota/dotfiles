@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+if [[ $(type -t __load_completion) != function ]]; then
+  echo must install bash-completion.
+  return
+fi
+
+if [[ $(type -t __git_complete) != function ]]; then
+  __load_completion git
+fi
+
+function _git_gstsh () {
+  cword=2
+  words[1]=show
+  _git_stash
+}
+__git_complete gco _git_checkout
+__git_complete gcob _git_checkout
+__git_complete gc _git_commit
+__git_complete grs _git_reset
+__git_complete grsh _git_reset
+__git_complete grm _git_rm
+__git_complete gd _git_diff
+__git_complete gdwd _git_diff
+__git_complete gdc _git_diff
+__git_complete gcl _git_clone
+__git_complete gps _git_push
+__git_complete gs _git_status
+__git_complete gaa _git_add
+__git_complete gb _git_branch
+__git_complete gbd _git_branch
+__git_complete gbD _git_branch
+__git_complete grbi _git_rebase
+__git_complete gcp _git_diff
+__git_complete gsh _git_show
+__git_complete gbf _git_branch
+__git_complete gdw _git_diff
+__git_complete gshw _git_show
+__git_complete gf _git_fetch
+__git_complete gbf _git_branch
+__git_complete gg _git_grep
+__git_complete gdcw _git_diff
+__git_complete gdcwd _git_diff
+__git_complete gpfn _git_push
+__git_complete gstsh _git_gstsh
+__git_complete gsta _git_gstsh
+__git_complete gstd _git_gstsh
+__git_complete gstp _git_gstsh
+__git_complete gcmh _git_commit
+__git_complete gcm _git_commit

@@ -1,0 +1,10 @@
+# vim: set ft=sh:
+
+# slow, temporarily disabled.
+#source <(npm completion)
+
+if [[ $(type -t compopt) = "builtin" ]]; then
+    complete -o default -F __start_chezmoi cm
+else
+    complete -o default -o nospace -F __start_chezmoi cm
+fi

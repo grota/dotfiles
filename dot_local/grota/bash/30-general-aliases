@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+# aliases {{{
+alias tmxu=tmux
+alias L='less -R'
+alias df='df -h'
+# https://github.com/Peltoche/lsd
+alias ls='lsd'
+alias ll='lsd --tree'
+alias l='lsd -l'
+alias nv=nordvpn
+alias d=docker
+alias dc=docker-compose
+alias ffmpeg='ffmpeg -hide_banner'
+alias ffprobe='ffprobe -hide_banner'
+function cc () {
+  local CHROME=google-chrome
+  if [ -n "$1" ]; then
+    local PROFILE_DIR=$1
+    local CHROME_ARGS="--user-data-dir=/home/grota/.config/${CHROME}_others/$PROFILE_DIR"
+  fi
+  echo "Running: " "$CHROME" "$CHROME_ARGS"
+  $CHROME "$CHROME_ARGS" &> /dev/null &
+}
+alias pg='ps aux|grep '
+alias rstty='stty start undef stop undef'
+alias ..="cd ../"
+alias ...="cd ../../"
+alias ....="cd ../../../"
+alias .....="cd ../../../../"
+alias ......="cd ../../../../../"
+alias bc='rlwrap -a bc -l'
+alias ff='ag --pager=less -g'
+alias agu='ag -U --pager bat --ignore=.js --ignore node_modules --ignore tests --ignore Tests --ignore private/logs --ignore web/core/tags'
+# there's a ss bin but that's ok for me
+alias ss='sudo su -'
+#alias xc='sleep 1.0; xdotool type "$(xclip -o -selection clipboard)"'
+alias cat=bat
+#}}}

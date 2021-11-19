@@ -1,0 +1,18 @@
+encryption: gpg
+{{- if lookPath "bat" }}
+pager: bat
+{{- else }}
+pager: cat
+{{- end }}
+{{ $develmode := promptBool "Is devel mode?" false -}}
+{{- if $develmode -}}
+sourceDir: {{ output "pwd" -}}
+{{- end -}}
+gpg:
+  recipient: Giuseppe Rota
+{{- if (and (not (lookPath "bw")) (stat (joinPath .chezmoi.homeDir "local" "bin" "bw"))) }}
+bitwarden:
+  command: {{ .chezmoi.homeDir }}/local/bin/bw
+{{ end }}
+git:
+  autoAdd: true

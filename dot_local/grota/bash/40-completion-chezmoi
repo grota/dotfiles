@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+alias cm=chezmoi
+alias cmcd='cd "$(chezmoi source-path)"'
+eval "$(~/local/bin/chezmoi completion bash)"

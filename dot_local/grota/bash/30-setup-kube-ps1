@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+KUBE_PS1_NS_COLOR=green
+KUBE_PS1_CTX_COLOR=yellow
