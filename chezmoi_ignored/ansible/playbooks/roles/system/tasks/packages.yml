@@ -1,0 +1,33 @@
+---
+- name: System packages
+  tags: [packages]
+  block:
+    - name: Removal of packages from provisioner
+      community.general.pacman:
+        name:
+          # misses clipboad feature, install gvim
+          - vim
+        state: removed
+      become: yes
+    - name: Install via pacman
+      community.general.pacman:
+        name:
+          - bash-completion
+          - lsd
+          - bat
+          - github-cli
+          - gvim
+          - ctags
+          - the_silver_searcher
+          - shellcheck
+          - xclip
+          - pacman-contrib
+      become: yes
+    - name: Install via paru (aur)
+      kewlfft.aur.aur:
+        use: paru
+        name:
+          - navi
+          - cheat
+      become: yes
+      become_user: aur_builder

@@ -1,0 +1,31 @@
+% pacman,arch
+
+# Remove a package with its dependencies
+pacman -Rs <installed_package>
+
+# Search package by name in available pkgs
+pacman -Ss <string>
+
+# Search package by name in installed pkgs
+pacman -Qs <string>
+
+# List files of an available pkg
+pacman -Fl <available_package>
+
+# List files of an installed pkg
+pacman -Ql <installed_package>
+
+# Show info for available pkgs
+pacman -Si <available_package>
+
+# Show info for installed pkgs
+pacman -Qi <installed_package>
+
+# Search by filename present in available pkgs
+pacman -F <filename>
+
+# Search by filename present in installed pkgs
+pacman -Qo <filename>
+
+# List packages previously installed as dep and now orphan
+pacman -Qtd

@@ -1,0 +1,12 @@
+---
+- name: dconf settings
+  tags: [dconf]
+  block:
+    - name: Hide seconds on clock
+      dconf:
+        key: "/org/gnome/desktop/interface/clock-show-seconds"
+        value: "false"
+    - name: Subpixel antialiasing
+      dconf:
+        key: "/org/gnome/desktop/interface/font-antialiasing"
+        value: "'rgba'"

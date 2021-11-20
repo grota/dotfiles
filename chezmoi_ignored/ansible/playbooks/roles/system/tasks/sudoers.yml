@@ -1,0 +1,8 @@
+---
+  - name: Allow the `grota` user to run `su` without a password
+    ansible.builtin.lineinfile:
+      path: /etc/sudoers.d/20-grota
+      line: 'grota ALL=(ALL) NOPASSWD: /usr//bin/su'
+      create: yes
+      validate: 'visudo -cf %s'
+    become: yes
