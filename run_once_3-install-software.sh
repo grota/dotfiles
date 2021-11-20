@@ -1,10 +1,6 @@
 #!/usr/bin/env bash
 
-if [ "$(lsb_release -si)" != Ubuntu ]; then
-  echo Only Ubuntu handled ATM.
-  exit 0;
-fi
-sudo apt install curl build-essential git bash-completion universal-ctags php-cli
+#/org/gnome/desktop/input-sources/sources
 
 exists() {
   if command -v "$1" >/dev/null 2>&1
@@ -14,6 +10,23 @@ exists() {
     return 1
   fi
 }
+
+if [ -f /etc/os-release ]; then
+  . /etc/os-release
+elif exists lsb_release && [ "$(lsb_release -si)" == Ubuntu ]; then
+  ID=Ubuntu
+else
+  echo Could not find distro.
+  exit 1
+fi
+if [ "$ID" == arch ]; then
+  CMSOURCE="$(chezmoi source-path)"
+  cd "$CMSOURCE"
+  ansible-galaxy collection install -r chezmoi_ignored/ansible/requirements.yml
+  ansible-playbook -i localhost, -c local --ask-become-pass chezmoi_ignored/ansible/playbooks/system.yml
+  exit 0
+fi
+sudo apt install curl build-essential git bash-completion universal-ctags php-cli
 
 function install_from_gh() {
   if ! exists "$1"; then
