@@ -15,15 +15,15 @@ fi
 if [ "x$TYPE" = "xctags" ]; then
   echo Installing ctags hooks.
   if [ ! -L .git/hooks/ctags ]; then
-    ln -s ${DOTFILESREPO}/git/hooks/ctags/ctags .git/hooks/ctags
+    ln -s ${DOTFILESREPO}/chezmoi_ignored/git/hooks/ctags/ctags .git/hooks/ctags
   fi
   for hookname in post-commit post-merge post-checkout; do
     if [ ! -L .git/hooks/$hookname ]; then
-      ln -s ${DOTFILESREPO}/git/hooks/ctags/post-commit-merge-checkout .git/hooks/$hookname
+      ln -s ${DOTFILESREPO}/chezmoi_ignored/git/hooks/ctags/post-commit-merge-checkout .git/hooks/$hookname
     fi
   done
   if [ ! -L .git/hooks/post-rewrite ]; then
-    ln -s ${DOTFILESREPO}/git/hooks/ctags/post-rewrite .git/hooks/post-rewrite
+    ln -s ${DOTFILESREPO}/chezmoi_ignored/git/hooks/ctags/post-rewrite .git/hooks/post-rewrite
   fi
 else
   echo No other hooks implemented yet, doing nothing.

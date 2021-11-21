@@ -601,7 +601,7 @@ nnoremap <silent> <leader>fs :TagbarCurrentTag 'p'<CR>
 " Gutentags {{{
 let g:gutentags_ctags_tagfile = './.git/tags'
 " Use same options as git hooks
-let g:gutentags_ctags_extra_args = ['--options=' . $DOTFILESREPO . '/ctags/relative_format.ctags']
+let g:gutentags_ctags_extra_args = ['--options=' . $DOTFILESREPO . '/chezmoi_ignored/ctags/relative_format.ctags']
 " }}}
 " Fugitive {{{
 augroup grota_autocommands

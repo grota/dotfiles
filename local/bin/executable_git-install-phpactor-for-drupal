@@ -14,8 +14,8 @@ fi
 export path_to_web
 
 rm -fr .phpactor_autoloader
-cp -r "$DOTFILESREPO/phpactor/" .phpactor_autoloader
-envsubst '$path_to_web' < "$DOTFILESREPO/phpactor/composer.json" > .phpactor_autoloader/composer.json
+cp -r "$DOTFILESREPO/chezmoi_ignored/phpactor/" .phpactor_autoloader
+envsubst '$path_to_web' < "$DOTFILESREPO/chezmoi_ignored/phpactor/composer.json" > .phpactor_autoloader/composer.json
 mv .phpactor_autoloader/.phpactor.yml .
 echo /.phpactor.yml >> .git/info/exclude
 echo /.phpactor_autoloader >> .git/info/exclude

@@ -33,9 +33,6 @@ complete -C "$HOME"/local/bin/aws_completer aws
 
 DOTFILESREPO="$("$HOME"/local/bin/chezmoi source-path)"
 
-# load my private stuff
-[[ -s "${DOTFILESREPO}/private/bash/_bash_aliases" ]] && source "${DOTFILESREPO}/private/bash/_bash_aliases"
-
 export EDITOR=nvim
 export MANPAGER="sh -c 'col -bx | bat --language=man -p'"
 HISTFILESIZE=1000000

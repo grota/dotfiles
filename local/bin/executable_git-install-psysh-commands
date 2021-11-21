@@ -17,7 +17,7 @@ export path_to_web
 echo /$path_to_web/.psysh.php >> .git/info/exclude
 echo /"$(realpath src/drupal/web/../grota --relative-to=.)" >> .git/info/exclude
 
-cp "${DOTFILESREPO}/psysh/.psysh.php" $path_to_web
+cp "${DOTFILESREPO}/chezmoi_ignored/psysh/.psysh.php" $path_to_web
 mkdir -p $path_to_web/../grota/psysh
-cp -r "${DOTFILESREPO}/psysh/Command" $path_to_web/../grota/psysh
+cp -r "${DOTFILESREPO}/chezmoi_ignored/psysh/Command" $path_to_web/../grota/psysh
 echo "all done"
