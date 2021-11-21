@@ -22,6 +22,8 @@
           - shellcheck
           - xclip
           - pacman-contrib
+          - telegram-desktop
+          - composer
       become: yes
     - name: Install via paru (aur)
       kewlfft.aur.aur:
@@ -29,5 +31,8 @@
         name:
           - navi
           - cheat
+          - neovim-nightly-bin
+          - dropbox
+          - aws-cli-v2-bin
       become: yes
       become_user: aur_builder
