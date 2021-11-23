@@ -1,0 +1,4 @@
+% shell,find
+
+# Findcmd not owned by current user
+find . \! -user $USER -print
