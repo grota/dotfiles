@@ -10,6 +10,9 @@
 # (if system pkg bash-completion is present + ~/.bash_completion)
 # useful for git aliases which use __git_complete from bash-completion pkg.
 
+# But on arch first /usr/share/bash-completion/bash_completion is sourced via /etc/bash.bashrc
+# and only after ~/.local/grota/bash/* via ~/.bashrc
+
 if [ -z "$TMUX" ]; then
   PATH=$HOME/local/bin:$HOME/.config/composer/vendor/bin:$PATH
   PATH=$PATH:/usr/local/go/bin
@@ -29,9 +32,10 @@ done
 # ps1_update inside PROMPT_COMMAND.
 export PROMPT_COMMAND="history -a; history -n; ps1_update --notime --prompt \>"
 
-complete -C "$HOME"/local/bin/aws_completer aws
+complete -C "$(which aws_completer)" aws
 
 DOTFILESREPO="$("$HOME"/local/bin/chezmoi source-path)"
+export DOTFILESREPO
 
 export EDITOR=nvim
 export MANPAGER="sh -c 'col -bx | bat --language=man -p'"

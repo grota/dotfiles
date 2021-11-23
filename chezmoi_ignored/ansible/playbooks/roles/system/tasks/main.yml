@@ -1,7 +1,7 @@
 ---
 - name: Arch Packages
   import_tasks: arch_packages.yml
-  when: ansible_facts['os_family'] == "ArchLinux"
+  #when: ansible_facts['ansible_os_family'] == "ArchLinux"
 - name: Permissions (sudoers)
   import_tasks: sudoers.yml
 - name: Dconf

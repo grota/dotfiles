@@ -7,6 +7,8 @@
         name:
           # misses clipboad feature, install gvim
           - vim
+          # want v2 instead.
+          - aws-cli
         state: removed
       become: yes
     - name: Install via pacman
@@ -34,5 +36,8 @@
           - neovim-nightly-bin
           - dropbox
           - aws-cli-v2-bin
+          - chrome-gnome-shell
+          - python-neovim-git
+          - nerd-fonts-source-code-pro
       become: yes
       become_user: aur_builder

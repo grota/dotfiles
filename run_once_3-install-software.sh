@@ -23,6 +23,7 @@ if [ "$ID" == arch ]; then
   CMSOURCE="$(chezmoi source-path)"
   cd "$CMSOURCE"
   ansible-galaxy collection install -r chezmoi_ignored/ansible/requirements.yml
+  ansible-galaxy role install -r chezmoi_ignored/ansible/requirements.yml
   ansible-playbook -i localhost, -c local --ask-become-pass chezmoi_ignored/ansible/playbooks/system.yml
   exit 0
 fi

@@ -10,3 +10,59 @@
       dconf:
         key: "/org/gnome/desktop/interface/font-antialiasing"
         value: "'rgba'"
+    - name: Blank screen delay.
+      dconf:
+        key: "/org/gnome/desktop/session/idle-delay"
+        value: 'uint32 0'
+    - name: Automatic screen Lock.
+      dconf:
+        key: "/org/gnome/desktop/screensaver/lock-enabled"
+        value: "false"
+    - name: Power, automatic suspend, plugged in
+      dconf:
+        key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type"
+        value: "'nothing'"
+    - name: Touchpad speed
+      dconf:
+        key: "/org/gnome/desktop/peripherals/touchpad/speed"
+        value: 0.45588235294117641
+    - name: Hot corners
+      dconf:
+        key: "/org/gnome/desktop/interface/enable-hot-corners"
+        value: "false"
+    - name: Show applications only from current workspace
+      dconf:
+        key: "/org/gnome/shell/app-switcher/current-workspace-only"
+        value: "true"
+    - name: Monospace font
+      dconf:
+        key: "/org/gnome/desktop/interface/monospace-font-name"
+        value: "'SauceCodePro Nerd Font Mono Semi-Bold 11'"
+    - name: System monitor, no icon
+      dconf:
+        key: "/org/gnome/shell/extensions/system-monitor/icon-display"
+        value: "false"
+    - name: System monitor, cpu label
+      dconf:
+        key: "/org/gnome/shell/extensions/system-monitor/cpu-show-text"
+        value: "false"
+    - name: System monitor, cpu width
+      dconf:
+        key: "/org/gnome/shell/extensions/system-monitor/cpu-graph-width"
+        value: 50
+    - name: System monitor, memory label
+      dconf:
+        key: "/org/gnome/shell/extensions/system-monitor/memory-show-text"
+        value: "false"
+    - name: System monitor, memory width
+      dconf:
+        key: "/org/gnome/shell/extensions/system-monitor/memory-graph-width"
+        value: 50
+    - name: System monitor, net label
+      dconf:
+        key: "/org/gnome/shell/extensions/system-monitor/net-show-text"
+        value: "false"
+    - name: System monitor, net width
+      dconf:
+        key: "/org/gnome/shell/extensions/system-monitor/net-graph-width"
+        value: 50
