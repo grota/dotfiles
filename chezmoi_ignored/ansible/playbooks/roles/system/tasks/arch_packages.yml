@@ -15,17 +15,57 @@
       community.general.pacman:
         name:
           - bash-completion
-          - lsd
           - bat
+          - calibre
+          - cmatrix
+          - composer
+          - ctags
+          - dfu-programmer
+          - dfu-util
+          - diffpdf
+          - fd
+          - flameshot
+          - gimagereader-gtk
           - github-cli
           - gvim
-          - ctags
-          - the_silver_searcher
-          - shellcheck
-          - xclip
+          - laptop-detect
+          - lesspipe
+          - lsd
+          - meld
+          - moreutils
+          - mpv
+          - ncdu
+          - nethogs
+          - nnn
+          - p7zip
           - pacman-contrib
+          - pkgfile
+          - pv
+          - qpdf
+          - rlwrap
+          - shellcheck
+          - sshfs
+          - strace
+          - sxiv
+          - teensy-loader-cli
           - telegram-desktop
-          - composer
+          - tesseract
+          - tesseract-data-eng
+          - tesseract-data-ita
+          - tesseract-data-spa
+          - the_silver_searcher
+          - tig
+          - tlp
+          - units
+          - unrar
+          - virtualbox
+          - virtualbox
+          - virtualbox-guest-iso
+          - virtualbox-guest-utils
+          - virtualbox-host-dkms
+          - xclip
+          - xdg-utils
+          - xsel
       become: yes
     - name: Install via paru (aur)
       kewlfft.aur.aur:
@@ -39,5 +79,7 @@
           - chrome-gnome-shell
           - python-neovim-git
           - nerd-fonts-source-code-pro
+          - nordvpn-bin
+          - autokey-gtk
       become: yes
       become_user: aur_builder

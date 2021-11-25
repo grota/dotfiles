@@ -23,14 +23,14 @@ if [ -z "$TMUX" ]; then
   export GOPATH
 fi
 
+grep "ps1_update --notime --prompt" <<< "$PROMPT_COMMAND" >/dev/null || {
+  PROMPT_COMMAND="$PROMPT_COMMAND"';history -a; history -n; ps1_update --notime --prompt \>;'
+}
+
 for file in ~/.local/grota/bash/* ; do
   #echo "sourcing $file"
   . "$file"
 done
-
-# as per instructions in the script, let's not call ps1_set, but call
-# ps1_update inside PROMPT_COMMAND.
-export PROMPT_COMMAND="history -a; history -n; ps1_update --notime --prompt \>"
 
 complete -C "$(which aws_completer)" aws
 
@@ -57,5 +57,10 @@ stty start undef
 # MOTD kind of output
 [ -n "$PS1" ] && (export BINPATHS=(${PATH//:/ }) && whatis "$(find "${BINPATHS[@]}" -maxdepth 1 -printf '%f\n' -type f 2>/dev/null| shuf -n 1)")
 
+if [ -f  /usr/share/doc/pkgfile/command-not-found.bash ]; then
+  .  /usr/share/doc/pkgfile/command-not-found.bash
+fi
+
 # Make Bash append rather than overwrite the history on disk
 shopt -s histappend
+shopt -s checkwinsize
