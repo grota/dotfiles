@@ -1,0 +1,11 @@
+---
+- name: Install composer packages
+  tags: [packages, composer]
+  become: yes
+  become_user: grota
+  block:
+    - name: Composer packages.
+      community.general.composer:
+        global_command: true
+        command: require
+        arguments: psy/psysh

@@ -1,0 +1,17 @@
+---
+- name: PIP user packages
+  tags: [packages, pip]
+  become: yes
+  block:
+    - name: Install pip packages
+      tags: [pip]
+      become_user: grota
+      ansible.builtin.pip:
+        name:
+          - keymapviz
+          - trash-cli
+          - qmk
+          - pynvim
+          - pipdeptree
+          - pip-autoremove
+          - keymapviz

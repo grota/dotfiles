@@ -1,0 +1,16 @@
+---
+- name: Install npm global packages
+  tags: [packages, npm]
+  become: yes
+  block:
+    - name: Install npm packages globally.
+      community.general.npm:
+        global: true
+        name: "{{ item }}"
+      loop:
+        - neovim
+        - intelephense
+        - git-open
+        - javascript-typescript-langserver
+        - typescript-language-server
+        - typescript

@@ -66,3 +66,11 @@
       dconf:
         key: "/org/gnome/shell/extensions/system-monitor/net-graph-width"
         value: 50
+    - name: 'AppIndicator and KStatusNotifierItem Support - tray horizontal alignment'
+      dconf:
+        key: "/org/gnome/shell/extensions/appindicator/tray-pos"
+        value: 'center'
+    - name: 'Clipboard indicator - number of chars in top bar'
+      dconf:
+        key: "/org/gnome/shell/extensions/clipboard-indicator/topbar-preview-size"
+        value: 70

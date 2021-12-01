@@ -1,7 +1,13 @@
 ---
 - name: Arch Packages
   import_tasks: arch_packages.yml
-  #when: ansible_facts['ansible_os_family'] == "ArchLinux"
+  #when: ansible_facts['os_family'] == "ArchLinux"
+- name: PIP Packages
+  import_tasks: pip_packages.yml
+- name: NPM Packages
+  import_tasks: npm_packages.yml
+- name: Composer Packages
+  import_tasks: composer_packages.yml
 - name: Permissions (sudoers)
   import_tasks: sudoers.yml
 - name: Dconf

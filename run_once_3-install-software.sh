@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-#/org/gnome/desktop/input-sources/sources
+# TODO gnome extension clipboard dconf settings
+# check /org/gnome/desktop/input-sources/sources
 
 exists() {
   if command -v "$1" >/dev/null 2>&1
