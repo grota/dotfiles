@@ -12,3 +12,18 @@
   import_tasks: sudoers.yml
 - name: Dconf
   import_tasks: dconf.yml
+
+- name: Configure locale.gen
+  become: yes
+  lineinfile:
+    dest: /etc/locale.gen
+    regexp: '{{ item.regex }}'
+    line: '{{ item.line }}'
+  loop:
+    - {regex: es_ES\.UTF-8 UTF-8, line: es_ES.UTF-8 UTF-8}
+    - {regex: it_IT\.UTF-8 UTF-8, line: it_IT.UTF-8 UTF-8}
+
+- name: Generate locales
+  become: yes
+  shell: locale-gen
+

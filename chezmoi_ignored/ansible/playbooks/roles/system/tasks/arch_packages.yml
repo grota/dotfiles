@@ -36,8 +36,10 @@
           - moreutils
           - mpv
           - ncdu
+          - neovim
           - nethogs
           - nnn
+          - nvidia-prime
           - p7zip
           - pacman-contrib
           - pkgfile
@@ -76,7 +78,6 @@
         name:
           - navi
           - cheat
-          - neovim-nightly-bin
           - dropbox
           - aws-cli-v2-bin
           - chrome-gnome-shell

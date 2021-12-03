@@ -69,8 +69,16 @@
     - name: 'AppIndicator and KStatusNotifierItem Support - tray horizontal alignment'
       dconf:
         key: "/org/gnome/shell/extensions/appindicator/tray-pos"
-        value: 'center'
+        value: '"center"'
     - name: 'Clipboard indicator - number of chars in top bar'
       dconf:
         key: "/org/gnome/shell/extensions/clipboard-indicator/topbar-preview-size"
         value: 70
+    - name: 'Gnome locale format'
+      dconf:
+        key: "/system/locale/region"
+        value: "'es_ES.UTF-8'"
+    - name: 'Do not show weekdate'
+      dconf:
+        key: "/org/gnome/desktop/calendar/show-weekdate"
+        value: "false"
