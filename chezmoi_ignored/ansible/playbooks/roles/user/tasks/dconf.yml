@@ -2,6 +2,9 @@
 - name: dconf settings
   tags: [dconf]
   block:
+    - name: load gnome terminal profiles and settings
+      tags: [dconf, gnome-terminal]
+      shell: "dconf load /org/gnome/terminal/legacy/ < {{ role_path }}/tasks/files/dump_of_path_org_gnome_terminal_legacy"
     - name: Hide seconds on clock
       dconf:
         key: "/org/gnome/desktop/interface/clock-show-seconds"
@@ -82,3 +85,8 @@
       dconf:
         key: "/org/gnome/desktop/calendar/show-weekdate"
         value: "false"
+    # man 7 xkeyboard-config
+    - name: 'xkb options'
+      dconf:
+        key: '/org/gnome/desktop/input-sources/xkb-options'
+        value: "['lv3:ralt_switch', 'ctrl:nocaps', 'shift:both_capslock_cancel']"

@@ -1,0 +1,7 @@
+---
+- name: Composer Packages
+  import_tasks: composer_packages.yml
+- name: PIP Packages
+  import_tasks: pip_packages.yml
+- name: Dconf
+  import_tasks: dconf.yml
