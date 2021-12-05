@@ -1,4 +1,0 @@
-
-[/]
-layouts=['us', 'it']
-options=['ctrl\tctrl:nocaps', 'compat\tshift:both_capslock', 'eurosign\teurosign:e', 'lv3\tlv3:ralt_switch']

@@ -85,6 +85,10 @@
       dconf:
         key: "/org/gnome/desktop/calendar/show-weekdate"
         value: "false"
+    - name: 'Keyboard input sources'
+      dconf:
+        key: '/org/gnome/desktop/input-sources/sources'
+        value: "[('xkb', 'custom')]"
     # man 7 xkeyboard-config
     - name: 'xkb options'
       dconf:
