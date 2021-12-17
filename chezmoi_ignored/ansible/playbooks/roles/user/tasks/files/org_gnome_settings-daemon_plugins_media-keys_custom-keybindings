@@ -1,0 +1,4 @@
+[custom0]
+binding='<Alt>x'
+command='gnome-terminal'
+name='terminal'

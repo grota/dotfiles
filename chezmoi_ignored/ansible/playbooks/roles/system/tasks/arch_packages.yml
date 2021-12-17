@@ -81,7 +81,6 @@
           - dropbox
           - aws-cli-v2-bin
           - chrome-gnome-shell
-          - python-neovim-git
           - nerd-fonts-source-code-pro
           - nordvpn-bin
           - autokey-gtk

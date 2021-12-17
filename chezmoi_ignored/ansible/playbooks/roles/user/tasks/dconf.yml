@@ -5,6 +5,8 @@
     - name: load gnome terminal profiles and settings
       tags: [dconf, gnome-terminal]
       shell: "dconf load /org/gnome/terminal/legacy/ < {{ role_path }}/tasks/files/dump_of_path_org_gnome_terminal_legacy"
+    - name: load custom shortcuts
+      shell: "dconf load /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/ < {{ role_path }}/tasks/files/org_gnome_settings-daemon_plugins_media-keys_custom-keybindings"
     - name: Hide seconds on clock
       dconf:
         key: "/org/gnome/desktop/interface/clock-show-seconds"
