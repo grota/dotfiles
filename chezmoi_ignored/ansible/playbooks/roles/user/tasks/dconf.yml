@@ -27,10 +27,14 @@
       dconf:
         key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type"
         value: "'nothing'"
+    - name: Power, show battery percentage
+      dconf:
+        key: "/org/gnome/desktop/interface/show-battery-percentage"
+        value: "true"
     - name: Touchpad speed
       dconf:
         key: "/org/gnome/desktop/peripherals/touchpad/speed"
-        value: 0.45588235294117641
+        value: 0.566
     - name: Hot corners
       dconf:
         key: "/org/gnome/desktop/interface/enable-hot-corners"
@@ -79,6 +83,10 @@
       dconf:
         key: "/org/gnome/shell/extensions/clipboard-indicator/topbar-preview-size"
         value: 70
+    - name: 'Clipboard indicator - what to show in top bar'
+      dconf:
+        key: "/org/gnome/shell/extensions/clipboard-indicator/display-mode"
+        value: 1
     - name: 'Gnome locale format'
       dconf:
         key: "/system/locale/region"
@@ -91,6 +99,18 @@
       dconf:
         key: '/org/gnome/desktop/input-sources/sources'
         value: "[('xkb', 'custom')]"
+    - name: mouse natural scroll
+      dconf:
+        key: "/org/gnome/desktop/peripherals/mouse/natural-scroll"
+        value: "false"
+    - name: touchpad natural scroll
+      dconf:
+        key: "/org/gnome/desktop/peripherals/touchpad/natural-scroll"
+        value: "false"
+    - name: touchpad tap to click
+      dconf:
+        key: "/org/gnome/desktop/peripherals/touchpad/tap-to-click"
+        value: "true"
     # man 7 xkeyboard-config
     - name: 'xkb options'
       dconf:
