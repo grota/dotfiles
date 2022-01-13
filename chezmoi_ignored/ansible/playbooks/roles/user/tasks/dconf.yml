@@ -27,6 +27,14 @@
       dconf:
         key: "/org/gnome/settings-daemon/plugins/power/sleep-inactive-ac-type"
         value: "'nothing'"
+    - name: Power, dim screen
+      dconf:
+        key: "/org/gnome/settings-daemon/plugins/power/idle-dim"
+        value: "false"
+    - name: Power, screen blank after x minutes
+      dconf:
+        key: "/org/gnome/desktop/session/idle-delay"
+        value: "uint32 300"
     - name: Power, show battery percentage
       dconf:
         key: "/org/gnome/desktop/interface/show-battery-percentage"
@@ -111,6 +119,10 @@
       dconf:
         key: "/org/gnome/desktop/peripherals/touchpad/tap-to-click"
         value: "true"
+    - name: just perfection extension - disable activities menu item
+      dconf:
+        key: "/org/gnome/shell/extensions/just-perfection/activities-button"
+        value: "false"
     # man 7 xkeyboard-config
     - name: 'xkb options'
       dconf:
