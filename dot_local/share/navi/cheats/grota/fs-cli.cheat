@@ -1,0 +1,6 @@
+% fs-cli
+
+# switch fs-cli image
+fs-cli-use <image_and_tag>
+
+$ image_and_tag: docker images --format "table {{.Repository}}:{{.Tag}}\t{{.CreatedSince}}" |grep fs-cli --- --column 1  --delimiter '\s\s+' --fzf-overrides '--height 19'
