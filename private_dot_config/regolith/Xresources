@@ -1,0 +1,5 @@
+i3-wm.window.border.size: 3
+i3-wm.gaps.inner.size: 0
+!i3-wm.client.focused.color.border: #ff0000
+i3-wm.client.focused.color.indicator: #ff0000
+i3-wm.client.focused.color.child_border: #331796
