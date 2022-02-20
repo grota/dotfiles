@@ -47,6 +47,7 @@ Plug 'pbogut/fzf-mru.vim'
 Plug 'haya14busa/vim-asterisk'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/gv.vim'
+Plug 'jwalton512/vim-blade'
 if has('nvim')
   Plug 'neovim/nvim-lspconfig'
   Plug 'kyazdani42/nvim-web-devicons'
@@ -728,23 +729,27 @@ let g:vdebug_keymap = {
 " port must match the parameter in /etc/php5/conf.d/20-xdebug.ini
 " There is a bug in vdebug for which if path_maps is set here
 " it won't get considered in a project-local vimrc.
-"let g:vdebug_options= {
-"\    "port" : 9000,
-"\    "server" : '',
-"\    "timeout" : 2000,
-"\    "on_close" : 'close',
-"\    "break_on_open" : 0,
-"\    "ide_key" : '',
-"\    "path_maps" : {"/mnt/app/drupal-elite-exchange": "/home/grota/Projects/sparkfabrik/borsa/git"},
-"\    "debug_window_level" : 0,
-"\    "debug_file_level" : 10,
-"\    "debug_file" : "/tmp/vdebug",
-"\    "watch_window_style" : "expanded",
-"\    "continuous_mode" : 1,
-"\    "marker_default" : '⬦',
-"\    "marker_closed_tree" : '▸',
-"\    "marker_open_tree" : '▾'
-"\}
+"   let g:vdebug_options = {
+"   \    'port' : 9000,
+"   \    'timeout' : 20,
+"   \    'server' : '',
+"   \    'on_close' : 'stop',
+"   \    'break_on_open' : 1,
+"   \    'ide_key' : '',
+"   \    'debug_window_level' : 0,
+"   \    'debug_file_level' : 0,
+"   \    'debug_file' : '',
+"   \    'path_maps' : {"/path/inside/docker": "/path/in/host"},
+"   \    'watch_window_style' : 'expanded',
+"   \    'marker_default' : '⬦',
+"   \    'marker_closed_tree' : '▸',
+"   \    'marker_open_tree' : '▾',
+"   \    'sign_breakpoint' : '▷',
+"   \    'sign_current' : '▶',
+"   \    'continuous_mode'  : 1,
+"   \    'simplified_status': 1,
+"   \    'layout': 'vertical',
+"   \}
 nnoremap <Leader>br :BreakpointRemove *<CR>
 " }}}
 " vim-sneak {{{

@@ -51,7 +51,6 @@ cx<movement like w,i'> followed by . or by another cx<movement>
 
 :Linediff (twice, from visual mode). :LinediffReset
 i_ <C-l> <C-h> <C-j> <C-k> wordwise movement
-|yankring| <M-.> <M-,> Yankring next/prev
 
 usually overridden by ftplugins: |[[| |]]| ( |[m| |]m| |[M| |]M| )
 

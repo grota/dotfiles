@@ -99,6 +99,9 @@ bindsym $mod+$i3-wm.binding.browser exec gtk-launch $(xdg-settings get default-w
 
 set_from_resource $rofiTheme rofi.theme /etc/regolith/styles/lascaille/rofi.rasi
 
+## Launch // Greenclip // <> z ##
+bindsym $mod+z exec rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}' -theme $(xrescat rofi.theme)
+
 ## Launch // Application // <> Space ##
 set_from_resource $i3-wm.binding.launcher.app i3-wm.binding.launcher.app space
 set_from_resource $i3-wm.program.launcher.app i3-wm.program.launcher.app rofi -show drun -theme $(xrescat rofi.theme)
@@ -139,8 +142,8 @@ bindsym $mod+$i3-wm.binding.look_selector exec $i3-wm.program.look_selector
 set_from_resource $i3-wm.binding.focus_parent i3-wm.binding.focus_parent a
 bindsym $mod+$i3-wm.binding.focus_parent focus parent
 
-## Navigate // Relative Child // <> z ##/
-set_from_resource $i3-wm.binding.focus_child i3-wm.binding.focus_child z
+## Navigate // Relative Child // <> c ##/
+set_from_resource $i3-wm.binding.focus_child i3-wm.binding.focus_child c
 bindsym $mod+$i3-wm.binding.focus_child focus child
 
 ## Navigate // Relative Window // <> ↑ ↓ ← → ##
@@ -287,7 +290,7 @@ bindsym $mod+$i3-wm.binding.focus_toggle focus mode_toggle
 
 ## Modify // Window Layout Mode // <> t ##
 set_from_resource $i3-wm.binding.layout_mode i3-wm.binding.layout_mode t
-bindsym $mod+$i3-wm.binding.layout_mode layout toggle tabbed splith splitv
+bindsym $mod+$i3-wm.binding.layout_mode layout toggle tabbed splith splitv stacking
 
 ## Modify // Move Window to Workspace 1 - 10 // <><Shift> 0..9 ##
 bindsym $mod+Shift+$ws1_key move container to workspace number $ws1
@@ -408,15 +411,15 @@ bindsym $mod+$i3-wm.binding.sleep exec $i3-wm.program.sleep
 # System Management
 ###############################################################################
 
-## Modify // Settings // <> c ##
-set_from_resource $i3-wm.binding.settings i3-wm.binding.settings c
-set_from_resource $i3-wm.program.settings i3-wm.program.settings gnome-control-center --class=floating_window
+## Modify // Power Settings // <> d ##
+set_from_resource $i3-wm.binding.settings i3-wm.binding.settings d
+set_from_resource $i3-wm.program.settings i3-wm.program.settings gnome-control-center --class=floating_window power
 bindsym $mod+$i3-wm.binding.settings exec $i3-wm.program.settings
 
-## Modify // Display Settings // <> d ##
-set_from_resource $i3-wm.binding.display i3-wm.binding.display d
-set_from_resource $i3-wm.program.display i3-wm.program.display gnome-control-center --class=floating_window display
-bindsym $mod+$i3-wm.binding.display exec $i3-wm.program.display
+### Modify // Display Settings // <> d ##
+#set_from_resource $i3-wm.binding.display i3-wm.binding.display d
+#set_from_resource $i3-wm.program.display i3-wm.program.display gnome-control-center --class=floating_window display
+#bindsym $mod+$i3-wm.binding.display exec $i3-wm.program.display
 
 ## Modify // Wifi Settings // <> w ##
 set_from_resource $i3-wm.binding.wifi i3-wm.binding.wifi w
