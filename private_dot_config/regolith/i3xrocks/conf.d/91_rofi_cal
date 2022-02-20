@@ -1,0 +1,3 @@
+[rofi-calendar]
+command=~/.config/regolith/i3xrocks/scripts/rofi-calendar
+interval=10
