@@ -104,7 +104,7 @@ bindsym $mod+z exec rofi -modi "clipboard:greenclip print" -show clipboard -run-
 
 ## Launch // Application // <> Space ##
 set_from_resource $i3-wm.binding.launcher.app i3-wm.binding.launcher.app space
-set_from_resource $i3-wm.program.launcher.app i3-wm.program.launcher.app rofi -show drun -theme $(xrescat rofi.theme)
+set_from_resource $i3-wm.program.launcher.app i3-wm.program.launcher.app rofi -show drun -theme $(xrescat rofi.theme) -show-icons
 bindsym $mod+$i3-wm.binding.launcher.app exec $i3-wm.program.launcher.app
 
 ## Launch // Command // <><Shift> Space ##
@@ -115,7 +115,7 @@ bindsym $mod+$i3-wm.binding.launcher.cmd exec $i3-wm.program.launcher.cmd
 
 ## Navigate // Window by Name // <><Ctrl> Space ##
 set_from_resource $i3-wm.binding.launcher.window i3-wm.binding.launcher.window Ctrl+space
-set_from_resource $i3-wm.program.launcher.window i3-wm.program.launcher.window rofi -show window -theme $(xrescat rofi.theme)
+set_from_resource $i3-wm.program.launcher.window i3-wm.program.launcher.window rofi -show window -theme $(xrescat rofi.theme) -show-icons
 
 bindsym $mod+$i3-wm.binding.launcher.window exec $i3-wm.program.launcher.window
 
@@ -125,9 +125,9 @@ set_from_resource $i3-wm.program.help i3-wm.program.help /usr/bin/remontoire-tog
 bindsym $mod+$i3-wm.binding.help exec --no-startup-id $i3-wm.program.help
 
 ## Launch // File Search // <><Alt> Space ##
-set_from_resource $i3-wm.binding.file_search i3-wm.binding.file_search Mod1+space
-set_from_resource $i3-wm.program.file_search i3-wm.program.file_search rofi -show find -modi find:/usr/share/rofi/modi/finder.sh -theme $(xrescat rofi.theme)
-bindsym $mod+$i3-wm.binding.file_search exec $i3-wm.program.file_search
+#set_from_resource $i3-wm.binding.file_search i3-wm.binding.file_search Mod1+space
+#set_from_resource $i3-wm.program.file_search i3-wm.program.file_search rofi -show find -modi find:/usr/share/rofi/modi/finder.sh -theme $(xrescat rofi.theme)
+#bindsym $mod+$i3-wm.binding.file_search exec $i3-wm.program.file_search
 
 ## Launch // Look Selector // <><Alt> l ##
 set_from_resource $i3-wm.binding.look_selector i3-wm.binding.look_selector Mod1+l
@@ -362,7 +362,7 @@ workspace_layout $i3-wm.workspace.layout
 ###############################################################################
 
 ## Session // Exit App // <><Shift> q ##
-set_from_resource $i3-wm.binding.exit_app i3-wm.binding.exit_app Shift+q
+set_from_resource $i3-wm.binding.exit_app i3-wm.binding.exit_app q
 bindsym $mod+$i3-wm.binding.exit_app [con_id="__focused__"] kill
 
 ## Session // Terminate App // <><Alt> q ##

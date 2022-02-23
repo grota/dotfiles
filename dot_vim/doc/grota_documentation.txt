@@ -33,6 +33,7 @@ xnoremap <silent><Leader>ee :<C-u>PhpactorExtractExpression<CR>
 xnoremap <silent><Leader>em :<C-u>PhpactorExtractMethod<CR>
 <leader>y f/o/O/p (yank full oOnly path)
 cx<movement like w,i'> followed by . or by another cx<movement>
+cxc clear a previously defined region
 
       VARIOUS
 {dcv}    {ia}{,} delete-change-visual inner-around argument

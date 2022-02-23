@@ -16,3 +16,4 @@ alias "gcp"='forgit::cherry::pick'
 #alias "${forgit_fixup:-gfu}"='forgit::fixup'
 
 alias "gll"='forgit::log --all'
+alias forgit_aliases="alias|grep forgit|grep -v forgit_aliases"

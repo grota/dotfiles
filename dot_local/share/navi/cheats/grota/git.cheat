@@ -4,7 +4,7 @@
 git config user.email <email>
 
 # see remote branches (master excluded)
-git branch -r | grep -v master | sed 's/origin\///'
+git branch -r --merged | grep -v master | sed 's/origin\///'
 
 # clean remote merged branches (master excluded)
 git branch -r --merged | grep -v master | sed 's/origin\///' | xargs -n 1 git push --delete origin

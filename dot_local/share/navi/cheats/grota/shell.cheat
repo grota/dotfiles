@@ -1,7 +1,7 @@
 % shell
 
 # sed substitute recursive
-grep -rl '<word>'  |xargs -I@ sed -i 's/<word>/<replace>/g' @
+grep -rl '<word>' | xargs -I@ sed -i 's/<word>/<replace>/g' @
 
 # add a user to a group
 usermod -a -G <group> <user>

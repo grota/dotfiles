@@ -29,3 +29,6 @@ pacman -Qo <filename>
 
 # List packages previously installed as dep and now orphan
 pacman -Qtd
+
+# Update paru packages
+paru -Sua
