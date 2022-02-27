@@ -15,8 +15,8 @@ style:
 
 finder:
   command: fzf # equivalent to the --finder option
-  overrides_var: --tac --height 12
   overrides: --tac --height 22
+  overrides_var: --tac --height 22
 
 # cheats:
   # paths:

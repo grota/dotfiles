@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
 
 FORGIT_NO_ALIASES=1
+FORGIT_COPY_CMD="xclip -selection clipboard"
+FORGIT_LOG_FZF_OPTS="--layout=reverse --no-mouse"
 alias "ga"='forgit::add'
 alias "grs"='forgit::reset::head'
 alias "gl"='forgit::log'
+alias "gll"='forgit::log --all'
 alias "gdi"='forgit::diff'
-#alias "${forgit_ignore:-gi}"='forgit::ignore'
 alias "gcof"='forgit::checkout::file'
 alias "gcob"='forgit::checkout::branch'
-#alias "${forgit_checkout_commit:-gco}"='forgit::checkout::commit'
 alias "gclean"='forgit::clean'
 alias "gstsh"='forgit::stash::show'
 alias "gcp"='forgit::cherry::pick'
-#alias "grbi"='forgit::rebase'
-#alias "${forgit_fixup:-gfu}"='forgit::fixup'
 
-alias "gll"='forgit::log --all'
-alias forgit_aliases="alias|grep forgit|grep -v forgit_aliases"
+alias forgit_aliases="alias|grep forgit::"
