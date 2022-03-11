@@ -4,9 +4,9 @@ nnoremap <leader>gd :vertical stjump <C-r><C-w><CR>
 " phpactor {{{
 nnoremap <Leader>mm :PhpactorContextMenu<CR>
 nnoremap <Leader>tt :PhpactorTransform<CR>
-noremap <Leader>e :PhpactorClassExpand<CR>
-noremap <Leader>u :PhpactorImportClass<CR>
-noremap <Leader>ua :PhpactorImportMissingClasses<CR>
+nnoremap <Leader>e :PhpactorClassExpand<CR>
+nnoremap <Leader>u :PhpactorImportClass<CR>
+nnoremap <Leader>ua :PhpactorImportMissingClasses<CR>
 " Extract expression from selection
 xnoremap <silent><Leader>ee :<C-u>PhpactorExtractExpression<CR>
 " Extract method from selection

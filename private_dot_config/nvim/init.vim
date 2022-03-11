@@ -63,6 +63,13 @@ nvim_lsp.tsserver.setup {
 nvim_lsp.gopls.setup{
     on_attach = on_attach,
 }
+nvim_lsp.terraform_lsp.setup{
+    on_attach = on_attach,
+}
+nvim_lsp.terraformls.setup{
+    on_attach = on_attach,
+}
+
 
 require'nvim-treesitter.configs'.setup {
   highlight = {

@@ -20,4 +20,5 @@ bind -m emacs-standard '"\ec": " \eh\ek \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-b\e 
 [[ $- == *i* ]] && source "$HOME/.vim/plugged/fzf/shell/completion.bash" 2> /dev/null
 export FZF_DEFAULT_COMMAND='(fd --no-ignore-vcs --type f --hidden --follow --exclude .git) 2> /dev/null'
 export FZF_CTRL_T_COMMAND='(fd --no-ignore-vcs --hidden --follow --exclude .git) 2> /dev/null'
+export FZF_DEFAULT_OPTS="--bind='alt-h:preview(~/Projects/personal/fzf-helper/dist/tsc/main.js)'"
 # }}}

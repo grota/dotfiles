@@ -23,8 +23,7 @@ s<enter>
 <leader>fws :FZFWorkspaceSymbols
 <leader>fr  :FZFReferences
 g<Tab>      go to last tab
-
-i_CTRL-u     Delete till start of line
+<Tab>       in Grepper, change tool
 
       SEMI LEARNED
 nnoremap <Leader>mm :call phpactor#ContextMenu()<CR>
@@ -34,6 +33,8 @@ xnoremap <silent><Leader>em :<C-u>PhpactorExtractMethod<CR>
 <leader>y f/o/O/p (yank full oOnly path)
 cx<movement like w,i'> followed by . or by another cx<movement>
 cxc clear a previously defined region
+
+i_CTRL-u     Delete till start of line
 
       VARIOUS
 {dcv}    {ia}{,} delete-change-visual inner-around argument
