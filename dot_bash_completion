@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 for bcfile in ~/.bash_completion.d/* ; do
   #echo ".bash_completion sourcing $bcfile"
   . "$bcfile"

@@ -1,0 +1,9 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+export BW_SESSION="BW_SESSION_FROM_ENV"
+source ~/.bash_aliases

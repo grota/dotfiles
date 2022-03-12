@@ -10,6 +10,7 @@ chezmoi_ignored
 
 # Files in ~ to be hidden from `chezmoi unmanaged`:
 !/local
+!/.bashrc
 /local/bin/bw
 /local/bin/chezmoi
 /.bashrc

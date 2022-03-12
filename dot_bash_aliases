@@ -1,18 +1,6 @@
 #!/usr/bin/env bash
 # vim: set tabstop=2 shiftwidth=2 foldmethod=marker:
 
-# ~/.bashrc:
-# sources first ~/.bash_aliases, which sources
-#   - ~/.local/grota/bash/* populated by
-#     - from $(chezmoi source-path)/.chezmoiexternal.yaml
-#     - from $(chezmoi source-path)/dot_local/grota/bash/*
-# Then all files in ~/.bash_completion.d/*
-# (if system pkg bash-completion is present + ~/.bash_completion)
-# useful for git aliases which use __git_complete from bash-completion pkg.
-
-# But on arch first /usr/share/bash-completion/bash_completion is sourced via /etc/bash.bashrc
-# and only after ~/.local/grota/bash/* via ~/.bashrc
-
 if [ -z "$TMUX" ]; then
   PATH=$HOME/local/bin:$HOME/.config/composer/vendor/bin:$PATH
   PATH=$PATH:/usr/local/go/bin
