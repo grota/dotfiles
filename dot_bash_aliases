@@ -11,12 +11,9 @@ if [ -z "$TMUX" ]; then
   export GOPATH
 fi
 
-grep "ps1_update --notime --prompt" <<< "$PROMPT_COMMAND" >/dev/null || {
-  PROMPT_COMMAND="$PROMPT_COMMAND"';history -a; history -n; ps1_update --notime --prompt \>;'
-}
+PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'history -a; history -n; ps1_update --notime --prompt \>;'
 
 for file in ~/.local/grota/bash/* ; do
-  #echo "sourcing $file"
   . "$file"
 done
 
