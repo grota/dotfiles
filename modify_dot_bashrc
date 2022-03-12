@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-sed "s/BW_SESSION_FROM_ENV/$BW_SESSION/" chezmoi_ignored/bashrc
