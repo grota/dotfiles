@@ -1,7 +1,6 @@
 # vim: set ft=gitconfig:
 [core]
   excludesfile = ~/.global_gitignore
-  filemode = false
 [color]
   ui = true
 [color "diff-highlight"]

@@ -56,6 +56,7 @@ i_ <C-l> <C-h> <C-j> <C-k> wordwise movement
 
 usually overridden by ftplugins: |[[| |]]| ( |[m| |]m| |[M| |]M| )
 
+:FZFFreshMru to clean up old non existend files from fzfrmu cache.
 
       LEARNED (reminder)
 

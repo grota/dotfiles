@@ -49,11 +49,24 @@ for _, lsp in ipairs(phpservers) do
     settings = {
       intelephense = {
         files = {
-          maxSize = 500000;
-          associations = { "*.php", "*.module", "*.theme", "*.profile", "*.inc" };
-        };
-      };
-    },
+          maxSize = 500000,
+          associations = { "*.php", "*.module", "*.theme", "*.profile", "*.inc" },
+          exclude = {
+            "**/build/phpqa/**",
+            "**/.git/**",
+            "**/.svn/**",
+            "**/.hg/**",
+            "**/CVS/**",
+            "**/.DS_Store/**",
+            "**/node_modules/**",
+            "**/bower_components/**",
+            "**/vendor/**/{Tests,tests}/**",
+            "**/.history/**",
+            "**/vendor/**/vendor/**"
+          }
+        }
+      }
+    }
   }
 end
 nvim_lsp.tsserver.setup {
@@ -86,6 +99,9 @@ require'nvim-treesitter.configs'.setup {
     },
   },
   indent = {
+    enable = true
+  },
+  rainbow = {
     enable = true
   }
 }

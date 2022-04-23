@@ -51,6 +51,7 @@ Plug 'jwalton512/vim-blade'
 Plug 'tpope/vim-projectionist'
 Plug 'hashivim/vim-terraform'
 if has('nvim')
+  Plug 'p00f/nvim-ts-rainbow'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
@@ -81,37 +82,9 @@ else
   set background=dark
 endif
 if has('nvim')
-  set termguicolors
+set termguicolors
 endif
 colorscheme grota
-"}}}
-
-" Meta mappings {{{
-" Automatic mapping of <M-> keys. I think there's room to explore
-" <M-S-> mapping using toupper see http://vim.wikia.com/wiki/VimTip738
-if !has('nvim')
-  let s:c='a'
-  while s:c <= 'z'
-    exec "set <M-".(s:c).">=\e".s:c
-    exec "imap \e".s:c." <M-".(s:c).">"
-    let s:c = nr2char(1+char2nr(s:c))
-  endwhile
-  let s:c='0'
-  while s:c <= '9'
-    exec "set <M-".(s:c).">=\e".s:c
-    exec "imap \e".s:c." <M-".(s:c).">"
-    let s:c = nr2char(1+char2nr(s:c))
-  endwhile
-  set <M-/>=/
-  set <M-'>='
-  set <M-;>=;
-  set <M-->=-
-  set <M-=>==
-  set <M-`>=`
-  set <M-!>=!
-  set <M-~>=~
-  set <M-\|>=|
-endif
 "}}}
 
 " VIM OPTIONS {{{
@@ -148,7 +121,11 @@ set nobackup " default is already off, but just to be sure.
 set splitright " vertical split on the right as default
 set whichwrap=b,s,<,>,[,] "left and right, in insert e normal mode wrap lines
 set ruler
-set laststatus=2 " when to show the extra status line: 2=always, 1=only if there are at least two windows
+if has('nvim')
+  set laststatus=3
+else
+  set laststatus=2 " when to show the extra status line: 2=always, 1=only if there are at least two windows
+endif
 set keymodel=startsel
 " This will look in the directory of the current file for 'tags', and work up the tree towards root until one is found.
 set tags=./tags;

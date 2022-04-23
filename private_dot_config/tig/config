@@ -1,0 +1,2 @@
+bind generic y !sh -c "echo -n %(commit) | xclip -selection c && echo Copied %(commit) to clipboard"
+
