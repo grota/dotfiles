@@ -410,6 +410,7 @@ xnoremap <BS> x
 "}}}
 " <leader>y/yf/yo/yO/yp/p : YANKING AND PASTING {{{
 xnoremap <Leader>y "+ygv"*y`>
+nmap <leader>yw viw<Leader>y
 nnoremap <Leader>yf :let @+=expand("%")<CR>:echo 'copied '.expand("%")<CR>
 nnoremap <Leader>yo :let @+=expand("%:t")<CR>:echo 'copied '.expand("%:t")<CR>
 nnoremap <Leader>yO :let @+=expand("%:t:r")<CR>:echo 'copied '.expand("%:t:r")<CR>

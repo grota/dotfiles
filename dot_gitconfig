@@ -30,6 +30,7 @@
   ctags = !.git/hooks/ctags
   standup = "!f() { git log --all --author=\"Giuseppe Rota\" --name-status --no-merges --author-date-order --since=\"${1-3} days ago\"; }; f"
   rmstaletags = fetch --prune origin +refs/tags/*:refs/tags/*
+  lsf = ls-files
 [advice]
   statusHints = false
 [diff]

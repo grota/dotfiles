@@ -27,13 +27,17 @@ highlight MatchParen cterm=bold ctermbg=19 guibg=DarkCyan
 highlight Directory ctermfg=130 guifg=#af5f00
 highlight Pmenu ctermbg=8 guibg=SpringGreen4 guifg=gray15
 highlight PmenuSel ctermbg=247 ctermfg=233 guibg=green1 guifg=black
-highlight Search term=reverse ctermfg=0 ctermbg=3 guifg=black guibg=gold
+highlight Search term=reverse ctermfg=0 ctermbg=3 guifg=black guibg=khaki
 highlight Folded term=standout ctermfg=14 ctermbg=234 guifg=#00ffff guibg=#1c1c1c
 highlight StatusLineNC ctermbg=240 cterm=none term=none gui=none
 highlight DiffChange ctermbg=53
 highlight DiffText ctermbg=235
 highlight DiffAdd ctermbg=22
 highlight DiffDelete ctermbg=52
+highlight diffRemoved guifg=red
+highlight diffFile guifg=#ffffff
+highlight diffIndexLine guifg=#3a3a3a
+highlight diffAdded guifg=#00ca00
 highlight Question ctermfg=123
 highlight TabLineFill ctermfg=234 guibg=#121212
 highlight TabLine ctermbg=234 ctermfg=240 cterm=NONE

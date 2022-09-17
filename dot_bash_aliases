@@ -11,6 +11,8 @@ if [ -z "$TMUX" ]; then
   export GOPATH
 fi
 
+export MANPATH=:~/local/share/man
+
 PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'history -a; history -n; ps1_update --notime --prompt \>;'
 
 for file in ~/.local/grota/bash/* ; do
