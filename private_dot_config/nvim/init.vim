@@ -85,6 +85,9 @@ nvim_lsp.terraform_lsp.setup{
 nvim_lsp.terraformls.setup{
     on_attach = on_attach,
 }
+nvim_lsp.ccls.setup{
+    on_attach = on_attach,
+}
 
 
 require'nvim-treesitter.configs'.setup {

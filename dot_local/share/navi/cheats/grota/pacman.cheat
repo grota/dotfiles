@@ -30,5 +30,8 @@ pacman -Qo <filename>
 # List packages previously installed as dep and now orphan
 pacman -Qtd
 
+# Clean up caches
+sudo pacman -Scc --noconfirm
+
 # Update paru packages
 paru -Sua

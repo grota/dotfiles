@@ -62,3 +62,6 @@
 [user]
 	email = 403432+grota@users.noreply.github.com
 	name = Giuseppe Rota
+	signingkey = D03AC8F03992DD80
+[commit]
+	gpgsign = true
