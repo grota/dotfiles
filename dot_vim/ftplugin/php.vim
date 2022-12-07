@@ -1,5 +1,4 @@
-" Since <C-]> is overriden in vim/dotvim/after/ftplugin/php.vim we provide the
-" ctags based approach here which is useful until the php LS is done indexing.
+" We provide the ctags based approach here which is useful until the php LS is done indexing.
 nnoremap <leader>gd :vertical stjump <C-r><C-w><CR>
 " phpactor {{{
 nnoremap <Leader>mm :PhpactorContextMenu<CR>

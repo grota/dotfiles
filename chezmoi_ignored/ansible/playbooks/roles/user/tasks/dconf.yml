@@ -127,4 +127,6 @@
     - name: 'xkb options'
       dconf:
         key: '/org/gnome/desktop/input-sources/xkb-options'
-        value: "['lv3:ralt_switch', 'ctrl:nocaps', 'shift:both_capslock_cancel']"
+        #used to have also 'shift:both_capslock_cancel' but not used a lot
+        #and conflicted with home row mods.
+        value: "['lv3:ralt_switch', 'ctrl:nocaps']"

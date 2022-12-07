@@ -1,0 +1,6 @@
+% kubernetes
+
+# kubectl exec into a pod
+kubectl exec -it <podid> -- ash -il
+
+$ podid: kubectl get pods --- --headers 1 --column 1

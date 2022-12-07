@@ -1,0 +1,5 @@
+[
+  (comment)
+] @auto
+
+(ERROR) @auto

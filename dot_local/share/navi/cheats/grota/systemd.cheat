@@ -1,0 +1,6 @@
+% systemd
+
+#restart some well known user service
+systemctl --user restart <user_service_wellknown>
+
+$ user_service_wellknown: echo -e 'greenclip.service\nwireplumber.service'
