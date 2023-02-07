@@ -1,0 +1,11 @@
+-- Autocmds are automatically loaded on the VeryLazy event
+-- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
+-- Add any additional autocmds here
+  --autocmd FileType gitrebase nnoremap <buffer> <silent> S :Cycle<CR>
+--vim.api.nvim_create_autocmd("FileType", {
+  --pattern = { "gitrebase" },
+  --callback = function()
+    --vim.opt_local.wrap = true
+    --vim.opt_local.spell = true
+  --end,
+--})

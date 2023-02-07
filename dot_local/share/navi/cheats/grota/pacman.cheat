@@ -35,3 +35,6 @@ sudo pacman -Scc --noconfirm
 
 # Update paru packages
 paru -Sua
+
+$ installed_package: pacman -Q --- --column 1 --delimiter '\s'
+$ available_package: pacman -Sl --- --column 2 --delimiter '\s'

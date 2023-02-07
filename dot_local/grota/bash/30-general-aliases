@@ -36,4 +36,5 @@ alias agu='ag -U --pager bat --ignore=.js --ignore node_modules --ignore tests -
 alias ss='sudo su -'
 #alias xc='sleep 1.0; xdotool type "$(xclip -o -selection clipboard)"'
 alias cat=bat
+alias nvimo='NVIM_FLAVOUR=old nvim'
 #}}}

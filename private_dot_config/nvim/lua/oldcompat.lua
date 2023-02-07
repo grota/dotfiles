@@ -1,10 +1,17 @@
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath = &runtimepath
-source ~/.vim/vimrc
+vim.cmd('source ' .. vim.fn.stdpath("config") .. '/source_vimrc.vim')
 
-set icm=split
-au TextYankPost * silent! lua vim.highlight.on_yank {higroup=”IncSearch”, timeout=100}
-lua << EOF
+vim.o.inccommand='split'
+
+vim.api.nvim_create_autocmd({"TextYankPost"}, {
+  pattern = {"*"},
+  callback = function()
+    require'vim.highlight'.on_yank({
+      timeout = 100,
+      higroup="IncSearch",
+    })
+  end,
+})
+
 local nvim_lsp = require('lspconfig')
 
 -- Use an on_attach function to only map the following keys
@@ -129,4 +136,3 @@ require("indent_blankline").setup {
 
 require("telescope").setup()
 require('telescope').load_extension('fzf')
-EOF
