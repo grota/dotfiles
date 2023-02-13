@@ -1,5 +1,17 @@
 return {
 	{
+		"utilyre/barbecue.nvim",
+		opts = {
+			attach_navic = false,
+			show_dirname = false,
+			show_basename = false,
+			show_modified = true,
+			modifiers = {
+				basename = "",
+			},
+		},
+	},
+	{
 		"ckolkey/ts-node-action",
 		dependencies = {
 			"nvim-treesitter",
@@ -61,9 +73,9 @@ return {
 				-- local number = api.get_tab_number(tabid)
 				local buf_name = require("tabby.feature.buf_name")
 				local opts = {
-					name_fallback = function(tabid)
-						local wins = api.get_tab_wins(tabid)
-						local cur_win = api.get_tab_current_win(tabid)
+					name_fallback = function(tabid2)
+						local wins = api.get_tab_wins(tabid2)
+						local cur_win = api.get_tab_current_win(tabid2)
 						local name = ""
 						if api.is_float_win(cur_win) then
 							name = "[Floating]"
@@ -102,7 +114,7 @@ return {
 	{
 		"mbbill/undotree",
 		keys = {
-			{ "<leader>tu", "<cmd>UndotreeToggle<cr>", desc = "UndoTree open." },
+			{ "<leader>uu", "<cmd>UndotreeToggle<cr>", desc = "UndoTree open." },
 		},
 	},
 }

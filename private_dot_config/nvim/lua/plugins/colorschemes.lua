@@ -17,6 +17,24 @@ return {
 						base = "#000000",
 					},
 				},
+				dim_inactive = {
+					enabled = true,
+					shade = "dark",
+					percentage = 0.85,
+				},
+				custom_highlights = function(colors)
+					return {
+						Search = { bg = "#875f00", fg = "black" },
+						CurSearch = { bg = "#dfaf00", fg = "black" },
+					}
+				end,
+				integrations = {
+					-- This only changes the hl of the navic parts.
+					navic = {
+						enabled = true,
+						custom_bg = "NONE",
+					},
+				},
 			})
 			vim.cmd.colorscheme("catppuccin-mocha")
 		end,
