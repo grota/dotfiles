@@ -108,8 +108,21 @@ return {
 			opts.defaults.mappings.i["<C-S-t>"] = require("trouble.providers.telescope").open_with_trouble
 			opts.defaults.mappings.i["<C-Down>"] = require("telescope.actions").cycle_history_next
 			opts.defaults.mappings.i["<C-Up>"] = require("telescope.actions").cycle_history_prev
+			opts.defaults.vimgrep_arguments = {
+				"rg",
+				"--color=never",
+				"--no-heading",
+				"--with-filename",
+				"--line-number",
+				"--column",
+				"--smart-case",
+				"--hidden",
+			}
 		end,
 		keys = {
+			{ "<leader>gc", false },
+			{ "<leader>gs", false },
+			{ "<leader><space>", false }, -- using <leader>ff
 			{ "<leader>fB", "<cmd>Telescope<cr>", desc = "Telescope builtin." },
 			{ "<leader>fL", "<cmd>Telescope lazy<cr>", desc = "Telescope for lazy." },
 			{ "<leader>fr", false },
@@ -201,6 +214,26 @@ return {
 				},
 			})
 		end,
+	},
+
+	{
+		"jose-elias-alvarez/null-ls.nvim",
+		opts = function()
+			local nls = require("null-ls")
+			return {
+				sources = {
+					nls.builtins.code_actions.shellcheck,
+					nls.builtins.formatting.stylua,
+					nls.builtins.diagnostics.flake8,
+				},
+			}
+		end,
+	},
+	{
+		"folke/noice.nvim",
+		keys = {
+			{ "<leader>snd", "<cmd>NoiceDisable<cr>", desc = "Noice disable" },
+		},
 	},
 
 	{

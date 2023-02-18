@@ -1,5 +1,31 @@
 return {
 	{
+		"shumphrey/fugitive-gitlab.vim",
+		init = function()
+			vim.g.fugitive_gitlab_domains = { "https://gitlab.sparkfabrik.com" }
+		end,
+		cmd = "GBrowse",
+	},
+	{
+		"rhysd/git-messenger.vim",
+		init = function()
+			vim.g.git_messenger_always_into_popup = true
+		end,
+		keys = "<leader>gm",
+		cmd = "GitMessenger",
+	},
+	{
+		"liuchengxu/vista.vim",
+		init = function()
+			vim.g.vista_default_executive = "nvim_lsp"
+			vim.g.vista_echo_cursor = 0
+		end,
+		keys = {
+			{ "<leader>uv", "<cmd>Vista!!<cr>", desc = "Open vista." },
+		},
+	},
+
+	{
 		"utilyre/barbecue.nvim",
 		opts = {
 			attach_navic = false,
@@ -9,6 +35,7 @@ return {
 			modifiers = {
 				basename = "",
 			},
+			theme = "catppuccin",
 		},
 	},
 	{

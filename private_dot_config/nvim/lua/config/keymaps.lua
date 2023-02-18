@@ -33,10 +33,13 @@ vim.keymap.del("n", "<leader>fn")
 vim.keymap.del("n", "<leader>l")
 
 local wk = require("which-key")
-wk.register({ ["<leader>v"] = { name = "Neovim rc stuff" } })
+wk.register({
+	["<leader>v"] = { name = "Neovim rc stuff" },
+	["<leader>y"] = { name = "Custom yanks" },
+})
 
-map("n", "<leader>L", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 --map("n", "<leader>p", function() vim.pretty_print(require('lazy.core.config').plugins) end, { desc = "Print Lazy Specs" })
+map("n", "<leader>L", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>vv", "<cmd>e $MYVIMRC<Cr>", { desc = "Edit $MYVIMRC" })
 map("n", "<leader>vld", "<cmd>e ~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/<Cr>", { desc = "Edit LazyVim dir" })
 
@@ -54,13 +57,15 @@ map("n", "<leader>w\\", "<C-W>v", { desc = "Split window right" })
 map("n", "<F1>", "<C-w>o", { desc = "Current win only." })
 map("n", "<F2>", "<C-w>c", { desc = "Close window." })
 map("n", "<F3>", "<C-w>T", { desc = "Move current window to new tab page." })
+-- map("n", "<F5>", "<cmd>tabedit<cr>", { desc = "New tab" })
 
 map("n", "gV", "`[v`]", { desc = "Visually select last edited/pasted." })
 
-wk.register({ ["<leader>F"] = { name = "Fugitive" } })
-map("n", "<leader>Fs", "<cmd>Git<cr>", { desc = "Fugitive status" })
-map("n", "<leader>Fw", "<cmd>Gw<cr>", { desc = "Fugitive write" })
-map("n", "<leader>Fb", "<cmd>Git blame<cr>", { desc = "Fugitive blame" })
+-- wk.register({ ["<leader>F"] = { name = "Fugitive" } })
+map("n", "<leader>gs", "<cmd>Git<cr>", { desc = "Fugitive status" })
+map("n", "<leader>gd", "<cmd>Gdiffsplit<cr>", { desc = "Fugitive diff" })
+map("n", "<leader>gw", "<cmd>Gw<cr>", { desc = "Fugitive write" })
+map("n", "<leader>gb", "<cmd>Git blame<cr>", { desc = "Fugitive blame" })
 
 map("n", "<leader>yf", '<cmd>let @+=expand("%")<CR>:echo "copied " . expand("%")<CR>', { desc = "Copy full path" })
 map("n", "<leader>yo", '<cmd>let @+=expand("%:t")<CR>:echo "copied " . expand("%:t")<CR>', { desc = "Copy filename" })
@@ -71,6 +76,20 @@ map(
 	{ desc = "Copy filename (no extension)" }
 )
 map("n", "<leader>yp", '<cmd>let @+=expand("%:h")<CR>:echo "copied " . expand("%:h")<CR>', { desc = "Copy path" })
+map("n", "<leader>yw", function()
+	local pwd = vim.loop.cwd()
+	vim.fn.setreg("+", pwd, "c")
+	vim.cmd.echo('"copied ' .. pwd .. '"')
+end, { desc = "Copy pwd" })
 
 map("n", "<leader><F5>", "<cmd>help grota<cr>", { desc = "Personal nvim notes" })
 map("n", "<leader>ww", "<cmd>pwd<cr>", { desc = "PWD" })
+
+map("n", "<leader><tab>c", "<cmd>tabedit <C-r>+<cr>", { desc = "Open clipboard in new tab" })
+
+map(
+	"n",
+	"<leader>gh-",
+	"<cmd>Gitsigns toggle_deleted<cr><cmd>Gitsigns toggle_word_diff<cr><cmd>Gitsigns toggle_linehl<cr>",
+	{ desc = "Gitsign extra info toggle" }
+)

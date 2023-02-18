@@ -15,6 +15,10 @@ return {
 				color_overrides = {
 					mocha = {
 						base = "#000000",
+						mauve = "#FFB703",
+						lavender = "#6C584C",
+						peach = "#A2D2FF",
+						text = "#F2F5E0",
 					},
 				},
 				dim_inactive = {
@@ -33,6 +37,36 @@ return {
 					navic = {
 						enabled = true,
 						custom_bg = "NONE",
+					},
+					gitsigns = true,
+					leap = true,
+					markdown = true,
+					telescope = true,
+					mason = true,
+					neotree = true,
+					noice = true,
+					cmp = true,
+					lsp_trouble = true,
+					illuminate = true,
+					which_key = true,
+					treesitter = true,
+					indent_blankline = {
+						enabled = true,
+					},
+					native_lsp = {
+						enabled = true,
+						virtual_text = {
+							errors = { "italic" },
+							hints = { "italic" },
+							warnings = { "italic" },
+							information = { "italic" },
+						},
+						underlines = {
+							errors = { "underline" },
+							hints = { "underline" },
+							warnings = { "underline" },
+							information = { "underline" },
+						},
 					},
 				},
 			})
