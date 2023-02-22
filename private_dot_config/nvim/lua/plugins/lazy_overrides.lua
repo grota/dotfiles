@@ -18,7 +18,7 @@ return {
 		-- Remove the keys part, I only want to use <M-n> and <M-p>
 		-- And I also don't want to lose the ]] and [[ mappings from core ft.
 		"RRethy/vim-illuminate",
-		keys = function(_, keys)
+		keys = function(_, _)
 			return {}
 		end,
 		opts = {
@@ -54,7 +54,7 @@ return {
 				},
 			},
 			filesystem = {
-				bind_to_cwd = true,
+				-- bind_to_cwd = true,
 				commands = {
 					go_up_in_tree = function(state)
 						local node = state.tree:get_node()
@@ -100,14 +100,17 @@ return {
 	{
 		"nvim-telescope/telescope.nvim",
 		opts = function(_, opts)
-			local actions = require("telescope.actions")
+			opts.defaults.mappings.i["<a-i>"] = false
+			opts.defaults.mappings.i["<a-h>"] = false
 			opts.defaults.mappings.i["<C-j>"] = "move_selection_next"
 			opts.defaults.mappings.i["<C-k>"] = "move_selection_previous"
-			opts.defaults.mappings.i["<c-t>"] = actions.select_tab -- C needs to stay lowercase because it's like that in Lazyvim
+			opts.defaults.mappings.i["<c-t>"] = "select_tab" -- C needs to stay lowercase because it's like that in Lazyvim
 			-- section only slightly modified to pass func directly to have telescope's which-key with something.
 			opts.defaults.mappings.i["<C-S-t>"] = require("trouble.providers.telescope").open_with_trouble
-			opts.defaults.mappings.i["<C-Down>"] = require("telescope.actions").cycle_history_next
-			opts.defaults.mappings.i["<C-Up>"] = require("telescope.actions").cycle_history_prev
+			opts.defaults.mappings.i["<C-Down>"] = "cycle_history_next"
+			opts.defaults.mappings.i["<C-Up>"] = "cycle_history_prev"
+			opts.defaults.mappings.i["<C-f>"] = "preview_scrolling_down"
+			opts.defaults.mappings.i["<C-b>"] = "preview_scrolling_up"
 			opts.defaults.vimgrep_arguments = {
 				"rg",
 				"--color=never",
@@ -122,6 +125,7 @@ return {
 		keys = {
 			{ "<leader>gc", false },
 			{ "<leader>gs", false },
+			{ "<leader>uC", false },
 			{ "<leader><space>", false }, -- using <leader>ff
 			{ "<leader>fB", "<cmd>Telescope<cr>", desc = "Telescope builtin." },
 			{ "<leader>fL", "<cmd>Telescope lazy<cr>", desc = "Telescope for lazy." },
@@ -172,6 +176,20 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		opts = {
+			textobjects = {
+				move = { enable = false },
+				select = { enable = false },
+				lsp_interop = { enable = false },
+				swap = {
+					enable = true,
+					swap_next = {
+						["<leader>c<Right>"] = "@parameter.inner",
+					},
+					swap_previous = {
+						["<leader>c<Left>"] = "@parameter.inner",
+					},
+				},
+			},
 			ensure_installed = {
 				"bash",
 				"help",
@@ -194,26 +212,6 @@ return {
 				"twig",
 			},
 		},
-	},
-
-	{
-		"nvim-treesitter/nvim-treesitter-textobjects",
-		init = function() end,
-		config = function()
-			require("nvim-treesitter.configs").setup({
-				textobjects = {
-					swap = {
-						enable = true,
-						swap_next = {
-							["<leader>c<Right>"] = "@parameter.inner",
-						},
-						swap_previous = {
-							["<leader>c<Left>"] = "@parameter.inner",
-						},
-					},
-				},
-			})
-		end,
 	},
 
 	{

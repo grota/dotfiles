@@ -11,10 +11,10 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- Clean LazyVim's keymaps
-vim.keymap.del("n", "<C-h>")
-vim.keymap.del("n", "<C-j>")
-vim.keymap.del("n", "<C-k>")
-vim.keymap.del("n", "<C-l>")
+-- vim.keymap.del("n", "<C-h>")
+-- vim.keymap.del("n", "<C-j>")
+-- vim.keymap.del("n", "<C-k>")
+-- vim.keymap.del("n", "<C-l>")
 vim.keymap.del("n", "<S-h>")
 vim.keymap.del("n", "<S-l>")
 vim.keymap.del("n", "<leader>bb")
@@ -59,7 +59,12 @@ map("n", "<F2>", "<C-w>c", { desc = "Close window." })
 map("n", "<F3>", "<C-w>T", { desc = "Move current window to new tab page." })
 -- map("n", "<F5>", "<cmd>tabedit<cr>", { desc = "New tab" })
 
-map("n", "gV", "`[v`]", { desc = "Visually select last edited/pasted." })
+map(
+	"n",
+	"gV",
+	'"`[" . strpart(getregtype(), 0, 1) . "`]"',
+	{ expr = true, desc = "Visually select last edited/pasted." }
+)
 
 -- wk.register({ ["<leader>F"] = { name = "Fugitive" } })
 map("n", "<leader>gs", "<cmd>Git<cr>", { desc = "Fugitive status" })
@@ -78,7 +83,7 @@ map(
 map("n", "<leader>yp", '<cmd>let @+=expand("%:h")<CR>:echo "copied " . expand("%:h")<CR>', { desc = "Copy path" })
 map("n", "<leader>yw", function()
 	local pwd = vim.loop.cwd()
-	vim.fn.setreg("+", pwd, "c")
+	vim.fn.setreg("+", pwd, { "c" })
 	vim.cmd.echo('"copied ' .. pwd .. '"')
 end, { desc = "Copy pwd" })
 
@@ -93,3 +98,17 @@ map(
 	"<cmd>Gitsigns toggle_deleted<cr><cmd>Gitsigns toggle_word_diff<cr><cmd>Gitsigns toggle_linehl<cr>",
 	{ desc = "Gitsign extra info toggle" }
 )
+-- Search visually selected text (slightly better than builtins in Neovim>=0.8)
+map("x", "*", [[y/\V<C-R>=escape(@", '/\')<CR><CR>]])
+map("x", "#", [[y?\V<C-R>=escape(@", '?\')<CR><CR>]])
+
+map("n", "<leader>uC", "<Cmd>setlocal cursorcolumn! cursorcolumn?<CR>", { desc = "Toggle 'cursorcolumn'" })
+
+map("i", "<M-h>", "<Left>", { desc = "Left" })
+map("i", "<M-j>", "<Down>", { desc = "Down" })
+map("i", "<M-k>", "<Up>", { desc = "Up" })
+map("i", "<M-l>", "<Right>", { desc = "Right" })
+map("n", "<leader>[u", function()
+	local data = require("nvim-navic").get_data()
+	require("barbecue.ui").navigate(#data - 1)
+end, { desc = "Navic/Barbecue up" })
