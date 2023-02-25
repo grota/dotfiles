@@ -19,10 +19,12 @@ chezmoi_ignored
 /.bash_logout
 /.vim/autoload/plug.vim
 /.vim/doc/tags
+/.config/nvim/doc/tags
 /.vim/sessions/*
 /.vim/plugged
 /.vim/.netrwhist
 /.tmux/plugins/*
+!/.tmux/plugins/christoomey_vim-tmux-navigator.conf
 /.local/share/TelegramDesktop
 /.local/share/Toggl
 /.local/share/Trash

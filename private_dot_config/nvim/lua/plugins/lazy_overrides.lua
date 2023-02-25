@@ -177,9 +177,9 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		opts = {
 			textobjects = {
-				move = { enable = false },
-				select = { enable = false },
-				lsp_interop = { enable = false },
+				-- move = { enable = false },
+				-- select = { enable = false },
+				-- lsp_interop = { enable = false },
 				swap = {
 					enable = true,
 					swap_next = {

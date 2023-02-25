@@ -33,6 +33,9 @@ pacman -Qtd
 # Clean up caches
 sudo pacman -Scc --noconfirm
 
+# Remove deps no longer needed
+pacman -Qdtq | sudo pacman -Rs -
+
 # Update paru packages
 paru -Sua
 

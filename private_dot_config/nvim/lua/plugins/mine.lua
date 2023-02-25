@@ -1,5 +1,28 @@
 return {
 	{
+		"echasnovski/mini.bracketed",
+		opts = {
+			buffer = { suffix = "", options = {} },
+			comment = { suffix = "", options = {} },
+			conflict = { suffix = "x", options = {} },
+			diagnostic = { suffix = "d", options = {} },
+			file = { suffix = "", options = {} },
+			indent = { suffix = "", options = {} },
+			jump = { suffix = "j", options = {} },
+			location = { suffix = "l", options = {} },
+			oldfile = { suffix = "", options = {} },
+			quickfix = { suffix = "q", options = {} },
+			treesitter = { suffix = "r", options = {} },
+			undo = { suffix = "", options = {} },
+			window = { suffix = "", options = {} },
+			yank = { suffix = "y", options = {} },
+		},
+		config = function(_, opts)
+			require("mini.bracketed").setup(opts)
+		end,
+	},
+
+	{
 		"shumphrey/fugitive-gitlab.vim",
 		init = function()
 			vim.g.fugitive_gitlab_domains = { "https://gitlab.sparkfabrik.com" }
@@ -138,10 +161,15 @@ return {
 			end
 		end,
 	},
+
 	{
 		"mbbill/undotree",
 		keys = {
 			{ "<leader>uu", "<cmd>UndotreeToggle<cr>", desc = "UndoTree open." },
 		},
+	},
+
+	{
+		"AndrewRadev/linediff.vim",
 	},
 }

@@ -1,0 +1,33 @@
+*grota.txt*   Doc for my custom VIM distribution
+
+      TO LEARN
+
+TEXTOBJECTS
+o_gc #mini.comment (gcgc)
+<M-i> #illuminate
+
+NORMAL MAPS
+gsXX leap in other window.
+<M-n> <M-p> Next/Previous word. #illuminate
+
+mini.ai integrates with "nvim-treesitter/nvim-treesitter-textobjects"
+q alias for '"`
+? asks user
+treesitter:
+  o (block, conditional, loop)
+  f function
+  c class
+
+va3 (é around 3, works also for puntuation or whitespace)
+vi3 (é inner 3, works also for puntuation(,.) or whitespace)
+v2a/ (é 2 times around /)
+van val vin vil (around/inside next last)
+
+v_g[ v_g] (Move cursor to corresponding edge of `a` textobject)
+ vg[<space> vg[/
+
+:h vim.opt
+:h lua-guide-options
+:h lua-vim-variables
+
+vim:ft=help:
