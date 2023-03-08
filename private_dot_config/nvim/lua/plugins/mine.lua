@@ -20,6 +20,7 @@ return {
 		config = function(_, opts)
 			require("mini.bracketed").setup(opts)
 		end,
+		event = { "BufReadPre", "BufNewFile" },
 	},
 
 	{
@@ -29,6 +30,7 @@ return {
 		end,
 		cmd = "GBrowse",
 	},
+
 	{
 		"rhysd/git-messenger.vim",
 		init = function()
@@ -37,6 +39,7 @@ return {
 		keys = "<leader>gm",
 		cmd = "GitMessenger",
 	},
+
 	{
 		"liuchengxu/vista.vim",
 		init = function()
@@ -60,7 +63,9 @@ return {
 			},
 			theme = "catppuccin",
 		},
+		event = { "BufReadPre", "BufNewFile" },
 	},
+
 	{
 		"ckolkey/ts-node-action",
 		dependencies = {
@@ -79,9 +84,12 @@ return {
 			})
 		end,
 	},
+
 	{
 		"tpope/vim-fugitive",
+		event = { "BufReadPre", "BufNewFile" },
 	},
+
 	{
 		"lfv89/vim-interestingwords",
 		init = function()
@@ -95,6 +103,7 @@ return {
 			{ "<leader>N", "<cmd>call WordNavigation(0)<cr>", mode = "n", desc = "Highlight prev" },
 		},
 	},
+
 	{
 		"christoomey/vim-tmux-navigator",
 		init = function()
@@ -107,6 +116,7 @@ return {
 			{ "<M-S-Down>", "<cmd>TmuxNavigateDown<cr>", desc = "Go Down pane" },
 		},
 	},
+
 	{
 		"nanozuki/tabby.nvim",
 		config = function()
@@ -171,5 +181,6 @@ return {
 
 	{
 		"AndrewRadev/linediff.vim",
+		cmd = "Linediff",
 	},
 }

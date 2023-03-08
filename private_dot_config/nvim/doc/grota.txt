@@ -2,29 +2,46 @@
 
       TO LEARN
 
-TEXTOBJECTS
-o_gc #mini.comment (gcgc)
-<M-i> #illuminate
+illuminate:
+  o_<M-i>
+  n_<M-n> n_<M-p> Next/Previous word. #illuminate
+
+mini.comment:
+o_gc
+ex: dgc gcgc
+
+mini.ai:
+x_ or o_
+  g[ g] (Move cursor to corresponding edge of `a` textobject)
+ex: vg[<space> vg[/
+
+x_ or o_
+  [count]
+    a or i
+      [l(ast) or n(ext)]
+        q alias for '"`
+        a argument
+        punctuation, whitespace, digits
+        ? asks user
+        integrates with "nvim-treesitter/nvim-treesitter-textobjects":
+          o (block, conditional, loop)
+          f function
+          c class
+ex: va3 vi3 (é around/inner 3, works also for puntuation or whitespace)
+ex: v2a/ (é 2 times around /)
+
+mini.surround:
+[count]
+  gz
+    a(dd)/d(elete)/r(eplace)/f(find right)/F(ind left)/h(ighlight)/n(update_n_lines)
+      [l(ast) or n(ext)]
+        () [] {} <>
+        ? asks user
+        t(ag)
+        f(function call)
 
 NORMAL MAPS
 gsXX leap in other window.
-<M-n> <M-p> Next/Previous word. #illuminate
-
-mini.ai integrates with "nvim-treesitter/nvim-treesitter-textobjects"
-q alias for '"`
-? asks user
-treesitter:
-  o (block, conditional, loop)
-  f function
-  c class
-
-va3 (é around 3, works also for puntuation or whitespace)
-vi3 (é inner 3, works also for puntuation(,.) or whitespace)
-v2a/ (é 2 times around /)
-van val vin vil (around/inside next last)
-
-v_g[ v_g] (Move cursor to corresponding edge of `a` textobject)
- vg[<space> vg[/
 
 :h vim.opt
 :h lua-guide-options

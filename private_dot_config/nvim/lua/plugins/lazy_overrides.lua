@@ -1,5 +1,15 @@
 return {
 	{
+		"echasnovski/mini.ai",
+		opts = function(_, opts)
+			local ai = require("mini.ai")
+			opts.custom_textobjects.S = ai.gen_spec.treesitter({
+				a = { "@statement.outer", "@function.outer" },
+				i = { "@statement.outer", "@function.inner" },
+			}, {})
+		end,
+	},
+	{
 		-- this simply did not work out for me, I need a real tabline not a bufferline.
 		"akinsho/bufferline.nvim",
 		enabled = false,
@@ -120,6 +130,25 @@ return {
 				"--column",
 				"--smart-case",
 				"--hidden",
+				"-g=!.git",
+			}
+			local wipe_selected_buffers = function(prompt_bufnr)
+				local action_state = require("telescope.actions.state")
+				local actions = require("telescope.actions")
+				local picker = action_state.get_current_picker(prompt_bufnr)
+				for _, entry in ipairs(picker:get_multi_selection()) do
+					vim.api.nvim_buf_delete(entry.bufnr, {})
+				end
+				actions.close(prompt_bufnr)
+			end
+			opts.pickers = {
+				buffers = {
+					mappings = {
+						i = {
+							["<C-d>"] = wipe_selected_buffers,
+						},
+					},
+				},
 			}
 		end,
 		keys = {

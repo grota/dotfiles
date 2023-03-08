@@ -83,14 +83,14 @@ map(
 map("n", "<leader>yp", '<cmd>let @+=expand("%:h")<CR>:echo "copied " . expand("%:h")<CR>', { desc = "Copy path" })
 map("n", "<leader>yw", function()
 	local pwd = vim.loop.cwd()
-	vim.fn.setreg("+", pwd, { "c" })
+	vim.fn.setreg("+", pwd, "c")
 	vim.cmd.echo('"copied ' .. pwd .. '"')
 end, { desc = "Copy pwd" })
 
 map("n", "<leader><F5>", "<cmd>help grota<cr>", { desc = "Personal nvim notes" })
 map("n", "<leader>ww", "<cmd>pwd<cr>", { desc = "PWD" })
 
-map("n", "<leader><tab>c", "<cmd>tabedit <C-r>+<cr>", { desc = "Open clipboard in new tab" })
+map("n", "<leader><tab>c", [[:tabedit <C-r>+<cr>]], { desc = "Open clipboard in new tab" })
 
 map(
 	"n",
@@ -109,11 +109,6 @@ map("i", "<M-j>", "<Down>", { desc = "Down" })
 map("i", "<M-k>", "<Up>", { desc = "Up" })
 map("i", "<M-l>", "<Right>", { desc = "Right" })
 
-map({ "n", "o", "x" }, "[u", function()
-	local data = require("nvim-navic").get_data()
-	require("barbecue.ui").navigate(#data - 1)
-end, { desc = "Navic/Barbecue up" })
-
 -- Add empty lines before and after cursor line
 map("n", "[<space>", function()
 	local count = vim.v.count1
@@ -127,3 +122,11 @@ map("n", "]<space>", function()
 		vim.cmd([[call append(line('.'), repeat([''], ]] .. count .. [[))]])
 	end)()
 end, { desc = "Put empty line below" })
+
+map({ "n", "x", "o" }, "[S", function()
+	MiniAi.move_cursor("left", "a", "S", { n_times = vim.v.count1 })
+end, { desc = "Go left to statement" })
+
+-- Inner line
+map("x", "iL", [[<Esc>^vg_]], { noremap = true, desc = "Inner line." })
+map("o", "iL", [[<cmd>normal! ^vg_<CR>]], { noremap = true, desc = "Inner line." })
