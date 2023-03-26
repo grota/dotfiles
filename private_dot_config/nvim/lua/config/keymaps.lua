@@ -38,7 +38,6 @@ wk.register({
 	["<leader>y"] = { name = "Custom yanks" },
 })
 
---map("n", "<leader>p", function() vim.pretty_print(require('lazy.core.config').plugins) end, { desc = "Print Lazy Specs" })
 map("n", "<leader>L", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>vv", "<cmd>e $MYVIMRC<Cr>", { desc = "Edit $MYVIMRC" })
 map("n", "<leader>vld", "<cmd>e ~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/<Cr>", { desc = "Edit LazyVim dir" })
@@ -65,12 +64,6 @@ map(
 	'"`[" . strpart(getregtype(), 0, 1) . "`]"',
 	{ expr = true, desc = "Visually select last edited/pasted." }
 )
-
--- wk.register({ ["<leader>F"] = { name = "Fugitive" } })
-map("n", "<leader>gs", "<cmd>Git<cr>", { desc = "Fugitive status" })
-map("n", "<leader>gd", "<cmd>Gdiffsplit<cr>", { desc = "Fugitive diff" })
-map("n", "<leader>gw", "<cmd>Gw<cr>", { desc = "Fugitive write" })
-map("n", "<leader>gb", "<cmd>Git blame<cr>", { desc = "Fugitive blame" })
 
 map("n", "<leader>yf", '<cmd>let @+=expand("%")<CR>:echo "copied " . expand("%")<CR>', { desc = "Copy full path" })
 map("n", "<leader>yo", '<cmd>let @+=expand("%:t")<CR>:echo "copied " . expand("%:t")<CR>', { desc = "Copy filename" })

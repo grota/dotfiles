@@ -4,6 +4,6 @@
 docker image rm <image_id>
 
 # docker cleanup
-docker system prune --volumes -f -a
+docker builder prune -f && docker system prune --volumes -f -a
 
 $ image_id: docker images --- --headers 1 --column 3 --multi --expand

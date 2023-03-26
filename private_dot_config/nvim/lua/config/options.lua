@@ -13,3 +13,5 @@ vim.o.listchars = "tab:▸\\ ,trail:·,extends:❯,nbsp:·,precedes:❮"
 vim.o.breakindent = true
 vim.o.virtualedit = "block" -- Allow going past the end of line in visual block mode
 vim.o.pumblend = 10 -- Make builtin completion menus slightly transparent
+vim.o.foldlevelstart = 99
+vim.o.foldmethod = "syntax"

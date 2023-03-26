@@ -2,20 +2,20 @@ return {
 	{
 		"echasnovski/mini.bracketed",
 		opts = {
-			buffer = { suffix = "", options = {} },
-			comment = { suffix = "", options = {} },
 			conflict = { suffix = "x", options = {} },
 			diagnostic = { suffix = "d", options = {} },
-			file = { suffix = "", options = {} },
-			indent = { suffix = "", options = {} },
 			jump = { suffix = "j", options = {} },
 			location = { suffix = "l", options = {} },
-			oldfile = { suffix = "", options = {} },
 			quickfix = { suffix = "q", options = {} },
 			treesitter = { suffix = "r", options = {} },
+			yank = { suffix = "y", options = {} },
+			oldfile = { suffix = "", options = {} },
+			buffer = { suffix = "", options = {} },
+			comment = { suffix = "", options = {} },
 			undo = { suffix = "", options = {} },
 			window = { suffix = "", options = {} },
-			yank = { suffix = "y", options = {} },
+			file = { suffix = "", options = {} },
+			indent = { suffix = "", options = {} },
 		},
 		config = function(_, opts)
 			require("mini.bracketed").setup(opts)
@@ -24,11 +24,20 @@ return {
 	},
 
 	{
+		"phpactor/phpactor",
+		dir = "~/.local/share/nvim/mason/packages/phpactor/",
+		ft = "php",
+	},
+
+	{
 		"shumphrey/fugitive-gitlab.vim",
 		init = function()
 			vim.g.fugitive_gitlab_domains = { "https://gitlab.sparkfabrik.com" }
 		end,
 		cmd = "GBrowse",
+		dependencies = {
+			"tpope/vim-fugitive",
+		},
 	},
 
 	{
@@ -36,20 +45,22 @@ return {
 		init = function()
 			vim.g.git_messenger_always_into_popup = true
 		end,
-		keys = "<leader>gm",
+		keys = {
+			{ "<leader>gm", desc = "GitMessenger" },
+		},
 		cmd = "GitMessenger",
 	},
 
-	{
-		"liuchengxu/vista.vim",
-		init = function()
-			vim.g.vista_default_executive = "nvim_lsp"
-			vim.g.vista_echo_cursor = 0
-		end,
-		keys = {
-			{ "<leader>uv", "<cmd>Vista!!<cr>", desc = "Open vista." },
-		},
-	},
+	-- {
+	-- 	"liuchengxu/vista.vim",
+	-- 	init = function()
+	-- 		vim.g.vista_default_executive = "nvim_lsp"
+	-- 		vim.g.vista_echo_cursor = 0
+	-- 	end,
+	-- 	keys = {
+	-- 		{ "<leader>uv", "<cmd>Vista!!<cr>", desc = "Open vista." },
+	-- 	},
+	-- },
 
 	{
 		"utilyre/barbecue.nvim",
@@ -88,6 +99,21 @@ return {
 	{
 		"tpope/vim-fugitive",
 		event = { "BufReadPre", "BufNewFile" },
+		keys = {
+			{ "<leader>gs", "<cmd>Git<cr>", desc = "Fug. status" },
+			{ "<leader>gd", "<cmd>Gdiffsplit<cr>", desc = "Fug. diff" },
+			{ "<leader>gw", "<cmd>Gwrite<cr>", desc = "Fug. write" },
+			{ "<leader>gb", "<cmd>Git blame<cr>", desc = "Fug. blame" },
+			{ "<leader>gtec", "<cmd>Gtabedit @<cr>", desc = "Gtabedit @" },
+			{ "<leader>gtel", ":Gtabedit <C-r>+<cr>", desc = "Gtabedit clipboard sha" },
+		},
+		init = function()
+			local wk = require("which-key")
+			wk.register({
+				["<leader>gt"] = { name = "Git tab" },
+				["<leader>gte"] = { name = "Git tab edit" },
+			})
+		end,
 	},
 
 	{

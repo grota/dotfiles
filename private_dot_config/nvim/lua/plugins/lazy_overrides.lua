@@ -9,11 +9,6 @@ return {
 			}, {})
 		end,
 	},
-	{
-		-- this simply did not work out for me, I need a real tabline not a bufferline.
-		"akinsho/bufferline.nvim",
-		enabled = false,
-	},
 
 	{
 		"neovim/nvim-lspconfig",
@@ -130,7 +125,7 @@ return {
 				"--column",
 				"--smart-case",
 				"--hidden",
-				"-g=!.git",
+				"-g=!.git/**",
 			}
 			local wipe_selected_buffers = function(prompt_bufnr)
 				local action_state = require("telescope.actions.state")
@@ -151,23 +146,84 @@ return {
 				},
 			}
 		end,
-		keys = {
-			{ "<leader>gc", false },
-			{ "<leader>gs", false },
-			{ "<leader>uC", false },
-			{ "<leader><space>", false }, -- using <leader>ff
-			{ "<leader>fB", "<cmd>Telescope<cr>", desc = "Telescope builtin." },
-			{ "<leader>fL", "<cmd>Telescope lazy<cr>", desc = "Telescope for lazy." },
-			{ "<leader>fr", false },
-			{ "<leader>frg", "<cmd>Telescope oldfiles<cr>", desc = "Recent global" },
-			{
-				"<leader>frl",
-				function()
-					require("telescope.builtin")["oldfiles"]({ cwd_only = true })
-				end,
-				desc = "Recent local",
-			},
-		},
+		keys = function()
+			local Util = require("lazyvim.util")
+			return {
+				-- <leader>st is used by folke/todo-comments.nvim
+				-- <leader>sn is used by folke/noice.nvim
+				{ "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Find in Files (Grep)" },
+				{ "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
+				-- files section
+				{
+					"<leader><space>",
+					function()
+						require("telescope.builtin")["oldfiles"]({ cwd_only = true })
+					end,
+					desc = "Recent local",
+				},
+				{ "<leader>sf", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
+				{
+					"<leader>sF",
+					function()
+						require("telescope.builtin").find_files({
+							find_command = { "rg", "--files", "--color", "never", "-g=!.git/**" },
+							no_ignore = true,
+							no_ignore_parent = true,
+							hidden = true,
+						})
+					end,
+					desc = "Files (all, no git)",
+				},
+				{ "<leader>so", "<cmd>Telescope oldfiles<cr>", desc = "Recent global" },
+				-- END files section
+				{ "<leader>sgs", "<cmd>Telescope git_status<CR>", desc = "git status" },
+				{ "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "search buffer" },
+				{ "<leader>sC", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+				{ "<leader>sdb", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Diagnostics buffer" },
+				{ "<leader>sda", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics all" },
+				{ "<leader>sK", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
+				{ "<leader>sL", "<cmd>Telescope lazy<cr>", desc = "Telescope for lazy." },
+				{ "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
+
+				{ "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Search Marks" },
+				{
+					"<leader>ss",
+					Util.telescope("lsp_document_symbols", {
+						symbols = {
+							"Class",
+							"Function",
+							"Method",
+							"Constructor",
+							"Interface",
+							"Module",
+							"Struct",
+							"Trait",
+							"Field",
+							"Property",
+						},
+					}),
+					desc = "Search Symbol",
+				},
+				{
+					"<leader>sS",
+					Util.telescope("lsp_workspace_symbols", {
+						symbols = {
+							"Class",
+							"Function",
+							"Method",
+							"Constructor",
+							"Interface",
+							"Module",
+							"Struct",
+							"Trait",
+							"Field",
+							"Property",
+						},
+					}),
+					desc = "Search Symbol (Workspace)",
+				},
+			}
+		end,
 		dependencies = {
 			"tsakirist/telescope-lazy.nvim",
 			{
@@ -183,7 +239,10 @@ return {
 		end,
 		init = function()
 			local wk = require("which-key")
-			wk.register({ ["<leader>fr"] = { name = "Find Recent" } })
+			wk.register({
+				["<leader>sd"] = { name = "Diagnostics" },
+				["<leader>sg"] = { name = "Git" },
+			})
 		end,
 	},
 
@@ -279,5 +338,16 @@ return {
 ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ]]
 			opts.section.header.val = vim.split(logo, "\n")
 		end,
+	},
+
+	{
+		-- this simply did not work out for me, I need a real tabline not a bufferline.
+		"akinsho/bufferline.nvim",
+		enabled = false,
+	},
+
+	{
+		"windwp/nvim-spectre",
+		enabled = false,
 	},
 }
