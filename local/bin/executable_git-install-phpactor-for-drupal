@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 if [ ! -d .git ]; then
   echo Not in root dir of git repo, doing nothing. 1>&2
   exit 1
@@ -13,11 +15,12 @@ if [ -z "$1" ]; then
 fi
 export path_to_web
 
-rm -fr .phpactor_autoloader
+rm -fr .phpactor_autoloader .phpactor.yml
+
 cp -r "$DOTFILESREPO/chezmoi_ignored/phpactor/" .phpactor_autoloader
 envsubst '$path_to_web' < "$DOTFILESREPO/chezmoi_ignored/phpactor/composer.json" > .phpactor_autoloader/composer.json
-mv .phpactor_autoloader/.phpactor.yml .
-echo /.phpactor.yml >> .git/info/exclude
-echo /.phpactor_autoloader >> .git/info/exclude
-cd .phpactor_autoloader && composer up --lock
+mv .phpactor_autoloader/dot_phpactor.yml .phpactor.yml
+grep -qF /.phpactor.yml .git/info/exclude && echo local git exclude already has /.phpactor.yml || echo /.phpactor.yml >> .git/info/exclude
+grep -qF /.phpactor_autoloader .git/info/exclude && echo local git exclude already has /.phpactor_autoloader || echo /.phpactor_autoloader >> .git/info/exclude
+composer --working-dir=.phpactor_autoloader up --lock
 echo "all done"

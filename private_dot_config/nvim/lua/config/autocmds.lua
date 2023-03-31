@@ -20,6 +20,6 @@ vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("grota_php", { clear = true }),
 	pattern = { "php" },
 	callback = function()
-		vim.keymap.set("i", "kk", "$", { desc = "imap kk=$ for php" })
+		vim.keymap.set("i", "kk", "$", { desc = "imap kk=$ for php", buffer = true })
 	end,
 })

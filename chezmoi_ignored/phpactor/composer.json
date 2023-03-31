@@ -1,33 +1,26 @@
 {
-    "name": "grota/phpactor",
-    "authors": [
-        {
-            "name": "Giuseppe Rota"
-        }
-    ],
-    "require": {
-        "fenetikm/autoload-drupal": "dev-master",
-        "wikimedia/composer-merge-plugin": "^2.0"
-    },
-    "extra": {
-        "merge-plugin": {
-          "require": [
-            "../$path_to_web/../composer.json"
-          ],
-          "include": [
-            "../$path_to_web/core/composer.json"
-          ],
-          "recurse": false
-        },
-        "autoload-drupal": {
-            "modules": [
-              "../$path_to_web/core/modules/",
-              "../$path_to_web/modules/custom",
-              "../$path_to_web/modules/contrib"
-            ],
-            "classmap": [
-              "../$path_to_web/../vendor"
-            ]
-        }
+  "name": "grota/phpactor",
+  "authors": [
+    {
+      "name": "Giuseppe Rota"
     }
+  ],
+  "require": {
+    "fenetikm/autoload-drupal": "dev-master"
+  },
+  "config": {
+    "allow-plugins": true
+  },
+  "extra": {
+    "autoload-drupal": {
+      "modules": [
+        "../$path_to_web/core/modules",
+        "../$path_to_web/modules/custom",
+        "../$path_to_web/modules/contrib"
+      ],
+      "classmap": [
+        "../$path_to_web/core/lib"
+      ]
+    }
+  }
 }

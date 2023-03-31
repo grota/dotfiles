@@ -310,7 +310,6 @@ return {
 				sources = {
 					nls.builtins.code_actions.shellcheck,
 					nls.builtins.formatting.stylua,
-					nls.builtins.diagnostics.flake8,
 				},
 			}
 		end,
