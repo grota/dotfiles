@@ -83,7 +83,7 @@ return {
 					"nvim-telescope/telescope.nvim",
 				},
 				keys = {
-					{ "<leader>dv", "<cmd>Telescope dap variables<cr>", desc = "Telescope vars" },
+					{ "<leader>dv", "<cmd>Telescope dap variables<cr>", desc = "Telescope dap vars" },
 				},
 			},
 		},

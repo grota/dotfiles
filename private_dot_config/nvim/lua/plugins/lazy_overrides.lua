@@ -1,3 +1,18 @@
+local function get_current_word_or_visual_selection()
+	local word
+	local visual = vim.fn.mode() == "v"
+
+	if visual == true then
+		local saved_reg = vim.fn.getreg("v")
+		vim.cmd([[noautocmd sil norm "vy]])
+		local sele = vim.fn.getreg("v")
+		vim.fn.setreg("v", saved_reg)
+		word = sele
+	else
+		word = vim.fn.expand("<cword>")
+	end
+	return word
+end
 return {
 	{
 		"echasnovski/mini.ai",
@@ -116,16 +131,16 @@ return {
 			opts.defaults.mappings.i["<C-Up>"] = "cycle_history_prev"
 			opts.defaults.mappings.i["<C-f>"] = "preview_scrolling_down"
 			opts.defaults.mappings.i["<C-b>"] = "preview_scrolling_up"
-			opts.defaults.vimgrep_arguments = {
-				"rg",
-				"--color=never",
-				"--no-heading",
-				"--with-filename",
-				"--line-number",
-				"--column",
-				"--smart-case",
-				"--hidden",
-				"-g=!.git/**",
+			-- I prefer https://github.com/nvim-telescope/telescope.nvim/wiki/Configuration-Recipes#mapping-c-u-to-clear-prompt
+			-- C-d wiped for symmetry.
+			opts.defaults.mappings.i["<C-u>"] = false
+			opts.defaults.mappings.i["<C-d>"] = false
+			opts.defaults.wrap_results = true
+			opts.defaults.layout_config = {
+				horizontal = {
+					width = 0.9,
+					prompt_position = "top",
+				},
 			}
 			local wipe_selected_buffers = function(prompt_bufnr)
 				local action_state = require("telescope.actions.state")
@@ -148,80 +163,139 @@ return {
 		end,
 		keys = function()
 			local Util = require("lazyvim.util")
+			local lsp_symbol_types = {
+				"Class",
+				"Function",
+				"Method",
+				"Constructor",
+				"Interface",
+				"Module",
+				"Struct",
+				"Trait",
+				"Field",
+				"Property",
+			}
+			-- telescope_default_vimgrep_arguments = {
+			--   "rg",
+			--   "--color=never",
+			--   "--no-heading",
+			--   "--with-filename",
+			--   "--line-number",
+			--   "--column",
+			--   "--smart-case"
+			-- }
+			local telescope_default_vimgrep_arguments = require("telescope.config").values.vimgrep_arguments
+			local opts_hidden_no_dot_git = {
+				"--hidden",
+				"-g=!.git/**",
+			}
+			local opts_no_ignore = {
+				"--no-ignore",
+				"--no-ignore-parent",
+			}
+			local vimgrep_hidden_no_dot_git = telescope_default_vimgrep_arguments
+			vim.list_extend(vimgrep_hidden_no_dot_git, opts_hidden_no_dot_git)
+			local vimgrep_arguments_for_all = vimgrep_hidden_no_dot_git
+			vim.list_extend(vimgrep_arguments_for_all, opts_no_ignore)
+			local find_all_files_cmd = {
+				"rg",
+				"--files",
+				"--color",
+				"never",
+			}
+			vim.list_extend(find_all_files_cmd, opts_hidden_no_dot_git)
+			vim.list_extend(find_all_files_cmd, opts_no_ignore)
+			-- <leader>st is used by folke/todo-comments.nvim
+			-- <leader>sn is used by folke/noice.nvim
 			return {
-				-- <leader>st is used by folke/todo-comments.nvim
-				-- <leader>sn is used by folke/noice.nvim
-				{ "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Find in Files (Grep)" },
-				{ "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Switch Buffer" },
-				-- files section
+				-- START Grepping section. gg,gG
 				{
-					"<leader><space>",
+					"<leader>gg",
 					function()
-						require("telescope.builtin")["oldfiles"]({ cwd_only = true })
+						require("telescope.builtin").live_grep({
+							vimgrep_arguments = vimgrep_hidden_no_dot_git,
+							default_text = get_current_word_or_visual_selection(),
+						})
 					end,
-					desc = "Recent local",
+					desc = "Telescope Grep",
 				},
-				{ "<leader>sf", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
+				{
+					"<leader>gG",
+					function()
+						require("telescope.builtin").live_grep({
+							vimgrep_arguments = vimgrep_arguments_for_all,
+							default_text = get_current_word_or_visual_selection(),
+						})
+					end,
+					desc = "Telescope Grep all",
+				},
+				-- START files section sf,sF
+				{ "<leader>sf", "<cmd>Telescope git_files<cr>", desc = "Telescope Git Files" },
 				{
 					"<leader>sF",
 					function()
 						require("telescope.builtin").find_files({
-							find_command = { "rg", "--files", "--color", "never", "-g=!.git/**" },
-							no_ignore = true,
-							no_ignore_parent = true,
-							hidden = true,
+							find_command = find_all_files_cmd,
 						})
 					end,
-					desc = "Files (all, no git)",
+					desc = "Telescope All Files",
 				},
-				{ "<leader>so", "<cmd>Telescope oldfiles<cr>", desc = "Recent global" },
-				-- END files section
-				{ "<leader>sgs", "<cmd>Telescope git_status<CR>", desc = "git status" },
-				{ "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "search buffer" },
-				{ "<leader>sC", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-				{ "<leader>sdb", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Diagnostics buffer" },
-				{ "<leader>sda", "<cmd>Telescope diagnostics<cr>", desc = "Diagnostics all" },
-				{ "<leader>sK", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
-				{ "<leader>sL", "<cmd>Telescope lazy<cr>", desc = "Telescope for lazy." },
-				{ "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-
-				{ "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Search Marks" },
+				-- START oldfiles section so,sO
+				{
+					"<leader>so",
+					function()
+						require("telescope.builtin")["oldfiles"]({ cwd_only = true })
+					end,
+					desc = "Telescope Recent local",
+				},
+				{ "<leader>sO", "<cmd>Telescope oldfiles<cr>", desc = "Telescope Recent global" },
+				-- START lsp symbols ss,sS
 				{
 					"<leader>ss",
-					Util.telescope("lsp_document_symbols", {
-						symbols = {
-							"Class",
-							"Function",
-							"Method",
-							"Constructor",
-							"Interface",
-							"Module",
-							"Struct",
-							"Trait",
-							"Field",
-							"Property",
-						},
-					}),
-					desc = "Search Symbol",
+					Util.telescope("lsp_document_symbols", { symbols = lsp_symbol_types }),
+					desc = "Telescope Search Symbol (Document)",
 				},
 				{
 					"<leader>sS",
-					Util.telescope("lsp_workspace_symbols", {
-						symbols = {
-							"Class",
-							"Function",
-							"Method",
-							"Constructor",
-							"Interface",
-							"Module",
-							"Struct",
-							"Trait",
-							"Field",
-							"Property",
-						},
-					}),
-					desc = "Search Symbol (Workspace)",
+					Util.telescope("lsp_workspace_symbols", { symbols = lsp_symbol_types }),
+					desc = "Telescope Search Symbol (Workspace)",
 				},
+				-- START telescope prefilled
+				{
+					"<leader>tpl",
+					function()
+						require("telescope.builtin")["builtin"]({ default_text = "lsp_" })
+					end,
+					desc = "Telescope lsp_*",
+				},
+				{
+					"<leader>tpp",
+					function()
+						require("telescope.builtin")["commands"]({ default_text = "Phpactor" })
+					end,
+					mode = { "n", "x" },
+					desc = "Telescope Phpactor*",
+				},
+				{ "<leader>tz", "<cmd>Telescope lazy<cr>", desc = "Telescope for lazy" },
+				{
+					"<leader>th",
+					function()
+						require("telescope.builtin")["keymaps"]({
+							default_text = "'Telescope !'TelescopeFuzzyCommandSearch ",
+						})
+					end,
+					desc = "Telescope help",
+				},
+				-- START various section.
+				{ "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Telescope Switch Buffer" },
+				{ "<leader>gS", "<cmd>Telescope git_status<CR>", desc = "Telescope git status" },
+				{ "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Telescope search buffer" },
+				{ "<leader>sC", "<cmd>Telescope command_history<cr>", desc = "Telescope Command History" },
+				{ "<leader>sdb", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Telescope Diagnostics buffer" },
+				{ "<leader>sda", "<cmd>Telescope diagnostics<cr>", desc = "Telescope Diagnostics all" },
+				{ "<leader>sK", "<cmd>Telescope keymaps<cr>", desc = "Telescope Key Maps" },
+				{ "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Telescope Man Pages" },
+				{ "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Telescope Search Marks" },
 			}
 		end,
 		dependencies = {
@@ -241,7 +315,7 @@ return {
 			local wk = require("which-key")
 			wk.register({
 				["<leader>sd"] = { name = "Diagnostics" },
-				["<leader>sg"] = { name = "Git" },
+				["<leader>t"] = { name = "Telescope" },
 			})
 		end,
 	},
