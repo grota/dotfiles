@@ -74,7 +74,6 @@ return {
 				},
 			},
 			filesystem = {
-				-- bind_to_cwd = true,
 				commands = {
 					go_up_in_tree = function(state)
 						local node = state.tree:get_node()
@@ -354,7 +353,7 @@ return {
 			},
 			ensure_installed = {
 				"bash",
-				"help",
+				"vimdoc",
 				"html",
 				"javascript",
 				"json",

@@ -62,19 +62,26 @@ return {
 	-- 	},
 	-- },
 
+	-- {
+	-- 	"utilyre/barbecue.nvim",
+	-- 	opts = {
+	-- 		attach_navic = false,
+	-- 		show_dirname = false,
+	-- 		show_basename = false,
+	-- 		show_modified = true,
+	-- 		modifiers = {
+	-- 			basename = "",
+	-- 		},
+	-- 		theme = "catppuccin",
+	-- 	},
+	-- 	event = { "BufReadPre", "BufNewFile" },
+	-- },
+
 	{
-		"utilyre/barbecue.nvim",
-		opts = {
-			attach_navic = false,
-			show_dirname = false,
-			show_basename = false,
-			show_modified = true,
-			modifiers = {
-				basename = "",
-			},
-			theme = "catppuccin",
+		"nvim-treesitter/nvim-treesitter-context",
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter",
 		},
-		event = { "BufReadPre", "BufNewFile" },
 	},
 
 	{

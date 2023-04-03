@@ -27,6 +27,7 @@ x_ or o_
           o (block, conditional, loop)
           f function
           c class
+          S statement (custom)
 ex: va3 vi3 (é around/inner 3, works also for puntuation or whitespace)
 ex: v2a/ (é 2 times around /)
 
