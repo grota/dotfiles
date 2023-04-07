@@ -91,9 +91,9 @@ map(
 	"<cmd>Gitsigns toggle_deleted<cr><cmd>Gitsigns toggle_word_diff<cr><cmd>Gitsigns toggle_linehl<cr>",
 	{ desc = "Gitsign extra info toggle" }
 )
--- Search visually selected text (slightly better than builtins in Neovim>=0.8)
-map("x", "*", [[y/\V<C-R>=escape(@", '/\')<CR><CR>]])
-map("x", "#", [[y?\V<C-R>=escape(@", '?\')<CR><CR>]])
+-- Search visually selected text (slightly better than builtins in Neovim>=0.8) runtime/lua/vim/_editor.lua
+map("x", "*", [[y/\V<C-R>=substitute(escape(@", '/\'), '\n', '\\n', 'g')<CR><CR>]])
+map("x", "#", [[y?\V<C-R>=substitute(escape(@", '?\'), '\n', '\\n', 'g')<CR><CR>]])
 
 map("n", "<leader>uC", "<Cmd>setlocal cursorcolumn! cursorcolumn?<CR>", { desc = "Toggle 'cursorcolumn'" })
 
