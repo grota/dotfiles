@@ -14,10 +14,11 @@ fi
 export path_to_web
 
 # git ignore project spec psysh config file
-echo /$path_to_web/.psysh.php >> .git/info/exclude
-echo /"$(realpath src/drupal/web/../grota --relative-to=.)" >> .git/info/exclude
+grep -qF /"$path_to_web"/.psysh.php .git/info/exclude && echo local git exclude already has /"$path_to_web"/.psysh.php || echo /"$path_to_web"/.psysh.php >> .git/info/exclude
+GROTA_DIR="$(realpath "$path_to_web"/../grota --relative-to=.)"
+echo /"${GROTA_DIR}" >> .git/info/exclude
 
-cp "${DOTFILESREPO}/chezmoi_ignored/psysh/.psysh.php" $path_to_web
-mkdir -p $path_to_web/../grota/psysh
-cp -r "${DOTFILESREPO}/chezmoi_ignored/psysh/Command" $path_to_web/../grota/psysh
+cp "${DOTFILESREPO}/chezmoi_ignored/psysh/.psysh.php" "$path_to_web"
+mkdir -p "$GROTA_DIR"/psysh
+cp -r "${DOTFILESREPO}/chezmoi_ignored/psysh/Command" "$GROTA_DIR"/psysh
 echo "all done"

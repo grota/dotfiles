@@ -36,20 +36,16 @@ return {
 						"jay-babu/mason-nvim-dap.nvim",
 						opts = {
 							ensure_installed = { "php" },
-							automatic_setup = {
-								configurations = function(default)
-									default.php[1].port = 9003
-									default.php[1].pathMappings =
+							automatic_installation = true,
+							handlers = {
+								php = function(config)
+									config.configurations[1].port = 9003
+									config.configurations[1].pathMappings =
 										{ ["/var/www/html/"] = [[${workspaceFolder}/src/drupal]] }
-									return default
+									require("mason-nvim-dap").default_setup(config)
 								end,
 							},
 						},
-						config = function(_, opts)
-							local mnd = require("mason-nvim-dap")
-							mnd.setup(opts)
-							mnd.setup_handlers({})
-						end,
 						dependencies = {
 							"mason.nvim",
 							"dap",

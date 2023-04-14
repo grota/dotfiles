@@ -113,6 +113,7 @@ return {
 			{ "<leader>gb", "<cmd>Git blame<cr>", desc = "Fug. blame" },
 			{ "<leader>gtec", "<cmd>Gtabedit @<cr>", desc = "Gtabedit @" },
 			{ "<leader>gtel", ":Gtabedit <C-r>+<cr>", desc = "Gtabedit clipboard sha" },
+			{ "<leader>gef", "<cmd>Gedit<cr>", desc = "Gedit" },
 		},
 		init = function()
 			local wk = require("which-key")

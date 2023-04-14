@@ -13,7 +13,22 @@ local function get_current_word_or_visual_selection()
 	end
 	return word
 end
+
 return {
+	{
+		"neovim/nvim-lspconfig",
+		opts = function(_, opts)
+			opts.setup.clangd = function(_, o)
+				o.capabilities.offsetEncoding = { "utf-16" }
+				return false
+			end
+			-- opts.setup["*"] = function(server, o)
+			-- 	vim.print(server)
+			-- 	vim.print(o)
+			-- 	return false
+			-- end
+		end,
+	},
 	{
 		"echasnovski/mini.ai",
 		opts = function(_, opts)
@@ -192,9 +207,9 @@ return {
 				"--no-ignore",
 				"--no-ignore-parent",
 			}
-			local vimgrep_hidden_no_dot_git = telescope_default_vimgrep_arguments
+			local vimgrep_hidden_no_dot_git = vim.deepcopy(telescope_default_vimgrep_arguments)
 			vim.list_extend(vimgrep_hidden_no_dot_git, opts_hidden_no_dot_git)
-			local vimgrep_arguments_for_all = vimgrep_hidden_no_dot_git
+			local vimgrep_arguments_for_all = vim.deepcopy(vimgrep_hidden_no_dot_git)
 			vim.list_extend(vimgrep_arguments_for_all, opts_no_ignore)
 			local find_all_files_cmd = {
 				"rg",
@@ -259,7 +274,7 @@ return {
 					Util.telescope("lsp_workspace_symbols", { symbols = lsp_symbol_types }),
 					desc = "Telescope Search Symbol (Workspace)",
 				},
-				-- START telescope prefilled
+				-- START telescope prefixed.
 				{
 					"<leader>tpl",
 					function()
@@ -275,6 +290,7 @@ return {
 					mode = { "n", "x" },
 					desc = "Telescope Phpactor*",
 				},
+				-- START various section.
 				{ "<leader>tz", "<cmd>Telescope lazy<cr>", desc = "Telescope for lazy" },
 				{
 					"<leader>th",
@@ -285,7 +301,6 @@ return {
 					end,
 					desc = "Telescope help",
 				},
-				-- START various section.
 				{ "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Telescope Switch Buffer" },
 				{ "<leader>gS", "<cmd>Telescope git_status<CR>", desc = "Telescope git status" },
 				{ "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Telescope search buffer" },
