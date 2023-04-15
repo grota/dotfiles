@@ -8,5 +8,5 @@ function resunity() {
   echo h xkb
   #setxkbmap -print | sed -e '/xkb_symbols/s/"[[:space:]]/+beppe_xkb_syms(beppe)&/' | xkbcomp -I${HOME}/.xkb - $DISPLAY >/dev/null  2>&1
 }
-function whichpkg() { PACKAGE=$(dpkg -S "$(which "$1")" | cut -d':' -f1); echo "[${PACKAGE}]"; dpkg -s "${PACKAGE}" ;}
+# function whichpkg() { PACKAGE=$(dpkg -S "$(which "$1")" | cut -d':' -f1); echo "[${PACKAGE}]"; dpkg -s "${PACKAGE}" ;}
 # }}}

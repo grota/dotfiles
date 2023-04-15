@@ -22,19 +22,20 @@ function cc () {
   echo "Running: " "$CHROME" "$CHROME_ARGS"
   $CHROME "$CHROME_ARGS" &> /dev/null &
 }
-alias pg='ps aux|grep '
+alias pg='pgrep -a'
 alias rstty='stty start undef stop undef'
 alias ..="cd ../"
-alias ...="cd ../../"
-alias ....="cd ../../../"
-alias .....="cd ../../../../"
-alias ......="cd ../../../../../"
-alias bc='rlwrap -a bc -l'
-alias ff='ag --pager=less -g'
-alias agu='ag -U --pager bat --ignore=.js --ignore node_modules --ignore tests --ignore Tests --ignore private/logs --ignore web/core/tags'
+alias ..2="cd ../../"
+alias ..3="cd ../../../"
+alias ..4="cd ../../../../"
+alias ..5="cd ../../../../../"
 # there's a ss bin but that's ok for me
 alias ss='sudo su -'
 #alias xc='sleep 1.0; xdotool type "$(xclip -o -selection clipboard)"'
 alias cat=bat
 alias nvimo='NVIM_FLAVOUR=old nvim'
+alias v=nvim
+function rga() {
+  rg --with-filename --line-number --column --smart-case --hidden -g='!.git/**' --no-ignore --no-ignore-parent --pretty "${@}" | LESS='' less --RAW-CONTROL-CHARS --ignore-case --quit-if-one-screen
+}
 #}}}

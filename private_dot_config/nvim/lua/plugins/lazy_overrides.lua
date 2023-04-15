@@ -227,7 +227,16 @@ return {
 					"<leader>gg",
 					function()
 						require("telescope.builtin").live_grep({
-							vimgrep_arguments = vimgrep_hidden_no_dot_git,
+							-- vimgrep_arguments = vimgrep_hidden_no_dot_git,
+							vimgrep_arguments = {
+								"git",
+								"--no-pager",
+								"grep",
+								"--no-color",
+								"--line-number",
+								"--column",
+								"-I", -- no binary files
+							},
 							default_text = get_current_word_or_visual_selection(),
 						})
 					end,
@@ -406,6 +415,15 @@ return {
 		"folke/noice.nvim",
 		keys = {
 			{ "<leader>snd", "<cmd>NoiceDisable<cr>", desc = "Noice disable" },
+			{ "<leader>sne", "<cmd>NoiceEnable<cr>", desc = "Noice enable" },
+			{
+				"<M-Enter>",
+				function()
+					require("noice").redirect(vim.fn.getcmdline())
+				end,
+				mode = "c",
+				desc = "Redirect Cmdline",
+			}, -- <S-Enter> does not work on my term emulator.
 		},
 	},
 
