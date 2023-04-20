@@ -414,8 +414,8 @@ return {
 	{
 		"folke/noice.nvim",
 		keys = {
-			{ "<leader>snd", "<cmd>NoiceDisable<cr>", desc = "Noice disable" },
-			{ "<leader>sne", "<cmd>NoiceEnable<cr>", desc = "Noice enable" },
+			{ "<leader>snD", "<cmd>NoiceDisable<cr>", desc = "Noice disable" },
+			{ "<leader>snE", "<cmd>NoiceEnable<cr>", desc = "Noice enable" },
 			{
 				"<M-Enter>",
 				function()
