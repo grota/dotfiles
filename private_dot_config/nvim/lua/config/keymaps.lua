@@ -123,3 +123,6 @@ end, { desc = "Go left to statement" })
 -- Inner line
 map("x", "iL", [[<Esc>^vg_]], { noremap = true, desc = "Inner line." })
 map("o", "iL", [[<cmd>normal! ^vg_<CR>]], { noremap = true, desc = "Inner line." })
+
+-- it's just easier that way :)
+map("i", "<C-c>", "<ESC>", { noremap = true })

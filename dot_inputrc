@@ -1,21 +1,16 @@
 $include /etc/inputrc
 
-"\C-l": forward-word
-"\C-h": backward-word
-"\C-k": history-search-backward
-"\C-j": history-search-forward
+# \C-hjkl commented since I want to try out vim-tmux-navigator with defaults.
+
 "\eh":  backward-char
 "\el":  forward-char
 "\C-f": clear-screen
 "\ea":  kill-region
-"\C-x\C-w": exchange-point-and-mark
 # mark, go to end, space, exchange-point-and-mark,
 # mark, go to space, kill-region
-"\ew":  '\e \C-e \C-x\C-w\e \C-] \ea'
+"\ew":  '\e \C-e \C-x\C-x\e \C-] \ea'
 "\C-d": backward-kill-word
-"\ek":  kill-line
-"\C-b": backward-delete-char
-"\eb":  delete-char
+
 # make C-p and C-n behave like up/down arrows
 "\C-p": history-search-backward
 "\C-n": history-search-forward
@@ -24,31 +19,27 @@ $include /etc/inputrc
 "\e[Z": menu-complete-backward
 
 # add parameters to the last command: (previous-history, beginning-of-line, forward-word)
-"\C-x\C-s": "\C-p\C-a\C-l "
+"\C-x\C-s": "\C-p\C-a\e[1;5C "
 
 # quote args: (beginning-of-line, move to first space, forward-char, ', eol, ')
-"\C-x\C-x": "\C-a\C-] \el'\C-e'"
+"\C-xq": "\C-a\C-] \el'\C-e'"
 
 # Defaults {{{
 # M-t, C-t transpose words/chars
 # C-r, C-s reverse/forward search history
 # C-g abort searches
-# M-S-3 comments line (i.e. M-#)
+# M-# comment line
 # C-u kill backwards
-# M-d kill-word
-
-# defaults overridden
-# C-f, C-b move by one char at a time
 # C-k kill-line
+# M-d kill-word
 # C-](char) character-search (char)
 # M-C-](char) character-search-backward (char)
 
+# defaults overridden
+# C-f move by one char at a time
+
 "\e[A": history-search-backward
 "\e[B": history-search-forward
-
-# unused
-# C-M-h M-BS backward-kill-word
-# M-f, M-b move by one word like C-Left/Right.
 # }}}
 
 set mark-symlinked-directories on
@@ -66,11 +57,5 @@ $if Bash
   # Use it on the cli in after !^ !$ !* !:1 !:2 !:3 !:0
   # Can also use !-2 to retrieve the next-to-last line in full.
   # And pick its pieces with !-2:0 (0 means first token)
-  Space: magic-space
-$endif
-
-# tmux configuration
-$if term=screen-256color
-"\eOC": forward-word
-"\eOD": backward-word
+  \C-Space: magic-space
 $endif

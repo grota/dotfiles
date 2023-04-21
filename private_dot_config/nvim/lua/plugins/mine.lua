@@ -141,13 +141,14 @@ return {
 	{
 		"christoomey/vim-tmux-navigator",
 		init = function()
-			vim.g.tmux_navigator_no_mappings = 1
+			vim.g.tmux_navigator_preserve_zoom = 1
 		end,
 		keys = {
-			{ "<M-S-Left>", "<cmd>TmuxNavigateLeft<cr>", desc = "Go Left pane" },
-			{ "<M-S-Right>", "<cmd>TmuxNavigateRight<cr>", desc = "Go Right pane" },
-			{ "<M-S-Up>", "<cmd>TmuxNavigateUp<cr>", desc = "Go Up pane" },
-			{ "<M-S-Down>", "<cmd>TmuxNavigateDown<cr>", desc = "Go Down pane" },
+			{ "<C-h>", '<cmd>TmuxNavigateLeft("n")<cr>', mode = "n", desc = "TmuxNavigateLeft" },
+			{ "<C-j>", "<cmd>TmuxNavigateDown<cr>", mode = "n", desc = "TmuxNavigateDown" },
+			{ "<C-k>", "<cmd>TmuxNavigateUp<cr>", mode = "n", desc = "TmuxNavigateUp" },
+			{ "<C-l>", "<cmd>TmuxNavigateRight<cr>", mode = "n", desc = "TmuxNavigateRight" },
+			{ "<C-\\>", "<cmd>TmuxNavigatePrevious<cr>", mode = "n", desc = "TmuxNavigatePrevious" },
 		},
 	},
 
