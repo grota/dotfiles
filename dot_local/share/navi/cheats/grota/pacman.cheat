@@ -39,5 +39,8 @@ pacman -Qdtq | sudo pacman -Rs -
 # Update paru packages
 paru -Sua
 
+# paru rebuild (neovim nightly)
+paru -S --rebuild neovim-nightly-bin
+
 $ installed_package: pacman -Q --- --column 1 --delimiter '\s'
 $ available_package: pacman -Sl --- --column 2 --delimiter '\s'
