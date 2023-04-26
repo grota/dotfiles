@@ -401,14 +401,17 @@ return {
 
 	{
 		"jose-elias-alvarez/null-ls.nvim",
-		opts = function()
+		dependencies = {
+			"mason.nvim",
+			"ckolkey/ts-node-action",
+		},
+		opts = function(_, o)
 			local nls = require("null-ls")
-			return {
-				sources = {
-					nls.builtins.code_actions.shellcheck,
-					nls.builtins.formatting.stylua,
-				},
-			}
+			vim.list_extend(o.sources, {
+				nls.builtins.code_actions.shellcheck,
+				nls.builtins.formatting.stylua,
+				nls.builtins.code_actions.ts_node_action,
+			})
 		end,
 	},
 	{
