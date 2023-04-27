@@ -3,4 +3,7 @@
 # kubectl exec into a pod
 kubectl exec -it <podid> -- ash -il
 
+# kubectl logs -f of a pod
+kubectl logs -f <podid>
+
 $ podid: kubectl get pods --- --headers 1 --column 1

@@ -6,7 +6,9 @@
 |Right| M-w  | M-d  |
 +-----+-------------+
 
-M-hl to move left/right charwise like in vim
+M-hl to move left/right charwise like in vim.
+C-←→ to move left/right between "words".
+S-←→ to move left/right between "WORDS".
 
 C-x C-s add parameters to the last command
 C-x q quote params

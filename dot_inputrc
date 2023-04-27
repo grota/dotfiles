@@ -1,6 +1,11 @@
 $include /etc/inputrc
 
 # \C-hjkl commented since I want to try out vim-tmux-navigator with defaults.
+# Ctrl arrows left/right to move between "words"
+# (default)
+# Shift arrows left/right to move between "WORDS"
+"\e[1;2C": shell-forward-word
+"\e[1;2D": shell-backward-word
 
 "\eh":  backward-char
 "\el":  forward-char

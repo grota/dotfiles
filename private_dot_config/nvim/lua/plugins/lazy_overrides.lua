@@ -117,6 +117,7 @@ return {
 						["f"] = "focus_preview",
 						["h"] = "go_up_in_tree",
 						["l"] = "go_down_in_tree",
+						["z"] = "none",
 					},
 				},
 				filtered_items = {
