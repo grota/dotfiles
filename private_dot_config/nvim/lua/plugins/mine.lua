@@ -153,7 +153,7 @@ return {
 			local hl_tabline_sel = "TabLineSel"
 			local hl_tabline = "TabLine"
 			local function tab_label(tabid, active)
-				local icon = active and "" or ""
+				local icon = active and "" or "" -- "󰝤" or "" -- '' or ''
 				-- local number = api.get_tab_number(tabid)
 				local buf_name = require("tabby.feature.buf_name")
 				local opts = {
@@ -181,6 +181,12 @@ return {
 			end
 			presets.active_wins_at_tail.head = nil
 			presets.active_wins_at_tail.tail = nil
+			presets.active_wins_at_tail.win.label = function()
+				return ""
+			end
+			presets.active_wins_at_tail.top_win.label = function()
+				return ""
+			end
 			presets.active_wins_at_tail.active_tab.label = function(tabid)
 				return {
 					tab_label(tabid, true),

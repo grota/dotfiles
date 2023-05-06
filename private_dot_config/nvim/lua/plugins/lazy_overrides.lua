@@ -220,33 +220,48 @@ return {
 			}
 			vim.list_extend(find_all_files_cmd, opts_hidden_no_dot_git)
 			vim.list_extend(find_all_files_cmd, opts_no_ignore)
+			local git_grep_vimgrep_args = {
+				"git",
+				"--no-pager",
+				"grep",
+				"--no-color",
+				"--line-number",
+				"--column",
+				"-I", -- no binary files
+			}
+			local git_grep_ignore_case_vimgrep_args = vim.deepcopy(git_grep_vimgrep_args)
+			vim.list_extend(git_grep_ignore_case_vimgrep_args, { "--ignore-case" })
 			-- <leader>st is used by folke/todo-comments.nvim
 			-- <leader>sn is used by folke/noice.nvim
 			return {
-				-- START Grepping section. gg,gG
+				-- START Grepping section. ggs,ggi,gG
 				{
-					"<leader>gg",
+					"<leader>ggs",
 					function()
 						require("telescope.builtin").live_grep({
-							-- vimgrep_arguments = vimgrep_hidden_no_dot_git,
-							vimgrep_arguments = {
-								"git",
-								"--no-pager",
-								"grep",
-								"--no-color",
-								"--line-number",
-								"--column",
-								"-I", -- no binary files
-							},
+							prompt_title = "Git Grep sensitive",
+							vimgrep_arguments = git_grep_vimgrep_args,
 							default_text = get_current_word_or_visual_selection(),
 						})
 					end,
-					desc = "Telescope Grep",
+					desc = "Telescope git grep case sensitive",
+				},
+				{
+					"<leader>ggi",
+					function()
+						require("telescope.builtin").live_grep({
+							prompt_title = "Git Grep in-sensitive",
+							vimgrep_arguments = git_grep_ignore_case_vimgrep_args,
+							default_text = get_current_word_or_visual_selection(),
+						})
+					end,
+					desc = "Telescope git grep case insensitive",
 				},
 				{
 					"<leader>gG",
 					function()
 						require("telescope.builtin").live_grep({
+							prompt_title = "RipGrep all",
 							vimgrep_arguments = vimgrep_arguments_for_all,
 							default_text = get_current_word_or_visual_selection(),
 						})
@@ -259,6 +274,7 @@ return {
 					"<leader>sF",
 					function()
 						require("telescope.builtin").find_files({
+							prompt_title = "Search All files",
 							find_command = find_all_files_cmd,
 						})
 					end,
@@ -268,11 +284,22 @@ return {
 				{
 					"<leader>so",
 					function()
-						require("telescope.builtin")["oldfiles"]({ cwd_only = true })
+						require("telescope.builtin")["oldfiles"]({
+							prompt_title = "Oldfiles local",
+							cwd_only = true,
+						})
 					end,
 					desc = "Telescope Recent local",
 				},
-				{ "<leader>sO", "<cmd>Telescope oldfiles<cr>", desc = "Telescope Recent global" },
+				{
+					"<leader>sO",
+					function()
+						require("telescope.builtin")["oldfiles"]({
+							prompt_title = "Oldfiles global",
+						})
+					end,
+					desc = "Telescope Recent global",
+				},
 				-- START lsp symbols ss,sS
 				{
 					"<leader>ss",
@@ -301,7 +328,7 @@ return {
 					desc = "Telescope Phpactor*",
 				},
 				-- START various section.
-				{ "<leader>tz", "<cmd>Telescope lazy<cr>", desc = "Telescope for lazy" },
+				-- { "<leader>tz", "<cmd>Telescope lazy<cr>", desc = "Telescope for lazy" },
 				{
 					"<leader>th",
 					function()
@@ -323,7 +350,7 @@ return {
 			}
 		end,
 		dependencies = {
-			"tsakirist/telescope-lazy.nvim",
+			-- "tsakirist/telescope-lazy.nvim",
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "make",
@@ -332,7 +359,7 @@ return {
 		config = function(_, opts)
 			local t = require("telescope")
 			t.setup(opts)
-			t.load_extension("lazy")
+			-- t.load_extension("lazy")
 			t.load_extension("fzf")
 		end,
 		init = function()
@@ -340,6 +367,7 @@ return {
 			wk.register({
 				["<leader>sd"] = { name = "Diagnostics" },
 				["<leader>t"] = { name = "Telescope" },
+				["<leader>gg"] = { name = "Git grep" },
 			})
 		end,
 	},
@@ -354,7 +382,7 @@ return {
 				"phpactor",
 				"intelephense",
 				"lua-language-server",
-				"flake8",
+				-- "flake8",
 			}
 		end,
 	},
