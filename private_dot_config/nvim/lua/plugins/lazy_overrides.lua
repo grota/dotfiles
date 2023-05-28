@@ -18,8 +18,17 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		opts = function(_, opts)
+			-- return true if you don't want this server to be setup with lspconfig
 			opts.setup.clangd = function(_, o)
 				o.capabilities.offsetEncoding = { "utf-16" }
+				return false
+			end
+			opts.setup.yamlls = function(_, o)
+				o.settings = {
+					yaml = {
+						keyOrdering = false,
+					},
+				}
 				return false
 			end
 			-- opts.setup["*"] = function(server, o)
@@ -118,6 +127,7 @@ return {
 						["h"] = "go_up_in_tree",
 						["l"] = "go_down_in_tree",
 						["z"] = "none",
+						["w"] = "none",
 					},
 				},
 				filtered_items = {
@@ -347,10 +357,12 @@ return {
 				{ "<leader>sK", "<cmd>Telescope keymaps<cr>", desc = "Telescope Key Maps" },
 				{ "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Telescope Man Pages" },
 				{ "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Telescope Search Marks" },
+				{ "<leader>wl", "<cmd>Telescope windows<cr>", desc = "Telescope window list" },
 			}
 		end,
 		dependencies = {
 			-- "tsakirist/telescope-lazy.nvim",
+			"kyoh86/telescope-windows.nvim",
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
 				build = "make",
@@ -361,6 +373,7 @@ return {
 			t.setup(opts)
 			-- t.load_extension("lazy")
 			t.load_extension("fzf")
+			t.load_extension("windows")
 		end,
 		init = function()
 			local wk = require("which-key")
@@ -436,6 +449,12 @@ return {
 		},
 		opts = function(_, o)
 			local nls = require("null-ls")
+			-- nls.builtins.diagnostics.yamllint._opts.args = {
+			-- 	'-d "{extends: default, locale: en_US.UTF-8, rules: {key-ordering: disable}}"',
+			-- 	"--format",
+			-- 	"parsable",
+			-- 	"-",
+			-- }
 			vim.list_extend(o.sources, {
 				nls.builtins.code_actions.shellcheck,
 				nls.builtins.formatting.stylua,

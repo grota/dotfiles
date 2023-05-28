@@ -78,6 +78,14 @@ return {
 	-- },
 
 	{
+		"kevinhwang91/nvim-bqf",
+		event = "VimEnter",
+		dependencies = {
+			"junegunn/fzf",
+		},
+	},
+
+	{
 		"nvim-treesitter/nvim-treesitter-context",
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",

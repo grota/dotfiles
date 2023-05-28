@@ -9,10 +9,28 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("grota_quickfix", { clear = true }),
+	pattern = { "qf" },
+	callback = function()
+		vim.keymap.set("n", "<leader>uR", function()
+			vim.fn.setqflist(vim.tbl_map(function(entry)
+				return vim.tbl_extend("force", entry, {
+					text = vim.api.nvim_buf_get_lines(entry.bufnr, entry.lnum - 1, entry.lnum, false)[1],
+				})
+			end, vim.fn.getqflist()))
+		end, { desc = "Refresh quickfix", buffer = true })
+	end,
+})
+vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("grota_gitcommit", { clear = true }),
 	pattern = { "gitcommit" },
 	callback = function()
-		vim.keymap.set("n", "<leader>d", "<cmd>DiffGitCached<Cr><cmd>wincmd L<Cr>", { desc = "Show diff" })
+		vim.keymap.set(
+			"n",
+			"<leader>d",
+			"<cmd>DiffGitCached<Cr><cmd>wincmd L<Cr>",
+			{ desc = "Show diff", buffer = true }
+		)
 	end,
 })
 

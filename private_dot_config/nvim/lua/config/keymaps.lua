@@ -25,7 +25,7 @@ vim.keymap.del({ "n", "x", "o" }, "N")
 vim.keymap.del("n", "<leader>gg")
 vim.keymap.del("n", "<leader>gG")
 vim.keymap.del("n", "<leader>ww")
-vim.keymap.del("n", "<leader>wd")
+-- vim.keymap.del("n", "<leader>wd")
 vim.keymap.del("n", "<leader>-")
 vim.keymap.del("n", "<leader>|")
 vim.keymap.del("n", "<leader>w|")
@@ -43,7 +43,7 @@ map("n", "<leader>vv", "<cmd>e $MYVIMRC<Cr>", { desc = "Edit $MYVIMRC" })
 map("n", "<leader>vld", "<cmd>e ~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/<Cr>", { desc = "Edit LazyVim dir" })
 
 map("n", "<M-1>", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
-map("n", "<M-2>", "<cmd>tabnext<cr>", { desc = "Previous tab" })
+map("n", "<M-2>", "<cmd>tabnext<cr>", { desc = "Next tab" })
 map("n", "<M-!>", "<cmd>tabmove -1<cr>", { desc = "Move tab left" })
 map("n", "<M-@>", "<cmd>tabmove +1<cr>", { desc = "Move tab right" })
 
@@ -64,6 +64,8 @@ map(
 	'"`[" . strpart(getregtype(), 0, 1) . "`]"',
 	{ expr = true, desc = "Visually select last edited/pasted." }
 )
+
+map("x", ".", ":normal .<CR>", { desc = "Do . on all selected line" })
 
 map("n", "<leader>yf", '<cmd>let @+=expand("%")<CR>:echo "copied " . expand("%")<CR>', { desc = "Copy full path" })
 map("n", "<leader>yo", '<cmd>let @+=expand("%:t")<CR>:echo "copied " . expand("%:t")<CR>', { desc = "Copy filename" })
