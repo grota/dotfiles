@@ -21,7 +21,7 @@ git branch -r --merged | grep -v master | sed 's/origin\///'
 # unshallow ungraft git repo
 git fetch --unshallow
 
-$ email: echo -e 'giuseppe.rota@sparkfabrik.com\nrota.giuseppe@gmail.com'
+$ email: echo -e 'giuseppe.rota@sparkfabrik.com\nrota.giuseppe@gmail.com\ngrota@197167.no-reply.drupal.org'
 $ remote_branches_without_origin: git branch -r | sed 's/\s\+origin\///' | grep -v '\master\b' | grep -v '\bstage\b' --- --multi --expand
 $ local_branches: git for-each-ref --format '%(refname:short)' refs/heads/ | grep -v '\master\b' | grep -v '\bstage\b' --- --multi --expand
 $ gpgkeyid: gpg --list-secret-keys --keyid-format LONG|grep sec | sed -e 's/^.*rsa4096\///'|cut -d' ' -f1

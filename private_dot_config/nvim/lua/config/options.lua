@@ -13,3 +13,4 @@ vim.o.virtualedit = "block" -- Allow going past the end of line in visual block 
 vim.o.pumblend = 10 -- Make builtin completion menus slightly transparent
 vim.o.foldlevelstart = 99
 vim.o.foldmethod = "syntax"
+vim.opt.conceallevel = 0
