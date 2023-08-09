@@ -6,10 +6,3 @@
 vim.opt.runtimepath:remove("/usr/share/vim/vimfiles")
 
 require("config.lazy")
--- if vim.env.NVIM_FLAVOUR == "old" then
--- 	require("oldcompat")
--- elseif vim.env.NVIM_FLAVOUR == "lazy" then
--- 	require("config.lazy")
--- else
--- 	require("config.lazy")
--- end

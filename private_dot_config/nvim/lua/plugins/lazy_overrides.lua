@@ -104,7 +104,6 @@ return {
 				"phpactor",
 				"intelephense",
 				"lua-language-server",
-				-- "flake8",
 			}
 		end,
 	},

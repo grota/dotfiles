@@ -1,27 +1,27 @@
 return {
-	{
-		"echasnovski/mini.bracketed",
-		opts = {
-			conflict = { suffix = "x", options = {} },
-			diagnostic = { suffix = "d", options = {} },
-			jump = { suffix = "j", options = {} },
-			location = { suffix = "l", options = {} },
-			quickfix = { suffix = "q", options = {} },
-			treesitter = { suffix = "r", options = {} },
-			yank = { suffix = "y", options = {} },
-			oldfile = { suffix = "", options = {} },
-			buffer = { suffix = "", options = {} },
-			comment = { suffix = "", options = {} },
-			undo = { suffix = "", options = {} },
-			window = { suffix = "", options = {} },
-			file = { suffix = "", options = {} },
-			indent = { suffix = "", options = {} },
-		},
-		config = function(_, opts)
-			require("mini.bracketed").setup(opts)
-		end,
-		event = { "BufReadPre", "BufNewFile" },
-	},
+	-- {
+	-- 	"echasnovski/mini.bracketed",
+	-- 	opts = {
+	-- 		conflict = { suffix = "x", options = {} },
+	-- 		diagnostic = { suffix = "d", options = {} },
+	-- 		jump = { suffix = "j", options = {} },
+	-- 		location = { suffix = "l", options = {} },
+	-- 		quickfix = { suffix = "q", options = {} },
+	-- 		treesitter = { suffix = "r", options = {} },
+	-- 		yank = { suffix = "y", options = {} },
+	-- 		oldfile = { suffix = "", options = {} },
+	-- 		buffer = { suffix = "", options = {} },
+	-- 		comment = { suffix = "", options = {} },
+	-- 		undo = { suffix = "", options = {} },
+	-- 		window = { suffix = "", options = {} },
+	-- 		file = { suffix = "", options = {} },
+	-- 		indent = { suffix = "", options = {} },
+	-- 	},
+	-- 	config = function(_, opts)
+	-- 		require("mini.bracketed").setup(opts)
+	-- 	end,
+	-- 	event = { "BufReadPre", "BufNewFile" },
+	-- },
 
 	{
 		"phpactor/phpactor",
@@ -50,32 +50,6 @@ return {
 		},
 		cmd = "GitMessenger",
 	},
-
-	-- {
-	-- 	"liuchengxu/vista.vim",
-	-- 	init = function()
-	-- 		vim.g.vista_default_executive = "nvim_lsp"
-	-- 		vim.g.vista_echo_cursor = 0
-	-- 	end,
-	-- 	keys = {
-	-- 		{ "<leader>uv", "<cmd>Vista!!<cr>", desc = "Open vista." },
-	-- 	},
-	-- },
-
-	-- {
-	-- 	"utilyre/barbecue.nvim",
-	-- 	opts = {
-	-- 		attach_navic = false,
-	-- 		show_dirname = false,
-	-- 		show_basename = false,
-	-- 		show_modified = true,
-	-- 		modifiers = {
-	-- 			basename = "",
-	-- 		},
-	-- 		theme = "catppuccin",
-	-- 	},
-	-- 	event = { "BufReadPre", "BufNewFile" },
-	-- },
 
 	{
 		"kevinhwang91/nvim-bqf",

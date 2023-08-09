@@ -21,9 +21,9 @@ require("lazy").setup({
 			},
 		},
 		-- import any extras modules here
-		-- { import = "lazyvim.plugins.extras.ui.mini-animate" },
 		{ import = "plugins" },
-		-- { import = "lazyvim.plugins.extras.editor.flash" },
+		{ import = "lazyvim.plugins.extras.lang.yaml" },
+		{ import = "lazyvim.plugins.extras.coding.yanky" },
 	},
 	performance = {
 		rtp = {

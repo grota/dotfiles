@@ -11,10 +11,6 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- Clean LazyVim's keymaps
--- vim.keymap.del("n", "<C-h>")
--- vim.keymap.del("n", "<C-j>")
--- vim.keymap.del("n", "<C-k>")
--- vim.keymap.del("n", "<C-l>")
 vim.keymap.del("n", "<S-h>")
 vim.keymap.del("n", "<S-l>")
 vim.keymap.del("n", "<leader>bb")
@@ -30,7 +26,7 @@ vim.keymap.del("n", "<leader>-")
 vim.keymap.del("n", "<leader>|")
 vim.keymap.del("n", "<leader>w|")
 vim.keymap.del("n", "<leader>fn")
-vim.keymap.del("n", "<leader>l")
+-- vim.keymap.del("n", "<leader>l")
 
 local wk = require("which-key")
 wk.register({
@@ -38,7 +34,7 @@ wk.register({
 	["<leader>y"] = { name = "Custom yanks" },
 })
 
-map("n", "<leader>L", "<cmd>:Lazy<cr>", { desc = "Lazy" })
+-- map("n", "<leader>L", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>vv", "<cmd>e $MYVIMRC<Cr>", { desc = "Edit $MYVIMRC" })
 map("n", "<leader>vld", "<cmd>e ~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/<Cr>", { desc = "Edit LazyVim dir" })
 
