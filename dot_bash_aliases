@@ -25,7 +25,7 @@ DOTFILESREPO="$("$HOME"/local/bin/chezmoi source-path)"
 export DOTFILESREPO
 
 export EDITOR=nvim
-export MANPAGER="sh -c 'col -bx | bat --language=man -p'"
+export MANPAGER="sh -c 'bat --language=man -p'"
 HISTFILESIZE=1000000
 HISTSIZE=500000
 HISTCONTROL="erasedups:ignoreboth"

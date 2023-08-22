@@ -1,33 +1,28 @@
 return {
-	-- {
-	-- 	"echasnovski/mini.bracketed",
-	-- 	opts = {
-	-- 		conflict = { suffix = "x", options = {} },
-	-- 		diagnostic = { suffix = "d", options = {} },
-	-- 		jump = { suffix = "j", options = {} },
-	-- 		location = { suffix = "l", options = {} },
-	-- 		quickfix = { suffix = "q", options = {} },
-	-- 		treesitter = { suffix = "r", options = {} },
-	-- 		yank = { suffix = "y", options = {} },
-	-- 		oldfile = { suffix = "", options = {} },
-	-- 		buffer = { suffix = "", options = {} },
-	-- 		comment = { suffix = "", options = {} },
-	-- 		undo = { suffix = "", options = {} },
-	-- 		window = { suffix = "", options = {} },
-	-- 		file = { suffix = "", options = {} },
-	-- 		indent = { suffix = "", options = {} },
-	-- 	},
-	-- 	config = function(_, opts)
-	-- 		require("mini.bracketed").setup(opts)
-	-- 	end,
-	-- 	event = { "BufReadPre", "BufNewFile" },
-	-- },
-
-	{
-		"phpactor/phpactor",
-		dir = "~/.local/share/nvim/mason/packages/phpactor/",
-		ft = "php",
-	},
+  {
+    'Exafunction/codeium.vim',
+    init = function ()
+      vim.g.codeium_no_map_tab = true
+    end,
+    keys ={
+      { '<M-y>', function () return vim.fn['codeium#Accept']() end, mode = 'i', desc = 'Codeium Accept', expr = true },
+    },
+    event = 'VeryLazy',
+  },
+  {
+    "nvim-lualine/lualine.nvim",
+    opts = function(_, opts)
+      table.insert(opts.sections.lualine_x, 2, {
+        function ()
+          local icon = require("lazyvim.config").icons.kinds.Copilot
+          return icon .. vim.fn['codeium#GetStatusString']()
+        end,
+        cond = function ()
+          return vim.fn['codeium#GetStatusString']() ~= ' ON'
+        end
+      })
+    end,
+  },
 
 	{
 		"shumphrey/fugitive-gitlab.vim",
@@ -195,4 +190,35 @@ return {
 		"AndrewRadev/linediff.vim",
 		cmd = "Linediff",
 	},
+
+	{
+		"phpactor/phpactor",
+		dir = "~/.local/share/nvim/mason/packages/phpactor/",
+		ft = "php",
+	},
+
+	-- {
+	-- 	"echasnovski/mini.bracketed",
+	-- 	opts = {
+	-- 		conflict = { suffix = "x", options = {} },
+	-- 		diagnostic = { suffix = "d", options = {} },
+	-- 		jump = { suffix = "j", options = {} },
+	-- 		location = { suffix = "l", options = {} },
+	-- 		quickfix = { suffix = "q", options = {} },
+	-- 		treesitter = { suffix = "r", options = {} },
+	-- 		yank = { suffix = "y", options = {} },
+	-- 		oldfile = { suffix = "", options = {} },
+	-- 		buffer = { suffix = "", options = {} },
+	-- 		comment = { suffix = "", options = {} },
+	-- 		undo = { suffix = "", options = {} },
+	-- 		window = { suffix = "", options = {} },
+	-- 		file = { suffix = "", options = {} },
+	-- 		indent = { suffix = "", options = {} },
+	-- 	},
+	-- 	config = function(_, opts)
+	-- 		require("mini.bracketed").setup(opts)
+	-- 	end,
+	-- 	event = { "BufReadPre", "BufNewFile" },
+	-- },
+
 }

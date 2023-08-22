@@ -192,12 +192,18 @@ return {
 				-- START lsp symbols ss,sS
 				{
 					"<leader>ss",
-					Util.telescope("lsp_document_symbols", { symbols = lsp_symbol_types }),
+          Util.telescope("lsp_document_symbols", {
+            symbols = lsp_symbol_types,
+            symbol_width = 60,
+          }),
 					desc = "Telescope Search Symbol (Document)",
 				},
 				{
 					"<leader>sS",
-					Util.telescope("lsp_workspace_symbols", { symbols = lsp_symbol_types }),
+          Util.telescope("lsp_workspace_symbols", {
+            symbols = lsp_symbol_types,
+            symbol_width = 60,
+          }),
 					desc = "Telescope Search Symbol (Workspace)",
 				},
 				-- START telescope prefixed.
