@@ -6,4 +6,8 @@ kubectl exec -it <podid> -- ash -il
 # kubectl logs -f of a pod
 kubectl logs -f <podid>
 
+# kubectl create job from cronjob
+kubectl create job --from=cronjob/<cronjobname>
+
 $ podid: kubectl get pods --- --headers 1 --column 1
+$ cronjobname: kubectl get cronjobs --- --headers 1 --column 1
