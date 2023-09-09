@@ -36,6 +36,17 @@ return {
 						DiffDelete = { bg = "#5f0000" },
 						diffAdded = { fg = "#00aa00" },
 						diffRemoved = { fg = "#dd0022" },
+            FlashLabel = {
+              fg = '#5555ff',
+              bg = '#550000',
+              bold = true,
+            },
+            FlashMatch = {
+              fg = colors.green,
+            },
+            FlashCurrent = {
+              fg = colors.sky,
+            },
 					}
 				end,
 				integrations = {
@@ -55,6 +66,7 @@ return {
 					illuminate = true,
 					which_key = true,
 					treesitter = true,
+					flash = false,
 					indent_blankline = {
 						enabled = true,
 					},

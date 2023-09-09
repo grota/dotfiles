@@ -1,6 +1,6 @@
 -- Keymaps are automatically loaded on the VeryLazy event
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
--- Add any additional keymaps here
+
 local function map(mode, lhs, rhs, opts)
 	local keys = require("lazy.core.handler").handlers.keys
 	---@cast keys LazyKeysHandler
@@ -11,22 +11,20 @@ local function map(mode, lhs, rhs, opts)
 end
 
 -- Clean LazyVim's keymaps
-vim.keymap.del("n", "<S-h>")
-vim.keymap.del("n", "<S-l>")
-vim.keymap.del("n", "<leader>bb")
-vim.keymap.del("n", "<leader>`")
-vim.keymap.del({ "n", "x" }, "gw")
-vim.keymap.del({ "n", "x", "o" }, "n")
-vim.keymap.del({ "n", "x", "o" }, "N")
-vim.keymap.del("n", "<leader>gg")
-vim.keymap.del("n", "<leader>gG")
-vim.keymap.del("n", "<leader>ww")
--- vim.keymap.del("n", "<leader>wd")
-vim.keymap.del("n", "<leader>-")
-vim.keymap.del("n", "<leader>|")
-vim.keymap.del("n", "<leader>w|")
-vim.keymap.del("n", "<leader>fn")
--- vim.keymap.del("n", "<leader>l")
+vim.keymap.del("n", "<S-h>") -- was prev buffer
+vim.keymap.del("n", "<S-l>") -- was next buffer
+vim.keymap.del("n", "<leader>bb") -- was Switch to Other Buffer
+vim.keymap.del("n", "<leader>`") -- was Switch to Other Buffer
+vim.keymap.del({ "n", "x", "o" }, "n") -- was https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+vim.keymap.del({ "n", "x", "o" }, "N") -- was https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
+
+vim.keymap.del("n", "<leader>gg") -- was lazygit
+vim.keymap.del("n", "<leader>gG") -- was lazygit
+vim.keymap.del("n", "<leader>ww") -- was other window
+vim.keymap.del("n", "<leader>-") -- was Split window below
+vim.keymap.del("n", "<leader>|") -- was Split window right
+vim.keymap.del("n", "<leader>w|") -- was Split window right
+vim.keymap.del("n", "<leader>fn") -- was new file
 
 local wk = require("which-key")
 wk.register({
@@ -34,7 +32,6 @@ wk.register({
 	["<leader>y"] = { name = "Custom yanks" },
 })
 
--- map("n", "<leader>L", "<cmd>:Lazy<cr>", { desc = "Lazy" })
 map("n", "<leader>vv", "<cmd>e $MYVIMRC<Cr>", { desc = "Edit $MYVIMRC" })
 map("n", "<leader>vld", "<cmd>e ~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/<Cr>", { desc = "Edit LazyVim dir" })
 
@@ -43,8 +40,6 @@ map("n", "<M-2>", "<cmd>tabnext<cr>", { desc = "Next tab" })
 map("n", "<M-!>", "<cmd>tabmove -1<cr>", { desc = "Move tab left" })
 map("n", "<M-@>", "<cmd>tabmove +1<cr>", { desc = "Move tab right" })
 
--- map("n", "<Tab>", "<C-w>w", { desc = "Next window." })
--- map("n", "<S-Tab>", "<C-w>W", { desc = "Previous window." })
 map("n", "<C-w>{", "<C-w>R", { desc = "Rotate windows upwards/leftwards." })
 map("n", "<C-w>}", "<C-w>r", { desc = "Rotate windows downwards/rightwards." })
 map("n", "<leader>w\\", "<C-W>v", { desc = "Split window right" })
@@ -52,7 +47,6 @@ map("n", "<leader>w\\", "<C-W>v", { desc = "Split window right" })
 map("n", "<F1>", "<C-w>o", { desc = "Current win only." })
 map("n", "<F2>", "<C-w>c", { desc = "Close window." })
 map("n", "<F3>", "<C-w>T", { desc = "Move current window to new tab page." })
--- map("n", "<F5>", "<cmd>tabedit<cr>", { desc = "New tab" })
 
 map(
 	"n",

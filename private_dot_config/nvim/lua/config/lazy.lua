@@ -25,6 +25,8 @@ require("lazy").setup({
 		{ import = "lazyvim.plugins.extras.lang.yaml" },
 		{ import = "lazyvim.plugins.extras.coding.yanky" },
 	},
+  concurrency = 5,
+  colorscheme = { "catppuccin" },
 	performance = {
 		rtp = {
 			disabled_plugins = {

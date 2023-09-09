@@ -2,6 +2,10 @@
 
       TO LEARN
 
+folke/flash.nvim:
+  ox_R: select o yank o cut based on pattern and its ts parents.
+  o_r: remote: move to pattern, do something, go back.
+
 illuminate:
   o_<M-i>
   n_<M-n> n_<M-p> Next/Previous word. #illuminate

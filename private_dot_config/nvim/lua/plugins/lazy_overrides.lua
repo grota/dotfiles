@@ -10,6 +10,23 @@ return {
 		end,
 	},
 
+  {
+    "gbprod/yanky.nvim",
+    keys = function ()
+      local yanky_keys = require('lazyvim.plugins.extras.coding.yanky')[1]['keys']
+      if yanky_keys[1]['desc'] == "Open Yank History" and yanky_keys[1][1] == "<leader>p" then
+        table.remove(yanky_keys, 1)
+      else
+        error("[GROTA] Could not find right yanky key")
+      end
+      table.insert(
+        yanky_keys,
+        {"<leader>yh", function() require("telescope").extensions.yank_history.yank_history({ }) end, desc = "Open Yank History" }
+      )
+      return yanky_keys
+    end
+  },
+
 	{
 		-- Remove the keys part, I only want to use <M-n> and <M-p>
 		-- And I also don't want to lose the ]] and [[ mappings from core ft.
@@ -127,7 +144,6 @@ return {
 			},
 			ensure_installed = {
 				"bash",
-				"vimdoc",
 				"html",
 				"javascript",
 				"json",
@@ -140,11 +156,17 @@ return {
 				"tsx",
 				"typescript",
 				"vim",
+				"vimdoc",
 				"yaml",
 				"php",
 				"phpdoc",
 				"dockerfile",
 				"twig",
+        "git_rebase",
+        "git_config",
+        "gitattributes",
+        "gitcommit",
+        "gitignore",
 			},
 		},
 	},

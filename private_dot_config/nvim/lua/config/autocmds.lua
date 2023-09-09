@@ -6,6 +6,7 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "gitrebase" },
 	callback = function()
 		vim.keymap.set("n", "S", "<cmd>Cycle<Cr>", { desc = "Cycle" })
+    require("persistence").stop()
 	end,
 })
 vim.api.nvim_create_autocmd("FileType", {

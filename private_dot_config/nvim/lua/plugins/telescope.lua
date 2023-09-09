@@ -147,7 +147,7 @@ return {
 					desc = "Telescope git grep case insensitive",
 				},
 				{
-					"<leader>gG",
+					"<leader>gga",
 					function()
 						require("telescope.builtin").live_grep({
 							prompt_title = "RipGrep all",
@@ -155,7 +155,7 @@ return {
 							default_text = get_current_word_or_visual_selection(),
 						})
 					end,
-					desc = "Telescope Grep all",
+					desc = "Telescope RipGrep all",
 				},
 				-- START files section sf,sF
 				{ "<leader>sf", "<cmd>Telescope git_files<cr>", desc = "Telescope Git Files" },
@@ -245,7 +245,6 @@ return {
 			}
 		end,
 		dependencies = {
-			-- "tsakirist/telescope-lazy.nvim",
 			"kyoh86/telescope-windows.nvim",
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",
@@ -255,9 +254,9 @@ return {
 		config = function(_, opts)
 			local t = require("telescope")
 			t.setup(opts)
-			-- t.load_extension("lazy")
 			t.load_extension("fzf")
 			t.load_extension("windows")
+			t.load_extension("harpoon")
 		end,
 		init = function()
 			local wk = require("which-key")
