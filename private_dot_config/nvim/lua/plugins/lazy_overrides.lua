@@ -8,6 +8,14 @@ return {
 				i = { "@statement.outer", "@function.inner" },
 			}, {})
 		end,
+    keys = {
+      {
+        "[S",
+        function() MiniAi.move_cursor("left", "a", "S", { n_times = vim.v.count1 }) end,
+        desc = "Go left to statement",
+        mode = { 'n', 'o', 'x' }
+      },
+    }
 	},
 
   {
@@ -46,6 +54,18 @@ return {
 			require("illuminate").configure(opts)
 		end,
 	},
+
+  {
+    "lewis6991/gitsigns.nvim",
+    keys = {
+      {
+        '<leader>gh-',
+        "<cmd>Gitsigns toggle_deleted<cr><cmd>Gitsigns toggle_word_diff<cr><cmd>Gitsigns toggle_linehl<cr>",
+        { desc = "Gitsign extra info toggle" },
+        mode = 'n',
+      },
+    },
+  },
 
 	{
 		"nvim-neo-tree/neo-tree.nvim",

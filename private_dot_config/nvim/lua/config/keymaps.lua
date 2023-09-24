@@ -77,12 +77,6 @@ map("n", "<leader>ww", "<cmd>pwd<cr>", { desc = "PWD" })
 
 map("n", "<leader><tab>c", [[:tabedit <C-r>+<cr>]], { desc = "Open clipboard in new tab" })
 
-map(
-	"n",
-	"<leader>gh-",
-	"<cmd>Gitsigns toggle_deleted<cr><cmd>Gitsigns toggle_word_diff<cr><cmd>Gitsigns toggle_linehl<cr>",
-	{ desc = "Gitsign extra info toggle" }
-)
 -- Search visually selected text (slightly better than builtins in Neovim>=0.9.1) runtime/lua/vim/_editor.lua
 -- The <C-r>='' is a noop but without it for some filetypes there's a timing issue that breaks the <C-r>= substitution.
 map("x", "*", [[y/\V<C-r>=''<CR><C-r>=substitute(escape(@", '/\'), '\n', '\\n', 'g')<CR><CR>]], { noremap = true })
@@ -108,10 +102,6 @@ map("n", "]<space>", function()
 		vim.cmd([[call append(line('.'), repeat([''], ]] .. count .. [[))]])
 	end)()
 end, { desc = "Put empty line below" })
-
-map({ "n", "x", "o" }, "[S", function()
-	MiniAi.move_cursor("left", "a", "S", { n_times = vim.v.count1 })
-end, { desc = "Go left to statement" })
 
 -- Inner line
 map("x", "iL", [[<Esc>^vg_]], { noremap = true, desc = "Inner line." })

@@ -1,113 +1,77 @@
 return {
-	{
-		"rcarriga/nvim-dap-ui",
-		dependencies = {
-			{
-				"mfussenegger/nvim-dap",
-				name = "dap",
-				config = function()
-					require("lazyvim.plugins.extras.dap.core").config()
-				end,
-				dependencies = {
-					{
-						"jay-babu/mason-nvim-dap.nvim",
-						opts = {
-							ensure_installed = { "php" },
-							automatic_installation = true,
-							handlers = {
-								php = function(config)
-									config.configurations[1].port = 9003
-									config.configurations[1].pathMappings =
-										{ ["/var/www/html/"] = [[${workspaceFolder}/src/drupal]] }
-									require("mason-nvim-dap").default_setup(config)
-								end,
-							},
-						},
-						dependencies = {
-							"mason.nvim",
-							"dap",
-						},
-					},
-				},
-			},
+  {
+    "mfussenegger/nvim-dap",
+    keys = function()
+      return {
+        -- edit = "e",
+        -- expand = { "<CR>", "<2-LeftMouse>" },
+        -- open = "o",
+        -- remove = "d",
+        -- repl = "r",
+        -- toggle = "t"
+        { "<leader>dC", function() require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: ')) end, desc = "Breakpoint Condition" },
+        { "<leader>dt", function() require("dap").toggle_breakpoint() end, desc = "Toggle Breakpoint" },
+        { "<leader>ds", function() require("dap").continue() end, desc = "Start/Continue" },
+        { "<leader>dc", function() require("dap").run_to_cursor() end, desc = "Run to Cursor" },
+        { "<leader>dj", function() require("dap").down() end, desc = "Down" },
+        { "<leader>dk", function() require("dap").up() end, desc = "Up" },
+        { "<leader>dl", function() require("dap").run_last() end, desc = "Run Last" },
+        { "<leader>di", function() require("dap").step_into() end, desc = "Step Into" },
+        { "<leader>du", function() require("dap").step_out() end, desc = "Step Out" },
+        { "<leader>do", function() require("dap").step_over() end, desc = "Step Over" },
+        { "<leader>dp", function() require("dap").pause() end, desc = "Pause" },
+        { "<leader>dr", function() require("dap").repl.toggle() end, desc = "Toggle REPL" },
+        { "<leader>dS", function() require("dap").session() end, desc = "Session" },
+        { "<leader>dx", function() require("dap").terminate() end, desc = "Terminate" },
+        { "<leader>dw", function() require("dap.ui.widgets").hover() end, desc = "Widgets" },
+        { "<leader>dd", function() require('dap').disconnect() end, desc = "Disconnect" }, -- same as terminate at least in php
+        { "<leader>dq", "<cmd>lua require'dap'.close()<cr>", desc = "Quit" },
+      }
+    end,
+  },
 
-			{
-				"theHamsta/nvim-dap-virtual-text",
-				opts = {
-					commented = true, -- prefix virtual text with comment string
-					only_first_definition = false, -- only show virtual text at first definition (if there are multiple)
-					all_references = true, -- show virtual text on all references of the variable (not only definitions)
-				},
-				dependencies = {
-					"dap",
-					"nvim-treesitter/nvim-treesitter",
-				},
-				keys = {
-					{ "<leader>dT", "<cmd>DapVirtualTextToggle<cr>", desc = "Toggle dap virtualtext" },
-				},
-			},
-
-			{
-				"nvim-telescope/telescope-dap.nvim",
-				config = function(_, _)
-					require("telescope").load_extension("dap")
-				end,
-				dependencies = {
-					"nvim-telescope/telescope.nvim",
-				},
-				keys = {
-					{ "<leader>dv", "<cmd>Telescope dap variables<cr>", desc = "Telescope dap vars" },
-				},
-			},
-		},
-		-- init = function()
-		-- require("neodev").setup({
-		-- 	library = { plugins = { "nvim-dap-ui" }, types = true },
-		-- })
-		-- end,
-		config = function(_, _)
-			local dap, dapui = require("dap"), require("dapui")
-			dapui.setup({})
-			dap.listeners.after.event_initialized["dapui_config"] = function()
-				dapui.open()
-			end
-			dap.listeners.before.event_terminated["dapui_config"] = function()
-				dapui.close()
-			end
-			dap.listeners.before.event_exited["dapui_config"] = function()
-				dapui.close()
-			end
-		end,
-		keys = {
-			{ "<leader>ds", "<cmd>lua require'dap'.continue()<cr>", desc = "Start/Continue" },
-			{ "<leader>do", "<cmd>lua require'dap'.step_over()<cr>", desc = "Step Over" },
-			{ "<leader>di", "<cmd>lua require'dap'.step_into()<cr>", desc = "Step Into" },
-			{ "<leader>du", "<cmd>lua require'dap'.step_out()<cr>", desc = "Step Out" },
-			{ "<leader>dR", "<cmd>lua require'dap'.run_to_cursor()<cr>", desc = "Run to Cursor" },
-			{ "<leader>dt", "<cmd>lua require'dap'.toggle_breakpoint()<cr>", desc = "Toggle Breakpoint" },
-			{
-				"<leader>dC",
-				"<cmd>lua require'dap'.set_breakpoint(vim.fn.input '[Condition] > ')<cr>",
-				desc = "Conditional Breakpoint",
-			},
-			-- edit = "e",
-			-- expand = { "<CR>", "<2-LeftMouse>" },
-			-- open = "o",
-			-- remove = "d",
-			-- repl = "r",
-			-- toggle = "t"
+  {
+    "rcarriga/nvim-dap-ui",
+    keys = function()
+      return {
 			{
 				"<leader>de",
-				"<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<cr>",
+        function() require("dapui").eval(vim.fn.input '[Expression] > ') end,
 				desc = "Evaluate Input",
 			},
-			{ "<leader>dE", "<cmd>lua require'dapui'.eval()<cr>", desc = "Evaluate word" },
-			{ "<leader>de", "<cmd>lua require'dapui'.eval()<cr>", mode = "x", desc = "Evaluate" },
-			{ "<leader>dU", "<cmd>lua require'dapui'.toggle()<cr>", desc = "Toggle UI" },
-			{ "<leader>db", "<cmd>lua require'dap'.step_back()<cr>", desc = "Step Back" },
-			{ "<leader>dx", "<cmd>lua require'dap'.terminate()<cr>", desc = "Terminate" }, -- same as disconnect at least in php
-			{ "<leader>dd", "<cmd>lua require'dap'.disconnect()<cr>", desc = "Disconnect" }, -- same as terminate at least in php
-			{ "<leader>dq", "<cmd>lua require'dap'.close()<cr>", desc = "Quit" },
-		},
-	},
+      { "<leader>de", function() require('dapui').eval() end, mode = "x", desc = "Evaluate" },
+			{ "<leader>dE", function() require('dapui').eval() end, desc = "Evaluate word" },
+			{ "<leader>dU", function() require('dapui').toggle() end, desc = "Toggle UI" },
+    }
+    end
+  },
+
+
+  {
+    "theHamsta/nvim-dap-virtual-text",
+    opts = {
+      commented = true, -- prefix virtual text with comment string
+      only_first_definition = false, -- only show virtual text at first definition (if there are multiple)
+      all_references = true, -- show virtual text on all references of the variable (not only definitions)
+    },
+    keys = {
+      { "<leader>dT", "<cmd>DapVirtualTextToggle<cr>", desc = "Toggle dap virtualtext" },
+    },
+  },
+
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    opts = {
+      automatic_installation = true,
+      ensure_installed = { "php" },
+      handlers = {
+        php = function(config)
+          config.configurations[1].port = 9003
+          config.configurations[1].pathMappings =
+          { ["/var/www/html/"] = [[${workspaceFolder}/src/drupal]] }
+          require("mason-nvim-dap").default_setup(config)
+        end,
+      },
+    },
+  }
 }

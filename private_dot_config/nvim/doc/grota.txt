@@ -5,6 +5,7 @@
 folke/flash.nvim:
   ox_R: select o yank o cut based on pattern and its ts parents.
   o_r: remote: move to pattern, do something, go back.
+  nox_S: smart treesitter select
 
 illuminate:
   o_<M-i>
@@ -17,13 +18,14 @@ ex: dgc gcgc
 mini.ai:
 x_ or o_
   g[ g] (Move cursor to corresponding edge of `a` textobject)
-ex: vg[<space> vg[/
+example: vg[<space> vg[/
 
 x_ or o_
   [count]
     a or i
       [l(ast) or n(ext)]
         q alias for '"`
+        b alias for ([{
         a argument
         punctuation, whitespace, digits
         ? asks user
@@ -46,7 +48,6 @@ mini.surround:
         f(function call)
 
 NORMAL MAPS
-gsXX leap in other window.
 
 :h vim.opt
 :h lua-guide-options

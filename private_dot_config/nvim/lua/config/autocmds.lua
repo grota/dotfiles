@@ -32,6 +32,7 @@ vim.api.nvim_create_autocmd("FileType", {
 			"<cmd>DiffGitCached<Cr><cmd>wincmd L<Cr>",
 			{ desc = "Show diff", buffer = true }
 		)
+    require("persistence").stop()
 	end,
 })
 

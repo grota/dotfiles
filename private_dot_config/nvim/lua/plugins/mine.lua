@@ -1,27 +1,4 @@
 return {
-  {
-    "ThePrimeagen/harpoon",
-		event = { "BufReadPre", "BufNewFile" },
-    opts = {
-      menu = {
-        width = vim.api.nvim_win_get_width(0) - 4,
-      }
-    },
-    keys = {
-      { "<leader>hh", function () require("harpoon.ui").toggle_quick_menu() end, desc = "Harpoon list" },
-      { "<leader>ha", function () require("harpoon.mark").add_file() end, desc = "Harpoon add" },
-      { "<leader>hc", function () require('harpoon.cmd-ui').toggle_quick_menu() end, desc = "Harpoon cmds" },
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-		init = function()
-			local wk = require("which-key")
-			wk.register({
-				["<leader>h"] = { name = "Harpoon" },
-			})
-		end,
-  },
 
   {
     "nvim-lualine/lualine.nvim",
@@ -131,6 +108,29 @@ return {
 		},
 	},
 
+  {
+    "ThePrimeagen/harpoon",
+		event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      menu = {
+        width = vim.api.nvim_win_get_width(0) - 4,
+      }
+    },
+    keys = {
+      { "<leader>hh", function () require("harpoon.ui").toggle_quick_menu() end, desc = "Harpoon list" },
+      { "<leader>ha", function () require("harpoon.mark").add_file() end, desc = "Harpoon add" },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+		init = function()
+			local wk = require("which-key")
+			wk.register({
+				["<leader>h"] = { name = "Harpoon" },
+			})
+		end,
+  },
+
 	{
 		"nanozuki/tabby.nvim",
 		config = function()
@@ -221,29 +221,5 @@ return {
 			})
 		end,
 	},
-
-	-- {
-	-- 	"echasnovski/mini.bracketed",
-	-- 	opts = {
-	-- 		conflict = { suffix = "x", options = {} },
-	-- 		diagnostic = { suffix = "d", options = {} },
-	-- 		jump = { suffix = "j", options = {} },
-	-- 		location = { suffix = "l", options = {} },
-	-- 		quickfix = { suffix = "q", options = {} },
-	-- 		treesitter = { suffix = "r", options = {} },
-	-- 		yank = { suffix = "y", options = {} },
-	-- 		oldfile = { suffix = "", options = {} },
-	-- 		buffer = { suffix = "", options = {} },
-	-- 		comment = { suffix = "", options = {} },
-	-- 		undo = { suffix = "", options = {} },
-	-- 		window = { suffix = "", options = {} },
-	-- 		file = { suffix = "", options = {} },
-	-- 		indent = { suffix = "", options = {} },
-	-- 	},
-	-- 	config = function(_, opts)
-	-- 		require("mini.bracketed").setup(opts)
-	-- 	end,
-	-- 	event = { "BufReadPre", "BufNewFile" },
-	-- },
 
 }

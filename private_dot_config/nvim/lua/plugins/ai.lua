@@ -18,6 +18,9 @@ return {
     },
     config = function()
       require("chatgpt").setup({
+        openai_params = {
+          model = "gpt-4",
+        },
         chat = {
           keymaps = {
             close = { "<Esc>" },
@@ -50,7 +53,11 @@ return {
         },
         popup_layout = {
           default = "right",
-        }
+          right = {
+            width = "50%",
+            width_settings_open = "80%",
+          },
+        },
       })
     end,
     dependencies = {
