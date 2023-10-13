@@ -50,10 +50,6 @@ return {
 					}
 				end,
 				integrations = {
-					navic = {
-						enabled = true,
-						custom_bg = "NONE",
-					},
 					gitsigns = true,
 					leap = true,
 					markdown = true,

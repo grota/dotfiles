@@ -7,7 +7,6 @@ return {
 			keys[#keys + 1] = { "<leader>cL", "<cmd>LspInfo<cr>", desc = "Lsp Info" }
 		end,
 		opts = function(_, opts)
-			opts.autoformat = false
 			-- return true if you don't want this server to be setup with lspconfig
 			opts.setup.clangd = function(_, o)
 				o.capabilities.offsetEncoding = { "utf-16" }
@@ -27,13 +26,5 @@ return {
 			-- 	return false
 			-- end
 		end,
-		dependencies = {
-			"SmiteshP/nvim-navbuddy",
-			dependencies = {
-				"SmiteshP/nvim-navic",
-				"MunifTanjim/nui.nvim",
-			},
-			opts = { lsp = { auto_attach = true } },
-		},
 	},
 }

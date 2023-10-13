@@ -1,20 +1,5 @@
 return {
 
-  {
-    "nvim-lualine/lualine.nvim",
-    opts = function(_, opts)
-      table.insert(opts.sections.lualine_x, 2, {
-        function ()
-          local icon = require("lazyvim.config").icons.kinds.Copilot
-          return icon .. vim.fn['codeium#GetStatusString']()
-        end,
-        cond = function ()
-          return vim.fn['codeium#GetStatusString']() ~= ' ON'
-        end
-      })
-    end,
-  },
-
 	{
 		"shumphrey/fugitive-gitlab.vim",
 		init = function()
@@ -48,13 +33,6 @@ return {
     "echasnovski/mini.align",
     config = true,
   },
-
-	{
-		"nvim-treesitter/nvim-treesitter-context",
-		dependencies = {
-			"nvim-treesitter/nvim-treesitter",
-		},
-	},
 
 	{
 		"ckolkey/ts-node-action",

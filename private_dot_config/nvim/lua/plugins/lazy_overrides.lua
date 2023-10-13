@@ -152,37 +152,16 @@ return {
 
 	{
 		"nvim-treesitter/nvim-treesitter",
-		opts = {
-			textobjects = {
-				-- move = { enable = false },
-				-- select = { enable = false },
-				-- lsp_interop = { enable = false },
-				swap = {
-					enable = true,
-					swap_next = {
-						["<leader>c<Right>"] = "@parameter.inner",
-					},
-					swap_previous = {
-						["<leader>c<Left>"] = "@parameter.inner",
-					},
-				},
-			},
-			ensure_installed = {
-				"bash",
-				"html",
-				"javascript",
-				"json",
-				"jsonc",
-				"lua",
-				"markdown",
-				"markdown_inline",
-				"query",
-				"regex",
-				"tsx",
-				"typescript",
-				"vim",
-				"vimdoc",
-				"yaml",
+		opts = function(_, o)
+      o.textobjects.swap = {}
+      o.textobjects.swap.enable = true
+      o.textobjects.swap.swap_next = {
+        ["<leader>c<Right>"] = "@parameter.inner",
+      }
+      o.textobjects.swap.swap_previous = {
+        ["<leader>c<Left>"] = "@parameter.inner",
+      }
+    vim.list_extend(o.ensure_installed, {
 				"php",
 				"phpdoc",
 				"dockerfile",
@@ -192,8 +171,8 @@ return {
         "gitattributes",
         "gitcommit",
         "gitignore",
-			},
-		},
+    })
+    end,
 	},
 
 	{
@@ -204,12 +183,6 @@ return {
 		},
 		opts = function(_, o)
 			local nls = require("null-ls")
-			-- nls.builtins.diagnostics.yamllint._opts.args = {
-			-- 	'-d "{extends: default, locale: en_US.UTF-8, rules: {key-ordering: disable}}"',
-			-- 	"--format",
-			-- 	"parsable",
-			-- 	"-",
-			-- }
 			vim.list_extend(o.sources, {
 				nls.builtins.code_actions.shellcheck,
 				nls.builtins.code_actions.ts_node_action,
@@ -230,24 +203,6 @@ return {
 				desc = "Redirect Cmdline",
 			}, -- <S-Enter> does not work on my term emulator.
 		},
-	},
-
-	{
-		"goolord/alpha-nvim",
-		opts = function(_, opts)
-			local logo = [[
-
-
-
-
-███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
-████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
-██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
-██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
-██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
-╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ]]
-			opts.section.header.val = vim.split(logo, "\n")
-		end,
 	},
 
 	{

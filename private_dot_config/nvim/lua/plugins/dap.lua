@@ -46,19 +46,6 @@ return {
     end
   },
 
-
-  {
-    "theHamsta/nvim-dap-virtual-text",
-    opts = {
-      commented = true, -- prefix virtual text with comment string
-      only_first_definition = false, -- only show virtual text at first definition (if there are multiple)
-      all_references = true, -- show virtual text on all references of the variable (not only definitions)
-    },
-    keys = {
-      { "<leader>dT", "<cmd>DapVirtualTextToggle<cr>", desc = "Toggle dap virtualtext" },
-    },
-  },
-
   {
     "jay-babu/mason-nvim-dap.nvim",
     opts = {

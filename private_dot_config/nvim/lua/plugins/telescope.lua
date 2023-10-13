@@ -67,18 +67,7 @@ return {
 		end,
 		keys = function()
 			local Util = require("lazyvim.util")
-			local lsp_symbol_types = {
-				"Class",
-				"Function",
-				"Method",
-				"Constructor",
-				"Interface",
-				"Module",
-				"Struct",
-				"Trait",
-				"Field",
-				"Property",
-			}
+			local lsp_symbol_types = require("lazyvim.config").get_kind_filter()
 			-- telescope_default_vimgrep_arguments = {
 			--   "rg",
 			--   "--color=never",
@@ -192,18 +181,22 @@ return {
 				-- START lsp symbols ss,sS
 				{
 					"<leader>ss",
-          Util.telescope("lsp_document_symbols", {
-            symbols = lsp_symbol_types,
-            symbol_width = 60,
-          }),
+          function()
+            require("telescope.builtin").lsp_document_symbols({
+              symbols = lsp_symbol_types,
+              symbol_width = 60,
+            })
+          end,
 					desc = "Telescope Search Symbol (Document)",
 				},
 				{
 					"<leader>sS",
-          Util.telescope("lsp_workspace_symbols", {
+          function()
+            require("telescope.builtin").lsp_workspace_symbols({
             symbols = lsp_symbol_types,
             symbol_width = 60,
-          }),
+            })
+          end,
 					desc = "Telescope Search Symbol (Workspace)",
 				},
 				-- START telescope prefixed.
@@ -246,15 +239,10 @@ return {
 		end,
 		dependencies = {
 			"kyoh86/telescope-windows.nvim",
-			{
-				"nvim-telescope/telescope-fzf-native.nvim",
-				build = "make",
-			},
 		},
 		config = function(_, opts)
 			local t = require("telescope")
 			t.setup(opts)
-			t.load_extension("fzf")
 			t.load_extension("windows")
 			t.load_extension("harpoon")
 		end,

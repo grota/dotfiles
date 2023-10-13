@@ -14,3 +14,5 @@ vim.o.pumblend = 10 -- Make builtin completion menus slightly transparent
 vim.o.foldlevelstart = 99
 vim.o.foldmethod = "syntax"
 vim.opt.conceallevel = 0
+
+vim.g.autoformat = false
