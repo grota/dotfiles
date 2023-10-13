@@ -57,7 +57,7 @@ return {
 					KC_RSFT = "RSFT",
 					KC_MEDIA_DOWN = "󰝞 / 󰃝",
 					KC_MEDIA_UP = "󰝝 / 󰃠",
-					KC_BRID = " ",
+					KC_BRID = "󰃠 ",
 					KC_BRIU = "󰃠 ",
 					KC_VOLD = "󰕾 ",
 					KC_VOLU = "󰕾 ",

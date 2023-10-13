@@ -1,6 +1,6 @@
 vim.opt.termguicolors = true
 
-vim.opt.autowrite = vim.api.nvim_get_option_info("autowrite").default
+vim.opt.autowrite = vim.api.nvim_get_option_info2("autowrite", {}).default
 vim.opt.inccommand = "split"
 vim.opt.scrolloff = 1
 if vim.opt.shada:get()[2] == "'100" then

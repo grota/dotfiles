@@ -44,6 +44,11 @@ return {
 		},
 	},
 
+  {
+    "echasnovski/mini.align",
+    config = true,
+  },
+
 	{
 		"nvim-treesitter/nvim-treesitter-context",
 		dependencies = {

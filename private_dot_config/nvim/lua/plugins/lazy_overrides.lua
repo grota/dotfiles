@@ -101,8 +101,10 @@ return {
 							if not node:is_expanded() then
 								require("neo-tree.sources.filesystem").toggle_directory(state, node)
 								vim.cmd.normal("j")
+								vim.cmd.normal("zz")
 							elseif node:has_children() then
 								require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
+								vim.cmd.normal("zz")
 							end
 						else
 							state.commands["open"](state)
@@ -126,7 +128,10 @@ return {
 				},
 			},
 			buffers = {
-				follow_current_file = true,
+				follow_current_file = {
+          enabled = true,
+          leave_dirs_open = true,
+        }
 			},
 		},
 	},
@@ -192,7 +197,7 @@ return {
 	},
 
 	{
-		"jose-elias-alvarez/null-ls.nvim",
+		"nvimtools/none-ls.nvim",
 		dependencies = {
 			"mason.nvim",
 			"ckolkey/ts-node-action",
@@ -207,7 +212,6 @@ return {
 			-- }
 			vim.list_extend(o.sources, {
 				nls.builtins.code_actions.shellcheck,
-				nls.builtins.formatting.stylua,
 				nls.builtins.code_actions.ts_node_action,
 			})
 		end,
@@ -253,7 +257,7 @@ return {
 	},
 
 	{
-		"windwp/nvim-spectre",
+		"nvim-pack/nvim-spectre",
 		enabled = false,
 	},
 }
