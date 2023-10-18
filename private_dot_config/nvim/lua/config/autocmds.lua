@@ -9,8 +9,9 @@ vim.api.nvim_create_autocmd("FileType", {
     require("persistence").stop()
 	end,
 })
+local grota_quickfix_group = vim.api.nvim_create_augroup("grota_quickfix", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
-	group = vim.api.nvim_create_augroup("grota_quickfix", { clear = true }),
+	group = grota_quickfix_group,
 	pattern = { "qf" },
 	callback = function()
 		vim.keymap.set("n", "<leader>uR", function()
@@ -22,6 +23,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		end, { desc = "Refresh quickfix", buffer = true })
 	end,
 })
+
 vim.api.nvim_create_autocmd("FileType", {
 	group = vim.api.nvim_create_augroup("grota_gitcommit", { clear = true }),
 	pattern = { "gitcommit" },

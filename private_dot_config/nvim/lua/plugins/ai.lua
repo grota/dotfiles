@@ -1,15 +1,5 @@
 return {
   {
-    'Exafunction/codeium.vim',
-    init = function ()
-      vim.g.codeium_no_map_tab = true
-    end,
-    keys ={
-      { '<M-y>', function () return vim.fn['codeium#Accept']() end, mode = 'i', desc = 'Codeium Accept', expr = true },
-    },
-    event = 'VeryLazy',
-  },
-  {
     "jackMort/ChatGPT.nvim",
     keys ={
       { '<leader>cc', "<cmd>ChatGPT<CR>", mode = 'n', desc = 'ChatGPT' },
@@ -20,6 +10,7 @@ return {
       require("chatgpt").setup({
         openai_params = {
           model = "gpt-4",
+          max_tokens = 3000,
         },
         chat = {
           keymaps = {

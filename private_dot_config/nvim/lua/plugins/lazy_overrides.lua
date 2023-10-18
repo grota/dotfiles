@@ -19,6 +19,13 @@ return {
 	},
 
   {
+    "nvim-lualine/lualine.nvim",
+    opts = function(_, opts)
+      table.insert(opts.sections.lualine_c, { 'w:quickfix_title' })
+    end
+	},
+
+  {
     "gbprod/yanky.nvim",
     keys = function ()
       local yanky_keys = require('lazyvim.plugins.extras.coding.yanky')[1]['keys']

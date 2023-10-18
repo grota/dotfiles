@@ -23,8 +23,6 @@ chezmoi_ignored
 /.vim/sessions/*
 /.vim/plugged
 /.vim/.netrwhist
-/.tmux/plugins
-/.tmux/resurrect
 /.local/share/TelegramDesktop
 /.local/share/Toggl
 /.local/share/Trash
