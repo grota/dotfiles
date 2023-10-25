@@ -43,6 +43,7 @@ map("n", "<M-@>", "<cmd>tabmove +1<cr>", { desc = "Move tab right" })
 map("n", "<C-w>{", "<C-w>R", { desc = "Rotate windows upwards/leftwards." })
 map("n", "<C-w>}", "<C-w>r", { desc = "Rotate windows downwards/rightwards." })
 map("n", "<leader>w\\", "<C-W>v", { desc = "Split window right" })
+map("n", "<leader>wo", "<C-W>o", { desc = "Only window", remap = true })
 
 map("n", "<F1>", "<C-w>o", { desc = "Current win only." })
 map("n", "<F2>", "<C-w>c", { desc = "Close window." })

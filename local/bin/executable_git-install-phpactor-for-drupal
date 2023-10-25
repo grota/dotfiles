@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -e
+
+cp -r "$DOTFILESREPO/chezmoi_ignored/phpactor/dot_phpactor.yml" .phpactor.yml

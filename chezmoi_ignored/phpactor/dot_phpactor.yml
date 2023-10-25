@@ -1,18 +1,18 @@
 code_transform.indentation: "  "
 
-"language_server_worse_reflection.inlay_hints.enable": true
-"language_server_worse_reflection.inlay_hints.types": false
-"language_server_worse_reflection.inlay_hints.params": true
+language_server_worse_reflection.inlay_hints.enable: true
+language_server_worse_reflection.inlay_hints.types: false
+language_server_worse_reflection.inlay_hints.params: true
 
-"indexer.include_patterns":
+indexer.include_patterns:
   - "\/**\/*.php"
   - "\/**\/*.module"
   - "\/**\/*.inc"
-"indexer.supported_extensions":
+indexer.supported_extensions:
   - php
   - module
   - inc
-"language_server.file_event_globs":
+language_server.file_event_globs:
   - "**\/*.php"
   - "**\/*.module"
   - "**\/*.inc"
