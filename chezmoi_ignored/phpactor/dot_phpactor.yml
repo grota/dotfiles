@@ -1,20 +1,18 @@
 code_transform.indentation: "  "
-# composer.autoload_deregister: true
-composer.autoloader_path: "%project_root%/.phpactor_autoloader/vendor/autoload.php"
-# Setting class_maps_only: false would fail because if you also add a section like:
-#  "autoload": {
-#    "files": [
-#      "../$path_to_web/core/includes/bootstrap.inc"
-#    ]
-#  },
-# to "$DOTFILESREPO/chezmoi_ignored/phpactor/composer.json"
-# to load funcs like t, drupal_static, ... 
-# it would actually make phpactor require that file during its runtime and that file has,
-# at the time of this writing, a line like this:
-# class_alias('Drupal\Core\Http\KernelEvent', 'Symfony\Component\HttpKernel\Event\KernelEvent', TRUE)
-# which would trigger phpactor's own autoloader to look for the Symfony Event class
-# which it does not have.
-#
-# composer.class_maps_only: true
-# logging.enabled: true
-# logging.level: debug
+
+"language_server_worse_reflection.inlay_hints.enable": true
+"language_server_worse_reflection.inlay_hints.types": false
+"language_server_worse_reflection.inlay_hints.params": true
+
+"indexer.include_patterns":
+  - "\/**\/*.php"
+  - "\/**\/*.module"
+  - "\/**\/*.inc"
+"indexer.supported_extensions":
+  - php
+  - module
+  - inc
+"language_server.file_event_globs":
+  - "**\/*.php"
+  - "**\/*.module"
+  - "**\/*.inc"

@@ -22,6 +22,7 @@ return {
     "nvim-lualine/lualine.nvim",
     opts = function(_, opts)
       table.insert(opts.sections.lualine_c, { 'w:quickfix_title' })
+      opts.sections.lualine_c[4] = {'filename', path = 1 }
     end
 	},
 

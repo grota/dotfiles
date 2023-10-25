@@ -182,4 +182,6 @@ chezmoi_ignored
 /.steam
 /.steampath
 /.steampid
+/.tmux/plugins
+/.tmux/resurrect
 /[^.]*
