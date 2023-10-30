@@ -199,8 +199,8 @@ return {
 			local wk = require("which-key")
 			wk.register({
 				["<leader>p"] = { name = "Phpactor" },
-				["<leader>pn"] = { name = "Phpactor Class Expand (type d)" },
-				["<leader>px"] = { name = "Phpactor Extract Expression (type t)" },
+				["<leader>pn"] = { name = "(type d) Expand Class" },
+				["<leader>px"] = { name = "(type t) exTract Expression" },
 			})
 		end,
 	},

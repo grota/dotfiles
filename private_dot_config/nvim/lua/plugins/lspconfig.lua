@@ -16,11 +16,16 @@ return {
 			end
       ---@param o lspconfig.options.yamlls
 			opts.setup.yamlls = function(_, o)
+        o.settings = o.settings or {}
+        o.settings.yaml = o.settings.yaml or {}
 				o.settings.yaml.keyOrdering = false
 				return false
 			end
       ---@param o lspconfig.options.intelephense
       opts.setup.intelephense = function(_, o)
+        o.settings = o.settings or {}
+        o.settings.intelephense = o.settings.intelephense or {}
+        o.settings.intelephense.files = o.settings.intelephense.files or {}
         o.settings.intelephense.files.associations = { "*.php", "*.module", "*.inc" }
 				return false
       end

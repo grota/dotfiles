@@ -200,8 +200,8 @@ return {
 	{
 		"folke/noice.nvim",
 		keys = {
-			{ "<leader>snD", "<cmd>NoiceDisable<cr>", desc = "Noice disable" },
-			{ "<leader>snE", "<cmd>NoiceEnable<cr>", desc = "Noice enable" },
+			{ "<leader>snD", "<cmd>Noice disable<cr>", desc = "Noice disable" },
+			{ "<leader>snE", "<cmd>Noice enable<cr>", desc = "Noice enable" },
 			{
 				"<M-Enter>",
 				function()
@@ -211,6 +211,40 @@ return {
 				desc = "Redirect Cmdline",
 			}, -- <S-Enter> does not work on my term emulator.
 		},
+    opts = {
+      messages = {
+        view_search = 'mini',
+      },
+      routes = {
+        {
+          view = "confirm",
+          filter = {
+            any = {
+              {
+                event = "msg_show",
+                kind = "confirm",
+                find = "oto_definition", -- hack to target PhpactorContextMenu.
+              },
+              {
+                event = "msg_show",
+                kind = "confirm",
+                find = "Transform", -- hack to target PhpactorTransform.
+              }
+            }
+          },
+          opts = {
+            size = {
+              width = '80%',
+              height = '10%',
+            },
+            win_options = {
+              wrap = true,
+            }
+          }
+        },
+
+      }
+    }
 	},
 
 	{
