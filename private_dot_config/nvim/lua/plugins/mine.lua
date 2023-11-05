@@ -10,16 +10,22 @@ return {
 		},
 	},
 
-	{
-		"rhysd/git-messenger.vim",
-		init = function()
-			vim.g.git_messenger_always_into_popup = true
-		end,
-		keys = {
-			{ "<leader>gm", desc = "GitMessenger" },
+  {
+    "LukasPietzschmann/telescope-tabs",
+		dependencies = {
+      "nvim-telescope/telescope.nvim",
 		},
-		cmd = "GitMessenger",
-	},
+    keys = {
+      {
+        "<leader><tab><tab>",
+        function ()
+          require('telescope-tabs').list_tabs()
+        end,
+        desc = "Telescope Tabs"
+      },
+      { "<leader><tab>p", function () require('telescope-tabs').go_to_previous() end, desc = "Telescope Tabs" },
+    }
+  },
 
 	{
 		"kevinhwang91/nvim-bqf",

@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-FORGIT_NO_ALIASES=1
-FORGIT_COPY_CMD="xclip -selection clipboard"
-FORGIT_LOG_FZF_OPTS="--layout=reverse --no-mouse"
+export FORGIT_NO_ALIASES=1
+export FORGIT_COPY_CMD="xclip -selection clipboard"
+export FORGIT_LOG_FZF_OPTS="--layout=reverse --no-mouse"
 alias "ga"='forgit::add'
 alias "grs"='forgit::reset::head'
 alias "gl"='forgit::log'

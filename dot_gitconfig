@@ -38,14 +38,9 @@
   colorMoved = default
 [rerere]
   enabled = 1
-[gui]
-  fontui = -family FreeSans -size 11 -weight bold -slant roman -underline 0 -overstrike 0
-  fontdiff = -family \"Courier 10 Pitch\" -size 11 -weight normal -slant roman -underline 0 -overstrike 0
 [pager]
   status = cat
-  ;diff-highlight is in git-contrib, diff-so-fancy lives here https://github.com/so-fancy/diff-so-fancy
-  ;show = diff-highlight | less --tabs=4 -R
-  ;diff = diff-highlight | less --tabs=4 -R
+  ;diff-so-fancy lives here https://github.com/so-fancy/diff-so-fancy
   diff = diff-so-fancy | less --tabs=4 -R -+S --pattern '^(added|deleted|modified|renamed): |^commit'
   show = diff-so-fancy | less --tabs=4 -R -+S --pattern '^(added|deleted|modified|renamed): |^commit'
   ;diff = delta

@@ -77,6 +77,7 @@ map("n", "<leader><F5>", "<cmd>help grota<cr>", { desc = "Personal nvim notes" }
 map("n", "<leader>ww", "<cmd>pwd<cr>", { desc = "PWD" })
 
 map("n", "<leader><tab>c", [[:tabedit <C-r>+<cr>]], { desc = "Open clipboard in new tab" })
+map("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New Tab" })
 
 -- Search visually selected text (slightly better than builtins in Neovim>=0.9.1) runtime/lua/vim/_editor.lua
 -- The <C-r>='' is a noop but without it for some filetypes there's a timing issue that breaks the <C-r>= substitution.

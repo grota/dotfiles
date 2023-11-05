@@ -37,3 +37,7 @@ local/bin/diff-so-fancy:
 .psysh/php_manual.sqlite:
   type: file
   url: http://psysh.org/manual/en/php_manual.sqlite
+
+.local/grota/bash/30-exercism-autocomplete.bash:
+  type: file
+  url: https://raw.githubusercontent.com/exercism/cli/main/shell/exercism_completion.bash

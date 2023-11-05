@@ -188,6 +188,9 @@ return {
               symbols = lsp_symbol_types,
               symbol_width = 60,
             })
+            vim.defer_fn(function()
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-u>', true, true, true), 'n', false)
+            end, 200)
           end,
 					desc = "Telescope Search Symbol (Document)",
 				},
@@ -247,6 +250,7 @@ return {
 			t.setup(opts)
 			t.load_extension("windows")
 			t.load_extension("harpoon")
+			t.load_extension("telescope-tabs")
 		end,
 		init = function()
 			local wk = require("which-key")

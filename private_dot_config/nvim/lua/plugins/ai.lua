@@ -42,13 +42,13 @@ return {
             use_output_as_input = "<C-t>",
           },
         },
-        popup_layout = {
-          default = "right",
-          right = {
-            width = "50%",
-            width_settings_open = "80%",
-          },
-        },
+        -- popup_layout = {
+          -- default = "right",
+          -- right = {
+          --   width = "50%",
+          --   width_settings_open = "80%",
+          -- },
+        -- },
       })
     end,
     dependencies = {
