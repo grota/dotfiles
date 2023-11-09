@@ -15,9 +15,7 @@
   type: file
   url: https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh
 
-.local/grota/bash/40-forgit.sh:
-  type: file
-  url: https://raw.githubusercontent.com/wfxr/forgit/master/forgit.plugin.zsh
+# forgit installed via AUR
 
 .local/grota/bash/40-z.sh:
   type: file

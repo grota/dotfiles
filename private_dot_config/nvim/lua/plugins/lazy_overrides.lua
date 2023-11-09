@@ -153,6 +153,7 @@ return {
         ["<leader>c<Left>"] = "@parameter.inner",
       }
     vim.list_extend(o.ensure_installed, {
+        "go",
 				"php",
 				"phpdoc",
 				"dockerfile",

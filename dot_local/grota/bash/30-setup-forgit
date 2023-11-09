@@ -3,6 +3,13 @@
 export FORGIT_NO_ALIASES=1
 export FORGIT_COPY_CMD="xclip -selection clipboard"
 export FORGIT_LOG_FZF_OPTS="--layout=reverse --no-mouse"
+
+# Because forgit::xxx functions are defined here.
+source /usr/share/zsh/plugins/forgit/forgit.plugin.zsh
+# This would be sourced on git forgit<tab>. Here we source it again to have
+# funcs defined for autocomplete for our aliases.
+source ~/.local/share/bash-completion/completions/git-forgit.bash
+
 alias "ga"='forgit::add'
 alias "grs"='forgit::reset::head'
 alias "gl"='forgit::log'
@@ -13,5 +20,14 @@ alias "gcob"='forgit::checkout::branch'
 alias "gclean"='forgit::clean'
 alias "gstsh"='forgit::stash::show'
 alias "gcp"='forgit::cherry::pick'
+__git_complete "ga" _git_add
+__git_complete "grs" _git_reset
+__git_complete "gl" _git_log
+__git_complete "gdi" _git_diff
+__git_complete "gcof" _git_checkout_file
+__git_complete "gcob" _git_checkout_branch
+__git_complete "gclean" _git_clean
+__git_complete "gstsh" _git_stash_show
+__git_complete "gcp" _git_cherry_pick
 
 alias forgit_aliases="alias|grep forgit::"
