@@ -1,0 +1,25 @@
+# try out normal mode with n instead of default c
+activation_key: A-M-n
+grid_exit: n
+
+hint_activation_key: A-M-f
+hint: f
+
+# default buttons: m , .
+# default oneshot_buttons: n - /
+
+# A-M-l is reserved in regolith and o is more intuitive anyway
+hint_oneshot_key: A-M-o
+# u,i to scroll: closer to hjkl
+scroll_down: u
+scroll_up: i
+scroll_up: b
+# C-c is muscle memory
+exit: esc C-c
+hint_exit: esc C-c
+
+scroll_speed: 900
+scroll_max_speed: 12000
+scroll_deceleration: -9000
+indicator: topleft
+hint_font: SauceCodePro Nerd Font Propo,SauceCodePro NFP ExtraLight

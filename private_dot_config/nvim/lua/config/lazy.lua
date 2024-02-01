@@ -21,14 +21,14 @@ require("lazy").setup({
 			},
 		},
 		-- import any extras modules here
-    { import = "lazyvim.plugins.extras.lsp.none-ls" },
 		{ import = "lazyvim.plugins.extras.lang.yaml" },
 		{ import = "lazyvim.plugins.extras.coding.yanky" },
+    { import = "lazyvim.plugins.extras.coding.copilot" },
     { import = "lazyvim.plugins.extras.coding.codeium" },
 		{ import = "lazyvim.plugins.extras.dap.core" },
 		{ import = "plugins" },
 	},
-  concurrency = 5,
+  concurrency = 10,
   colorscheme = { "catppuccin" },
 	performance = {
 		rtp = {

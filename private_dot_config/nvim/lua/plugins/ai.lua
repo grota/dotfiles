@@ -7,49 +7,14 @@ return {
       { '<leader>cR', ":ChatGPTRun ", mode = {'n', 'v'}, desc = 'ChatGPT run' },
     },
     config = function()
-      require("chatgpt").setup({
-        openai_params = {
-          model = "gpt-4",
-          max_tokens = 3000,
-        },
-        chat = {
-          keymaps = {
-            close = { "<Esc>" },
-            -- yank_last = "<C-y>",
-            -- yank_last_code = "<C-k>",
-            -- scroll_up = "<C-u>",
-            -- scroll_down = "<C-d>",
-            -- new_session = "<C-n>",
-            -- cycle_windows = "<Tab>",
-            -- cycle_modes = "<C-f>",
-            -- select_session = "<Space>",
-            -- rename_session = "r",
-            -- delete_session = "d",
-            -- draft_message = "<C-d>",
-            -- toggle_settings = "<C-o>",
-            -- toggle_message_role = "<C-r>",
-            -- toggle_system_role_open = "<C-s>",
-            -- stop_generating = "<C-x>",
-          },
-        },
-        edit_with_instructions = {
-          keymaps = {
-            close = "<Esc>",
-            -- accept = "<C-y>",
-            -- toggle_diff = "<C-d>",
-            -- toggle_settings = "<C-o>",
-            -- cycle_windows = "<Tab>",
-            use_output_as_input = "<C-t>",
-          },
-        },
-        -- popup_layout = {
-          -- default = "right",
-          -- right = {
-          --   width = "50%",
-          --   width_settings_open = "80%",
-          -- },
-        -- },
-      })
+      -- ~/.local/share/nvim/lazy/ChatGPT.nvim/lua/chatgpt/config.lua
+      local opts = require("chatgpt.config").defaults()
+      opts.openai_params.max_tokens = 3000
+      opts.openai_params.model = "gpt-4"
+      opts.openai_edit_params.model = "gpt-4"
+      opts.chat.keymaps.close = "<Esc>"
+      opts.edit_with_instructions.keymaps.close = "<Esc>"
+      require("chatgpt").setup(opts)
     end,
     dependencies = {
       "MunifTanjim/nui.nvim",
@@ -58,4 +23,5 @@ return {
     },
     event = "VeryLazy",
   },
+
 }

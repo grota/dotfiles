@@ -142,7 +142,6 @@ chezmoi_ignored
 /.config/helm
 /.config/obsidian
 /.config/unity3d
-/.config/warpd
 /.docker/buildx
 /.docker/trust
 /.gsutil

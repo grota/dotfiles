@@ -23,7 +23,7 @@ return {
         end,
         desc = "Telescope Tabs"
       },
-      { "<leader><tab>p", function () require('telescope-tabs').go_to_previous() end, desc = "Telescope Tabs" },
+      { "<leader><tab>p", function () require('telescope-tabs').go_to_previous() end, desc = "Previous tab" },
     }
   },
 
@@ -46,6 +46,10 @@ return {
 			"nvim-treesitter",
 			"tpope/vim-repeat",
 		},
+    opts = {},
+    keys = {
+      { "<leader>ct", function () require("ts-node-action").node_action() end, desc = "Treesitter Action" },
+    },
 	},
 
 	{
@@ -75,11 +79,11 @@ return {
 			vim.g.interestingWordsDefaultMappings = 0
 		end,
 		keys = {
-			{ "<leader>k", '<cmd>call InterestingWords("n")<cr>', mode = "n", desc = "Highlight word" },
-			{ "<leader>k", '<cmd>call InterestingWords("v")<cr>', mode = "x", desc = "Highlight word" },
-			{ "<leader>K", "<cmd>call UncolorAllWords()<cr>", mode = "n", desc = "Highlight uncolor" },
-			{ "<leader>n", "<cmd>call WordNavigation(1)<cr>", mode = "n", desc = "Highlight next" },
-			{ "<leader>N", "<cmd>call WordNavigation(0)<cr>", mode = "n", desc = "Highlight prev" },
+			{ "<leader>kk", '<cmd>call InterestingWords("n")<cr>', mode = "n", desc = "Highlight word" },
+			{ "<leader>kK", "<cmd>call UncolorAllWords()<cr>", mode = "n", desc = "Highlight uncolor" },
+			{ "<leader>kn", "<cmd>call WordNavigation(1)<cr>", mode = "n", desc = "Highlight next" },
+			{ "<leader>kN", "<cmd>call WordNavigation(0)<cr>", mode = "n", desc = "Highlight prev" },
+			{ "<leader>k", ':call InterestingWords("v")<cr>', mode = "x", desc = "Highlight word" },
 		},
 	},
 

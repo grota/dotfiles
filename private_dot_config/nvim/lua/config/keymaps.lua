@@ -35,11 +35,6 @@ wk.register({
 map("n", "<leader>vv", "<cmd>e $MYVIMRC<Cr>", { desc = "Edit $MYVIMRC" })
 map("n", "<leader>vld", "<cmd>e ~/.local/share/nvim/lazy/LazyVim/lua/lazyvim/<Cr>", { desc = "Edit LazyVim dir" })
 
-map("n", "<M-1>", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
-map("n", "<M-2>", "<cmd>tabnext<cr>", { desc = "Next tab" })
-map("n", "<M-!>", "<cmd>tabmove -1<cr>", { desc = "Move tab left" })
-map("n", "<M-@>", "<cmd>tabmove +1<cr>", { desc = "Move tab right" })
-
 map("n", "<C-w>{", "<C-w>R", { desc = "Rotate windows upwards/leftwards." })
 map("n", "<C-w>}", "<C-w>r", { desc = "Rotate windows downwards/rightwards." })
 map("n", "<leader>w\\", "<C-W>v", { desc = "Split window right" })
@@ -78,6 +73,11 @@ map("n", "<leader>ww", "<cmd>pwd<cr>", { desc = "PWD" })
 
 map("n", "<leader><tab>c", [[:tabedit <C-r>+<cr>]], { desc = "Open clipboard in new tab" })
 map("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New Tab" })
+
+map("n", "<M-1>", "<cmd>tabprevious<cr>", { desc = "Previous tab" })
+map("n", "<M-2>", "<cmd>tabnext<cr>", { desc = "Next tab" })
+map("n", "<M-!>", "<cmd>tabmove -1<cr>", { desc = "Move tab left" })
+map("n", "<M-@>", "<cmd>tabmove +1<cr>", { desc = "Move tab right" })
 
 -- Search visually selected text (slightly better than builtins in Neovim>=0.9.1) runtime/lua/vim/_editor.lua
 -- The <C-r>='' is a noop but without it for some filetypes there's a timing issue that breaks the <C-r>= substitution.

@@ -1,22 +1,4 @@
 return {
-	{
-		"echasnovski/mini.ai",
-		opts = function(_, opts)
-			local ai = require("mini.ai")
-			opts.custom_textobjects.S = ai.gen_spec.treesitter({
-				a = { "@statement.outer", "@function.outer" },
-				i = { "@statement.outer", "@function.inner" },
-			}, {})
-		end,
-    keys = {
-      {
-        "[S",
-        function() MiniAi.move_cursor("left", "a", "S", { n_times = vim.v.count1 }) end,
-        desc = "Go left to statement",
-        mode = { 'n', 'o', 'x' }
-      },
-    }
-	},
 
   {
     "folke/flash.nvim",
@@ -47,15 +29,17 @@ return {
   },
 
   {
-    "lewis6991/gitsigns.nvim",
-    keys = {
-      {
-        '<leader>gh-',
-        "<cmd>Gitsigns toggle_deleted<cr><cmd>Gitsigns toggle_word_diff<cr><cmd>Gitsigns toggle_linehl<cr>",
-        { desc = "Gitsign extra info toggle" },
-        mode = 'n',
-      },
-    },
+    "hrsh7th/nvim-cmp",
+    opts = function(_, opts)
+      for i = #opts.sources, 1, -1 do
+        -- Check if the name is "buffer"
+        if opts.sources[i].name == "buffer" then
+          -- Change the group_index and break the loop
+          opts.sources[i].group_index = 1
+          break
+        end
+      end
+    end
   },
 
 	{
@@ -73,6 +57,7 @@ return {
 						state.commands["open"](state)
 						if utils.is_expandable(node) then
 							vim.cmd.normal("j")
+							vim.cmd.normal("zz")
 						end
 					end,
 				},
@@ -85,6 +70,7 @@ return {
 							require("neo-tree.sources.filesystem").toggle_directory(state, node)
 						end
 						require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
+            vim.cmd.normal("zz")
 					end,
 					go_down_in_tree = function(state)
 						local node = state.tree:get_node()
@@ -92,11 +78,10 @@ return {
 							if not node:is_expanded() then
 								require("neo-tree.sources.filesystem").toggle_directory(state, node)
 								vim.cmd.normal("j")
-								vim.cmd.normal("zz")
 							elseif node:has_children() then
 								require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
-								vim.cmd.normal("zz")
 							end
+              vim.cmd.normal("zz")
 						else
 							state.commands["open"](state)
 						end
@@ -167,29 +152,82 @@ return {
     end,
 	},
 
+  {
+    "nvim-lualine/lualine.nvim",
+    opts = function(_, opts)
+      table.insert(opts.sections.lualine_c, { 'w:quickfix_title' })
+      opts.sections.lualine_c[4] = {'filename', path = 1 }
+    end
+	},
+
 	{
-		"nvimtools/none-ls.nvim",
-		dependencies = {
-			"mason.nvim",
-			"ckolkey/ts-node-action",
+		-- Remove the keys part, I only want to use <M-n> and <M-p>
+		-- And I also don't want to lose the ]] and [[ mappings from core ft.
+		"RRethy/vim-illuminate",
+		keys = function(_, _)
+			return {}
+		end,
+		opts = {
+			filetype_overrides = {
+				-- There seems to be a bug in one of the 2 lsp I use in supporting the next word (<M-n>)
+				php = {
+					providers = { "treesitter" },
+				},
+			},
 		},
-		opts = function(_, o)
-			local nls = require("null-ls")
-			vim.list_extend(o.sources, {
-				nls.builtins.code_actions.shellcheck,
-				nls.builtins.code_actions.ts_node_action,
-			})
+		config = function(_, opts)
+			require("illuminate").configure(opts)
 		end,
 	},
 
 	{
-		-- this simply did not work out for me, I need a real tabline not a bufferline.
-		"akinsho/bufferline.nvim",
-		enabled = false,
+		"folke/noice.nvim",
+		keys = {
+			{ "<leader>snD", "<cmd>Noice disable<cr>", desc = "Noice disable" },
+			{ "<leader>snE", "<cmd>Noice enable<cr>", desc = "Noice enable" },
+			{
+				"<M-Enter>",
+				function()
+					require("noice").redirect(vim.fn.getcmdline())
+				end,
+				mode = "c",
+				desc = "Redirect Cmdline",
+			}, -- <S-Enter> does not work on my term emulator.
+		},
+    opts = {
+      messages = {
+        view_search = 'mini',
+      },
+      routes = {
+        {
+          view = "confirm",
+          filter = {
+            any = {
+              {
+                event = "msg_show",
+                kind = "confirm",
+                find = "oto_definition", -- hack to target PhpactorContextMenu.
+              },
+              {
+                event = "msg_show",
+                kind = "confirm",
+                find = "Transform", -- hack to target PhpactorTransform.
+              }
+            }
+          },
+          opts = {
+            size = {
+              width = '80%',
+              height = '10%',
+            },
+            win_options = {
+              wrap = true,
+            }
+          }
+        },
+
+      }
+    }
 	},
 
-	{
-		"nvim-pack/nvim-spectre",
-		enabled = false,
-	},
 }
