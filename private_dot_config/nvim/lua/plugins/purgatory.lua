@@ -20,16 +20,4 @@ return {
     }
   },
 
-  {
-    "lewis6991/gitsigns.nvim",
-    keys = {
-      {
-        '<leader>gh-',
-        "<cmd>Gitsigns toggle_deleted<cr><cmd>Gitsigns toggle_word_diff<cr><cmd>Gitsigns toggle_linehl<cr>",
-        { desc = "Gitsign extra info toggle" },
-        mode = 'n',
-      },
-    },
-  },
-
 }

@@ -94,13 +94,13 @@ map("i", "<M-l>", "<Right>", { desc = "Right" })
 -- Add empty lines before and after cursor line
 map("n", "[<space>", function()
 	local count = vim.v.count1
-	return require("gitsigns.repeat").mk_repeatable(function()
+	return require("grota.repeat").mk_repeatable(function()
 		vim.cmd([[call append(line('.') - 1, repeat([''], ]] .. count .. [[))]])
 	end)()
 end, { desc = "Put empty line above" })
 map("n", "]<space>", function()
 	local count = vim.v.count1
-	return require("gitsigns.repeat").mk_repeatable(function()
+	return require("grota.repeat").mk_repeatable(function()
 		vim.cmd([[call append(line('.'), repeat([''], ]] .. count .. [[))]])
 	end)()
 end, { desc = "Put empty line below" })
@@ -111,3 +111,33 @@ map("o", "iL", [[<cmd>normal! ^vg_<CR>]], { noremap = true, desc = "Inner line."
 
 -- it's just easier that way :)
 map("i", "<C-c>", "<ESC>", { noremap = true })
+
+-- Session stuff
+local session_dir = vim.fn.stdpath("data") .. "/sessions/"
+map("n", "<space>Ss", function()
+  local filename = vim.fn.input({
+    prompt = "Session name: ",
+    default = session_dir,
+    completion = "file",
+  })
+  vim.cmd('mksession! ' .. filename)
+end, { desc = "Save session" })
+
+map("n", "<space>Sl", function()
+  local actions = require "telescope.actions"
+  local myactions = require("grota.telescope.actions")
+  require("telescope.builtin").find_files({
+    search_dirs = { session_dir },
+    cwd = session_dir,
+    previewer = false,
+    attach_mappings = function(_, maptelescope)
+      maptelescope("i", "<CR>", myactions.source_entry)
+      maptelescope("i", "<Esc>", actions.close)
+      maptelescope("i", "<C-c>", actions.close)
+      return false -- We do not want to map default_mappings.
+    end,
+  })
+end, { desc = "Save session" })
+wk.register({
+  ["<leader>S"] = { name = "Session" },
+})

@@ -4,7 +4,7 @@ local function get_current_word_or_visual_selection()
 
 	if visual == true then
 		local saved_reg = vim.fn.getreg("v")
-		vim.cmd([[noautocmd sil norm "vy]])
+		vim.cmd([[noautocmd silent normal "vy]])
 		local sele = vim.fn.getreg("v")
 		vim.fn.setreg("v", saved_reg)
 		word = sele
@@ -13,15 +13,10 @@ local function get_current_word_or_visual_selection()
 	end
 	return word
 end
+
 local actions = require("telescope.actions")
-local wipe_selected_buffers = function(prompt_bufnr)
-  local action_state = require("telescope.actions.state")
-  local picker = action_state.get_current_picker(prompt_bufnr)
-  for _, entry in ipairs(picker:get_multi_selection()) do
-    vim.api.nvim_buf_delete(entry.bufnr, {})
-  end
-  actions.close(prompt_bufnr)
-end
+local myactions = require("grota.telescope.actions")
+
 local lsp_symbol_types = require("lazyvim.config").get_kind_filter()
 -- telescope_default_vimgrep_arguments = {
 --   "rg",
@@ -73,7 +68,9 @@ return {
 			opts.defaults.mappings.i["<a-h>"] = false
 			opts.defaults.mappings.i["<C-j>"] = actions.move_selection_next
 			opts.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
-			opts.defaults.mappings.i["<c-t>"] = actions.select_tab -- C needs to stay lowercase because it's like that in Lazyvim
+			-- opts.defaults.mappings.i["<c-t>"] = actions.select_tab -- C needs to stay lowercase because it's like that in Lazyvim
+			opts.defaults.mappings.i["<c-t>"] = myactions.select_tab
+			opts.defaults.mappings.i["<C-v>"] = myactions.select_vertical
 			-- section only slightly modified to pass func directly to have telescope's which-key with something.
 			opts.defaults.mappings.i["<C-S-t>"] = require("trouble.providers.telescope").open_with_trouble
 			opts.defaults.mappings.i["<C-Down>"] = actions.cycle_history_next
@@ -100,7 +97,7 @@ return {
 				buffers = {
 					mappings = {
 						i = {
-							["<C-d>"] = wipe_selected_buffers,
+							["<C-d>"] = myactions.wipe_selected_buffers,
 						},
 					},
 				},

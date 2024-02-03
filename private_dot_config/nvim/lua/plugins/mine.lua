@@ -85,6 +85,12 @@ return {
 			{ "<leader>kN", "<cmd>call WordNavigation(0)<cr>", mode = "n", desc = "Highlight prev" },
 			{ "<leader>k", ':call InterestingWords("v")<cr>', mode = "x", desc = "Highlight word" },
 		},
+		init = function()
+			local wk = require("which-key")
+			wk.register({
+				["<leader>k"] = { name = "Highlight (for the moment)" },
+			})
+		end,
 	},
 
 	{
