@@ -75,9 +75,6 @@ return {
 
 	{
 		"lfv89/vim-interestingwords",
-		init = function()
-			vim.g.interestingWordsDefaultMappings = 0
-		end,
 		keys = {
 			{ "<leader>kk", '<cmd>call InterestingWords("n")<cr>', mode = "n", desc = "Highlight word" },
 			{ "<leader>kK", "<cmd>call UncolorAllWords()<cr>", mode = "n", desc = "Highlight uncolor" },
@@ -86,6 +83,7 @@ return {
 			{ "<leader>k", ':call InterestingWords("v")<cr>', mode = "x", desc = "Highlight word" },
 		},
 		init = function()
+			vim.g.interestingWordsDefaultMappings = 0
 			local wk = require("which-key")
 			wk.register({
 				["<leader>k"] = { name = "Highlight (for the moment)" },
@@ -106,29 +104,6 @@ return {
 			{ "<C-\\>", "<cmd>TmuxNavigatePrevious<cr>", mode = "n", desc = "TmuxNavigatePrevious" },
 		},
 	},
-
-  {
-    "ThePrimeagen/harpoon",
-		event = { "BufReadPre", "BufNewFile" },
-    opts = {
-      menu = {
-        width = vim.api.nvim_win_get_width(0) - 4,
-      }
-    },
-    keys = {
-      { "<leader>hh", function () require("harpoon.ui").toggle_quick_menu() end, desc = "Harpoon list" },
-      { "<leader>ha", function () require("harpoon.mark").add_file() end, desc = "Harpoon add" },
-    },
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-    },
-		init = function()
-			local wk = require("which-key")
-			wk.register({
-				["<leader>h"] = { name = "Harpoon" },
-			})
-		end,
-  },
 
 	{
 		"nanozuki/tabby.nvim",

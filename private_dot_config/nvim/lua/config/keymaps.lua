@@ -114,7 +114,7 @@ map("i", "<C-c>", "<ESC>", { noremap = true })
 
 -- Session stuff
 local session_dir = vim.fn.stdpath("data") .. "/sessions/"
-map("n", "<space>Ss", function()
+map("n", "<leader>ms", function()
   local filename = vim.fn.input({
     prompt = "Session name: ",
     default = session_dir,
@@ -123,7 +123,7 @@ map("n", "<space>Ss", function()
   vim.cmd('mksession! ' .. filename)
 end, { desc = "Save session" })
 
-map("n", "<space>Sl", function()
+map("n", "<leader>ml", function()
   local actions = require "telescope.actions"
   local myactions = require("grota.telescope.actions")
   require("telescope.builtin").find_files({
@@ -141,3 +141,7 @@ end, { desc = "Save session" })
 wk.register({
   ["<leader>S"] = { name = "Session" },
 })
+
+map('n', '<leader>ma', function () require("grota.marks").SetFirstUnmarkedUppercaseMark() end, { desc = "Mark add" })
+-- Needs neovim nightly to have this https://github.com/neovim/neovim/pull/24936 to be able to del global marks.
+map('n', '<leader>mm', function() require('grota.telescope').marks() end, { desc = "Telescope marks" })

@@ -28,7 +28,7 @@ require("lazy").setup({
 		{ import = "lazyvim.plugins.extras.dap.core" },
 		{ import = "plugins" },
 	},
-  concurrency = 10,
+  concurrency = 5,
   colorscheme = { "catppuccin" },
 	performance = {
 		rtp = {

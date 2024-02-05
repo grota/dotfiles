@@ -68,8 +68,7 @@ return {
 			opts.defaults.mappings.i["<a-h>"] = false
 			opts.defaults.mappings.i["<C-j>"] = actions.move_selection_next
 			opts.defaults.mappings.i["<C-k>"] = actions.move_selection_previous
-			-- opts.defaults.mappings.i["<c-t>"] = actions.select_tab -- C needs to stay lowercase because it's like that in Lazyvim
-			opts.defaults.mappings.i["<c-t>"] = myactions.select_tab
+			opts.defaults.mappings.i["<c-t>"] = myactions.select_tab -- C needs to stay lowercase because it's like that in Lazyvim
 			opts.defaults.mappings.i["<C-v>"] = myactions.select_vertical
 			-- section only slightly modified to pass func directly to have telescope's which-key with something.
 			opts.defaults.mappings.i["<C-S-t>"] = require("trouble.providers.telescope").open_with_trouble
@@ -237,7 +236,6 @@ return {
 				{ "<leader>sda", "<cmd>Telescope diagnostics<cr>", desc = "Telescope Diagnostics all" },
 				{ "<leader>sK", "<cmd>Telescope keymaps<cr>", desc = "Telescope Key Maps" },
 				{ "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Telescope Man Pages" },
-				{ "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Telescope Search Marks" },
 				{ "<leader>wl", "<cmd>Telescope windows<cr>", desc = "Telescope window list" },
 			}
 		end,
@@ -248,7 +246,6 @@ return {
 			local t = require("telescope")
 			t.setup(opts)
 			t.load_extension("windows")
-			t.load_extension("harpoon")
 			t.load_extension("telescope-tabs")
 		end,
 		init = function()
