@@ -17,13 +17,13 @@ return {
 		},
     keys = {
       {
-        "<leader><tab><tab>",
+        "<leader><tab>l",
         function ()
           require('telescope-tabs').list_tabs()
         end,
-        desc = "Telescope Tabs"
+        desc = "Tabs list"
       },
-      { "<leader><tab>p", function () require('telescope-tabs').go_to_previous() end, desc = "Previous tab" },
+      { "<leader><tab><tab>", function () require('telescope-tabs').go_to_previous() end, desc = "Tab previous" },
     }
   },
 

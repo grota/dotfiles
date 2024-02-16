@@ -137,7 +137,7 @@ map("n", "<leader>ml", function()
       return false -- We do not want to map default_mappings.
     end,
   })
-end, { desc = "Save session" })
+end, { desc = "Load session" })
 wk.register({
   ["<leader>S"] = { name = "Session" },
 })

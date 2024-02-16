@@ -120,6 +120,7 @@ return {
               prompt_title = "Git Grep sensitive",
               vimgrep_arguments = git_grep_vimgrep_args,
               default_text = get_current_word_or_visual_selection(),
+              debounce = 300,
             })
           end,
 					desc = "Telescope git grep case sensitive",
@@ -131,6 +132,7 @@ return {
               prompt_title = "Git Grep in-sensitive",
               vimgrep_arguments = git_grep_ignore_case_vimgrep_args,
               default_text = get_current_word_or_visual_selection(),
+              debounce = 300,
             })
           end,
 					desc = "Telescope git grep case insensitive",
@@ -142,6 +144,7 @@ return {
               prompt_title = "RipGrep all",
               vimgrep_arguments = vimgrep_arguments_for_all,
               default_text = get_current_word_or_visual_selection(),
+              debounce = 600,
             })
           end,
 					desc = "Telescope RipGrep all",
@@ -229,13 +232,14 @@ return {
 					desc = "Telescope help",
 				},
 				{ "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Telescope Switch Buffer" },
+				{ "<leader>tr", "<cmd>Telescope resume<cr>", desc = "Telescope Resume" },
 				{ "<leader>gS", "<cmd>Telescope git_status<CR>", desc = "Telescope git status" },
 				{ "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Telescope search buffer" },
 				{ "<leader>sC", "<cmd>Telescope command_history<cr>", desc = "Telescope Command History" },
-				{ "<leader>sdb", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Telescope Diagnostics buffer" },
-				{ "<leader>sda", "<cmd>Telescope diagnostics<cr>", desc = "Telescope Diagnostics all" },
+				-- { "<leader>sdb", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Telescope Diagnostics buffer" },
+				-- { "<leader>sda", "<cmd>Telescope diagnostics<cr>", desc = "Telescope Diagnostics all" },
 				{ "<leader>sK", "<cmd>Telescope keymaps<cr>", desc = "Telescope Key Maps" },
-				{ "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Telescope Man Pages" },
+				-- { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Telescope Man Pages" },
 				{ "<leader>wl", "<cmd>Telescope windows<cr>", desc = "Telescope window list" },
 			}
 		end,
