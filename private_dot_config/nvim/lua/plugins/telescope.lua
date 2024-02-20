@@ -83,8 +83,6 @@ return {
 			-- C-d wiped for symmetry.
 			opts.defaults.mappings.i["<C-u>"] = false
 			opts.defaults.mappings.i["<C-d>"] = false
-			opts.defaults.mappings.i["<Tab>"] = actions.toggle_selection + actions.move_selection_better
-			opts.defaults.mappings.i["<S-Tab>"] = actions.toggle_selection + actions.move_selection_worse
 			opts.defaults.wrap_results = true
 			opts.defaults.layout_config = {
 				horizontal = {
@@ -96,7 +94,7 @@ return {
 				buffers = {
 					mappings = {
 						i = {
-							["<C-d>"] = myactions.wipe_selected_buffers,
+							["<C-d>"] = actions.delete_buffer
 						},
 					},
 				},

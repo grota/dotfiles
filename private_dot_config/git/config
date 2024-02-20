@@ -41,13 +41,12 @@
   enabled = 1
 [pager]
   status = cat
+  branch = cat
   ;diff-so-fancy lives here https://github.com/so-fancy/diff-so-fancy
   diff = diff-so-fancy | less --tabs=4 -R -+S --pattern '^(added|deleted|modified|renamed): |^commit'
   show = diff-so-fancy | less --tabs=4 -R -+S --pattern '^(added|deleted|modified|renamed): |^commit'
   ;diff = delta
   ;show = delta
-[include]
-  path = ~/.gitconfig_private
 [push]
   default = current
 [tig "bind"]
@@ -56,9 +55,9 @@
 [credential]
   helper = store
 [user]
-	email = 403432+grota@users.noreply.github.com
-	name = Giuseppe Rota
-	signingkey = D03AC8F03992DD80
+  email = 403432+grota@users.noreply.github.com
+  name = Giuseppe Rota
+  signingkey = B234E6A96211132D
 [commit]
 	gpgsign = true
 [filter "lfs"]
@@ -66,3 +65,14 @@
 	process = git-lfs filter-process
 	required = true
 	clean = git-lfs clean -- %f
+[includeIf "gitdir:~/Projects/Sparkfabrik/"]
+  path = ~/.config/git/sparkfabrik.config
+[includeIf "hasconfig:remote.*.url:git@git.drupal.org:issue/**"]
+  path = ~/.config/git/drupal.config
+[includeIf "hasconfig:remote.*.url:git@git.drupal.org:project/**"]
+  path = ~/.config/git/drupal.config
+ 
+[column]
+	branch = auto
+[branch]
+	sort = -committerdate

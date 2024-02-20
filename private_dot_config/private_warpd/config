@@ -15,8 +15,8 @@ scroll_down: u
 scroll_up: i
 scroll_up: b
 # C-c is muscle memory
-exit: esc C-c
-hint_exit: esc C-c
+exit: esc C-c Return
+hint_exit: esc C-c Return
 
 scroll_speed: 900
 scroll_max_speed: 12000

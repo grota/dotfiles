@@ -18,11 +18,18 @@ M.source_entry = function(prompt_bufnr)
   vim.cmd.source(entry[1])
 end
 
-M.wipe_selected_buffers = function(prompt_bufnr)
-  for _, entry in ipairs(get_entries(prompt_bufnr)) do
-    vim.api.nvim_buf_delete(entry.bufnr, {})
-  end
-  telescope_pickers.on_close_prompt(prompt_bufnr)
+M.remove_selected_files = function(prompt_bufnr)
+  local current_picker = action_state.get_current_picker(prompt_bufnr)
+  -- callback can return false when some error occurs and entry should not be deleted.
+  current_picker:delete_selection(function(selection)
+    local res, msg = os.remove(selection[1])
+    if res == nil then
+      vim.print("Error removing file: " .. msg)
+      return false
+    else
+      return true
+    end
+  end)
 end
 
 local set_status_with_close_func = function(prompt_bufnr, orig_status, orig_picker, close_func)

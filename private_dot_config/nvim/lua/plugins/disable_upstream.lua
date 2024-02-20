@@ -9,4 +9,9 @@ return {
 		"nvim-pack/nvim-spectre",
 		enabled = false,
 	},
+
+  {
+    "echasnovski/mini.bufremove",
+		enabled = false,
+  },
 }

@@ -59,7 +59,7 @@ return {
 			{ "<leader>gs", "<cmd>Git<cr>", desc = "Fug. status" },
 			{ "<leader>gd", "<cmd>Gdiffsplit<cr>", desc = "Fug. diff" },
 			{ "<leader>gw", "<cmd>Gwrite<cr>", desc = "Fug. write" },
-			{ "<leader>gb", "<cmd>Git blame<cr>", desc = "Fug. blame" },
+			{ "<leader>gb", "<cmd>Git blame -C<cr>", desc = "Fug. blame" }, -- more than one -C makes git hallucinate in my experience.
 			{ "<leader>gtec", "<cmd>Gtabedit @<cr>", desc = "Gtabedit @" },
 			{ "<leader>gtel", ":Gtabedit <C-r>+<cr>", desc = "Gtabedit clipboard sha" },
 			{ "<leader>gef", "<cmd>Gedit<cr>", desc = "Gedit" },
