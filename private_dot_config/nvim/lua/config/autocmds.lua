@@ -45,3 +45,14 @@ vim.api.nvim_create_autocmd("FileType", {
 		vim.keymap.set("i", "kk", "$", { desc = "imap kk=$ for php", buffer = true })
 	end,
 })
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = { "FugitiveIndex" },
+  group = "lazyvim_close_with_q",
+  callback = function(event)
+    local lazyvim_close_cb = vim.api.nvim_get_autocmds({group="lazyvim_close_with_q"})[1].callback
+    if lazyvim_close_cb then
+      lazyvim_close_cb(event)
+    end
+  end,
+})

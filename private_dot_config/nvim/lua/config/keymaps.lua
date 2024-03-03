@@ -145,3 +145,5 @@ map('n', '<leader>ma', function () require("grota.marks").SetFirstUnmarkedUpperc
 map('n', '<leader>mm', function() require('grota.telescope').marks() end, { desc = "Telescope marks" })
 
 map('n', '<leader>bd', function() vim.cmd.bdelete() end, { desc = "Buffer delete" })
+
+map('i', '<C-o>', '<C-\\><C-o>', { noremap = true, desc = "C-o without moving cursor" })

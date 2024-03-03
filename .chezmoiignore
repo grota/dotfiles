@@ -17,6 +17,7 @@ chezmoi_ignored
 /.bash_profile
 /.bash_history
 /.bash_logout
+/.local/share/bash-completion/completions/git-forgit.bash
 /.vim/autoload/plug.vim
 /.vim/doc/tags
 /.config/nvim/doc/tags
