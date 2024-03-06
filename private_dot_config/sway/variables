@@ -1,0 +1,6 @@
+set $term foot
+set $browser google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland
+set $filemanager nautilus
+set $editor gedit
+set $launcher nwg-drawer
+set $exit $launcher
