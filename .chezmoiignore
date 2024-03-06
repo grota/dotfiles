@@ -11,6 +11,10 @@ chezmoi_ignored
 # Files in ~ to be hidden from `chezmoi unmanaged`:
 !/local
 !/.bashrc
+/.azotebg
+/.azotebg-hyprland
+/.SteamCloud
+/.codeium
 /local/bin/bw
 /local/bin/chezmoi
 /.bashrc
@@ -57,6 +61,10 @@ chezmoi_ignored
 /.local/share/webkitgtk
 /.local/state
 /.config/Bitwarden CLI
+/.config/asciinema
+/.config/exercism
+/.config/github-copilot
+/.config/go
 /.config/QtProject.conf
 /.config/Qtrac Ltd.
 /.config/Slack
@@ -90,6 +98,12 @@ chezmoi_ignored
 /.config/nautilus
 /.config/neofetch
 /.config/nnn
+/.config/nvim/lazyvim.json
+/.config/nvim/lua/.luarc.json
+/.config/nvim/spell
+/.config/navi/navi.log
+/.config/session/
+/.config/xsettingsd
 /.config/nordvpn
 /.config/pulse
 /.config/regolith/flags
@@ -118,7 +132,6 @@ chezmoi_ignored
 /.mplayer
 /.node_repl_history
 /.npm
-/.nv
 /.nvidia-settings-rc
 /.pki
 /.psysh/psysh_history
@@ -152,8 +165,6 @@ chezmoi_ignored
 /.local/share/calibre-ebook.com
 /.local/share/navi/cheats/featured_repos.txt
 /.local/share/orca
-/.local/share/recently-used.xbel.AIT1J1
-/.local/share/tridactyl
 /.local/share/warpd
 /.mycli-history
 /.mycli.log
@@ -163,18 +174,28 @@ chezmoi_ignored
 /local/bin/diff-so-fancy-next
 /local/bin/terraform-ls
 /local/bin/terraform-lsp
+/local/bin/exercism
 /.config/GNOME-Flashback-xdg-terminals.list
 /.config/GNOME-xdg-terminals.list
 /.config/Regolith-xdg-terminals.list
-/.config/Vampire_Survivors
-/.config/Vampire_Survivors_33245301
-/.config/Vampire_Survivors_Data
 /.config/cef_user_data
 /.config/k9s
 /.config/pavucontrol.ini
-/.config/systemd/user/default.target.wants/pipewire-pulse.service
-/.config/systemd/user/sockets.target.wants
+/.config/systemd
+/.config/simple-scan
+/.config/steamtinkerlaunch
+/.config/monitors.xml
+/.config/paperwm
+/.local/share/okular
+/.docker/contexts
+/.config/warpd/lock
+/.config/warpd/warpd.log
+/.ddev
+/.local/pipx
 /.config/xdg-terminals.list
+/.local/share/yelp/
+/local/bin/spark-run-*
+/local/bin/yq4
 /.local/share/Steam
 /.local/share/vulkan
 /.local/share/xorg
