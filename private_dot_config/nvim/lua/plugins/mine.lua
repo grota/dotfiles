@@ -33,6 +33,11 @@ return {
 		dependencies = {
 			"junegunn/fzf",
 		},
+    opts = {
+      func_map = {
+        fzffilter = '<leader>ff'
+      }
+    }
 	},
 
   {
