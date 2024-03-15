@@ -15,17 +15,17 @@
   type: file
   url: https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh
 
-# forgit installed via AUR
+# forgit,zoxide installed via AUR
 
-.local/grota/bash/40-z.sh:
-  type: file
-  url: https://raw.githubusercontent.com/rupa/z/master/z.sh
-
-# make sure it's sourced after z.sh
-# And use an older version until https://github.com/changyuheng/fz/issues/27 is fixed.
-.local/grota/bash/45-fz.sh:
-  type: file
-  url: https://raw.githubusercontent.com/changyuheng/fz/ae0cd3ab0f0daebc80256f1236eda3a3283e4c1c/fz.sh
+# .local/grota/bash/40-z.sh:
+#   type: file
+#   url: https://raw.githubusercontent.com/rupa/z/master/z.sh
+#
+# # make sure it's sourced after z.sh
+# # And use an older version until https://github.com/changyuheng/fz/issues/27 is fixed.
+# .local/grota/bash/45-fz.sh:
+#   type: file
+#   url: https://raw.githubusercontent.com/changyuheng/fz/ae0cd3ab0f0daebc80256f1236eda3a3283e4c1c/fz.sh
 
 local/bin/diff-so-fancy:
   type: file
