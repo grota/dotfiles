@@ -1,5 +1,5 @@
 set $term foot
-set $browser google-chrome-stable --enable-features=UseOzonePlatform --ozone-platform=wayland
+set $browser google-chrome-stable --password-store=gnome-libsecret
 set $filemanager nautilus
 set $editor gedit
 set $launcher nwg-drawer

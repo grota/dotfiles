@@ -14,3 +14,8 @@ gpg:
 bitwarden:
   command: {{ .chezmoi.homeDir }}/local/bin/bw
 {{ end }}
+
+hooks:
+  re-add:
+    post:
+      command: {{ .chezmoi.sourceDir }}/chezmoi_ignored/dconf/refresh-dconf-dump.sh
