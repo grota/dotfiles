@@ -1,4 +1,11 @@
 return {
+  {
+    "Exafunction/codeium.nvim",
+    opts = function (_, opts)
+      vim.print(opts)
+      opts.enable_chat = true
+    end,
+  },
 
   {
     "folke/flash.nvim",

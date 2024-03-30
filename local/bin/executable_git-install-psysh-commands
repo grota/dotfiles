@@ -21,4 +21,5 @@ echo /"${GROTA_DIR}" >> .git/info/exclude
 cp "${DOTFILESREPO}/chezmoi_ignored/psysh/.psysh.php" "$path_to_web"
 mkdir -p "$GROTA_DIR"/psysh
 cp -r "${DOTFILESREPO}/chezmoi_ignored/psysh/Command" "$GROTA_DIR"/psysh
+cp ~/.psysh/php_manual.sqlite "$GROTA_DIR"/psysh
 echo "all done"

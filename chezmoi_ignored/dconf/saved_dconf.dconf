@@ -49,9 +49,9 @@ word-size=64
 
 [org/gnome/calendar]
 active-view='month'
-window-maximized=true
+window-maximized=false
 window-position=(0, 32)
-window-size=(1920, 1016)
+window-size=(1920, 1048)
 
 [org/gnome/clocks]
 alarms=[{'name': <'toyota'>, 'id': <'c6b377a6324da5b16ad6fe0c63d0e6ac'>, 'active': <false>, 'hour': <14>, 'minute': <5>, 'days': <@ai []>, 'snooze_minutes': <10>, 'ring_minutes': <5>}]
@@ -63,7 +63,7 @@ panel-id='timer'
 size=(1920, 1048)
 
 [org/gnome/control-center]
-last-panel='keyboard'
+last-panel='power'
 window-state=(1440, 1048, false)
 
 [org/gnome/deja-dup]
@@ -141,7 +141,7 @@ autorun-x-content-open-folder=@as []
 autorun-x-content-start-app=['x-content/unix-software', 'x-content/ostree-repository']
 
 [org/gnome/desktop/notifications]
-application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks']
+application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions']
 show-banners=false
 
 [org/gnome/desktop/notifications/application/alacritty]
@@ -183,6 +183,9 @@ application-id='nwg-look.desktop'
 [org/gnome/desktop/notifications/application/obsidian]
 application-id='obsidian.desktop'
 
+[org/gnome/desktop/notifications/application/org-flameshot-flameshot]
+application-id='org.flameshot.Flameshot.desktop'
+
 [org/gnome/desktop/notifications/application/org-gnome-baobab]
 application-id='org.gnome.baobab.desktop'
 
@@ -203,6 +206,9 @@ application-id='org.gnome.Evolution-alarm-notify.desktop'
 
 [org/gnome/desktop/notifications/application/org-gnome-extensions-desktop]
 application-id='org.gnome.Extensions.desktop.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-extensions]
+application-id='org.gnome.Extensions.desktop'
 
 [org/gnome/desktop/notifications/application/org-gnome-gedit]
 application-id='org.gnome.gedit.desktop'
@@ -318,7 +324,7 @@ unmaximize=@as []
 
 [org/gnome/desktop/wm/preferences]
 theme='SolArc-Dark'
-workspace-names=['', '', 'Workspace 3', 'Workspace 4']
+workspace-names=['slack', 'work', 'Workspace 3', 'Workspace 4']
 
 [org/gnome/eog/view]
 background-color='rgb(0,0,0)'
@@ -330,7 +336,7 @@ document-directory=@ms nothing
 [org/gnome/evince/default]
 continuous=true
 dual-page=false
-dual-page-odd-left=false
+dual-page-odd-left=true
 enable-spellchecking=true
 fullscreen=false
 inverted-colors=false
@@ -338,7 +344,7 @@ show-sidebar=true
 sidebar-page='thumbnails'
 sidebar-size=132
 sizing-mode='automatic'
-window-ratio=(1.0588947868021237, 1.2447738798169394)
+window-ratio=(3.2268907563025211, 1.2446555819477434)
 zoom=1.7273525643779126
 
 [org/gnome/evolution-data-server]
@@ -354,15 +360,15 @@ skip-newer=false
 
 [org/gnome/file-roller/listing]
 list-mode='as-folder'
-name-column-width=729
+name-column-width=1370
 show-path=false
 sort-method='name'
 sort-type='ascending'
 
 [org/gnome/file-roller/ui]
 sidebar-width=200
-window-height=1001
-window-width=1717
+window-height=1048
+window-width=1920
 
 [org/gnome/gedit/plugins/filebrowser]
 root='file:///'
@@ -480,11 +486,12 @@ size=24
 unhide-delay=100
 
 [org/gnome/gnome-system-monitor]
-current-tab='resources'
+current-tab='processes'
 maximized=false
 network-total-in-bits=false
 show-dependencies=false
 show-whose-processes='user'
+window-height=1048
 window-state=(700, 500, 510, 330)
 
 [org/gnome/gnome-system-monitor/disktreenew]
@@ -501,7 +508,7 @@ text-filters=[('CVS/SVN keywords', false, '\\$\\w+(:[^\\n$]+)?\\$'), ('C++ comme
 wrap-mode='none'
 
 [org/gnome/meld/window-state]
-height=1005
+height=1001
 is-fullscreen=false
 is-maximized=false
 width=1920
@@ -528,14 +535,14 @@ restore-shortcuts=@as []
 default-compression-format='zip'
 
 [org/gnome/nautilus/preferences]
-default-folder-viewer='list-view'
+default-folder-viewer='icon-view'
 migrated-gtk-settings=true
 search-filter-time-type='last_modified'
 search-view='list-view'
 
 [org/gnome/nautilus/window-state]
-initial-size=(1440, 1048)
-maximized=true
+initial-size=(1920, 1048)
+maximized=false
 sidebar-width=247
 start-with-sidebar=true
 
@@ -547,7 +554,7 @@ ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
 [org/gnome/portal/filechooser/google-chrome-stable]
-last-folder-path='/home/grota/Projects/Sparkfabrik/toita_backoffice'
+last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/google-chrome]
 last-folder-path='/home/grota/Pictures/demo.comfydeploy.com'
@@ -606,10 +613,10 @@ sleep-inactive-ac-type='nothing'
 [org/gnome/shell]
 command-history=['lg']
 disable-user-extensions=false
-enabled-extensions=['appindicatorsupport@rgcjonas.gmail.com', 'BringOutSubmenuOfPowerOffLogoutButton@pratap.fastmail.fm', 'clipboard-indicator@tudmotu.com', 'just-perfection-desktop@just-perfection', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor@paradoxxx.zero.gmail.com', 'true-color-invert@jackkenney', 'switcher@landau.fi', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'gsconnect@andyholmes.github.io', 'paperwm@paperwm.github.com', 'x11gestures@joseexposito.github.io']
+enabled-extensions=['BringOutSubmenuOfPowerOffLogoutButton@pratap.fastmail.fm', 'clipboard-indicator@tudmotu.com', 'just-perfection-desktop@just-perfection', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor@paradoxxx.zero.gmail.com', 'true-color-invert@jackkenney', 'switcher@landau.fi', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'gsconnect@andyholmes.github.io', 'auto-move-windows@gnome-shell-extensions.gcampax.github.com', 'light-style@gnome-shell-extensions.gcampax.github.com', 'native-window-placement@gnome-shell-extensions.gcampax.github.com', 'system-monitor@gnome-shell-extensions.gcampax.github.com', 'x11gestures@joseexposito.github.io', 'appindicatorsupport@rgcjonas.gmail.com', 'paperwm@paperwm.github.com']
 favorite-apps=['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Settings.desktop']
 had-bluetooth-devices-setup=true
-last-selected-power-profile='performance'
+last-selected-power-profile='power-saver'
 welcome-dialog-last-shown-version='41.2'
 
 [org/gnome/shell/app-switcher]
@@ -650,7 +657,7 @@ type='phone'
 custom-battery-notification-value=uint32 80
 
 [org/gnome/shell/extensions/gsconnect/device/293f781c_65a1_40ff_887b_3e934174ec12/plugin/notification]
-applications='{"Printers":{"iconName":"org.gnome.Settings-printers-symbolic","enabled":true},"Calibre":{"iconName":"calibre-gui","enabled":true},"Evolution Alarm Notify":{"iconName":"appointment-soon","enabled":true},"Telegram Desktop":{"iconName":"telegram","enabled":true},"Zenity":{"iconName":"application-x-executable","enabled":true},"Timeshift":{"iconName":"timeshift","enabled":true},"Disks":{"iconName":"org.gnome.DiskUtility","enabled":true},"Date & Time":{"iconName":"org.gnome.Settings-time-symbolic","enabled":true},"Software":{"iconName":"org.gnome.Software","enabled":true},"NetworkManager Applet":{"iconName":"nm-device-wireless","enabled":true},"Files":{"iconName":"org.gnome.Nautilus","enabled":true},"Disk Usage Analyzer":{"iconName":"org.gnome.baobab","enabled":true},"Power":{"iconName":"org.gnome.Settings-power-symbolic","enabled":true},"Backups":{"iconName":"org.gnome.DejaDup","enabled":true},"Color":{"iconName":"org.gnome.Settings-color-symbolic","enabled":true},"Clocks":{"iconName":"org.gnome.clocks","enabled":true},"Archive Manager":{"iconName":"org.gnome.FileRoller","enabled":true}}'
+applications='{"Printers":{"iconName":"org.gnome.Settings-printers-symbolic","enabled":true},"Calibre":{"iconName":"calibre-gui","enabled":true},"Evolution Alarm Notify":{"iconName":"appointment-soon","enabled":true},"Telegram Desktop":{"iconName":"telegram","enabled":true},"Zenity":{"iconName":"application-x-executable","enabled":true},"Timeshift":{"iconName":"timeshift","enabled":true},"Disks":{"iconName":"org.gnome.DiskUtility","enabled":true},"Date & Time":{"iconName":"org.gnome.Settings-time-symbolic","enabled":true},"Software":{"iconName":"org.gnome.Software","enabled":true},"NetworkManager Applet":{"iconName":"nm-device-wireless","enabled":true},"Files":{"iconName":"org.gnome.Nautilus","enabled":true},"Disk Usage Analyzer":{"iconName":"org.gnome.baobab","enabled":true},"Power":{"iconName":"org.gnome.Settings-power-symbolic","enabled":true},"Backups":{"iconName":"org.gnome.DejaDup","enabled":true},"Color":{"iconName":"org.gnome.Settings-color-symbolic","enabled":true},"Clocks":{"iconName":"org.gnome.clocks","enabled":true},"Archive Manager":{"iconName":"org.gnome.FileRoller","enabled":true},"notify-send":{"iconName":"","enabled":true}}'
 
 [org/gnome/shell/extensions/gsconnect/device/293f781c_65a1_40ff_887b_3e934174ec12/plugin/share]
 receive-directory='/home/grota/Downloads'
@@ -739,7 +746,7 @@ use-default-background=true
 vertical-margin=0
 vertical-margin-bottom=0
 window-gap=0
-winprops=['{"wm_class":"/gnome-terminal-server/i","preferredWidth":"100%"}', '{"wm_class":"/slack/i","scratch_layer":true}', '{"wm_class":"gnome-terminal-server","preferredWidth":"100%"}']
+winprops=['{"wm_class":"gnome-terminal-server","preferredWidth":"100%"}']
 
 [org/gnome/shell/extensions/paperwm/keybindings]
 close-window=['<Super>q']
@@ -756,6 +763,7 @@ list=['26b2092e-cc22-4404-94ca-04ea07a88ae5', '95242d70-3c22-4ba5-8ea8-b4e8dd43f
 
 [org/gnome/shell/extensions/paperwm/workspaces/26b2092e-cc22-4404-94ca-04ea07a88ae5]
 index=0
+name='slack'
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/6237e22c-c0bc-4d72-8564-a6a215db0b23]
@@ -763,6 +771,7 @@ index=2
 
 [org/gnome/shell/extensions/paperwm/workspaces/95242d70-3c22-4ba5-8ea8-b4e8dd43f17b]
 index=1
+name='work'
 
 [org/gnome/shell/extensions/paperwm/workspaces/d554f895-e877-4006-8603-ab75e3fe7553]
 index=3
@@ -775,7 +784,7 @@ hpadding=0
 
 [org/gnome/shell/extensions/switcher]
 activate-by-key=uint32 2
-launcher-stats='{"slack.desktop":5,"google-chrome.desktop":1,"firefox.desktop":1,"nwg-readme-browser.desktop":1,"Alacritty.desktop":3,"org.gnome.Terminal.desktop":1,"obsidian.desktop":1,"com.github.joseexposito.touche.desktop":3}'
+launcher-stats='{"slack.desktop":6,"google-chrome.desktop":1,"firefox.desktop":1,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":1,"obsidian.desktop":6,"com.github.joseexposito.touche.desktop":3}'
 
 [org/gnome/shell/extensions/system-monitor]
 cpu-graph-width=50
@@ -785,6 +794,10 @@ memory-graph-width=50
 memory-show-text=false
 net-graph-width=50
 net-show-text=false
+
+[org/gnome/shell/extensions/trayIconsReloaded]
+icon-size=16
+icons-limit=6
 
 [org/gnome/shell/extensions/window-list]
 grouping-mode='auto'
@@ -803,11 +816,12 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1710665066
+check-timestamp=int64 1711790932
 first-run=false
-flatpak-purge-timestamp=int64 1710489542
+flatpak-purge-timestamp=int64 1711701047
 
 [org/gnome/terminal/legacy]
+always-check-default-terminal=false
 default-show-menubar=false
 headerbar=@mb false
 menu-accelerator-enabled=false
@@ -937,7 +951,7 @@ sort-column='modified'
 sort-directories-first=true
 sort-order='descending'
 type-format='category'
-window-position=(255, 58)
+window-position=(255, 72)
 window-size=(1410, 925)
 
 [org/regolith-linux/remontoire]
