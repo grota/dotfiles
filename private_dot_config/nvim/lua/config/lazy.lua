@@ -20,9 +20,7 @@ require("lazy").setup({
 				colorscheme = "catppuccin-mocha",
 			},
 		},
-		-- import any extras modules here
 		{ import = "lazyvim.plugins.extras.lang.yaml" },
-		{ import = "lazyvim.plugins.extras.coding.yanky" },
     { import = "lazyvim.plugins.extras.editor.mini-files" },
     -- { import = "lazyvim.plugins.extras.coding.copilot" },
     -- { import = "lazyvim.plugins.extras.coding.codeium" },
@@ -35,9 +33,6 @@ require("lazy").setup({
 		rtp = {
 			disabled_plugins = {
 				"gzip",
-				-- "matchit",
-				-- "matchparen",
-				-- "netrwPlugin",
 				"tarPlugin",
 				"tohtml",
 				"tutor",

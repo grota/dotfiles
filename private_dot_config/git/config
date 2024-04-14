@@ -76,3 +76,5 @@
 	branch = auto
 [branch]
 	sort = -committerdate
+[init]
+	defaultBranch = main

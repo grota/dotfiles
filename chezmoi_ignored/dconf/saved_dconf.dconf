@@ -7,6 +7,15 @@ window-height=998
 window-is-maximized=false
 window-width=732
 
+[com/rafaelmardojai/Blanket]
+playing=true
+scroll-position=0.0
+volume=1.0
+
+[com/rafaelmardojai/Blanket/e52f7134-cff9-463b-9f7d-3740d2cc1d57]
+sounds-mute={'rain': false}
+sounds-volume={'rain': 0.27000000000000002}
+
 [org/blueman/general]
 window-properties=[1920, 1011, 0, 69]
 
@@ -22,6 +31,9 @@ recent-connections=[{'adapter': '84:5C:F3:F0:6C:CE', 'address': '0C:89:5A:01:09:
 [org/gnome/Connections]
 first-run=false
 
+[org/gnome/Extensions]
+window-height=1048
+
 [org/gnome/GPaste]
 history-name='history'
 images-support=true
@@ -36,8 +48,8 @@ window-maximized=false
 [org/gnome/calculator]
 accuracy=9
 angle-units='degrees'
-base=10
-button-mode='basic'
+base=16
+button-mode='programming'
 number-format='automatic'
 show-thousands=false
 show-zeroes=false
@@ -45,13 +57,15 @@ source-currency=''
 source-units='degree'
 target-currency=''
 target-units='radian'
+window-maximized=false
+window-size=(680, 1048)
 word-size=64
 
 [org/gnome/calendar]
 active-view='month'
 window-maximized=false
 window-position=(0, 32)
-window-size=(1920, 1048)
+window-size=(1440, 1048)
 
 [org/gnome/clocks]
 alarms=[{'name': <'toyota'>, 'id': <'c6b377a6324da5b16ad6fe0c63d0e6ac'>, 'active': <false>, 'hour': <14>, 'minute': <5>, 'days': <@ai []>, 'snooze_minutes': <10>, 'ring_minutes': <5>}]
@@ -59,11 +73,11 @@ timers=[{'duration': <300>, 'name': <''>}]
 
 [org/gnome/clocks/state/window]
 maximized=false
-panel-id='timer'
-size=(1920, 1048)
+panel-id='stopwatch'
+size=(1440, 1048)
 
 [org/gnome/control-center]
-last-panel='power'
+last-panel='bluetooth'
 window-state=(1440, 1048, false)
 
 [org/gnome/deja-dup]
@@ -101,10 +115,10 @@ translate=true
 [org/gnome/desktop/background]
 color-shading-type='solid'
 picture-options='zoom'
-picture-uri='file:///usr/share/backgrounds/gnome/pixels-l.jpg'
-picture-uri-dark='file:///usr/share/backgrounds/gnome/pixels-d.jpg'
-primary-color='#967864'
-secondary-color='#000000'
+picture-uri='file:///home/grota/.local/share/backgrounds/2024-04-13-19-39-32-Default_view_from_inside_a_spaceship_Embark_on_a_serene_space_2.jpg'
+picture-uri-dark='file:///home/grota/.local/share/backgrounds/2024-04-13-19-39-32-Default_view_from_inside_a_spaceship_Embark_on_a_serene_space_2.jpg'
+primary-color='#000000000000'
+secondary-color='#000000000000'
 
 [org/gnome/desktop/calendar]
 show-weekdate=false
@@ -116,6 +130,7 @@ xkb-options=['lv3:ralt_switch', 'ctrl:nocaps']
 
 [org/gnome/desktop/interface]
 clock-show-seconds=false
+clock-show-weekday=true
 color-scheme='prefer-dark'
 cursor-blink-time=1015
 cursor-size=24
@@ -287,9 +302,9 @@ recent-files-max-age=-1
 color-shading-type='solid'
 lock-enabled=false
 picture-options='zoom'
-picture-uri='file:///usr/share/backgrounds/gnome/pixels-l.jpg'
-primary-color='#967864'
-secondary-color='#000000'
+picture-uri='file:///home/grota/.local/share/backgrounds/2024-04-13-19-39-32-Default_view_from_inside_a_spaceship_Embark_on_a_serene_space_2.jpg'
+primary-color='#000000000000'
+secondary-color='#000000000000'
 
 [org/gnome/desktop/search-providers]
 sort-order=['org.gnome.Contacts.desktop', 'org.gnome.Documents.desktop', 'org.gnome.Nautilus.desktop']
@@ -323,8 +338,12 @@ toggle-maximized=@as []
 unmaximize=@as []
 
 [org/gnome/desktop/wm/preferences]
+auto-raise=true
+button-layout='appmenu:close'
+focus-mode='click'
+resize-with-right-button=true
 theme='SolArc-Dark'
-workspace-names=['slack', 'work', 'Workspace 3', 'Workspace 4']
+workspace-names=['slack', 'work', 'Workspace 3', 'Workspace 4', 'Workspace 5']
 
 [org/gnome/eog/view]
 background-color='rgb(0,0,0)'
@@ -340,12 +359,12 @@ dual-page-odd-left=true
 enable-spellchecking=true
 fullscreen=false
 inverted-colors=false
-show-sidebar=true
+show-sidebar=false
 sidebar-page='thumbnails'
 sidebar-size=132
-sizing-mode='automatic'
-window-ratio=(3.2268907563025211, 1.2446555819477434)
-zoom=1.7273525643779126
+sizing-mode='fit-width'
+window-ratio=(1.2308313155770783, 1.3232323232323233)
+zoom=0.59405316870354252
 
 [org/gnome/evolution-data-server]
 migrated=true
@@ -392,15 +411,15 @@ print-wrap-mode='none'
 bottom-panel-size=140
 side-panel-active-page='GeditWindowDocumentsPanel'
 side-panel-size=200
-size=(1918, 1001)
-state=87040
+size=(1920, 1001)
+state=87168
 
 [org/gnome/gimagereader]
 highlightmode='plain text'
 language='eng:en'
 replacelist=''
 scandev=0
-wingeom=[1281, 1, 638, 1003]
+wingeom=[886, 32, 1034, 993]
 
 [org/gnome/gnome-panel/layout]
 object-id-list=['menu-bar', 'notification-area', 'system-indicators', 'clock', 'user-menu', 'show-destkop', 'window-list', 'workspace-switcher']
@@ -486,7 +505,7 @@ size=24
 unhide-delay=100
 
 [org/gnome/gnome-system-monitor]
-current-tab='processes'
+current-tab='disks'
 maximized=false
 network-total-in-bits=false
 show-dependencies=false
@@ -557,10 +576,10 @@ ignore-phase2-ca-cert=false
 last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/google-chrome]
-last-folder-path='/home/grota/Pictures/demo.comfydeploy.com'
+last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/org.gnome.Settings]
-last-folder-path='/home/grota/Pictures/demo.comfydeploy.com'
+last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/slack]
 last-folder-path='/home/grota/Downloads'
@@ -569,7 +588,7 @@ last-folder-path='/home/grota/Downloads'
 night-light-enabled=false
 
 [org/gnome/settings-daemon/plugins/media-keys]
-custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/']
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom4/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6/']
 help=@as []
 magnifier=@as []
 rotate-video-lock-static=@as []
@@ -605,18 +624,25 @@ name='logout'
 command='alacritty'
 name='Alacritty'
 
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom6]
+binding='<Shift><Super>b'
+command='gnome-control-center bluetooth'
+name='bluetooth settings'
+
 [org/gnome/settings-daemon/plugins/power]
 idle-dim=false
 power-button-action='interactive'
 sleep-inactive-ac-type='nothing'
 
 [org/gnome/shell]
-command-history=['lg']
+command-history=['r', 'kg', 'lllg', 'ls', 'lg']
 disable-user-extensions=false
-enabled-extensions=['BringOutSubmenuOfPowerOffLogoutButton@pratap.fastmail.fm', 'clipboard-indicator@tudmotu.com', 'just-perfection-desktop@just-perfection', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor@paradoxxx.zero.gmail.com', 'true-color-invert@jackkenney', 'switcher@landau.fi', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'gsconnect@andyholmes.github.io', 'auto-move-windows@gnome-shell-extensions.gcampax.github.com', 'light-style@gnome-shell-extensions.gcampax.github.com', 'native-window-placement@gnome-shell-extensions.gcampax.github.com', 'system-monitor@gnome-shell-extensions.gcampax.github.com', 'x11gestures@joseexposito.github.io', 'appindicatorsupport@rgcjonas.gmail.com', 'paperwm@paperwm.github.com']
-favorite-apps=['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Settings.desktop']
+disabled-extensions=@as []
+enabled-extensions=['BringOutSubmenuOfPowerOffLogoutButton@pratap.fastmail.fm', 'just-perfection-desktop@just-perfection', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor@paradoxxx.zero.gmail.com', 'true-color-invert@jackkenney', 'switcher@landau.fi', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'workspace-indicator@gnome-shell-extensions.gcampax.github.com', 'gsconnect@andyholmes.github.io', 'system-monitor@gnome-shell-extensions.gcampax.github.com', 'appindicatorsupport@rgcjonas.gmail.com', 'clipboard-indicator@tudmotu.com', 'freon@UshakovVasilii_Github.yahoo.com', 'paperwm@paperwm.github.com']
+favorite-apps=['org.gnome.Terminal.desktop', 'google-chrome.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Settings.desktop']
 had-bluetooth-devices-setup=true
-last-selected-power-profile='power-saver'
+last-selected-power-profile='performance'
+looking-glass-history=['Clutter', 'Clutter.get_default_backend().get_default_seat().get_pointer()', 'Meta', 'console.log(Meta)', 'console.log', 'console.dir(Meta)', 'Meta.Backend', 'Meta.Backend.get_context()', 'Gdk.DisplayManager.get();', 'Clutter.get_default_backend()', 'Meta.WaylandCompositor', 'Meta.WaylandCompositor.get_wayland_display', 'Meta.WaylandCompositor.get_wayland_display()', 'Clutter.get_default_backend().get_default_seat();', 'Gdk', 'var a =Clutter.get_default_backend().get_default_seat()', 'setTimeout', 'help', 'ls', 'console', 'global.window', 'window.C_', "window.C_ + ''", "window.N_ + ''", 'window', 'globa.display', 'global.display', 'Clutter.get_default_backend().get_default_seat()', 'Clutter.get_default_backend().get_default_seat().list_devices()', 'Clutter.get_default_backend().get_default_seat().list_devices()[0].capabilities', 'Clutter.get_default_backend().get_default_seat().list_devices()[0]', 'Clutter.get_default_backend().get_default_seat().list_devices()[0].get_capabilities()', 'Clutter.get_default_backend().get_default_seat().list_devices()[1].get_capabilities()', 'Clutter.get_default_backend().get_default_seat().list_devices()[3].get_capabilities()', 'global.stage', "global.stage.connect('key-press-event', function() => console.log('a'))", 'dd', "global.stage.connect('key-press-event', function(){ console.log('a')})", 'ssda', "global.stage.connect('key-press-event', function(){ console.log('ab')})", "global.stage.connect('key-release-event', function(){ console.log('ab')})", 'xxxx', "global.stage.connect('key-release-event', function(a,b,c,d){ console.log(a,b,c,d)})", "global.stage.connect('key-press-event', function(a,b,c,d){ console.log(a,b,c,d)})", "a=global.stage.connect('key-press-event', function(a,b){ console.log(a,b)})", "a=global.stage.connect('key-press-event', function(a,b){ console.log(a,b.get_key_code())})", "a=global.stage.connect('key-press-event', function(a,b){ console.log(a,b.get_key_symbol())})", "a=global.stage.connect('key-press-event', function(a,b){ console.log('sym',b.get_key_symbol(),'code', b.get_key_code())})", "a=global.stage.connect('key-press-event', function(a,b){ console.log('sym',b.get_key_symbol(),'code', b.get_key_code(), 'u', Clutter.keysym_to_unicode(b.get_key_code()))})", 'a=global.stage.disconnect(77014)', "a=global.stage.connect('key-press-event', function(a,b){ console.log('sym',b.get_key_symbol(),'code', b.get_key_code(), 'u', Clutter.keysym_to_unicode(b.get_key_symbol()))})", 'Clutter.KEY_g', 'Clutter.KEY_G', 'Clutter.KEY_J', 'a=global.stage.disconnect(82210)', 'j', 'Clutter.KEY_j', "a=global.stage.connect('key-press-event', function(a,b){ console.log('sym',b.get_key_symbol())})", 'Signals', 'a=global.stage.disconnect(a)', 'a=global.stage.disconnect(93585)', "import * as Config from 'resource:///org/gnome/shell/misc/config.js';", 'imports', 'import.gi.Meta', 'imports.gi.Meta', 'Object.getOwnPropertyNames(imports.gi.Meta)', 'r', 'r(5)', 'a=r(5)', 'Object.getOwnPropertyNames(a)', 'console.log(a)', 'a.__proto__', 'a', 'a.toString()', 'Object.keys(a)', 'console.log(Object.keys(a))', 'a.actor()', 'a.get_actor().toString()', 'a.get_actor()', 'a.get_name()', 'a.get_actor().get_name()', 'global.stage.get_actions()', "Main.notifyError('ciao')", 'imports.ui.Main', 'imports.ui', 'imports.gi.Main', 'imports.gi.main', 'imports.ui.main', 'Main.notify', 'Main.notify("cas")', 'imports.Signals', 'Object.keys(imports)', 'Object.keys(imports.signals)', 'imports.signals', 'Object.keys(imports.gi)', 'Object.keys(imports.ui)', 'Object.keys(imports.system)', 'Object.keys(imports.system.version)', 'imports.system.version', 'Main', 'Object.keys(Main)', "global.get_data('Main')", 'global.get_data()', 'global', 'Main.layoutManager']
 welcome-dialog-last-shown-version='41.2'
 
 [org/gnome/shell/app-switcher]
@@ -629,11 +655,19 @@ tray-pos='center'
 [org/gnome/shell/extensions/clipboard-indicator]
 clear-history=@as []
 display-mode=1
+move-item-first=true
 next-entry=['<Control>F6']
 prev-entry=['<Control>F7']
+preview-size=34
 private-mode-binding=@as []
+strip-text=false
 toggle-menu=['<Control>F5']
 topbar-preview-size=70
+
+[org/gnome/shell/extensions/freon]
+hot-sensors=['__max__', '__average__']
+panel-box-index=3
+position-in-panel='left'
 
 [org/gnome/shell/extensions/gsconnect]
 devices=['b352a8f323a9e94c', '_7d72bfad_a6d6_49c7_a922_f2bd9973528e_', '293f781c_65a1_40ff_887b_3e934174ec12']
@@ -745,7 +779,7 @@ show-workspace-indicator=true
 use-default-background=true
 vertical-margin=0
 vertical-margin-bottom=0
-window-gap=0
+window-gap=1
 winprops=['{"wm_class":"gnome-terminal-server","preferredWidth":"100%"}']
 
 [org/gnome/shell/extensions/paperwm/keybindings]
@@ -759,7 +793,7 @@ switch-right=['<Super>l']
 switch-up-workspace=['<Super>k']
 
 [org/gnome/shell/extensions/paperwm/workspaces]
-list=['26b2092e-cc22-4404-94ca-04ea07a88ae5', '95242d70-3c22-4ba5-8ea8-b4e8dd43f17b', 'e8c8f783-5429-42af-9114-9fb85bcf9fed', '6237e22c-c0bc-4d72-8564-a6a215db0b23', 'd554f895-e877-4006-8603-ab75e3fe7553']
+list=['26b2092e-cc22-4404-94ca-04ea07a88ae5', '95242d70-3c22-4ba5-8ea8-b4e8dd43f17b', 'e8c8f783-5429-42af-9114-9fb85bcf9fed', '6237e22c-c0bc-4d72-8564-a6a215db0b23', 'd554f895-e877-4006-8603-ab75e3fe7553', 'b3a1e851-310c-4f75-80bb-efffff075d8f']
 
 [org/gnome/shell/extensions/paperwm/workspaces/26b2092e-cc22-4404-94ca-04ea07a88ae5]
 index=0
@@ -767,14 +801,17 @@ name='slack'
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/6237e22c-c0bc-4d72-8564-a6a215db0b23]
-index=2
+index=3
 
 [org/gnome/shell/extensions/paperwm/workspaces/95242d70-3c22-4ba5-8ea8-b4e8dd43f17b]
 index=1
 name='work'
 
+[org/gnome/shell/extensions/paperwm/workspaces/b3a1e851-310c-4f75-80bb-efffff075d8f]
+index=5
+
 [org/gnome/shell/extensions/paperwm/workspaces/d554f895-e877-4006-8603-ab75e3fe7553]
-index=3
+index=2
 
 [org/gnome/shell/extensions/paperwm/workspaces/e8c8f783-5429-42af-9114-9fb85bcf9fed]
 index=4
@@ -816,9 +853,9 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1711790932
+check-timestamp=int64 1713105444
 first-run=false
-flatpak-purge-timestamp=int64 1711701047
+flatpak-purge-timestamp=int64 1713106348
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
@@ -951,7 +988,7 @@ sort-column='modified'
 sort-directories-first=true
 sort-order='descending'
 type-format='category'
-window-position=(255, 72)
+window-position=(255, 79)
 window-size=(1410, 925)
 
 [org/regolith-linux/remontoire]
