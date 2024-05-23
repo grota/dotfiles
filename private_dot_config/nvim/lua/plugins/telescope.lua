@@ -59,6 +59,7 @@ local git_grep_vimgrep_args = {
 }
 local git_grep_ignore_case_vimgrep_args = vim.deepcopy(git_grep_vimgrep_args)
 vim.list_extend(git_grep_ignore_case_vimgrep_args, { "--ignore-case" })
+local telescope_builtins = require("telescope.builtin")
 
 return {
 	{
@@ -86,7 +87,7 @@ return {
 			opts.defaults.wrap_results = true
 			opts.defaults.layout_config = {
 				horizontal = {
-					width = 0.9,
+					width = 0.99,
 					prompt_position = "top",
 				},
 			}
@@ -114,7 +115,7 @@ return {
 				{
 					"<leader>ggs",
           function()
-            require("telescope.builtin").live_grep({
+            telescope_builtins.live_grep({
               prompt_title = "Git Grep sensitive",
               vimgrep_arguments = git_grep_vimgrep_args,
               default_text = get_current_word_or_visual_selection(),
@@ -126,7 +127,7 @@ return {
 				{
 					"<leader>ggi",
           function()
-            require("telescope.builtin").live_grep({
+            telescope_builtins.live_grep({
               prompt_title = "Git Grep in-sensitive",
               vimgrep_arguments = git_grep_ignore_case_vimgrep_args,
               default_text = get_current_word_or_visual_selection(),
@@ -138,7 +139,7 @@ return {
 				{
 					"<leader>gga",
           function()
-            require("telescope.builtin").live_grep({
+            telescope_builtins.live_grep({
               prompt_title = "RipGrep all",
               vimgrep_arguments = vimgrep_arguments_for_all,
               default_text = get_current_word_or_visual_selection(),
@@ -152,7 +153,7 @@ return {
 				{
 					"<leader>sF",
 					function()
-						require("telescope.builtin").find_files({
+						telescope_builtins.find_files({
 							prompt_title = "Search All files",
 							find_command = find_all_files_cmd,
 						})
@@ -163,7 +164,7 @@ return {
 				{
 					"<leader>so",
 					function()
-						require("telescope.builtin")["oldfiles"]({
+						telescope_builtins["oldfiles"]({
 							prompt_title = "Oldfiles local",
 							cwd_only = true,
 						})
@@ -173,7 +174,7 @@ return {
 				{
 					"<leader>sO",
 					function()
-						require("telescope.builtin")["oldfiles"]({
+						telescope_builtins["oldfiles"]({
 							prompt_title = "Oldfiles global",
 						})
 					end,
@@ -183,7 +184,7 @@ return {
 				{
 					"<leader>ss",
           function()
-            require("telescope.builtin").lsp_document_symbols({
+            telescope_builtins.lsp_document_symbols({
               symbols = lsp_symbol_types,
               symbol_width = 60,
             })
@@ -196,7 +197,7 @@ return {
 				{
 					"<leader>sS",
           function()
-            require("telescope.builtin").lsp_workspace_symbols({
+            telescope_builtins.lsp_workspace_symbols({
             symbols = lsp_symbol_types,
             symbol_width = 60,
             })
@@ -207,14 +208,14 @@ return {
 				{
 					"<leader>tpl",
 					function()
-						require("telescope.builtin")["builtin"]({ default_text = "lsp_" })
+						telescope_builtins["builtin"]({ default_text = "lsp_" })
 					end,
 					desc = "Telescope lsp_*",
 				},
 				{
 					"<leader>tpp",
 					function()
-						require("telescope.builtin")["commands"]({ default_text = "Phpactor" })
+						telescope_builtins["commands"]({ default_text = "Phpactor" })
 					end,
 					mode = { "n", "x" },
 					desc = "Telescope Phpactor*",
@@ -223,13 +224,21 @@ return {
 				{
 					"<leader>th",
 					function()
-						require("telescope.builtin")["keymaps"]({
+						telescope_builtins["keymaps"]({
 							default_text = "'Telescope !'TelescopeFuzzyCommandSearch ",
 						})
 					end,
 					desc = "Telescope help",
 				},
-				{ "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Telescope Switch Buffer" },
+				-- { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Telescope Switch Buffer" },
+				{ "<leader>,", function()
+          telescope_builtins["buffers"]({
+            show_all_buffers = true,
+            layout_config = {
+              preview_width = 0,
+            },
+          })
+        end, desc = "Telescope Switch Buffer" },
 				{ "<leader>tr", "<cmd>Telescope resume<cr>", desc = "Telescope Resume" },
 				{ "<leader>gS", "<cmd>Telescope git_status<CR>", desc = "Telescope git status" },
 				{ "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Telescope search buffer" },
