@@ -1,0 +1,17 @@
+% psysh
+
+# lsl
+ls -l $_
+
+# toarray
+$_->toarray()
+
+# classimpl
+class_implements($_)
+
+# fields of bundle
+ $field_list = \Drupal::service('entity_field.manager')->getFieldDefinitions('<entity_type_id>', '<bundle_id>');
+
+$ entity_type_id: docker compose --progress=quiet run --rm drupal-tools drush ev  'echo implode(PHP_EOL,(array_keys(\Drupal::entitytypemanager()->getdefinitions())))' 2> /dev/null
+$ bundle_id: docker compose --progress=quiet run --rm drupal-tools drush ev  'echo implode(PHP_EOL,(array_keys(\Drupal::service("entity_type.bundle.info")->getBundleInfo("<entity_type_id>"))))' 2> /dev/null
+

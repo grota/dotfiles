@@ -1,0 +1,16 @@
+% mysql
+
+# show tables like
+show tables like '%<table>%';
+
+# select * from
+select * from <table>;
+
+# mysql pager
+\P less -SFX
+
+# show create table
+show create table <table>;
+
+# desc table
+desc <table>;

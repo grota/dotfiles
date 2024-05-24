@@ -90,7 +90,7 @@ panel-id='timer'
 size=(1440, 1048)
 
 [org/gnome/control-center]
-last-panel='power'
+last-panel='display'
 window-state=(1440, 1048, false)
 
 [org/gnome/deja-dup]
@@ -620,7 +620,7 @@ last-folder-path='/home/grota/Downloads'
 last-folder-path='/home/grota/Downloads'
 
 [org/gnome/settings-daemon/plugins/color]
-night-light-enabled=false
+night-light-enabled=true
 night-light-temperature=uint32 4236
 
 [org/gnome/settings-daemon/plugins/media-keys]
