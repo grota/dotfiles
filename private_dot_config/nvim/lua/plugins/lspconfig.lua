@@ -8,6 +8,7 @@ return {
 		end,
     ---@param opts PluginLspOpts
 		opts = function(_, opts)
+      opts.inlay_hints.enabled = false
       -- return true if you don't want a server to be setup with lspconfig
       ---@param o lspconfig.options.clangd
 			opts.setup.clangd = function(_, o)

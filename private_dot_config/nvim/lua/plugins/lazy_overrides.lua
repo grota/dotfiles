@@ -2,7 +2,6 @@ return {
   {
     "Exafunction/codeium.nvim",
     opts = function (_, opts)
-      vim.print(opts)
       opts.enable_chat = true
     end,
   },
@@ -209,26 +208,6 @@ return {
 	},
 
 	{
-		-- Remove the keys part, I only want to use <M-n> and <M-p>
-		-- And I also don't want to lose the ]] and [[ mappings from core ft.
-		"RRethy/vim-illuminate",
-		keys = function(_, _)
-			return {}
-		end,
-		opts = {
-			filetype_overrides = {
-				-- There seems to be a bug in one of the 2 lsp I use in supporting the next word (<M-n>)
-				php = {
-					providers = { "treesitter" },
-				},
-			},
-		},
-		config = function(_, opts)
-			require("illuminate").configure(opts)
-		end,
-	},
-
-	{
 		"folke/noice.nvim",
 		keys = {
 			{ "<leader>snD", "<cmd>Noice disable<cr>", desc = "Noice disable" },
@@ -266,7 +245,7 @@ return {
           opts = {
             size = {
               width = '80%',
-              height = '10%',
+              height = '20%',
             },
             win_options = {
               wrap = true,

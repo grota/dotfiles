@@ -72,7 +72,7 @@ return {
 			opts.defaults.mappings.i["<c-t>"] = myactions.select_tab -- C needs to stay lowercase because it's like that in Lazyvim
 			opts.defaults.mappings.i["<C-v>"] = myactions.select_vertical
 			-- section only slightly modified to pass func directly to have telescope's which-key with something.
-			opts.defaults.mappings.i["<C-S-t>"] = require("trouble.providers.telescope").open_with_trouble
+			-- opts.defaults.mappings.i["<C-S-t>"] = require("trouble.providers.telescope").open_with_trouble
 			opts.defaults.mappings.i["<C-Down>"] = actions.cycle_history_next
 			opts.defaults.mappings.i["<C-Up>"] = actions.cycle_history_prev
 			opts.defaults.mappings.i["<C-f>"] = actions.preview_scrolling_down

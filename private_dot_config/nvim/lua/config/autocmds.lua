@@ -56,3 +56,11 @@ vim.api.nvim_create_autocmd("User", {
     end
   end,
 })
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = { "FugitiveIndex", 'FugitiveObject', 'FugitivePager' },
+	group = vim.api.nvim_create_augroup("grota_delete_useless_fugitive_maps", { clear = true }),
+  callback = function(event)
+    vim.keymap.del('n', '<F1>', { buffer = true })
+  end,
+})

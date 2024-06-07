@@ -144,6 +144,6 @@ map('n', '<leader>ma', function () require("grota.marks").SetFirstUnmarkedUpperc
 -- Needs neovim nightly to have this https://github.com/neovim/neovim/pull/24936 to be able to del global marks.
 map('n', '<leader>mm', function() require('grota.telescope').marks() end, { desc = "Telescope marks" })
 
-map('n', '<leader>bd', function() vim.cmd.bdelete() end, { desc = "Buffer delete" })
+-- map('n', '<leader>bd', function() vim.cmd.bdelete() end, { desc = "Buffer delete" })
 
 map('i', '<C-o>', '<C-\\><C-o>', { noremap = true, desc = "C-o without moving cursor" })
