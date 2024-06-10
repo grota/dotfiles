@@ -1,0 +1,16 @@
+{
+  "error_log print_r": {
+    "prefix": "elp",
+    "body": [
+      "error_log(__${2:METHOD}__ . ': ' . print_r(\\$${1:var}, TRUE));"
+    ],
+    "description": "error_log print_r"
+  },
+  "error_log var_export": {
+    "prefix": "elv",
+    "body": [
+      "error_log(__${2:METHOD}__ . ': ' . var_export(\\$${1:var}, TRUE));"
+    ],
+    "description": "error_log var_export"
+  }
+}

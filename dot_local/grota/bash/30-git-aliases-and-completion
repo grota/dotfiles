@@ -3,11 +3,9 @@
 
 #git aliases {{{
 alias g="git"
-#alias gsf=
 alias gco="git checkout"
 alias gcob="git checkout -b"
 alias gc="git commit"
-# alias grs="git reset"
 alias grsh="git reset --hard"
 alias grm="git rm"
 alias gd="git diff"
@@ -17,7 +15,7 @@ alias gcl="git clone"
 alias gps="git push"
 alias gs="git status -s"
 alias gaa="git add --all ."
-alias gcm="git commit --amend"
+alias gcm="gc --amend --date=now"
 alias gr="git remote -v"
 alias gb="git branch"
 alias gbd="git branch -d"
@@ -38,11 +36,10 @@ alias gdcwd='git diff --word-diff --cached'
 alias gpfn='git push --force-with-lease --no-verify'
 alias gst='git stash list'
 alias gsts='git stash save'
-# alias gstsh='git stash show -p'
 alias gsta='git stash apply'
 alias gstd='git stash drop'
 alias gstp='git stash pop --index'
-alias gcmh="git commit --amend -C HEAD"
+alias gcmh="gcm -C HEAD"
 alias gcmhnv="gcmh --no-verify"
 alias gcmnv="gcm --no-verify"
 

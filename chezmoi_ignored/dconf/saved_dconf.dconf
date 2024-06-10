@@ -375,7 +375,7 @@ button-layout='appmenu:close'
 focus-mode='click'
 resize-with-right-button=true
 theme='SolArc-Dark'
-workspace-names=['slack', 'work', 'beampointer', 'Workspace 4', 'beampointer']
+workspace-names=['slack', 'work', 'Workspace 3', 'beampointer', 'beampointer']
 
 [org/gnome/eog/view]
 background-color='rgb(0,0,0)'
@@ -611,7 +611,7 @@ last-folder-path='/home/grota/Downloads'
 last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/google-chrome]
-last-folder-path='/home/grota'
+last-folder-path='/home/grota/Documents/commercialista/2024'
 
 [org/gnome/portal/filechooser/org.gnome.Builder]
 last-folder-path='/home/grota/Projects/personal/gjs-extension-test-runner'
@@ -847,21 +847,21 @@ name='slack'
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/6237e22c-c0bc-4d72-8564-a6a215db0b23]
-index=3
+index=2
 
 [org/gnome/shell/extensions/paperwm/workspaces/95242d70-3c22-4ba5-8ea8-b4e8dd43f17b]
 index=1
 name='work'
 
 [org/gnome/shell/extensions/paperwm/workspaces/b3a1e851-310c-4f75-80bb-efffff075d8f]
-index=4
+index=3
 name='beampointer'
 
 [org/gnome/shell/extensions/paperwm/workspaces/d554f895-e877-4006-8603-ab75e3fe7553]
 index=5
 
 [org/gnome/shell/extensions/paperwm/workspaces/e8c8f783-5429-42af-9114-9fb85bcf9fed]
-index=2
+index=4
 name='beampointer'
 
 [org/gnome/shell/extensions/status-area-horizontal-spacing]
@@ -869,7 +869,7 @@ hpadding=0
 
 [org/gnome/shell/extensions/switcher]
 activate-by-key=uint32 2
-launcher-stats='{"slack.desktop":6,"google-chrome.desktop":1,"firefox.desktop":1,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":1,"obsidian.desktop":6,"com.github.joseexposito.touche.desktop":3}'
+launcher-stats='{"slack.desktop":7,"google-chrome.desktop":1,"firefox.desktop":1,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":1,"obsidian.desktop":6,"com.github.joseexposito.touche.desktop":3}'
 
 [org/gnome/shell/extensions/system-monitor]
 cpu-graph-width=50
@@ -910,9 +910,9 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1717652698
+check-timestamp=int64 1718000030
 first-run=false
-flatpak-purge-timestamp=int64 1717742887
+flatpak-purge-timestamp=int64 1717924887
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
@@ -1048,7 +1048,7 @@ sort-column='modified'
 sort-directories-first=true
 sort-order='descending'
 type-format='category'
-window-position=(255, 70)
+window-position=(26, 23)
 window-size=(1410, 925)
 
 [org/regolith-linux/remontoire]
