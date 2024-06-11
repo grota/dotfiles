@@ -1,23 +1,23 @@
 return {
-	{
-		-- this simply did not work out for me, I need a real tabline not a bufferline.
-		"akinsho/bufferline.nvim",
-		enabled = false,
-	},
+  {
+    -- this simply did not work out for me, I need a real tabline not a bufferline.
+    "akinsho/bufferline.nvim",
+    enabled = false,
+  },
 
-	{
-		"nvim-pack/nvim-spectre",
-		enabled = false,
-	},
+  {
+    "nvim-pack/nvim-spectre",
+    enabled = false,
+  },
 
   {
     "echasnovski/mini.bufremove",
-		enabled = false,
+    enabled = false,
   },
 
   {
     "nvim-neo-tree/neo-tree.nvim",
-		enabled = false,
+    enabled = false,
   },
 
 }

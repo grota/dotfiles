@@ -403,7 +403,7 @@ migrated=true
 network-monitor-gio-name=''
 
 [org/gnome/evolution-data-server/calendar]
-reminders-past=['1a98c3c04adf522b8cff948a88cff227ddca0aff\n8359af17e9c589b49d84f43d78cf9dd44203864f\t20240607T100000\n1717660800\n1717747200\n1717790400\nBEGIN:VEVENT\r\nDTSTART;TZID=Europe/Rome:20240607T100000\r\nDTEND;TZID=Europe/Rome:20240607T220000\r\nRRULE:FREQ=YEARLY;BYMONTHDAY=7;BYMONTH=6\r\nDTSTAMP:20230303T085406Z\r\nUID:7C8CE6BCEA8E44C195AB0F9D8FFCB52900000000000000000000000000000000\r\nCREATED:20100607T151152Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T085406Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Compleanno Alex Fortin\r\nTRANSP:OPAQUE\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813516846\r\nRECURRENCE-ID;TZID=Europe/Rome:20240607T100000\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1D\r\nX-EVOLUTION-ALARM-UID:8359af17e9c589b49d84f43d78cf9dd44203864f\r\nEND:VALARM\r\nEND:VEVENT\r\n', '1a98c3c04adf522b8cff948a88cff227ddca0aff\na7ee3626e7bb0ce8c547a94f11261be7c8ae24b7\t20240602T100000\n1717314300\n1717315200\n1717340400\nBEGIN:VEVENT\r\nDTSTART;TZID=Europe/Rome:20240602T100000\r\nDTEND;TZID=Europe/Rome:20240602T170000\r\nRRULE:FREQ=YEARLY\r\nDTSTAMP:20230303T090323Z\r\nUID:g6tocm151ffs1ha7ajvci3jrbs@google.com\r\nCREATED:20130526T071910Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T090323Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Compleanno Umberto\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63813517403\r\nRECURRENCE-ID;TZID=Europe/Rome:20240602T100000\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15M\r\nX-EVOLUTION-ALARM-UID:a7ee3626e7bb0ce8c547a94f11261be7c8ae24b7\r\nEND:VALARM\r\nEND:VEVENT\r\n']
+reminders-past=['1a98c3c04adf522b8cff948a88cff227ddca0aff\n8359af17e9c589b49d84f43d78cf9dd44203864f\t20240607T100000\n1717660800\n1717747200\n1717790400\nBEGIN:VEVENT\r\nDTSTART;TZID=Europe/Rome:20240607T100000\r\nDTEND;TZID=Europe/Rome:20240607T220000\r\nRRULE:FREQ=YEARLY;BYMONTHDAY=7;BYMONTH=6\r\nDTSTAMP:20230303T085406Z\r\nUID:7C8CE6BCEA8E44C195AB0F9D8FFCB52900000000000000000000000000000000\r\nCREATED:20100607T151152Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T085406Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Compleanno Alex Fortin\r\nTRANSP:OPAQUE\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813516846\r\nRECURRENCE-ID;TZID=Europe/Rome:20240607T100000\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1D\r\nX-EVOLUTION-ALARM-UID:8359af17e9c589b49d84f43d78cf9dd44203864f\r\nEND:VALARM\r\nEND:VEVENT\r\n']
 
 [org/gnome/file-roller/dialogs/extract]
 recreate-folders=true
@@ -869,7 +869,7 @@ hpadding=0
 
 [org/gnome/shell/extensions/switcher]
 activate-by-key=uint32 2
-launcher-stats='{"slack.desktop":7,"google-chrome.desktop":1,"firefox.desktop":1,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":1,"obsidian.desktop":6,"com.github.joseexposito.touche.desktop":3}'
+launcher-stats='{"slack.desktop":8,"google-chrome.desktop":1,"firefox.desktop":1,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":1,"obsidian.desktop":7,"com.github.joseexposito.touche.desktop":3,"org.ksnip.ksnip.desktop":1}'
 
 [org/gnome/shell/extensions/system-monitor]
 cpu-graph-width=50
@@ -910,9 +910,9 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1718000030
+check-timestamp=int64 1718096569
 first-run=false
-flatpak-purge-timestamp=int64 1717924887
+flatpak-purge-timestamp=int64 1718093988
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
