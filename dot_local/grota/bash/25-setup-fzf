@@ -10,7 +10,6 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-source "$HOME/.vim/plugged/fzf/shell/key-bindings.bash"
 # fzf's ALT-C explained:
 # now commented since I'm using readline's defaults.
 # space backward-char(\C-b) kill-line(\C-k) space unix-line-discard(\C-u) `fzf_cd`
@@ -18,7 +17,9 @@ source "$HOME/.vim/plugged/fzf/shell/key-bindings.bash"
 # yank(\C-y) backward-delete-char(\C-h) set-mark(\e ) yank(\C-y) yank-pop(\ey)
 # exchange-point-and-mark (\C-x\C-w) delete-char(\C-d)
 # bind -m emacs-standard '"\ec": " \C-b\C-k \C-u`__fzf_cd__`\e\C-e\er\C-m\C-y\C-h\e \C-y\ey\C-x\C-x\C-d"'
-[[ $- == *i* ]] && source "$HOME/.vim/plugged/fzf/shell/completion.bash" 2> /dev/null
+
+# Set up fzf key bindings and fuzzy completion
+eval "$(fzf --bash)"
 export FZF_DEFAULT_COMMAND='(fd --no-ignore-vcs --type f --hidden --follow --exclude .git) 2> /dev/null'
 export FZF_CTRL_T_COMMAND='(fd --no-ignore-vcs --hidden --follow --exclude .git) 2> /dev/null'
 export FZF_DEFAULT_OPTS="--bind='alt-h:preview(~/Projects/personal/fzf-helper/dist/tsc/main.js)' --select-1"
