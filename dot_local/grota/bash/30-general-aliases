@@ -6,7 +6,7 @@ alias L='less -R'
 alias df='df -h'
 # https://github.com/Peltoche/lsd
 alias ls='lsd'
-alias ll='lsd --tree'
+alias ll='fzfllm'
 alias l='lsd -l'
 alias nv=nordvpn
 alias d=docker

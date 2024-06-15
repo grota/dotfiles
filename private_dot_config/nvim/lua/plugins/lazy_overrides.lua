@@ -207,20 +207,20 @@ return {
     end
 	},
 
-	{
-		"folke/noice.nvim",
-		keys = {
-			{ "<leader>snD", "<cmd>Noice disable<cr>", desc = "Noice disable" },
-			{ "<leader>snE", "<cmd>Noice enable<cr>", desc = "Noice enable" },
-			{
-				"<M-Enter>",
-				function()
-					require("noice").redirect(vim.fn.getcmdline())
-				end,
-				mode = "c",
-				desc = "Redirect Cmdline",
-			}, -- <S-Enter> does not work on my term emulator.
-		},
+  {
+    "folke/noice.nvim",
+    keys = {
+      { "<leader>snD", "<cmd>Noice disable<cr>", desc = "Noice disable" },
+      { "<leader>snE", "<cmd>Noice enable<cr>", desc = "Noice enable" },
+      {
+        "<M-Enter>",
+        function()
+          require("noice").redirect(vim.fn.getcmdline())
+        end,
+        mode = "c",
+        desc = "Redirect Cmdline",
+      }, -- <S-Enter> does not work on my term emulator.
+    },
     opts = {
       messages = {
         view_search = 'mini',
@@ -255,6 +255,13 @@ return {
 
       }
     }
-	},
+  },
+
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    opts = function (_, opts)
+      opts.max_lines = 5
+    end,
+  },
 
 }

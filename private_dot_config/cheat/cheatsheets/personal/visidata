@@ -1,0 +1,4 @@
+_      toggle width of current column between full and default width
+gzv    resize row height to max height needed to see this row
+zEnter dive in
+v      multi line

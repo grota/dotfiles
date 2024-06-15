@@ -1,0 +1,202 @@
+#!/usr/bin/env bash
+
+FZFLLM=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)/$(basename -- "${BASH_SOURCE[0]}")
+_bgreen() { printf "%b%s%b" '\e[1;32m' "$@" '\e[0m' ; }
+_bwhite() { printf "%b%s%b" '\e[1;37m' "$@" '\e[0m' ; }
+
+DB="$HOME/.config/io.datasette.llm/logs.db"
+
+LLM_GET_CONVERSATION_CMD="${LLM_GET_CONVERSATION_CMD:-llm logs list --cid {1}}"
+LLM_CONVERSATION_PAGER="${LLM_CONVERSATION_PAGER:-bat --language markdown --color always --paging=always --plain --pager=\"less -R\"}"
+LLM_CONVERSATION_PREVIEW="${LLM_CONVERSATION_PREVIEW:-bat --language markdown --color always --plain}"
+
+KEY_TOGGLE_HEADER="${KEY_TOGGLE_HEADER:-alt-/}"
+KEY_NEW_CHAT="${KEY_NEW_CHAT:-ctrl-t}"
+KEY_SEARCH_CONVERSATION="${KEY_SEARCH_CONVERSATION:-/}"
+KEY_DELETE_CONVERSATION="${KEY_DELETE_CONVERSATION:-ctrl-delete}"
+KEY_OPEN_CONVERSATION_IN_PAGER="${KEY_OPEN_CONVERSATION_IN_PAGER:-enter}"
+KEY_OPEN_CONVERSATION_IN_EDITOR="${KEY_OPEN_CONVERSATION_IN_EDITOR:-alt-enter}"
+KEY_RESUME_CONVERSATION="${KEY_RESUME_CONVERSATION:-ctrl-r}"
+KEY_SHOW_HELP="${KEY_SHOW_HELP:-?}"
+KEY_PREVIEW_UP_1="${KEY_PREVIEW_UP_1:-alt-k}"
+KEY_PREVIEW_UP_2="${KEY_PREVIEW_UP_2:-alt-p}"
+KEY_PREVIEW_DOWN_1="${KEY_PREVIEW_DOWN_1:-alt-j}"
+KEY_PREVIEW_DOWN_2="${KEY_PREVIEW_DOWN_2:-alt-n}"
+
+HEADER_TEXT="Press $KEY_SHOW_HELP for help"
+
+# Just UI/UX/style, can be freely changed.
+FZFLLM_FZF_GRAPHICAL_OPTS="
+--layout=reverse --height='100%'
+--preview-window='down,50%,border-double'
+--border=\"block\" --color=gutter:-1 --pointer=\"◆\"
+--header '$HEADER_TEXT' --header-first
+--info=hidden --prompt=\"conversations\> \"
+--cycle --no-sort --exit-0 --tiebreak=index
+--no-select-1
+"
+
+# We assume NUL-terminated input to fzf to accomodate multiline input.
+# See https://junegunn.github.io/fzf/tips/processing-multi-line-items/
+# Input to fzf is assumed to be tab delimited, with the conversation id in the
+# first field and the initial conversation prompt in the second.
+FZFLLM_FZF_DEFAULT_OPTS="
+$FZF_DEFAULT_OPTS
+$FZFLLM_FZF_GRAPHICAL_OPTS
+--ansi --no-multi
+--nth=1 --with-nth=2 --delimiter='\t' --read0 --highlight-line
+--preview='$LLM_GET_CONVERSATION_CMD | $LLM_CONVERSATION_PREVIEW'
+--bind='$KEY_PREVIEW_UP_1:preview-up,$KEY_PREVIEW_UP_2:preview-up'
+--bind='$KEY_PREVIEW_DOWN_1:preview-down,$KEY_PREVIEW_DOWN_2:preview-down'
+--bind='$KEY_DELETE_CONVERSATION:execute($FZFLLM delete_conversation {1})+print(list_conversations)+accept'
+--bind='$KEY_OPEN_CONVERSATION_IN_EDITOR:execute($FZFLLM open_conversation_in_editor {1})'
+--bind='$KEY_OPEN_CONVERSATION_IN_PAGER:execute($LLM_GET_CONVERSATION_CMD | $LLM_CONVERSATION_PAGER)'
+--bind='$KEY_NEW_CHAT:print(new_conversation)+accept'
+--bind='$KEY_RESUME_CONVERSATION:execute($FZFLLM resume_conversation {1})'
+--bind='$KEY_SHOW_HELP:preview($FZFLLM help)'
+--bind='$KEY_TOGGLE_HEADER:toggle-header'
+$FZFLLM_FZF_DEFAULT_OPTS"
+
+_fzfllm_main() {
+  local NEXT_COMMAND=list_conversations
+  local PREVIOUS_COMMAND=
+  while true; do
+    PREVIOUS_COMMAND="$NEXT_COMMAND"
+    NEXT_COMMAND=$($FZFLLM "$NEXT_COMMAND")
+    NEXT_COMMAND=$(echo "$NEXT_COMMAND" | head --lines=1)
+    # For debug:
+    # echo in main loop, first line from previous output is "|$NEXT_COMMAND|"
+    if [ -z "$NEXT_COMMAND" ] && [ "$PREVIOUS_COMMAND" == list_conversations ]; then
+      return
+    fi
+    if [ -z "$NEXT_COMMAND" ]; then
+      NEXT_COMMAND=list_conversations
+    fi
+    if [ "$NEXT_COMMAND" == exitfzfllm ]; then
+      return
+    fi
+  done
+}
+
+_fzfllm_list_conversations() {
+  local OPTS="
+  $FZFLLM_FZF_DEFAULT_OPTS
+  --bind=\"$KEY_SEARCH_CONVERSATION:print(search_conversations)+accept\"
+  $FZFLLM_LIST_CONVOS_FZF_OPTS"
+
+  local CONVERSATIONS_QUERY="
+  SELECT conversations.id, substring(responses.prompt, 0, 1000)
+  FROM conversations
+  INNER JOIN responses on conversations.id=responses.conversation_id
+  GROUP BY conversations.id
+  ORDER BY responses.datetime_utc ASC"
+  _fzfllm_execute_query "$CONVERSATIONS_QUERY" | FZF_DEFAULT_OPTS="$OPTS" fzf
+}
+
+_fzfllm_search_conversations() {
+  local OPTS="
+  $FZFLLM_FZF_DEFAULT_OPTS
+  $FZFLLM_SEARCH_CONVOS_FZF_OPTS"
+  read -r -p 'Search for: ' PHRASE
+  local SEARCH_QUERY="
+  SELECT conversations.id, substring(responses.prompt, 0, 1000)
+    FROM responses
+    LEFT JOIN conversations ON responses.conversation_id = conversations.id
+    JOIN responses_fts ON responses_fts.rowid = responses.rowid
+    WHERE responses_fts match '$PHRASE'
+    ORDER BY responses_fts.rank DESC"
+    local SEARCH_RESULTS
+    SEARCH_RESULTS=$(_fzfllm_execute_query "$SEARCH_QUERY")
+    if [ -z "${SEARCH_RESULTS}" ]; then
+      read -r -p "No results found."
+      echo list_conversations
+      return
+    fi
+    echo "$SEARCH_RESULTS" | FZF_DEFAULT_OPTS="$OPTS" fzf
+}
+
+# The separator (tab) is between the 2 cells.
+# The second cell being the prompt can be multiline.
+# If a row contains a tab then output the NUL-terminator then the line.
+# Otherwise output the line.
+# Drop the spurious first line.
+_fzfllm_execute_query() {
+  sqlite3 -separator $'\t' "$DB" "$1" | awk '{
+    if ($0 ~ /\t/) {
+        printf "\0%s", $0
+    } else {
+        print $0
+    }
+}' | tail --zero-terminated --lines=+2
+}
+
+_fzfllm_delete_conversation() {
+  _fzfllm_execute_query "
+  DELETE FROM responses WHERE conversation_id = '${1}';
+  DELETE FROM conversations WHERE id = '${1}';"
+}
+
+_fzfllm_open_conversation_in_editor() {
+  local FILE
+  FILE=$(mktemp "fzfllm_cid_${1}_XXX.md" --tmpdir)
+  llm logs list --cid "${1}" > "$FILE"
+  "${EDITOR:-nvim}" "$FILE"
+  rm -f "$FILE"
+}
+
+_fzfllm_new_conversation() {
+  echo list_conversations
+  local COMMAND
+  COMMAND=$(navi --best-match --query 'llm new chat' --print)
+  read -e -r -i "$COMMAND" -p "Start new chat with command: " NEWCOMMAND
+  $NEWCOMMAND > /dev/tty
+}
+
+_fzfllm_resume_conversation() {
+  llm chat --cid "$1" > /dev/tty
+}
+
+_fzfllm_help() {
+  local HELP_TEXT
+  HELP_TEXT="$(_bwhite "Keys:")
+  $(_bgreen "${KEY_TOGGLE_HEADER}"): to toggle the header help (the one showing the \\\"$HEADER_TEXT\\\" text)
+  $(_bgreen "$KEY_NEW_CHAT"): to start a new chat.
+  $(_bgreen "$KEY_SEARCH_CONVERSATION"): to find conversations that match a phrase (sqlite fts5 full text search in prompts and responses).
+  $(_bgreen "$KEY_DELETE_CONVERSATION"): to delete the currently select chat.
+  $(_bgreen "$KEY_OPEN_CONVERSATION_IN_PAGER"): to open the currently selected chat in the pager.
+  $(_bgreen "$KEY_OPEN_CONVERSATION_IN_EDITOR"): to open the currently selected chat in the editor.
+  $(_bgreen "$KEY_RESUME_CONVERSATION"): to resume chatting in the currently selected chat.
+  $(_bgreen "$KEY_PREVIEW_DOWN_1", "$KEY_PREVIEW_DOWN_2"): to scroll the preview down.
+  $(_bgreen "$KEY_PREVIEW_UP_1", "$KEY_PREVIEW_UP_2"): to scroll the preview up.
+  Keys can be freely changed but only via env vars for now, read the source code to see how :)
+
+  Other default fzf mappings apply, like the following:
+  ctrl-c Esc ctrl-g ctrl-q: to quit
+  ctrl-j ctrl-n down: to go down
+  ctrl-k ctrl-p up: to go up
+  "
+  echo "$HELP_TEXT"
+}
+
+cmd="${1:-main}"
+shift
+
+public_commands=(
+  "main"
+  "list_conversations"
+  "delete_conversation"
+  "open_conversation_in_editor"
+  "search_conversations"
+  "new_conversation"
+  "resume_conversation"
+  "help"
+)
+
+# shellcheck disable=SC2076
+if [[ ! " ${public_commands[*]} " =~ " ${cmd} " ]] ; then
+  echo Invalid command "$cmd"
+  sleep 1
+  exit 1
+fi
+
+_fzfllm_"${cmd}" "$@"
