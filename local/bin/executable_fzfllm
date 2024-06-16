@@ -6,17 +6,17 @@ _bwhite() { printf "%b%s%b" '\e[1;37m' "$@" '\e[0m' ; }
 
 DB="$HOME/.config/io.datasette.llm/logs.db"
 
-LLM_GET_THREADS_CMD="${LLM_GET_THREADS_CMD:-llm logs list --cid {1}}"
-LLM_THREADS_PAGER="${LLM_THREADS_PAGER:-bat --language markdown --color always --paging=always --plain --pager=\"less -R\"}"
+LLM_GET_THREAD_CMD="${LLM_GET_THREAD_CMD:-llm logs list --cid {1}}"
+LLM_THREADS_PAGER="${LLM_THREADS_PAGER:-bat --language markdown --color always --paging=always --plain --pager=\"less -R -+S --wordwrap\"}"
 LLM_THREADS_PREVIEW="${LLM_THREADS_PREVIEW:-bat --language markdown --color always --plain}"
 
 KEY_TOGGLE_HEADER="${KEY_TOGGLE_HEADER:-alt-/}"
 KEY_NEW_THREAD="${KEY_NEW_THREAD:-ctrl-t}"
 KEY_SEARCH_THREADS="${KEY_SEARCH_THREADS:-/}"
 KEY_DELETE_THREAD="${KEY_DELETE_THREAD:-ctrl-delete}"
-KEY_OPEN_THREADS_IN_PAGER="${KEY_OPEN_THREADS_IN_PAGER:-enter}"
-KEY_OPEN_THREADS_IN_EDITOR="${KEY_OPEN_THREADS_IN_EDITOR:-alt-enter}"
-KEY_RESUME_THREADS="${KEY_RESUME_THREADS:-ctrl-o}"
+KEY_OPEN_THREAD_IN_PAGER="${KEY_OPEN_THREAD_IN_PAGER:-enter}"
+KEY_OPEN_THREAD_IN_EDITOR="${KEY_OPEN_THREAD_IN_EDITOR:-alt-enter}"
+KEY_RESUME_THREAD="${KEY_RESUME_THREAD:-ctrl-o}"
 KEY_RENAME_THREAD="${KEY_RENAME_THREAD:-ctrl-r}"
 KEY_SHOW_HELP="${KEY_SHOW_HELP:-?}"
 KEY_PREVIEW_UP_1="${KEY_PREVIEW_UP_1:-alt-k}"
@@ -34,29 +34,32 @@ FZFLLM_FZF_GRAPHICAL_OPTS="
 --header '$HEADER_TEXT' --header-first
 --info=hidden --prompt=\"threads\> \"
 --cycle --no-sort --exit-0 --tiebreak=index
---no-select-1
 "
 
 # We assume NUL-terminated input to fzf to accomodate multiline input.
 # See https://junegunn.github.io/fzf/tips/processing-multi-line-items/
-# Input to fzf is assumed to be tab delimited, with the thread id in the
-# first field and text in the second.
-FZFLLM_FZF_DEFAULT_OPTS="
-$FZF_DEFAULT_OPTS
+# Input to fzf is assumed to be tab delimited, with the thread id in
+# the first field and text in the second.
+FZFLLM_FZF_GENERAL_OPTS="
 $FZFLLM_FZF_GRAPHICAL_OPTS
---ansi --no-multi
+--ansi --no-multi --no-select-1
 --nth=1 --with-nth=2 --delimiter='\t' --read0 --highlight-line
---preview='$LLM_GET_THREADS_CMD | $LLM_THREADS_PREVIEW'
 --bind='$KEY_PREVIEW_UP_1:preview-up,$KEY_PREVIEW_UP_2:preview-up'
 --bind='$KEY_PREVIEW_DOWN_1:preview-down,$KEY_PREVIEW_DOWN_2:preview-down'
---bind='$KEY_DELETE_THREAD:execute($FZFLLM delete_thread {1})+print(list_threads)+accept'
---bind='$KEY_OPEN_THREADS_IN_EDITOR:execute($FZFLLM open_thread_in_editor {1})'
---bind='$KEY_OPEN_THREADS_IN_PAGER:execute($LLM_GET_THREADS_CMD | $LLM_THREADS_PAGER)'
---bind='$KEY_NEW_THREAD:print(new_thread)+accept'
---bind='$KEY_RESUME_THREADS:execute($FZFLLM resume_thread {1})+print(list_threads)+accept'
 --bind='$KEY_SHOW_HELP:preview($FZFLLM help)'
 --bind='$KEY_TOGGLE_HEADER:toggle-header'
-$FZFLLM_FZF_DEFAULT_OPTS"
+$FZFLLM_FZF_GENERAL_OPTS"
+
+FZFLLM_BINDS_FOR_LIST_OF_THREADS="
+--preview='$LLM_GET_THREAD_CMD | $LLM_THREADS_PREVIEW'
+--bind='$KEY_DELETE_THREAD:execute($FZFLLM delete_thread {1})+print(list_threads)+accept'
+--bind='$KEY_OPEN_THREAD_IN_EDITOR:execute($FZFLLM open_thread_in_editor {1})'
+--bind='$KEY_OPEN_THREAD_IN_PAGER:execute($LLM_GET_THREAD_CMD | $LLM_THREADS_PAGER)'
+--bind='$KEY_NEW_THREAD:print(new_thread)+accept'
+--bind='$KEY_RESUME_THREAD:execute($FZFLLM resume_thread {1})+print(list_threads)+accept'
+--bind='$KEY_SEARCH_THREADS:print(search_threads)+accept'
+--bind='$KEY_RENAME_THREAD:execute($FZFLLM rename_thread {1} {2})+print(list_threads)+accept'
+"
 
 _fzfllm_main() {
   local NEXT_COMMAND=list_threads
@@ -66,7 +69,7 @@ _fzfllm_main() {
     NEXT_COMMAND=$($FZFLLM "$NEXT_COMMAND")
     NEXT_COMMAND=$(echo "$NEXT_COMMAND" | head --lines=1)
     # For debug:
-    echo in main loop, first line from previous output is "|$NEXT_COMMAND|"
+    # echo in main loop, first line from previous output is "|$NEXT_COMMAND|"
     if [ -z "$NEXT_COMMAND" ] && [ "$PREVIOUS_COMMAND" == list_threads ]; then
       return
     fi
@@ -80,10 +83,9 @@ _fzfllm_main() {
 
 _fzfllm_list_threads() {
   local OPTS="
-  $FZFLLM_FZF_DEFAULT_OPTS
-  --bind=\"$KEY_SEARCH_THREADS:print(search_threads)+accept\"
-  --bind=\"$KEY_RENAME_THREAD:execute($FZFLLM rename_thread {1} {2})+print(list_threads)+accept\"
-  $FZFLLM_LIST_CONVOS_FZF_OPTS"
+  $FZFLLM_FZF_GENERAL_OPTS
+  $FZFLLM_BINDS_FOR_LIST_OF_THREADS
+  $FZFLLM_LIST_THREADS_FZF_OPTS"
 
   local CONVERSATIONS_QUERY="
   SELECT conversations.id, conversations.name
@@ -96,8 +98,10 @@ _fzfllm_list_threads() {
 
 _fzfllm_search_threads() {
   local OPTS="
-  $FZFLLM_FZF_DEFAULT_OPTS
-  $FZFLLM_SEARCH_CONVOS_FZF_OPTS"
+  $FZFLLM_FZF_GENERAL_OPTS
+  $FZFLLM_BINDS_FOR_LIST_OF_THREADS
+  $FZFLLM_SEARCH_THREADS_FZF_OPTS"
+
   read -r -p 'Search for: ' PHRASE
   local SEARCH_QUERY="
   SELECT conversations.id, substring(responses.prompt, 0, 1000)
@@ -114,21 +118,6 @@ _fzfllm_search_threads() {
       return
     fi
     echo "$SEARCH_RESULTS" | FZF_DEFAULT_OPTS="$OPTS" fzf
-}
-
-# The separator (tab) is between the 2 cells.
-# The second cell being the prompt can be multiline.
-# If a row contains a tab then output the NUL-terminator then the line.
-# Otherwise output the line.
-# Drop the spurious first line.
-_fzfllm_execute_query() {
-  sqlite3 -separator $'\t' "$DB" "$1" | awk '{
-    if ($0 ~ /\t/) {
-        printf "\0%s", $0
-    } else {
-        print $0
-    }
-}' | tail --zero-terminated --lines=+2
 }
 
 _fzfllm_delete_thread() {
@@ -169,11 +158,11 @@ _fzfllm_help() {
   $(_bgreen "${KEY_TOGGLE_HEADER}"): to toggle the header help (the one showing the \\\"$HEADER_TEXT\\\" text)
   $(_bgreen "${KEY_RENAME_THREAD}"): to rename the current thread.
   $(_bgreen "$KEY_NEW_THREAD"): to start a new thread.
-  $(_bgreen "$KEY_SEARCH_THREADS"): to find threads that match a phrase (sqlite fts5 full text search in prompts and responses).
+  $(_bgreen "$KEY_OPEN_THREAD_IN_PAGER"): to open the currently selected thread in the pager.
+  $(_bgreen "$KEY_OPEN_THREAD_IN_EDITOR"): to open the currently selected thread in the editor.
+  $(_bgreen "$KEY_RESUME_THREAD"): to resume the currently selected thread.
   $(_bgreen "$KEY_DELETE_THREAD"): to delete the currently select thread.
-  $(_bgreen "$KEY_OPEN_THREADS_IN_PAGER"): to open the currently selected thread in the pager.
-  $(_bgreen "$KEY_OPEN_THREADS_IN_EDITOR"): to open the currently selected thread in the editor.
-  $(_bgreen "$KEY_RESUME_THREADS"): to resume the currently selected thread.
+  $(_bgreen "$KEY_SEARCH_THREADS"): to find threads that match a phrase (sqlite fts5 full text search in prompts and responses).
   $(_bgreen "$KEY_PREVIEW_DOWN_1", "$KEY_PREVIEW_DOWN_2"): to scroll the preview down.
   $(_bgreen "$KEY_PREVIEW_UP_1", "$KEY_PREVIEW_UP_2"): to scroll the preview up.
   Keys can be freely changed but only via env vars for now, read the source code to see how :)
@@ -184,6 +173,21 @@ _fzfllm_help() {
   ctrl-k ctrl-p up: to go up
   "
   echo "$HELP_TEXT"
+}
+
+# The separator (tab) is between the 2 cells.
+# The second cell being the prompt can be multiline.
+# If a row contains a tab then output the NUL-terminator then the line.
+# Otherwise output the line.
+# Drop the spurious first line.
+_fzfllm_execute_query() {
+  sqlite3 -separator $'\t' "$DB" "$1" | awk '{
+    if ($0 ~ /\t/) {
+        printf "\0%s", $0
+    } else {
+        print $0
+    }
+}' | tail --zero-terminated --lines=+2
 }
 
 cmd="${1:-main}"

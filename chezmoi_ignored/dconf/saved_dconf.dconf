@@ -415,8 +415,15 @@ network-monitor-gio-name=''
 reminders-past=['1a98c3c04adf522b8cff948a88cff227ddca0aff\n98a530a815d5721d06c990a4e549013f000650d1\t20240613T103000\n1718181000\n1718267400\n1718271000\nBEGIN:VEVENT\r\nDTSTART;TZID=Europe/Madrid:20240613T103000\r\nDTEND;TZID=Europe/Madrid:20240613T113000\r\nDTSTAMP:20240529T121509Z\r\nUID:3keed837jjhbmd7brnoji6lo8i@google.com\r\nCREATED:20240529T121509Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240529T121509Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:cita taskrabbit\r\nTRANSP:OPAQUE\r\nX-EVOLUTION-CALDAV-ETAG:63852668109\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1D\r\nX-EVOLUTION-ALARM-UID:98a530a815d5721d06c990a4e549013f000650d1\r\nEND:VALARM\r\nEND:VEVENT\r\n']
 
 [org/gnome/file-roller/dialogs/extract]
+height=800
 recreate-folders=true
 skip-newer=false
+width=1000
+
+[org/gnome/file-roller/file-selector]
+show-hidden=false
+sidebar-size=300
+window-size=(-1, -1)
 
 [org/gnome/file-roller/listing]
 list-mode='as-folder'
@@ -919,9 +926,9 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1718458879
+check-timestamp=int64 1718526880
 first-run=false
-flatpak-purge-timestamp=int64 1718463083
+flatpak-purge-timestamp=int64 1718523220
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
