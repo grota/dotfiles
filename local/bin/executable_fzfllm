@@ -6,17 +6,18 @@ _bwhite() { printf "%b%s%b" '\e[1;37m' "$@" '\e[0m' ; }
 
 DB="$HOME/.config/io.datasette.llm/logs.db"
 
-LLM_GET_CONVERSATION_CMD="${LLM_GET_CONVERSATION_CMD:-llm logs list --cid {1}}"
-LLM_CONVERSATION_PAGER="${LLM_CONVERSATION_PAGER:-bat --language markdown --color always --paging=always --plain --pager=\"less -R\"}"
-LLM_CONVERSATION_PREVIEW="${LLM_CONVERSATION_PREVIEW:-bat --language markdown --color always --plain}"
+LLM_GET_THREADS_CMD="${LLM_GET_THREADS_CMD:-llm logs list --cid {1}}"
+LLM_THREADS_PAGER="${LLM_THREADS_PAGER:-bat --language markdown --color always --paging=always --plain --pager=\"less -R\"}"
+LLM_THREADS_PREVIEW="${LLM_THREADS_PREVIEW:-bat --language markdown --color always --plain}"
 
 KEY_TOGGLE_HEADER="${KEY_TOGGLE_HEADER:-alt-/}"
-KEY_NEW_CHAT="${KEY_NEW_CHAT:-ctrl-t}"
-KEY_SEARCH_CONVERSATION="${KEY_SEARCH_CONVERSATION:-/}"
-KEY_DELETE_CONVERSATION="${KEY_DELETE_CONVERSATION:-ctrl-delete}"
-KEY_OPEN_CONVERSATION_IN_PAGER="${KEY_OPEN_CONVERSATION_IN_PAGER:-enter}"
-KEY_OPEN_CONVERSATION_IN_EDITOR="${KEY_OPEN_CONVERSATION_IN_EDITOR:-alt-enter}"
-KEY_RESUME_CONVERSATION="${KEY_RESUME_CONVERSATION:-ctrl-r}"
+KEY_NEW_THREAD="${KEY_NEW_THREAD:-ctrl-t}"
+KEY_SEARCH_THREADS="${KEY_SEARCH_THREADS:-/}"
+KEY_DELETE_THREAD="${KEY_DELETE_THREAD:-ctrl-delete}"
+KEY_OPEN_THREADS_IN_PAGER="${KEY_OPEN_THREADS_IN_PAGER:-enter}"
+KEY_OPEN_THREADS_IN_EDITOR="${KEY_OPEN_THREADS_IN_EDITOR:-alt-enter}"
+KEY_RESUME_THREADS="${KEY_RESUME_THREADS:-ctrl-o}"
+KEY_RENAME_THREAD="${KEY_RENAME_THREAD:-ctrl-r}"
 KEY_SHOW_HELP="${KEY_SHOW_HELP:-?}"
 KEY_PREVIEW_UP_1="${KEY_PREVIEW_UP_1:-alt-k}"
 KEY_PREVIEW_UP_2="${KEY_PREVIEW_UP_2:-alt-p}"
@@ -28,72 +29,72 @@ HEADER_TEXT="Press $KEY_SHOW_HELP for help"
 # Just UI/UX/style, can be freely changed.
 FZFLLM_FZF_GRAPHICAL_OPTS="
 --layout=reverse --height='100%'
---preview-window='down,50%,border-double'
---border=\"block\" --color=gutter:-1 --pointer=\"◆\"
+--preview-window='right,60%,border-double'
+--border=\"block\" --color=gutter:-1
 --header '$HEADER_TEXT' --header-first
---info=hidden --prompt=\"conversations\> \"
+--info=hidden --prompt=\"threads\> \"
 --cycle --no-sort --exit-0 --tiebreak=index
 --no-select-1
 "
 
 # We assume NUL-terminated input to fzf to accomodate multiline input.
 # See https://junegunn.github.io/fzf/tips/processing-multi-line-items/
-# Input to fzf is assumed to be tab delimited, with the conversation id in the
-# first field and the initial conversation prompt in the second.
+# Input to fzf is assumed to be tab delimited, with the thread id in the
+# first field and text in the second.
 FZFLLM_FZF_DEFAULT_OPTS="
 $FZF_DEFAULT_OPTS
 $FZFLLM_FZF_GRAPHICAL_OPTS
 --ansi --no-multi
 --nth=1 --with-nth=2 --delimiter='\t' --read0 --highlight-line
---preview='$LLM_GET_CONVERSATION_CMD | $LLM_CONVERSATION_PREVIEW'
+--preview='$LLM_GET_THREADS_CMD | $LLM_THREADS_PREVIEW'
 --bind='$KEY_PREVIEW_UP_1:preview-up,$KEY_PREVIEW_UP_2:preview-up'
 --bind='$KEY_PREVIEW_DOWN_1:preview-down,$KEY_PREVIEW_DOWN_2:preview-down'
---bind='$KEY_DELETE_CONVERSATION:execute($FZFLLM delete_conversation {1})+print(list_conversations)+accept'
---bind='$KEY_OPEN_CONVERSATION_IN_EDITOR:execute($FZFLLM open_conversation_in_editor {1})'
---bind='$KEY_OPEN_CONVERSATION_IN_PAGER:execute($LLM_GET_CONVERSATION_CMD | $LLM_CONVERSATION_PAGER)'
---bind='$KEY_NEW_CHAT:print(new_conversation)+accept'
---bind='$KEY_RESUME_CONVERSATION:execute($FZFLLM resume_conversation {1})'
+--bind='$KEY_DELETE_THREAD:execute($FZFLLM delete_thread {1})+print(list_threads)+accept'
+--bind='$KEY_OPEN_THREADS_IN_EDITOR:execute($FZFLLM open_thread_in_editor {1})'
+--bind='$KEY_OPEN_THREADS_IN_PAGER:execute($LLM_GET_THREADS_CMD | $LLM_THREADS_PAGER)'
+--bind='$KEY_NEW_THREAD:print(new_thread)+accept'
+--bind='$KEY_RESUME_THREADS:execute($FZFLLM resume_thread {1})+print(list_threads)+accept'
 --bind='$KEY_SHOW_HELP:preview($FZFLLM help)'
 --bind='$KEY_TOGGLE_HEADER:toggle-header'
 $FZFLLM_FZF_DEFAULT_OPTS"
 
 _fzfllm_main() {
-  local NEXT_COMMAND=list_conversations
+  local NEXT_COMMAND=list_threads
   local PREVIOUS_COMMAND=
   while true; do
     PREVIOUS_COMMAND="$NEXT_COMMAND"
     NEXT_COMMAND=$($FZFLLM "$NEXT_COMMAND")
     NEXT_COMMAND=$(echo "$NEXT_COMMAND" | head --lines=1)
     # For debug:
-    # echo in main loop, first line from previous output is "|$NEXT_COMMAND|"
-    if [ -z "$NEXT_COMMAND" ] && [ "$PREVIOUS_COMMAND" == list_conversations ]; then
+    echo in main loop, first line from previous output is "|$NEXT_COMMAND|"
+    if [ -z "$NEXT_COMMAND" ] && [ "$PREVIOUS_COMMAND" == list_threads ]; then
       return
     fi
     if [ -z "$NEXT_COMMAND" ]; then
-      NEXT_COMMAND=list_conversations
+      NEXT_COMMAND=list_threads
     fi
     if [ "$NEXT_COMMAND" == exitfzfllm ]; then
       return
-    fi
-  done
+    fi done
 }
 
-_fzfllm_list_conversations() {
+_fzfllm_list_threads() {
   local OPTS="
   $FZFLLM_FZF_DEFAULT_OPTS
-  --bind=\"$KEY_SEARCH_CONVERSATION:print(search_conversations)+accept\"
+  --bind=\"$KEY_SEARCH_THREADS:print(search_threads)+accept\"
+  --bind=\"$KEY_RENAME_THREAD:execute($FZFLLM rename_thread {1} {2})+print(list_threads)+accept\"
   $FZFLLM_LIST_CONVOS_FZF_OPTS"
 
   local CONVERSATIONS_QUERY="
-  SELECT conversations.id, substring(responses.prompt, 0, 1000)
+  SELECT conversations.id, conversations.name
   FROM conversations
   INNER JOIN responses on conversations.id=responses.conversation_id
   GROUP BY conversations.id
-  ORDER BY responses.datetime_utc ASC"
+  ORDER BY responses.datetime_utc DESC"
   _fzfllm_execute_query "$CONVERSATIONS_QUERY" | FZF_DEFAULT_OPTS="$OPTS" fzf
 }
 
-_fzfllm_search_conversations() {
+_fzfllm_search_threads() {
   local OPTS="
   $FZFLLM_FZF_DEFAULT_OPTS
   $FZFLLM_SEARCH_CONVOS_FZF_OPTS"
@@ -108,8 +109,8 @@ _fzfllm_search_conversations() {
     local SEARCH_RESULTS
     SEARCH_RESULTS=$(_fzfllm_execute_query "$SEARCH_QUERY")
     if [ -z "${SEARCH_RESULTS}" ]; then
-      read -r -p "No results found."
-      echo list_conversations
+      read -e -r -p "No results found."
+      echo list_threads
       return
     fi
     echo "$SEARCH_RESULTS" | FZF_DEFAULT_OPTS="$OPTS" fzf
@@ -130,13 +131,13 @@ _fzfllm_execute_query() {
 }' | tail --zero-terminated --lines=+2
 }
 
-_fzfllm_delete_conversation() {
+_fzfllm_delete_thread() {
   _fzfllm_execute_query "
   DELETE FROM responses WHERE conversation_id = '${1}';
   DELETE FROM conversations WHERE id = '${1}';"
 }
 
-_fzfllm_open_conversation_in_editor() {
+_fzfllm_open_thread_in_editor() {
   local FILE
   FILE=$(mktemp "fzfllm_cid_${1}_XXX.md" --tmpdir)
   llm logs list --cid "${1}" > "$FILE"
@@ -144,28 +145,35 @@ _fzfllm_open_conversation_in_editor() {
   rm -f "$FILE"
 }
 
-_fzfllm_new_conversation() {
-  echo list_conversations
+_fzfllm_new_thread() {
+  echo list_threads
   local COMMAND
   COMMAND=$(navi --best-match --query 'llm new chat' --print)
-  read -e -r -i "$COMMAND" -p "Start new chat with command: " NEWCOMMAND
+  read -e -r -i "$COMMAND" -p "Start new thread with command: " NEWCOMMAND
   $NEWCOMMAND > /dev/tty
 }
 
-_fzfllm_resume_conversation() {
+_fzfllm_resume_thread() {
   llm chat --cid "$1" > /dev/tty
+}
+
+_fzfllm_rename_thread() {
+  read -e -r -i "$2" -p "Rename: " NEW_NAME
+  local UPDATE_QUERY="UPDATE conversations SET name='$NEW_NAME' WHERE id='$1'"
+  _fzfllm_execute_query "$UPDATE_QUERY"
 }
 
 _fzfllm_help() {
   local HELP_TEXT
   HELP_TEXT="$(_bwhite "Keys:")
   $(_bgreen "${KEY_TOGGLE_HEADER}"): to toggle the header help (the one showing the \\\"$HEADER_TEXT\\\" text)
-  $(_bgreen "$KEY_NEW_CHAT"): to start a new chat.
-  $(_bgreen "$KEY_SEARCH_CONVERSATION"): to find conversations that match a phrase (sqlite fts5 full text search in prompts and responses).
-  $(_bgreen "$KEY_DELETE_CONVERSATION"): to delete the currently select chat.
-  $(_bgreen "$KEY_OPEN_CONVERSATION_IN_PAGER"): to open the currently selected chat in the pager.
-  $(_bgreen "$KEY_OPEN_CONVERSATION_IN_EDITOR"): to open the currently selected chat in the editor.
-  $(_bgreen "$KEY_RESUME_CONVERSATION"): to resume chatting in the currently selected chat.
+  $(_bgreen "${KEY_RENAME_THREAD}"): to rename the current thread.
+  $(_bgreen "$KEY_NEW_THREAD"): to start a new thread.
+  $(_bgreen "$KEY_SEARCH_THREADS"): to find threads that match a phrase (sqlite fts5 full text search in prompts and responses).
+  $(_bgreen "$KEY_DELETE_THREAD"): to delete the currently select thread.
+  $(_bgreen "$KEY_OPEN_THREADS_IN_PAGER"): to open the currently selected thread in the pager.
+  $(_bgreen "$KEY_OPEN_THREADS_IN_EDITOR"): to open the currently selected thread in the editor.
+  $(_bgreen "$KEY_RESUME_THREADS"): to resume the currently selected thread.
   $(_bgreen "$KEY_PREVIEW_DOWN_1", "$KEY_PREVIEW_DOWN_2"): to scroll the preview down.
   $(_bgreen "$KEY_PREVIEW_UP_1", "$KEY_PREVIEW_UP_2"): to scroll the preview up.
   Keys can be freely changed but only via env vars for now, read the source code to see how :)
@@ -183,12 +191,13 @@ shift
 
 public_commands=(
   "main"
-  "list_conversations"
-  "delete_conversation"
-  "open_conversation_in_editor"
-  "search_conversations"
-  "new_conversation"
-  "resume_conversation"
+  "list_threads"
+  "delete_thread"
+  "open_thread_in_editor"
+  "search_threads"
+  "new_thread"
+  "resume_thread"
+  "rename_thread"
   "help"
 )
 
