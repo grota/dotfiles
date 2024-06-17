@@ -90,7 +90,7 @@ panel-id='timer'
 size=(1440, 1048)
 
 [org/gnome/control-center]
-last-panel='power'
+last-panel='keyboard'
 window-state=(1440, 1048, false)
 
 [org/gnome/deja-dup]
@@ -650,7 +650,6 @@ rotate-video-lock-static=@as []
 screensaver=@as []
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0]
-binding='<Super>Return'
 command='gnome-terminal'
 name='gnome terminal'
 
@@ -675,6 +674,7 @@ command='gnome-session-quit --logout'
 name='logout'
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5]
+binding='<Super>Return'
 command='alacritty'
 name='Alacritty'
 
@@ -822,7 +822,7 @@ edge-preview-click-enable=false
 edge-preview-scale=0.0
 gesture-enabled=true
 horizontal-margin=0
-last-used-display-server='Xorg'
+last-used-display-server='Wayland'
 minimap-scale=0.10000000000000001
 only-scratch-in-overview=false
 open-window-position=0
@@ -928,7 +928,7 @@ document-type='photo'
 [org/gnome/software]
 check-timestamp=int64 1718526880
 first-run=false
-flatpak-purge-timestamp=int64 1718523220
+flatpak-purge-timestamp=int64 1718612876
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false

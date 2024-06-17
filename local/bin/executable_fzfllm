@@ -18,6 +18,7 @@ KEY_OPEN_THREAD_IN_PAGER="${KEY_OPEN_THREAD_IN_PAGER:-enter}"
 KEY_OPEN_THREAD_IN_EDITOR="${KEY_OPEN_THREAD_IN_EDITOR:-alt-enter}"
 KEY_RESUME_THREAD="${KEY_RESUME_THREAD:-ctrl-o}"
 KEY_RENAME_THREAD="${KEY_RENAME_THREAD:-ctrl-r}"
+KEY_EDIT_THREAD="${KEY_EDIT_THREAD:-alt-e}"
 KEY_SHOW_HELP="${KEY_SHOW_HELP:-?}"
 KEY_PREVIEW_UP_1="${KEY_PREVIEW_UP_1:-alt-k}"
 KEY_PREVIEW_UP_2="${KEY_PREVIEW_UP_2:-alt-p}"
@@ -59,6 +60,7 @@ FZFLLM_BINDS_FOR_LIST_OF_THREADS="
 --bind='$KEY_RESUME_THREAD:execute($FZFLLM resume_thread {1})+print(list_threads)+accept'
 --bind='$KEY_SEARCH_THREADS:print(search_threads)+accept'
 --bind='$KEY_RENAME_THREAD:execute($FZFLLM rename_thread {1} {2})+print(list_threads)+accept'
+--bind='$KEY_EDIT_THREAD:execute($FZFLLM edit_thread {1})+print(list_threads)+accept'
 "
 
 _fzfllm_main() {
@@ -69,7 +71,7 @@ _fzfllm_main() {
     NEXT_COMMAND=$($FZFLLM "$NEXT_COMMAND")
     NEXT_COMMAND=$(echo "$NEXT_COMMAND" | head --lines=1)
     # For debug:
-    # echo in main loop, first line from previous output is "|$NEXT_COMMAND|"
+    echo in main loop, first line from previous output is "|$NEXT_COMMAND|"
     if [ -z "$NEXT_COMMAND" ] && [ "$PREVIOUS_COMMAND" == list_threads ]; then
       return
     fi
@@ -118,6 +120,19 @@ _fzfllm_search_threads() {
       return
     fi
     echo "$SEARCH_RESULTS" | FZF_DEFAULT_OPTS="$OPTS" fzf
+}
+
+_fzfllm_edit_thread() {
+  local OPTS="
+  $FZFLLM_FZF_GENERAL_OPTS
+  --preview=''
+  $FZFLLM_EDIT_THREAD_FZF_OPTS"
+  echo "$OPTS" > /tmp/list_opts_for_edit_th
+
+  _fzfllm_execute_query "
+  SELECT id, substring(prompt, 0, 1000) from responses where conversation_id='$1'
+  ORDER BY datetime_utc ASC
+  " | FZF_DEFAULT_OPTS="$OPTS" fzf
 }
 
 _fzfllm_delete_thread() {
@@ -202,6 +217,7 @@ public_commands=(
   "new_thread"
   "resume_thread"
   "rename_thread"
+  "edit_thread"
   "help"
 )
 
