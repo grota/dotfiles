@@ -7,12 +7,12 @@ _bwhite() { printf "%b%s%b" '\e[1;37m' "$@" '\e[0m' ; }
 DB="$HOME/.config/io.datasette.llm/logs.db"
 
 LLM_GET_THREAD_CMD="${LLM_GET_THREAD_CMD:-llm logs list --cid {1}}"
-LLM_THREADS_PAGER="${LLM_THREADS_PAGER:-bat --language markdown --color always --paging=always --plain --pager=\"less -R -+S --wordwrap\"}"
-LLM_THREADS_PREVIEW="${LLM_THREADS_PREVIEW:-bat --language markdown --color always --plain}"
+LLM_THREAD_OPEN_IN_PAGER_PAGER="${LLM_THREAD_OPEN_IN_PAGER_PAGER:-bat --language markdown --color always --paging=always --plain --pager=\"less -R -+S --wordwrap\"}"
+LLM_THREAD_PREVIEW_PAGER="${LLM_THREAD_PREVIEW_PAGER:-$FZFLLM thread_preview_pager}"
 
 KEY_TOGGLE_HEADER="${KEY_TOGGLE_HEADER:-alt-/}"
 KEY_NEW_THREAD="${KEY_NEW_THREAD:-ctrl-t}"
-KEY_SEARCH_THREADS="${KEY_SEARCH_THREADS:-/}"
+KEY_SEARCH_THREADS="${KEY_SEARCH_THREADS:-alt-/}"
 KEY_DELETE_THREAD="${KEY_DELETE_THREAD:-ctrl-delete}"
 KEY_OPEN_THREAD_IN_PAGER="${KEY_OPEN_THREAD_IN_PAGER:-enter}"
 KEY_OPEN_THREAD_IN_EDITOR="${KEY_OPEN_THREAD_IN_EDITOR:-alt-enter}"
@@ -44,7 +44,7 @@ FZFLLM_FZF_GRAPHICAL_OPTS="
 FZFLLM_FZF_GENERAL_OPTS="
 $FZFLLM_FZF_GRAPHICAL_OPTS
 --ansi --no-multi --no-select-1
---nth=1 --with-nth=2 --delimiter='\t' --read0 --highlight-line
+--nth=1 --with-nth=2 --delimiter='\x1F' --read0 --highlight-line
 --bind='$KEY_PREVIEW_UP_1:preview-up,$KEY_PREVIEW_UP_2:preview-up'
 --bind='$KEY_PREVIEW_DOWN_1:preview-down,$KEY_PREVIEW_DOWN_2:preview-down'
 --bind='$KEY_SHOW_HELP:preview($FZFLLM help)'
@@ -52,23 +52,32 @@ $FZFLLM_FZF_GRAPHICAL_OPTS
 $FZFLLM_FZF_GENERAL_OPTS"
 
 FZFLLM_BINDS_FOR_LIST_OF_THREADS="
---preview='$LLM_GET_THREAD_CMD | $LLM_THREADS_PREVIEW'
+--preview='$LLM_GET_THREAD_CMD | $LLM_THREAD_PREVIEW_PAGER'
 --bind='$KEY_DELETE_THREAD:execute($FZFLLM delete_thread {1})+print(list_threads)+accept'
 --bind='$KEY_OPEN_THREAD_IN_EDITOR:execute($FZFLLM open_thread_in_editor {1})'
---bind='$KEY_OPEN_THREAD_IN_PAGER:execute($LLM_GET_THREAD_CMD | $LLM_THREADS_PAGER)'
+--bind='$KEY_OPEN_THREAD_IN_PAGER:execute($LLM_GET_THREAD_CMD | $LLM_THREAD_OPEN_IN_PAGER_PAGER)'
 --bind='$KEY_NEW_THREAD:print(new_thread)+accept'
 --bind='$KEY_RESUME_THREAD:execute($FZFLLM resume_thread {1})+print(list_threads)+accept'
---bind='$KEY_SEARCH_THREADS:print(search_threads)+accept'
+--bind='$KEY_SEARCH_THREADS:transform[echo print:search_threads \"{fzf:query}\"]+accept'
 --bind='$KEY_RENAME_THREAD:execute($FZFLLM rename_thread {1} {2})+print(list_threads)+accept'
---bind='$KEY_EDIT_THREAD:execute($FZFLLM edit_thread {1})+print(list_threads)+accept'
+--bind='$KEY_EDIT_THREAD:transform[echo print:edit_thread {1}]+accept'
 "
+fifo=$(mktemp -u "fzfllm_fifo_XXXX.md" --tmpdir)
+mkfifo "$fifo"
+
+function cleanup {
+  rm -f "$fifo"
+}
+
+trap cleanup EXIT
 
 _fzfllm_main() {
   local NEXT_COMMAND=list_threads
   local PREVIOUS_COMMAND=
   while true; do
     PREVIOUS_COMMAND="$NEXT_COMMAND"
-    NEXT_COMMAND=$($FZFLLM "$NEXT_COMMAND")
+    # shellcheck disable=SC2086
+    NEXT_COMMAND=$($FZFLLM $NEXT_COMMAND)
     NEXT_COMMAND=$(echo "$NEXT_COMMAND" | head --lines=1)
     # For debug:
     echo in main loop, first line from previous output is "|$NEXT_COMMAND|"
@@ -85,6 +94,7 @@ _fzfllm_main() {
 
 _fzfllm_list_threads() {
   local OPTS="
+  $FZF_DEFAULT_OPTS
   $FZFLLM_FZF_GENERAL_OPTS
   $FZFLLM_BINDS_FOR_LIST_OF_THREADS
   $FZFLLM_LIST_THREADS_FZF_OPTS"
@@ -100,39 +110,51 @@ _fzfllm_list_threads() {
 
 _fzfllm_search_threads() {
   local OPTS="
+  $FZF_DEFAULT_OPTS
   $FZFLLM_FZF_GENERAL_OPTS
   $FZFLLM_BINDS_FOR_LIST_OF_THREADS
   $FZFLLM_SEARCH_THREADS_FZF_OPTS"
 
-  read -r -p 'Search for: ' PHRASE
   local SEARCH_QUERY="
-  SELECT conversations.id, substring(responses.prompt, 0, 1000)
+  SELECT conversations.id, conversations.name
     FROM responses
     LEFT JOIN conversations ON responses.conversation_id = conversations.id
     JOIN responses_fts ON responses_fts.rowid = responses.rowid
-    WHERE responses_fts match '$PHRASE'
+    WHERE responses_fts match $*
     ORDER BY responses_fts.rank DESC"
-    local SEARCH_RESULTS
-    SEARCH_RESULTS=$(_fzfllm_execute_query "$SEARCH_QUERY")
-    if [ -z "${SEARCH_RESULTS}" ]; then
-      read -e -r -p "No results found."
-      echo list_threads
-      return
-    fi
-    echo "$SEARCH_RESULTS" | FZF_DEFAULT_OPTS="$OPTS" fzf
+  local SEARCH_RESULTS
+  # Here we do no care much about keeping newlines from the results because
+  # we fetch conversations.name. Also command substitution would strip the null
+  # byte so we need to transform it back to a normal newline. This means that
+  # we should probably make _fzfllm_execute_query be more configurable from the
+  # outside, at least in terms of newline.
+  SEARCH_RESULTS=$(_fzfllm_execute_query "$SEARCH_QUERY" | tr '\0' '\n')
+  if [ -z "${SEARCH_RESULTS}" ]; then
+    read -e -r -p "No results found."
+    return
+  fi
+  echo -E "$SEARCH_RESULTS" | tr $'\n' '\0' | FZF_DEFAULT_OPTS="$OPTS" fzf
 }
 
 _fzfllm_edit_thread() {
   local OPTS="
+  $FZF_DEFAULT_OPTS
   $FZFLLM_FZF_GENERAL_OPTS
-  --preview=''
+  --preview='$FZFLLM preview_message {1}'
   $FZFLLM_EDIT_THREAD_FZF_OPTS"
-  echo "$OPTS" > /tmp/list_opts_for_edit_th
 
   _fzfllm_execute_query "
   SELECT id, substring(prompt, 0, 1000) from responses where conversation_id='$1'
   ORDER BY datetime_utc ASC
   " | FZF_DEFAULT_OPTS="$OPTS" fzf
+}
+
+_fzfllm_preview_message() {
+  IFS=$'\x1f' read -r -d '' -a sections < <(_fzfllm_execute_query "SELECT prompt, response from responses where id='$1'")
+  echo "😀Prompt:"
+  create_box "${sections[0]}"
+  echo "🤖Response:"
+  create_box "${sections[1]}"
 }
 
 _fzfllm_delete_thread() {
@@ -167,17 +189,22 @@ _fzfllm_rename_thread() {
   _fzfllm_execute_query "$UPDATE_QUERY"
 }
 
+_fzfllm_thread_preview_pager() {
+  bat --language markdown --color always --plain --wrap=character  --terminal-width="${FZF_PREVIEW_COLUMNS}"
+}
+
 _fzfllm_help() {
   local HELP_TEXT
   HELP_TEXT="$(_bwhite "Keys:")
   $(_bgreen "${KEY_TOGGLE_HEADER}"): to toggle the header help (the one showing the \\\"$HEADER_TEXT\\\" text)
-  $(_bgreen "${KEY_RENAME_THREAD}"): to rename the current thread.
   $(_bgreen "$KEY_NEW_THREAD"): to start a new thread.
+  $(_bgreen "${KEY_RENAME_THREAD}"): to rename the current thread.
+  $(_bgreen "${KEY_EDIT_THREAD}"): to edit the current thread.
   $(_bgreen "$KEY_OPEN_THREAD_IN_PAGER"): to open the currently selected thread in the pager.
   $(_bgreen "$KEY_OPEN_THREAD_IN_EDITOR"): to open the currently selected thread in the editor.
   $(_bgreen "$KEY_RESUME_THREAD"): to resume the currently selected thread.
   $(_bgreen "$KEY_DELETE_THREAD"): to delete the currently select thread.
-  $(_bgreen "$KEY_SEARCH_THREADS"): to find threads that match a phrase (sqlite fts5 full text search in prompts and responses).
+  $(_bgreen "$KEY_SEARCH_THREADS"): to find threads that match the query (sqlite fts5 full text search in prompts and responses).
   $(_bgreen "$KEY_PREVIEW_DOWN_1", "$KEY_PREVIEW_DOWN_2"): to scroll the preview down.
   $(_bgreen "$KEY_PREVIEW_UP_1", "$KEY_PREVIEW_UP_2"): to scroll the preview up.
   Keys can be freely changed but only via env vars for now, read the source code to see how :)
@@ -190,19 +217,58 @@ _fzfllm_help() {
   echo "$HELP_TEXT"
 }
 
-# The separator (tab) is between the 2 cells.
-# The second cell being the prompt can be multiline.
-# If a row contains a tab then output the NUL-terminator then the line.
-# Otherwise output the line.
-# Drop the spurious first line.
+# sqlite3 seems to have a problem if we specify the separator as a NUL byte directly.
 _fzfllm_execute_query() {
-  sqlite3 -separator $'\t' "$DB" "$1" | awk '{
-    if ($0 ~ /\t/) {
-        printf "\0%s", $0
-    } else {
-        print $0
-    }
-}' | tail --zero-terminated --lines=+2
+  sqlite3 -separator $'\x1F' -newline $'\x1E' "$DB" "$1" | tr $'\x1E' '\0'
+}
+
+# Function to create a box around text using UTF-8 characters
+create_box() {
+  local text="$1"
+  local padding=2
+  local max_overall_width="${FZF_PREVIEW_COLUMNS}"
+  local longest_text_width_found=0
+  local formatted_text=""
+  local line
+  local max_text_width
+  local width_of_text_plus_padding
+
+  # 2 is for the 2 external vertical lines
+  # then padding is times 2 because of left and right
+  (( max_text_width = max_overall_width - 2 - padding * 2 ))
+  # Format the text by breaking lines longer than max_overall_width
+  while IFS= read -r line; do
+    while [[ ${#line} -gt $((max_text_width)) ]]; do
+      formatted_text+="${line:0:$((max_text_width))}"'\0'
+      line=${line:$((max_text_width))}
+    done
+    formatted_text+="$line"'\0'
+  done <<< "$text"
+
+  # Calculate the longest_text_width_found of the box
+  {
+    echo -E "$formatted_text" | sed -e 's/\\0/\x00/g' > "$fifo"
+  } &
+  while IFS= read -d '' -r line; do
+    (( ${#line} > longest_text_width_found )) && longest_text_width_found=${#line}
+  done < "$fifo"
+
+  (( width_of_text_plus_padding = longest_text_width_found + (padding * 2) ))
+
+  # Print the top border
+  printf "┌"
+  printf "%${width_of_text_plus_padding}s" "" | sed "s/ /─/g"
+  printf "┐\n"
+
+  # Print |text with padding|
+  echo -E "$formatted_text" | sed -e 's/\\0/\x00/g' | while IFS= read -d '' -r line; do
+    printf "│%${padding}s%-${longest_text_width_found}s%${padding}s│\n" "" "$line" ""
+  done
+
+  # Print the bottom border
+  printf "└"
+  printf "%${width_of_text_plus_padding}s" | sed "s/ /─/g"
+  printf "┘\n"
 }
 
 cmd="${1:-main}"
@@ -218,7 +284,10 @@ public_commands=(
   "resume_thread"
   "rename_thread"
   "edit_thread"
+  "preview_message"
+  "thread_preview_pager"
   "help"
+  "execute_query"
 )
 
 # shellcheck disable=SC2076

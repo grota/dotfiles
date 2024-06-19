@@ -90,7 +90,7 @@ panel-id='timer'
 size=(1440, 1048)
 
 [org/gnome/control-center]
-last-panel='keyboard'
+last-panel='printers'
 window-state=(1440, 1048, false)
 
 [org/gnome/deja-dup]
@@ -404,7 +404,7 @@ show-sidebar=true
 sidebar-page='thumbnails'
 sidebar-size=132
 sizing-mode='automatic'
-window-ratio=(2.4691358024691357, 3.6426833507125478)
+window-ratio=(2.4689075630252102, 1.2446555819477434)
 zoom=0.59405316870354252
 
 [org/gnome/evolution-data-server]
@@ -627,7 +627,7 @@ last-folder-path='/home/grota/Downloads'
 last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/google-chrome]
-last-folder-path='/tmp'
+last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/org.gnome.Builder]
 last-folder-path='/home/grota/Projects/personal/gjs-extension-test-runner'
@@ -639,7 +639,7 @@ last-folder-path='/home/grota/Downloads'
 last-folder-path='/home/grota'
 
 [org/gnome/settings-daemon/plugins/color]
-night-light-enabled=false
+night-light-enabled=true
 night-light-temperature=uint32 4236
 
 [org/gnome/settings-daemon/plugins/media-keys]
@@ -926,9 +926,9 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1718526880
+check-timestamp=int64 1718789296
 first-run=false
-flatpak-purge-timestamp=int64 1718612876
+flatpak-purge-timestamp=int64 1718782030
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
