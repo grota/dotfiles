@@ -3,23 +3,25 @@
 FZFLLM=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)/$(basename -- "${BASH_SOURCE[0]}")
 _bgreen() { printf "%b%s%b" '\e[1;32m' "$@" '\e[0m' ; }
 _bwhite() { printf "%b%s%b" '\e[1;37m' "$@" '\e[0m' ; }
+_white() { printf "%b%s%b" '\e[0;37m' "$@" '\e[0m' ; }
 
 DB="$HOME/.config/io.datasette.llm/logs.db"
 
 LLM_GET_THREAD_CMD="${LLM_GET_THREAD_CMD:-llm logs list --cid {1}}"
-LLM_THREAD_OPEN_IN_PAGER_PAGER="${LLM_THREAD_OPEN_IN_PAGER_PAGER:-bat --language markdown --color always --paging=always --plain --pager=\"less -R -+S --wordwrap\"}"
-LLM_THREAD_PREVIEW_PAGER="${LLM_THREAD_PREVIEW_PAGER:-$FZFLLM thread_preview_pager}"
+LLM_OPEN_IN_PAGER_CMD="${LLM_OPEN_IN_PAGER_CMD:-bat --language markdown --color always --paging=always --plain --pager=\"less -R -+S --wordwrap\"}"
+LLM_PREVIEW_DECORATOR="${LLM_PREVIEW_DECORATOR:-bat --language markdown --color always --plain}"
 
 KEY_TOGGLE_HEADER="${KEY_TOGGLE_HEADER:-alt-/}"
 KEY_NEW_THREAD="${KEY_NEW_THREAD:-ctrl-t}"
 KEY_SEARCH_THREADS="${KEY_SEARCH_THREADS:-ctrl-/}"
-KEY_DELETE_THREAD="${KEY_DELETE_THREAD:-ctrl-delete}"
-KEY_OPEN_THREAD_IN_PAGER="${KEY_OPEN_THREAD_IN_PAGER:-enter}"
-KEY_OPEN_THREAD_IN_EDITOR="${KEY_OPEN_THREAD_IN_EDITOR:-alt-enter}"
-KEY_RESUME_THREAD="${KEY_RESUME_THREAD:-ctrl-o}"
+KEY_DELETE="${KEY_DELETE:-ctrl-delete}"
+KEY_OPEN_IN_PAGER="${KEY_OPEN_IN_PAGER:-enter}"
+KEY_OPEN_IN_EDITOR="${KEY_OPEN_IN_EDITOR:-alt-enter}"
+KEY_CONTINUE_THREAD="${KEY_CONTINUE_THREAD:-ctrl-o}"
 KEY_RENAME_THREAD="${KEY_RENAME_THREAD:-ctrl-r}"
 KEY_EDIT_THREAD_MESSAGES="${KEY_EDIT_THREAD_MESSAGES:-alt-e}"
 KEY_SHOW_HELP="${KEY_SHOW_HELP:-?}"
+KEY_CHANGE_PREVIEW_PRESET="${KEY_CHANGE_PREVIEW_PRESET:-ctrl-g}"
 KEY_PREVIEW_UP_1="${KEY_PREVIEW_UP_1:-alt-k}"
 KEY_PREVIEW_UP_2="${KEY_PREVIEW_UP_2:-alt-p}"
 KEY_PREVIEW_DOWN_1="${KEY_PREVIEW_DOWN_1:-alt-j}"
@@ -30,13 +32,13 @@ HEADER_TEXT="Press $KEY_SHOW_HELP for help"
 # Just UI/UX/style, can be freely changed.
 FZFLLM_FZF_GRAPHICAL_OPTS="
 --layout=reverse --height='100%'
---preview-window='right,60%,wrap,border-double'
---bind='ctrl-g:change-preview-window:right,76%,wrap|right,60%,wrap'
---border=\"block\" --color=gutter:-1
+--preview-window='right,60%,wrap,border-rounded'
+--bind='$KEY_CHANGE_PREVIEW_PRESET:change-preview-window:right,76%,wrap|right,60%,wrap'
+--border=\"bold\" --color=gutter:-1,border:#4e440c,preview-border:#1d077d,preview-scrollbar:bright-black
 --header '$HEADER_TEXT' --header-first
 --info=hidden
 --cycle --no-sort --exit-0 --tiebreak=index
---bind='change:hide-header'
+--listen --bind='start:execute-silent:{ sleep 2 && curl -XPOST localhost:\$FZF_PORT -d hide-header ; }&'
 "
 
 # We assume NUL-terminated input to fzf to accomodate multiline input.
@@ -58,12 +60,12 @@ $FZFLLM_FZF_GENERAL_OPTS"
 # because with execute the spawned process will inherit the environment
 # and inheriting FZF_DEFAULT_OPTS is a problem (duplicates).
 FZFLLM_BINDS_FOR_LIST_OF_THREADS="
---preview='$LLM_GET_THREAD_CMD | $LLM_THREAD_PREVIEW_PAGER'
---bind='$KEY_DELETE_THREAD:transform[echo print:delete_thread {1}]+accept'
---bind='$KEY_OPEN_THREAD_IN_EDITOR:execute($FZFLLM open_thread_in_editor {1})'
---bind='$KEY_OPEN_THREAD_IN_PAGER:execute($LLM_GET_THREAD_CMD | $LLM_THREAD_OPEN_IN_PAGER_PAGER)'
+--preview='$LLM_GET_THREAD_CMD | $LLM_PREVIEW_DECORATOR'
+--bind='$KEY_OPEN_IN_PAGER:execute($LLM_GET_THREAD_CMD | $LLM_OPEN_IN_PAGER_CMD)'
+--bind='$KEY_DELETE:transform[echo print:delete_thread {1}]+accept'
+--bind='$KEY_OPEN_IN_EDITOR:execute($LLM_GET_THREAD_CMD | $FZFLLM open_stdin_in_editor)'
 --bind='$KEY_NEW_THREAD:print(new_thread)+accept'
---bind='$KEY_RESUME_THREAD:transform[echo print:resume_thread {1}]+accept'
+--bind='$KEY_CONTINUE_THREAD:transform[echo print:continue_thread {1}]+accept'
 --bind='$KEY_SEARCH_THREADS:transform[echo print:search_threads \"{fzf:query}\"]+accept'
 --bind='$KEY_RENAME_THREAD:transform[echo print:rename_thread {1} {2}]+accept'
 --bind='$KEY_EDIT_THREAD_MESSAGES:transform[echo print:edit_thread_messages {1}]+accept'
@@ -105,7 +107,8 @@ _fzfllm_list_threads() {
   $FZF_DEFAULT_OPTS
   $FZFLLM_FZF_GENERAL_OPTS
   $FZFLLM_BINDS_FOR_LIST_OF_THREADS
-  --prompt=\"threads\> \"
+  --prompt=\"🧵threads\> \"
+  --pointer='👉'
   $FZFLLM_LIST_THREADS_FZF_OPTS"
 
   local CONVERSATIONS_QUERY="
@@ -123,6 +126,7 @@ _fzfllm_search_threads() {
   $FZFLLM_FZF_GENERAL_OPTS
   $FZFLLM_BINDS_FOR_LIST_OF_THREADS
   --prompt=\"results\> \"
+  --pointer='👉'
   $FZFLLM_SEARCH_THREADS_FZF_OPTS"
 
   local SEARCH_QUERY="
@@ -148,8 +152,11 @@ _fzfllm_edit_thread_messages() {
   local OPTS="
   $FZF_DEFAULT_OPTS
   $FZFLLM_FZF_GENERAL_OPTS
-  --preview='$FZFLLM preview_message {1}'
-  --prompt=\"messages\> \"
+  --preview='$FZFLLM preview_message {1} | $LLM_PREVIEW_DECORATOR'
+  --prompt=\"🗨 messages\> \"
+  --bind='$KEY_DELETE:transform[echo print:delete_message {1}]+accept'
+  --bind='$KEY_OPEN_IN_PAGER:execute($FZFLLM preview_message {1} | $LLM_OPEN_IN_PAGER_CMD)'
+  --bind='$KEY_OPEN_IN_EDITOR:execute($FZFLLM preview_message {1} | $FZFLLM open_stdin_in_editor)'
   $FZFLLM_EDIT_THREAD_MESSAGES_FZF_OPTS"
 
   _fzfllm_execute_query "
@@ -159,11 +166,16 @@ _fzfllm_edit_thread_messages() {
 }
 
 _fzfllm_preview_message() {
-  IFS=$'\x1f' read -r -d '' -a sections < <(_fzfllm_execute_query "SELECT prompt, response from responses where id='$1'")
-  echo "😀Prompt:"
-  create_box "${sections[0]}"
-  echo "🤖Response:"
-  create_box "${sections[1]}"
+  IFS=$'\x1f' read -r -d '' -a sections < <(_fzfllm_execute_query "SELECT prompt, response, datetime_utc from responses where id='$1'")
+  echo "# Message from ${sections[2]:0:19}"
+  echo
+  echo "## 🧑 Prompt:"
+  echo
+  echo "${sections[0]}"
+  echo
+  echo "## 🤖 Response:"
+  echo
+  echo "${sections[1]}"
 }
 
 _fzfllm_delete_thread() {
@@ -172,10 +184,21 @@ _fzfllm_delete_thread() {
   DELETE FROM conversations WHERE id = '${1}';"
 }
 
-_fzfllm_open_thread_in_editor() {
+_fzfllm_delete_message() {
+  cid=$(_fzfllm_execute_query "SELECT conversation_id FROM responses WHERE id = '${1}'" | tr '\0' '\n')
+  _fzfllm_execute_query "DELETE FROM responses WHERE id = '${1}';"
+  remaining_messages=$(_fzfllm_execute_query "SELECT count(*) FROM responses WHERE conversation_id = '${cid}'" | tr '\0' '\n')
+  if [ "$remaining_messages" -eq 0 ]; then
+    _fzfllm_execute_query "DELETE FROM conversations WHERE id = '${cid}';"
+    return
+  fi
+  echo edit_thread_messages "$cid"
+}
+
+_fzfllm_open_stdin_in_editor() {
   local FILE
   FILE=$(mktemp "fzfllm_cid_${1}_XXX.md" --tmpdir)
-  llm logs list --cid "${1}" > "$FILE"
+  cat > "$FILE"
   "${EDITOR:-nvim}" "$FILE"
   rm -f "$FILE"
 }
@@ -188,7 +211,7 @@ _fzfllm_new_thread() {
   $NEWCOMMAND > /dev/tty
 }
 
-_fzfllm_resume_thread() {
+_fzfllm_continue_thread() {
   llm chat --cid "$1" > /dev/tty
 }
 
@@ -204,30 +227,29 @@ _fzfllm_rename_thread() {
   _fzfllm_execute_query "$UPDATE_QUERY"
 }
 
-_fzfllm_thread_preview_pager() {
-  bat --language markdown --color always --plain --terminal-width="${FZF_PREVIEW_COLUMNS}"
-}
-
 _fzfllm_help() {
   local HELP_TEXT
-  HELP_TEXT="$(_bwhite "Keys:")
-  $(_bgreen "${KEY_TOGGLE_HEADER}"): to toggle the header help (the one showing the \\\"$HEADER_TEXT\\\" text)
-  $(_bgreen "$KEY_NEW_THREAD"): to start a new thread.
-  $(_bgreen "${KEY_RENAME_THREAD}"): to rename the current thread.
-  $(_bgreen "${KEY_EDIT_THREAD_MESSAGES}"): to edit the current thread's messages.
-  $(_bgreen "$KEY_OPEN_THREAD_IN_PAGER"): to open the currently selected thread in the pager.
-  $(_bgreen "$KEY_OPEN_THREAD_IN_EDITOR"): to open the currently selected thread in the editor.
-  $(_bgreen "$KEY_RESUME_THREAD"): to resume the currently selected thread.
-  $(_bgreen "$KEY_DELETE_THREAD"): to delete the currently select thread.
-  $(_bgreen "$KEY_SEARCH_THREADS"): to find threads that match the query (sqlite fts5 full text search in prompts and responses).
-  $(_bgreen "$KEY_PREVIEW_DOWN_1", "$KEY_PREVIEW_DOWN_2"): to scroll the preview down.
-  $(_bgreen "$KEY_PREVIEW_UP_1", "$KEY_PREVIEW_UP_2"): to scroll the preview up.
-  Keys can be freely changed but only via env vars for now, read the source code to see how :)
+  HELP_TEXT="$(_bwhite "⌨  Keys:")
+  $(_bgreen "$KEY_NEW_THREAD"): start a NEW THREAD.
+  $(_bgreen "${KEY_RENAME_THREAD}"): RENAME the current thread.
+  $(_bgreen "${KEY_EDIT_THREAD_MESSAGES}"): EDIT THE MESSAGES of the current thread.
+  $(_bgreen "$KEY_OPEN_IN_PAGER"): OPEN IN PAGER the currently selected thread.
+  $(_bgreen "$KEY_OPEN_IN_EDITOR"): OPEN IN EDITOR the currently selected thread.
+  $(_bgreen "$KEY_CONTINUE_THREAD"): CONTINUE the currently selected thread.
+  $(_bgreen "$KEY_DELETE"): DELETE the currently select entry.
+  $(_bgreen "$KEY_SEARCH_THREADS"): SEARCH threads matching the current query (sqlite fts5 in prompts and responses).
+
+  $(_bgreen "${KEY_TOGGLE_HEADER}"): toggles the header help (the one showing the \"$HEADER_TEXT\" text)
+  $(_bgreen "$KEY_CHANGE_PREVIEW_PRESET"): toggles between the two preview layout presets.
+  $(_bgreen "$KEY_PREVIEW_DOWN_1", "$KEY_PREVIEW_DOWN_2"): scrolls the preview down.
+  $(_bgreen "$KEY_PREVIEW_UP_1", "$KEY_PREVIEW_UP_2"): scrolls the preview up.
 
   Other default fzf mappings apply, like the following:
-  ctrl-c Esc ctrl-g ctrl-q: to quit
-  ctrl-j ctrl-n down: to go down
-  ctrl-k ctrl-p up: to go up
+  $(_white "ctrl-c Esc ctrl-q"): to quit
+  $(_white "ctrl-j ctrl-n down"): to go down
+  $(_white "ctrl-k ctrl-p up"): to go up
+
+  Keys can be freely changed but only via env vars for now, read the source code to see how :)
   "
   echo "$HELP_TEXT"
 }
@@ -292,17 +314,17 @@ shift
 public_commands=(
   "main"
   "list_threads"
-  "delete_thread"
-  "open_thread_in_editor"
-  "search_threads"
   "new_thread"
-  "resume_thread"
+  "delete_thread"
+  "delete_message"
+  "open_stdin_in_editor"
+  "search_threads"
+  "continue_thread"
   "rename_thread"
   "edit_thread_messages"
   "preview_message"
-  "thread_preview_pager"
   "help"
-  "execute_query"
+  # "execute_query"
 )
 
 # shellcheck disable=SC2076

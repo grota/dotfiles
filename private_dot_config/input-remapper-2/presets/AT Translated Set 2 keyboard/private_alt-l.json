@@ -1,0 +1,14 @@
+[
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 56,
+                "origin_hash": "748e31550c24fc009038438dc4fce338"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "set(foo, 1).hold_keys(Alt_L).set(foo, 0)",
+        "mapping_type": "key_macro"
+    }
+]
