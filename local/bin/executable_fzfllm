@@ -204,7 +204,6 @@ _fzfllm_open_stdin_in_editor() {
 }
 
 _fzfllm_new_thread() {
-  echo list_threads
   local COMMAND
   COMMAND=$(navi --best-match --query 'llm new chat' --print)
   read -e -r -i "$COMMAND" -p "Start new thread with command: " NEWCOMMAND
@@ -308,6 +307,32 @@ create_box() {
   printf "┘\n"
 }
 
+# This subcommand parses the stdin which is assumed to be
+# the output of `llm template show some_template`.
+# It outputs a string like `-p param1 value1 -p param2 value2 -p param3 value3`
+# where each value is the value taken from the defaults section or XXX.
+# We print first the pairs that have a default.
+function _fzfllm_extract_params_from_llm_template() {
+  local stdinvalue
+  stdinvalue=$(cat)
+  declare -A defaults
+  while read -r key value; do
+    defaults[$key]=$value
+  done < <(awk '/^defaults:/, /^[\^ ]/ { if($1 != "defaults:" && $1 != "") { gsub(":", ""); print $1, $2 } }' <<< "$stdinvalue")
+  local dollar_words_in_stdin
+  dollar_words_in_stdin=$(grep -o '\$[a-zA-Z0-9_]\+' <<< "$stdinvalue" | sort | uniq | sed 's/\$//g')
+  while read -r param; do
+    if [[ -n "${defaults[$param]}" ]]; then
+      echo -n "-p $param ${defaults[$param]} "
+    fi
+  done <<< "$dollar_words_in_stdin"
+  while read -r param; do
+    if [[ -z "${defaults[$param]}" ]]; then
+      echo -n "-p $param XXX "
+    fi
+  done <<< "$dollar_words_in_stdin"
+}
+
 cmd="${1:-main}"
 shift
 
@@ -324,6 +349,7 @@ public_commands=(
   "edit_thread_messages"
   "preview_message"
   "help"
+  "extract_params_from_llm_template"
   # "execute_query"
 )
 

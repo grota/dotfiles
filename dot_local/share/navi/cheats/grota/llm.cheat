@@ -6,7 +6,10 @@ llm chat -t <template> -o temperature <temperature> <template_params>
 # logs
 visidata $HOME/.config/io.datasette.llm/logs.db
 
+# edit templates
+$EDITOR $(llm templates path)
+
 $ template: llm templates --- --column 1 --delimiter '\s+:\s'
-$ temperature:  echo -e '0.3\n0.1\n0.5\n1' --- --fzf-overrides '--print-query --query 5 --no-select-1'
+$ temperature:  echo -e '0.3\n0.1\n0.5\n1' --- --fzf-overrides '--print-query --query 0.1 --no-select-1'
 ; gather all the words starting with $ (params of a template and prefill them with XXX value)
-$ template_params: llm templates show $template | grep -o '\$[a-zA-Z_]\+' | sort | uniq | sed 's/\$//g' | awk '{print "-p " $1 " XXX"}' | tr '\n' ' ' | sed 's/ $/\n/'
+$ template_params: llm templates show $template | grep -o '\$[a-zA-Z_]\+' | sort | uniq | sed 's/\$//g' | awk '{print "-p " $1 " XXX"}' | tr '\n' ' ' | sed 's/ $/\n/' --- --fzf-overrides '--exit-0'
