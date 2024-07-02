@@ -12,5 +12,14 @@
       "error_log(__${2:METHOD}__ . ': ' . var_export(\\$${1:var}, TRUE));"
     ],
     "description": "error_log var_export"
+  },
+  "foreach mine": {
+    "prefix": "fore",
+    "body": [
+      "foreach (\\$${1:variable} as \\$${2:key => } \\$${3:value}) {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "Foreach loop"
   }
 }

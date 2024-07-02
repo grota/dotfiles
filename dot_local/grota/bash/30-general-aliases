@@ -39,3 +39,23 @@ function rga() {
   rg --with-filename --line-number --column --smart-case --hidden -g='!.git/**' --no-ignore --no-ignore-parent --pretty "${@}" | LESS='' less --RAW-CONTROL-CHARS --ignore-case --quit-if-one-screen
 }
 #}}}
+
+function slackupper() {
+  while IFS= read -r -n1 char; do
+    if [[ "$char" =~ [a-zA-Z] ]]; then
+      echo -n ":alphabet-white-${char,,}:"
+    elif [[ "$char" == ' ' ]]; then
+      echo -n "  "
+    elif [[ "$char" == '@' ]]; then
+      echo -n ":alphabet-white-at:"
+    elif [[ "$char" == '#' ]]; then
+      echo -n ":alphabet-white-hash:"
+    elif [[ "$char" == '?' ]]; then
+      echo -n ":alphabet-white-question:"
+    elif [[ "$char" == '!' ]]; then
+      echo -n ":alphabet-white-exclamation:"
+    else
+      echo -n "$char"
+    fi
+  done
+}
