@@ -390,7 +390,7 @@ button-layout='appmenu:close'
 focus-mode='click'
 resize-with-right-button=true
 theme='SolArc-Dark'
-workspace-names=['slack', 'work', 'Workspace 3', 'beampointer', 'beampointer']
+workspace-names=['slack', 'work', 'another', 'beampointer', 'Workspace 3']
 
 [org/gnome/eog/ui]
 sidebar=false
@@ -411,10 +411,10 @@ fullscreen=false
 inverted-colors=false
 show-sidebar=true
 sidebar-page='thumbnails'
-sidebar-size=132
-sizing-mode='automatic'
-window-ratio=(2.4689075630252102, 1.2446555819477434)
-zoom=0.59405316870354252
+sidebar-size=148
+sizing-mode='free'
+window-ratio=(2.4693268574512324, 1.2448185559296663)
+zoom=0.47317682660320121
 
 [org/gnome/evolution-data-server]
 migrated=true
@@ -637,7 +637,7 @@ last-folder-path='/home/grota/Downloads'
 last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/google-chrome]
-last-folder-path='/home/grota/Dropbox/ebooks'
+last-folder-path='/home/grota/Documents/commercialista/2024'
 
 [org/gnome/portal/filechooser/org.gnome.Builder]
 last-folder-path='/home/grota/Projects/personal/gjs-extension-test-runner'
@@ -877,7 +877,7 @@ name='slack'
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/6237e22c-c0bc-4d72-8564-a6a215db0b23]
-index=2
+index=4
 name='Workspace 3'
 
 [org/gnome/shell/extensions/paperwm/workspaces/95242d70-3c22-4ba5-8ea8-b4e8dd43f17b]
@@ -885,14 +885,14 @@ index=1
 name='work'
 
 [org/gnome/shell/extensions/paperwm/workspaces/b3a1e851-310c-4f75-80bb-efffff075d8f]
-index=3
-name='beampointer'
+index=2
+name='another'
 
 [org/gnome/shell/extensions/paperwm/workspaces/d554f895-e877-4006-8603-ab75e3fe7553]
 index=5
 
 [org/gnome/shell/extensions/paperwm/workspaces/e8c8f783-5429-42af-9114-9fb85bcf9fed]
-index=4
+index=3
 name='beampointer'
 
 [org/gnome/shell/extensions/status-area-horizontal-spacing]
@@ -945,9 +945,9 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1719907100
+check-timestamp=int64 1719991087
 first-run=false
-flatpak-purge-timestamp=int64 1719908032
+flatpak-purge-timestamp=int64 1719992098
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
