@@ -20,16 +20,14 @@ vim.keymap.del({ "n", "x", "o" }, "N") -- was https://github.com/mhinz/vim-galor
 
 vim.keymap.del("n", "<leader>gg") -- was lazygit
 vim.keymap.del("n", "<leader>gG") -- was lazygit
-vim.keymap.del("n", "<leader>ww") -- was other window
 vim.keymap.del("n", "<leader>-") -- was Split window below
 vim.keymap.del("n", "<leader>|") -- was Split window right
-vim.keymap.del("n", "<leader>w|") -- was Split window right
 vim.keymap.del("n", "<leader>fn") -- was new file
 
 local wk = require("which-key")
-wk.register({
-	["<leader>v"] = { name = "Neovim rc stuff" },
-	["<leader>y"] = { name = "Custom yanks" },
+wk.add({
+  { "<leader>v", group = "Neovim rc stuff" },
+  { "<leader>y", group = "Custom yanks" },
 })
 
 map("n", "<leader>vv", "<cmd>e $MYVIMRC<Cr>", { desc = "Edit $MYVIMRC" })
@@ -69,7 +67,7 @@ map("n", "<leader>yw", function()
 end, { desc = "Copy pwd" })
 
 map("n", "<leader><F5>", "<cmd>help grota<cr>", { desc = "Personal nvim notes" })
-map("n", "<leader>ww", "<cmd>pwd<cr>", { desc = "PWD" })
+map("n", "<leader><F4>", "<cmd>pwd<cr>", { desc = "PWD" })
 
 map("n", "<leader><tab>c", [[:tabedit <C-r>+<cr>]], { desc = "Open clipboard in new tab" })
 map("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New Tab" })
@@ -113,8 +111,8 @@ map("o", "iL", [[<cmd>normal! ^vg_<CR>]], { noremap = true, desc = "Inner line."
 map("i", "<C-c>", "<ESC>", { noremap = true })
 
 -- Session stuff
-wk.register({
-	["<leader>m"] = { name = "Marks and Sessions" },
+wk.add({
+  { "<leader>m", group = "Marks and Sessions" },
 })
 local session_dir = vim.fn.stdpath("data") .. "/sessions/"
 map("n", "<leader>ms", function()

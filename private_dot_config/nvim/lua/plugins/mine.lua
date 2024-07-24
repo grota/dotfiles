@@ -71,9 +71,9 @@ return {
 		},
 		init = function()
 			local wk = require("which-key")
-			wk.register({
-				["<leader>gt"] = { name = "Git tab" },
-				["<leader>gte"] = { name = "Git tab edit" },
+			wk.add({
+        { "<leader>gt", group = "Git tab" },
+        { "<leader>gte", group = "Git tab edit" },
 			})
 		end,
 	},
@@ -90,8 +90,8 @@ return {
 		init = function()
 			vim.g.interestingWordsDefaultMappings = 0
 			local wk = require("which-key")
-			wk.register({
-				["<leader>k"] = { name = "Highlight (for the moment)" },
+			wk.add({
+        { "<leader>k", group = "Highlight (for the moment)" },
 			})
 		end,
 	},
@@ -196,10 +196,10 @@ return {
     },
 		init = function()
 			local wk = require("which-key")
-			wk.register({
-				["<leader>p"] = { name = "Phpactor" },
-				["<leader>pn"] = { name = "(type d) Expand Class" },
-				["<leader>px"] = { name = "(type t) exTract Expression" },
+			wk.add({
+        { "<leader>p", group = "Phpactor" },
+        { "<leader>pn", group = "(type d) Expand Class" },
+        { "<leader>px", group = "(type t) exTract Expression" },
 			})
 		end,
 	},
