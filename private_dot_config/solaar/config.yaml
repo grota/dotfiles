@@ -11,12 +11,12 @@
   _unitId: D4F041EB
   change-host: null
   divert-keys: {82: 0, 83: 0, 86: 0, 195: 0, 196: 0}
-  dpi: 1000
+  dpi: 900
   hires-scroll-mode: false
   hires-smooth-invert: false
   hires-smooth-resolution: true
   reprogrammable-keys: {80: 80, 81: 81, 82: 82, 83: 83, 86: 86, 195: 195, 196: 196}
   scroll-ratchet: 2
-  smart-shift: 8
+  smart-shift: 14
   thumb-scroll-invert: false
   thumb-scroll-mode: false

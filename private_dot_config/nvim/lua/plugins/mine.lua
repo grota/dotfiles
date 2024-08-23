@@ -188,7 +188,6 @@ return {
 
 	{
 		"phpactor/phpactor",
-		dir = "~/.local/share/nvim/mason/packages/phpactor/",
 		ft = "php",
     keys = {
       {"<leader>pnd", ":PhpactorClassExpand<cr>", desc = "Phpactor Class Expand" },
@@ -202,6 +201,7 @@ return {
         { "<leader>px", group = "(type t) exTract Expression" },
 			})
 		end,
+    build = "composer install --no-dev -o"
 	},
 
 }
