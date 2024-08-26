@@ -49,6 +49,7 @@
   ;show = delta
 [push]
   default = current
+	autoSetupRemote = true
 [tig "bind"]
   diff = <up> move-up
   diff = <down> move-down
