@@ -38,7 +38,7 @@ return {
         local rhs = function()
           -- Make new window and set it as target
           local new_target_window
-          local windowid = MiniFiles.get_target_window();
+          local windowid = MiniFiles.get_explorer_state().target_window
           if windowid == nil then
             return
           end

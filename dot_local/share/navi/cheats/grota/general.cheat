@@ -1,1 +1,4 @@
 % general
+
+# input-remapper mx master 3s
+input-remapper-control --command start --device 'Logitech MX Master 3S' --preset 'button remaps'
