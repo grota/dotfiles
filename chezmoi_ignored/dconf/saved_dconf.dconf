@@ -90,7 +90,7 @@ panel-id='timer'
 size=(1440, 1048)
 
 [org/gnome/control-center]
-last-panel='power'
+last-panel='wifi'
 window-state=(1440, 1048, false)
 
 [org/gnome/deja-dup]
@@ -172,8 +172,8 @@ autorun-x-content-open-folder=@as []
 autorun-x-content-start-app=['x-content/unix-software', 'x-content/ostree-repository']
 
 [org/gnome/desktop/notifications]
-application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions', 're-sonny-workbench', 'org-gnome-weather', 'libreoffice-startcenter', 'org-gnome-eog', 'shutter', 'screenkey', 'org-kde-kdenlive', 'fr-handbrake-ghb', 'solaar', 'gimp', 'calibre-gui', 'org-gnome-builder']
-show-banners=false
+application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions', 're-sonny-workbench', 'org-gnome-weather', 'libreoffice-startcenter', 'org-gnome-eog', 'shutter', 'screenkey', 'org-kde-kdenlive', 'fr-handbrake-ghb', 'solaar', 'gimp', 'calibre-gui', 'org-gnome-builder', 'yelp', 'org-pulseaudio-pavucontrol']
+show-banners=true
 
 [org/gnome/desktop/notifications/application/alacritty]
 application-id='Alacritty.desktop'
@@ -298,6 +298,9 @@ application-id='org.gnome.Weather.desktop'
 [org/gnome/desktop/notifications/application/org-kde-kdenlive]
 application-id='org.kde.kdenlive.desktop'
 
+[org/gnome/desktop/notifications/application/org-pulseaudio-pavucontrol]
+application-id='org.pulseaudio.pavucontrol.desktop'
+
 [org/gnome/desktop/notifications/application/org-telegram-desktop]
 application-id='org.telegram.desktop.desktop'
 
@@ -330,6 +333,9 @@ application-id='transmission-gtk.desktop'
 
 [org/gnome/desktop/notifications/application/xdg-desktop-portal-gnome]
 application-id='xdg-desktop-portal-gnome.desktop'
+
+[org/gnome/desktop/notifications/application/yelp]
+application-id='yelp.desktop'
 
 [org/gnome/desktop/peripherals/keyboard]
 delay=uint32 167
@@ -399,7 +405,7 @@ button-layout='appmenu:close'
 focus-mode='click'
 resize-with-right-button=true
 theme='SolArc-Dark'
-workspace-names=['slack', 'work', 'Workspace 3', 'another', 'another', 'Workspace 6']
+workspace-names=['slack', 'work', 'another', 'Workspace 3', 'beampointerk', 'beampointerk']
 
 [org/gnome/eog/ui]
 sidebar=false
@@ -418,19 +424,19 @@ dual-page-odd-left=true
 enable-spellchecking=true
 fullscreen=false
 inverted-colors=false
-show-sidebar=true
+show-sidebar=false
 sidebar-page='thumbnails'
-sidebar-size=148
-sizing-mode='automatic'
-window-ratio=(3.2254000251984372, 1.2448196852554196)
-zoom=1.0
+sidebar-size=132
+sizing-mode='free'
+window-ratio=(1.0079375078745116, 1.2448196852554196)
+zoom=0.52366386554621847
 
 [org/gnome/evolution-data-server]
 migrated=true
 network-monitor-gio-name=''
 
 [org/gnome/evolution-data-server/calendar]
-reminders-past=['1a98c3c04adf522b8cff948a88cff227ddca0aff\ndb6823f248aa59de96c267fde7f7e4aaf7f07d36\t20241018\n1729123200\n1729209600\n1729296000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20241018\r\nDTEND;VALUE=DATE:20241019\r\nRRULE:FREQ=YEARLY;BYMONTHDAY=18;BYMONTH=10\r\nDTSTAMP:20230303T090351Z\r\nUID:DE0643E0E58C45D497EDACED17A0C42A00000000000000000000000000000000\r\nCREATED:20101017T115111Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T090351Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Compleanno Elia\r\nTRANSP:TRANSPARENT\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813517431\r\nRECURRENCE-ID;VALUE=DATE:20241018\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1D\r\nX-EVOLUTION-ALARM-UID:db6823f248aa59de96c267fde7f7e4aaf7f07d36\r\nEND:VALARM\r\nEND:VEVENT\r\n', "1a98c3c04adf522b8cff948a88cff227ddca0aff\n6d5c02c9778bac6c7945e159165f37822a8b7ba8\t20241020\n1729036800\n1729382400\n1729468800\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20241020\r\nDTEND;VALUE=DATE:20241021\r\nRRULE:FREQ=YEARLY\r\nDTSTAMP:20230303T085923Z\r\nUID:n6ll8ivisnv86rkrj0hdfuqdig@google.com\r\nCREATED:20091023T073026Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T085923Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Gianni Piacenza's birthday\r\nTRANSP:TRANSPARENT\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813517163\r\nRECURRENCE-ID;VALUE=DATE:20241020\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P4D\r\nX-EVOLUTION-ALARM-UID:6d5c02c9778bac6c7945e159165f37822a8b7ba8\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P5D\r\nX-EVOLUTION-ALARM-UID:06db3504d5741d09a42ec5be3aaff525d63a940c\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6D\r\nX-EVOLUTION-ALARM-UID:d445b7d27d06fb0484eb6258d1942f1432dcf2b9\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P7D\r\nX-EVOLUTION-ALARM-UID:eb66c8315ac6f9488c37752ea37a777744448dea\r\nEND:VALARM\r\nEND:VEVENT\r\n", "1a98c3c04adf522b8cff948a88cff227ddca0aff\n06db3504d5741d09a42ec5be3aaff525d63a940c\t20241020\n1728950400\n1729382400\n1729468800\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20241020\r\nDTEND;VALUE=DATE:20241021\r\nRRULE:FREQ=YEARLY\r\nDTSTAMP:20230303T085923Z\r\nUID:n6ll8ivisnv86rkrj0hdfuqdig@google.com\r\nCREATED:20091023T073026Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T085923Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Gianni Piacenza's birthday\r\nTRANSP:TRANSPARENT\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813517163\r\nRECURRENCE-ID;VALUE=DATE:20241020\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P4D\r\nX-EVOLUTION-ALARM-UID:6d5c02c9778bac6c7945e159165f37822a8b7ba8\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P5D\r\nX-EVOLUTION-ALARM-UID:06db3504d5741d09a42ec5be3aaff525d63a940c\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6D\r\nX-EVOLUTION-ALARM-UID:d445b7d27d06fb0484eb6258d1942f1432dcf2b9\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P7D\r\nX-EVOLUTION-ALARM-UID:eb66c8315ac6f9488c37752ea37a777744448dea\r\nEND:VALARM\r\nEND:VEVENT\r\n", "1a98c3c04adf522b8cff948a88cff227ddca0aff\nd445b7d27d06fb0484eb6258d1942f1432dcf2b9\t20241020\n1728864000\n1729382400\n1729468800\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20241020\r\nDTEND;VALUE=DATE:20241021\r\nRRULE:FREQ=YEARLY\r\nDTSTAMP:20230303T085923Z\r\nUID:n6ll8ivisnv86rkrj0hdfuqdig@google.com\r\nCREATED:20091023T073026Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T085923Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Gianni Piacenza's birthday\r\nTRANSP:TRANSPARENT\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813517163\r\nRECURRENCE-ID;VALUE=DATE:20241020\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P4D\r\nX-EVOLUTION-ALARM-UID:6d5c02c9778bac6c7945e159165f37822a8b7ba8\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P5D\r\nX-EVOLUTION-ALARM-UID:06db3504d5741d09a42ec5be3aaff525d63a940c\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6D\r\nX-EVOLUTION-ALARM-UID:d445b7d27d06fb0484eb6258d1942f1432dcf2b9\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P7D\r\nX-EVOLUTION-ALARM-UID:eb66c8315ac6f9488c37752ea37a777744448dea\r\nEND:VALARM\r\nEND:VEVENT\r\n", "1a98c3c04adf522b8cff948a88cff227ddca0aff\neb66c8315ac6f9488c37752ea37a777744448dea\t20241020\n1728777600\n1729382400\n1729468800\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20241020\r\nDTEND;VALUE=DATE:20241021\r\nRRULE:FREQ=YEARLY\r\nDTSTAMP:20230303T085923Z\r\nUID:n6ll8ivisnv86rkrj0hdfuqdig@google.com\r\nCREATED:20091023T073026Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T085923Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Gianni Piacenza's birthday\r\nTRANSP:TRANSPARENT\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813517163\r\nRECURRENCE-ID;VALUE=DATE:20241020\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P4D\r\nX-EVOLUTION-ALARM-UID:6d5c02c9778bac6c7945e159165f37822a8b7ba8\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P5D\r\nX-EVOLUTION-ALARM-UID:06db3504d5741d09a42ec5be3aaff525d63a940c\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6D\r\nX-EVOLUTION-ALARM-UID:d445b7d27d06fb0484eb6258d1942f1432dcf2b9\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P7D\r\nX-EVOLUTION-ALARM-UID:eb66c8315ac6f9488c37752ea37a777744448dea\r\nEND:VALARM\r\nEND:VEVENT\r\n"]
+reminders-past=["1a98c3c04adf522b8cff948a88cff227ddca0aff\n29b29ffff061a4852ead35d85efcc2d055484875\t20241104\n1730677800\n1730678400\n1730764800\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20241104\r\nDTEND;VALUE=DATE:20241105\r\nRRULE:FREQ=YEARLY\r\nDTSTAMP:20230303T085138Z\r\nORGANIZER;CN=Giuseppe Rota:mailto:rota.giuseppe@gmail.com\r\nUID:nurkin36nac24sqpfkjfco87ic@google.com\r\nATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;\r\n CN=Giuseppe Rota;X-NUM-GUESTS=0:mailto:rota.giuseppe@gmail.com\r\nATTENDEE;CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=ACCEPTED;\r\n CN=federico.rota01@gmail.com;X-NUM-GUESTS=0:mailto:\r\n federico.rota01@gmail.com\r\nCREATED:20071025T191341Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T085138Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Onomastico Papa'\r\nTRANSP:TRANSPARENT\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813516698\r\nRECURRENCE-ID;VALUE=DATE:20241104\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT10M\r\nX-EVOLUTION-ALARM-UID:29b29ffff061a4852ead35d85efcc2d055484875\r\nEND:VALARM\r\nEND:VEVENT\r\n", '1a98c3c04adf522b8cff948a88cff227ddca0aff\n54b5b4a09fe2ad192c8a2abec34783a0aae22bec\t20241102\n1730505000\n1730505600\n1730592000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20241102\r\nDTEND;VALUE=DATE:20241103\r\nRRULE:FREQ=YEARLY;WKST=SU\r\nDTSTAMP:20230303T085357Z\r\nUID:q81hrle5umqblrf0f6r1tkl0d0@google.com\r\nCREATED:20071025T185013Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T085357Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Compleanno Grassi\r\nTRANSP:TRANSPARENT\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813516837\r\nRECURRENCE-ID;VALUE=DATE:20241102\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT10M\r\nX-EVOLUTION-ALARM-UID:54b5b4a09fe2ad192c8a2abec34783a0aae22bec\r\nEND:VALARM\r\nEND:VEVENT\r\n', '1a98c3c04adf522b8cff948a88cff227ddca0aff\nbc8c0fbf90ddbafdac600e97da17f7f17691251f\t20241031\n1730160000\n1730332800\n1730419200\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20241031\r\nDTEND;VALUE=DATE:20241101\r\nRRULE:FREQ=YEARLY;WKST=SU\r\nDTSTAMP:20230303T090101Z\r\nUID:tbol065jmcvfcrh0h3g6355mlg@google.com\r\nCREATED:20071025T184951Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T090101Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Compleanno Anna\r\nTRANSP:TRANSPARENT\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813517261\r\nRECURRENCE-ID;VALUE=DATE:20241031\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P2D\r\nX-EVOLUTION-ALARM-UID:bc8c0fbf90ddbafdac600e97da17f7f17691251f\r\nEND:VALARM\r\nEND:VEVENT\r\n']
 
 [org/gnome/file-roller/dialogs/extract]
 height=800
@@ -627,7 +633,7 @@ search-filter-time-type='last_modified'
 search-view='list-view'
 
 [org/gnome/nautilus/window-state]
-initial-size=(1920, 1048)
+initial-size=(1440, 1048)
 initial-size-file-chooser=(890, 550)
 maximized=false
 sidebar-width=247
@@ -651,7 +657,7 @@ last-folder-path='/home/grota/Downloads'
 last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/google-chrome]
-last-folder-path='/home/grota/Downloads'
+last-folder-path='/home/grota/Downloads/idea_for_new_rag_app'
 
 [org/gnome/portal/filechooser/org.gnome.Builder]
 last-folder-path='/home/grota/Projects/personal/gjs-extension-test-runner'
@@ -663,7 +669,7 @@ last-folder-path='/home/grota/Downloads'
 last-folder-path='/home/grota/Downloads'
 
 [org/gnome/settings-daemon/plugins/color]
-night-light-enabled=false
+night-light-enabled=true
 night-light-temperature=uint32 4236
 
 [org/gnome/settings-daemon/plugins/media-keys]
@@ -720,10 +726,10 @@ sleep-inactive-ac-type='nothing'
 command-history=['r', 'lllg', 'ls', 'rest', 'restart', 'l', 'kg', 'gl', 'lg']
 disable-user-extensions=false
 disabled-extensions=['beampointer@grota.github.com']
-enabled-extensions=['BringOutSubmenuOfPowerOffLogoutButton@pratap.fastmail.fm', 'just-perfection-desktop@just-perfection', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor@paradoxxx.zero.gmail.com', 'true-color-invert@jackkenney', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'system-monitor@gnome-shell-extensions.gcampax.github.com', 'clipboard-indicator@tudmotu.com', 'freon@UshakovVasilii_Github.yahoo.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com', 'appindicatorsupport@rgcjonas.gmail.com', 'paperwm@paperwm.github.com', 'solaar-extension@sidevesh']
+enabled-extensions=['BringOutSubmenuOfPowerOffLogoutButton@pratap.fastmail.fm', 'just-perfection-desktop@just-perfection', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor@paradoxxx.zero.gmail.com', 'true-color-invert@jackkenney', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'system-monitor@gnome-shell-extensions.gcampax.github.com', 'clipboard-indicator@tudmotu.com', 'freon@UshakovVasilii_Github.yahoo.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com', 'appindicatorsupport@rgcjonas.gmail.com', 'paperwm@paperwm.github.com', 'solaar-extension@sidevesh', 'status-icons@gnome-shell-extensions.gcampax.github.com']
 favorite-apps=['org.codeberg.dnkl.foot.desktop', 'google-chrome.desktop', 'obsidian.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Settings.desktop', 'solaar.desktop', 'input-remapper-gtk.desktop']
 had-bluetooth-devices-setup=true
-last-selected-power-profile='performance'
+last-selected-power-profile='power-saver'
 looking-glass-history=['console.log(Meta)', 'console.log', 'console.dir(Meta)', 'Meta.Backend', 'Meta.Backend.get_context()', 'Gdk.DisplayManager.get();', 'Clutter.get_default_backend()', 'Meta.WaylandCompositor', 'Meta.WaylandCompositor.get_wayland_display', 'Meta.WaylandCompositor.get_wayland_display()', 'Clutter.get_default_backend().get_default_seat();', 'var a =Clutter.get_default_backend().get_default_seat()', 'setTimeout', 'help', 'ls', 'console', 'global.window', 'window.C_', "window.C_ + ''", "window.N_ + ''", 'globa.display', 'Clutter.get_default_backend().get_default_seat().list_devices()', 'Clutter.get_default_backend().get_default_seat().list_devices()[0].capabilities', 'Clutter.get_default_backend().get_default_seat().list_devices()[0]', 'Clutter.get_default_backend().get_default_seat().list_devices()[0].get_capabilities()', 'Clutter.get_default_backend().get_default_seat().list_devices()[1].get_capabilities()', 'Clutter.get_default_backend().get_default_seat().list_devices()[3].get_capabilities()', 'global.stage', "global.stage.connect('key-press-event', function() => console.log('a'))", 'dd', "global.stage.connect('key-press-event', function(){ console.log('a')})", 'ssda', "global.stage.connect('key-press-event', function(){ console.log('ab')})", "global.stage.connect('key-release-event', function(){ console.log('ab')})", 'xxxx', "global.stage.connect('key-release-event', function(a,b,c,d){ console.log(a,b,c,d)})", "global.stage.connect('key-press-event', function(a,b,c,d){ console.log(a,b,c,d)})", "a=global.stage.connect('key-press-event', function(a,b){ console.log(a,b)})", "a=global.stage.connect('key-press-event', function(a,b){ console.log(a,b.get_key_code())})", "a=global.stage.connect('key-press-event', function(a,b){ console.log(a,b.get_key_symbol())})", "a=global.stage.connect('key-press-event', function(a,b){ console.log('sym',b.get_key_symbol(),'code', b.get_key_code())})", "a=global.stage.connect('key-press-event', function(a,b){ console.log('sym',b.get_key_symbol(),'code', b.get_key_code(), 'u', Clutter.keysym_to_unicode(b.get_key_code()))})", 'a=global.stage.disconnect(77014)', "a=global.stage.connect('key-press-event', function(a,b){ console.log('sym',b.get_key_symbol(),'code', b.get_key_code(), 'u', Clutter.keysym_to_unicode(b.get_key_symbol()))})", 'Clutter.KEY_g', 'Clutter.KEY_G', 'Clutter.KEY_J', 'a=global.stage.disconnect(82210)', 'j', 'Clutter.KEY_j', "a=global.stage.connect('key-press-event', function(a,b){ console.log('sym',b.get_key_symbol())})", 'Signals', 'a=global.stage.disconnect(a)', 'a=global.stage.disconnect(93585)', "import * as Config from 'resource:///org/gnome/shell/misc/config.js';", 'import.gi.Meta', 'imports.gi.Meta', 'Object.getOwnPropertyNames(imports.gi.Meta)', 'r', 'r(5)', 'a=r(5)', 'console.log(a)', 'a.__proto__', 'a.toString()', 'console.log(Object.keys(a))', 'a.actor()', 'a.get_actor().toString()', 'a.get_actor()', 'a.get_actor().get_name()', 'global.stage.get_actions()', "Main.notifyError('ciao')", 'imports.ui.Main', 'imports.ui', 'imports.gi.Main', 'imports.gi.main', 'imports.ui.main', 'Main.notify', 'Main.notify("cas")', 'imports.Signals', 'Object.keys(imports)', 'Object.keys(imports.signals)', 'imports.signals', 'Object.keys(imports.gi)', 'Object.keys(imports.ui)', 'Object.keys(imports.system)', 'Object.keys(imports.system.version)', 'imports.system.version', 'Main', 'Object.keys(Main)', "global.get_data('Main')", 'global.get_data()', 'Main.layoutManager', 'global.window_group', 'GLib.get_tmp_dir()', 'Shell', 'Shell.App', "Shell.App+''", 'LL', 'Shell.App.get_name()', 'Shell.App()', 'a=new Shell.App', 'a.get_name()', 'Object.getOwnPropertyNames(a)', 'Object.keys(lg)', 'Object.keys(a)', 'imports.gi.Shell', 'imports.gi.Shell.App', 'Main.wm._allowedKeybindings', 'Object.getOwnPropertyNames(Main.wm)', 'Seat', 'Clutter.get_default_backend().get_default_seat().get_keymap()', 'Meta.KeyBindingFlags.NONE', 'Meta.KeyBindingFlags', 'display', 'global.display.grab_accelerator.length', "global.display.grab_accelerator('', Meta.KeyBindingFlags.NONE)", 'global.display.', "global.display.grab_accelerator('<Alt>F4', Meta.KeyBindingFlags.NONE)", 'Meta.external_binding_name_for_action(397)', "global.display.grab_accelerator('<Meta>q', Meta.KeyBindingFlags.NONE)", 'Meta.external_binding_name_for_action(398)', 'Meta.external_binding_name_for_action(2)', 'Main.wm.addKeybinding', "Main.wm.addKeybinding + ''", 'imporaaaaaaa', 'imports.searchPath', 'imports.gi.node', 'Meta', 'global.display.grab_accelerator', 'Meta.KeyBindingAction.NONE', "global.display.grab_accelerator('<Super>n')", "global.display.grab_accelerator('<Super>n', Meta.KeyBindingFlags.NONE,)", "global.display.grab_accelerator('<Alt><Super>x', Meta.KeyBindingFlags.NONE,)", "global.display.grab_accelerator('<Alt><Super>n', Meta.KeyBindingFlags.NONE,)", 'global.display.ungrab_accelerator(265)', 'global.display.ungrab_accelerator(266)', 'global.display.ungrab_accelerator(267)', 'global.display.ungrab_accelerator(268)', 'Object.keys(Main.wm)', "global.display.grab_accelerator('<Super>x', Meta.KeyBindingFlags.NONE,)", 'global.display.ungrab_accelerator(269)', 'Meta.external_binding_name_for_action(269)', "global.display.grab_accelerator('<Super>a', Meta.KeyBindingFlags.PER_WINDOW)", "global.display.grab_accelerator('<Super>v', Meta.KeyBindingFlags.PER_WINDOW)", "global.display.grab_accelerator('<Super>h', Meta.KeyBindingFlags.PER_WINDOW)", "global.display.grab_accelerator('<Super>h', Meta.KeyBindingFlags.NONE)", "global.display.grab_accelerator('<Super>h', Meta.KeyBindingFlags.IS_REVERSED)", 'Meta.external_binding_name_for_action(270)', 'global.display.ungrab_accelerator(270)', "global.display.grab_accelerator('<Control>c', Meta.KeyBindingFlags.IS_REVERSED)", 'global.display.ungrab_accelerator(271)', 'Clutter.get_default_backend().get_default_seat().get_pointer()', 'Clutter.get_default_backend().get_default_seat().get_pointer().get_data()', 'Clutter.ModifierType.BUTTON1_MASK', 'Clutter.ModifierType.BUTTON2_MASK', 'Clutter.ModifierType.BUTTON3_MASK', 'global.get_pointer()', 'Main.wm', 'globalThis == global', 'globalThis.global == global', 'Glib', 'Clutter.get_default_backend().get_default_seat().get_data()', 'Clutter.get_default_backend().get_resolution()', 'global.gets_stage()', 'global.get_stage()', 'Meta.Display', 'global.display', 'global.display.get_monitor_geometry()', 'global.display.get_monitor_geometry(global.display.get_current_monitor())', 'global.display.get_monitor_geometry(global.display.get_current_monitor()).height', 'globalThis', 'global', 'globalThis.global', 'window', "{Panel} = await import('./panel.js')", 'Panel', "Util = await import('../misc/util.js')", 'GIRepository.Repository', 'GIRepository', 'imports.ui.GIRepository', 'imports', 'imports.gi', 'imports.gi.GI', 'imports.gi.GIRepository', 'imports.gi.GIRepository.Repository', 'a=imports.gi.GIRepository.Repository', 'a.get_default()', 'a.get_default().get_loaded_namespaces()', 'a.get_loaded_namespaces()', 'a', 'a.get_search_path()', 'Gio', 'Gio.Resource', "Gio.Resource.load('resource:///org/gnome/shell/extensions/extension.js')", "Gio.Resource.load('/org/gnome/shell/extensions/extension.js')", "Gio.Resource.load('/org/gnome/shell/extensions/')", "Gio.Resource.load('resource:///org/gnome/shell/extensions/')", "Gio.resources_enumerate_children('/org/',0)", "Gio.resources_enumerate_children('/org/gnome',0)", "Gio.resources_enumerate_children('/org/gnome/shell',0)", "Gio.resources_enumerate_children('/org/gnome/shell/extensions',0)", "Gio.resources_enumerate_children('/org/gnome/shell/extensions/',0)", "Gio.resources_enumerate_children('/org/gnome/shell/extensions/extension.js',0)", "Gio.resources_get_info('/org/gnome/shell/extensions/extension.js',0)", "Gio.Resource.load('/org/gnome/shell/extensions/extension.js',0)", 'String.fromCharCode()', 'global.get_context()', 'Gjs', 'GJs', 'GjS', 'GJS', 'globa.context', 'global.context', 'gjs', 'imports.gjs', 'Clutter.ScrollEvent', 'a=new Clutter.ScrollEvent', 'Gdk.ScrollEvent', 'Gtk.ScrollEvent', 'imports.Gtk', 'Gdk = imports.gi.Gdk;', 'Gdk', 'new Gdk.Event()', 'Clutter', 'Clutter.get_default_backend().get_default_seat().create_virtual_device', 'Clutter.get_default_backend().get_default_seat()', 'Clutter.get_default_backend().get_default_seat().create_virtual_device(Clutter.InputDeviceType.POINTER_DEVICE);', 'Clutter.get_default_backend().get_default_seat().create_virtual_device(Clutter.InputDeviceType.CURSOR_DEVICE);', 'Clutter.get_default_backend().get_default_seat().create_virtual_device(Clutter.InputDeviceType.KEYBOARD_DEVICE);']
 welcome-dialog-last-shown-version='41.2'
 
@@ -855,7 +861,7 @@ horizontal-margin=0
 last-used-display-server='Wayland'
 minimap-scale=0.10000000000000001
 only-scratch-in-overview=false
-open-window-position=3
+open-window-position=0
 open-window-position-option-down=false
 open-window-position-option-end=true
 open-window-position-option-left=false
@@ -899,7 +905,7 @@ name='slack'
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/6237e22c-c0bc-4d72-8564-a6a215db0b23]
-index=4
+index=3
 name='Workspace 3'
 show-position-bar=true
 show-top-bar=true
@@ -909,13 +915,14 @@ index=1
 name='work'
 
 [org/gnome/shell/extensions/paperwm/workspaces/b3a1e851-310c-4f75-80bb-efffff075d8f]
-index=3
+index=2
 name='another'
 show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/ba27f953-7826-4f7f-816c-b8cb64d65cff]
-index=2
+index=5
+name='Workspace 3'
 
 [org/gnome/shell/extensions/paperwm/workspaces/d554f895-e877-4006-8603-ab75e3fe7553]
 index=6
@@ -923,7 +930,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/e8c8f783-5429-42af-9114-9fb85bcf9fed]
-index=5
+index=4
 name='beampointerk'
 show-position-bar=true
 show-top-bar=true
@@ -979,9 +986,9 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1729321928
+check-timestamp=int64 1730710816
 first-run=false
-flatpak-purge-timestamp=int64 1729231776
+flatpak-purge-timestamp=int64 1730708307
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
