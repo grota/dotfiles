@@ -18,10 +18,9 @@ vim.keymap.del("n", "<leader>`") -- was Switch to Other Buffer
 vim.keymap.del({ "n", "x", "o" }, "n") -- was https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 vim.keymap.del({ "n", "x", "o" }, "N") -- was https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
 
-vim.keymap.del("n", "<leader>gg") -- was lazygit
-vim.keymap.del("n", "<leader>gG") -- was lazygit
 vim.keymap.del("n", "<leader>-") -- was Split window below
 vim.keymap.del("n", "<leader>|") -- was Split window right
+vim.keymap.del("n", "<leader>w") -- was "windows"
 vim.keymap.del("n", "<leader>fn") -- was new file
 
 local wk = require("which-key")
