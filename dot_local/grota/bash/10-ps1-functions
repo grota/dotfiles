@@ -61,7 +61,7 @@ ps1_git()
 
 ps1_update()
 {
-  local prompt_char='$' separator="\n" notime=0
+  local prompt_char='$' separator="\n" notime=0 hostname=''
 
   (( $UID == 0 )) && prompt_char='#'
 
@@ -87,6 +87,9 @@ ps1_update()
       --notime)
         notime=1
         ;;
+      --hostname)
+        hostname='\H'
+        ;;
       *)
         true # Ignore everything else.
         ;;
@@ -94,9 +97,9 @@ ps1_update()
   done
 
   if (( notime > 0 )) ; then
-    PS1="$(ps1_identity)$(ps1_git) $(kube_ps1)${separator}${prompt_char} "
+    PS1="$(ps1_identity)$(ps1_git) $(kube_ps1)${separator}${hostname}${prompt_char} "
   else
-    PS1="\D{%H:%M:%S} $(ps1_identity)$(ps1_git) $(kube_ps1)${separator}${prompt_char} "
+    PS1="\D{%H:%M:%S} $(ps1_identity)$(ps1_git) $(kube_ps1)${separator}${hostname}${prompt_char} "
   fi
 }
 

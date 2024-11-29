@@ -13,7 +13,7 @@ fi
 
 export MANPATH=:~/local/share/man
 
-PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'history -a; history -n; ps1_update --notime --prompt \>;'
+PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'history -a; history -n; ps1_update --notime --hostname --prompt \>;'
 
 for file in ~/.local/grota/bash/* ; do
   . "$file"
