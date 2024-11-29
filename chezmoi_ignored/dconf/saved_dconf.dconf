@@ -17,7 +17,7 @@ sounds-mute={'rain': false}
 sounds-volume={'rain': 0.27000000000000002}
 
 [org/blueman/general]
-window-properties=[1492, 1100, 0, 0]
+window-properties=[1596, 1100, 0, 0]
 
 [org/blueman/plugins/autoconnect]
 services=[('/org/bluez/hci0/dev_0C_89_5A_01_09_6C', '00000000-0000-0000-0000-000000000000')]
@@ -26,7 +26,7 @@ services=[('/org/bluez/hci0/dev_0C_89_5A_01_09_6C', '00000000-0000-0000-0000-000
 auto-power-on=@mb false
 
 [org/blueman/plugins/recentconns]
-recent-connections=[{'adapter': '84:5C:F3:F0:6C:CE', 'address': '0C:89:5A:01:09:6C', 'alias': 'E18', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1661347620.9262052'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '74:74:46:E4:C3:BF', 'alias': 'Pixel Buds A-Series de Giuseppe', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1684249511.4433684', 'device': '/org/bluez/hci0/dev_74_74_46_E4_C3_BF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'F8:1A:2B:E0:F5:E9', 'alias': 'Pixel 4a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160545.2074506'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '24:29:34:92:3C:CF', 'alias': 'Pixel 6a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160577.464688', 'device': '/org/bluez/hci0/dev_24_29_34_92_3C_CF'}]
+recent-connections=[{'adapter': '84:5C:F3:F0:6C:CE', 'address': '0C:89:5A:01:09:6C', 'alias': 'E18', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1661347620.9262052'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '74:74:46:E4:C3:BF', 'alias': 'Pixel Buds A-Series de Giuseppe', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1684249511.4433684', 'device': '/org/bluez/hci0/dev_74_74_46_E4_C3_BF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'F8:1A:2B:E0:F5:E9', 'alias': 'Pixel 4a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160545.2074506'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '24:29:34:92:3C:CF', 'alias': 'Pixel 6a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160577.464688', 'device': '/org/bluez/hci0/dev_24_29_34_92_3C_CF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'DE:EE:F9:9F:29:C5', 'alias': 'MX Master 3S', 'icon': 'input-mouse', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1732708767.8526783'}]
 
 [org/gnome/Connections]
 first-run=false
@@ -95,7 +95,7 @@ panel-id='timer'
 size=(1440, 1048)
 
 [org/gnome/control-center]
-last-panel='power'
+last-panel='bluetooth'
 window-state=(1440, 1048, false)
 
 [org/gnome/deja-dup]
@@ -177,7 +177,7 @@ autorun-x-content-open-folder=@as []
 autorun-x-content-start-app=['x-content/unix-software', 'x-content/ostree-repository']
 
 [org/gnome/desktop/notifications]
-application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions', 're-sonny-workbench', 'org-gnome-weather', 'libreoffice-startcenter', 'org-gnome-eog', 'shutter', 'screenkey', 'org-kde-kdenlive', 'fr-handbrake-ghb', 'solaar', 'gimp', 'calibre-gui', 'org-gnome-builder', 'yelp', 'org-pulseaudio-pavucontrol']
+application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions', 're-sonny-workbench', 'org-gnome-weather', 'libreoffice-startcenter', 'org-gnome-eog', 'shutter', 'screenkey', 'org-kde-kdenlive', 'fr-handbrake-ghb', 'solaar', 'gimp', 'calibre-gui', 'org-gnome-builder', 'yelp', 'org-pulseaudio-pavucontrol', 'org-gnome-fileroller']
 show-banners=true
 
 [org/gnome/desktop/notifications/application/alacritty]
@@ -263,6 +263,9 @@ application-id='org.gnome.Extensions.desktop.desktop'
 
 [org/gnome/desktop/notifications/application/org-gnome-extensions]
 application-id='org.gnome.Extensions.desktop'
+
+[org/gnome/desktop/notifications/application/org-gnome-fileroller]
+application-id='org.gnome.FileRoller.desktop'
 
 [org/gnome/desktop/notifications/application/org-gnome-gedit]
 application-id='org.gnome.gedit.desktop'
@@ -410,7 +413,7 @@ button-layout='appmenu:close'
 focus-mode='click'
 resize-with-right-button=true
 theme='SolArc-Dark'
-workspace-names=['slack', 'work', 'another', 'Workspace 3', 'another2', 'Workspace 3']
+workspace-names=['slack', 'work', 'another', 'Workspace 3', 'Workspace 3', 'Workspace 6', 'another2']
 
 [org/gnome/eog/ui]
 sidebar=false
@@ -433,8 +436,8 @@ show-sidebar=false
 sidebar-page='thumbnails'
 sidebar-size=132
 sizing-mode='free'
-window-ratio=(3.2268907563025211, 1.2446555819477434)
-zoom=1.0395218196612646
+window-ratio=(2.4190500188988278, 1.2448196852554196)
+zoom=0.86626818305105391
 
 [org/gnome/evolution-data-server]
 migrated=true
@@ -443,15 +446,31 @@ network-monitor-gio-name=''
 [org/gnome/evolution-data-server/calendar]
 reminders-past=['1a98c3c04adf522b8cff948a88cff227ddca0aff\nb007b237e1e123e52744284f6244fc0bbfa8f94c\t20241123\n1732320000\n1732320000\n1732406400\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20241123\r\nDTEND;VALUE=DATE:20241124\r\nRRULE:FREQ=YEARLY;BYMONTHDAY=23;BYMONTH=11\r\nDTSTAMP:20230303T090353Z\r\nUID:BE697E69EE9D4285B22C814CE88E9B7C00000000000000000000000000000000\r\nCREATED:20101121T230210Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T090353Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Compleanno Cremo\r\nTRANSP:TRANSPARENT\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813517433\r\nRECURRENCE-ID;VALUE=DATE:20241123\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT0S\r\nX-EVOLUTION-ALARM-UID:b007b237e1e123e52744284f6244fc0bbfa8f94c\r\nEND:VALARM\r\nEND:VEVENT\r\n']
 
+[org/gnome/file-roller/dialogs/add]
+current-folder='file:///run/media/grota/TOSHIBA'
+exclude-files=''
+exclude-folders=''
+height=800
+include-files='*'
+no-symlinks=true
+selected-files=['file:///run/media/grota/TOSHIBA/Boda%20Beppe%20&%20Rosa', 'file:///run/media/grota/TOSHIBA/Videos%20Antonio', 'file:///run/media/grota/TOSHIBA/Videos%20Moviles', 'file:///run/media/grota/TOSHIBA/Videos%20Nikon', 'file:///run/media/grota/TOSHIBA/Boda%20Beppe%20y%20Rosa%20original.mp4', 'file:///run/media/grota/TOSHIBA/Boda%20Beppe%20y%20Rosa%20para%20movil.mp4', 'file:///run/media/grota/TOSHIBA/DSC_2675.jpeg', 'file:///run/media/grota/TOSHIBA/DSCF5027.jpeg']
+update=false
+width=1000
+
 [org/gnome/file-roller/dialogs/extract]
 height=800
 recreate-folders=true
 skip-newer=false
 width=1000
 
+[org/gnome/file-roller/dialogs/new]
+default-extension='.zip'
+encrypt-header=false
+volume-size=104857
+
 [org/gnome/file-roller/file-selector]
 show-hidden=false
-sidebar-size=300
+sidebar-size=290
 window-size=(-1, -1)
 
 [org/gnome/file-roller/listing]
@@ -662,7 +681,7 @@ ignore-phase2-ca-cert=false
 last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/google-chrome-stable]
-last-folder-path='/home/grota/Documents/encrypted_dropbox_data/burocrazia/banche/bancobpm/2024'
+last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/google-chrome]
 last-folder-path='/home/grota/Downloads/idea_for_new_rag_app'
@@ -677,7 +696,8 @@ last-folder-path='/home/grota/Downloads'
 last-folder-path='/home/grota/Downloads'
 
 [org/gnome/settings-daemon/plugins/color]
-night-light-enabled=true
+night-light-enabled=false
+night-light-schedule-automatic=false
 night-light-temperature=uint32 4236
 
 [org/gnome/settings-daemon/plugins/media-keys]
@@ -869,7 +889,7 @@ horizontal-margin=0
 last-used-display-server='Wayland'
 minimap-scale=0.10000000000000001
 only-scratch-in-overview=false
-open-window-position=3
+open-window-position=0
 open-window-position-option-down=false
 open-window-position-option-end=true
 open-window-position-option-left=false
@@ -921,6 +941,8 @@ show-top-bar=true
 [org/gnome/shell/extensions/paperwm/workspaces/95242d70-3c22-4ba5-8ea8-b4e8dd43f17b]
 index=1
 name='work'
+show-position-bar=true
+show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/b3a1e851-310c-4f75-80bb-efffff075d8f]
 index=2
@@ -929,16 +951,16 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/ba27f953-7826-4f7f-816c-b8cb64d65cff]
-index=5
+index=4
 name='Workspace 3'
 
 [org/gnome/shell/extensions/paperwm/workspaces/d554f895-e877-4006-8603-ab75e3fe7553]
-index=6
+index=5
 show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/e8c8f783-5429-42af-9114-9fb85bcf9fed]
-index=4
+index=6
 name='another2'
 show-position-bar=true
 show-top-bar=true
@@ -994,9 +1016,9 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1732260456
+check-timestamp=int64 1732776287
 first-run=false
-flatpak-purge-timestamp=int64 1732260395
+flatpak-purge-timestamp=int64 1732783591
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
@@ -1105,7 +1127,7 @@ inspector-warning=false
 
 [org/gtk/gtk4/settings/file-chooser]
 date-format='regular'
-location-mode='filename-entry'
+location-mode='path-bar'
 show-hidden=false
 show-size-column=true
 show-type-column=true
@@ -1132,7 +1154,7 @@ sort-column='modified'
 sort-directories-first=true
 sort-order='descending'
 type-format='category'
-window-position=(495, 57)
+window-position=(26, 23)
 window-size=(1410, 925)
 
 [org/regolith-linux/remontoire]
