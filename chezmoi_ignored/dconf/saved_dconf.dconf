@@ -413,7 +413,7 @@ button-layout='appmenu:close'
 focus-mode='click'
 resize-with-right-button=true
 theme='SolArc-Dark'
-workspace-names=['slack', 'work', 'another', 'Workspace 3', 'Workspace 3', 'Workspace 6', 'another2']
+workspace-names=['slack', 'work', 'another', 'Workspace 3', 'Workspace 5', 'another2', 'Workspace 3']
 
 [org/gnome/eog/ui]
 sidebar=false
@@ -951,16 +951,16 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/ba27f953-7826-4f7f-816c-b8cb64d65cff]
-index=4
+index=6
 name='Workspace 3'
 
 [org/gnome/shell/extensions/paperwm/workspaces/d554f895-e877-4006-8603-ab75e3fe7553]
-index=5
+index=4
 show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/e8c8f783-5429-42af-9114-9fb85bcf9fed]
-index=6
+index=5
 name='another2'
 show-position-bar=true
 show-top-bar=true
@@ -1016,9 +1016,9 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1732776287
+check-timestamp=int64 1732864075
 first-run=false
-flatpak-purge-timestamp=int64 1732783591
+flatpak-purge-timestamp=int64 1732867673
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
