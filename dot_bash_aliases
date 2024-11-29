@@ -52,5 +52,3 @@ fi
 # Make Bash append rather than overwrite the history on disk
 shopt -s histappend
 shopt -s checkwinsize
-
-export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
