@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# vim: set tabstop=2 shiftwidth=2 foldmethod=marker:
+# vim: set tabstop=2 shiftwidth=2 ft=bash foldmethod=marker:
 
 if [ -z "$TMUX" ]; then
   PATH=$HOME/local/bin:$HOME/.config/composer/vendor/bin:$PATH
@@ -52,3 +52,13 @@ fi
 # Make Bash append rather than overwrite the history on disk
 shopt -s histappend
 shopt -s checkwinsize
+
+{{- if .headless -}}
+{{/* This assumes that on an headless system the ssh-agent.service user unit is enabled */}}
+if [[ -z "${SSH_CONNECTION}" ]]; then
+    export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
+fi
+{{- else -}}
+{{/* Use gcr's ssh agent */}}
+export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh
+{{- end -}}

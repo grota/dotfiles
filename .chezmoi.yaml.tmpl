@@ -4,7 +4,7 @@ pager: bat
 {{- else }}
 pager: cat
 {{- end }}
-{{ $develmode := promptBool "Is devel mode?" false -}}
+{{ $develmode := promptBool "Is devel mode? (false)" false -}}
 {{- if $develmode -}}
 sourceDir: {{ output "pwd" -}}
 {{- end -}}
@@ -14,6 +14,10 @@ gpg:
 bitwarden:
   command: {{ .chezmoi.homeDir }}/local/bin/bw
 {{ end }}
+
+{{ $headless := promptBool "The system is headless? (false)" false -}}
+data:
+  headless: {{ $headless }}
 
 hooks:
   re-add:

@@ -17,7 +17,6 @@ chezmoi_ignored
 /.codeium
 /local/bin/bw
 /local/bin/chezmoi
-/.bashrc
 /.bash_profile
 /.bash_history
 /.bash_logout
