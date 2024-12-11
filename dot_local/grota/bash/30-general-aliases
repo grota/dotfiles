@@ -11,6 +11,11 @@ alias l='lsd -l'
 alias nv=nordvpn
 alias d=docker
 alias dc=docker-compose
+if [[ $(type -t compopt) = "builtin" ]]; then
+    complete -o default -F __start_docker dc
+else
+    complete -o default -o nospace -F __start_docker dc
+fi
 alias ffmpeg='ffmpeg -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
 function cc () {
