@@ -58,6 +58,7 @@ shopt -s checkwinsize
 if [[ -z "${SSH_CONNECTION}" ]]; then
     export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/ssh-agent.socket"
 fi
+export GPG_TTY=$(tty)
 {{- else -}}
 {{/* Use gcr's ssh agent */}}
 export SSH_AUTH_SOCK=$XDG_RUNTIME_DIR/gcr/ssh

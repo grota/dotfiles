@@ -443,7 +443,7 @@ show-sidebar=false
 sidebar-page='thumbnails'
 sidebar-size=132
 sizing-mode='fit-width'
-window-ratio=(3.2268907563025211, 1.2446555819477434)
+window-ratio=(1.007888513245401, 1.2448185559296663)
 zoom=0.86626818305105391
 
 [org/gnome/evolution-data-server]
@@ -688,7 +688,7 @@ ignore-phase2-ca-cert=false
 last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/google-chrome-stable]
-last-folder-path='/home/grota/Documents/git_repos/wg-easy/assets'
+last-folder-path='/home/grota/Documents/commercialista/2024'
 
 [org/gnome/portal/filechooser/google-chrome]
 last-folder-path='/home/grota/Downloads/idea_for_new_rag_app'
@@ -1030,9 +1030,9 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1733911717
+check-timestamp=int64 1733996593
 first-run=false
-flatpak-purge-timestamp=int64 1733908050
+flatpak-purge-timestamp=int64 1733970074
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
@@ -1168,7 +1168,7 @@ sort-column='name'
 sort-directories-first=true
 sort-order='ascending'
 type-format='category'
-window-position=(255, 79)
+window-position=(26, 23)
 window-size=(1410, 925)
 
 [org/regolith-linux/remontoire]
