@@ -94,7 +94,7 @@ video-y-resolution=720
 
 [org/gnome/clocks]
 alarms=[{'name': <'toyota'>, 'id': <'c6b377a6324da5b16ad6fe0c63d0e6ac'>, 'active': <false>, 'hour': <14>, 'minute': <5>, 'days': <@ai []>, 'snooze_minutes': <10>, 'ring_minutes': <5>}]
-timers=[{'duration': <1800>, 'name': <''>}, {'duration': <2700>, 'name': <''>}, {'duration': <900>, 'name': <''>}, {'duration': <180>, 'name': <''>}]
+timers=[{'duration': <1800>, 'name': <''>}, {'duration': <180>, 'name': <''>}, {'duration': <600>, 'name': <''>}]
 
 [org/gnome/clocks/state/window]
 maximized=false
@@ -184,7 +184,7 @@ autorun-x-content-open-folder=@as []
 autorun-x-content-start-app=['x-content/unix-software', 'x-content/ostree-repository']
 
 [org/gnome/desktop/notifications]
-application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions', 're-sonny-workbench', 'org-gnome-weather', 'libreoffice-startcenter', 'org-gnome-eog', 'shutter', 'screenkey', 'org-kde-kdenlive', 'fr-handbrake-ghb', 'solaar', 'gimp', 'calibre-gui', 'org-gnome-builder', 'yelp', 'org-pulseaudio-pavucontrol', 'org-gnome-fileroller']
+application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions', 're-sonny-workbench', 'org-gnome-weather', 'libreoffice-startcenter', 'org-gnome-eog', 'shutter', 'screenkey', 'org-kde-kdenlive', 'fr-handbrake-ghb', 'solaar', 'gimp', 'calibre-gui', 'org-gnome-builder', 'yelp', 'org-pulseaudio-pavucontrol', 'org-gnome-fileroller', 'vlc', 'mpv']
 show-banners=true
 
 [org/gnome/desktop/notifications/application/alacritty]
@@ -231,6 +231,9 @@ application-id='libreoffice-calc.desktop'
 
 [org/gnome/desktop/notifications/application/libreoffice-startcenter]
 application-id='libreoffice-startcenter.desktop'
+
+[org/gnome/desktop/notifications/application/mpv]
+application-id='mpv.desktop'
 
 [org/gnome/desktop/notifications/application/nwg-look]
 application-id='nwg-look.desktop'
@@ -346,6 +349,9 @@ application-id='telegramdesktop.desktop'
 [org/gnome/desktop/notifications/application/transmission-gtk]
 application-id='transmission-gtk.desktop'
 
+[org/gnome/desktop/notifications/application/vlc]
+application-id='vlc.desktop'
+
 [org/gnome/desktop/notifications/application/xdg-desktop-portal-gnome]
 application-id='xdg-desktop-portal-gnome.desktop'
 
@@ -420,7 +426,7 @@ button-layout='appmenu:close'
 focus-mode='click'
 resize-with-right-button=true
 theme='SolArc-Dark'
-workspace-names=['slack', 'work', 'Workspace 3', 'Workspace 4', 'another2', 'Workspace 3', 'Workspace 7']
+workspace-names=['slack', 'work', 'Workspace 3', 'another', 'Workspace 4', 'Workspace 6', 'another']
 
 [org/gnome/eog/ui]
 sidebar=false
@@ -439,18 +445,23 @@ dual-page-odd-left=true
 enable-spellchecking=true
 fullscreen=false
 inverted-colors=false
-show-sidebar=false
+show-sidebar=true
 sidebar-page='thumbnails'
 sidebar-size=132
-sizing-mode='fit-width'
-window-ratio=(1.007888513245401, 1.2448185559296663)
-zoom=0.86626818305105391
+sizing-mode='free'
+window-ratio=(1.0079375078745116, 1.2448196852554196)
+zoom=0.77117747784045132
 
 [org/gnome/evolution-data-server]
 migrated=true
 network-monitor-gio-name=''
 
 [org/gnome/evolution-data-server/calendar]
+notify-window-height=1011
+notify-window-paned-position=73
+notify-window-width=164
+notify-window-x=26
+notify-window-y=23
 reminders-past=@as []
 
 [org/gnome/file-roller/dialogs/add]
@@ -688,10 +699,10 @@ ignore-phase2-ca-cert=false
 last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/google-chrome-stable]
-last-folder-path='/home/grota/Documents/commercialista/2024'
+last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/google-chrome]
-last-folder-path='/home/grota/Downloads/idea_for_new_rag_app'
+last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/org.gnome.Builder]
 last-folder-path='/home/grota/Projects/personal/gjs-extension-test-runner'
@@ -700,7 +711,7 @@ last-folder-path='/home/grota/Projects/personal/gjs-extension-test-runner'
 last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/slack]
-last-folder-path='/home/grota/Downloads'
+last-folder-path='/home/grota/Documents'
 
 [org/gnome/settings-daemon/plugins/color]
 night-light-enabled=false
@@ -898,7 +909,7 @@ horizontal-margin=0
 last-used-display-server='Wayland'
 minimap-scale=0.10000000000000001
 only-scratch-in-overview=false
-open-window-position=0
+open-window-position=3
 open-window-position-option-down=false
 open-window-position-option-end=true
 open-window-position-option-left=false
@@ -949,7 +960,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/79ccf5fb-c26d-4312-b2a8-2739f5065267]
-index=3
+index=4
 name='Workspace 4'
 
 [org/gnome/shell/extensions/paperwm/workspaces/95242d70-3c22-4ba5-8ea8-b4e8dd43f17b]
@@ -959,22 +970,22 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/b3a1e851-310c-4f75-80bb-efffff075d8f]
-index=6
+index=3
 name='another'
 show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/ba27f953-7826-4f7f-816c-b8cb64d65cff]
-index=5
+index=2
 name='Workspace 3'
 
 [org/gnome/shell/extensions/paperwm/workspaces/d554f895-e877-4006-8603-ab75e3fe7553]
-index=2
+index=5
 show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/e8c8f783-5429-42af-9114-9fb85bcf9fed]
-index=4
+index=6
 name='another2'
 show-position-bar=true
 show-top-bar=true
@@ -1030,9 +1041,9 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1733996593
+check-timestamp=int64 1735901193
 first-run=false
-flatpak-purge-timestamp=int64 1733970074
+flatpak-purge-timestamp=int64 1735905913
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
