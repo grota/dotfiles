@@ -114,6 +114,7 @@ wk.add({
   { "<leader>m", group = "Marks and Sessions" },
 })
 local session_dir = vim.fn.stdpath("data") .. "/sessions/"
+
 map("n", "<leader>ms", function()
   local filename = vim.fn.input({
     prompt = "Session name: ",
@@ -124,23 +125,22 @@ map("n", "<leader>ms", function()
 end, { desc = "Save session" })
 
 map("n", "<leader>ml", function()
-  local myactions = require("grota.telescope.actions")
-  require("telescope.builtin").find_files({
-    search_dirs = { session_dir },
-    cwd = session_dir,
+  local fzf_lua = require("fzf-lua")
+  fzf_lua.files({
+    cwd =session_dir,
     previewer = false,
-    attach_mappings = function(_, maptelescope)
-      maptelescope("i", "<CR>", myactions.source_entry)
-      maptelescope("i", "<C-d>", myactions.remove_selected_files)
-      return true -- We want to map default_mappings.
-    end,
+    fzf_opts = { ["--no-multi"] = true },
+    actions = {
+      ["enter"] = function (selected, options)
+        local vimcmd = 'source'
+        fzf_lua.actions.vimcmd_entry(vimcmd, selected, options)
+      end,
+    }
   })
 end, { desc = "Load session" })
 
 map('n', '<leader>ma', function () require("grota.marks").SetFirstUnmarkedUppercaseMark() end, { desc = "Mark add" })
--- Needs neovim nightly to have this https://github.com/neovim/neovim/pull/24936 to be able to del global marks.
-map('n', '<leader>mm', function() require('grota.telescope').marks() end, { desc = "Telescope marks" })
-
--- map('n', '<leader>bd', function() vim.cmd.bdelete() end, { desc = "Buffer delete" })
+-- TODO: modify <leader>sm for the preview size and eventually filtering for only uppercase
+map('n', '<leader>s<tab>', "<cmd>FzfLua tabs<cr>", { desc = "Tab search" })
 
 map('i', '<C-o>', '<C-\\><C-o>', { noremap = true, desc = "C-o without moving cursor" })

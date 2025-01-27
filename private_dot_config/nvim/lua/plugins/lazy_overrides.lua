@@ -1,12 +1,5 @@
 return {
   {
-    "Exafunction/codeium.nvim",
-    opts = function (_, opts)
-      opts.enable_chat = true
-    end,
-  },
-
-  {
     "folke/flash.nvim",
     opts = {
       modes = {
@@ -76,106 +69,92 @@ return {
   },
 
   {
-    "hrsh7th/nvim-cmp",
-    opts = function(_, opts)
-      for i = #opts.sources, 1, -1 do
-        -- Check if the name is "buffer"
-        if opts.sources[i].name == "buffer" then
-          -- Change the group_index and break the loop
-          opts.sources[i].group_index = 1
-          break
-        end
-      end
-    end
-  },
-
-	{
-		"nvim-neo-tree/neo-tree.nvim",
-		opts = {
-			source_selector = {
-				winbar = true,
-			},
-			window = {
-				auto_expand_width = true,
-				mappings = {
-					["<cr>"] = function(state)
-						local utils = require("neo-tree.utils")
-						local node = state.tree:get_node()
-						state.commands["open"](state)
-						if utils.is_expandable(node) then
-							vim.cmd.normal("j")
-							vim.cmd.normal("zz")
-						end
-					end,
-				},
-			},
-			filesystem = {
-				commands = {
-					go_up_in_tree = function(state)
-						local node = state.tree:get_node()
-						if node.type == "directory" and node:is_expanded() then
-							require("neo-tree.sources.filesystem").toggle_directory(state, node)
-						end
-						require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
-            vim.cmd.normal("zz")
-					end,
-					go_down_in_tree = function(state)
-						local node = state.tree:get_node()
-						if node.type == "directory" then
-							if not node:is_expanded() then
-								require("neo-tree.sources.filesystem").toggle_directory(state, node)
-								vim.cmd.normal("j")
-							elseif node:has_children() then
-								require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
-							end
+    "nvim-neo-tree/neo-tree.nvim",
+    opts = {
+      source_selector = {
+        winbar = true,
+      },
+      window = {
+        auto_expand_width = true,
+        mappings = {
+          ["<cr>"] = function(state)
+            local utils = require("neo-tree.utils")
+            local node = state.tree:get_node()
+            state.commands["open"](state)
+            if utils.is_expandable(node) then
+              vim.cmd.normal("j")
               vim.cmd.normal("zz")
-						else
-							state.commands["open"](state)
-						end
-					end,
-				},
-				window = {
-					mappings = {
-						["/"] = "none",
-						["f"] = "focus_preview",
-						["h"] = "go_up_in_tree",
-						["l"] = "go_down_in_tree",
-						["z"] = "none",
-						["w"] = "none",
-					},
-				},
-				filtered_items = {
-					hide_dotfiles = false,
-					hide_gitignored = false,
-					hide_hidden = false,
-				},
-			},
-			buffers = {
-				follow_current_file = {
+            end
+          end,
+        },
+      },
+      filesystem = {
+        commands = {
+          go_up_in_tree = function(state)
+            local node = state.tree:get_node()
+            if node.type == "directory" and node:is_expanded() then
+              require("neo-tree.sources.filesystem").toggle_directory(state, node)
+            end
+            require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
+            vim.cmd.normal("zz")
+          end,
+          go_down_in_tree = function(state)
+            local node = state.tree:get_node()
+            if node.type == "directory" then
+              if not node:is_expanded() then
+                require("neo-tree.sources.filesystem").toggle_directory(state, node)
+                vim.cmd.normal("j")
+              elseif node:has_children() then
+                require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
+              end
+              vim.cmd.normal("zz")
+            else
+              state.commands["open"](state)
+            end
+          end,
+        },
+        window = {
+          mappings = {
+            ["/"] = "none",
+            ["f"] = "focus_preview",
+            ["h"] = "go_up_in_tree",
+            ["l"] = "go_down_in_tree",
+            ["z"] = "none",
+            ["w"] = "none",
+          },
+        },
+        filtered_items = {
+          hide_dotfiles = false,
+          hide_gitignored = false,
+          hide_hidden = false,
+        },
+      },
+      buffers = {
+        follow_current_file = {
           enabled = true,
           leave_dirs_open = true,
         }
-			},
-		},
-	},
+      },
+    },
+  },
 
-	{
-		"williamboman/mason.nvim",
-		opts = function(_, o)
-			o.ensure_installed = {
-				"stylua",
-				"shellcheck",
-				"shfmt",
-				"phpactor",
-				"intelephense",
-				"lua-language-server",
-			}
-		end,
-	},
+  {
+    "williamboman/mason.nvim",
+    opts = function(_, o)
+      o.ensure_installed = {
+        "stylua",
+        "shellcheck",
+        "shfmt",
+        "phpactor",
+        "intelephense",
+        "lua-language-server",
+      }
+    end,
+  },
 
-	{
-		"nvim-treesitter/nvim-treesitter",
-		opts = function(_, o)
+  {
+    "nvim-treesitter/nvim-treesitter",
+    opts = function(_, o)
       o.textobjects.swap = {}
       o.textobjects.swap.enable = true
       o.textobjects.swap.swap_next = {
@@ -184,20 +163,20 @@ return {
       o.textobjects.swap.swap_previous = {
         ["<leader>c<Left>"] = "@parameter.inner",
       }
-    vim.list_extend(o.ensure_installed, {
+      vim.list_extend(o.ensure_installed, {
         "go",
-				"php",
-				"phpdoc",
-				"dockerfile",
-				"twig",
+        "php",
+        "phpdoc",
+        "dockerfile",
+        "twig",
         "git_rebase",
         "git_config",
         "gitattributes",
         "gitcommit",
         "gitignore",
-    })
+      })
     end,
-	},
+  },
 
   {
     "nvim-lualine/lualine.nvim",
@@ -205,7 +184,7 @@ return {
       table.insert(opts.sections.lualine_c, { 'w:quickfix_title' })
       opts.sections.lualine_c[4] = {'filename', path = 1 }
     end
-	},
+  },
 
   {
     "folke/noice.nvim",

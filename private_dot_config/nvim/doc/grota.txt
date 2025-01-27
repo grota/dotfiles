@@ -2,6 +2,8 @@
 
       TO LEARN
 
+g<tab>
+
 folke/flash.nvim:
   ox_R: select o yank o cut based on pattern and its ts parents.
   o_r: remote: move to pattern, do something, go back.

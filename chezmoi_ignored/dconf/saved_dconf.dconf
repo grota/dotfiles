@@ -102,7 +102,7 @@ panel-id='timer'
 size=(1440, 1048)
 
 [org/gnome/control-center]
-last-panel='power'
+last-panel='network'
 window-state=(1440, 1048, false)
 
 [org/gnome/deja-dup]
@@ -426,7 +426,7 @@ button-layout='appmenu:close'
 focus-mode='click'
 resize-with-right-button=true
 theme='SolArc-Dark'
-workspace-names=['slack', 'work', 'Workspace 3', 'another', 'Workspace 4', 'Workspace 6', 'another']
+workspace-names=['slack', 'work', 'another', 'Workspace 4', 'Workspace 4', 'Workspace 6', 'another']
 
 [org/gnome/eog/ui]
 sidebar=false
@@ -441,16 +441,16 @@ document-directory=@ms 'file:///home/grota/Dropbox/Docs/burocrazia'
 [org/gnome/evince/default]
 continuous=true
 dual-page=false
-dual-page-odd-left=true
+dual-page-odd-left=false
 enable-spellchecking=true
 fullscreen=false
 inverted-colors=false
 show-sidebar=true
 sidebar-page='thumbnails'
 sidebar-size=132
-sizing-mode='free'
-window-ratio=(1.0079375078745116, 1.2448196852554196)
-zoom=0.77117747784045132
+sizing-mode='automatic'
+window-ratio=(2.4190459551535755, 1.2448182066540761)
+zoom=0.98280898828340491
 
 [org/gnome/evolution-data-server]
 migrated=true
@@ -523,10 +523,13 @@ print-wrap-mode='none'
 
 [org/gnome/gedit/state/window]
 bottom-panel-size=140
+height=1001
+maximized=false
 side-panel-active-page='GeditWindowDocumentsPanel'
 side-panel-size=200
 size=(1440, 1001)
 state=87168
+width=900
 
 [org/gnome/gimagereader]
 highlightmode='plain text'
@@ -687,6 +690,10 @@ start-with-sidebar=true
 [org/gnome/nm-applet]
 disable-connected-notifications=true
 
+[org/gnome/nm-applet/eap/053992cc-3785-4904-bcce-b4aba617ede6]
+ignore-ca-cert=false
+ignore-phase2-ca-cert=false
+
 [org/gnome/nm-applet/eap/16ddd4ee-17c5-4154-bfbd-1efd6e5960d4]
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
@@ -702,13 +709,13 @@ last-folder-path='/home/grota/Downloads'
 last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/google-chrome]
-last-folder-path='/home/grota/Downloads'
+last-folder-path='/home/grota'
 
 [org/gnome/portal/filechooser/org.gnome.Builder]
 last-folder-path='/home/grota/Projects/personal/gjs-extension-test-runner'
 
 [org/gnome/portal/filechooser/org.gnome.Settings]
-last-folder-path='/home/grota/Downloads'
+last-folder-path='/home/grota'
 
 [org/gnome/portal/filechooser/slack]
 last-folder-path='/home/grota/Documents'
@@ -960,7 +967,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/79ccf5fb-c26d-4312-b2a8-2739f5065267]
-index=4
+index=3
 name='Workspace 4'
 
 [org/gnome/shell/extensions/paperwm/workspaces/95242d70-3c22-4ba5-8ea8-b4e8dd43f17b]
@@ -970,13 +977,13 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/b3a1e851-310c-4f75-80bb-efffff075d8f]
-index=3
+index=2
 name='another'
 show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/ba27f953-7826-4f7f-816c-b8cb64d65cff]
-index=2
+index=4
 name='Workspace 3'
 
 [org/gnome/shell/extensions/paperwm/workspaces/d554f895-e877-4006-8603-ab75e3fe7553]
@@ -1041,9 +1048,9 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1735901193
+check-timestamp=int64 1737965488
 first-run=false
-flatpak-purge-timestamp=int64 1735905913
+flatpak-purge-timestamp=int64 1737890145
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false

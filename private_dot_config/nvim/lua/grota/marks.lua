@@ -11,7 +11,7 @@ M.SetFirstUnmarkedUppercaseMark = function ()
     end
   end
 
-  vim.api.nvim_err_writeln("All uppercase marks have been set.")
+  vim.api.print("All uppercase marks have been set.")
 end
 
 return M
