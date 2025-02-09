@@ -5,3 +5,5 @@
 
 # So you also need to add the pattern to `.chezmoiignore` in order to not have
 # chezmoi copy the files back to the home dir when you do a `chezmoi apply`.
+/.aider*
+.aider*

@@ -20,7 +20,7 @@ vim.keymap.del({ "n", "x", "o" }, "N") -- was https://github.com/mhinz/vim-galor
 
 vim.keymap.del("n", "<leader>-") -- was Split window below
 vim.keymap.del("n", "<leader>|") -- was Split window right
-vim.keymap.del("n", "<leader>w") -- was "windows"
+-- vim.keymap.del("n", "<leader>w") -- was "windows"
 vim.keymap.del("n", "<leader>fn") -- was new file
 
 local wk = require("which-key")

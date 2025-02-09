@@ -1,4 +1,3 @@
-model: gpt-4o
 defaults:
   lang: PHP
 system: >
