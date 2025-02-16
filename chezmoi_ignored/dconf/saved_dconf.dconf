@@ -443,7 +443,7 @@ window-size=(1920, 1048)
 document-directory=@ms 'file:///home/grota/Dropbox/Docs/burocrazia'
 
 [org/gnome/evince/default]
-continuous=false
+continuous=true
 dual-page=false
 dual-page-odd-left=true
 enable-spellchecking=true
@@ -452,9 +452,9 @@ inverted-colors=false
 show-sidebar=true
 sidebar-page='thumbnails'
 sidebar-size=132
-sizing-mode='fit-page'
-window-ratio=(3.2253966116503032, 1.2446555819477434)
-zoom=0.5
+sizing-mode='free'
+window-ratio=(2.419354838709677, 1.2447738502470544)
+zoom=0.98280898828340491
 
 [org/gnome/evolution-data-server]
 migrated=true
@@ -786,7 +786,7 @@ sleep-inactive-ac-type='nothing'
 command-history=['r', 'lllg', 'ls', 'rest', 'restart', 'l', 'kg', 'gl', 'lg']
 disable-user-extensions=false
 disabled-extensions=['beampointer@grota.github.com']
-enabled-extensions=['BringOutSubmenuOfPowerOffLogoutButton@pratap.fastmail.fm', 'just-perfection-desktop@just-perfection', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor@paradoxxx.zero.gmail.com', 'true-color-invert@jackkenney', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'system-monitor@gnome-shell-extensions.gcampax.github.com', 'clipboard-indicator@tudmotu.com', 'freon@UshakovVasilii_Github.yahoo.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com', 'appindicatorsupport@rgcjonas.gmail.com', 'paperwm@paperwm.github.com', 'solaar-extension@sidevesh', 'status-icons@gnome-shell-extensions.gcampax.github.com']
+enabled-extensions=['BringOutSubmenuOfPowerOffLogoutButton@pratap.fastmail.fm', 'just-perfection-desktop@just-perfection', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor@paradoxxx.zero.gmail.com', 'true-color-invert@jackkenney', 'launch-new-instance@gnome-shell-extensions.gcampax.github.com', 'system-monitor@gnome-shell-extensions.gcampax.github.com', 'clipboard-indicator@tudmotu.com', 'freon@UshakovVasilii_Github.yahoo.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com', 'appindicatorsupport@rgcjonas.gmail.com', 'paperwm@paperwm.github.com', 'status-icons@gnome-shell-extensions.gcampax.github.com']
 favorite-apps=['google-chrome.desktop', 'obsidian.desktop', 'org.gnome.Nautilus.desktop', 'firefox.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Settings.desktop', 'solaar.desktop', 'input-remapper-gtk.desktop']
 had-bluetooth-devices-setup=true
 last-selected-power-profile='performance'
@@ -1055,9 +1055,9 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1739609060
+check-timestamp=int64 1739702065
 first-run=false
-flatpak-purge-timestamp=int64 1739613888
+flatpak-purge-timestamp=int64 1739702001
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
