@@ -10,54 +10,54 @@ return {
     },
   },
 
-  -- {
-  -- "echasnovski/mini.files",
-  --   opts = function (_, opts)
-  --     opts.windows.preview = false
-  --   end,
-  --   keys = function (_, keys)
-  --     for i = #keys, 1, -1 do
-  --       if keys[i][1] == "<leader>fm" then
-  --         keys[i][1] = '<leader>e'
-  --       end
-  --       if keys[i][1] == "<leader>fM" then
-  --         keys[i][1] = '<leader>E'
-  --       end
-  --     end
-  --   end,
-  --   init = function ()
-  --     local MiniFiles = require('mini.files')
-  --     local map_open_in = function(buf_id, lhs, create_new_window_command, desc)
-  --       local rhs = function()
-  --         -- Make new window and set it as target
-  --         local new_target_window
-  --         local windowid = MiniFiles.get_explorer_state().target_window
-  --         if windowid == nil then
-  --           return
-  --         end
-  --         vim.api.nvim_win_call(windowid, function()
-  --           vim.cmd(create_new_window_command)
-  --           new_target_window = vim.api.nvim_get_current_win()
-  --         end)
-  --
-  --         MiniFiles.set_target_window(new_target_window)
-  --         MiniFiles.go_in({close_on_file = true})
-  --       end
-  --
-  --       vim.keymap.set('n', lhs, rhs, { buffer = buf_id, desc = desc })
-  --     end
-  --
-  --     vim.api.nvim_create_autocmd('User', {
-  --       pattern = 'MiniFilesBufferCreate',
-  --       callback = function(args)
-  --         local buf_id = args.data.buf_id
-  --         map_open_in(buf_id, '<C-x>', 'belowright horizontal split', 'Open in horizontal split')
-  --         map_open_in(buf_id, '<C-v>', 'belowright vertical split', 'Open in vertical split')
-  --         map_open_in(buf_id, '<C-t>', 'tabe', 'Open in new tab')
-  --       end,
-  --     })
-  --   end,
-  -- },
+  {
+  "echasnovski/mini.files",
+    opts = function (_, opts)
+      opts.windows.preview = false
+    end,
+    -- keys = function (_, keys)
+    --   for i = #keys, 1, -1 do
+    --     if keys[i][1] == "<leader>fm" then
+    --       keys[i][1] = '<leader>e'
+    --     end
+    --     if keys[i][1] == "<leader>fM" then
+    --       keys[i][1] = '<leader>E'
+    --     end
+    --   end
+    -- end,
+    init = function ()
+      local MiniFiles = require('mini.files')
+      local map_open_in = function(buf_id, lhs, create_new_window_command, desc)
+        local rhs = function()
+          -- Make new window and set it as target
+          local new_target_window
+          local windowid = MiniFiles.get_explorer_state().target_window
+          if windowid == nil then
+            return
+          end
+          vim.api.nvim_win_call(windowid, function()
+            vim.cmd(create_new_window_command)
+            new_target_window = vim.api.nvim_get_current_win()
+          end)
+
+          MiniFiles.set_target_window(new_target_window)
+          MiniFiles.go_in({close_on_file = true})
+        end
+
+        vim.keymap.set('n', lhs, rhs, { buffer = buf_id, desc = desc })
+      end
+
+      vim.api.nvim_create_autocmd('User', {
+        pattern = 'MiniFilesBufferCreate',
+        callback = function(args)
+          local buf_id = args.data.buf_id
+          map_open_in(buf_id, '<C-x>', 'belowright horizontal split', 'Open in horizontal split')
+          map_open_in(buf_id, '<C-v>', 'belowright vertical split', 'Open in vertical split')
+          map_open_in(buf_id, '<C-t>', 'tabe', 'Open in new tab')
+        end,
+      })
+    end,
+  },
 
   {
     "echasnovski/mini.pairs",

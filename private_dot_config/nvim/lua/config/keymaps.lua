@@ -20,7 +20,6 @@ vim.keymap.del({ "n", "x", "o" }, "N") -- was https://github.com/mhinz/vim-galor
 
 vim.keymap.del("n", "<leader>-") -- was Split window below
 vim.keymap.del("n", "<leader>|") -- was Split window right
--- vim.keymap.del("n", "<leader>w") -- was "windows"
 vim.keymap.del("n", "<leader>fn") -- was new file
 
 local wk = require("which-key")
@@ -125,22 +124,23 @@ map("n", "<leader>ms", function()
 end, { desc = "Save session" })
 
 map("n", "<leader>ml", function()
-  local fzf_lua = require("fzf-lua")
-  fzf_lua.files({
-    cwd =session_dir,
+  local myactions = require("grota.telescope.actions")
+  require("telescope.builtin").find_files({
+    search_dirs = { session_dir },
+    cwd = session_dir,
     previewer = false,
-    fzf_opts = { ["--no-multi"] = true },
-    actions = {
-      ["enter"] = function (selected, options)
-        local vimcmd = 'source'
-        fzf_lua.actions.vimcmd_entry(vimcmd, selected, options)
-      end,
-    }
+    attach_mappings = function(_, maptelescope)
+      maptelescope("i", "<CR>", myactions.source_entry)
+      maptelescope("i", "<C-d>", myactions.remove_selected_files)
+      return true -- We want to map default_mappings.
+    end,
   })
 end, { desc = "Load session" })
 
 map('n', '<leader>ma', function () require("grota.marks").SetFirstUnmarkedUppercaseMark() end, { desc = "Mark add" })
--- TODO: modify <leader>sm for the preview size and eventually filtering for only uppercase
-map('n', '<leader>s<tab>', "<cmd>FzfLua tabs<cr>", { desc = "Tab search" })
+map('n', '<leader>mm', function() require('grota.telescope').marks() end, { desc = "Telescope marks" })
 
 map('i', '<C-o>', '<C-\\><C-o>', { noremap = true, desc = "C-o without moving cursor" })
+
+map("n", "<leader>bd", "<cmd>:bd<cr>", { desc = "Delete Buffer" })
+map("n", "<leader>bD", function() Snacks.bufdelete() end, { desc = "Delete Buffer and Window" })

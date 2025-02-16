@@ -149,6 +149,7 @@ return {
           desc = "Telescope RipGrep all",
         },
         -- START files section sf,sF
+        { "<leader>sf", "<cmd>Telescope git_files<cr>", desc = "Telescope Git Files" },
         {
           "<leader>sF",
           function()
@@ -159,7 +160,129 @@ return {
           end,
           desc = "Telescope All Files",
         },
+        -- START oldfiles section so,sO
+        {
+          "<leader>so",
+          function()
+            telescope_builtins["oldfiles"]({
+              prompt_title = "Oldfiles local",
+              cwd_only = true,
+            })
+          end,
+          desc = "Telescope Recent local",
+        },
+        {
+          "<leader>sO",
+          function()
+            telescope_builtins["oldfiles"]({
+              prompt_title = "Oldfiles global",
+            })
+          end,
+          desc = "Telescope Recent global",
+        },
+        -- START lsp symbols ss,sS
+        {
+          "<leader>ss",
+          function()
+            telescope_builtins.lsp_document_symbols({
+              symbols = lsp_symbol_types,
+              symbol_width = 60,
+            })
+            vim.defer_fn(function()
+              vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-u>', true, true, true), 'n', false)
+            end, 200)
+          end,
+          desc = "Telescope Search Symbol (Document)",
+        },
+        {
+          "<leader>sS",
+          function()
+            telescope_builtins.lsp_workspace_symbols({
+              symbols = lsp_symbol_types,
+              symbol_width = 60,
+            })
+          end,
+          desc = "Telescope Search Symbol (Workspace)",
+        },
+        -- START telescope prefixed.
+        {
+          "<leader>tpl",
+          function()
+            telescope_builtins["builtin"]({ default_text = "lsp_" })
+          end,
+          desc = "Telescope lsp_*",
+        },
+        {
+          "<leader>tpp",
+          function()
+            telescope_builtins["commands"]({ default_text = "Phpactor" })
+          end,
+          mode = { "n", "x" },
+          desc = "Telescope Phpactor*",
+        },
+        -- START various section.
+        {
+          "<leader>th",
+          function()
+            telescope_builtins["keymaps"]({
+              default_text = "'Telescope !'TelescopeFuzzyCommandSearch ",
+            })
+          end,
+          desc = "Telescope help",
+        },
+        -- { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Telescope Switch Buffer" },
+        { "<leader>,", function()
+          telescope_builtins["buffers"]({
+            show_all_buffers = true,
+            layout_config = {
+              preview_width = 0,
+            },
+          })
+        end, desc = "Telescope Switch Buffer" },
+        { "<leader>tr", "<cmd>Telescope resume<cr>", desc = "Telescope Resume" },
+        { "<leader>gS", "<cmd>Telescope git_status<CR>", desc = "Telescope git status" },
+        { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Telescope search buffer" },
+        { "<leader>sC", "<cmd>Telescope command_history<cr>", desc = "Telescope Command History" },
+        -- { "<leader>sdb", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Telescope Diagnostics buffer" },
+        -- { "<leader>sda", "<cmd>Telescope diagnostics<cr>", desc = "Telescope Diagnostics all" },
+        { "<leader>sK", "<cmd>Telescope keymaps<cr>", desc = "Telescope Key Maps" },
+        -- { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Telescope Man Pages" },
+        { "<leader>wl", "<cmd>Telescope windows<cr>", desc = "Telescope window list" },
       }
     end,
+    dependencies = {
+      "kyoh86/telescope-windows.nvim",
+    },
+    config = function(_, opts)
+      local t = require("telescope")
+      t.setup(opts)
+      t.load_extension("windows")
+      t.load_extension("telescope-tabs")
+    end,
+    init = function()
+      local wk = require("which-key")
+      wk.add({
+        { "<leader>gg", group = "Git grep" },
+        { "<leader>sd", group = "Diagnostics" },
+        { "<leader>t", group = "Telescope" },
+      })
+    end,
+  },
+
+  {
+    "LukasPietzschmann/telescope-tabs",
+        dependencies = {
+      "nvim-telescope/telescope.nvim",
+        },
+    keys = {
+      {
+        "<leader><tab>l",
+        function ()
+          require('telescope-tabs').list_tabs()
+        end,
+        desc = "Tabs list"
+      },
+      { "<leader><tab><tab>", function () require('telescope-tabs').go_to_previous() end, desc = "Tab previous" },
+    }
   },
 }

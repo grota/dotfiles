@@ -95,7 +95,6 @@ chezmoi_ignored
 /.config/nautilus
 /.config/neofetch
 /.config/nnn
-/.config/nvim/lazyvim.json
 /.config/nvim/lua/.luarc.json
 /.config/nvim/spell
 /.config/navi/navi.log
