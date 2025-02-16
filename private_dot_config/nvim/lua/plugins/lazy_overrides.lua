@@ -10,54 +10,54 @@ return {
     },
   },
 
-  {
-  "echasnovski/mini.files",
-    opts = function (_, opts)
-      opts.windows.preview = false
-    end,
-    keys = function (_, keys)
-      for i = #keys, 1, -1 do
-        if keys[i][1] == "<leader>fm" then
-          keys[i][1] = '<leader>e'
-        end
-        if keys[i][1] == "<leader>fM" then
-          keys[i][1] = '<leader>E'
-        end
-      end
-    end,
-    init = function ()
-      local MiniFiles = require('mini.files')
-      local map_open_in = function(buf_id, lhs, create_new_window_command, desc)
-        local rhs = function()
-          -- Make new window and set it as target
-          local new_target_window
-          local windowid = MiniFiles.get_explorer_state().target_window
-          if windowid == nil then
-            return
-          end
-          vim.api.nvim_win_call(windowid, function()
-            vim.cmd(create_new_window_command)
-            new_target_window = vim.api.nvim_get_current_win()
-          end)
-
-          MiniFiles.set_target_window(new_target_window)
-          MiniFiles.go_in({close_on_file = true})
-        end
-
-        vim.keymap.set('n', lhs, rhs, { buffer = buf_id, desc = desc })
-      end
-
-      vim.api.nvim_create_autocmd('User', {
-        pattern = 'MiniFilesBufferCreate',
-        callback = function(args)
-          local buf_id = args.data.buf_id
-          map_open_in(buf_id, '<C-x>', 'belowright horizontal split', 'Open in horizontal split')
-          map_open_in(buf_id, '<C-v>', 'belowright vertical split', 'Open in vertical split')
-          map_open_in(buf_id, '<C-t>', 'tabe', 'Open in new tab')
-        end,
-      })
-    end,
-  },
+  -- {
+  -- "echasnovski/mini.files",
+  --   opts = function (_, opts)
+  --     opts.windows.preview = false
+  --   end,
+  --   keys = function (_, keys)
+  --     for i = #keys, 1, -1 do
+  --       if keys[i][1] == "<leader>fm" then
+  --         keys[i][1] = '<leader>e'
+  --       end
+  --       if keys[i][1] == "<leader>fM" then
+  --         keys[i][1] = '<leader>E'
+  --       end
+  --     end
+  --   end,
+  --   init = function ()
+  --     local MiniFiles = require('mini.files')
+  --     local map_open_in = function(buf_id, lhs, create_new_window_command, desc)
+  --       local rhs = function()
+  --         -- Make new window and set it as target
+  --         local new_target_window
+  --         local windowid = MiniFiles.get_explorer_state().target_window
+  --         if windowid == nil then
+  --           return
+  --         end
+  --         vim.api.nvim_win_call(windowid, function()
+  --           vim.cmd(create_new_window_command)
+  --           new_target_window = vim.api.nvim_get_current_win()
+  --         end)
+  --
+  --         MiniFiles.set_target_window(new_target_window)
+  --         MiniFiles.go_in({close_on_file = true})
+  --       end
+  --
+  --       vim.keymap.set('n', lhs, rhs, { buffer = buf_id, desc = desc })
+  --     end
+  --
+  --     vim.api.nvim_create_autocmd('User', {
+  --       pattern = 'MiniFilesBufferCreate',
+  --       callback = function(args)
+  --         local buf_id = args.data.buf_id
+  --         map_open_in(buf_id, '<C-x>', 'belowright horizontal split', 'Open in horizontal split')
+  --         map_open_in(buf_id, '<C-v>', 'belowright vertical split', 'Open in vertical split')
+  --         map_open_in(buf_id, '<C-t>', 'tabe', 'Open in new tab')
+  --       end,
+  --     })
+  --   end,
+  -- },
 
   {
     "echasnovski/mini.pairs",
@@ -68,75 +68,75 @@ return {
     end,
   },
 
-  {
-    "nvim-neo-tree/neo-tree.nvim",
-    opts = {
-      source_selector = {
-        winbar = true,
-      },
-      window = {
-        auto_expand_width = true,
-        mappings = {
-          ["<cr>"] = function(state)
-            local utils = require("neo-tree.utils")
-            local node = state.tree:get_node()
-            state.commands["open"](state)
-            if utils.is_expandable(node) then
-              vim.cmd.normal("j")
-              vim.cmd.normal("zz")
-            end
-          end,
-        },
-      },
-      filesystem = {
-        commands = {
-          go_up_in_tree = function(state)
-            local node = state.tree:get_node()
-            if node.type == "directory" and node:is_expanded() then
-              require("neo-tree.sources.filesystem").toggle_directory(state, node)
-            end
-            require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
-            vim.cmd.normal("zz")
-          end,
-          go_down_in_tree = function(state)
-            local node = state.tree:get_node()
-            if node.type == "directory" then
-              if not node:is_expanded() then
-                require("neo-tree.sources.filesystem").toggle_directory(state, node)
-                vim.cmd.normal("j")
-              elseif node:has_children() then
-                require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
-              end
-              vim.cmd.normal("zz")
-            else
-              state.commands["open"](state)
-            end
-          end,
-        },
-        window = {
-          mappings = {
-            ["/"] = "none",
-            ["f"] = "focus_preview",
-            ["h"] = "go_up_in_tree",
-            ["l"] = "go_down_in_tree",
-            ["z"] = "none",
-            ["w"] = "none",
-          },
-        },
-        filtered_items = {
-          hide_dotfiles = false,
-          hide_gitignored = false,
-          hide_hidden = false,
-        },
-      },
-      buffers = {
-        follow_current_file = {
-          enabled = true,
-          leave_dirs_open = true,
-        }
-      },
-    },
-  },
+  -- {
+  --   "nvim-neo-tree/neo-tree.nvim",
+  --   opts = {
+  --     source_selector = {
+  --       winbar = true,
+  --     },
+  --     window = {
+  --       auto_expand_width = true,
+  --       mappings = {
+  --         ["<cr>"] = function(state)
+  --           local utils = require("neo-tree.utils")
+  --           local node = state.tree:get_node()
+  --           state.commands["open"](state)
+  --           if utils.is_expandable(node) then
+  --             vim.cmd.normal("j")
+  --             vim.cmd.normal("zz")
+  --           end
+  --         end,
+  --       },
+  --     },
+  --     filesystem = {
+  --       commands = {
+  --         go_up_in_tree = function(state)
+  --           local node = state.tree:get_node()
+  --           if node.type == "directory" and node:is_expanded() then
+  --             require("neo-tree.sources.filesystem").toggle_directory(state, node)
+  --           end
+  --           require("neo-tree.ui.renderer").focus_node(state, node:get_parent_id())
+  --           vim.cmd.normal("zz")
+  --         end,
+  --         go_down_in_tree = function(state)
+  --           local node = state.tree:get_node()
+  --           if node.type == "directory" then
+  --             if not node:is_expanded() then
+  --               require("neo-tree.sources.filesystem").toggle_directory(state, node)
+  --               vim.cmd.normal("j")
+  --             elseif node:has_children() then
+  --               require("neo-tree.ui.renderer").focus_node(state, node:get_child_ids()[1])
+  --             end
+  --             vim.cmd.normal("zz")
+  --           else
+  --             state.commands["open"](state)
+  --           end
+  --         end,
+  --       },
+  --       window = {
+  --         mappings = {
+  --           ["/"] = "none",
+  --           ["f"] = "focus_preview",
+  --           ["h"] = "go_up_in_tree",
+  --           ["l"] = "go_down_in_tree",
+  --           ["z"] = "none",
+  --           ["w"] = "none",
+  --         },
+  --       },
+  --       filtered_items = {
+  --         hide_dotfiles = false,
+  --         hide_gitignored = false,
+  --         hide_hidden = false,
+  --       },
+  --     },
+  --     buffers = {
+  --       follow_current_file = {
+  --         enabled = true,
+  --         leave_dirs_open = true,
+  --       }
+  --     },
+  --   },
+  -- },
 
   {
     "williamboman/mason.nvim",

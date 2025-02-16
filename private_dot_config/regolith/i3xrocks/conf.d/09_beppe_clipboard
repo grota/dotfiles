@@ -1,5 +1,0 @@
-# Clipboard
-[clipboard]
-full_text=
-command=[[ -z "${BLOCK_BUTTON}" ]] || rofi -modi "clipboard:greenclip print" -show clipboard -run-command '{cmd}'
-interval=once

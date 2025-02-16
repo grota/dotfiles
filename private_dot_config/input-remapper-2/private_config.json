@@ -1,6 +1,6 @@
 {
-    "version": "2.0.1",
+    "version": "2.1.0",
     "autoload": {
-      "Logitech MX Master 3S": "button remaps"
+        "Logitech MX Master 3S": "button remaps"
     }
 }
