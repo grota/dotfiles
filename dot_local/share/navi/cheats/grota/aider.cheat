@@ -1,0 +1,7 @@
+% aider
+
+# aider with model
+aider --model <model>
+
+; for some reason we need to skip the first 3 lines instead of 2 like it should be.
+$ model: aider --list-models '/' | tail -n +3 | cut -c 3- --- --prevent-extra

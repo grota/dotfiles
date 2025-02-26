@@ -1,0 +1,10 @@
+% uv
+
+# Show available versions of a package
+uvx pip index versions <package>
+
+# Show outdated packages
+uv pip list --outdated
+
+# upgrade all deps
+uv lock --upgrade && uv sync

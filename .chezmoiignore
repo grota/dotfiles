@@ -226,4 +226,4 @@ chezmoi_ignored
 /.local/share/jupyter
 /.local/share/kdenlive
 /.local/share/nautilus-python
-/.local/share/xdg-desktop-portal
+/.local/share/Emote

@@ -1,0 +1,9 @@
+% aichat
+
+; https://github.com/sigoden/aichat/wiki/Chat-REPL-Guide#file---read-files-and-use-them-as-input
+; You can use alt-enter after -- to input multilines.
+# repl file context for manpages
+.files <aichat_repl_syntax_to_expand_manpages> -- 
+
+$ manpages: man -k . --- --multi --fzf-overrides '--nth=1 --cycle --no-sort --tiebreak=index'
+$ aichat_repl_syntax_to_expand_manpages: echo '<manpages>' | awk -F'[() ]' '{printf "`man %s %s | col -b` ", $3, $1} END {print ""}'
