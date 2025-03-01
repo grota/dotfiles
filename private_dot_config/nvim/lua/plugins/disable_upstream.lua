@@ -10,14 +10,4 @@ return {
     enabled = false,
   },
 
-  {
-    "echasnovski/mini.bufremove",
-    enabled = false,
-  },
-
-  -- {
-  --   "nvim-neo-tree/neo-tree.nvim",
-  --   enabled = false,
-  -- },
-
 }

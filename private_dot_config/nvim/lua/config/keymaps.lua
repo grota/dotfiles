@@ -144,3 +144,7 @@ map('i', '<C-o>', '<C-\\><C-o>', { noremap = true, desc = "C-o without moving cu
 
 map("n", "<leader>bd", "<cmd>:bd<cr>", { desc = "Delete Buffer" })
 map("n", "<leader>bD", function() Snacks.bufdelete() end, { desc = "Delete Buffer and Window" })
+
+if LazyVim.has('mini.files') then
+  map('n', "<leader>e", "<leader>fm", {desc="Open mini.files", remap=true})
+end

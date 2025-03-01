@@ -654,7 +654,7 @@ wrap-mode='none'
 height=1001
 is-fullscreen=false
 is-maximized=false
-width=1920
+width=1440
 
 [org/gnome/metacity/keybindings]
 toggle-tiled-left=@as []

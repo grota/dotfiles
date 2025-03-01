@@ -122,7 +122,7 @@ return {
               debounce = 300,
             })
           end,
-          desc = "Telescope git grep case sensitive",
+          desc = "git grep case sensitive",
         },
         {
           "<leader>ggi",
@@ -134,7 +134,7 @@ return {
               debounce = 300,
             })
           end,
-          desc = "Telescope git grep case insensitive",
+          desc = "git grep case insensitive",
         },
         {
           "<leader>gga",
@@ -146,39 +146,39 @@ return {
               debounce = 600,
             })
           end,
-          desc = "Telescope RipGrep all",
+          desc = "RipGrep all",
         },
         -- START files section sf,sF
-        { "<leader>sf", "<cmd>Telescope git_files<cr>", desc = "Telescope Git Files" },
+        { "<leader>ff", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
         {
-          "<leader>sF",
+          "<leader>fF",
           function()
             telescope_builtins.find_files({
               prompt_title = "Search All files",
               find_command = find_all_files_cmd,
             })
           end,
-          desc = "Telescope All Files",
+          desc = "All Files",
         },
         -- START oldfiles section so,sO
         {
-          "<leader>so",
+          "<leader>fo",
           function()
             telescope_builtins["oldfiles"]({
               prompt_title = "Oldfiles local",
               cwd_only = true,
             })
           end,
-          desc = "Telescope Recent local",
+          desc = "Recent local",
         },
         {
-          "<leader>sO",
+          "<leader>fO",
           function()
             telescope_builtins["oldfiles"]({
               prompt_title = "Oldfiles global",
             })
           end,
-          desc = "Telescope Recent global",
+          desc = "Recent global",
         },
         -- START lsp symbols ss,sS
         {
@@ -192,7 +192,7 @@ return {
               vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-u>', true, true, true), 'n', false)
             end, 200)
           end,
-          desc = "Telescope Search Symbol (Document)",
+          desc = "Search Symbol (Document)",
         },
         {
           "<leader>sS",
@@ -202,7 +202,7 @@ return {
               symbol_width = 60,
             })
           end,
-          desc = "Telescope Search Symbol (Workspace)",
+          desc = "Search Symbol (Workspace)",
         },
         -- START telescope prefixed.
         {
@@ -230,7 +230,6 @@ return {
           end,
           desc = "Telescope help",
         },
-        -- { "<leader>,", "<cmd>Telescope buffers show_all_buffers=true<cr>", desc = "Telescope Switch Buffer" },
         { "<leader>,", function()
           telescope_builtins["buffers"]({
             show_all_buffers = true,
@@ -238,16 +237,13 @@ return {
               preview_width = 0,
             },
           })
-        end, desc = "Telescope Switch Buffer" },
+        end, desc = "Switch Buffer" },
         { "<leader>tr", "<cmd>Telescope resume<cr>", desc = "Telescope Resume" },
         { "<leader>gS", "<cmd>Telescope git_status<CR>", desc = "Telescope git status" },
         { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Telescope search buffer" },
-        { "<leader>sC", "<cmd>Telescope command_history<cr>", desc = "Telescope Command History" },
-        -- { "<leader>sdb", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Telescope Diagnostics buffer" },
-        -- { "<leader>sda", "<cmd>Telescope diagnostics<cr>", desc = "Telescope Diagnostics all" },
-        { "<leader>sK", "<cmd>Telescope keymaps<cr>", desc = "Telescope Key Maps" },
-        -- { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Telescope Man Pages" },
-        { "<leader>wl", "<cmd>Telescope windows<cr>", desc = "Telescope window list" },
+        { "<leader>sC", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+        { "<leader>sK", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
+        { "<leader>sw", "<cmd>Telescope windows<cr>", desc = "Window list" },
       }
     end,
     dependencies = {
@@ -262,9 +258,9 @@ return {
     init = function()
       local wk = require("which-key")
       wk.add({
-        { "<leader>gg", group = "Git grep" },
-        { "<leader>sd", group = "Diagnostics" },
-        { "<leader>t", group = "Telescope" },
+      { "<leader>gg", group = "Git grep" },
+      { "<leader>t", group = "Telescope" },
+      { "<leader>tp", group = "Telescope prefix" },
       })
     end,
   },
@@ -276,7 +272,7 @@ return {
         },
     keys = {
       {
-        "<leader><tab>l",
+        "<leader>s<tab>",
         function ()
           require('telescope-tabs').list_tabs()
         end,

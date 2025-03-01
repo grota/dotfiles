@@ -19,9 +19,6 @@ require("lazy").setup({
     -- Just prefer mini.indentscope over indent-blankline.nvim mainly because
     -- of motion operators, see lua/plugins/indent.lua.
     { import = "lazyvim.plugins.extras.ui.mini-indentscope" },
-    { import = "lazyvim.plugins.extras.dap.core" },
-    { import = "lazyvim.plugins.extras.lang.yaml" },
-    { import = "lazyvim.plugins.extras.lang.toml" },
     { import = "plugins" },
   },
   defaults = {
