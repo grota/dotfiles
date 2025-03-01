@@ -159,7 +159,7 @@ xkb-options=['lv3:ralt_switch', 'ctrl:nocaps']
 [org/gnome/desktop/interface]
 clock-show-seconds=false
 clock-show-weekday=true
-color-scheme='default'
+color-scheme='prefer-dark'
 cursor-blink-time=1015
 cursor-size=24
 cursor-theme='Adwaita'
@@ -451,9 +451,9 @@ fullscreen=false
 inverted-colors=false
 show-sidebar=true
 sidebar-page='thumbnails'
-sidebar-size=599
-sizing-mode='fit-page'
-window-ratio=(4.3698933059823535, 1.5732380699251753)
+sidebar-size=132
+sizing-mode='free'
+window-ratio=(3.2254000251984372, 1.2448196852554196)
 zoom=0.77117747784045132
 
 [org/gnome/evolution-data-server]
@@ -1040,9 +1040,9 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1740561251
+check-timestamp=int64 1740825722
 first-run=false
-flatpak-purge-timestamp=int64 1740567091
+flatpak-purge-timestamp=int64 1740825656
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false

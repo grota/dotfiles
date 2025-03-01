@@ -35,8 +35,10 @@
 [advice]
   statusHints = false
 [diff]
-  mnemonicprefix = true
-  colorMoved = default
+	mnemonicPrefix = true
+	colorMoved = plain
+	algorithm = histogram
+	renames = true
 [rerere]
   enabled = 1
 [pager]
@@ -48,8 +50,9 @@
   ;diff = delta
   ;show = delta
 [push]
-  default = current
+	default = simple
 	autoSetupRemote = true
+	followTags = true
 [tig "bind"]
   diff = <up> move-up
   diff = <down> move-down
@@ -75,7 +78,22 @@
  
 [column]
 	branch = auto
+	ui = auto
 [branch]
 	sort = -committerdate
 [init]
 	defaultBranch = main
+[tag]
+	sort = version:refname
+[fetch]
+	pruneTags = true
+	all = true
+	prune = true
+[help]
+	autocorrect = prompt
+[rebase]
+	autoSquash = true
+	autoStash = true
+	updateRefs = true
+[pull]
+	rebase = true
