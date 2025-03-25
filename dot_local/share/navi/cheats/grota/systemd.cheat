@@ -1,6 +1,6 @@
 % systemd
 
-#restart some well known user service
+# restart some well known user service
 systemctl --user restart <user_service_wellknown>
 
 # journalctl log clean (time based)

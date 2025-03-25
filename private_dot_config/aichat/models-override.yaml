@@ -98,7 +98,7 @@ list:
     max_output_tokens: 8192
     supports_vision: true
     supports_function_calling: true
-  - name: gemini-2.0-flash-lite-preview
+  - name: gemini-2.0-flash-lite
     type: chat
     max_input_tokens: 1048576
     input_price: 0.0
@@ -170,15 +170,6 @@ list:
     max_output_tokens: 24000
     require_max_tokens: true
     supports_vision: true
-  - name: claude-3-5-sonnet-latest
-    type: chat
-    max_input_tokens: 200000
-    input_price: 3.0
-    output_price: 15.0
-    max_output_tokens: 8192
-    require_max_tokens: true
-    supports_vision: true
-    supports_function_calling: true
   - name: claude-3-5-sonnet-20241022
     type: chat
     max_input_tokens: 200000
@@ -188,11 +179,11 @@ list:
     require_max_tokens: true
     supports_vision: true
     supports_function_calling: true
-  - name: claude-3-5-haiku-latest
+  - name: claude-3-5-sonnet-20240620
     type: chat
     max_input_tokens: 200000
-    input_price: 0.8
-    output_price: 4.0
+    input_price: 3.0
+    output_price: 15.0
     max_output_tokens: 8192
     require_max_tokens: true
     supports_vision: true
@@ -475,7 +466,7 @@ list:
     max_output_tokens: 8192
     supports_vision: true
     supports_function_calling: true
-  - name: gemini-2.0-flash-lite-preview-02-05
+  - name: gemini-2.0-flash-lite-001
     type: chat
     max_input_tokens: 1048576
     input_price: 0.075
@@ -1341,6 +1332,30 @@ list:
     output_price: 0.4
     supports_vision: true
     supports_function_calling: true
+  - name: google/gemini-2.0-flash-lite-001
+    type: chat
+    max_input_tokens: 1048576
+    input_price: 0.075
+    output_price: 0.3
+    supports_vision: true
+    supports_function_calling: true
+  - name: anthropic/claude-3.7-sonnet
+    type: chat
+    max_input_tokens: 200000
+    input_price: 3.0
+    output_price: 15.0
+    max_output_tokens: 8192
+    require_max_tokens: true
+    supports_vision: true
+    supports_function_calling: true
+  - name: anthropic/claude-3.7-sonnet:thinking
+    type: chat
+    max_input_tokens: 200000
+    input_price: 3.0
+    output_price: 15.0
+    max_output_tokens: 24000
+    require_max_tokens: true
+    supports_vision: true
   - name: anthropic/claude-3.5-sonnet
     type: chat
     max_input_tokens: 200000
