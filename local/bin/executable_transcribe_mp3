@@ -1,0 +1,47 @@
+#!/bin/bash
+
+set -eu
+
+MP3_FILE="${1}"
+MP3_FILE_NO_EXT="${MP3_FILE%.*}"
+SANITIZED_MP3_FILE=$(basename "$MP3_FILE" | sed 's/[^a-zA-Z0-9._-]/_/g')
+SANITIZED_MP3_FILE_NO_EXT="${SANITIZED_MP3_FILE%.*}"
+MP3_FILE_DIR=$(dirname "$(realpath "$1")")
+# Empirical value that seems to cut mp3 just shorter than allowed by whisper-1.
+SEGMENT_TIME="${2:-1490}"
+
+# If it's shorter than 1 segment it still creates 1 segment.
+echo "Splitting file $MP3_FILE"
+ffmpeg -loglevel 16 -i "$MP3_FILE" -f segment -segment_time "$SEGMENT_TIME" -c copy "$SANITIZED_MP3_FILE_NO_EXT"_%03d.mp3
+
+tmpfile=$(mktemp)
+for SEGMENT in "$SANITIZED_MP3_FILE_NO_EXT"_*.mp3; do
+  echo "Getting transcription for $SEGMENT..."
+  ITH_SEGMENT_SRT="${SEGMENT%.*}".srt
+  # atm whisper still seems to be better for me.
+  curl https://api.openai.com/v1/audio/transcriptions \
+    --silent \
+    -H "Authorization: Bearer $OPENAI_API_KEY" \
+    -H "Content-Type: multipart/form-data" \
+    --form file="@$SEGMENT" \
+    --form model="whisper-1" \
+    --form response_format='srt' > "$ITH_SEGMENT_SRT"
+
+  # absolute path otherwise it is interpreted to be relative to tmpfile.
+  echo "file '$MP3_FILE_DIR/$ITH_SEGMENT_SRT'" >> "$tmpfile"
+done
+
+ffmpeg -loglevel 16 -f concat -safe 0 -i "$tmpfile" -c copy "$MP3_FILE_NO_EXT".srt
+
+rm -v "$SANITIZED_MP3_FILE_NO_EXT"_* "$tmpfile"
+
+MPV_COMMAND="mpv \"$MP3_FILE\" --sub-file=\"$MP3_FILE_NO_EXT\".srt"
+
+# Ask for user confirmation before running the command
+echo "Command to be run: $MPV_COMMAND"
+read -r -p "Do you want to execute the above command? (Y/n): " confirm
+if [[ -z "$confirm" || "$confirm" =~ ^[Yy]$ ]]; then
+  eval "$MPV_COMMAND"
+else
+  echo "Skipping command execution."
+fi

@@ -1,0 +1,12 @@
+% openai, transcription
+
+# curl transcription
+curl https://api.openai.com/v1/audio/transcriptions \
+-H "Authorization: Bearer $OPENAI_API_KEY" \
+-H "Content-Type: multipart/form-data" \
+-F file="@<file>" \
+-F model="<model>" -F response_format='<response_format>'
+
+$ file: ls
+$ model:  echo -e 'gpt-4o-transcribe\ngpt-4o-mini-transcribe\nwhisper-1'
+$ response_format: echo -e 'json\ntext\nsrt'

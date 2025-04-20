@@ -16,7 +16,7 @@ if [ "$v" = 'none' ]; then \
 else \
   echo "-m $v" ; \
 fi
-$ model: llm models --- --column 2 --delimiter ':\s'
+$ model: llm models --- --column 2 --delimiter ':\s|\s\('
 
 $ llm_template: v=<template>; \
 if [ "$v" = 'none' ]; then \
@@ -45,4 +45,9 @@ $ temperature:  echo -e '0.3\n0.1\n0.5\n1\nnone' --- --fzf-overrides '--print-qu
 ;  acc+="-p $param $param_value"; \
 ;done; \
 ;echo "$acc";
-$ template_params: llm templates show $template | grep -o '\$[a-zA-Z_]\+' | sort | uniq | sed 's/\$//g' | awk '{print "-p " $1 " XXX"}' | tr '\n' ' ' | sed 's/ $/\n/' --- --fzf-overrides '--exit-0'
+$ template_params: v=<template>; \
+if [ "$v" = 'none' ]; then \
+  echo ''; \
+else \
+  llm templates show $template | grep -o '\$[a-zA-Z_]\+' | sort | uniq | sed 's/\$//g' | awk '{print "-p " $1 " XXX"}' | tr '\n' ' ' | sed 's/ $/\n/' ; \
+fi --- --fzf-overrides '--exit-0'

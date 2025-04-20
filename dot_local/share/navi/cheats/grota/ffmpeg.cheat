@@ -1,0 +1,9 @@
+% audio, mp3
+
+# split mp3 on duration
+ffmpeg -i <input> -f segment -segment_time <duration_in_secs> -c copy <out_format>
+
+$ input: ls
+$ duration_in_secs:  echo -e '60\n300\n1490'
+$ out_format: v=<input>; \
+echo "${v%.*}_%03d.mp3"

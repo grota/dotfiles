@@ -35,6 +35,10 @@ auto-power-on=@mb false
 [org/blueman/plugins/recentconns]
 recent-connections=[{'adapter': '84:5C:F3:F0:6C:CE', 'address': '0C:89:5A:01:09:6C', 'alias': 'E18', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1661347620.9262052'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '74:74:46:E4:C3:BF', 'alias': 'Pixel Buds A-Series de Giuseppe', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1684249511.4433684', 'device': '/org/bluez/hci0/dev_74_74_46_E4_C3_BF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'F8:1A:2B:E0:F5:E9', 'alias': 'Pixel 4a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160545.2074506'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '24:29:34:92:3C:CF', 'alias': 'Pixel 6a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160577.464688', 'device': '/org/bluez/hci0/dev_24_29_34_92_3C_CF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'DE:EE:F9:9F:29:C5', 'alias': 'MX Master 3S', 'icon': 'input-mouse', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1732708767.8526783'}]
 
+[org/freedesktop/tracker/miner/files]
+index-recursive-directories=['&DESKTOP', '&MUSIC', '&VIDEOS']
+index-single-directories=@as []
+
 [org/gnome/Connections]
 first-run=false
 
@@ -102,8 +106,8 @@ panel-id='timer'
 size=(1440, 1048)
 
 [org/gnome/control-center]
-last-panel='applications'
-window-state=(1440, 1048, false)
+last-panel='wifi'
+window-state=(1440, 1048, true)
 
 [org/gnome/deja-dup]
 backend='google'
@@ -145,6 +149,17 @@ picture-uri-dark='file:///home/grota/Downloads/ian-parker-ihByWVBKIPY-unsplash.j
 primary-color='#000000000000'
 secondary-color='#000000000000'
 
+[org/gnome/desktop/break-reminders]
+selected-breaks=@as []
+
+[org/gnome/desktop/break-reminders/eyesight]
+play-sound=true
+
+[org/gnome/desktop/break-reminders/movement]
+duration-seconds=uint32 300
+interval-seconds=uint32 1800
+play-sound=true
+
 [org/gnome/desktop/calendar]
 show-weekdate=false
 
@@ -159,7 +174,7 @@ xkb-options=['lv3:ralt_switch', 'ctrl:nocaps']
 [org/gnome/desktop/interface]
 clock-show-seconds=false
 clock-show-weekday=true
-color-scheme='prefer-dark'
+color-scheme='default'
 cursor-blink-time=1015
 cursor-size=24
 cursor-theme='Adwaita'
@@ -170,7 +185,7 @@ font-hinting='medium'
 font-name='Cantarell 11'
 font-rgba-order='rgb'
 gtk-theme='Midnight-GrayNight'
-icon-theme='Papirus-Dark'
+icon-theme='Adwaita'
 monospace-font-name='SauceCodePro Nerd Font Mono Semi-Bold 11'
 show-battery-percentage=true
 text-scaling-factor=1.0
@@ -184,7 +199,7 @@ autorun-x-content-open-folder=@as []
 autorun-x-content-start-app=['x-content/unix-software', 'x-content/ostree-repository']
 
 [org/gnome/desktop/notifications]
-application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions', 're-sonny-workbench', 'org-gnome-weather', 'libreoffice-startcenter', 'org-gnome-eog', 'shutter', 'screenkey', 'org-kde-kdenlive', 'fr-handbrake-ghb', 'solaar', 'gimp', 'calibre-gui', 'org-gnome-builder', 'yelp', 'org-pulseaudio-pavucontrol', 'org-gnome-fileroller', 'vlc', 'mpv', 'kitty']
+application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions', 're-sonny-workbench', 'org-gnome-weather', 'libreoffice-startcenter', 'org-gnome-eog', 'shutter', 'screenkey', 'org-kde-kdenlive', 'fr-handbrake-ghb', 'solaar', 'gimp', 'calibre-gui', 'org-gnome-builder', 'yelp', 'org-pulseaudio-pavucontrol', 'org-gnome-fileroller', 'vlc', 'mpv', 'kitty', 'gnome-wellbeing-panel']
 show-banners=true
 
 [org/gnome/desktop/notifications/application/alacritty]
@@ -219,6 +234,9 @@ application-id='gnome-power-panel.desktop'
 
 [org/gnome/desktop/notifications/application/gnome-printers-panel]
 application-id='gnome-printers-panel.desktop'
+
+[org/gnome/desktop/notifications/application/gnome-wellbeing-panel]
+application-id='gnome-wellbeing-panel.desktop'
 
 [org/gnome/desktop/notifications/application/google-chrome]
 application-id='google-chrome.desktop'
@@ -429,7 +447,7 @@ button-layout='appmenu:close'
 focus-mode='click'
 resize-with-right-button=true
 theme='SolArc-Dark'
-workspace-names=['slack', 'work', 'another', 'Workspace 3', 'another2', 'another2', 'another2']
+workspace-names=['slack', 'work', 'Workspace 3', 'another2', 'Workspace 4', 'Workspace 4', 'another2']
 
 [org/gnome/eog/ui]
 sidebar=false
@@ -446,18 +464,18 @@ window-size=(1920, 1048)
 document-directory=@ms 'file:///home/grota/Dropbox/Docs/burocrazia'
 
 [org/gnome/evince/default]
-continuous=false
+continuous=true
 dual-page=false
-dual-page-odd-left=true
+dual-page-odd-left=false
 enable-spellchecking=true
-fullscreen=false
+fullscreen=true
 inverted-colors=false
 show-sidebar=true
 sidebar-page='thumbnails'
 sidebar-size=132
-sizing-mode='free'
-window-ratio=(3.2254000251984372, 1.2448196852554196)
-zoom=0.77117747784045132
+sizing-mode='automatic'
+window-ratio=(1.1556927297668038, 3.6426833507125478)
+zoom=0.60277777777777775
 
 [org/gnome/evolution-data-server]
 migrated=true
@@ -671,8 +689,6 @@ workspaces-only-on-primary=false
 
 [org/gnome/mutter/keybindings]
 cancel-input-capture=@as []
-toggle-tiled-left=@as []
-toggle-tiled-right=@as []
 
 [org/gnome/mutter/wayland/keybindings]
 restore-shortcuts=@as []
@@ -718,7 +734,7 @@ last-folder-path='/home/grota/Downloads'
 last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/google-chrome-stable]
-last-folder-path='/home/grota'
+last-folder-path='/home/grota/Downloads/transcribed'
 
 [org/gnome/portal/filechooser/google-chrome]
 last-folder-path='/home/grota/Downloads'
@@ -740,7 +756,9 @@ night-light-temperature=uint32 4236
 [org/gnome/settings-daemon/plugins/media-keys]
 custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom2/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom3/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
 help=@as []
+logout=@as []
 magnifier=@as []
+reboot=['<Control><Alt>Delete']
 rotate-video-lock-static=@as []
 screensaver=@as []
 
@@ -773,8 +791,8 @@ sleep-inactive-ac-type='nothing'
 command-history=['r', 'lllg', 'ls', 'rest', 'restart', 'l', 'kg', 'gl', 'lg']
 disable-user-extensions=false
 disabled-extensions=['beampointer@grota.github.com']
-enabled-extensions=['BringOutSubmenuOfPowerOffLogoutButton@pratap.fastmail.fm', 'just-perfection-desktop@just-perfection', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor@paradoxxx.zero.gmail.com', 'true-color-invert@jackkenney', 'system-monitor@gnome-shell-extensions.gcampax.github.com', 'clipboard-indicator@tudmotu.com', 'freon@UshakovVasilii_Github.yahoo.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com', 'appindicatorsupport@rgcjonas.gmail.com', 'paperwm@paperwm.github.com', 'status-icons@gnome-shell-extensions.gcampax.github.com']
-favorite-apps=['google-chrome.desktop', 'obsidian.desktop', 'org.gnome.Nautilus.desktop', 'firefox.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Settings.desktop', 'solaar.desktop', 'input-remapper-gtk.desktop', 'org.gnome.clocks.desktop']
+enabled-extensions=['BringOutSubmenuOfPowerOffLogoutButton@pratap.fastmail.fm', 'just-perfection-desktop@just-perfection', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor@paradoxxx.zero.gmail.com', 'true-color-invert@jackkenney', 'system-monitor@gnome-shell-extensions.gcampax.github.com', 'clipboard-indicator@tudmotu.com', 'freon@UshakovVasilii_Github.yahoo.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com', 'appindicatorsupport@rgcjonas.gmail.com', 'paperwm@paperwm.github.com', 'status-icons@gnome-shell-extensions.gcampax.github.com', 'trayIconsReloaded@selfmade.pl']
+favorite-apps=['firefox.desktop', 'obsidian.desktop', 'org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'org.gnome.tweaks.desktop', 'org.gnome.Settings.desktop', 'solaar.desktop', 'input-remapper-gtk.desktop', 'org.gnome.clocks.desktop']
 had-bluetooth-devices-setup=true
 last-selected-power-profile='power-saver'
 looking-glass-history=['console.log(Meta)', 'console.log', 'console.dir(Meta)', 'Meta.Backend', 'Meta.Backend.get_context()', 'Gdk.DisplayManager.get();', 'Clutter.get_default_backend()', 'Meta.WaylandCompositor', 'Meta.WaylandCompositor.get_wayland_display', 'Meta.WaylandCompositor.get_wayland_display()', 'Clutter.get_default_backend().get_default_seat();', 'var a =Clutter.get_default_backend().get_default_seat()', 'setTimeout', 'help', 'ls', 'console', 'global.window', 'window.C_', "window.C_ + ''", "window.N_ + ''", 'globa.display', 'Clutter.get_default_backend().get_default_seat().list_devices()', 'Clutter.get_default_backend().get_default_seat().list_devices()[0].capabilities', 'Clutter.get_default_backend().get_default_seat().list_devices()[0]', 'Clutter.get_default_backend().get_default_seat().list_devices()[0].get_capabilities()', 'Clutter.get_default_backend().get_default_seat().list_devices()[1].get_capabilities()', 'Clutter.get_default_backend().get_default_seat().list_devices()[3].get_capabilities()', 'global.stage', "global.stage.connect('key-press-event', function() => console.log('a'))", 'dd', "global.stage.connect('key-press-event', function(){ console.log('a')})", 'ssda', "global.stage.connect('key-press-event', function(){ console.log('ab')})", "global.stage.connect('key-release-event', function(){ console.log('ab')})", 'xxxx', "global.stage.connect('key-release-event', function(a,b,c,d){ console.log(a,b,c,d)})", "global.stage.connect('key-press-event', function(a,b,c,d){ console.log(a,b,c,d)})", "a=global.stage.connect('key-press-event', function(a,b){ console.log(a,b)})", "a=global.stage.connect('key-press-event', function(a,b){ console.log(a,b.get_key_code())})", "a=global.stage.connect('key-press-event', function(a,b){ console.log(a,b.get_key_symbol())})", "a=global.stage.connect('key-press-event', function(a,b){ console.log('sym',b.get_key_symbol(),'code', b.get_key_code())})", "a=global.stage.connect('key-press-event', function(a,b){ console.log('sym',b.get_key_symbol(),'code', b.get_key_code(), 'u', Clutter.keysym_to_unicode(b.get_key_code()))})", 'a=global.stage.disconnect(77014)', "a=global.stage.connect('key-press-event', function(a,b){ console.log('sym',b.get_key_symbol(),'code', b.get_key_code(), 'u', Clutter.keysym_to_unicode(b.get_key_symbol()))})", 'Clutter.KEY_g', 'Clutter.KEY_G', 'Clutter.KEY_J', 'a=global.stage.disconnect(82210)', 'j', 'Clutter.KEY_j', "a=global.stage.connect('key-press-event', function(a,b){ console.log('sym',b.get_key_symbol())})", 'Signals', 'a=global.stage.disconnect(a)', 'a=global.stage.disconnect(93585)', "import * as Config from 'resource:///org/gnome/shell/misc/config.js';", 'import.gi.Meta', 'imports.gi.Meta', 'Object.getOwnPropertyNames(imports.gi.Meta)', 'r', 'r(5)', 'a=r(5)', 'console.log(a)', 'a.__proto__', 'a.toString()', 'console.log(Object.keys(a))', 'a.actor()', 'a.get_actor().toString()', 'a.get_actor()', 'a.get_actor().get_name()', 'global.stage.get_actions()', "Main.notifyError('ciao')", 'imports.ui.Main', 'imports.ui', 'imports.gi.Main', 'imports.gi.main', 'imports.ui.main', 'Main.notify', 'Main.notify("cas")', 'imports.Signals', 'Object.keys(imports)', 'Object.keys(imports.signals)', 'imports.signals', 'Object.keys(imports.gi)', 'Object.keys(imports.ui)', 'Object.keys(imports.system)', 'Object.keys(imports.system.version)', 'imports.system.version', 'Main', 'Object.keys(Main)', "global.get_data('Main')", 'global.get_data()', 'Main.layoutManager', 'global.window_group', 'GLib.get_tmp_dir()', 'Shell', 'Shell.App', "Shell.App+''", 'LL', 'Shell.App.get_name()', 'Shell.App()', 'a=new Shell.App', 'a.get_name()', 'Object.getOwnPropertyNames(a)', 'Object.keys(lg)', 'Object.keys(a)', 'imports.gi.Shell', 'imports.gi.Shell.App', 'Main.wm._allowedKeybindings', 'Object.getOwnPropertyNames(Main.wm)', 'Seat', 'Clutter.get_default_backend().get_default_seat().get_keymap()', 'Meta.KeyBindingFlags.NONE', 'Meta.KeyBindingFlags', 'display', 'global.display.grab_accelerator.length', "global.display.grab_accelerator('', Meta.KeyBindingFlags.NONE)", 'global.display.', "global.display.grab_accelerator('<Alt>F4', Meta.KeyBindingFlags.NONE)", 'Meta.external_binding_name_for_action(397)', "global.display.grab_accelerator('<Meta>q', Meta.KeyBindingFlags.NONE)", 'Meta.external_binding_name_for_action(398)', 'Meta.external_binding_name_for_action(2)', 'Main.wm.addKeybinding', "Main.wm.addKeybinding + ''", 'imporaaaaaaa', 'imports.searchPath', 'imports.gi.node', 'Meta', 'global.display.grab_accelerator', 'Meta.KeyBindingAction.NONE', "global.display.grab_accelerator('<Super>n')", "global.display.grab_accelerator('<Super>n', Meta.KeyBindingFlags.NONE,)", "global.display.grab_accelerator('<Alt><Super>x', Meta.KeyBindingFlags.NONE,)", "global.display.grab_accelerator('<Alt><Super>n', Meta.KeyBindingFlags.NONE,)", 'global.display.ungrab_accelerator(265)', 'global.display.ungrab_accelerator(266)', 'global.display.ungrab_accelerator(267)', 'global.display.ungrab_accelerator(268)', 'Object.keys(Main.wm)', "global.display.grab_accelerator('<Super>x', Meta.KeyBindingFlags.NONE,)", 'global.display.ungrab_accelerator(269)', 'Meta.external_binding_name_for_action(269)', "global.display.grab_accelerator('<Super>a', Meta.KeyBindingFlags.PER_WINDOW)", "global.display.grab_accelerator('<Super>v', Meta.KeyBindingFlags.PER_WINDOW)", "global.display.grab_accelerator('<Super>h', Meta.KeyBindingFlags.PER_WINDOW)", "global.display.grab_accelerator('<Super>h', Meta.KeyBindingFlags.NONE)", "global.display.grab_accelerator('<Super>h', Meta.KeyBindingFlags.IS_REVERSED)", 'Meta.external_binding_name_for_action(270)', 'global.display.ungrab_accelerator(270)', "global.display.grab_accelerator('<Control>c', Meta.KeyBindingFlags.IS_REVERSED)", 'global.display.ungrab_accelerator(271)', 'Clutter.get_default_backend().get_default_seat().get_pointer()', 'Clutter.get_default_backend().get_default_seat().get_pointer().get_data()', 'Clutter.ModifierType.BUTTON1_MASK', 'Clutter.ModifierType.BUTTON2_MASK', 'Clutter.ModifierType.BUTTON3_MASK', 'global.get_pointer()', 'Main.wm', 'globalThis == global', 'globalThis.global == global', 'Glib', 'Clutter.get_default_backend().get_default_seat().get_data()', 'Clutter.get_default_backend().get_resolution()', 'global.gets_stage()', 'global.get_stage()', 'Meta.Display', 'global.display', 'global.display.get_monitor_geometry()', 'global.display.get_monitor_geometry(global.display.get_current_monitor())', 'global.display.get_monitor_geometry(global.display.get_current_monitor()).height', 'globalThis', 'global', 'globalThis.global', 'window', "{Panel} = await import('./panel.js')", 'Panel', "Util = await import('../misc/util.js')", 'GIRepository.Repository', 'GIRepository', 'imports.ui.GIRepository', 'imports', 'imports.gi', 'imports.gi.GI', 'imports.gi.GIRepository', 'imports.gi.GIRepository.Repository', 'a=imports.gi.GIRepository.Repository', 'a.get_default()', 'a.get_default().get_loaded_namespaces()', 'a.get_loaded_namespaces()', 'a', 'a.get_search_path()', 'Gio', 'Gio.Resource', "Gio.Resource.load('resource:///org/gnome/shell/extensions/extension.js')", "Gio.Resource.load('/org/gnome/shell/extensions/extension.js')", "Gio.Resource.load('/org/gnome/shell/extensions/')", "Gio.Resource.load('resource:///org/gnome/shell/extensions/')", "Gio.resources_enumerate_children('/org/',0)", "Gio.resources_enumerate_children('/org/gnome',0)", "Gio.resources_enumerate_children('/org/gnome/shell',0)", "Gio.resources_enumerate_children('/org/gnome/shell/extensions',0)", "Gio.resources_enumerate_children('/org/gnome/shell/extensions/',0)", "Gio.resources_enumerate_children('/org/gnome/shell/extensions/extension.js',0)", "Gio.resources_get_info('/org/gnome/shell/extensions/extension.js',0)", "Gio.Resource.load('/org/gnome/shell/extensions/extension.js',0)", 'String.fromCharCode()', 'global.get_context()', 'Gjs', 'GJs', 'GjS', 'GJS', 'globa.context', 'global.context', 'gjs', 'imports.gjs', 'Clutter.ScrollEvent', 'a=new Clutter.ScrollEvent', 'Gdk.ScrollEvent', 'Gtk.ScrollEvent', 'imports.Gtk', 'Gdk = imports.gi.Gdk;', 'Gdk', 'new Gdk.Event()', 'Clutter', 'Clutter.get_default_backend().get_default_seat().create_virtual_device', 'Clutter.get_default_backend().get_default_seat()', 'Clutter.get_default_backend().get_default_seat().create_virtual_device(Clutter.InputDeviceType.POINTER_DEVICE);', 'Clutter.get_default_backend().get_default_seat().create_virtual_device(Clutter.InputDeviceType.CURSOR_DEVICE);', 'Clutter.get_default_backend().get_default_seat().create_virtual_device(Clutter.InputDeviceType.KEYBOARD_DEVICE);']
@@ -906,6 +924,7 @@ edge-preview-enable=false
 edge-preview-scale=0.14000000000000001
 edge-preview-timeout-continual=true
 gesture-enabled=true
+gesture-workspace-fingers=3
 horizontal-margin=0
 last-used-display-server='Wayland'
 minimap-scale=0.10000000000000001
@@ -961,7 +980,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/79ccf5fb-c26d-4312-b2a8-2739f5065267]
-index=5
+index=4
 name='Workspace 4'
 
 [org/gnome/shell/extensions/paperwm/workspaces/95242d70-3c22-4ba5-8ea8-b4e8dd43f17b]
@@ -971,13 +990,13 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/b3a1e851-310c-4f75-80bb-efffff075d8f]
-index=2
+index=5
 name='another'
 show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/ba27f953-7826-4f7f-816c-b8cb64d65cff]
-index=3
+index=2
 name='Workspace 3'
 
 [org/gnome/shell/extensions/paperwm/workspaces/d554f895-e877-4006-8603-ab75e3fe7553]
@@ -986,7 +1005,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/e8c8f783-5429-42af-9114-9fb85bcf9fed]
-index=4
+index=3
 name='another2'
 show-position-bar=true
 show-top-bar=true
@@ -1020,6 +1039,8 @@ row-2=0
 [org/gnome/shell/extensions/trayIconsReloaded]
 icon-size=16
 icons-limit=6
+position-weight=-1
+tray-position='left'
 
 [org/gnome/shell/extensions/window-list]
 grouping-mode='auto'
@@ -1043,9 +1064,9 @@ locations=@av []
 document-type='photo'
 
 [org/gnome/software]
-check-timestamp=int64 1741949219
+check-timestamp=int64 1745138053
 first-run=false
-flatpak-purge-timestamp=int64 1741955347
+flatpak-purge-timestamp=int64 1745137038
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
