@@ -447,7 +447,7 @@ button-layout='appmenu:close'
 focus-mode='click'
 resize-with-right-button=true
 theme='SolArc-Dark'
-workspace-names=['WS1', 'WS2', 'Workspace 3', 'WS4', 'Workspace 4', 'another', 'another2']
+workspace-names=['WS1', 'WS2', 'Workspace 4', 'Workspace 3', 'Workspace 3', 'another', 'another2']
 
 [org/gnome/eog/ui]
 sidebar=false
@@ -984,7 +984,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/79ccf5fb-c26d-4312-b2a8-2739f5065267]
-index=4
+index=2
 name='Workspace 4'
 
 [org/gnome/shell/extensions/paperwm/workspaces/95242d70-3c22-4ba5-8ea8-b4e8dd43f17b]
@@ -1000,7 +1000,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/ba27f953-7826-4f7f-816c-b8cb64d65cff]
-index=2
+index=3
 name='Workspace 3'
 
 [org/gnome/shell/extensions/paperwm/workspaces/d554f895-e877-4006-8603-ab75e3fe7553]
@@ -1009,7 +1009,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/e8c8f783-5429-42af-9114-9fb85bcf9fed]
-index=3
+index=4
 name='WS4'
 show-position-bar=true
 show-top-bar=true
@@ -1071,7 +1071,7 @@ document-type='photo'
 [org/gnome/software]
 check-timestamp=int64 1747120138
 first-run=false
-flatpak-purge-timestamp=int64 1747034670
+flatpak-purge-timestamp=int64 1747134865
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
