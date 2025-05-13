@@ -235,6 +235,8 @@ show-model-warnings: true
 
 ## Prefix all commit messages with 'aider: ' (default: False)
 #attribute-commit-message-committer: false
+## Attribute aider edits using the Co-authored-by trailer in the commit message (default: False). If True, this takes precedence over default --attribute-author and --attribute-committer behavior unless they are explicitly set to True.
+#attribute-co-authored-by: false
 ## Enable/disable git pre-commit hooks with --no-verify (default: False)
 #git-commit-verify: false
 
@@ -356,6 +358,8 @@ show-model-warnings: true
 
 #################
 # Other settings:
+## Never prompt for or attempt to install Playwright for web scraping (default: False).
+#disable-playwright: false
 
 ## specify a file to edit (can be used multiple times)
 #file: xxx
@@ -420,6 +424,8 @@ show-model-warnings: true
 
 ## Specify which editor to use for the /editor command
 #editor: xxx
+## Print shell completion script for the specified SHELL and exit. Supported shells: bash, tcsh, zsh. Example: aider --shell-completions bash
+#shell-completions: xxx
 ############################
 # Deprecated model settings:
 
