@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Get the current value of the color-scheme key
+current_value=$(gsettings get org.gnome.desktop.interface color-scheme)
+
+# Remove any single quotes from the current value
+current_value=${current_value//\'/}
+
+# Determine the new value based on the current value
+if [[ "$current_value" == "default" ]]; then
+    new_value="prefer-dark"
+elif [[ "$current_value" == "prefer-dark" ]]; then
+    new_value="default"
+else
+    echo "Unexpected value: $current_value"
+    exit 1
+fi
+
+# Set the new value
+gsettings set org.gnome.desktop.interface color-scheme "$new_value"
+
+# Output the change
+echo "Color scheme changed from '$current_value' to '$new_value'."
