@@ -13,6 +13,9 @@ alias py=python
 alias nv=nordvpn
 alias d=docker
 alias dc=docker-compose
+if ! declare -F __start_docker &>/dev/null; then
+    source /usr/share/bash-completion/completions/docker
+fi
 if [[ $(type -t compopt) = "builtin" ]]; then
     complete -o default -F __start_docker dc
 else

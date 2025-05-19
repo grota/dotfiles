@@ -7,10 +7,6 @@
   type: file
   url: https://github.com/cheat/cheat/raw/master/scripts/cheat.bash
 
-.local/grota/bash/30-completion-docker-compose:
-  type: file
-  url: https://raw.githubusercontent.com/docker/compose/master/contrib/completion/bash/docker-compose
-
 .local/grota/bash/40-kube-ps1.sh:
   type: file
   url: https://raw.githubusercontent.com/jonmosco/kube-ps1/master/kube-ps1.sh
