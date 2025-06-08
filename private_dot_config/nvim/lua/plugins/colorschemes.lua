@@ -30,12 +30,12 @@ return {
           return {
             Search = { bg = "#875f00", fg = "black" },
             CurSearch = { bg = "#dfaf00", fg = "black" },
-            DiffChange = { bg = "#5f005f" },
-            DiffText = { bg = "#005f00" },
-            DiffAdd = { bg = "#005f00" },
-            DiffDelete = { bg = "#5f0000" },
-            diffAdded = { fg = "#00aa00" },
-            diffRemoved = { fg = "#dd0022" },
+            -- DiffChange = { bg = "#5f005f" },
+            -- DiffText = { bg = "#005f00" },
+            -- DiffAdd = { bg = "#002000" },
+            -- DiffDelete = { bg = "#5f0000" },
+            -- diffAdded = { fg = "#00aa00" },
+            -- diffRemoved = { fg = "#dd0022" },
             FlashLabel = {
               fg = '#5555ff',
               bg = '#550000',

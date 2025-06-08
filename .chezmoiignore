@@ -227,3 +227,6 @@ chezmoi_ignored
 /.local/share/kdenlive
 /.local/share/nautilus-python
 /.local/share/Emote
+/.nv
+/.npm-global
+/.mypu_cache

@@ -2,13 +2,8 @@
 # vim: set tabstop=2 shiftwidth=2 ft=bash foldmethod=marker:
 
 if [ -z "$TMUX" ]; then
-  PATH=$HOME/local/bin:$HOME/.config/composer/vendor/bin:$PATH
-  PATH=$PATH:/usr/local/go/bin
-  PATH="$(go env GOPATH)/bin:$HOME/.local/bin/:$PATH"
+  PATH="$HOME/local/bin:$HOME/.npm-global/bin:$HOME/.config/composer/vendor/bin:$(go env GOPATH)/bin:$HOME/.local/bin/:$PATH"
   export PATH
-  # from beginner yt video instructions.
-  GOPATH="$(go env GOPATH):/home/grota/Projects/personal/gocode"
-  export GOPATH
 fi
 
 export MANPATH=:~/local/share/man
