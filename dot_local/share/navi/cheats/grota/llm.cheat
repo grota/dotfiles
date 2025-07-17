@@ -1,6 +1,5 @@
 % llm
 
-;llm chat <llm_template> -o temperature <temperature> <template_params>
 # new chat
 llm chat <llm_model> <llm_template> <llm_temperature> <template_params>
 

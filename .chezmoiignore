@@ -201,6 +201,7 @@ chezmoi_ignored
 /.docker/contexts
 /.config/warpd/lock
 /.config/warpd/warpd.log
+/.config/Claude/*
 /.ddev
 /.local/pipx
 /.config/xdg-terminals.list
@@ -230,3 +231,5 @@ chezmoi_ignored
 /.nv
 /.npm-global
 /.mypu_cache
+/.claude-code-router/claude-code-router.log
+/.claude/projects

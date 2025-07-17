@@ -110,7 +110,7 @@ panel-id='timer'
 size=(1440, 1048)
 
 [org/gnome/control-center]
-last-panel='power'
+last-panel='wifi'
 window-state=(1440, 1048, true)
 
 [org/gnome/deja-dup]
@@ -203,7 +203,7 @@ autorun-x-content-open-folder=@as []
 autorun-x-content-start-app=['x-content/unix-software', 'x-content/ostree-repository']
 
 [org/gnome/desktop/notifications]
-application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions', 're-sonny-workbench', 'org-gnome-weather', 'libreoffice-startcenter', 'org-gnome-eog', 'shutter', 'screenkey', 'org-kde-kdenlive', 'fr-handbrake-ghb', 'solaar', 'gimp', 'calibre-gui', 'org-gnome-builder', 'yelp', 'org-pulseaudio-pavucontrol', 'org-gnome-fileroller', 'vlc', 'mpv', 'kitty', 'gnome-wellbeing-panel', 'witsy', 'com-mitchellh-ghostty']
+application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions', 're-sonny-workbench', 'org-gnome-weather', 'libreoffice-startcenter', 'org-gnome-eog', 'shutter', 'screenkey', 'org-kde-kdenlive', 'fr-handbrake-ghb', 'solaar', 'gimp', 'calibre-gui', 'org-gnome-builder', 'yelp', 'org-pulseaudio-pavucontrol', 'org-gnome-fileroller', 'vlc', 'mpv', 'kitty', 'gnome-wellbeing-panel', 'witsy', 'com-mitchellh-ghostty', 'claude-desktop-native']
 show-banners=true
 
 [org/gnome/desktop/notifications/application/alacritty]
@@ -217,6 +217,9 @@ application-id='ca.desrt.dconf-editor.desktop'
 
 [org/gnome/desktop/notifications/application/calibre-gui]
 application-id='calibre-gui.desktop'
+
+[org/gnome/desktop/notifications/application/claude-desktop-native]
+application-id='claude-desktop-native.desktop'
 
 [org/gnome/desktop/notifications/application/com-mitchellh-ghostty]
 application-id='com.mitchellh.ghostty.desktop'
@@ -458,7 +461,7 @@ button-layout='appmenu:close'
 focus-mode='click'
 resize-with-right-button=true
 theme='SolArc-Dark'
-workspace-names=['WS1', 'WS2', 'WS3', 'WS4', 'WS5', 'Workspace 3', 'Workspace 7']
+workspace-names=['WS1', 'WS2', 'WS4', 'WS5', 'WS3', 'Workspace 3', 'Workspace 7']
 
 [org/gnome/eog/ui]
 sidebar=false
@@ -481,12 +484,12 @@ dual-page-odd-left=true
 enable-spellchecking=true
 fullscreen=false
 inverted-colors=false
-show-sidebar=true
+show-sidebar=false
 sidebar-page='thumbnails'
-sidebar-size=132
+sidebar-size=148
 sizing-mode='free'
-window-ratio=(2.4161073825503356, 1.2446555819477434)
-zoom=0.53797560690943058
+window-ratio=(1.0079375078745116, 1.2448196852554196)
+zoom=0.99901206935259657
 
 [org/gnome/evolution-data-server]
 migrated=true
@@ -498,7 +501,7 @@ notify-window-paned-position=73
 notify-window-width=166
 notify-window-x=26
 notify-window-y=23
-reminders-past=['1a98c3c04adf522b8cff948a88cff227ddca0aff\n8359af17e9c589b49d84f43d78cf9dd44203864f\t20250607T080000Z\n1749196800\n1749283200\n1749326400\nBEGIN:VEVENT\r\nDTSTART;TZID=Europe/Rome:20250607T100000\r\nDTEND;TZID=Europe/Rome:20250607T220000\r\nRRULE:FREQ=YEARLY;BYMONTHDAY=7;BYMONTH=6\r\nDTSTAMP:20230303T085406Z\r\nUID:7C8CE6BCEA8E44C195AB0F9D8FFCB52900000000000000000000000000000000\r\nCREATED:20100607T151152Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T085406Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Compleanno Alex Fortin\r\nTRANSP:OPAQUE\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813516846\r\nRECURRENCE-ID:20250607T080000Z\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1D\r\nX-EVOLUTION-ALARM-UID:8359af17e9c589b49d84f43d78cf9dd44203864f\r\nEND:VALARM\r\nEND:VEVENT\r\n', '1a98c3c04adf522b8cff948a88cff227ddca0aff\na7ee3626e7bb0ce8c547a94f11261be7c8ae24b7\t20250602T080000Z\n1748850300\n1748851200\n1748876400\nBEGIN:VEVENT\r\nDTSTART;TZID=Europe/Rome:20250602T100000\r\nDTEND;TZID=Europe/Rome:20250602T170000\r\nRRULE:FREQ=YEARLY\r\nDTSTAMP:20230303T090323Z\r\nUID:g6tocm151ffs1ha7ajvci3jrbs@google.com\r\nCREATED:20130526T071910Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T090323Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Compleanno Umberto\r\nTRANSP:TRANSPARENT\r\nX-EVOLUTION-CALDAV-ETAG:63813517403\r\nRECURRENCE-ID:20250602T080000Z\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-PT15M\r\nX-EVOLUTION-ALARM-UID:a7ee3626e7bb0ce8c547a94f11261be7c8ae24b7\r\nEND:VALARM\r\nEND:VEVENT\r\n']
+reminders-past=@as []
 
 [org/gnome/file-roller/dialogs/add]
 current-folder='file:///run/media/grota/TOSHIBA'
@@ -1007,7 +1010,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/79ccf5fb-c26d-4312-b2a8-2739f5065267]
-index=2
+index=4
 name='WS3'
 
 [org/gnome/shell/extensions/paperwm/workspaces/95242d70-3c22-4ba5-8ea8-b4e8dd43f17b]
@@ -1017,7 +1020,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/b3a1e851-310c-4f75-80bb-efffff075d8f]
-index=4
+index=3
 name='WS5'
 show-position-bar=true
 show-top-bar=true
@@ -1032,7 +1035,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/e8c8f783-5429-42af-9114-9fb85bcf9fed]
-index=3
+index=2
 name='WS4'
 show-position-bar=true
 show-top-bar=true
@@ -1094,9 +1097,9 @@ save-directory='file:///home/grota/Downloads/'
 save-format='application/pdf'
 
 [org/gnome/software]
-check-timestamp=int64 1749367787
+check-timestamp=int64 1751097988
 first-run=false
-flatpak-purge-timestamp=int64 1749323144
+flatpak-purge-timestamp=int64 1751102699
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false

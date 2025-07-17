@@ -1,0 +1,5 @@
+- model_id: gpt-4o-search-preview
+  model_name: gpt-4o-search-preview
+
+- model_id: gpt-4o-mini-search-preview
+  model_name: gpt-4o-mini-search-preview
