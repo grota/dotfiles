@@ -17,3 +17,4 @@ vim.opt.conceallevel = 0
 
 vim.g.autoformat = false
 vim.g.snacks_animate = false
+vim.o.wrap = true

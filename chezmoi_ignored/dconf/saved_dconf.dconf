@@ -110,7 +110,7 @@ panel-id='timer'
 size=(1440, 1048)
 
 [org/gnome/control-center]
-last-panel='wifi'
+last-panel='power'
 window-state=(1440, 1048, true)
 
 [org/gnome/deja-dup]
@@ -178,7 +178,7 @@ xkb-options=['lv3:ralt_switch', 'ctrl:nocaps']
 [org/gnome/desktop/interface]
 clock-show-seconds=false
 clock-show-weekday=true
-color-scheme='default'
+color-scheme='prefer-dark'
 cursor-blink-time=1015
 cursor-size=24
 cursor-theme='Adwaita'
@@ -203,7 +203,7 @@ autorun-x-content-open-folder=@as []
 autorun-x-content-start-app=['x-content/unix-software', 'x-content/ostree-repository']
 
 [org/gnome/desktop/notifications]
-application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions', 're-sonny-workbench', 'org-gnome-weather', 'libreoffice-startcenter', 'org-gnome-eog', 'shutter', 'screenkey', 'org-kde-kdenlive', 'fr-handbrake-ghb', 'solaar', 'gimp', 'calibre-gui', 'org-gnome-builder', 'yelp', 'org-pulseaudio-pavucontrol', 'org-gnome-fileroller', 'vlc', 'mpv', 'kitty', 'gnome-wellbeing-panel', 'witsy', 'com-mitchellh-ghostty', 'claude-desktop-native']
+application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions', 're-sonny-workbench', 'org-gnome-weather', 'libreoffice-startcenter', 'org-gnome-eog', 'shutter', 'screenkey', 'org-kde-kdenlive', 'fr-handbrake-ghb', 'solaar', 'gimp', 'calibre-gui', 'org-gnome-builder', 'yelp', 'org-pulseaudio-pavucontrol', 'org-gnome-fileroller', 'vlc', 'mpv', 'kitty', 'gnome-wellbeing-panel', 'witsy', 'com-mitchellh-ghostty', 'claude-desktop-native', 'spotify']
 show-banners=true
 
 [org/gnome/desktop/notifications/application/alacritty]
@@ -368,6 +368,9 @@ application-id='slack.desktop'
 [org/gnome/desktop/notifications/application/solaar]
 application-id='solaar.desktop'
 
+[org/gnome/desktop/notifications/application/spotify]
+application-id='spotify.desktop'
+
 [org/gnome/desktop/notifications/application/steam]
 application-id='steam.desktop'
 
@@ -461,7 +464,7 @@ button-layout='appmenu:close'
 focus-mode='click'
 resize-with-right-button=true
 theme='SolArc-Dark'
-workspace-names=['WS1', 'WS2', 'WS4', 'WS5', 'WS3', 'Workspace 3', 'Workspace 7']
+workspace-names=['WS1', 'WS2', 'WS3', 'WS4', 'WS3', 'Workspace 3', 'Workspace 7']
 
 [org/gnome/eog/ui]
 sidebar=false
@@ -488,7 +491,7 @@ show-sidebar=false
 sidebar-page='thumbnails'
 sidebar-size=148
 sizing-mode='free'
-window-ratio=(1.0079375078745116, 1.2448196852554196)
+window-ratio=(2.4201680672268906, 1.2446555819477434)
 zoom=0.99901206935259657
 
 [org/gnome/evolution-data-server]
@@ -501,7 +504,7 @@ notify-window-paned-position=73
 notify-window-width=166
 notify-window-x=26
 notify-window-y=23
-reminders-past=@as []
+reminders-past=['1a98c3c04adf522b8cff948a88cff227ddca0aff\ndc07d8882377399a29b767ebefb5b1e28fde673e\t20250718T090000Z\n1752829200\n1752829200\n1752836400\nBEGIN:VEVENT\r\nDTSTART;TZID=Africa/Ceuta:20250718T110000\r\nDTEND;TZID=Africa/Ceuta:20250718T130000\r\nRRULE:FREQ=YEARLY;BYMONTHDAY=18;BYMONTH=7\r\nDTSTAMP:20240723T175140Z\r\nUID:715D5E05FAF4440CB7491B21FD1F884500000000000000000000000000000000\r\nCREATED:20100718T203353Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20240723T175140Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Onomastico Fede\r\nTRANSP:TRANSPARENT\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63857440300\r\nRECURRENCE-ID:20250718T090000Z\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:PT0S\r\nX-EVOLUTION-ALARM-UID:dc07d8882377399a29b767ebefb5b1e28fde673e\r\nEND:VALARM\r\nEND:VEVENT\r\n']
 
 [org/gnome/file-roller/dialogs/add]
 current-folder='file:///run/media/grota/TOSHIBA'
@@ -689,7 +692,7 @@ wrap-mode='none'
 height=1001
 is-fullscreen=false
 is-maximized=false
-width=1440
+width=1920
 
 [org/gnome/metacity/keybindings]
 toggle-tiled-left=@as []
@@ -722,7 +725,7 @@ search-filter-time-type='last_modified'
 search-view='list-view'
 
 [org/gnome/nautilus/window-state]
-initial-size=(1440, 1048)
+initial-size=(1920, 1048)
 initial-size-file-chooser=(1920, 882)
 maximized=false
 sidebar-width=247
@@ -740,6 +743,10 @@ ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
 [org/gnome/nm-applet/eap/21b6ab7a-ee22-4a6f-bc96-6a7f89261441]
+ignore-ca-cert=false
+ignore-phase2-ca-cert=false
+
+[org/gnome/nm-applet/eap/7be8d7e5-4734-4793-a307-ec1a49ebd547]
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
@@ -960,7 +967,7 @@ horizontal-margin=0
 last-used-display-server='Wayland'
 minimap-scale=0.10000000000000001
 only-scratch-in-overview=false
-open-window-position=3
+open-window-position=0
 open-window-position-option-down=false
 open-window-position-option-end=true
 open-window-position-option-left=false
@@ -1010,8 +1017,8 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/79ccf5fb-c26d-4312-b2a8-2739f5065267]
-index=4
-name='WS3'
+index=3
+name='WS4'
 
 [org/gnome/shell/extensions/paperwm/workspaces/95242d70-3c22-4ba5-8ea8-b4e8dd43f17b]
 index=1
@@ -1020,8 +1027,8 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/b3a1e851-310c-4f75-80bb-efffff075d8f]
-index=3
-name='WS5'
+index=2
+name='WS3'
 show-position-bar=true
 show-top-bar=true
 
@@ -1035,8 +1042,8 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/e8c8f783-5429-42af-9114-9fb85bcf9fed]
-index=2
-name='WS4'
+index=4
+name='WS5'
 show-position-bar=true
 show-top-bar=true
 
@@ -1097,9 +1104,9 @@ save-directory='file:///home/grota/Downloads/'
 save-format='application/pdf'
 
 [org/gnome/software]
-check-timestamp=int64 1751097988
+check-timestamp=int64 1752835842
 first-run=false
-flatpak-purge-timestamp=int64 1751102699
+flatpak-purge-timestamp=int64 1752821456
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
