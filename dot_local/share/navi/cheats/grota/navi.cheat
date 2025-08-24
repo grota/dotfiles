@@ -7,4 +7,4 @@ $EDITOR ~/.local/share/navi/cheats/grota/
 navi fn welcome
 
 # cheatsheet syntax
-navi fn url::open https://github.com/denisidoro/navi/blob/master/docs/cheatsheet_syntax.md
+navi fn url::open https://github.com/denisidoro/navi/blob/master/docs/cheatsheet/syntax/README.md

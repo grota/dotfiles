@@ -6,7 +6,7 @@ llm chat <llm_model> <llm_template> <llm_temperature> <template_params>
 # logs
 visidata $HOME/.config/io.datasette.llm/logs.db
 
-# edit templates
+# edit llm templates
 $EDITOR $(llm templates path)
 
 $ llm_model: v=<model>; \
@@ -31,7 +31,7 @@ if [ "$v" = 'none' ]; then \
 else \
   echo "-o temperature $v" ; \
 fi
-$ temperature:  echo -e '0.3\n0.1\n0.5\n1\nnone' --- --fzf-overrides '--print-query --query 0.1 --no-select-1'
+$ temperature:  echo -e '0.3\n0.1\n0.5\n1\nnone' --- --fzf-overrides '--print-query --query none --no-select-1'
 
 ; gather all the words starting with $ (params of a template and prefill them with XXX value)
 ; Somehow navi blocks the user input in the following:

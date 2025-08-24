@@ -1,7 +1,11 @@
 % npm
 
 # Update all global packages
-npm list -g --depth=0
 npm outdated -g --depth=0
 npm outdated -g --depth=0 | awk 'NR>1 {print $1}' | xargs npm install -g
-npm list -g --depth=0
+
+# list global packages
+npm ls --json -g |  jq -r '.dependencies | to_entries[] | "\(.key)\t\(.value.version)"' | column -t
+
+# outdated global packages
+npm outdated -g --depth=0

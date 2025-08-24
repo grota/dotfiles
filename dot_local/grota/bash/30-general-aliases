@@ -69,3 +69,12 @@ function slackupper() {
     fi
   done
 }
+
+# unset specific env vars that might confuse the clis (we want to use the oauth methods instead)
+function qwen() {
+  env --unset=OPENAI_API_KEY qwen
+}
+
+function gemini() {
+  env --unset=GEMINI_API_KEY gemini
+}

@@ -233,3 +233,11 @@ chezmoi_ignored
 /.mypu_cache
 /.claude-code-router/claude-code-router.log
 /.claude/projects
+/.claude.json.backup
+/.config/io.datasette.llm/model_options.json
+/.config/io.datasette.llm/openrouter_models.json
+/.config/io.datasette.llm/openrouter_models_structured_outputs.json
+/.claude/todos/
+/.local/share/opencode/log
+/.local/share/opencode/project
+/.config/ghostty/*.bak

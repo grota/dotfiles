@@ -1,0 +1,8 @@
+[
+  "llm-gemini",
+  "llm-github-copilot",
+  "llm-github-models",
+  "llm-openrouter",
+  "llm-uv-tool",
+  "llm-openai-plugin"
+]

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "theme": "system",
+  "small_model": "openai/gpt-4.1-mini",
+  "autoshare": false,
+  "autoupdate": false,
+  "provider": {
+    "openrouter": {
+      "models": {
+        "@preset/kimi-k2-on-groq": {
+          "options": {
+            "max_tokens": 16384
+          }
+        },
+        "qwen/qwen3-coder": {
+          "options": {
+            "provider": {
+              "only": ["cerebras"]
+            }
+          }
+        }
+      }
+    }
+  }
+}

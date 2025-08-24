@@ -4,7 +4,7 @@
 # Place in your home dir, or at the root of your git repo.
 ##########################################################
 
-# Note: You can only put OpenAI and Anthropic API keys in the yaml
+# Note: You can only put OpenAI and Anthropic API keys in the YAML
 # config file. Keys for all APIs can be stored in a .env file
 # https://aider.chat/docs/config/dotenv.html
 
@@ -82,9 +82,9 @@ model: gemini/gemini-2.5-pro-exp-03-25
 #  - zzz
 
 ## Set the reasoning_effort API parameter (default: not set)
-# reasoning-effort: high
+#reasoning-effort: xxx
 
-## Set the thinking token budget for models that support it (default: not set)
+## Set the thinking token budget for models that support it. Use 0 to disable. (default: not set)
 #thinking-tokens: xxx
 
 ## Verify the SSL cert when connecting to models (default: True)
@@ -111,7 +111,7 @@ model: gemini/gemini-2.5-pro-exp-03-25
 #editor-edit-format: xxx
 
 ## Only work with models that have meta-data available (default: True)
-show-model-warnings: true
+#show-model-warnings: true
 
 ## Check if model accepts settings like reasoning_effort/thinking_tokens (default: True)
 #check-model-accepts-settings: true
@@ -212,6 +212,8 @@ show-model-warnings: true
 ## Enable/disable adding .aider* to .gitignore (default: True)
 #gitignore: true
 
+## Enable/disable the addition of files listed in .gitignore to Aider's editing scope.
+#add-gitignore-files: false
 ## Specify the aider ignore file (default: .aiderignore in git root)
 #aiderignore: .aiderignore
 
@@ -224,19 +226,19 @@ show-model-warnings: true
 ## Enable/disable commits when repo is found dirty (default: True)
 #dirty-commits: true
 
-## Attribute aider code changes in the git author name (default: True)
-#attribute-author: true
+## Attribute aider code changes in the git author name (default: True). If explicitly set to True, overrides --attribute-co-authored-by precedence.
+#attribute-author: xxx
 
-## Attribute aider commits in the git committer name (default: True)
-#attribute-committer: true
+## Attribute aider commits in the git committer name (default: True). If explicitly set to True, overrides --attribute-co-authored-by precedence for aider edits.
+#attribute-committer: xxx
 
 ## Prefix commit messages with 'aider: ' if aider authored the changes (default: False)
 #attribute-commit-message-author: false
 
 ## Prefix all commit messages with 'aider: ' (default: False)
 #attribute-commit-message-committer: false
-## Attribute aider edits using the Co-authored-by trailer in the commit message (default: False). If True, this takes precedence over default --attribute-author and --attribute-committer behavior unless they are explicitly set to True.
-#attribute-co-authored-by: false
+## Attribute aider edits using the Co-authored-by trailer in the commit message (default: True). If True, this takes precedence over default --attribute-author and --attribute-committer behavior unless they are explicitly set to True.
+#attribute-co-authored-by: true
 ## Enable/disable git pre-commit hooks with --no-verify (default: False)
 #git-commit-verify: false
 
@@ -292,6 +294,11 @@ show-model-warnings: true
 
 ## Permanently disable analytics
 #analytics-disable: false
+## Send analytics to custom PostHog instance
+#analytics-posthog-host: xxx
+
+## Send analytics to custom PostHog project
+#analytics-posthog-project-api-key: xxx
 
 ############
 # Upgrading:
@@ -383,6 +390,8 @@ show-model-warnings: true
 ## Specify the language to use in the chat (default: None, uses system settings)
 #chat-language: xxx
 
+## Specify the language to use in the commit message (default: None, user language)
+#commit-language: xxx
 ## Always say yes to every confirmation
 #yes-always: false
 
