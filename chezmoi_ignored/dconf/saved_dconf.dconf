@@ -110,8 +110,8 @@ panel-id='timer'
 size=(1440, 1048)
 
 [org/gnome/control-center]
-last-panel='sound'
-window-state=(1440, 1048, true)
+last-panel='mouse'
+window-state=(1440, 1046, true)
 
 [org/gnome/deja-dup]
 backend='google'
@@ -490,9 +490,9 @@ inverted-colors=false
 show-sidebar=false
 sidebar-page='thumbnails'
 sidebar-size=132
-sizing-mode='fit-width'
-window-ratio=(2.419354838709677, 2.4847966552641583)
-zoom=0.99901206935259657
+sizing-mode='free'
+window-ratio=(2.7218985242206442, 1.2467222884386173)
+zoom=0.61339520808715187
 
 [org/gnome/evolution-data-server]
 migrated=true
@@ -544,7 +544,7 @@ sort-type='descending'
 
 [org/gnome/file-roller/ui]
 sidebar-width=200
-window-height=1048
+window-height=1046
 window-width=1440
 
 [org/gnome/gedit/plugins/filebrowser]
@@ -689,7 +689,7 @@ text-filters=[('CVS/SVN keywords', false, '\\$\\w+(:[^\\n$]+)?\\$'), ('C++ comme
 wrap-mode='none'
 
 [org/gnome/meld/window-state]
-height=1001
+height=999
 is-fullscreen=false
 is-maximized=false
 width=1440
@@ -1110,9 +1110,9 @@ save-directory='file:///home/grota/Downloads/'
 save-format='application/pdf'
 
 [org/gnome/software]
-check-timestamp=int64 1756022720
+check-timestamp=int64 1756453282
 first-run=false
-flatpak-purge-timestamp=int64 1756026830
+flatpak-purge-timestamp=int64 1756369866
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false

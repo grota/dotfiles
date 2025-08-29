@@ -241,3 +241,4 @@ chezmoi_ignored
 /.local/share/opencode/log
 /.local/share/opencode/project
 /.config/ghostty/*.bak
+/.qwen/tmp

@@ -7,7 +7,7 @@
   _battery: 4100
   _modelId: B03400000000
   _sensitive: {divert-keys: true, dpi: true, hires-scroll-mode: false, hires-smooth-invert: true, hires-smooth-resolution: false, reprogrammable-keys: false,
-    scroll-ratchet: true, smart-shift: true}
+    scroll-ratchet: true, smart-shift: false}
   _unitId: D4F041EB
   change-host: null
   divert-keys: {82: 0, 83: 0, 86: 0, 195: 2, 196: 0}
