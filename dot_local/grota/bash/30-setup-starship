@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+function __starship_precmd_grota() {
+  # if the env var KUBE_PS1_ENABLED is equal to off then unset the var GROTA_KUBE_STARSHIP, set it to 1 otherwise AI!
+}
+starship_precmd_user_func="__starship_precmd_grota"
+eval "$(starship init bash)"
