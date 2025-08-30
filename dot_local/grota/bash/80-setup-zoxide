@@ -1,0 +1,2 @@
+# vim: set tabstop=2 shiftwidth=2 ft=bash foldmethod=marker:
+eval "$(zoxide init bash)"

@@ -1,11 +1,9 @@
-#!/usr/bin/env bash
+# vim: set tabstop=2 shiftwidth=2 ft=bash foldmethod=marker:
 
-function __starship_precmd_grota() {
-  if [[ "${KUBE_PS1_ENABLED:-}" == "off" ]]; then
-    unset GROTA_KUBE_STARSHIP
-  else
-    export GROTA_KUBE_STARSHIP=1
-  fi
+function kubeon() {
+  export GROTA_KUBE_STARSHIP=1
 }
-starship_precmd_user_func="__starship_precmd_grota"
+function kubeoff() {
+  unset GROTA_KUBE_STARSHIP
+}
 eval "$(starship init bash)"

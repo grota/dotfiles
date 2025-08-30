@@ -43,7 +43,7 @@ alias ..5="cd ../../../../../"
 alias ss='sudo su -'
 #alias xc='sleep 1.0; xdotool type "$(xclip -o -selection clipboard)"'
 alias cat=bat
-alias nvimo='NVIM_FLAVOUR=old nvim'
+alias c="bat -p"
 alias v=nvim
 function rga() {
   rg --with-filename --line-number --column --smart-case --hidden -g='!.git/**' --no-ignore --no-ignore-parent --pretty "${@}" | LESS='' less --RAW-CONTROL-CHARS --ignore-case --quit-if-one-screen

@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 # vim: set tabstop=2 shiftwidth=2 ft=bash foldmethod=marker:
 
+export PNPM_HOME="/home/grota/.local/share/pnpm"
 if [ -z "$TMUX" ]; then
-  PATH="$HOME/local/bin:$HOME/.npm-global/bin:$HOME/.config/composer/vendor/bin:$(go env GOPATH)/bin:$HOME/.local/bin/:$PATH"
-  export PATH
+  export PATH="$HOME/local/bin:$HOME/.npm-global/bin:$PNPM_HOME:$HOME/.config/composer/vendor/bin:$(go env GOPATH)/bin:$HOME/.local/bin/:$PATH"
 fi
 
 export MANPATH=:~/local/share/man
 
-PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'history -a; history -n; ps1_update --notime --hostname --prompt \>;'
-
 for file in ~/.local/grota/bash/* ; do
   . "$file"
 done
+
+PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'history -a; history -n;'
 
 complete -C "$(which aws_completer)" aws
 
@@ -22,10 +22,10 @@ export DOTFILESREPO
 export EDITOR=nvim
 export MANPAGER="sh -c 'col -bx | bat --language=man -p'"
 export MANROFFOPT="-c"
-HISTFILESIZE=1000000
-HISTSIZE=500000
-HISTCONTROL="erasedups:ignoreboth"
-HISTIGNORE="clear:bg:fg:cd:cd -:exit:date:w:gs:gss:ga:gau:gk:gd:gdc:gf:gb:grbi:gcm*:l:resunity:ss:"
+export HISTFILESIZE=1000000
+export HISTSIZE=500000
+export HISTCONTROL="erasedups:ignoreboth"
+export HISTIGNORE="clear:bg:fg:cd:cd -:exit:date:w:gs:gss:ga:gau:gk:gd:gdc:gf:gb:grbi:gcm*:l:resunity:ss:"
 
 export COMPOSE_DOCKER_CLI_BUILD=1
 export DOCKER_BUILDKIT=1
@@ -38,7 +38,7 @@ stty stop undef
 stty start undef
 
 # MOTD kind of output
-[ -n "$PS1" ] && (export BINPATHS=(${PATH//:/ }) && whatis "$(find "${BINPATHS[@]}" -maxdepth 1 -printf '%f\n' -type f 2>/dev/null| shuf -n 1)")
+# [ -n "$PS1" ] && (export BINPATHS=(${PATH//:/ }) && whatis "$(find "${BINPATHS[@]}" -maxdepth 1 -printf '%f\n' -type f 2>/dev/null| shuf -n 1)")
 
 if [ -f  /usr/share/doc/pkgfile/command-not-found.bash ]; then
   .  /usr/share/doc/pkgfile/command-not-found.bash

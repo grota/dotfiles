@@ -110,7 +110,7 @@ panel-id='timer'
 size=(1440, 1048)
 
 [org/gnome/control-center]
-last-panel='mouse'
+last-panel='keyboard'
 window-state=(1440, 1046, true)
 
 [org/gnome/deja-dup]
@@ -464,7 +464,7 @@ button-layout='appmenu:close'
 focus-mode='click'
 resize-with-right-button=true
 theme='SolArc-Dark'
-workspace-names=['WS1', 'WS2', 'WS5', 'WS3', 'WS4', 'Workspace 3', 'Workspace 7']
+workspace-names=['WS1', 'WS2', 'WS3', 'WS4', 'WS4', 'Workspace 3', 'Workspace 7']
 
 [org/gnome/eog/ui]
 sidebar=false
@@ -825,7 +825,7 @@ sleep-inactive-battery-type='nothing'
 command-history=['r', 'lllg', 'ls', 'rest', 'restart', 'l', 'kg', 'gl', 'lg']
 disable-user-extensions=false
 disabled-extensions=['beampointer@grota.github.com']
-enabled-extensions=['BringOutSubmenuOfPowerOffLogoutButton@pratap.fastmail.fm', 'just-perfection-desktop@just-perfection', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor@paradoxxx.zero.gmail.com', 'true-color-invert@jackkenney', 'system-monitor@gnome-shell-extensions.gcampax.github.com', 'clipboard-indicator@tudmotu.com', 'freon@UshakovVasilii_Github.yahoo.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com', 'appindicatorsupport@rgcjonas.gmail.com', 'paperwm@paperwm.github.com', 'status-icons@gnome-shell-extensions.gcampax.github.com', 'trayIconsReloaded@selfmade.pl', 'gsconnect@andyholmes.github.io']
+enabled-extensions=['BringOutSubmenuOfPowerOffLogoutButton@pratap.fastmail.fm', 'just-perfection-desktop@just-perfection', 'status-area-horizontal-spacing@mathematical.coffee.gmail.com', 'system-monitor@paradoxxx.zero.gmail.com', 'true-color-invert@jackkenney', 'system-monitor@gnome-shell-extensions.gcampax.github.com', 'clipboard-indicator@tudmotu.com', 'freon@UshakovVasilii_Github.yahoo.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com', 'appindicatorsupport@rgcjonas.gmail.com', 'paperwm@paperwm.github.com', 'status-icons@gnome-shell-extensions.gcampax.github.com', 'trayIconsReloaded@selfmade.pl', 'gsconnect@andyholmes.github.io', 'switcher@landau.fi', 'solaar-extension@sidevesh']
 favorite-apps=['firefox.desktop', 'obsidian.desktop', 'com.mitchellh.ghostty.desktop', 'org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'witsy.desktop', 'cherry-studio.desktop', 'org.gnome.Settings.desktop', 'solaar.desktop', 'input-remapper-gtk.desktop', 'org.gnome.clocks.desktop', 'org.gnome.tweaks.desktop']
 had-bluetooth-devices-setup=true
 last-selected-power-profile='power-saver'
@@ -1023,7 +1023,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/79ccf5fb-c26d-4312-b2a8-2739f5065267]
-index=4
+index=3
 name='WS4'
 
 [org/gnome/shell/extensions/paperwm/workspaces/95242d70-3c22-4ba5-8ea8-b4e8dd43f17b]
@@ -1033,7 +1033,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/b3a1e851-310c-4f75-80bb-efffff075d8f]
-index=3
+index=2
 name='WS3'
 show-position-bar=true
 show-top-bar=true
@@ -1048,7 +1048,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/e8c8f783-5429-42af-9114-9fb85bcf9fed]
-index=2
+index=4
 name='WS5'
 show-position-bar=true
 show-top-bar=true
@@ -1058,7 +1058,7 @@ hpadding=0
 
 [org/gnome/shell/extensions/switcher]
 activate-by-key=uint32 2
-launcher-stats='{"slack.desktop":8,"google-chrome.desktop":2,"firefox.desktop":1,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":1,"obsidian.desktop":7,"com.github.joseexposito.touche.desktop":3,"org.ksnip.ksnip.desktop":3}'
+launcher-stats='{"slack.desktop":8,"google-chrome.desktop":2,"firefox.desktop":2,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":1,"obsidian.desktop":7,"com.github.joseexposito.touche.desktop":3,"org.ksnip.ksnip.desktop":3,"qv4l2.desktop":1,"com.mitchellh.ghostty.desktop":1}'
 
 [org/gnome/shell/extensions/system-monitor]
 cpu-graph-width=50
@@ -1094,7 +1094,6 @@ shift-overview-down=@as []
 shift-overview-up=@as []
 toggle-application-view=@as []
 toggle-message-tray=@as []
-toggle-overview=['<Super>w']
 toggle-quick-settings=@as []
 
 [org/gnome/shell/weather]
@@ -1112,7 +1111,7 @@ save-format='application/pdf'
 [org/gnome/software]
 check-timestamp=int64 1756453282
 first-run=false
-flatpak-purge-timestamp=int64 1756369866
+flatpak-purge-timestamp=int64 1756474356
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false

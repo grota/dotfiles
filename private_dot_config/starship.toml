@@ -1,0 +1,14 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[kubernetes]
+disabled = false
+detect_env_vars = ['GROTA_KUBE_STARSHIP']
+
+[battery]
+disabled = true
