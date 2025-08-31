@@ -1058,7 +1058,7 @@ hpadding=0
 
 [org/gnome/shell/extensions/switcher]
 activate-by-key=uint32 2
-launcher-stats='{"slack.desktop":8,"google-chrome.desktop":2,"firefox.desktop":2,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":1,"obsidian.desktop":7,"com.github.joseexposito.touche.desktop":3,"org.ksnip.ksnip.desktop":3,"qv4l2.desktop":1,"com.mitchellh.ghostty.desktop":1}'
+launcher-stats='{"slack.desktop":9,"google-chrome.desktop":2,"firefox.desktop":2,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":3,"obsidian.desktop":7,"com.github.joseexposito.touche.desktop":3,"org.ksnip.ksnip.desktop":3,"qv4l2.desktop":1,"com.mitchellh.ghostty.desktop":33,"vlc.desktop":1}'
 
 [org/gnome/shell/extensions/system-monitor]
 cpu-graph-width=50
@@ -1109,9 +1109,9 @@ save-directory='file:///home/grota/Downloads/'
 save-format='application/pdf'
 
 [org/gnome/software]
-check-timestamp=int64 1756453282
+check-timestamp=int64 1756637658
 first-run=false
-flatpak-purge-timestamp=int64 1756474356
+flatpak-purge-timestamp=int64 1756624411
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false

@@ -7,4 +7,4 @@ aider --model <model>
 meld ~/.aider.conf.yml https://raw.githubusercontent.com/Aider-AI/aider/refs/heads/main/aider/website/assets/sample.aider.conf.yml
 
 ; for some reason we need to skip the first 3 lines instead of 2 like it should be.
-$ model: aider --list-models '/' | tail -n +3 | cut -c 3- --- --prevent-extra
+$ model: aider --skip-sanity-check-repo --no-gitignore --no-git --list-models '/' | tail -n +3 | cut -c 3- --- --prevent-extra

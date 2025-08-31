@@ -7,7 +7,7 @@ alias df='df -h'
 # https://github.com/Peltoche/lsd
 alias ls='lsd'
 alias ll='fzfllm'
-alias l='lsd -l'
+alias l='lsd -lrt'
 alias bc='bc -l'
 alias py=python
 alias nv=nordvpn
