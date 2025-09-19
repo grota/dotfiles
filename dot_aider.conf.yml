@@ -82,7 +82,7 @@ model: gemini/gemini-2.5-pro-exp-03-25
 #  - zzz
 
 ## Set the reasoning_effort API parameter (default: not set)
-#reasoning-effort: xxx
+reasoning-effort: high
 
 ## Set the thinking token budget for models that support it. Use 0 to disable. (default: not set)
 #thinking-tokens: xxx
@@ -114,7 +114,7 @@ model: gemini/gemini-2.5-pro-exp-03-25
 #show-model-warnings: true
 
 ## Check if model accepts settings like reasoning_effort/thinking_tokens (default: True)
-#check-model-accepts-settings: true
+check-model-accepts-settings: true
 
 ## Soft limit on tokens for chat history, after which summarization begins. If unspecified, defaults to the model's max_chat_history_tokens.
 #max-chat-history-tokens: xxx

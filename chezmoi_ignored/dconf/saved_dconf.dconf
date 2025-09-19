@@ -39,11 +39,14 @@ recent-connections=[{'adapter': '84:5C:F3:F0:6C:CE', 'address': '0C:89:5A:01:09:
 index-recursive-directories=['&DESKTOP', '&MUSIC', '&VIDEOS']
 index-single-directories=@as []
 
+[org/gnome/Characters]
+recent-characters=['↦', '↤', '🠂', '➡', '⇤', '⇥', '→', '⟶', '⟵', '⟸', '⟼', '⟹']
+
 [org/gnome/Connections]
 first-run=false
 
 [org/gnome/Extensions]
-window-height=1048
+window-height=1046
 
 [org/gnome/GPaste]
 history-name='history'
@@ -107,10 +110,10 @@ timers=[{'duration': <600>, 'name': <''>}, {'duration': <3600>, 'name': <''>}, {
 [org/gnome/clocks/state/window]
 maximized=false
 panel-id='timer'
-size=(1440, 1046)
+size=(1440, 941)
 
 [org/gnome/control-center]
-last-panel='power'
+last-panel='display'
 window-state=(1440, 1046, true)
 
 [org/gnome/deja-dup]
@@ -178,7 +181,7 @@ xkb-options=['lv3:ralt_switch', 'ctrl:nocaps']
 [org/gnome/desktop/interface]
 clock-show-seconds=false
 clock-show-weekday=true
-color-scheme='prefer-dark'
+color-scheme='default'
 cursor-blink-time=1015
 cursor-size=24
 cursor-theme='Adwaita'
@@ -464,7 +467,7 @@ button-layout='appmenu:close'
 focus-mode='click'
 resize-with-right-button=true
 theme='SolArc-Dark'
-workspace-names=['WS1', 'WS2', 'WS3', 'WS4', 'WS4', 'Workspace 3', 'Workspace 7']
+workspace-names=['WS1', 'WS2', 'WS5', 'WS3', 'WS4', 'Workspace 3', 'Workspace 7']
 
 [org/gnome/eog/ui]
 sidebar=false
@@ -491,7 +494,7 @@ show-sidebar=false
 sidebar-page='thumbnails'
 sidebar-size=132
 sizing-mode='free'
-window-ratio=(1.0084712255258321, 1.242398357145533)
+window-ratio=(2.0414238931654829, 1.2467222884386173)
 zoom=0.61339520808715187
 
 [org/gnome/evolution-data-server]
@@ -742,6 +745,10 @@ ignore-phase2-ca-cert=false
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
+[org/gnome/nm-applet/eap/1eb4e227-491b-4c1d-8dbd-f8b41d6a136d]
+ignore-ca-cert=false
+ignore-phase2-ca-cert=false
+
 [org/gnome/nm-applet/eap/21b6ab7a-ee22-4a6f-bc96-6a7f89261441]
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
@@ -766,13 +773,19 @@ last-folder-path='/home/grota'
 last-folder-path='/home/grota/Projects/personal/gjs-extension-test-runner'
 
 [org/gnome/portal/filechooser/org.gnome.Settings]
-last-folder-path='/home/grota'
+last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/slack]
 last-folder-path='/home/grota/Documents'
 
 [org/gnome/portal/filechooser/transient]
 last-folder-path='/home/grota/Downloads'
+
+[org/gnome/settings-daemon/global-shortcuts]
+applications=['com.google.Chrome']
+
+[org/gnome/settings-daemon/global-shortcuts/com.google.Chrome]
+shortcuts=[('325319ACC16D5D79E0B4D21A48A36BAC-toggleTabs', {'description': <'Toggle between the last 2 recent tabs'>}), ('7BF8162D4952CBEA034B00DD2572D0D0-enter-picker-mode', {'description': <'Create a custom filter'>}), ('7BF8162D4952CBEA034B00DD2572D0D0-enter-zapper-mode', {'description': <'Remove an element'>}), ('7CA5286303E7DBB2BA9DFFAAE7C82D05-quick_clip', {'description': <'Quick clip'>}), ('7CA5286303E7DBB2BA9DFFAAE7C82D05-toggle_highlighter', {'description': <'Toggle highlighter mode'>}), ('7CA5286303E7DBB2BA9DFFAAE7C82D05-toggle_reader', {'description': <'Toggle reading view'>}), ('B8C0A4D2433E7A52509B9A5EA5B5FC56-addSite', {'description': <'Toggle current site'>}), ('B8C0A4D2433E7A52509B9A5EA5B5FC56-switchEngine', {'description': <'Theme generation mode'>}), ('B8C0A4D2433E7A52509B9A5EA5B5FC56-toggle', {'description': <'Toggle extension'>}), ('C88A75B022356367082514B3D645782A-add-link', {'description': <'Send the current page URL to Karakeep.'>}), ('C9FBE3E31B40710D682AD70D86D5E64C-tab_pinner_pin_all_tabs', {'description': <'Pin all tabs in the current window.'>}), ('C9FBE3E31B40710D682AD70D86D5E64C-tab_pinner_pin_unpin_tab', {'description': <'Pin or unpin the current tab.'>}), ('C9FBE3E31B40710D682AD70D86D5E64C-tab_pinner_unpin_all_tabs', {'description': <'Unpin all pinned tabs in the current window.'>}), ('CE86B0D86039F5395E3B784446764512-autofill_card', {'description': <'Autofill the last used card for the current website'>}), ('CE86B0D86039F5395E3B784446764512-autofill_identity', {'description': <'Autofill the last used identity for the current website'>}), ('CE86B0D86039F5395E3B784446764512-autofill_login', {'description': <'Autofill the last used login for the current website'>}), ('CE86B0D86039F5395E3B784446764512-generate_password', {'description': <'Generate and copy a new random password to the clipboard'>}), ('CE86B0D86039F5395E3B784446764512-lock_vault', {'description': <'Lock the vault'>})]
 
 [org/gnome/settings-daemon/plugins/color]
 night-light-enabled=false
@@ -1023,7 +1036,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/79ccf5fb-c26d-4312-b2a8-2739f5065267]
-index=3
+index=4
 name='WS4'
 
 [org/gnome/shell/extensions/paperwm/workspaces/95242d70-3c22-4ba5-8ea8-b4e8dd43f17b]
@@ -1033,7 +1046,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/b3a1e851-310c-4f75-80bb-efffff075d8f]
-index=2
+index=3
 name='WS3'
 show-position-bar=true
 show-top-bar=true
@@ -1048,7 +1061,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/e8c8f783-5429-42af-9114-9fb85bcf9fed]
-index=4
+index=2
 name='WS5'
 show-position-bar=true
 show-top-bar=true
@@ -1058,7 +1071,7 @@ hpadding=0
 
 [org/gnome/shell/extensions/switcher]
 activate-by-key=uint32 2
-launcher-stats='{"slack.desktop":9,"google-chrome.desktop":2,"firefox.desktop":2,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":3,"obsidian.desktop":7,"com.github.joseexposito.touche.desktop":3,"org.ksnip.ksnip.desktop":3,"qv4l2.desktop":1,"com.mitchellh.ghostty.desktop":33,"vlc.desktop":13,"gnome-datetime-panel.desktop":1,"org.gnome.clocks.desktop":7,"org.gnome.Nautilus.desktop":1,"org.gnome.Software.desktop":3,"org.gnome.Totem.desktop":2}'
+launcher-stats='{"slack.desktop":9,"google-chrome.desktop":3,"firefox.desktop":2,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":6,"obsidian.desktop":7,"com.github.joseexposito.touche.desktop":3,"org.ksnip.ksnip.desktop":3,"qv4l2.desktop":1,"com.mitchellh.ghostty.desktop":33,"vlc.desktop":16,"gnome-datetime-panel.desktop":1,"org.gnome.clocks.desktop":9,"org.gnome.Nautilus.desktop":1,"org.gnome.Software.desktop":3,"org.gnome.Totem.desktop":2}'
 
 [org/gnome/shell/extensions/system-monitor]
 cpu-graph-width=50
@@ -1106,13 +1119,14 @@ locations=@av []
 
 [org/gnome/simple-scan]
 document-type='photo'
-save-directory='file:///home/grota/Downloads/'
+save-directory='file:///home/grota/Dropbox/Docs/burocrazia/'
 save-format='application/pdf'
+selected-device='hpaio:/net/envy_6000_series?ip=192.168.0.215&queue=false'
 
 [org/gnome/software]
-check-timestamp=int64 1757145281
+check-timestamp=int64 1758272581
 first-run=false
-flatpak-purge-timestamp=int64 1757140126
+flatpak-purge-timestamp=int64 1758261720
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false

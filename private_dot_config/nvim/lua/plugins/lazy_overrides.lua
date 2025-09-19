@@ -11,7 +11,7 @@ return {
   },
 
   {
-  "echasnovski/mini.files",
+  "nvim-mini/mini.files",
     opts = function (_, opts)
       opts.windows.preview = false
     end,
@@ -60,7 +60,7 @@ return {
   },
 
   {
-    "echasnovski/mini.pairs",
+    "nvim-mini/mini.pairs",
     opts = function (_, opts)
       opts.mappings = {
         ['`'] = { action = 'closeopen', pair = '``', neigh_pattern = '[^\\`].', register = { cr = false } },
@@ -69,7 +69,7 @@ return {
   },
 
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = function(_, o)
       o.ensure_installed = {
         "stylua",
@@ -82,31 +82,31 @@ return {
     end,
   },
 
-  {
-    "nvim-treesitter/nvim-treesitter",
-    opts = function(_, o)
-      o.textobjects.swap = {}
-      o.textobjects.swap.enable = true
-      o.textobjects.swap.swap_next = {
-        ["<leader>c<Right>"] = "@parameter.inner",
-      }
-      o.textobjects.swap.swap_previous = {
-        ["<leader>c<Left>"] = "@parameter.inner",
-      }
-      vim.list_extend(o.ensure_installed, {
-        "go",
-        "php",
-        "phpdoc",
-        "dockerfile",
-        "twig",
-        "git_rebase",
-        "git_config",
-        "gitattributes",
-        "gitcommit",
-        "gitignore",
-      })
-    end,
-  },
+  -- {
+  --   "nvim-treesitter/nvim-treesitter",
+  --   opts = function(_, o)
+  --     o.textobjects.swap = {}
+  --     o.textobjects.swap.enable = true
+  --     o.textobjects.swap.swap_next = {
+  --       ["<leader>c<Right>"] = "@parameter.inner",
+  --     }
+  --     o.textobjects.swap.swap_previous = {
+  --       ["<leader>c<Left>"] = "@parameter.inner",
+  --     }
+  --     vim.list_extend(o.ensure_installed, {
+  --       "go",
+  --       "php",
+  --       "phpdoc",
+  --       "dockerfile",
+  --       "twig",
+  --       "git_rebase",
+  --       "git_config",
+  --       "gitattributes",
+  --       "gitcommit",
+  --       "gitignore",
+  --     })
+  --   end,
+  -- },
 
   {
     "nvim-lualine/lualine.nvim",

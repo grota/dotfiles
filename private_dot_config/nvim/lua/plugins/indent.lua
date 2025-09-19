@@ -1,7 +1,7 @@
 -- see lua/config/lazy.lua
 return {
   {
-    "echasnovski/mini.indentscope",
+    "nvim-mini/mini.indentscope",
     opts = function (_, opts)
       opts.draw = {}
       opts.draw.delay = 10
