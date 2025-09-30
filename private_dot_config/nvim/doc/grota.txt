@@ -1,5 +1,10 @@
 *grota.txt*   Doc for my custom VIM distribution
 
+
+ai/ii textobject around/inner indent from nvim-mini/mini.indentscope
+<leader>fe <leader>fE snacks explorer
+
+
       TO LEARN
 
 g<tab>

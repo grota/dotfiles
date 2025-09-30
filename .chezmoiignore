@@ -217,6 +217,7 @@ chezmoi_ignored
 /.steampid
 /.tmux/plugins
 /.tmux/resurrect
+/.tmux/named-snapshots
 /[^.]*
 /.aider/
 /.streamlit
