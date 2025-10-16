@@ -40,6 +40,7 @@ local vimgrep_hidden_no_dot_git = vim.deepcopy(telescope_default_vimgrep_argumen
 vim.list_extend(vimgrep_hidden_no_dot_git, opts_hidden_no_dot_git)
 local vimgrep_arguments_for_all = vim.deepcopy(vimgrep_hidden_no_dot_git)
 vim.list_extend(vimgrep_arguments_for_all, opts_no_ignore)
+-- vim.print(vimgrep_arguments_for_all)
 local find_all_files_cmd = {
   "rg",
   "--files",
@@ -272,7 +273,7 @@ return {
         },
     keys = {
       {
-        "<leader>s<tab>",
+        "<leader><tab>s",
         function ()
           require('telescope-tabs').list_tabs()
         end,

@@ -212,7 +212,7 @@ autorun-x-content-start-app=['x-content/unix-software', 'x-content/ostree-reposi
 
 [org/gnome/desktop/notifications]
 application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions', 're-sonny-workbench', 'org-gnome-weather', 'libreoffice-startcenter', 'org-gnome-eog', 'shutter', 'screenkey', 'org-kde-kdenlive', 'fr-handbrake-ghb', 'solaar', 'gimp', 'calibre-gui', 'org-gnome-builder', 'yelp', 'org-pulseaudio-pavucontrol', 'org-gnome-fileroller', 'vlc', 'mpv', 'kitty', 'gnome-wellbeing-panel', 'witsy', 'com-mitchellh-ghostty', 'claude-desktop-native', 'spotify', 'gnome-about-panel']
-show-banners=false
+show-banners=true
 
 [org/gnome/desktop/notifications/application/alacritty]
 application-id='Alacritty.desktop'
@@ -500,22 +500,22 @@ fullscreen=false
 inverted-colors=false
 show-sidebar=false
 sidebar-page='thumbnails'
-sidebar-size=132
+sidebar-size=148
 sizing-mode='free'
-window-ratio=(2.5484019990760567, 1.2460074902986022)
-zoom=0.61339520808715187
+window-ratio=(2.4190500188988278, 1.2460074902986022)
+zoom=0.99901206935259657
 
 [org/gnome/evolution-data-server]
 migrated=true
 network-monitor-gio-name=''
 
 [org/gnome/evolution-data-server/calendar]
-notify-window-height=1011
+notify-window-height=1012
 notify-window-paned-position=73
-notify-window-width=166
+notify-window-width=180
 notify-window-x=26
 notify-window-y=23
-reminders-past=@as []
+reminders-past=["1a98c3c04adf522b8cff948a88cff227ddca0aff\n6d5c02c9778bac6c7945e159165f37822a8b7ba8\t20251020\n1760572800\n1760918400\n1761004800\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20251020\r\nDTEND;VALUE=DATE:20251021\r\nRRULE:FREQ=YEARLY\r\nDTSTAMP:20230303T085923Z\r\nUID:n6ll8ivisnv86rkrj0hdfuqdig@google.com\r\nCREATED:20091023T073026Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T085923Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Gianni Piacenza's birthday\r\nTRANSP:TRANSPARENT\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813517163\r\nRECURRENCE-ID;VALUE=DATE:20251020\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P4D\r\nX-EVOLUTION-ALARM-UID:6d5c02c9778bac6c7945e159165f37822a8b7ba8\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P5D\r\nX-EVOLUTION-ALARM-UID:06db3504d5741d09a42ec5be3aaff525d63a940c\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6D\r\nX-EVOLUTION-ALARM-UID:d445b7d27d06fb0484eb6258d1942f1432dcf2b9\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P7D\r\nX-EVOLUTION-ALARM-UID:eb66c8315ac6f9488c37752ea37a777744448dea\r\nEND:VALARM\r\nEND:VEVENT\r\n", "1a98c3c04adf522b8cff948a88cff227ddca0aff\n06db3504d5741d09a42ec5be3aaff525d63a940c\t20251020\n1760486400\n1760918400\n1761004800\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20251020\r\nDTEND;VALUE=DATE:20251021\r\nRRULE:FREQ=YEARLY\r\nDTSTAMP:20230303T085923Z\r\nUID:n6ll8ivisnv86rkrj0hdfuqdig@google.com\r\nCREATED:20091023T073026Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T085923Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Gianni Piacenza's birthday\r\nTRANSP:TRANSPARENT\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813517163\r\nRECURRENCE-ID;VALUE=DATE:20251020\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P4D\r\nX-EVOLUTION-ALARM-UID:6d5c02c9778bac6c7945e159165f37822a8b7ba8\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P5D\r\nX-EVOLUTION-ALARM-UID:06db3504d5741d09a42ec5be3aaff525d63a940c\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6D\r\nX-EVOLUTION-ALARM-UID:d445b7d27d06fb0484eb6258d1942f1432dcf2b9\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P7D\r\nX-EVOLUTION-ALARM-UID:eb66c8315ac6f9488c37752ea37a777744448dea\r\nEND:VALARM\r\nEND:VEVENT\r\n", "1a98c3c04adf522b8cff948a88cff227ddca0aff\nd445b7d27d06fb0484eb6258d1942f1432dcf2b9\t20251020\n1760400000\n1760918400\n1761004800\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20251020\r\nDTEND;VALUE=DATE:20251021\r\nRRULE:FREQ=YEARLY\r\nDTSTAMP:20230303T085923Z\r\nUID:n6ll8ivisnv86rkrj0hdfuqdig@google.com\r\nCREATED:20091023T073026Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T085923Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Gianni Piacenza's birthday\r\nTRANSP:TRANSPARENT\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813517163\r\nRECURRENCE-ID;VALUE=DATE:20251020\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P4D\r\nX-EVOLUTION-ALARM-UID:6d5c02c9778bac6c7945e159165f37822a8b7ba8\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P5D\r\nX-EVOLUTION-ALARM-UID:06db3504d5741d09a42ec5be3aaff525d63a940c\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6D\r\nX-EVOLUTION-ALARM-UID:d445b7d27d06fb0484eb6258d1942f1432dcf2b9\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P7D\r\nX-EVOLUTION-ALARM-UID:eb66c8315ac6f9488c37752ea37a777744448dea\r\nEND:VALARM\r\nEND:VEVENT\r\n", "1a98c3c04adf522b8cff948a88cff227ddca0aff\neb66c8315ac6f9488c37752ea37a777744448dea\t20251020\n1760313600\n1760918400\n1761004800\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20251020\r\nDTEND;VALUE=DATE:20251021\r\nRRULE:FREQ=YEARLY\r\nDTSTAMP:20230303T085923Z\r\nUID:n6ll8ivisnv86rkrj0hdfuqdig@google.com\r\nCREATED:20091023T073026Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20230303T085923Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:0\r\nSTATUS:CONFIRMED\r\nSUMMARY:Gianni Piacenza's birthday\r\nTRANSP:TRANSPARENT\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-EVOLUTION-CALDAV-ETAG:63813517163\r\nRECURRENCE-ID;VALUE=DATE:20251020\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P4D\r\nX-EVOLUTION-ALARM-UID:6d5c02c9778bac6c7945e159165f37822a8b7ba8\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P5D\r\nX-EVOLUTION-ALARM-UID:06db3504d5741d09a42ec5be3aaff525d63a940c\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P6D\r\nX-EVOLUTION-ALARM-UID:d445b7d27d06fb0484eb6258d1942f1432dcf2b9\r\nEND:VALARM\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P7D\r\nX-EVOLUTION-ALARM-UID:eb66c8315ac6f9488c37752ea37a777744448dea\r\nEND:VALARM\r\nEND:VEVENT\r\n"]
 
 [org/gnome/file-roller/dialogs/add]
 current-folder='file:///run/media/grota/TOSHIBA'
@@ -1135,9 +1135,9 @@ save-format='application/pdf'
 selected-device='hpaio:/net/envy_6000_series?ip=192.168.0.215&queue=false'
 
 [org/gnome/software]
-check-timestamp=int64 1759217809
+check-timestamp=int64 1760522140
 first-run=false
-flatpak-purge-timestamp=int64 1759217746
+flatpak-purge-timestamp=int64 1760526259
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
@@ -1275,7 +1275,7 @@ show-type-column=true
 sidebar-width=247
 sort-column='modified'
 sort-directories-first=true
-sort-order='descending'
+sort-order='ascending'
 type-format='category'
 window-position=(26, 23)
 window-size=(1426, 851)
