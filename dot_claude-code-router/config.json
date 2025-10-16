@@ -89,6 +89,12 @@
           "icon": "🤖",
           "text": "{{model}}",
           "color": "bright_yellow"
+        },
+        {
+          "type": "usage",
+          "icon": "📊",
+          "text": "{{inputTokens}} → {{outputTokens}}",
+          "color": "bright_magenta"
         }
       ]
     },
@@ -101,7 +107,8 @@
           "color": "bright_yellow"
         }
       ]
-    }
+    },
+    "fontFamily": "Hack Nerd Font Mono"
   },
   "Router": {
     "default": "openrouter,qwen/qwen3-coder",

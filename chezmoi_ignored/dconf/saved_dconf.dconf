@@ -1137,7 +1137,7 @@ selected-device='hpaio:/net/envy_6000_series?ip=192.168.0.215&queue=false'
 [org/gnome/software]
 check-timestamp=int64 1760522140
 first-run=false
-flatpak-purge-timestamp=int64 1760526259
+flatpak-purge-timestamp=int64 1760600001
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false

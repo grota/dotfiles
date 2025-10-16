@@ -1,0 +1,116 @@
+{
+  "version": 3,
+  "lines": [
+    [
+      {
+        "id": "502f96cc-4904-463b-a2e5-e3a71b9e8365",
+        "type": "custom-command",
+        "commandPath": "ccr statusline"
+      },
+      {
+        "id": "a94b3b84-318b-4a94-99b8-f8fb01a1589d",
+        "type": "separator"
+      },
+      {
+        "id": "00cc6969-b475-434e-bd86-ecef2fb8c0b5",
+        "type": "model"
+      },
+      {
+        "id": "085cea70-5d4b-4699-82f6-c01dd9c13230",
+        "type": "separator"
+      },
+      {
+        "id": "d6379df2-239f-4149-a54b-a89d4aeb4f06",
+        "type": "tokens-input"
+      },
+      {
+        "id": "53c63cf5-81a7-4809-9091-cbc4a1b2f3b7",
+        "type": "custom-text",
+        "customText": " "
+      },
+      {
+        "id": "b0cc8bef-26ef-48f3-af35-09be100455cc",
+        "type": "tokens-output"
+      },
+      {
+        "id": "23b73bd1-ec8c-49c4-be0a-d88686f9c73d",
+        "type": "custom-text",
+        "customText": " "
+      },
+      {
+        "id": "ef8e8e40-c0fa-427c-9bdf-a97b97ab9a8d",
+        "type": "tokens-cached"
+      }
+    ],
+    [
+      {
+        "id": "33527f26-62cd-4cc5-8942-efb84a14dd54",
+        "type": "current-working-dir",
+        "metadata": {
+          "segments": "1"
+        }
+      },
+      {
+        "id": "e6f4619c-5717-4c31-9d54-487bd6896001",
+        "type": "separator"
+      },
+      {
+        "id": "a2499034-4843-4049-853b-b753afc7a231",
+        "type": "git-branch"
+      },
+      {
+        "id": "22114e4e-0d96-47b9-9d47-ad430881550b",
+        "type": "separator"
+      },
+      {
+        "id": "d1f7f4fa-4327-4df9-ad10-e6aad15bbd01",
+        "type": "output-style"
+      }
+    ],
+    [
+      {
+        "id": "2d3e48fb-a248-4409-8fa5-76813f6f38e1",
+        "type": "session-cost"
+      },
+      {
+        "id": "8bbd7f0b-10cb-4e69-8f1a-56581c570115",
+        "type": "separator"
+      },
+      {
+        "id": "3",
+        "type": "context-length",
+        "color": "brightBlack"
+      },
+      {
+        "id": "2d13558a-2b62-4703-b20c-1047cb3d4214",
+        "type": "custom-text",
+        "customText": " "
+      },
+      {
+        "id": "88638d29-fce9-4f8c-90b2-cc3b3028bb18",
+        "type": "context-percentage-usable"
+      },
+      {
+        "id": "e0a2cef2-3972-48a1-99da-211b9360581b",
+        "type": "separator"
+      }
+    ]
+  ],
+  "flexMode": "full-minus-40",
+  "compactThreshold": 60,
+  "colorLevel": 3,
+  "inheritSeparatorColors": false,
+  "globalBold": false,
+  "powerline": {
+    "enabled": false,
+    "separators": [
+      ""
+    ],
+    "separatorInvertBackground": [
+      false
+    ],
+    "startCaps": [],
+    "endCaps": [],
+    "autoAlign": false
+  }
+}
