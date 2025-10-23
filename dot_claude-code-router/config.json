@@ -111,10 +111,10 @@
     "fontFamily": "Hack Nerd Font Mono"
   },
   "Router": {
-    "default": "openrouter,qwen/qwen3-coder",
+    "default": "gemini,gemini-2.5-flash",
     "background": "openai,gpt-5-mini",
-    "think": "openrouter,qwen/qwen3-coder",
-    "longContext": "openrouter,qwen/qwen3-coder",
+    "think": "gemini,gemini-2.5-pro",
+    "longContext": "gemini,gemini-2.5-pro",
     "longContextThreshold": 60000,
     "webSearch": "gemini,gemini-2.5-flash",
     "image": "gemini,gemini-2.5-flash"

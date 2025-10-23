@@ -19,6 +19,7 @@ return {
     opts = {
       func_map = {
         fzffilter = '<leader>ff'
+        -- C-o toggles all
       }
     }
   },

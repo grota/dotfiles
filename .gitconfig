@@ -1,0 +1,3 @@
+# git config --local include.path ../.gitconfig
+[diff "chezmoi-decrypt"]
+    textconv = chezmoi decrypt 2> /dev/null
