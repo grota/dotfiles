@@ -148,3 +148,10 @@ map("n", "<leader>bD", function() Snacks.bufdelete() end, { desc = "Delete Buffe
 if LazyVim.has('mini.files') then
   map('n', "<leader>e", "<leader>fm", {desc="Open mini.files", remap=true})
 end
+
+vim.keymap.set('n', '<C-]>', function()
+  -- split vertically
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-w>v', true, false, true), 'n', false)
+  -- perform the real builtin Ctrl-] action
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-]>', true, false, true), 'n', false)
+end, { noremap = true, silent = true })

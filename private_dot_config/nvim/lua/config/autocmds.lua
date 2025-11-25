@@ -60,7 +60,29 @@ vim.api.nvim_create_autocmd("User", {
 vim.api.nvim_create_autocmd("User", {
   pattern = { "FugitiveIndex", 'FugitiveObject', 'FugitivePager' },
   group = vim.api.nvim_create_augroup("grota_delete_useless_fugitive_maps", { clear = true }),
-  callback = function(event)
+  callback = function()
     vim.keymap.del('n', '<F1>', { buffer = true })
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "help",
+  command = "wincmd L",
+  group = vim.api.nvim_create_augroup("grota_open_right_vsplit", { clear = true }),
+})
+
+-- show cursorline only in active window enable
+vim.api.nvim_create_autocmd({ "WinEnter", "BufEnter" }, {
+  group = vim.api.nvim_create_augroup("active_cursorline", { clear = true }),
+  callback = function()
+    vim.opt_local.cursorline = true
+  end,
+})
+
+-- show cursorline only in active window disable
+vim.api.nvim_create_autocmd({ "WinLeave", "BufLeave" }, {
+  group = "active_cursorline",
+  callback = function()
+    vim.opt_local.cursorline = false
   end,
 })
