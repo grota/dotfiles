@@ -23,6 +23,9 @@ volume=1.0
 sounds-mute={'rain': false}
 sounds-volume={'rain': 0.27000000000000002}
 
+[desktop/ibus/panel/emoji]
+favorites=['🪮']
+
 [io/github/seadve/Kooha]
 capture-mode='monitor-window'
 framerate=(50, 1)
@@ -141,7 +144,7 @@ panel-id='timer'
 size=(1440, 1049)
 
 [org/gnome/control-center]
-last-panel='keyboard'
+last-panel='power'
 window-state=(1440, 1051, true)
 
 [org/gnome/deja-dup]
@@ -540,7 +543,7 @@ show-sidebar=false
 sidebar-page='thumbnails'
 sidebar-size=148
 sizing-mode='fit-width'
-window-ratio=(3.2323232323232323, 1.3578811369509043)
+window-ratio=(3.1372549019607843, 1.327020202020202)
 zoom=0.59196103821297585
 
 [org/gnome/evolution-data-server]
@@ -1203,9 +1206,9 @@ save-format='application/pdf'
 selected-device='hpaio:/net/envy_6000_series?ip=192.168.0.215&queue=false'
 
 [org/gnome/software]
-check-timestamp=int64 1764065474
+check-timestamp=int64 1764409662
 first-run=false
-flatpak-purge-timestamp=int64 1764065410
+flatpak-purge-timestamp=int64 1764424070
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
@@ -1341,7 +1344,7 @@ show-hidden=false
 show-size-column=true
 show-type-column=true
 sidebar-width=247
-sort-column='name'
+sort-column='modified'
 sort-directories-first=true
 sort-order='ascending'
 type-format='category'

@@ -243,3 +243,4 @@ chezmoi_ignored
 /.local/share/opencode/project
 /.config/ghostty/*.bak
 /.qwen/tmp
+/local/bin/tmux-action-dispatcher

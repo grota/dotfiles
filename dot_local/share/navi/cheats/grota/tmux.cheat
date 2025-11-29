@@ -1,11 +1,11 @@
 % tmux
 
 # session restore
-if [ -z "$TMUX" ]; then echo "not in tmux"; exit 1 ; fi ;\
+if [ -z "$TMUX" ]; then echo "not in tmux"; exit 1 ; fi ;
 if [ "<session>" = "resurrect" ]; then "$HOME/.tmux/plugins/tmux-resurrect/scripts/restore.sh"; else "$HOME/.local/grota/scripts/tmux-named-restore-snapshot.sh" <session>; fi
 
 # session save
-if [ -z "$TMUX" ]; then echo "not in tmux"; exit 1 ; fi ;\
+if [ -z "$TMUX" ]; then echo "not in tmux"; exit 1 ; fi ;
 if [ "<session>" = "resurrect" ]; then "$HOME/.tmux/plugins/tmux-resurrect/scripts/save.sh"; else "$HOME/.local/grota/scripts/tmux-named-save-snapshot.sh" <session>; fi
 
 ;$ session: echo -e "$(ls -1 ~/.tmux/resurrect/snapshots/)"

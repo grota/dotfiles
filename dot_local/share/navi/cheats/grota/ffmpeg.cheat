@@ -1,9 +1,20 @@
-% audio, mp3
+% ffmpeg, audio, mp3
+
+# split mp4 video based on time
+ffmpeg -i '<input>' -ss <some_timestamps1> -to <some_timestamps2> -c copy '<input_with_numerical_postfix>'
 
 # split mp3 on duration
-ffmpeg -i <input> -f segment -segment_time <duration_in_secs> -c copy <out_format>
+ffmpeg -i "<input>" -f segment -segment_time <amount_in_secs> -c copy <input_with_d_pattern>
 
 $ input: ls
-$ duration_in_secs:  echo -e '60\n300\n1490'
-$ out_format: v=<input>; \
-echo "${v%.*}_%03d.mp3"
+$ amount_in_secs:  echo -e '60\n300\n1490'
+$ input_with_d_pattern: v="<input>"; \
+ext="${v##*.}"; \
+echo "${v%.*}_%03d.${ext}"
+$ some_timestamps1:  echo -e '01:00:00\n00:10:00\n00:00:00'
+$ some_timestamps2:  echo -e '01:00:00\n00:10:00\n00:00:00'
+$ input_with_numerical_postfix: input="<input>"; \
+ext="${input##*.}"; \
+without_ext="${input%.*}"; \
+i=1; while [ -e "$(printf ${without_ext}'_%03d.'${ext} "$i")" ]; do echo a; i=$((i+1)); done ; \
+printf "${without_ext}_%03d.${ext}" "$i"

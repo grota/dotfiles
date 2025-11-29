@@ -21,3 +21,8 @@ local/bin/diff-so-fancy:
 .local/grota/bash/30-exercism-autocomplete.bash:
   type: file
   url: https://raw.githubusercontent.com/exercism/cli/main/shell/exercism_completion.bash
+
+local/bin/tmux-file-picker:
+  type: file
+  url: https://raw.githubusercontent.com/raine/tmux-file-picker/refs/heads/main/tmux-file-picker
+  executable: true
