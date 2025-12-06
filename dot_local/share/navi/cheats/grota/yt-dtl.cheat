@@ -1,0 +1,16 @@
+% yt-dlp
+
+# download max speed from youtube
+yt-dlp -f 18 -N 8 --external-downloader aria2c --external-downloader-args "-x 16 -s 16" --force-ipv4
+
+# download only audio from playlist
+yt-dlp \
+  --yes-playlist \
+  -f bestaudio \
+  --extract-audio \
+  --audio-format mp3 \
+  --audio-quality 0 \
+  -o "%(playlist)s/%(playlist_index)03d - %(title)s.%(ext)s"
+
+# instagram or tiktok download
+yt-dlp --cookies-from-browser=firefox 

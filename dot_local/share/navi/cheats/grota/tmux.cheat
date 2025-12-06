@@ -8,7 +8,4 @@ if [ "<session>" = "resurrect" ]; then "$HOME/.tmux/plugins/tmux-resurrect/scrip
 if [ -z "$TMUX" ]; then echo "not in tmux"; exit 1 ; fi ;
 if [ "<session>" = "resurrect" ]; then "$HOME/.tmux/plugins/tmux-resurrect/scripts/save.sh"; else "$HOME/.local/grota/scripts/tmux-named-save-snapshot.sh" <session>; fi
 
-;$ session: echo -e "$(ls -1 ~/.tmux/resurrect/snapshots/)"
-
-; Let's try to not use resurrect's default session
 $ session: echo -e "resurrect\n$(ls -1 ~/.tmux/resurrect/snapshots/)"
