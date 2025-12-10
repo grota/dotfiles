@@ -5,10 +5,8 @@ _bgreen() { printf "%b%s%b" '\e[1;32m' "$@" '\e[0m' ; }
 _bwhite() { printf "%b%s%b" '\e[1;37m' "$@" '\e[0m' ; }
 _white() { printf "%b%s%b" '\e[0;37m' "$@" '\e[0m' ; }
 
-DB="$HOME/.config/io.datasette.llm/logs.db"
-
 LLM_GET_THREAD_CMD="${LLM_GET_THREAD_CMD:-llm logs list --cid {1}}"
-LLM_OPEN_IN_PAGER_CMD="${LLM_OPEN_IN_PAGER_CMD:-bat --language markdown --color always --paging=always --plain --pager=\"less -R -+S --wordwrap --mouse\"}"
+LLM_OPEN_IN_PAGER_CMD="${LLM_OPEN_IN_PAGER_CMD:-bat --language markdown --color always --paging=always --plain --pager=\"less -R -+S --wordwrap\"}"
 LLM_PREVIEW_DECORATOR="${LLM_PREVIEW_DECORATOR:-bat --language markdown --color always --plain}"
 
 KEY_TOGGLE_HEADER="${KEY_TOGGLE_HEADER:-alt-/}"
@@ -26,6 +24,7 @@ KEY_PREVIEW_UP_1="${KEY_PREVIEW_UP_1:-alt-k}"
 KEY_PREVIEW_UP_2="${KEY_PREVIEW_UP_2:-alt-p}"
 KEY_PREVIEW_DOWN_1="${KEY_PREVIEW_DOWN_1:-alt-j}"
 KEY_PREVIEW_DOWN_2="${KEY_PREVIEW_DOWN_2:-alt-n}"
+KEY_CLEAN_FRAGMENTS="${KEY_CLEAN_FRAGMENTS:-alt-f}"
 
 HEADER_TEXT="Press $KEY_SHOW_HELP for help"
 
@@ -69,6 +68,7 @@ FZFLLM_BINDS_FOR_LIST_OF_THREADS="
 --bind='$KEY_SEARCH_THREADS:transform[echo print:search_threads \"{fzf:query}\"]+accept'
 --bind='$KEY_RENAME_THREAD:transform[echo print:rename_thread {1} {2}]+accept'
 --bind='$KEY_EDIT_THREAD_MESSAGES:transform[echo print:edit_thread_messages {1}]+accept'
+--bind='$KEY_CLEAN_FRAGMENTS:transform[echo print:clean_fragments]+accept'
 "
 
 fifo=$(mktemp -u "fzfllm_fifo_XXXX.md" --tmpdir)
@@ -153,7 +153,7 @@ _fzfllm_edit_thread_messages() {
   $FZF_DEFAULT_OPTS
   $FZFLLM_FZF_GENERAL_OPTS
   --preview='$FZFLLM preview_message {1} | $LLM_PREVIEW_DECORATOR'
-  --prompt=\"🗨 messages\> \"
+  --prompt=\"🗨  messages\> \"
   --bind='$KEY_DELETE:transform[echo print:delete_message {1}]+accept'
   --bind='$KEY_OPEN_IN_PAGER:execute($FZFLLM preview_message {1} | $LLM_OPEN_IN_PAGER_CMD)'
   --bind='$KEY_OPEN_IN_EDITOR:execute($FZFLLM preview_message {1} | $FZFLLM open_stdin_in_editor)'
@@ -204,9 +204,24 @@ _fzfllm_open_stdin_in_editor() {
 }
 
 _fzfllm_new_thread() {
-  local COMMAND
-  COMMAND=$(navi --best-match --query 'llm new chat' --print)
-  read -e -r -i "$COMMAND" -p "Start new thread with command: " NEWCOMMAND
+  local COMMAND MODEL TEMPLATE TEMPLATE_PARAMS param_value
+  MODEL=$(llm models | fzf --delimiter ':\s|\s\(' --accept-nth '{2}' --tac)
+  TEMPLATE=$(fzf --accept-nth '{1}' --delimiter '\s+:\s' --cycle   < <(echo 'none' && COLUMNS=$COLUMNS llm templates ))
+  TEMPLATE_PARAMS=''
+  if [ "$TEMPLATE" = 'none' ]; then
+    TEMPLATE=''
+  else
+    for param in $(llm templates show "$TEMPLATE" | grep -o '\$[a-zA-Z_]\+' | sort | uniq | sed 's/\$//g'); do
+      while [[ -z "$param_value" ]]; do
+        read -e -r -p "Value of template parameter '$param': " param_value
+      done
+      TEMPLATE_PARAMS+="-p $param $param_value "
+      param_value=''
+    done
+  fi
+  COMMAND="llm chat -m $MODEL ${TEMPLATE:+-t }${TEMPLATE} ${TEMPLATE_PARAMS}"
+
+  read -e -r -i "$COMMAND" -p "Start new thread with command?: " NEWCOMMAND
   $NEWCOMMAND > /dev/tty
 }
 
@@ -222,8 +237,26 @@ _fzfllm_rename_thread() {
     read -r -p "Aborted."
     return
   fi
-  local UPDATE_QUERY="UPDATE conversations SET name='$NEW_NAME' WHERE id='$CID'"
+   local ESCAPED_NAME="${NEW_NAME//\'/\'\'}"
+   local UPDATE_QUERY="UPDATE conversations SET name='$ESCAPED_NAME' WHERE id='$CID'"
   _fzfllm_execute_query "$UPDATE_QUERY"
+}
+
+_fzfllm_clean_fragments() {
+  local OPTS="
+  $FZF_DEFAULT_OPTS
+  $FZFLLM_FZF_GENERAL_OPTS
+  --accept-nth={1}
+  $FZFLLM_CLEAN_FRAGMENTS_FZF_OPTS"
+  FRAGMENT_ID=$(_fzfllm_execute_query "SELECT id, source FROM fragments" | FZF_DEFAULT_OPTS="$OPTS" fzf)
+  if [ -z "$FRAGMENT_ID" ]; then
+    return
+  fi
+  _fzfllm_execute_query "
+  DELETE FROM prompt_fragments WHERE fragment_id = $FRAGMENT_ID;
+  DELETE FROM system_fragments WHERE fragment_id = $FRAGMENT_ID;
+  DELETE FROM fragment_aliases WHERE fragment_id = $FRAGMENT_ID;
+  DELETE FROM fragments WHERE id = $FRAGMENT_ID;"
 }
 
 _fzfllm_help() {
@@ -243,6 +276,8 @@ _fzfllm_help() {
   $(_bgreen "$KEY_PREVIEW_DOWN_1", "$KEY_PREVIEW_DOWN_2"): scrolls the preview down.
   $(_bgreen "$KEY_PREVIEW_UP_1", "$KEY_PREVIEW_UP_2"): scrolls the preview up.
 
+  $(_bgreen "$KEY_CLEAN_FRAGMENTS"): Cleans fragments (useful for llm-docs plugin)
+
   Other default fzf mappings apply, like the following:
   $(_white "ctrl-c Esc ctrl-q"): to quit
   $(_white "ctrl-j ctrl-n down"): to go down
@@ -255,6 +290,7 @@ _fzfllm_help() {
 
 # sqlite3 seems to have a problem if we specify the separator as a NUL byte directly.
 _fzfllm_execute_query() {
+  DB=$(llm logs path)
   sqlite3 -separator $'\x1F' -newline $'\x1E' "$DB" "$1" | tr $'\x1E' '\0'
 }
 
@@ -350,12 +386,13 @@ public_commands=(
   "preview_message"
   "help"
   "extract_params_from_llm_template"
+  "clean_fragments"
   # "execute_query"
 )
 
 # shellcheck disable=SC2076
 if [[ ! " ${public_commands[*]} " =~ " ${cmd} " ]] ; then
-  echo Invalid command "$cmd"
+  echo Invalid command "$cmd" 1>&2
   sleep 1
   exit 1
 fi
