@@ -8,7 +8,7 @@ _white() { printf "%b%s%b" '\e[0;37m' "$@" '\e[0m' ; }
 DB="$HOME/.config/io.datasette.llm/logs.db"
 
 LLM_GET_THREAD_CMD="${LLM_GET_THREAD_CMD:-llm logs list --cid {1}}"
-LLM_OPEN_IN_PAGER_CMD="${LLM_OPEN_IN_PAGER_CMD:-bat --language markdown --color always --paging=always --plain --pager=\"less -R -+S --wordwrap\"}"
+LLM_OPEN_IN_PAGER_CMD="${LLM_OPEN_IN_PAGER_CMD:-bat --language markdown --color always --paging=always --plain --pager=\"less -R -+S --wordwrap --mouse\"}"
 LLM_PREVIEW_DECORATOR="${LLM_PREVIEW_DECORATOR:-bat --language markdown --color always --plain}"
 
 KEY_TOGGLE_HEADER="${KEY_TOGGLE_HEADER:-alt-/}"

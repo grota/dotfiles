@@ -240,7 +240,7 @@ autorun-x-content-open-folder=@as []
 autorun-x-content-start-app=['x-content/unix-software', 'x-content/ostree-repository']
 
 [org/gnome/desktop/notifications]
-application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions', 're-sonny-workbench', 'org-gnome-weather', 'libreoffice-startcenter', 'org-gnome-eog', 'shutter', 'screenkey', 'org-kde-kdenlive', 'fr-handbrake-ghb', 'solaar', 'gimp', 'calibre-gui', 'org-gnome-builder', 'yelp', 'org-pulseaudio-pavucontrol', 'org-gnome-fileroller', 'vlc', 'mpv', 'kitty', 'gnome-wellbeing-panel', 'witsy', 'com-mitchellh-ghostty', 'claude-desktop-native', 'spotify', 'gnome-about-panel', 'one-alynx-showmethekey', 'io-github-seadve-kooha', 'emote', 'dsnote']
+application-children=['org-gnome-extensions-desktop', 'org-gnome-evolution-alarm-notify', 'ca-desrt-dconf-editor', 'telegramdesktop', 'google-chrome', 'gnome-power-panel', 'org-gnome-software', 'gnome-control-center', 'gnome-printers-panel', 'org-gnome-shell-extensions', 'gnome-network-panel', 'org-gnome-nautilus', 'transmission-gtk', 'slack', 'org-gnome-chromegnomeshell', 'libreoffice-calc', 'alacritty', 'org-gnome-settings', 'blueman-manager', 'sxiv', 'org-gnome-tweaks', 'org-gnome-tecla', 'org-telegram-desktop', 'org-gnome-evince', 'org-gnome-gedit', 'org-gnome-terminal', 'org-gnome-terminal-preferences', 'gvim', 'obsidian', 'firefox', 'xdg-desktop-portal-gnome', 'org-gnome-meld', 'org-gnome-baobab', 'steam', 'nwg-look', 'org-gnome-dejadup', 'org-gnome-shell-extensions-gsconnect', 'org-gnome-clocks', 'org-flameshot-flameshot', 'org-gnome-extensions', 're-sonny-workbench', 'org-gnome-weather', 'libreoffice-startcenter', 'org-gnome-eog', 'shutter', 'screenkey', 'org-kde-kdenlive', 'fr-handbrake-ghb', 'solaar', 'gimp', 'calibre-gui', 'org-gnome-builder', 'yelp', 'org-pulseaudio-pavucontrol', 'org-gnome-fileroller', 'vlc', 'mpv', 'kitty', 'gnome-wellbeing-panel', 'witsy', 'com-mitchellh-ghostty', 'claude-desktop-native', 'spotify', 'gnome-about-panel', 'one-alynx-showmethekey', 'io-github-seadve-kooha', 'emote', 'dsnote', 'calibre-ebook-viewer']
 show-banners=true
 
 [org/gnome/desktop/notifications/application/alacritty]
@@ -251,6 +251,9 @@ application-id='blueman-manager.desktop'
 
 [org/gnome/desktop/notifications/application/ca-desrt-dconf-editor]
 application-id='ca.desrt.dconf-editor.desktop'
+
+[org/gnome/desktop/notifications/application/calibre-ebook-viewer]
+application-id='calibre-ebook-viewer.desktop'
 
 [org/gnome/desktop/notifications/application/calibre-gui]
 application-id='calibre-gui.desktop'
@@ -848,7 +851,7 @@ applications=['com.google.Chrome']
 shortcuts=[('325319ACC16D5D79E0B4D21A48A36BAC-toggleTabs', {'description': <'Toggle between the last 2 recent tabs'>}), ('7BF8162D4952CBEA034B00DD2572D0D0-enter-picker-mode', {'description': <'Create a custom filter'>}), ('7BF8162D4952CBEA034B00DD2572D0D0-enter-zapper-mode', {'description': <'Remove an element'>}), ('7CA5286303E7DBB2BA9DFFAAE7C82D05-quick_clip', {'description': <'Quick clip'>}), ('7CA5286303E7DBB2BA9DFFAAE7C82D05-toggle_highlighter', {'description': <'Toggle highlighter mode'>}), ('7CA5286303E7DBB2BA9DFFAAE7C82D05-toggle_reader', {'description': <'Toggle reading view'>}), ('B8C0A4D2433E7A52509B9A5EA5B5FC56-addSite', {'description': <'Toggle current site'>}), ('B8C0A4D2433E7A52509B9A5EA5B5FC56-switchEngine', {'description': <'Theme generation mode'>}), ('B8C0A4D2433E7A52509B9A5EA5B5FC56-toggle', {'description': <'Toggle extension'>}), ('C88A75B022356367082514B3D645782A-add-link', {'description': <'Send the current page URL to Karakeep.'>}), ('C9FBE3E31B40710D682AD70D86D5E64C-tab_pinner_pin_all_tabs', {'description': <'Pin all tabs in the current window.'>}), ('C9FBE3E31B40710D682AD70D86D5E64C-tab_pinner_pin_unpin_tab', {'description': <'Pin or unpin the current tab.'>}), ('C9FBE3E31B40710D682AD70D86D5E64C-tab_pinner_unpin_all_tabs', {'description': <'Unpin all pinned tabs in the current window.'>}), ('CE86B0D86039F5395E3B784446764512-autofill_card', {'description': <'Autofill the last used card for the current website'>}), ('CE86B0D86039F5395E3B784446764512-autofill_identity', {'description': <'Autofill the last used identity for the current website'>}), ('CE86B0D86039F5395E3B784446764512-autofill_login', {'description': <'Autofill the last used login for the current website'>}), ('CE86B0D86039F5395E3B784446764512-generate_password', {'description': <'Generate and copy a new random password to the clipboard'>}), ('CE86B0D86039F5395E3B784446764512-lock_vault', {'description': <'Lock the vault'>})]
 
 [org/gnome/settings-daemon/plugins/color]
-night-light-enabled=true
+night-light-enabled=false
 night-light-schedule-automatic=false
 night-light-temperature=uint32 4236
 
@@ -1152,7 +1155,7 @@ hpadding=0
 
 [org/gnome/shell/extensions/switcher]
 activate-by-key=uint32 2
-launcher-stats='{"slack.desktop":9,"google-chrome.desktop":6,"firefox.desktop":2,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":6,"obsidian.desktop":8,"com.github.joseexposito.touche.desktop":3,"org.ksnip.ksnip.desktop":3,"qv4l2.desktop":1,"com.mitchellh.ghostty.desktop":33,"vlc.desktop":16,"gnome-datetime-panel.desktop":3,"org.gnome.clocks.desktop":12,"org.gnome.Nautilus.desktop":1,"org.gnome.Software.desktop":3,"org.gnome.Totem.desktop":2,"org.telegram.desktop.desktop":1,"calibre-gui.desktop":4,"org.gnome.Extensions.desktop":1,"org.gnome.Cheese.desktop":1}'
+launcher-stats='{"slack.desktop":9,"google-chrome.desktop":6,"firefox.desktop":2,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":6,"obsidian.desktop":9,"com.github.joseexposito.touche.desktop":3,"org.ksnip.ksnip.desktop":3,"qv4l2.desktop":1,"com.mitchellh.ghostty.desktop":33,"vlc.desktop":16,"gnome-datetime-panel.desktop":3,"org.gnome.clocks.desktop":12,"org.gnome.Nautilus.desktop":1,"org.gnome.Software.desktop":3,"org.gnome.Totem.desktop":2,"org.telegram.desktop.desktop":1,"calibre-gui.desktop":8,"org.gnome.Extensions.desktop":1,"org.gnome.Cheese.desktop":1}'
 
 [org/gnome/shell/extensions/system-monitor]
 cpu-graph-width=50
@@ -1206,9 +1209,9 @@ save-format='application/pdf'
 selected-device='hpaio:/net/envy_6000_series?ip=192.168.0.215&queue=false'
 
 [org/gnome/software]
-check-timestamp=int64 1764924644
+check-timestamp=int64 1765366436
 first-run=false
-flatpak-purge-timestamp=int64 1764927095
+flatpak-purge-timestamp=int64 1765277584
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
@@ -1334,8 +1337,8 @@ view-type='list'
 window-size=(1347, 745)
 
 [org/gtk/settings/color-chooser]
-custom-colors=[(0.68627450980392157, 0.71372549019607845, 0.65490196078431373, 1.0), (0.88, 0.88, 0.88, 1.0), (0.7466666666666667, 0.7466666666666667, 0.7466666666666667, 1.0), (0.49803921568627452, 0.49803921568627452, 0.49803921568627452, 1.0), (0.49333333333333335, 0.14964444444444439, 0.14964444444444439, 1.0), (0.49333333333333335, 0.14964444444444444, 0.14964444444444444, 1.0), (0.81568627450980391, 0.81176470588235294, 0.80000000000000004, 1.0), (0.46666666666666667, 0.14155555555555557, 0.46666666666666667, 1.0)]
-selected-color=(true, 1.0, 1.0, 1.0, 1.0)
+custom-colors=[(0.60392159223556519, 0.60000002384185791, 0.58823531866073608, 1.0), (0.75294119119644165, 0.74901962280273438, 0.73725491762161255, 1.0), (0.68627450980392157, 0.71372549019607845, 0.65490196078431373, 1.0), (0.88, 0.88, 0.88, 1.0), (0.7466666666666667, 0.7466666666666667, 0.7466666666666667, 1.0), (0.49803921568627452, 0.49803921568627452, 0.49803921568627452, 1.0), (0.49333333333333335, 0.14964444444444439, 0.14964444444444439, 1.0), (0.49333333333333335, 0.14964444444444444, 0.14964444444444444, 1.0)]
+selected-color=(true, 0.87058823529411766, 0.8666666666666667, 0.85490196078431369, 1.0)
 
 [org/gtk/settings/file-chooser]
 date-format='with-time'
@@ -1346,7 +1349,7 @@ show-type-column=true
 sidebar-width=247
 sort-column='modified'
 sort-directories-first=true
-sort-order='ascending'
+sort-order='descending'
 type-format='category'
 window-position=(26, 23)
 window-size=(1426, 851)
