@@ -4,5 +4,7 @@
   "llm-github-models",
   "llm-openrouter",
   "llm-uv-tool",
-  "llm-openai-plugin"
+  "llm-openai-plugin",
+  "llm-docs",
+  "llm-mistral"
 ]

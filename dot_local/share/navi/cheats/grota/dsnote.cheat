@@ -1,0 +1,13 @@
+% dsnote
+
+# toggle translating
+$HOME/.local/grota/scripts/dsnote-wrapper.sh toggle_translating
+
+# print current model
+$HOME/.local/grota/scripts/dsnote-wrapper.sh print_current_model
+
+# switch next speech to text model
+$HOME/.local/grota/scripts/dsnote-wrapper.sh switch_next_stt
+
+# toggle listen, paste in current window
+$HOME/.local/grota/scripts/dsnote-wrapper.sh toggle_listening

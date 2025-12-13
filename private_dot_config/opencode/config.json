@@ -31,5 +31,6 @@
       },
       "enabled": true
     }
-  }
+  },
+  "formatter": false
 }

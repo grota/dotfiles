@@ -2,7 +2,7 @@
 
 GROUP="${1:-default}"
 if [ "$GROUP" == "default" ]; then
-  action="$(echo -e 'file\npaste_navi\nsession save\nsession restore\ntmux-fzf'| fzf --tmux)"
+  action="$(echo -e 'file\npaste_navi\nsession save\nsession restore\ntmux-fzf\ndsnote'| fzf --tmux)"
   if [ "$action" = "paste_navi" ]; then
     # Here we want to paste the navi snippet into the pane.
     # From https://github.com/denisidoro/navi/blob/master/docs/widgets/howto/TMUX.md
@@ -16,6 +16,8 @@ if [ "$GROUP" == "default" ]; then
     /home/grota/.tmux/plugins/tmux-fzf/main.sh
   elif [ "$action" = 'file' ]; then
     tmux display-popup -w 90% -h 90% -EE "tmux-file-picker"
+  elif [ "$action" = 'dsnote' ]; then
+    tmux display-popup -EE "navi --query 'dsnote '"
   fi
 elif [ "$GROUP" == "keybindings" ]; then
   action=$(tmux list-keys | awk '{ for (i=1; i<NF; i++) if ($i=="-T") { print $(i+1); break } }'|sort -u | fzf --tmux)
