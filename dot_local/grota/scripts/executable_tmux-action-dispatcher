@@ -1,28 +1,36 @@
 #!/usr/bin/env bash
 
-GROUP="${1:-default}"
-if [ "$GROUP" == "default" ]; then
-  action="$(echo -e 'file\npaste_navi\nsession save\nsession restore\ntmux-fzf\ndsnote'| fzf --tmux)"
-  if [ "$action" = "paste_navi" ]; then
-    # Here we want to paste the navi snippet into the pane.
-    # From https://github.com/denisidoro/navi/blob/master/docs/widgets/howto/TMUX.md
-    # Added -s \"\" to avoid immediate execution
-    tmux display-popup -w '90%' -h '90%' -EE "$SHELL --login -i -c 'navi --print | tmux load-buffer -b tmp - ; tmux paste-buffer -p -b tmp -d -s \"\" '"
-  elif [ "$action" = "session restore" ]; then
-    tmux display-popup -EE "navi --best-match --query 'tmux session restore'"
-  elif [ "$action" = "session save" ]; then
-    tmux display-popup -EE "navi --best-match --query 'tmux session save'"
-  elif [ "$action" = "tmux-fzf" ]; then
-    /home/grota/.tmux/plugins/tmux-fzf/main.sh
-  elif [ "$action" = 'file' ]; then
-    tmux display-popup -w 90% -h 90% -EE "tmux-file-picker"
-  elif [ "$action" = 'dsnote' ]; then
-    tmux display-popup -EE "navi --query 'dsnote '"
+FIRST="${1:-}"
+SECOND="${2:-}"
+if [ -z "$FIRST" ]; then
+  FIRST="$(echo -e 'keybindings\nfile\npaste_navi\nsession save\nsession restore\ntmux-fzf\ndsnote'| fzf --tmux)"
+fi
+if [ "$FIRST" == "keybindings" ]; then
+  # Second arg is tmux table in this context.
+  if [ -z "$SECOND" ]; then
+    SECOND=$(tmux list-keys | awk '{ for (i=1; i<NF; i++) if ($i=="-T") { print $(i+1); break } }'|sort -u | fzf --tmux)
   fi
-elif [ "$GROUP" == "keybindings" ]; then
-  action=$(tmux list-keys | awk '{ for (i=1; i<NF; i++) if ($i=="-T") { print $(i+1); break } }'|sort -u | fzf --tmux)
-  tmux list-keys -T "$action" | fzf --tmux 98%,98% > /dev/null || exit 0
+  tmux list-keys -T "$SECOND" | fzf --tmux 98%,98% > /dev/null || exit 0
+elif [ "$FIRST" = "paste_navi" ]; then
+  # Here we want to paste the navi snippet into the pane.
+  # From https://github.com/denisidoro/navi/blob/master/docs/widgets/howto/TMUX.md
+  # Added -s \"\" to avoid immediate execution
+  tmux display-popup -w '90%' -h '90%' -EE "$SHELL --login -i -c 'navi --print | tmux load-buffer -b tmp - ; tmux paste-buffer -p -b tmp -d -s \"\" '"
+elif [ "$FIRST" = "session restore" ]; then
+  tmux display-popup -EE "navi --best-match --query 'tmux session restore'"
+elif [ "$FIRST" = "session save" ]; then
+  tmux display-popup -EE "navi --best-match --query 'tmux session save'"
+elif [ "$FIRST" = "tmux-fzf" ]; then
+  /home/grota/.tmux/plugins/tmux-fzf/main.sh
+elif [ "$FIRST" = 'file' ]; then
+  tmux display-popup -w 90% -h 90% -EE "tmux-file-picker"
+elif [ "$FIRST" = 'dsnote' ]; then
+  if [ -z "$SECOND" ]; then
+    tmux display-popup -EE "navi --query 'dsnote '"
+  else
+    "$HOME/.local/grota/scripts/dsnote-wrapper.sh" "$SECOND"
+  fi
 else
-  echo "Invalid GROUP: $GROUP."
+  echo "Invalid First arg: $FIRST."
   exit 1
 fi

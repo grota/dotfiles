@@ -31,6 +31,7 @@ public_commands=(
   "print_current_model"
   "switch_next_stt"
   "toggle_listening"
+  "toggle_translating"
 )
 
 # shellcheck disable=SC2076
