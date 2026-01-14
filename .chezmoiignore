@@ -241,6 +241,7 @@ chezmoi_ignored
 /.claude/todos/
 /.local/share/opencode/log
 /.local/share/opencode/project
+/.config/opencode/node_modules
 /.config/ghostty/*.bak
 /.qwen/tmp
 /local/bin/tmux-action-dispatcher

@@ -5,7 +5,7 @@ export FORGIT_COPY_CMD="xclip -selection clipboard"
 export FORGIT_LOG_FZF_OPTS="--layout=reverse --no-mouse"
 
 # Because forgit::xxx functions are defined here.
-source /usr/share/zsh/plugins/forgit/forgit.plugin.zsh
+source /usr/share/zsh/plugins/forgit-git//forgit.plugin.zsh
 # This would be sourced on git forgit<tab>. Here we source it again to have
 # funcs defined for autocomplete for our aliases.
 source ~/.local/share/bash-completion/completions/git-forgit.bash
