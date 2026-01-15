@@ -15,16 +15,7 @@ return {
     opts = function (_, opts)
       opts.windows.preview = false
     end,
-    -- keys = function (_, keys)
-    --   for i = #keys, 1, -1 do
-    --     if keys[i][1] == "<leader>fm" then
-    --       keys[i][1] = '<leader>e'
-    --     end
-    --     if keys[i][1] == "<leader>fM" then
-    --       keys[i][1] = '<leader>E'
-    --     end
-    --   end
-    -- end,
+
     init = function ()
       local MiniFiles = require('mini.files')
       local map_open_in = function(buf_id, lhs, create_new_window_command, desc)

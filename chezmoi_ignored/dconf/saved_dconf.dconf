@@ -64,7 +64,7 @@ services=[('0C:89:5A:01:09:6C', '00000000-0000-0000-0000-000000000000'), ('E8:9E
 auto-power-on=@mb false
 
 [org/blueman/plugins/recentconns]
-recent-connections=[{'adapter': '84:5C:F3:F0:6C:CE', 'address': '0C:89:5A:01:09:6C', 'alias': 'E18', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1661347620.9262052'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '74:74:46:E4:C3:BF', 'alias': 'Pixel Buds A-Series de Giuseppe', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1767808252.2869282', 'device': '/org/bluez/hci0/dev_74_74_46_E4_C3_BF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'F8:1A:2B:E0:F5:E9', 'alias': 'Pixel 4a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160545.2074506'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '24:29:34:92:3C:CF', 'alias': 'Pixel 6a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160577.464688', 'device': '/org/bluez/hci0/dev_24_29_34_92_3C_CF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'DE:EE:F9:9F:29:C5', 'alias': 'MX Master 3S', 'icon': 'input-mouse', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1732708767.8526783'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'E8:9E:13:8D:DF:DD', 'alias': 'WF-C700N', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1768336771.1819696', 'device': '/org/bluez/hci0/dev_E8_9E_13_8D_DF_DD'}]
+recent-connections=[{'adapter': '84:5C:F3:F0:6C:CE', 'address': '0C:89:5A:01:09:6C', 'alias': 'E18', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1661347620.9262052'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '74:74:46:E4:C3:BF', 'alias': 'Pixel Buds A-Series de Giuseppe', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1767808252.2869282', 'device': '/org/bluez/hci0/dev_74_74_46_E4_C3_BF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'F8:1A:2B:E0:F5:E9', 'alias': 'Pixel 4a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160545.2074506'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '24:29:34:92:3C:CF', 'alias': 'Pixel 6a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160577.464688', 'device': '/org/bluez/hci0/dev_24_29_34_92_3C_CF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'DE:EE:F9:9F:29:C5', 'alias': 'MX Master 3S', 'icon': 'input-mouse', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1732708767.8526783'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'E8:9E:13:8D:DF:DD', 'alias': 'WF-C700N', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1768500555.2003996', 'device': '/org/bluez/hci0/dev_E8_9E_13_8D_DF_DD'}]
 
 [org/freedesktop/tracker/miner/files]
 index-recursive-directories=['&DESKTOP', '&MUSIC', '&VIDEOS']
@@ -553,7 +553,7 @@ sidebar-page='thumbnails'
 sidebar-size=148
 sizing-mode='free'
 window-ratio=(2.4242424242424243, 1.7173202614379084)
-zoom=0.61207239333651131
+zoom=0.88138424640457624
 
 [org/gnome/evolution-data-server]
 migrated=true
@@ -565,7 +565,7 @@ notify-window-paned-position=73
 notify-window-width=180
 notify-window-x=26
 notify-window-y=23
-reminders-past=['1a98c3c04adf522b8cff948a88cff227ddca0aff\na07363aa44d78b2081c5001a228219e185a2eb13\t20260106\n1767571200\n1767657600\n1767744000\nBEGIN:VEVENT\r\nDTSTART;VALUE=DATE:20260106\r\nDTEND;VALUE=DATE:20260107\r\nRRULE:FREQ=YEARLY\r\nDTSTAMP:20250107T083313Z\r\nUID:jtau66tjiloriti1l9fu8gn3d8@google.com\r\nCREATED:20071025T191613Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for DESCRIPTION \r\n property. Removing entire property:\r\nLAST-MODIFIED:20250107T083313Z\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nSEQUENCE:1\r\nSTATUS:CONFIRMED\r\nSUMMARY:Comple Ioppolo\r\nTRANSP:TRANSPARENT\r\nCATEGORIES:http://schemas.google.com/g/2005#event\r\nX-LIC-ERROR;X-LIC-ERRORTYPE=VALUE-PARSE-ERROR:No value for LOCATION \r\n property. Removing entire property:\r\nX-EVOLUTION-CALDAV-ETAG:63871921993\r\nRECURRENCE-ID;VALUE=DATE:20260106\r\nBEGIN:VALARM\r\nACTION:DISPLAY\r\nDESCRIPTION:This is an event reminder\r\nTRIGGER:-P1D\r\nX-EVOLUTION-ALARM-UID:a07363aa44d78b2081c5001a228219e185a2eb13\r\nEND:VALARM\r\nEND:VEVENT\r\n']
+reminders-past=@as []
 
 [org/gnome/file-roller/dialogs/add]
 current-folder='file:///run/media/grota/TOSHIBA'
@@ -1160,7 +1160,7 @@ hpadding=0
 
 [org/gnome/shell/extensions/switcher]
 activate-by-key=uint32 2
-launcher-stats='{"slack.desktop":9,"google-chrome.desktop":6,"firefox.desktop":2,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":6,"obsidian.desktop":9,"com.github.joseexposito.touche.desktop":3,"org.ksnip.ksnip.desktop":3,"qv4l2.desktop":1,"com.mitchellh.ghostty.desktop":34,"vlc.desktop":21,"gnome-datetime-panel.desktop":3,"org.gnome.clocks.desktop":12,"org.gnome.Nautilus.desktop":1,"org.gnome.Software.desktop":3,"org.gnome.Totem.desktop":2,"org.telegram.desktop.desktop":1,"calibre-gui.desktop":16,"org.gnome.Extensions.desktop":1,"org.gnome.Cheese.desktop":1,"dsnote.desktop":2,"org.gnome.tweaks.desktop":1}'
+launcher-stats='{"slack.desktop":10,"google-chrome.desktop":6,"firefox.desktop":2,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":6,"obsidian.desktop":9,"com.github.joseexposito.touche.desktop":3,"org.ksnip.ksnip.desktop":3,"qv4l2.desktop":1,"com.mitchellh.ghostty.desktop":34,"vlc.desktop":21,"gnome-datetime-panel.desktop":3,"org.gnome.clocks.desktop":12,"org.gnome.Nautilus.desktop":1,"org.gnome.Software.desktop":3,"org.gnome.Totem.desktop":2,"org.telegram.desktop.desktop":1,"calibre-gui.desktop":16,"org.gnome.Extensions.desktop":1,"org.gnome.Cheese.desktop":1,"dsnote.desktop":2,"org.gnome.tweaks.desktop":1}'
 
 [org/gnome/shell/extensions/system-monitor]
 cpu-graph-width=50
@@ -1214,9 +1214,9 @@ save-format='application/pdf'
 selected-device='hpaio:/net/envy_6000_series?ip=192.168.0.215&queue=false'
 
 [org/gnome/software]
-check-timestamp=int64 1768321243
+check-timestamp=int64 1768472748
 first-run=false
-flatpak-purge-timestamp=int64 1768334006
+flatpak-purge-timestamp=int64 1768464706
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
