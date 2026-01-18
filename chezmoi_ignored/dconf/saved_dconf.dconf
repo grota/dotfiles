@@ -64,7 +64,7 @@ services=[('0C:89:5A:01:09:6C', '00000000-0000-0000-0000-000000000000'), ('E8:9E
 auto-power-on=@mb false
 
 [org/blueman/plugins/recentconns]
-recent-connections=[{'adapter': '84:5C:F3:F0:6C:CE', 'address': '0C:89:5A:01:09:6C', 'alias': 'E18', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1661347620.9262052'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '74:74:46:E4:C3:BF', 'alias': 'Pixel Buds A-Series de Giuseppe', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1767808252.2869282', 'device': '/org/bluez/hci0/dev_74_74_46_E4_C3_BF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'F8:1A:2B:E0:F5:E9', 'alias': 'Pixel 4a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160545.2074506'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '24:29:34:92:3C:CF', 'alias': 'Pixel 6a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160577.464688', 'device': '/org/bluez/hci0/dev_24_29_34_92_3C_CF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'DE:EE:F9:9F:29:C5', 'alias': 'MX Master 3S', 'icon': 'input-mouse', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1732708767.8526783'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'E8:9E:13:8D:DF:DD', 'alias': 'WF-C700N', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1768500555.2003996', 'device': '/org/bluez/hci0/dev_E8_9E_13_8D_DF_DD'}]
+recent-connections=[{'adapter': '84:5C:F3:F0:6C:CE', 'address': '0C:89:5A:01:09:6C', 'alias': 'E18', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1661347620.9262052'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '74:74:46:E4:C3:BF', 'alias': 'Pixel Buds A-Series de Giuseppe', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1767808252.2869282', 'device': '/org/bluez/hci0/dev_74_74_46_E4_C3_BF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'F8:1A:2B:E0:F5:E9', 'alias': 'Pixel 4a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160545.2074506'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '24:29:34:92:3C:CF', 'alias': 'Pixel 6a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160577.464688', 'device': '/org/bluez/hci0/dev_24_29_34_92_3C_CF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'DE:EE:F9:9F:29:C5', 'alias': 'MX Master 3S', 'icon': 'input-mouse', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1732708767.8526783'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'E8:9E:13:8D:DF:DD', 'alias': 'WF-C700N', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1768748042.6874096', 'device': '/org/bluez/hci0/dev_E8_9E_13_8D_DF_DD'}]
 
 [org/freedesktop/tracker/miner/files]
 index-recursive-directories=['&DESKTOP', '&MUSIC', '&VIDEOS']
@@ -147,7 +147,7 @@ panel-id='timer'
 size=(1440, 1051)
 
 [org/gnome/control-center]
-last-panel='sound'
+last-panel='keyboard'
 window-state=(1920, 1051, true)
 
 [org/gnome/deja-dup]
@@ -186,8 +186,8 @@ translate=true
 [org/gnome/desktop/background]
 color-shading-type='solid'
 picture-options='zoom'
-picture-uri='file:///home/grota/.local/share/backgrounds/2026-01-04-12-08-11-Icefields%20Parkway,%20Alberta.jpg'
-picture-uri-dark='file:///home/grota/.local/share/backgrounds/2026-01-04-12-08-11-Icefields%20Parkway,%20Alberta.jpg'
+picture-uri='file:///home/grota/Pictures/gnome_wallpapers/anime/a_painting_of_a_forest_with_trees_and_sun_rays.jpg'
+picture-uri-dark='file:///home/grota/Pictures/gnome_wallpapers/anime/a_painting_of_a_forest_with_trees_and_sun_rays.jpg'
 primary-color='#000000000000'
 secondary-color='#000000000000'
 
@@ -503,8 +503,8 @@ move-to-monitor-left=@as []
 move-to-monitor-right=@as []
 move-to-monitor-up=@as []
 move-to-workspace-down=@as []
-move-to-workspace-left=@as []
-move-to-workspace-right=@as []
+move-to-workspace-left=['<Super><Shift>Page_Up']
+move-to-workspace-right=['<Super><Shift>Page_Down']
 move-to-workspace-up=@as []
 switch-applications=@as []
 switch-applications-backward=@as []
@@ -514,9 +514,11 @@ switch-input-source=['<Super>space', 'XF86Keyboard']
 switch-panels=@as []
 switch-panels-backward=@as []
 switch-to-workspace-1=@as []
+switch-to-workspace-down=['<Control><Alt>Down']
 switch-to-workspace-last=@as []
-switch-to-workspace-left=@as []
-switch-to-workspace-right=@as []
+switch-to-workspace-left=['<Super>Page_Up']
+switch-to-workspace-right=['<Super>Page_Down']
+switch-to-workspace-up=['<Control><Alt>Up']
 unmaximize=@as []
 
 [org/gnome/desktop/wm/preferences]
@@ -550,10 +552,10 @@ fullscreen=false
 inverted-colors=false
 show-sidebar=false
 sidebar-page='thumbnails'
-sidebar-size=148
+sidebar-size=132
 sizing-mode='free'
-window-ratio=(2.4242424242424243, 1.7173202614379084)
-zoom=0.88138424640457624
+window-ratio=(3.2254000251984372, 1.2483831003849677)
+zoom=0.61339520808715187
 
 [org/gnome/evolution-data-server]
 migrated=true
@@ -631,7 +633,7 @@ side-panel-visible=false
 
 [org/gnome/gedit/state/window]
 bottom-panel-size=140
-height=1002
+height=1004
 maximized=false
 side-panel-active-page='GeditWindowDocumentsPanel'
 side-panel-size=200
@@ -791,7 +793,7 @@ default-zoom-level='large'
 default-zoom-level='large'
 
 [org/gnome/nautilus/preferences]
-default-folder-viewer='list-view'
+default-folder-viewer='icon-view'
 migrated-gtk-settings=true
 search-filter-time-type='last_modified'
 search-view='list-view'
@@ -900,7 +902,7 @@ command='/home/grota/local/bin/toggle-gnome-dark-mode-style'
 name='toggle dark mode'
 
 [org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom5]
-binding='<Control><Super>l'
+binding='<Alt><Super>l'
 command='/home/grota/.local/grota/scripts/dsnote-wrapper.sh toggle_listening'
 name='dsnote start-listening-active-window'
 
@@ -915,7 +917,7 @@ sleep-inactive-battery-type='nothing'
 command-history=['r', 'lllg', 'ls', 'rest', 'restart', 'l', 'kg', 'gl', 'lg']
 disable-user-extensions=false
 disabled-extensions=['beampointer@grota.github.com', 'freon@UshakovVasilii_Github.yahoo.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'BringOutSubmenuOfPowerOffLogoutButton@pratap.fastmail.fm']
-enabled-extensions=['clipboard-indicator@tudmotu.com', 'screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com', 'solaar-extension@sidevesh', 'status-icons@gnome-shell-extensions.gcampax.github.com', 'switcher@landau.fi', 'trayIconsReloaded@selfmade.pl', 'system-monitor@gnome-shell-extensions.gcampax.github.com', 'paperwm@paperwm.github.com', 'appindicatorsupport@rgcjonas.gmail.com']
+enabled-extensions=['clipboard-indicator@tudmotu.com', 'screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com', 'solaar-extension@sidevesh', 'status-icons@gnome-shell-extensions.gcampax.github.com', 'switcher@landau.fi', 'trayIconsReloaded@selfmade.pl', 'system-monitor@gnome-shell-extensions.gcampax.github.com', 'appindicatorsupport@rgcjonas.gmail.com', 'azwallpaper@azwallpaper.gitlab.com', 'paperwm@paperwm.github.com']
 favorite-apps=['firefox.desktop', 'com.mitchellh.ghostty.desktop', 'obsidian.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Settings.desktop', 'google-chrome.desktop', 'solaar.desktop', 'input-remapper-gtk.desktop', 'org.gnome.clocks.desktop', 'org.gnome.tweaks.desktop']
 had-bluetooth-devices-setup=true
 last-selected-power-profile='performance'
@@ -930,6 +932,18 @@ icon-opacity=200
 icon-size=12
 legacy-tray-enabled=true
 tray-pos='center'
+
+[org/gnome/shell/extensions/azwallpaper]
+prefs-visible-page=''
+slideshow-change-slide-event=0
+slideshow-current-slide-index=4
+slideshow-current-wallpaper='a_painting_of_a_forest_with_trees_and_sun_rays.jpg'
+slideshow-directory='/home/grota/Pictures/gnome_wallpapers/anime'
+slideshow-queue=[{'name': 'a_cartoon_of_a_girl_holding_a_book.jpg', 'date': '1768741025'}, {'name': 'a_cartoon_of_a_girl_holding_a_bouquet_of_flowers.png', 'date': '1768741025'}, {'name': 'a_train_going_through_a_lake.jpg', 'date': '1768741028'}, {'name': 'a_road_with_power_lines_and_power_lines.jpg', 'date': '1768741028'}, {'name': 'a_painting_of_a_forest_with_trees_and_sun_rays.jpg', 'date': '1768741027'}, {'name': 'a_bird_sitting_on_a_railing_next_to_a_satellite_dish.jpg', 'date': '1768741025'}, {'name': 'a_door_with_a_doorway_and_shoes_on_the_ground.jpg', 'date': '1768741027'}, {'name': 'aeb9uhrbr41a1.webp', 'date': '1768741028'}, {'name': 'a_bench_next_to_a_river.jpg', 'date': '1768741025'}, {'name': 'a_house_with_a_bike_and_a_chair.jpg', 'date': '1768741027'}, {'name': 'a_man_and_dog_riding_bikes_in_a_field_with_a_house_in_the_background.jpg', 'date': '1768741027'}, {'name': 'a_person_riding_a_bicycle_on_a_hill_with_sunflowers.jpeg', 'date': '1768741028'}, {'name': 'a_building_with_boats_on_the_water.jpg', 'date': '1768741025'}, {'name': 'a_house_in_the_woods.png', 'date': '1768741027'}, {'name': 'water_drops_on_a_window.jpg', 'date': '1768741028'}, {'name': 'a_tower_with_a_building_and_trees.jpg', 'date': '1768741028'}, {'name': 'a_colorful_buildings_with_power_lines.jpg', 'date': '1768741027'}, {'name': 'a_white_picket_fence_with_flowers_and_a_bridge_over_water.jpg', 'date': '1768741028'}, {'name': 'a_cat_standing_in_front_of_a_building.jpg', 'date': '1768741027'}, {'name': 'a_cartoon_of_a_airship_flying_over_a_mountain.png', 'date': '1768741025'}, {'name': 'a_bench_in_a_bamboo_forest.png', 'date': '1768741025'}, {'name': 'a_park_with_a_playground_and_trees_01.jpg', 'date': '1768741027'}, {'name': 'a_house_with_a_lawn_chair_and_a_bicycle.jpg', 'date': '1768741027'}, {'name': 'a_log_cabin_in_the_woods.png', 'date': '1768741027'}, {'name': 'a_garden_with_stairs_and_flowers.jpg', 'date': '1768741027'}, {'name': 'a_building_with_a_clock_tower_and_lights_on_it.png', 'date': '1768741025'}, {'name': 'a_tree_in_a_forest.png', 'date': '1768741028'}, {'name': 'a_sunset_over_a_beach.jpg', 'date': '1768741028'}, {'name': 'a_tree_branch_with_snow_on_it.jpg', 'date': '1768741028'}, {'name': 'a_couple_of_people_walking_on_a_road_with_power_lines_and_telephone_poles.jpg', 'date': '1768741027'}, {'name': 'a_silhouette_of_a_castle_with_a_sunset_behind_it.png', 'date': '1768741028'}, {'name': 'a_train_crossing_with_a_train_track_and_a_body_of_water.png', 'date': '1768741028'}, {'name': 'a_cartoon_of_a_city_with_a_clock_tower.jpeg', 'date': '1768741025'}, {'name': 'a_park_with_benches_and_trees_at_night.jpg', 'date': '1768741027'}, {'name': 'a_building_with_trees_in_the_background_01.jpg', 'date': '1768741025'}, {'name': 'a_road_with_power_lines_and_power_lines_02.jpg', 'date': '1768741028'}, {'name': 'a_house_on_an_island_by_water.jpg', 'date': '1768741027'}, {'name': 'a_road_with_a_body_of_water_and_mountains_in_the_background.jpg', 'date': '1768741028'}, {'name': 'a_tree_in_the_forest.png', 'date': '1768741028'}, {'name': 'a_building_with_a_light_on_the_side.jpg', 'date': '1768741025'}, {'name': 'a_girl_standing_on_a_road_with_trees_and_mountains_in_the_background.jpg', 'date': '1768741027'}, {'name': 'a_road_with_power_lines_and_power_lines.png', 'date': '1768741028'}, {'name': 'a_pond_with_flowers_and_a_bench_in_the_middle.jpg', 'date': '1768741028'}, {'name': 'a_cartoon_of_a_woman_with_birds_in_the_air.png', 'date': '1768741026'}, {'name': 'a_cartoon_of_a_castle.png', 'date': '1768741025'}, {'name': 'a_moon_and_clouds_at_night.jpg', 'date': '1768741027'}, {'name': 'a_woman_sitting_in_a_chair_under_a_tent.png', 'date': '1768741028'}, {'name': 'a_view_of_the_ocean_from_a_balcony.jpeg', 'date': '1768741028'}, {'name': 'a_building_with_trees_in_the_background.jpg', 'date': '1768741025'}, {'name': 'a_cartoon_of_a_girl_and_a_dog.png', 'date': '1768741025'}, {'name': 'a_tree_trunk_with_a_branch.png', 'date': '1768741028'}, {'name': 'a_house_with_ivy_on_the_front.jpg', 'date': '1768741027'}, {'name': 'a_cartoon_character_in_a_pond_surrounded_by_leaves.png', 'date': '1768741025'}, {'name': 'a_cartoon_of_a_girl_with_long_pink_hair_sitting_on_a_balcony.png', 'date': '1768741026'}, {'name': 'a_park_with_a_playground_and_trees.jpg', 'date': '1768741027'}, {'name': 'a_cartoon_of_a_woman_standing_on_a_railing_overlooking_a_body_of_water.jpg', 'date': '1768741026'}, {'name': 'a_city_with_towers_and_towers.jpg', 'date': '1768741027'}, {'name': 'a_road_leading_to_a_body_of_water.png', 'date': '1768741028'}, {'name': 'a_statue_of_a_man_standing_on_a_pedestal_in_front_of_a_row_of_flags.jpg', 'date': '1768741028'}, {'name': 'a_road_with_power_lines_and_grass_fields.jpg', 'date': '1768741028'}, {'name': 'a_deck_overlooking_the_water.jpg', 'date': '1768741027'}, {'name': 'a_house_with_a_chair_and_a_bicycle.jpg', 'date': '1768741027'}, {'name': 'a_cartoon_of_a_woman_standing_in_front_of_a_building.jpg', 'date': '1768741026'}, {'name': 'a_bird_flying_over_a_building.jpeg', 'date': '1768741025'}, {'name': 'a_cartoon_of_a_cat_on_a_balcony.jpeg', 'date': '1768741025'}, {'name': 'a_stone_tower_with_windows.png', 'date': '1768741028'}, {'name': 'cartoon_of_people_sitting_at_tables_in_a_room_with_plants.png', 'date': '1768741028'}, {'name': 'a_waterfall_in_the_rain.jpg', 'date': '1768741028'}, {'name': 'a_cartoon_of_a_city.jpg', 'date': '1768741025'}, {'name': 'a_building_with_a_flag_on_the_roof.jpg', 'date': '1768741025'}, {'name': 'a_cartoon_house_on_a_floating_platform.jpg', 'date': '1768741025'}, {'name': 'a_city_skyline_with_trees_and_clouds.jpg', 'date': '1768741027'}, {'name': 'a_woman_standing_on_a_bridge_over_a_bridge_with_windmills_in_the_background.png', 'date': '1768741028'}, {'name': 'a_person_standing_on_a_broken_object_in_a_field_with_a_large_white_moon.png', 'date': '1768741028'}, {'name': 'a_dirt_road_with_trees_and_power_lines.png', 'date': '1768741027'}, {'name': 'a_group_of_people_standing_in_a_room_with_a_large_globe.jpg', 'date': '1768741027'}, {'name': 'a_road_with_power_lines_and_power_lines_01.jpg', 'date': '1768741028'}, {'name': 'a_painting_of_a_clock_with_a_paper_and_scissors_from_it.png', 'date': '1768741027'}, {'name': 'a_cartoon_of_a_girl_with_blue_hair_and_a_skull.jpg', 'date': '1768741026'}, {'name': 'a_landscape_with_buildings_and_clouds.jpg', 'date': '1768741027'}, {'name': 'a_body_of_water_with_a_bridge_and_trees.jpg', 'date': '1768741025'}, {'name': 'a_cartoon_of_a_girl_with_long_hair_wearing_a_black_hat_and_jacket.png', 'date': '1768741026'}, {'name': 'a_statue_of_a_man_in_a_park_with_flags.jpg', 'date': '1768741028'}, {'name': 'a_house_with_stairs_leading_to_the_front.png', 'date': '1768741027'}, {'name': 'a_cat_lying_on_a_piano.jpg', 'date': '1768741027'}, {'name': 'a_person_on_a_boat_in_a_pond_with_lily_pads.png', 'date': '1768741027'}, {'name': 'a_train_on_tracks_in_a_snowy_city.jpg', 'date': '1768741028'}, {'name': 'a_rock_cliff_with_trees_on_top.png', 'date': '1768741028'}, {'name': 'a_woman_wearing_a_helmet.jpg', 'date': '1768741028'}, {'name': 'a_beach_with_a_bridge_and_trees.jpg', 'date': '1768741025'}, {'name': 'a_train_at_a_train_station.jpg', 'date': '1768741028'}, {'name': 'a_cartoon_of_a_girl_holding_an_umbrella.png', 'date': '1768741025'}, {'name': 'a_woman_standing_on_a_road_with_sunflowers.png', 'date': '1768741028'}, {'name': 'a_house_with_plants_and_flowers.jpeg', 'date': '1768741027'}, {'name': 'a_painting_of_a_forest_with_trees_and_a_path.jpg', 'date': '1768741027'}, {'name': 'a_cartoon_of_a_flying_ship_with_buildings_and_a_person_walking.jpg', 'date': '1768741025'}, {'name': 'a_building_with_boats_in_the_water.jpg', 'date': '1768741025'}, {'name': 'stars_in_the_sky_at_night.png', 'date': '1768741028'}, {'name': 'a_woman_in_a_red_dress_sitting_in_front_of_a_gas_station.jpg', 'date': '1768741028'}, {'name': 'a_girl_standing_on_a_railroad_crossing.png', 'date': '1768741027'}, {'name': 'a_view_of_a_city_from_a_balcony.jpeg', 'date': '1768741028'}, {'name': 'power_lines_and_trees_at_sunset.jpg', 'date': '1768741028'}, {'name': 'a_building_with_trees_in_the_background_02.jpg', 'date': '1768741025'}, {'name': 'a_path_leading_to_a_lake.jpg', 'date': '1768741027'}, {'name': 'a_landscape_of_a_farm_with_trees_and_a_blue_sky.png', 'date': '1768741027'}, {'name': 'a_person_on_a_bicycle_on_a_railing_with_a_city_in_the_background.png', 'date': '1768741027'}, {'name': 'a_cartoon_of_a_doll_house.jpeg', 'date': '1768741025'}, {'name': 'a_computer_generated_image_of_a_machine.png', 'date': '1768741027'}, {'name': 'a_group_of_pink_flowers.png', 'date': '1768741027'}, {'name': 'a_cartoon_of_a_boat_in_water.png', 'date': '1768741025'}, {'name': 'a_forest_with_tall_trees_and_grass.jpeg', 'date': '1768741027'}, {'name': 'a_ship_in_the_ocean.jpeg', 'date': '1768741028'}, {'name': 'a_scooter_parked_on_a_street.jpg', 'date': '1768741028'}, {'name': 'a_bird_on_a_branch.jpg', 'date': '1768741025'}, {'name': 'a_road_leading_to_a_city.jpg', 'date': '1768741028'}, {'name': 'a_city_skyline_with_a_tall_tower_lit_up_at_night.jpeg', 'date': '1768741027'}, {'name': 'a_city_landscape_with_trees_and_buildings.jpeg', 'date': '1768741027'}, {'name': 'a_park_with_a_playground_and_trees_02.jpg', 'date': '1768741027'}, {'name': 'a_cartoon_of_a_castle_01.png', 'date': '1768741025'}, {'name': 'a_beach_with_palm_trees_and_a_moon.png', 'date': '1768741025'}, {'name': 'a_building_with_trees_in_the_background_03.jpg', 'date': '1768741025'}, {'name': 'rain_drops_of_water_on_a_tile_surface.jpg', 'date': '1768741028'}, {'name': 'a_painting_of_a_forest_with_trees_and_fog.jpg', 'date': '1768741027'}, {'name': 'water_droplets_on_a_puddle.png', 'date': '1768741028'}]
+slideshow-slide-duration=(1, 0, 0)
+slideshow-time-of-slide-start=uint64 1768750039293
+slideshow-timer-remaining=3600
+update-notifier-project-version=17
 
 [org/gnome/shell/extensions/clipboard-indicator]
 clear-history=@as []
@@ -1046,13 +1060,14 @@ workspaces-in-app-grid=true
 
 [org/gnome/shell/extensions/paperwm]
 animation-time=0.01
-default-focus-mode=0
-disable-scratch-in-overview=true
+default-focus-mode=1
+disable-scratch-in-overview=false
 edge-preview-click-enable=false
 edge-preview-enable=false
 edge-preview-scale=0.14000000000000001
 edge-preview-timeout-continual=true
 gesture-enabled=true
+gesture-horizontal-fingers=3
 gesture-workspace-fingers=3
 horizontal-margin=0
 last-used-display-server='Wayland'
@@ -1065,7 +1080,7 @@ open-window-position-option-left=false
 overview-ensure-viewport-animation=2
 restore-attach-modal-dialogs='true'
 restore-edge-tiling='true'
-restore-keybinds='{"cancel-input-capture":{"bind":"[\\"<Super><Shift>Escape\\"]","schema_id":"org.gnome.mutter.keybindings"},"restore-shortcuts":{"bind":"[\\"<Super>Escape\\"]","schema_id":"org.gnome.mutter.wayland.keybindings"},"switch-to-workspace-last":{"bind":"[\\"<Super>End\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"switch-panels":{"bind":"[\\"<Control><Alt>Tab\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"switch-group-backward":{"bind":"[\\"<Shift><Super>Above_Tab\\",\\"<Shift><Alt>Above_Tab\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"unmaximize":{"bind":"[\\"<Super>Down\\",\\"<Alt>F5\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"switch-to-workspace-1":{"bind":"[\\"<Super>Home\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"move-to-monitor-left":{"bind":"[\\"<Super><Shift>Left\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"move-to-monitor-down":{"bind":"[\\"<Super><Shift>Down\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"switch-group":{"bind":"[\\"<Super>Above_Tab\\",\\"<Alt>Above_Tab\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"move-to-workspace-left":{"bind":"[\\"<Super><Shift>Page_Up\\",\\"<Super><Shift><Alt>Left\\",\\"<Control><Shift><Alt>Left\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"move-to-workspace-right":{"bind":"[\\"<Super><Shift>Page_Down\\",\\"<Super><Shift><Alt>Right\\",\\"<Control><Shift><Alt>Right\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"switch-panels-backward":{"bind":"[\\"<Shift><Control><Alt>Tab\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"switch-to-workspace-left":{"bind":"[\\"<Super>Page_Up\\",\\"<Super><Alt>Left\\",\\"<Control><Alt>Left\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"move-to-workspace-up":{"bind":"[\\"<Control><Shift><Alt>Up\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"switch-to-workspace-right":{"bind":"[\\"<Super>Page_Down\\",\\"<Super><Alt>Right\\",\\"<Control><Alt>Right\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"minimize":{"bind":"[\\"<Super>h\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"move-to-workspace-down":{"bind":"[\\"<Control><Shift><Alt>Down\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"maximize":{"bind":"[\\"<Super>Up\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"move-to-monitor-right":{"bind":"[\\"<Super><Shift>Right\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"switch-applications-backward":{"bind":"[\\"<Shift><Super>Tab\\",\\"<Shift><Alt>Tab\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"move-to-monitor-up":{"bind":"[\\"<Super><Shift>Up\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"shift-overview-up":{"bind":"[\\"<Super><Alt>Up\\"]","schema_id":"org.gnome.shell.keybindings"},"shift-overview-down":{"bind":"[\\"<Super><Alt>Down\\"]","schema_id":"org.gnome.shell.keybindings"},"focus-active-notification":{"bind":"[\\"<Super>n\\"]","schema_id":"org.gnome.shell.keybindings"},"toggle-message-tray":{"bind":"[\\"<Super>v\\",\\"<Super>m\\"]","schema_id":"org.gnome.shell.keybindings"},"rotate-video-lock-static":{"bind":"[\\"<Super>o\\",\\"XF86RotationLockToggle\\"]","schema_id":"org.gnome.settings-daemon.plugins.media-keys"}}'
+restore-keybinds='{"cancel-input-capture":{"bind":"[\\"<Super><Shift>Escape\\"]","schema_id":"org.gnome.mutter.keybindings"},"restore-shortcuts":{"bind":"[\\"<Super>Escape\\"]","schema_id":"org.gnome.mutter.wayland.keybindings"},"switch-to-workspace-last":{"bind":"[\\"<Super>End\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"switch-panels":{"bind":"[\\"<Control><Alt>Tab\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"switch-group-backward":{"bind":"[\\"<Shift><Super>Above_Tab\\",\\"<Shift><Alt>Above_Tab\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"unmaximize":{"bind":"[\\"<Super>Down\\",\\"<Alt>F5\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"switch-to-workspace-1":{"bind":"[\\"<Super>Home\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"move-to-monitor-left":{"bind":"[\\"<Super><Shift>Left\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"move-to-monitor-down":{"bind":"[\\"<Super><Shift>Down\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"switch-group":{"bind":"[\\"<Super>Above_Tab\\",\\"<Alt>Above_Tab\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"switch-panels-backward":{"bind":"[\\"<Shift><Control><Alt>Tab\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"minimize":{"bind":"[\\"<Super>h\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"maximize":{"bind":"[\\"<Super>Up\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"move-to-monitor-right":{"bind":"[\\"<Super><Shift>Right\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"switch-applications-backward":{"bind":"[\\"<Shift><Super>Tab\\",\\"<Shift><Alt>Tab\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"move-to-monitor-up":{"bind":"[\\"<Super><Shift>Up\\"]","schema_id":"org.gnome.desktop.wm.keybindings"},"shift-overview-up":{"bind":"[\\"<Super><Alt>Up\\"]","schema_id":"org.gnome.shell.keybindings"},"shift-overview-down":{"bind":"[\\"<Super><Alt>Down\\"]","schema_id":"org.gnome.shell.keybindings"},"focus-active-notification":{"bind":"[\\"<Super>n\\"]","schema_id":"org.gnome.shell.keybindings"},"toggle-message-tray":{"bind":"[\\"<Super>v\\",\\"<Super>m\\"]","schema_id":"org.gnome.shell.keybindings"},"rotate-video-lock-static":{"bind":"[\\"<Super>o\\",\\"XF86RotationLockToggle\\"]","schema_id":"org.gnome.settings-daemon.plugins.media-keys"}}'
 restore-workspaces-only-on-primary='true'
 selection-border-radius-bottom=0
 selection-border-radius-top=0
@@ -1080,7 +1095,7 @@ vertical-margin=0
 vertical-margin-bottom=0
 window-gap=0
 window-switcher-preview-scale=0.16
-winprops=['{"wm_class":"emote","scratch_layer":true}', '{"wm_class":"firefox","title":"Picture-in-Picture","scratch_layer":true}', '{"wm_class":"one.alynx.showmethekey","scratch_layer":true}', '{"wm_class":"showmethekey-gtk","scratch_layer":true}']
+winprops=['{"wm_class":"com.hyprwhspr.mic-osd","scratch_layer":true,"focus":false}', '{"wm_class":"emote","scratch_layer":true}', '{"wm_class":"firefox","title":"Picture-in-Picture","scratch_layer":true}', '{"wm_class":"one.alynx.showmethekey","scratch_layer":true}', '{"wm_class":"showmethekey-gtk","scratch_layer":true}']
 
 [org/gnome/shell/extensions/paperwm/keybindings]
 close-window=['<Super>q']
@@ -1160,7 +1175,7 @@ hpadding=0
 
 [org/gnome/shell/extensions/switcher]
 activate-by-key=uint32 2
-launcher-stats='{"slack.desktop":10,"google-chrome.desktop":6,"firefox.desktop":2,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":6,"obsidian.desktop":9,"com.github.joseexposito.touche.desktop":3,"org.ksnip.ksnip.desktop":3,"qv4l2.desktop":1,"com.mitchellh.ghostty.desktop":34,"vlc.desktop":21,"gnome-datetime-panel.desktop":3,"org.gnome.clocks.desktop":12,"org.gnome.Nautilus.desktop":1,"org.gnome.Software.desktop":3,"org.gnome.Totem.desktop":2,"org.telegram.desktop.desktop":1,"calibre-gui.desktop":16,"org.gnome.Extensions.desktop":1,"org.gnome.Cheese.desktop":1,"dsnote.desktop":2,"org.gnome.tweaks.desktop":1}'
+launcher-stats='{"slack.desktop":10,"google-chrome.desktop":7,"firefox.desktop":2,"nwg-readme-browser.desktop":1,"Alacritty.desktop":4,"org.gnome.Terminal.desktop":6,"obsidian.desktop":9,"com.github.joseexposito.touche.desktop":3,"org.ksnip.ksnip.desktop":3,"qv4l2.desktop":1,"com.mitchellh.ghostty.desktop":34,"vlc.desktop":21,"gnome-datetime-panel.desktop":3,"org.gnome.clocks.desktop":12,"org.gnome.Nautilus.desktop":1,"org.gnome.Software.desktop":3,"org.gnome.Totem.desktop":2,"org.telegram.desktop.desktop":1,"calibre-gui.desktop":16,"org.gnome.Extensions.desktop":1,"org.gnome.Cheese.desktop":1,"dsnote.desktop":2,"org.gnome.tweaks.desktop":1}'
 
 [org/gnome/shell/extensions/system-monitor]
 cpu-graph-width=50
@@ -1186,6 +1201,22 @@ icon-size=16
 icons-limit=6
 position-weight=-1
 tray-position='left'
+
+[org/gnome/shell/extensions/vertical-workspaces]
+app-grid-content=2
+app-grid-order=0
+dash-bg-color=1
+dash-position=0
+hot-corner-position=0
+notification-position=2
+overview-mode=0
+overview-select-window=0
+overview-sort-windows=0
+panel-overview-style=1
+show-app-icon-position=0
+win-preview-sec-mouse-btn-action=3
+win-title-position=0
+ws-thumbnails-position=0
 
 [org/gnome/shell/extensions/window-list]
 grouping-mode='auto'
@@ -1214,9 +1245,9 @@ save-format='application/pdf'
 selected-device='hpaio:/net/envy_6000_series?ip=192.168.0.215&queue=false'
 
 [org/gnome/software]
-check-timestamp=int64 1768472748
+check-timestamp=int64 1768737544
 first-run=false
-flatpak-purge-timestamp=int64 1768464706
+flatpak-purge-timestamp=int64 1768743447
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false

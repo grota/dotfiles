@@ -18,7 +18,7 @@ vim.opt.conceallevel = 0
 vim.g.autoformat = false
 vim.g.snacks_animate = false
 vim.o.wrap = true
-vim.g.lazyvim_python_lsp = 'basedpyright'
+-- vim.g.lazyvim_python_lsp = 'basedpyright'
 
 -- LazyVim at the time of this writing https://github.com/LazyVim/LazyVim/blob/c64a61734fc9d45470a72603395c02137802bc6f/lua/lazyvim/config/options.lua#L57
 -- does not set vim.o.clipboard when in SSH (at the end of the day I think it's mainly for performance reasons)

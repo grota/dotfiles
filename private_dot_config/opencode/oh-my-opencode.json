@@ -3,16 +3,16 @@
   "google_auth": false,
   "agents": {
     "Sisyphus": {
-      "model": "opencode/glm-4.7-free"
+      "model": "github-copilot/claude-opus-4.5"
     },
     "librarian": {
       "model": "opencode/glm-4.7-free"
     },
     "explore": {
-      "model": "google/antigravity-gemini-3-flash"
+      "model": "github-copilot/claude-haiku-4.5"
     },
     "oracle": {
-      "model": "opencode/glm-4.7-free"
+      "model": "github-copilot/gpt-5.2"
     },
     "frontend-ui-ux-engineer": {
       "model": "google/antigravity-gemini-3-pro-high"

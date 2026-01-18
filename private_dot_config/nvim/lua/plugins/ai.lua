@@ -19,6 +19,7 @@ return {
           vim.lsp.inline_completion.enable(state)
         end,
       }):map("<leader>uH")
+
       vim.defer_fn(function()
         vim.schedule(function ()
           vim.lsp.inline_completion.enable(false)

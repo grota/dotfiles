@@ -11,3 +11,6 @@ $HOME/.local/grota/scripts/dsnote-wrapper.sh switch_next_stt
 
 # toggle listen, paste in current window
 $HOME/.local/grota/scripts/dsnote-wrapper.sh toggle_listening
+
+# choose model
+$HOME/.local/grota/scripts/dsnote-wrapper.sh choose_model
