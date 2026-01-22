@@ -86,7 +86,6 @@
 [tag]
 	sort = version:refname
 [fetch]
-	pruneTags = true
 	all = true
 	prune = true
 [help]

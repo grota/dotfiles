@@ -26,3 +26,12 @@ local/bin/tmux-file-picker:
   type: file
   url: https://raw.githubusercontent.com/raine/tmux-file-picker/refs/heads/main/tmux-file-picker
   executable: true
+
+local/bin/spark-http-proxy:
+  type: file
+  url: https://raw.githubusercontent.com/sparkfabrik/http-proxy/refs/heads/main/bin/spark-http-proxy
+  executable: true
+
+.local/spark/http-proxy/compose.yml:
+  type: file
+  url: https://raw.githubusercontent.com/sparkfabrik/http-proxy/refs/heads/main/bin/compose.yml
