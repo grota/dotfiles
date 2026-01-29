@@ -45,6 +45,7 @@ alias ss='sudo su -'
 alias cat=bat
 alias c="bat -p"
 alias v=nvim
+alias oc=opencode
 function rga() {
   rg --with-filename --line-number --column --smart-case --hidden -g='!.git/**' --no-ignore --no-ignore-parent --pretty "${@}" | LESS='' less --RAW-CONTROL-CHARS --ignore-case --quit-if-one-screen
 }

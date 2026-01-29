@@ -3,7 +3,7 @@
 
 export PNPM_HOME="/home/grota/.local/share/pnpm"
 if [ -z "$TMUX" ]; then
-  export PATH="$HOME/local/bin:$HOME/.npm-global/bin:$PNPM_HOME:$HOME/.config/composer/vendor/bin:$(go env GOPATH)/bin:$HOME/.local/bin/:$HOME/.cargo/bin/:$PATH"
+  export PATH="$HOME/local/bin:$HOME/.npm-global/bin:$HOME/.bun/bin:$PNPM_HOME:$HOME/.config/composer/vendor/bin:$(go env GOPATH)/bin:$HOME/.local/bin/:$HOME/.cargo/bin/:$PATH"
 fi
 
 export MANPATH=:~/local/share/man
