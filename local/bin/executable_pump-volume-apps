@@ -4,11 +4,15 @@
 
 set -euo pipefail
 
-DEFAULT_VOLUME=170
+DEFAULT_VOLUME=100
 MAX_ALLOWED=300
 
 # Blacklist: application names to skip (regex patterns for jq's test())
 BLACKLIST_PATTERN="speech-dispatcher"
+
+# Source shared volume utilities
+# shellcheck source=dot_local/grota/scripts/volume-utils.sh
+source "${DOTFILESREPO}/dot_local/grota/scripts/volume-utils.sh"
 
 # ============================================================================
 # Help
@@ -56,63 +60,97 @@ EOF
 # Utility functions
 # ============================================================================
 
-# Get all playing sink-inputs as JSON (filtered by blacklist)
-get_playing_sinks() {
-    pactl --format=json list sink-inputs 2>/dev/null | jq -c --arg blacklist "$BLACKLIST_PATTERN" '
+# Extract a specific property for a sink index from text output
+# Usage: get_sink_property_from_text <index> <property_name>
+# Example: get_sink_property_from_text 1234 "media.name"
+get_sink_property_from_text() {
+    local target_idx="$1"
+    local prop_name="$2"
+    pactl list sink-inputs 2>/dev/null | awk -v target="$target_idx" -v prop="$prop_name" '
+    /^Sink Input #/ {
+        gsub(/[^0-9]/, "", $0)
+        current_idx = $0 + 0
+        next
+    }
+    current_idx == target && $0 ~ "^\\t\\t" prop " = " {
+        sub(/.*= "/, "", $0)
+        sub(/"$/, "", $0)
+        print $0
+        exit
+    }
+    '
+}
+
+# Get all sink-inputs as normalized JSON (one object per line)
+# Uses JSON output, patching any "(null)" fields from text output
+get_all_sinks_json() {
+    local json_output
+    json_output=$(pactl --format=json list sink-inputs 2>/dev/null)
+
+    # Parse JSON, normalize to {index, app, media, volume} objects
+    echo "$json_output" | jq -c '
         .[]
         | select(.corked == false)
-        | select(.properties."application.name" | test($blacklist) | not)
         | {
             index: .index,
             app: .properties."application.name",
-            media: .properties."media.name"
+            media: .properties."media.name",
+            vol_left: .volume."front-left".value_percent,
+            vol_right: .volume."front-right".value_percent
           }
+    ' 2>/dev/null | while IFS= read -r line; do
+        local idx app media vol_left vol_right
+
+        idx=$(echo "$line" | jq -r '.index')
+        app=$(echo "$line" | jq -r '.app')
+        media=$(echo "$line" | jq -r '.media')
+        vol_left=$(echo "$line" | jq -r '.vol_left // ""')
+        vol_right=$(echo "$line" | jq -r '.vol_right // ""')
+
+        # Patch null fields from text output
+        if [[ "$app" == "(null)" ]]; then
+            app=$(get_sink_property_from_text "$idx" "application.name")
+        fi
+        if [[ "$media" == "(null)" ]]; then
+            media=$(get_sink_property_from_text "$idx" "media.name")
+        fi
+
+        jq -c -n --argjson idx "$idx" --arg app "$app" --arg media "$media" \
+            --arg vol_left "$vol_left" --arg vol_right "$vol_right" \
+            '{index: $idx, app: $app, media: $media, vol_left: $vol_left, vol_right: $vol_right}'
+    done
+}
+
+# Get all playing sink-inputs as JSON (filtered by blacklist)
+get_playing_sinks() {
+    get_all_sinks_json | jq -c --arg blacklist "$BLACKLIST_PATTERN" '
+        select(.app | test($blacklist) | not)
     ' 2>/dev/null
 }
 
-# Validate volume value
-validate_volume() {
-    local vol="$1"
-    # Strip '%' suffix if provided
-    vol="${vol%\%}"
-    
-    if ! [[ "$vol" =~ ^[0-9]+$ ]]; then
-        echo "Error: Volume must be a positive integer (got: '$vol')" >&2
-        exit 1
-    fi
-    
-    if (( vol > MAX_ALLOWED )); then
-        echo "Error: Volume cannot exceed ${MAX_ALLOWED}% (got: ${vol}%)" >&2
-        exit 1
-    fi
-    
-    if (( vol < 1 )); then
-        echo "Error: Volume must be at least 1% (got: ${vol}%)" >&2
-        exit 1
-    fi
-    
-    echo "$vol"
-}
-
 # Prompt user for volume with default
+# Uses DEFAULT_VOLUME from environment (defaults to 100)
 prompt_volume() {
+    local default="${DEFAULT_VOLUME:-100}"
     local input
-    read -rp "Volume % [${DEFAULT_VOLUME}]: " input
+    read -rp "Volume % [${default}]: " input
     if [[ -z "$input" ]]; then
-        echo "$DEFAULT_VOLUME"
+        echo "$default"
     else
         validate_volume "$input"
     fi
 }
 
-# Format sink for fzf display: "index | app | media"
+# Format sink for fzf display: "index<TAB>app, media (vol_left/vol_right)"
 format_sink_for_fzf() {
     local json="$1"
-    local index app media
+    local index app media vol_left vol_right
     index=$(echo "$json" | jq -r '.index')
     app=$(echo "$json" | jq -r '.app')
     media=$(echo "$json" | jq -r '.media // "(no media)"')
-    echo "${index}|${app}|${media}"
+    vol_left=$(echo "$json" | jq -r '.vol_left // "?"')
+    vol_right=$(echo "$json" | jq -r '.vol_right // "?"')
+    printf '%s\t%s, %s (%s/%s)\n' "$index" "$app" "$media" "$vol_left" "$vol_right"
 }
 
 # Select sinks using fzf (multi-select)
@@ -121,42 +159,51 @@ select_sinks_fzf() {
     local query="${1:-}"
     local sinks_json
     sinks_json=$(get_playing_sinks)
-    
+
     if [[ -z "$sinks_json" ]]; then
         echo "No audio streams currently playing." >&2
         exit 0
     fi
-    
+
     # Build fzf input: one line per sink
     local fzf_input=""
     while read -r line; do
         fzf_input+="$(format_sink_for_fzf "$line")"$'\n'
     done <<< "$sinks_json"
-    
+
     # Remove trailing newline
     fzf_input="${fzf_input%$'\n'}"
-    
+
     # Run fzf with multi-select
     local fzf_args=(
         --multi
         --header="Select sink(s) - TAB to multi-select, ENTER to confirm"
-        --delimiter='|'
-        --with-nth=2,3
+        --delimiter=$'\t'
+        --with-nth=2
         --preview-window=hidden
     )
-    
+
     if [[ -n "$query" ]]; then
         fzf_args+=(--query="$query")
     fi
-    
+
     local selected
     selected=$(echo "$fzf_input" | fzf "${fzf_args[@]}") || {
         echo "No sinks selected." >&2
         exit 0
     }
-    
+
     # Return selected indices (first field)
-    echo "$selected" | cut -d'|' -f1
+    echo "$selected" | cut -f1
+}
+
+# Get sink info for a specific index
+get_sink_info() {
+    local idx="$1"
+    get_all_sinks_json | jq -r --argjson idx "$idx" '
+        select(.index == $idx) |
+        "\(.app) | \(.media // "(no media)")"
+    ' 2>/dev/null
 }
 
 # Apply volume to given sink indices
@@ -164,24 +211,16 @@ apply_volume() {
     local volume="$1"
     shift
     local indices=("$@")
-    
-    echo "Setting volume to ${volume}%:"
-    echo
-    
+
+    echo "Applied ${volume}% volume to:"
     for index in "${indices[@]}"; do
         # Get sink info for display
         local info
-        info=$(pactl --format=json list sink-inputs 2>/dev/null | jq -r --argjson idx "$index" '
-            .[] | select(.index == $idx) |
-            "\(.properties."application.name") | \(.properties."media.name" // "(no media)")"
-        ' 2>/dev/null)
-        
+        info=$(get_sink_info "$index")
+
         echo "  Sink Input #$index: $info"
         pactl set-sink-input-volume "$index" "${volume}%"
     done
-    
-    echo
-    echo "Done!"
 }
 
 # Apply volume to all playing sinks (non-interactive)
@@ -189,27 +228,23 @@ apply_to_all() {
     local volume="$1"
     local sinks_json
     sinks_json=$(get_playing_sinks)
-    
+
     if [[ -z "$sinks_json" ]]; then
         echo "No audio streams currently playing."
         exit 0
     fi
-    
-    echo "Setting volume to ${volume}% for all playing streams:"
-    echo
-    
+
+    echo "Applied ${volume}% volume to all playing apps:"
+
     while read -r line; do
         local index app media
         index=$(echo "$line" | jq -r '.index')
         app=$(echo "$line" | jq -r '.app')
         media=$(echo "$line" | jq -r '.media // "(no media)"')
-        
+
         echo "  Sink Input #$index: $app | $media"
         pactl set-sink-input-volume "$index" "${volume}%"
     done <<< "$sinks_json"
-    
-    echo
-    echo "Done!"
 }
 
 # ============================================================================
@@ -220,7 +255,7 @@ main() {
     local interactive=true
     local volume=""
     local app_query=""
-    
+
     # Parse arguments
     while [[ $# -gt 0 ]]; do
         case "$1" in
@@ -247,7 +282,7 @@ main() {
                 ;;
         esac
     done
-    
+
     # Scenario 4: --no-interactive
     if [[ "$interactive" == false ]]; then
         if [[ -n "$volume" ]]; then
@@ -258,32 +293,32 @@ main() {
         apply_to_all "$volume"
         exit 0
     fi
-    
+
     # Interactive scenarios
-    
-    # Scenario 1: No params - ask for volume, then select sinks
+
+    # Scenario 1: No params - ask for sinks, then volume
+    # Select sinks with fzf (optionally with pre-filled query)
+    local selected_indices
+    selected_indices=$(select_sinks_fzf "$app_query")
+
     if [[ -z "$volume" ]]; then
         volume=$(prompt_volume)
     else
         # Scenario 2 & 3: Volume provided
         volume=$(validate_volume "$volume")
     fi
-    
-    # Select sinks with fzf (optionally with pre-filled query)
-    local selected_indices
-    selected_indices=$(select_sinks_fzf "$app_query")
-    
+
     # Convert newline-separated indices to array
     local indices_array=()
     while read -r idx; do
         [[ -n "$idx" ]] && indices_array+=("$idx")
     done <<< "$selected_indices"
-    
+
     if [[ ${#indices_array[@]} -eq 0 ]]; then
         echo "No sinks selected."
         exit 0
     fi
-    
+
     apply_volume "$volume" "${indices_array[@]}"
 }
 

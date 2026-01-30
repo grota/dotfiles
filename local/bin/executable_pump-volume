@@ -1,0 +1,103 @@
+#!/bin/bash
+# Set volume for currently running audio sink
+# Requires: jq, pactl
+
+set -euo pipefail
+
+DEFAULT_VOLUME=100
+MAX_ALLOWED=300
+
+# Source shared volume utilities
+# shellcheck source=dot_local/grota/scripts/volume-utils.sh
+source "${DOTFILESREPO}/dot_local/grota/scripts/volume-utils.sh"
+
+# ============================================================================
+# Help
+# ============================================================================
+show_help() {
+    cat <<'EOF'
+pump-volume - Set volume for running audio sink
+
+USAGE:
+    pump-volume [OPTIONS] [VOLUME]
+
+ARGUMENTS:
+    VOLUME    Volume percentage to set (1-300). Default: 100%
+
+OPTIONS:
+    -h, --help    Show this help message
+
+EXAMPLES:
+    pump-volume           # Set volume to 100%
+    pump-volume 40        # Set volume to 40%
+    pump-volume 150%      # Set volume to 150%
+
+NOTES:
+    - It's an error having more than one sink in RUNNING state.
+EOF
+}
+
+# ============================================================================
+# Main
+# ============================================================================
+
+main() {
+    local volume=""
+
+    # Parse arguments
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -h|--help)
+                show_help
+                exit 0
+                ;;
+            *)
+                if [[ -z "$volume" ]]; then
+                    volume="$1"
+                else
+                    echo "Error: Too many arguments" >&2
+                    show_help
+                    exit 1
+                fi
+                shift
+                ;;
+        esac
+    done
+
+    # Set default volume if not provided
+    if [[ -z "$volume" ]]; then
+        volume="$DEFAULT_VOLUME"
+    fi
+
+    # Validate volume
+    volume=$(validate_volume "$volume")
+
+    # Get running sinks
+    local sinks_json running_ids
+    sinks_json=$(pactl --format=json list sinks)
+
+    running_ids=$(echo "$sinks_json" | jq -r '.[] | select(.state == "RUNNING") | .index')
+
+    if [[ -z "$running_ids" ]]; then
+        echo "Error: No sinks in RUNNING state" >&2
+        exit 1
+    fi
+
+    # Count running sinks
+    local count
+    count=$(echo "$running_ids" | wc -l)
+
+    if (( count > 1 )); then
+        echo "Error: Multiple sinks are running ($count sinks). Cannot determine which one to use." >&2
+        echo "Running sink IDs:" >&2
+        echo "$running_ids" | sed 's/^/  /' >&2
+        exit 1
+    fi
+
+    # Set volume for the single running sink
+    local sink_id="$running_ids"
+    echo "Setting sink $sink_id volume to ${volume}%"
+    pactl set-sink-volume "$sink_id" "${volume}%"
+}
+
+main "$@"
