@@ -163,20 +163,20 @@ return {
         },
         -- START oldfiles section so,sO
         {
-          "<leader>fo",
+          "<leader>fr",
           function()
             telescope_builtins["oldfiles"]({
-              prompt_title = "Oldfiles local",
+              prompt_title = "Recent files (local)",
               cwd_only = true,
             })
           end,
           desc = "Recent local",
         },
         {
-          "<leader>fO",
+          "<leader>fo",
           function()
             telescope_builtins["oldfiles"]({
-              prompt_title = "Oldfiles global",
+              prompt_title = "Recent files (global)",
             })
           end,
           desc = "Recent global",

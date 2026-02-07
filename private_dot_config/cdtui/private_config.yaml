@@ -1,0 +1,42 @@
+url: http://changedetection.home.lab/
+api_key: $CDTUIKEY
+compact_mode: true
+keybindings:
+  main_screen:
+    open_jump_mode:
+      description: KeyBinding to invoke jump-mode.
+      value: ctrl+a
+    quit:
+      description: KeyBinding to quit the application.
+      value: ctrl+c
+    open_settings:
+      description: KeyBinding to open the application settings.
+      value: ctrl+o
+    focus_next:
+      description: KeyBinding to move focus to the next item.
+      value: tab
+    focus_previous:
+      description: KeyBinding to move focus to the previous item.
+      value: shift+tab
+    open_palette:
+      description: KeyBinding to invoke the palette.
+      value: ctrl+p
+    main_list_go_left:
+      description: KeyBinding to go left in main list.
+      value: h
+    main_list_go_down:
+      description: KeyBinding to go down in main list.
+      value: j
+    main_list_go_up:
+      description: KeyBinding to go up in main list.
+      value: k
+    main_list_go_right:
+      description: KeyBinding to go right in main list.
+      value: l
+  jump_mode:
+    dismiss_jump_mode_1:
+      description: KeyBinding to dismiss the jump overlay.
+      value: escape
+    dismiss_jump_mode_2:
+      description: KeyBinding to dismiss the jump overlay.
+      value: ctrl+c
