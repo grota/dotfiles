@@ -1,1 +1,1 @@
-gpt-5
+openai/gpt-5

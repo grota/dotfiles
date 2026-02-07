@@ -8,6 +8,8 @@
 # a custom path, or "disabled" to turn off. The daemon writes state
 # ("idle", "recording", "transcribing") to this file whenever it changes.
 # Required for `voxtype record toggle` and `voxtype status` commands.
+engine = "parakeet"
+
 state_file = "auto"
 
 [hotkey]
@@ -15,20 +17,26 @@ state_file = "auto"
 # Common choices: SCROLLLOCK, PAUSE, RIGHTALT, F13-F24
 # Use `evtest` to find key names for your keyboard
 key = "INSERT"
+cancel_key = "ESC"
 
 # Optional modifier keys that must also be held
 # Example: modifiers = ["LEFTCTRL", "LEFTALT"]
-modifiers = ["RIGHTCTRL"]
+# modifiers = ["RIGHTCTRL"]
 
 # Activation mode: "push_to_talk" or "toggle"
 # - push_to_talk: Hold hotkey to record, release to transcribe (default)
 # - toggle: Press hotkey once to start recording, press again to stop
-mode = "push_to_talk"
+mode = "toggle"
 
 # Enable built-in hotkey detection (default: true)
 # Set to false when using compositor keybindings (Hyprland, Sway) instead
 # When disabled, use `voxtype record start/stop/toggle` to control recording
 # enabled = true
+
+# Modifier key to select secondary model (evdev input mode only)
+# When held while pressing the hotkey, uses whisper.secondary_model instead
+# Example: model_modifier = "LEFTSHIFT"  # Shift+hotkey uses secondary model
+# model_modifier = "LEFTSHIFT"
 
 [audio]
 # Audio input device ("default" uses system default)
@@ -46,7 +54,7 @@ max_duration_secs = 120
 enabled = true
 #
 # Sound theme: "default", "subtle", "mechanical", or path to custom theme directory
-# theme = "default"
+theme = "mechanical"
 #
 # Volume level (0.0 to 1.0)
 # volume = 0.7
@@ -62,18 +70,44 @@ enabled = true
 # .en models are English-only but faster and more accurate for English
 # large-v3-turbo is faster than large-v3 with minimal accuracy loss (recommended for GPU)
 # Or provide absolute path to a custom .bin model file
-model = "medium"
+model = "base.en"
 
 # Language for transcription
-# Use "en" for English, "auto" for auto-detection
+# Options:
+#   - Single language: "en", "fr", "de", etc.
+#   - Auto-detect all: "auto"
+#   - Constrained auto-detect: ["en", "fr"] (detects from allowed set only)
+# The array form helps with multilingual users where Whisper might misdetect
+# the language, especially for short sentences.
 # See: https://github.com/openai/whisper#available-models-and-languages
-language = "auto"
+language = ["en", "it", "es"]
 
 # Translate non-English speech to English
 translate = false
 
 # Number of CPU threads for inference (omit for auto-detection)
 # threads = 4
+
+# Initial prompt to provide context for transcription
+# Use this to hint at terminology, proper nouns, or formatting conventions.
+# Example: "Technical discussion about Rust, TypeScript, and Kubernetes."
+# initial_prompt = ""
+
+# --- Multi-model settings ---
+#
+# Secondary model for difficult audio (used with hotkey.model_modifier or CLI --model)
+# secondary_model = "large-v3-turbo"
+#
+# List of available models that can be requested via CLI --model flag
+# available_models = ["large-v3-turbo", "medium.en"]
+#
+# Maximum models to keep loaded in memory (LRU eviction when exceeded)
+# Default: 2 (primary + one secondary). Only applies when gpu_isolation = false.
+# max_loaded_models = 2
+#
+# Seconds before unloading idle secondary models (0 = never auto-unload)
+# Default: 300 (5 minutes). Only applies when gpu_isolation = false.
+# cold_model_timeout_secs = 300
 
 # --- Remote backend settings (used when backend = "remote") ---
 #
@@ -96,14 +130,25 @@ translate = false
 # Primary output mode: "type" or "clipboard"
 # - type: Simulates keyboard input at cursor position (requires ydotool)
 # - clipboard: Copies text to clipboard (requires wl-copy)
-mode = "type"
+mode = "paste"
 
-# GROTA: wtype: gnome is not compatible. dotool: somehow does not work, maybe a conflict with input-remapper. ydotool: does not support chars like é.
-# paste_keys = "shift+ctrl+v"
-# dotool_xkb_layout = "it"
+# GROTA: eitype for some reason cannot say quantità (direction of accent)
+# wtype: gnome is not compatible. dotool: somehow does not work, maybe a conflict with input-remapper. ydotool: does not support chars like é.
+driver_order = [ "clipboard"]
+paste_keys = "shift+ctrl+v"
 
 # Fall back to clipboard if typing fails
-# fallback_to_clipboard = true
+fallback_to_clipboard = true
+
+# Custom driver order for type mode (optional)
+# Default order: wtype -> dotool -> ydotool -> clipboard
+# Customize to prefer a specific driver or change the fallback order.
+# Available drivers: wtype, dotool, ydotool, clipboard
+# Example: prefer ydotool over dotool:
+#   driver_order = ["wtype", "ydotool", "dotool", "clipboard"]
+# Example: use only ydotool, no fallback:
+#   driver_order = ["ydotool"]
+# driver_order = ["wtype", "dotool", "ydotool", "clipboard"]
 
 # Delay between typed characters in milliseconds
 # 0 = fastest possible, increase if characters are dropped
@@ -113,6 +158,10 @@ type_delay_ms = 0
 # Useful for chat applications, command lines, or forms where you want
 # to auto-submit after dictation
 # auto_submit = true
+
+# Convert newlines to Shift+Enter instead of regular Enter
+# Useful for applications where Enter submits (e.g., Cursor IDE, Slack, Discord)
+# shift_enter_newlines = false
 
 # Pre/post output hooks (optional)
 # Commands to run before and after typing output. Useful for compositor integration.
@@ -139,16 +188,20 @@ on_recording_start = false
 on_recording_stop = false
 
 # Show notification with transcribed text after transcription completes
-on_transcription = true
+on_transcription = false
 
 [text]
 # Text processing options (word replacements, spoken punctuation)
 #
 # Enable spoken punctuation conversion (e.g., say "period" to get ".")
 spoken_punctuation = true
-#
-# Custom word replacements (case-insensitive)
-# replacements = { "vox type" = "voxtype", "oh marky" = "Omarchy" }
+
+[text.replacements]
+"vox type" = "voxtype"
+"Package base" = '`pkg_base`'
+"Package drupal" = '`pkg_drupal`'
+"Package Composer plugin" = '`pkg_composer_plugin`'
+"Tmax" = 'tmux'
 
 # [status]
 # Status display icons for Waybar/tray integrations
@@ -174,3 +227,18 @@ spoken_punctuation = true
 # recording = "🎤"
 # transcribing = "⏳"
 # stopped = ""
+
+# [profiles]
+# Named profiles for context-specific post-processing
+# Use with: voxtype record start --profile slack
+#
+# [profiles.slack]
+# post_process_command = "ollama run llama3.2:1b 'Format for Slack...'"
+#
+# [profiles.code]
+# post_process_command = "ollama run llama3.2:1b 'Format as code comment...'"
+# output_mode = "clipboard"
+
+[parakeet]
+model = "parakeet-tdt-0.6b-v3"
+on_demand_loading = false
