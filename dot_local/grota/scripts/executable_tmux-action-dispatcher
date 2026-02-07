@@ -3,7 +3,8 @@
 FIRST="${1:-}"
 SECOND="${2:-}"
 if [ -z "$FIRST" ]; then
-  FIRST="$(echo -e 'keybindings\nfile\npaste_navi\nsession save\nsession restore\ntmux-fzf\ndsnote'| fzf --tmux)"
+  FIRST="$(echo -e 'session restore\nsession save\nkeybindings\nfile\npaste_navi\nmux-fzf'| fzf --tmux)"
+  # FIRST="$(echo -e 'session restore\nsession save\nkeybindings\nfile\npaste_navi\nmux-fzf\ndsnote'| fzf --tmux)"
 fi
 if [ "$FIRST" == "keybindings" ]; then
   # Second arg is tmux table in this context.
@@ -21,16 +22,13 @@ elif [ "$FIRST" = "session restore" ]; then
 elif [ "$FIRST" = "session save" ]; then
   tmux display-popup -EE "navi --best-match --query 'tmux session save'"
 elif [ "$FIRST" = "tmux-fzf" ]; then
-  /home/grota/.tmux/plugins/tmux-fzf/main.sh
+  /home/grota/.local/share/tmux/plugins/tmux-fzf/main.sh
 elif [ "$FIRST" = 'file' ]; then
   tmux display-popup -w 90% -h 90% -EE "tmux-file-picker"
-elif [ "$FIRST" = 'dsnote' ]; then
-  if [ -z "$SECOND" ]; then
-    tmux display-popup -EE "navi --query 'dsnote '"
-  else
-    "$HOME/.local/grota/scripts/dsnote-wrapper.sh" "$SECOND"
-  fi
-else
-  echo "Invalid First arg: $FIRST."
-  exit 1
+# elif [ "$FIRST" = 'dsnote' ]; then
+#   if [ -z "$SECOND" ]; then
+#     tmux display-popup -EE "navi --query 'dsnote '"
+#   else
+#     "$HOME/.local/grota/scripts/dsnote-wrapper.sh" "$SECOND"
+#   fi
 fi

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-source "$HOME/.tmux/plugins/tmux-named-snapshot/scripts/helpers.sh"
-source "$HOME/.tmux/plugins/tmux-named-snapshot/scripts/variables.sh"
+source "$HOME/.local/share/tmux/plugins/tmux-named-snapshot/scripts/helpers.sh"
+source "$HOME/.local/share/tmux/plugins/tmux-named-snapshot/scripts/variables.sh"
 
 main() {
   local name="$1"

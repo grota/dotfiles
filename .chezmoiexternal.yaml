@@ -1,6 +1,6 @@
 # forgit,zoxide,starship installed via AUR
 
-.tmux/plugins/tpm:
+.local/share/tmux/plugins/tpm:
   type: archive
   url: https://github.com/tmux-plugins/tpm/archive/master.tar.gz
   stripComponents: 1
