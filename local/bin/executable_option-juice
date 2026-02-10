@@ -1,0 +1,74 @@
+#!/usr/bin/env -S uv run --script
+# /// script
+# dependencies = [
+#   "rich",
+# ]
+# ///
+
+from rich.align import Align
+from rich.console import Console, Group
+from rich.panel import Panel
+from rich.text import Text
+
+
+def main():
+    console = Console()
+
+    console.print("[bold blue]Options Juice Calculator[/bold blue]")
+    console.print()
+
+    # Get user inputs
+    market_price = float(input("Option Price: $"))
+    underlying = float(input("Underlying price: $"))
+    strike = float(input("Strike price: $"))
+
+    # Calculate intrinsic value
+    intrinsic = max(0, underlying - strike)
+
+    # Calculate extrinsic value (time value)
+    extrinsic = market_price - intrinsic
+
+    # Calculate juice (extrinsic value as percentage of market price)
+    if market_price > 0:
+        juice = (extrinsic / market_price) * 100
+    else:
+        juice = 0
+
+    # Display formulas
+    console.print()
+    console.print("[dim]Formulas:[/dim]")
+    console.print("  Intrinsic = max(0, Underlying - Strike)")
+    console.print("  Extrinsic = Market Price - Intrinsic")
+    console.print("  Juice% = (Extrinsic / Market Price) * 100")
+    console.print()
+
+    # Color code based on juice percentage
+    if juice < 15:
+        color = "red"
+    else:
+        color = "green"
+
+    intrinsic_text = Text(f"Intrinsic Value: ${intrinsic:.2f}")
+    extrinsic_text = Text(f"Extrinsic Value: ${extrinsic:.2f}")
+    juice_text = Text(f"Juice: {juice:.2f}%", style=f"bold {color}")
+
+    # Group content with centered juice line
+    panel_content = Group(
+        intrinsic_text,
+        extrinsic_text,
+        "",
+        Align.center(juice_text),
+    )
+
+    juice_panel = Panel(
+        panel_content,
+        title="Result",
+        border_style=color,
+        padding=(0, 1),
+        expand=False,
+    )
+    console.print(juice_panel)
+
+
+if __name__ == "__main__":
+    main()

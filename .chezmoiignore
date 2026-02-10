@@ -399,7 +399,6 @@ chezmoi_ignored
 /.local/spark/http-proxy/certs
 /.mcpjam
 /.mitmproxy
-/.moltbot
 /.mux
 /.mypy_cache
 /.nemo
@@ -420,5 +419,4 @@ chezmoi_ignored
 /.workmux
 /.zencoder
 /.zoom
-/local/bin/amp
 /local/bin/plannotator

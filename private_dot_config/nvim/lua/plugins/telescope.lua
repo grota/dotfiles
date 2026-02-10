@@ -216,10 +216,10 @@ return {
         {
           "<leader>tpp",
           function()
-            telescope_builtins["commands"]({ default_text = "Phpactor" })
+            telescope_builtins["builtin"]()
           end,
           mode = { "n", "x" },
-          desc = "Telescope Phpactor*",
+          desc = "Telescope builtins*",
         },
         -- START various section.
         {
@@ -242,9 +242,9 @@ return {
         { "<leader>tr", "<cmd>Telescope resume<cr>", desc = "Telescope Resume" },
         { "<leader>gS", "<cmd>Telescope git_status<CR>", desc = "Telescope git status" },
         { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Telescope search buffer" },
-        { "<leader>sC", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-        { "<leader>sK", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
-        { "<leader>sw", "<cmd>Telescope windows<cr>", desc = "Window list" },
+        { "<leader>tC", "<cmd>Telescope command_history<cr>", desc = "Command History" },
+        { "<leader>tK", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
+        { "<leader>tw", "<cmd>Telescope windows<cr>", desc = "Window list" },
       }
     end,
     dependencies = {
