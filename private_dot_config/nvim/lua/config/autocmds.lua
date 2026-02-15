@@ -46,6 +46,13 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("grota_markdown", { clear = true }),
+  pattern = { "markdown" },
+  callback = function()
+  end,
+})
+
 vim.api.nvim_create_autocmd("User", {
   pattern = { "FugitiveIndex" },
   group = "lazyvim_close_with_q",

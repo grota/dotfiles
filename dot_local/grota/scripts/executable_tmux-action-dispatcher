@@ -3,8 +3,8 @@
 FIRST="${1:-}"
 SECOND="${2:-}"
 if [ -z "$FIRST" ]; then
-  FIRST="$(echo -e 'session restore\nsession save\nkeybindings\nfile\npaste_navi\nmux-fzf'| fzf --tmux)"
-  # FIRST="$(echo -e 'session restore\nsession save\nkeybindings\nfile\npaste_navi\nmux-fzf\ndsnote'| fzf --tmux)"
+  FIRST="$(echo -e 'session restore\nsession save\nkeybindings\nfile\npaste_navi\ntmux-fzf'| fzf --tmux)"
+  # FIRST="$(echo -e 'session restore\nsession save\nkeybindings\nfile\npaste_navi\ntmux-fzf\ndsnote'| fzf --tmux)"
 fi
 if [ "$FIRST" == "keybindings" ]; then
   # Second arg is tmux table in this context.

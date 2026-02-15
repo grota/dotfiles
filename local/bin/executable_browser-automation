@@ -1,0 +1,255 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Usage message
+usage() {
+    local script_name
+    script_name=$(basename "$0")
+    cat << EOF
+Usage: $script_name [OPTIONS] [COMMAND]
+
+Commands:
+  run               Run the automation (default if no command specified).
+  la                List available automations.
+  quit              Quit the session.
+  ls                List active sessions.
+
+Options:
+  -a, --automation  (defaults to $DEFAULT_AUTOMATION) Choose automation to run.
+  -h, --help        Display this help message.
+  -H, --headed      (defaults to false) Run automation's session in headed mode.
+                    You need to close the current headless session first.
+  -v, --verbose     (defaults to false) Enable verbose output.
+
+Description:
+  Extracts GitHub Copilot usage information from the GitHub web interface.
+  Requires agent-browser and jq to be installed.
+
+Examples:
+  ./$script_name                  # Run with defaults
+  ./$script_name -a <automation>  # Run <automation>
+  ./$script_name -v               # Run with verbose output
+  ./$script_name --headed         # Run with visible browser for debugging
+  ./$script_name ls               # List sessions
+  ./$script_name quit             # Quit the session
+EOF
+}
+
+# Check dependencies
+check_dependencies() {
+    local missing=()
+
+    if ! command -v agent-browser &> /dev/null; then
+        missing+=("agent-browser")
+    fi
+
+    if ! command -v jq &> /dev/null; then
+        missing+=("jq")
+    fi
+
+    if [ ${#missing[@]} -ne 0 ]; then
+        echo "Error: Missing required dependencies: ${missing[*]}" >&2
+        echo "Please install them before running this script." >&2
+        exit 1
+    fi
+}
+
+# Global variables
+HEADED_FLAG=""
+VERBOSE=0
+DEFAULT_AUTOMATION=copilot-usage
+AUTOMATION=${DEFAULT_AUTOMATION}
+
+# Verbose logging function
+log_verbose() {
+    if [ "$VERBOSE" -eq 1 ]; then
+        echo "$@" >&2
+    fi
+}
+
+# Parse arguments
+REMAINING_ARGS=()
+parse_arguments() {
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            -v|--verbose)
+                VERBOSE=1
+                shift
+                ;;
+            -H|--headed)
+                HEADED_FLAG="--headed"
+                shift
+                ;;
+            -h|--help)
+                usage
+                exit 0
+                ;;
+            -a|--automation)
+                shift
+                if [[ $# -eq 0 ]]; then
+                    echo "Error: -a/--automation requires a value" >&2
+                    exit 1
+                fi
+                AUTOMATION="$1"
+                shift
+                ;;
+            --)
+                shift
+                REMAINING_ARGS+=("$@")
+                break
+                ;;
+            -*)
+                echo "Error: Unknown option: $1" >&2
+                usage
+                exit 1
+                ;;
+            *)
+                # Positional argument - save remaining and stop
+                REMAINING_ARGS+=("$@")
+                break
+                ;;
+        esac
+    done
+}
+
+# Check if JSON response indicates success
+check_success() {
+    local response="$1"
+    local context="$2"
+
+    if [ -z "$response" ]; then
+        echo "Error: Empty response from agent-browser during $context" >&2
+        return 1
+    fi
+
+    local success
+    success=$(echo "$response" | jq -r '.success')
+
+    if [ "$success" != "true" ]; then
+        local error_msg
+        error_msg=$(echo "$response" | jq -r '.error // "unknown error"')
+        echo "Error: agent-browser failed during $context: $error_msg" >&2
+        return 1
+    fi
+}
+
+automation_copilot_usage() {
+  # Step 1: Open GitHub page
+  log_verbose "Opening GitHub Copilot settings page..."
+  agent-browser $HEADED_FLAG open https://github.com/settings/copilot/features > /dev/null
+
+  # Step 2: Wait for page load
+  log_verbose "Waiting for page to load..."
+  agent-browser wait --load domcontentloaded > /dev/null
+
+  # Step 3: Check login status
+  log_verbose "Checking login status..."
+  local login_response
+  login_response=$(agent-browser is visible 'body.logged-in' --json)
+  check_success "$login_response" "checking login status"
+
+  local visible
+  visible=$(echo "$login_response" | jq -r '.data.visible')
+
+  if [ "$visible" != "true" ]; then
+    if [ -z "$HEADED_FLAG" ]; then
+      echo "Error: Not logged in to GitHub." >&2
+      echo "Please run with --headed flag, log in to GitHub, and check the browser output for details." >&2
+      exit 1
+    else
+      echo "Not logged in to GitHub. Please log in using the opened browser window." >&2
+      echo "After logging in, you can run this script again to extract the data." >&2
+      exit 0
+    fi
+  fi
+
+  # Step 4: Extract Copilot usage data
+  # SED:
+  # - remove empty lines
+  # - remove repeated spaces (in a line)
+  # AWK:
+  # - First line: prints with ":" suffix, no newline
+  # - Other lines: prints with leading space, no newline
+  # - Result: Single line output with no trailing newline
+  log_verbose "Extracting Copilot usage data..."
+  agent-browser get text '#copilot-overages-usage' | \
+    sed '/^[[:space:]]*$/d; s/^[[:space:]]*//;' | \
+    awk 'NR==1{printf "%s:", $0; next} {printf " %s", $0}'
+}
+
+# This is not actually useful, just an example / placeholder.
+automation_time() {
+  agent-browser $HEADED_FLAG open https://www.timeanddate.com/worldclock/usa/new-york
+  agent-browser wait --load domcontentloaded
+  agent-browser is visible '#ct'
+  agent-browser get text '#ct'
+}
+
+main() {
+  check_dependencies
+  parse_arguments "$@"
+
+  # Right now agent-browser version 0.10.0 with persistent profile dirs
+  # cannot work with the subcommands `window new` and `tab new <url>`.
+  # So we use the lightweight "session-name" feature.
+  # Which confusingly is just another light way to persist cookies and
+  # localStorage, an alternative to specifying a persistent profile dir.
+  # It's confusing because agent-browser also has a --session switch which is
+  # not related at all to the above, it is just used to isolate browser
+  # instances.
+  # We also use session to isolate automations.
+  export AGENT_BROWSER_SESSION_NAME="$AUTOMATION"
+  export AGENT_BROWSER_SESSION="$AUTOMATION"
+
+  # Default to 'run' if no command specified
+  local cmd="${REMAINING_ARGS[0]:-run}"
+
+  # Handle subcommands
+  case "$cmd" in
+    ls)
+      agent-browser session list
+      exit 0
+      ;;
+    la)
+      echo "Available automations:"
+      declare -F | grep 'declare -f automation_' | sed 's/declare -f automation_//' | sort
+      exit 0
+      ;;
+    quit)
+      echo "Quitting session $AGENT_BROWSER_SESSION."
+      agent-browser quit
+      sleep 0.1
+      agent-browser session list
+      exit 0
+      ;;
+    run)
+      # Allow: ./script run <automation-name> as shorthand for -a <automation-name>
+      if [ ${#REMAINING_ARGS[@]} -ge 2 ]; then
+        AUTOMATION="${REMAINING_ARGS[1]}"
+        export AGENT_BROWSER_SESSION_NAME="$AUTOMATION"
+        export AGENT_BROWSER_SESSION="$AUTOMATION"
+      fi
+      if [ "$AUTOMATION" == "copilot-usage" ]; then
+        automation_copilot_usage
+        exit 0
+      elif [ "$AUTOMATION" == "time" ]; then
+        automation_time
+        exit 0
+      else
+        echo "Error: automation $AUTOMATION not implemented" >&2
+        exit 1
+      fi
+      ;;
+    *)
+      echo "Error: Unknown command: $cmd" >&2
+      usage
+      exit 1
+      ;;
+  esac
+}
+
+# Only run main if script is executed (not sourced)
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main "$@"
+fi

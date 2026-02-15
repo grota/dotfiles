@@ -131,6 +131,7 @@ translate = false
 # - type: Simulates keyboard input at cursor position (requires ydotool)
 # - clipboard: Copies text to clipboard (requires wl-copy)
 mode = "paste"
+restore_clipboard = true
 
 # GROTA: eitype for some reason cannot say quantità (direction of accent)
 # wtype: gnome is not compatible. dotool: somehow does not work, maybe a conflict with input-remapper. ydotool: does not support chars like é.
