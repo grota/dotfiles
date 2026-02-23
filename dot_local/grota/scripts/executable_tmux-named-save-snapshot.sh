@@ -2,9 +2,11 @@
 
 source "$HOME/.local/share/tmux/plugins/tmux-named-snapshot/scripts/helpers.sh"
 source "$HOME/.local/share/tmux/plugins/tmux-named-snapshot/scripts/variables.sh"
+source "$DOTFILESREPO/dot_local/grota/scripts/tmux-named-snapshot-lib.sh"
 
 main() {
-  local name="$1"
+  local name
+  name=$(get_snapshot_name "$1")
   local resurrect_save_script_path _last_resurrect_symlink _before_save_pointed _snapshot_file_full_path _after_save_pointed
   resurrect_save_script_path="$(get_tmux_option "$resurrect_save_path_option" "")"
   if [ -n "$resurrect_save_script_path" ] && [ -n "$name" ]; then

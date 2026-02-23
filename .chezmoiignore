@@ -194,10 +194,12 @@ chezmoi_ignored
 /.local/share/nvim
 /.local/share/okular
 /.local/share/opencode/log
+/.local/share/opencode/opencode.db*
 /.local/share/opencode/project
 /.local/share/orca
 /.local/share/recently-used.xbel
 /.local/share/sounds
+/.local/share/textualize/frogmouth/history.json
 /.local/share/uv
 /.local/share/vlc
 /.local/share/vulkan

@@ -2,7 +2,7 @@
 
 # session restore
 if [ -z "$TMUX" ]; then echo "not in tmux"; exit 1 ; fi ;
-"$HOME/.local/grota/scripts/tmux-named-restore-snapshot.sh" <session>
+"$HOME/.local/grota/scripts/tmux-named-restore-snapshot.sh"
 
 # session save
 if [ -z "$TMUX" ]; then echo "not in tmux"; exit 1 ; fi ;

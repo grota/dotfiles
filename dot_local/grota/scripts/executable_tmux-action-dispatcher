@@ -18,9 +18,9 @@ elif [ "$FIRST" = "paste_navi" ]; then
   # Added -s \"\" to avoid immediate execution
   tmux display-popup -w '90%' -h '90%' -EE "$SHELL --login -i -c 'navi --print | tmux load-buffer -b tmp - ; tmux paste-buffer -p -b tmp -d -s \"\" '"
 elif [ "$FIRST" = "session restore" ]; then
-  tmux display-popup -EE "navi --best-match --query 'tmux session restore'"
+  tmux display-popup -E "navi --best-match --query 'tmux session restore'" || true
 elif [ "$FIRST" = "session save" ]; then
-  tmux display-popup -EE "navi --best-match --query 'tmux session save'"
+  tmux display-popup -E "navi --best-match --query 'tmux session save'" || true
 elif [ "$FIRST" = "tmux-fzf" ]; then
   /home/grota/.local/share/tmux/plugins/tmux-fzf/main.sh
 elif [ "$FIRST" = 'file' ]; then

@@ -50,6 +50,9 @@ vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("grota_markdown", { clear = true }),
   pattern = { "markdown" },
   callback = function()
+    Snacks.toggle.diagnostics():set(false)
+    Snacks.toggle.option("spell"):set(false)
+    Snacks.toggle.get('render_markdown'):set(false)
   end,
 })
 

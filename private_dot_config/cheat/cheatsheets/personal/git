@@ -1,5 +1,6 @@
 git check-ignore -v path_to_file
 git grep patten -- './*' ':!*.js'
+git rebase -i --root
 --push-option="ci.skip" #same as [ci-skip] in commit message
 
 2/3 DOTS, log

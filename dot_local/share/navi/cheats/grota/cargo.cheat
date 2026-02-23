@@ -1,0 +1,4 @@
+% cargo
+
+# list
+cargo install --list

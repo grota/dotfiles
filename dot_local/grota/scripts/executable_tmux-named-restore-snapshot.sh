@@ -2,9 +2,11 @@
 
 source "$HOME/.local/share/tmux/plugins/tmux-named-snapshot/scripts/helpers.sh"
 source "$HOME/.local/share/tmux/plugins/tmux-named-snapshot/scripts/variables.sh"
+source "$DOTFILESREPO/dot_local/grota/scripts/tmux-named-snapshot-lib.sh"
 
 main() {
-  local name="$1"
+  local name
+  name=$(get_snapshot_name "$1")
   local resurrect_restore_script_path="$(get_tmux_option "$resurrect_restore_path_option" "")"
   if [ -n "$resurrect_restore_script_path" ] && [ -n "$name" ]; then
     tmux display-message "Restoring snapshot '$name'..."

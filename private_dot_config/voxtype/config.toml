@@ -203,6 +203,7 @@ spoken_punctuation = true
 "Package drupal" = '`pkg_drupal`'
 "Package Composer plugin" = '`pkg_composer_plugin`'
 "Tmax" = 'tmux'
+"sim link" = 'symlink'
 
 # [status]
 # Status display icons for Waybar/tray integrations
