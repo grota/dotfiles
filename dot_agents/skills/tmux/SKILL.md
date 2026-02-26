@@ -1,106 +1,148 @@
 ---
 name: tmux
-description: Control tmux sessions for interactive CLIs and TUIs. Use this skill whenever you need to send keystrokes to a terminal, run interactive programs (vim, htop, REPLs), capture output from long-running processes, or work with full-screen terminal applications. Essential for automating interactive shell workflows that can't be controlled via standard bash.
+description: Control tmux sessions for interactive CLIs and TUIs. Use this skill whenever you need to send keystrokes to a terminal, run interactive programs (vim, htop, ncurses apps, REPLs, fzf), capture output from long-running processes, or work with full-screen terminal applications. Essential for automating interactive shell workflows that can't be controlled via standard bash. Also use this when a program expects a TTY, needs Ctrl+C/Ctrl+D signals, or when you need to monitor a background process while doing other work.
 ---
 
 # Tmux Skill
 
-This skill enables control of tmux sessions for isolated interactive CLI/TUI operations. Use this when you need to interact with programs that require a real terminal (interactive REPLs, TUIs, etc.).
+Use tmux to interact with programs that need a real terminal — interactive REPLs, TUIs, editors, long-running processes you want to monitor, anything that expects a TTY or needs keystroke-level control.
 
-## Isolation
+## Core Workflow
 
-**Always use a dedicated tmux socket** (operate only on your own tmux server) to avoid interfering with the user's or other agents' tmux servers:
-
-1. Once, at the beginning, before the very first tmux invocation **check for other existing sockets first**:
-   ```bash
-   ls /tmp/tmux-$(id -u)/tmux-agent-* 2>/dev/null
-   ```
-
-2. **Choose a new socket file name** (an available non existing socket file), for example:
-   ```bash
-   SOCKET="tmux-agent-$(date +%s%N)"
-   ```
-
-3. **Always use this flag when executing tmux**: `-L $SOCKET` to use chose socket file name (avoid using user's or other agents' tmux servers)
-
-4. The **very first** tmux invocation **must use this flag** `-f <(:)` to avoid loading user's tmux config
-
-## Session Management
-
-### Create a Session
+Every tmux interaction follows this pattern: create an isolated session, interact with it, and clean up. Here's the full flow:
 
 ```bash
+# 1. Check for existing agent sockets (only needed once per task)
+ls /tmp/tmux-$(id -u)/tmux-agent-* 2>/dev/null
+
+# 2. Pick a unique socket name (avoid collisions with user's tmux or other agents)
 SOCKET="tmux-agent-$(date +%s%N)"
+
+# 3. Create an isolated session
+#    -L $SOCKET  → use our own tmux server (never touch the user's)
+#    -f <(:)     → skip loading user's tmux.conf (their config might remap keys,
+#                  change the prefix, or set options that break our automation)
 tmux -L $SOCKET -f <(:) new-session -d -s main -x $COLUMNS -y $LINES "bash"
-```
 
-### Send Input
-
-```bash
-tmux -L $SOCKET send-keys -t main "echo hello world" C-m
-tmux -L $SOCKET send-keys -t main "python3" C-m
-```
-
-Special keys:
-- `C-m` = Enter
-- `C-c` = Ctrl+C
-- `C-d` = Ctrl+D
-- `Tab` = Tab
-- `Escape` = Escape
-
-### Capture Output
-
-```bash
+# 4. Interact: send input, wait for output, capture it
+tmux -L $SOCKET send-keys -t main "echo hello" C-m
+sleep 0.5
 tmux -L $SOCKET capture-pane -t main -p
-tmux -L $SOCKET capture-pane -t main -p -S -100  # with history
-```
 
-### Cleanup
-
-```bash
-tmux -L $SOCKET kill-session -t main
-# Or kill the entire server:
+# 5. Clean up when done (orphaned servers waste resources and can confuse future runs)
 tmux -L $SOCKET kill-server
 ```
 
+Once you've picked a `$SOCKET` name, reuse it for every tmux command in the task. Don't create a new socket per command.
+
+## Sending Input
+
+```bash
+tmux -L $SOCKET send-keys -t main "your command here" C-m
+```
+
+### Special Keys
+
+| Key | What it sends |
+|-----|--------------|
+| `C-m` | Enter |
+| `C-c` | Ctrl+C (interrupt) |
+| `C-d` | Ctrl+D (EOF) |
+| `Tab` | Tab (autocomplete) |
+| `Escape` | Escape |
+| `Space` | Space (useful when building key sequences) |
+| `Up` / `Down` | Arrow keys |
+| `BSpace` | Backspace |
+
+### Sending Literal Text
+
+By default, `send-keys` interprets special sequences like `C-m` as keystrokes. If you need to send text that contains these patterns without interpretation, use the `-l` (literal) flag:
+
+```bash
+# This sends the literal string "C-m" rather than pressing Enter
+tmux -L $SOCKET send-keys -t main -l "The sequence C-m means Enter"
+# Then press Enter separately
+tmux -L $SOCKET send-keys -t main C-m
+```
+
+This matters when sending code or text that contains characters tmux would otherwise interpret — semicolons, quotes, backslashes, or anything resembling a key binding.
+
+## Capturing Output
+
+```bash
+# Capture what's currently visible in the pane
+tmux -L $SOCKET capture-pane -t main -p
+
+# Capture with scrollback history (last 200 lines)
+tmux -L $SOCKET capture-pane -t main -p -S -200
+```
+
+`capture-pane -p` only returns what fits in the visible pane (determined by the `-x` and `-y` you set at session creation). If a command produced more output than the pane height, the top lines scroll off. Use `-S -<N>` to reach into the scrollback buffer — set N high enough to capture everything you need.
+
 ## Target Syntax
+
+Use targets to address specific sessions, windows, or panes when you have more than one:
 
 | Target | Meaning |
 |--------|---------|
-| `-t main` | The main session |
-| `-t main:0` | Window 0 |
-| `-t main.0` | Pane 0 |
+| `-t main` | Session named "main" (default pane) |
+| `-t main:0` | Window 0 in session "main" |
 | `-t main:1` | Window 1 |
+| `-t main:0.0` | Pane 0 in window 0 |
+| `-t main:0.1` | Pane 1 in window 0 |
 
-## Workflow Pattern
+## Waiting for Output
+
+Interactive programs need time to process input and render output. There are two approaches:
+
+### Fixed Delays
+
+Simple and usually sufficient. Use `sleep` between sending input and capturing:
 
 ```bash
-# 1. Check for existing agent sockets
-ls /tmp/tmux-$(id -u)/tmux-agent-* 2>/dev/null
-
-# 2. Pick a socket name (or reuse existing)
-SOCKET="tmux-agent-$(date +%s%N)"
-
-# 3. Create session
-tmux -L $SOCKET -f <(:) new-session -d -s main -x $COLUMNS -y $LINES "python3"
-
-# 4. Interact (add delays between send and capture)
-sleep 0.5
-tmux -L $SOCKET send-keys -t main "2 + 2" C-m
+tmux -L $SOCKET send-keys -t main "python3 -c 'print(42)'" C-m
 sleep 0.5
 tmux -L $SOCKET capture-pane -t main -p
-
-# 5. Always clean up
-tmux -L $SOCKET kill-session -t main
 ```
 
-## Important Notes
+Adjust the delay based on what you're waiting for:
+- `sleep 0.3` — fast commands (echo, simple REPL expressions)
+- `sleep 0.5-1` — typical interactive programs starting up
+- `sleep 2-5` — programs with slow startup (language servers, heavy apps)
 
-1. **Always clean up** - Kill the session when done
-2. **Add delays** - Interactive programs need time to respond
-3. **Capture after sending** - Always capture output after sending input
-4. **Use empty config** - `-f <(:)` prevents loading user's tmuxrc
-5. **Reuse socket** - Once chosen, use the same `-L $SOCKET` for all operations in a task
+### Polling (More Robust)
+
+For cases where timing is unpredictable, poll until the expected output appears. This avoids both waiting too long and capturing too early:
+
+```bash
+# Wait for a specific prompt or output pattern
+for i in $(seq 1 20); do
+  OUTPUT=$(tmux -L $SOCKET capture-pane -t main -p)
+  if echo "$OUTPUT" | grep -q ">>>"; then
+    break
+  fi
+  sleep 0.5
+done
+```
+
+Polling is better than fixed delays when: a program has variable startup time, you're waiting for a specific prompt, or you need to be sure a command finished before sending the next one.
+
+## Error Handling
+
+**Session creation fails**: This usually means the socket path is invalid or tmux isn't installed. Check `which tmux` first if there's any doubt.
+
+**Capture returns empty/stale output**: The program hasn't rendered yet. Increase the delay or switch to polling.
+
+**Socket already exists**: If you're reusing a socket name from a crashed previous run, `kill-server` it first:
+```bash
+tmux -L $SOCKET kill-server 2>/dev/null
+tmux -L $SOCKET -f <(:) new-session -d -s main -x $COLUMNS -y $LINES "bash"
+```
+
+**Program exited unexpectedly**: The pane may have closed. Check if the session still exists:
+```bash
+tmux -L $SOCKET has-session -t main 2>/dev/null && echo "alive" || echo "dead"
+```
 
 ## Examples
 
@@ -108,47 +150,56 @@ tmux -L $SOCKET kill-session -t main
 
 ```bash
 SOCKET="tmux-agent-$(date +%s%N)"
-
 tmux -L $SOCKET -f <(:) new-session -d -s main -x $COLUMNS -y $LINES "python3 -i"
-sleep 0.5
+
+# Wait for the >>> prompt
+for i in $(seq 1 10); do
+  OUTPUT=$(tmux -L $SOCKET capture-pane -t main -p)
+  echo "$OUTPUT" | grep -q ">>>" && break
+  sleep 0.5
+done
 
 tmux -L $SOCKET send-keys -t main "2 + 2" C-m
-sleep 0.5
+sleep 0.3
 tmux -L $SOCKET capture-pane -t main -p
 
 tmux -L $SOCKET send-keys -t main "exit()" C-m
-tmux -L $SOCKET kill-session -t main
+tmux -L $SOCKET kill-server
 ```
 
-### Long-running process
+### Monitoring a Long-Running Process
 
 ```bash
 SOCKET="tmux-agent-$(date +%s%N)"
-
 tmux -L $SOCKET -f <(:) new-session -d -s main -x $COLUMNS -y $LINES "tail -f /var/log/syslog"
-sleep 0.5
+sleep 1
 
-# Check periodically
+# Check output periodically — you can do other work between captures
 tmux -L $SOCKET capture-pane -t main -p
 
-# Cleanup
-tmux -L $SOCKET kill-session -t main
+# When done monitoring
+tmux -L $SOCKET send-keys -t main C-c
+sleep 0.3
+tmux -L $SOCKET kill-server
 ```
 
-### Vim automation
+### Vim Automation
 
 ```bash
 SOCKET="tmux-agent-$(date +%s%N)"
-
 tmux -L $SOCKET -f <(:) new-session -d -s main -x $COLUMNS -y $LINES "vim /tmp/test.txt"
-sleep 0.5
+sleep 1  # vim takes a moment to start
 
+# Enter insert mode, type text, save and quit
 tmux -L $SOCKET send-keys -t main "i"
-tmux -L $SOCKET send-keys -t main "Hello vim" C-m
+tmux -L $SOCKET send-keys -t main -l "Hello from tmux automation"
 tmux -L $SOCKET send-keys -t main Escape
+sleep 0.2
 tmux -L $SOCKET send-keys -t main ":wq" C-m
+sleep 0.3
 
 tmux -L $SOCKET capture-pane -t main -p
-tmux -L $SOCKET kill-session -t main
+tmux -L $SOCKET kill-server
 ```
 
+Note: the Vim example uses `send-keys -l` for the text content so that any special characters in the text are sent literally rather than interpreted as tmux key bindings.
