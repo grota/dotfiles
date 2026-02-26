@@ -44,7 +44,7 @@
 
 window-decoration = none
 app-notifications=no-clipboard-copy
-background=#000000
+# background=#000000
 mouse-scroll-multiplier = 0.5
 keybind = shift+enter=text:\n
 keybind = alt+one=esc:1
@@ -52,3 +52,4 @@ keybind = alt+two=esc:2
 keybind = ctrl+j=text:\x0A
 keybind = ctrl+m=text:\x0D
 clipboard-read = allow
+theme=light:Builtin Tango Light,dark:Builtin Tango Dark

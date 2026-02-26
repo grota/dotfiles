@@ -37,9 +37,6 @@ export DOCKER_BUILDKIT=1
 stty stop undef
 stty start undef
 
-# MOTD kind of output
-# [ -n "$PS1" ] && (export BINPATHS=(${PATH//:/ }) && whatis "$(find "${BINPATHS[@]}" -maxdepth 1 -printf '%f\n' -type f 2>/dev/null| shuf -n 1)")
-
 if [ -f  /usr/share/doc/pkgfile/command-not-found.bash ]; then
   .  /usr/share/doc/pkgfile/command-not-found.bash
 fi
