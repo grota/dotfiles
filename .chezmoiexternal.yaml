@@ -5,10 +5,6 @@
   url: https://github.com/tmux-plugins/tpm/archive/master.tar.gz
   stripComponents: 1
 
-.local/grota/bash/30-completion-cheat.bash:
-  type: file
-  url: https://github.com/cheat/cheat/raw/master/scripts/cheat.bash
-
 local/bin/diff-so-fancy:
   type: file
   url: https://github.com/so-fancy/diff-so-fancy/releases/download/v1.4.2/diff-so-fancy

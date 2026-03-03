@@ -422,3 +422,4 @@ chezmoi_ignored
 /.zencoder
 /.zoom
 /local/bin/plannotator
+/.config/visidata/input_history.jsonl

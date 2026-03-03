@@ -18,6 +18,15 @@
       "skillFolderHash": "5c26c1472b98de33a48074ba5d3efe3a727b8e37",
       "installedAt": "2026-02-07T10:33:51.850Z",
       "updatedAt": "2026-02-26T18:08:08.179Z"
+    },
+    "opentui": {
+      "source": "msmps/opentui-skill",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/msmps/opentui-skill.git",
+      "skillPath": "skill/opentui/SKILL.md",
+      "skillFolderHash": "00be9b06139cfcfc3a4f63469e148b574a31781b",
+      "installedAt": "2026-03-01T15:47:32.006Z",
+      "updatedAt": "2026-03-01T15:47:32.006Z"
     }
   },
   "dismissed": {
@@ -25,7 +34,9 @@
   },
   "lastSelectedAgents": [
     "amp",
+    "cline",
     "codex",
+    "cursor",
     "gemini-cli",
     "github-copilot",
     "kimi-cli",

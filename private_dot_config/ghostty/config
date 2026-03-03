@@ -52,4 +52,5 @@ keybind = alt+two=esc:2
 keybind = ctrl+j=text:\x0A
 keybind = ctrl+m=text:\x0D
 clipboard-read = allow
-theme=light:Builtin Tango Light,dark:Builtin Tango Dark
+#theme=light:Builtin Tango Light,dark:Builtin Tango Dark
+theme=Builtin Tango Dark
