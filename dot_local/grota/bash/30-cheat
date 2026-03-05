@@ -1,3 +1,0 @@
-export CHEAT_USE_FZF=true
-alias h=cheat
-complete -F _cheat h

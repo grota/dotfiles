@@ -343,7 +343,8 @@ chezmoi_ignored
 /.config/turborepo
 /.config/zoom.conf
 /.config/zoomus.conf
-/.copilot
+/.copilot/*
+!/.copilot/skills
 /.cursor
 /.electron-gyp
 /.env.local

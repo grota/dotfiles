@@ -201,6 +201,7 @@ main() {
   # We also use session to isolate automations.
   export AGENT_BROWSER_SESSION_NAME="$AUTOMATION"
   export AGENT_BROWSER_SESSION="$AUTOMATION"
+  # export AGENT_BROWSER_NATIVE=1
 
   # Default to 'run' if no command specified
   local cmd="${REMAINING_ARGS[0]:-run}"

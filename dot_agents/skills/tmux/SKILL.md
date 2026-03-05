@@ -12,28 +12,26 @@ Use tmux to interact with programs that need a real terminal — interactive REP
 Every tmux interaction follows this pattern: create an isolated session, interact with it, and clean up. Here's the full flow:
 
 ```bash
-# 1. Check for existing agent sockets (only needed once per task)
-ls /tmp/tmux-$(id -u)/tmux-agent-* 2>/dev/null
-
-# 2. Pick a unique socket name (avoid collisions with user's tmux or other agents)
+# 1. Pick a unique socket value (avoid collisions with user's tmux or other agents)
+# Once you've picked a `$SOCKET` value, reuse it for every tmux command in the task. Don't create a new socket per command.
 SOCKET="tmux-agent-$(date +%s%N)"
 
-# 3. Create an isolated session
+# 2. Create an isolated session
 #    -L $SOCKET  → use our own tmux server (never touch the user's)
 #    -f <(:)     → skip loading user's tmux.conf (their config might remap keys,
 #                  change the prefix, or set options that break our automation)
 tmux -L $SOCKET -f <(:) new-session -d -s main -x $COLUMNS -y $LINES "bash"
 
-# 4. Interact: send input, wait for output, capture it
+# 3. Interact: send input, wait for output, capture it
 tmux -L $SOCKET send-keys -t main "echo hello" C-m
 sleep 0.5
 tmux -L $SOCKET capture-pane -t main -p
 
-# 5. Clean up when done (orphaned servers waste resources and can confuse future runs)
+# 4. Clean up when done (orphaned servers waste resources and can confuse future runs)
 tmux -L $SOCKET kill-server
 ```
 
-Once you've picked a `$SOCKET` name, reuse it for every tmux command in the task. Don't create a new socket per command.
+Once you've picked a `$SOCKET` value, reuse it for every tmux command in the task. Don't create a new socket per command.
 
 ## Sending Input
 

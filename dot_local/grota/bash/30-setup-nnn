@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 export NNN_BMS='d:~/Downloads/;p:~/Dropbox/;c:~/Documents/encrypted_dropbox_data/burocrazia/banche'
-export NNN_TRASH=1
+# export NNN_TRASH=1
 export NNN_COLORS=7321
 #auto-setup temporary NNN_FIFO
 #indicates that the opener is a cli-only opener
