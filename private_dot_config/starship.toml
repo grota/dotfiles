@@ -23,3 +23,7 @@ tag_symbol = " 🏷  "
 tag_disabled = false
 tag_max_candidates = 0
 
+[custom.yazi_shell]
+when = '''[ -n "${YAZI_LEVEL}" ]'''
+symbol = ''
+command = 'echo "YAZI SHELL"'
