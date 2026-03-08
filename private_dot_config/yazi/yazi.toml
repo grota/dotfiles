@@ -1,5 +1,8 @@
 "$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
 
+[mgr]
+ratio = [1, 3, 4]
+
 [opener]
 json = [
   {desc='tmux split', run = '[ -z $TMUX ] && echo "not in tmux" && exit 1; tmux new-window -a -n fx/jnv fx %s1; tmux split-window -t fx/jnv -h jnv %s1', block=true, orphan=false, for='unix'},
@@ -21,5 +24,5 @@ prepend_rules = [
 
 [plugin]
 prepend_previewers = [
-  { url='*.md', run='faster-piper -- rich --emoji --force-terminal --width $w  "$1"' },
+  { url='*.md', run='faster-piper -- COLUMNS=$w rich --emoji --force-terminal --max-width "$w" --width "$w" --panel=rounded "$1"' },
 ]
