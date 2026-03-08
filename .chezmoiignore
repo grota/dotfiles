@@ -424,3 +424,4 @@ chezmoi_ignored
 /.zoom
 /local/bin/plannotator
 /.config/visidata/input_history.jsonl
+/.local/share/gem

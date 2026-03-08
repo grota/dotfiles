@@ -6,7 +6,4 @@ function resunity() {
 	xset r rate 200 90
 	echo h xkb
 }
-function lk {
-  cd "$(walk "$@")" || return
-}
 # }}}

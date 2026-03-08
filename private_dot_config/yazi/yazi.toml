@@ -1,0 +1,25 @@
+"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
+[opener]
+json = [
+  {desc='tmux split', run = '[ -z $TMUX ] && echo "not in tmux" && exit 1; tmux new-window -a -n fx/jnv fx %s1; tmux split-window -t fx/jnv -h jnv %s1', block=true, orphan=false, for='unix'},
+  {run = 'fx %s', block = true, orphan = false, for = 'unix'},
+  {run = 'jnv %s', block = true, orphan = false, for = 'unix'},
+]
+md-tui = [
+  {desc='md-tui', run='md-tui %s1', block=true, orphan=false}
+]
+rich-cli = [
+  {desc='rich-cli', run='rich --pager %s1', block=true, orphan=false}
+]
+
+[open]
+prepend_rules = [
+  { mime = "application/json", use = ['json', "edit", "reveal"] },
+  { url="*.md", use = ['md-tui', 'rich-cli', "edit", "reveal"] },
+]
+
+[plugin]
+prepend_previewers = [
+  { url='*.md', run='faster-piper -- rich --emoji --force-terminal --width $w  "$1"' },
+]

@@ -1,14 +1,16 @@
+# https://yazi-rs.github.io/docs/tips/#confirm-quit
 [[mgr.prepend_keymap]]
 on  = "q"
 run = "plugin confirm-quit"
 
+# https://yazi-rs.github.io/docs/tips/#dropping-to-shell
 [[mgr.prepend_keymap]]
 on   = "!"
 for  = "unix"
 run  = 'shell "$SHELL" --block'
 desc = "Open $SHELL here"
 
-# ---
+# --- https://github.com/dedukun/bookmarks.yazi
 [[mgr.prepend_keymap]]
 on = [ "m" ]
 run = "plugin bookmarks save"
@@ -29,9 +31,7 @@ on = [ "b", "D" ]
 run = "plugin bookmarks delete_all"
 desc = "Delete all bookmarks"
 
-# ---
-
-# https://github.com/sxyazi/yazi/blob/v26.1.22/yazi-config/preset/keymap-default.toml
+# --- override to https://github.com/sxyazi/yazi/blob/v26.1.22/yazi-config/preset/keymap-default.toml
 [[help.prepend_keymap]]
 on = ['/']
 run = 'filter'
