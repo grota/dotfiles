@@ -13,6 +13,11 @@ use = "alberti42/faster-piper"
 rev = "8b794bf"
 hash = "fac71f8ce9447ad509b5aad9e0d8c694"
 
+[[plugin.deps]]
+use = "yazi-rs/plugins:types"
+rev = "1962818"
+hash = "4161cfa043b5ba3341d82c6869007b41"
+
 [[flavor.deps]]
 use = "BennyOe/tokyo-night"
 rev = "8e6296f"

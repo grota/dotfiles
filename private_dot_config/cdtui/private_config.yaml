@@ -24,15 +24,27 @@ keybindings:
     main_list_go_left:
       description: KeyBinding to go left in main list.
       value: h
+    main_list_go_left_2:
+      description: Alternative keybinding to go left in main list.
+      value: left
     main_list_go_down:
       description: KeyBinding to go down in main list.
       value: j
+    main_list_go_down_2:
+      description: Alternative keybinding to go down in main list.
+      value: down
     main_list_go_up:
       description: KeyBinding to go up in main list.
       value: k
+    main_list_go_up_2:
+      description: Alternative keybinding to go up in main list.
+      value: up
     main_list_go_right:
       description: KeyBinding to go right in main list.
       value: l
+    main_list_go_right_2:
+      description: Alternative keybinding to go right in main list.
+      value: right
   jump_mode:
     dismiss_jump_mode_1:
       description: KeyBinding to dismiss the jump overlay.
@@ -40,3 +52,16 @@ keybindings:
     dismiss_jump_mode_2:
       description: KeyBinding to dismiss the jump overlay.
       value: ctrl+c
+diff:
+  mode: command-based
+  command_template: '{ICDIFF} --report-identical-files --unified=4 --show-no-spaces
+    {FILE_FROM} {FILE_TO} | less --RAW-CONTROL-CHARS -+S --wordwrap'
+  internal_format: text
+  internal_word_diff: false
+  internal_no_markup: false
+  internal_type: diffLines
+  internal_changes_only: true
+  internal_ignore_whitespace: false
+  internal_removed: true
+  internal_added: true
+  internal_replaced: true

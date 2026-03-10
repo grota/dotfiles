@@ -3,6 +3,10 @@
 on  = "q"
 run = "plugin confirm-quit"
 
+[[mgr.prepend_keymap]]
+on  = "Q"
+run = "plugin confirm-quit no-cwd-file"
+
 # https://yazi-rs.github.io/docs/tips/#dropping-to-shell
 [[mgr.prepend_keymap]]
 on   = "!"
