@@ -52,5 +52,8 @@ keybind = alt+two=esc:2
 keybind = ctrl+j=text:\x0A
 keybind = ctrl+m=text:\x0D
 clipboard-read = allow
-#theme=light:Builtin Tango Light,dark:Builtin Tango Dark
-theme=Builtin Tango Dark
+# conf file that only has the theme settings, external to be ignored from my dotfiles
+# It toggles between two theme lines like these where only one is active and only one is inactive.
+# #theme=light:Builtin Tango Light,dark:Builtin Tango Dark
+# theme=Builtin Tango Dark
+config-file = ./ghostty-theme

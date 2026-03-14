@@ -1,6 +1,7 @@
 url: http://changedetection.home.lab/
 api_key: $CDTUIKEY
 compact_mode: true
+skip_diff_dialog: true
 keybindings:
   main_screen:
     open_jump_mode:
@@ -53,7 +54,7 @@ keybindings:
       description: KeyBinding to dismiss the jump overlay.
       value: ctrl+c
 diff:
-  mode: command-based
+  mode: internal
   command_template: '{ICDIFF} --report-identical-files --unified=4 --show-no-spaces
     {FILE_FROM} {FILE_TO} | less --RAW-CONTROL-CHARS -+S --wordwrap'
   internal_format: text
