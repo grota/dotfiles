@@ -30,22 +30,22 @@ desc = "Delete all bookmarks"
 # https://yazi-rs.github.io/docs/tips/#confirm-quit
 [[mgr.prepend_keymap]]
 on  = "q"
-run = "plugin confirm-quit no-cwd-file"
 desc = "Quit without changing dir"
-
-[[mgr.prepend_keymap]]
-on = "Q"
-run = 'noop'
+run = "plugin confirm-quit no-cwd-file"
 
 [[mgr.prepend_keymap]]
 on  = ["<C-x>", '<C-x>']
 run = "plugin confirm-quit"
-desc = "Quit changin dir"
+desc = "Quit changing dir"
 
 [[mgr.prepend_keymap]]
 on  = "<C-c>"
 run = "close --no-cwd-file"
 desc = "Close tab (exit without changing dir)"
+
+[[mgr.prepend_keymap]]
+on = "Q"
+run = 'noop'
 
 [[mgr.prepend_keymap]]
 on  = "<Tab>"

@@ -12,7 +12,7 @@ Usage: $script_name [OPTIONS] [COMMAND]
 Commands:
   run               Run the automation (default if no command specified).
   la                List available automations.
-  quit              Quit the session.
+  close             close the session.
   ls                List active sessions.
 
 Options:
@@ -32,7 +32,7 @@ Examples:
   ./$script_name -v               # Run with verbose output
   ./$script_name --headed         # Run with visible browser for debugging
   ./$script_name ls               # List sessions
-  ./$script_name quit             # Quit the session
+  ./$script_name close            # Close the session
 EOF
 }
 
@@ -58,7 +58,7 @@ check_dependencies() {
 # Global variables
 HEADED_FLAG=""
 VERBOSE=0
-DEFAULT_AUTOMATION=copilot-usage
+DEFAULT_AUTOMATION=copilot_usage
 AUTOMATION=${DEFAULT_AUTOMATION}
 
 # Verbose logging function
@@ -135,13 +135,29 @@ check_success() {
 }
 
 automation_copilot_usage() {
+  # Get current url, first agent-browser command (except session list which
+  # does not spawn any daemon) is the one that needs to have (or not have) the
+  # --headed switch.
+
+  SESSION_IS_PRESENT=$(agent-browser session list --json | jq ".data.sessions | contains([\"$AGENT_BROWSER_SESSION\"])")
+
+  if [ "${SESSION_IS_PRESENT}" == "true" ] && [ -n "${HEADED_FLAG}" ]; then
+    log_verbose "Session already found, not passing headed"
+    HEADED_FLAG=''
+  fi
+
+  CURRENT_URL=$(agent-browser $HEADED_FLAG get url --json|jq .data.url)
+  if [ "${CURRENT_URL}" == 'https://github.com/settings/copilot/features' ]; then
+    log_verbose "Moving to empty URL"
+    agent-browser  open chrome://new-tab-page/ > /dev/null
+  fi
   # Step 1: Open GitHub page
   log_verbose "Opening GitHub Copilot settings page..."
-  agent-browser $HEADED_FLAG open https://github.com/settings/copilot/features > /dev/null
+  agent-browser open https://github.com/settings/copilot/features > /dev/null
 
   # Step 2: Wait for page load
   log_verbose "Waiting for page to load..."
-  agent-browser wait --load domcontentloaded > /dev/null
+  agent-browser wait --text "Premium requests" > /dev/null
 
   # Step 3: Check login status
   log_verbose "Checking login status..."
@@ -190,25 +206,20 @@ main() {
   check_dependencies
   parse_arguments "$@"
 
-  # Right now agent-browser version 0.10.0 with persistent profile dirs
-  # cannot work with the subcommands `window new` and `tab new <url>`.
-  # So we use the lightweight "session-name" feature.
-  # Which confusingly is just another light way to persist cookies and
-  # localStorage, an alternative to specifying a persistent profile dir.
-  # It's confusing because agent-browser also has a --session switch which is
-  # not related at all to the above, it is just used to isolate browser
-  # instances.
-  # We also use session to isolate automations.
-  export AGENT_BROWSER_SESSION_NAME="$AUTOMATION"
-  export AGENT_BROWSER_SESSION="$AUTOMATION"
-  # export AGENT_BROWSER_NATIVE=1
-
+  # Right now we have no need to run separate *browser* sessions. Not even
+  # multiple windows and/or tabs.
+  # We just set this var for clarity and to check if a session/daemon is
+  # already running to avoid passing the $HEADED_FLAG.
+  export AGENT_BROWSER_SESSION="default"
+  # Using a persisted profile is just better for performance reasons (as of today March 15th 2026)
+  export AGENT_BROWSER_PROFILE=~/.agent-browser/grota-profiles/"${AUTOMATION}"
   # Default to 'run' if no command specified
   local cmd="${REMAINING_ARGS[0]:-run}"
 
   # Handle subcommands
   case "$cmd" in
     ls)
+      # does not spawn daemon
       agent-browser session list
       exit 0
       ;;
@@ -217,21 +228,19 @@ main() {
       declare -F | grep 'declare -f automation_' | sed 's/declare -f automation_//' | sort
       exit 0
       ;;
-    quit)
-      echo "Quitting session $AGENT_BROWSER_SESSION."
-      agent-browser quit
+    close)
+      agent-browser close
       sleep 0.1
       agent-browser session list
       exit 0
       ;;
     run)
       # Allow: ./script run <automation-name> as shorthand for -a <automation-name>
-      if [ ${#REMAINING_ARGS[@]} -ge 2 ]; then
-        AUTOMATION="${REMAINING_ARGS[1]}"
-        export AGENT_BROWSER_SESSION_NAME="$AUTOMATION"
-        export AGENT_BROWSER_SESSION="$AUTOMATION"
-      fi
-      if [ "$AUTOMATION" == "copilot-usage" ]; then
+      # if [ ${#REMAINING_ARGS[@]} -ge 2 ]; then
+      #   AUTOMATION="${REMAINING_ARGS[1]}"
+      # fi
+
+      if [ "$AUTOMATION" == "copilot_usage" ]; then
         automation_copilot_usage
         exit 0
       elif [ "$AUTOMATION" == "time" ]; then
