@@ -29,28 +29,39 @@ desc = "Delete all bookmarks"
 # --- override to https://github.com/sxyazi/yazi/blob/v26.1.22/yazi-config/preset/keymap-default.toml
 # https://yazi-rs.github.io/docs/tips/#confirm-quit
 [[mgr.prepend_keymap]]
-on  = "q"
-desc = "Quit without changing dir"
-run = "plugin confirm-quit no-cwd-file"
-
-[[mgr.prepend_keymap]]
-on  = ["<C-x>", '<C-x>']
-run = "plugin confirm-quit"
-desc = "Quit changing dir"
-
-[[mgr.prepend_keymap]]
 on  = "<C-c>"
 run = "close --no-cwd-file"
-desc = "Close tab (exit without changing dir)"
+desc = "Close tab (No change CWD)"
+
+[[mgr.prepend_keymap]]
+on  = "q"
+run = "close --no-cwd-file"
+desc = "Close tab (No change CWD)"
 
 [[mgr.prepend_keymap]]
 on = "Q"
-run = 'noop'
+run = "plugin confirm-quit no-cwd-file"
+desc = "Quit ALL, NO change CWD"
+
+[[mgr.prepend_keymap]]
+on  = ["<C-x>", 'q']
+run = "plugin confirm-quit"
+desc = "Quit ALL, change CWD"
+
+[[mgr.prepend_keymap]]
+on  = ["<C-x>", 'n']
+run = "tab_create --current"
+desc = "New tab"
 
 [[mgr.prepend_keymap]]
 on  = "<Tab>"
-run = "tab_create --current"
-desc = "Create new Tab on CWD"
+run = "tab_switch 1 --relative"
+desc = "Next tab"
+
+[[mgr.prepend_keymap]]
+on  = "<S-Tab>"
+run = "tab_switch -1 --relative"
+desc = "Previous tab"
 
 [[mgr.prepend_keymap]]
 on  = ["<C-x>", "s"]

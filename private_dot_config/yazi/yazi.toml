@@ -3,6 +3,8 @@
 [mgr]
 ratio = [1, 3, 4]
 show_hidden = true
+sort_by = 'mtime'
+sort_reverse = true
 
 [opener]
 json = [
@@ -19,7 +21,7 @@ rich-cli = [
 
 [open]
 prepend_rules = [
-  { mime = "application/json", use = ['json', "edit", "reveal"] },
+  { mime = "application/json", use = ['edit', "json", "reveal"] },
   { url="*.md", use = ['md-tui', 'rich-cli', "edit", "reveal"] },
 ]
 

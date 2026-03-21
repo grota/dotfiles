@@ -1,0 +1,14 @@
+[
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 446,
+                "origin_hash": "4869aa57cdc23903c0a4d97bb55558f0"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "KEY_PLAYPAUSE",
+        "mapping_type": "key_macro"
+    }
+]

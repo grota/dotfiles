@@ -213,6 +213,8 @@ main() {
   export AGENT_BROWSER_SESSION="default"
   # Using a persisted profile is just better for performance reasons (as of today March 15th 2026)
   export AGENT_BROWSER_PROFILE=~/.agent-browser/grota-profiles/"${AUTOMATION}"
+  # auto-shutdown the daemon after 10 minutes of inactivity
+  export AGENT_BROWSER_IDLE_TIMEOUT_MS=600000
   # Default to 'run' if no command specified
   local cmd="${REMAINING_ARGS[0]:-run}"
 
