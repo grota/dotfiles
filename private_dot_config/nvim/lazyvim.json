@@ -1,5 +1,6 @@
 {
   "extras": [
+    "lazyvim.plugins.extras.ai.copilot-chat",
     "lazyvim.plugins.extras.ai.copilot-native",
     "lazyvim.plugins.extras.ai.sidekick",
     "lazyvim.plugins.extras.dap.core",
@@ -13,7 +14,8 @@
     "lazyvim.plugins.extras.lang.toml",
     "lazyvim.plugins.extras.lang.typescript",
     "lazyvim.plugins.extras.lang.yaml",
-    "lazyvim.plugins.extras.ui.smear-cursor"
+    "lazyvim.plugins.extras.ui.smear-cursor",
+    "lazyvim.plugins.extras.util.chezmoi"
   ],
   "install_version": 8,
   "news": {

@@ -6,6 +6,4 @@ if [ -z "$TMUX" ]; then echo "not in tmux"; exit 1 ; fi ;
 
 # session save
 if [ -z "$TMUX" ]; then echo "not in tmux"; exit 1 ; fi ;
-"$HOME/.local/grota/scripts/tmux-named-save-snapshot.sh" <session>
-
-$ session: echo -e "$(ls -1 ~/.local/share/tmux/resurrect/snapshots/)"
+"$HOME/.local/grota/scripts/tmux-named-save-snapshot.sh"

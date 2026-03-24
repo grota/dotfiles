@@ -142,5 +142,27 @@
     // "oh-my-opencode@latest",
     // "@plannotator/opencode@latest",
     "opencode-antigravity-auth@latest"
-  ]
+  ],
+  "permission": {
+    "bash": {
+      "*": "allow",
+      "*rm -rf*": "ask",
+      "*rm -rf /*": "deny",
+      "rm -rf ~*": "deny",
+      "rm -rf .": "deny",
+      "rm -rf ..": "deny",
+      "rm -rf .*": "deny",
+      "rm -rf *": "ask",
+      "sudo *": "ask",
+      "su *": "ask",
+      "git push *--force*": "ask",
+      "git push *-f*": "ask",
+      "git reset --hard*": "ask",
+      "git clean -f*": "ask",
+      "git checkout -- .*": "ask",
+      "git branch -D*": "ask",
+
+      "git add": "deny"
+    }
+  }
 }

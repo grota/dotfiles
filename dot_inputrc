@@ -1,11 +1,14 @@
 $include /etc/inputrc
 
-# \C-hjkl commented since I want to try out vim-tmux-navigator with defaults.
-# Ctrl arrows left/right to move between "words"
-# (default)
+# (default) Ctrl arrows left/right to move between "words"
+
 # Shift arrows left/right to move between "WORDS"
 "\e[1;2C": shell-forward-word
 "\e[1;2D": shell-backward-word
+
+# Free up useful manual combo based on C-x prefix
+"\C-x\C-i": exchange-point-and-mark
+# C-q is another useful combo prefix since it's function buond by default, 'quoted-insert' is also the usual C-v
 
 "\eh":  backward-char
 "\el":  forward-char
@@ -13,7 +16,7 @@ $include /etc/inputrc
 "\ea":  kill-region
 # mark, go to end, space, exchange-point-and-mark,
 # mark, go to space, kill-region
-"\ew":  '\e \C-e \C-x\C-x\e \C-] \ea'
+"\ew":  '\e \C-e \C-x\C-i\e \C-] \ea'
 "\C-d": backward-kill-word
 
 # make C-p and C-n behave like up/down arrows
@@ -39,9 +42,6 @@ $include /etc/inputrc
 # M-d kill-word
 # C-](char) character-search (char)
 # M-C-](char) character-search-backward (char)
-
-# defaults overridden
-# C-f move by one char at a time
 
 "\e[A": history-search-backward
 "\e[B": history-search-forward

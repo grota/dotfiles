@@ -9,7 +9,7 @@ return {
             { icon = "󱋣 ", key = "r", desc = "(r) Recent files (local)", action = "<leader>fr" },
             { icon = "󰎕 ", key = "o", desc = "(o) Recent files (global)", action = "<leader>fo" },
             { icon = " ", key = "n", desc = "(n) New File", action = ":ene | startinsert" },
-            { icon = " ", key = "c", desc = "(c) Nvim Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+            { icon = " ", key = "z", desc = "(z) Chezmoi", action = '<leader>sz' },
             { icon = " ", key = "x", desc = "(x) Lazy Extras", action = ":LazyExtras" },
             { icon = "󰒲 ", key = "l", desc = "(l) Lazy", action = ":Lazy" },
             { icon = "󰚝 ", key = "m", desc = "(m) Global Marks", action = "<leader>mm" },
