@@ -6,11 +6,6 @@ description: >-
   purposes, deep dives into market mechanics, or clarifying investment
   terminology.
 mode: all
-model: github-copilot/gpt-5.2
-reasoningEffort: "low"
-textVerbosity: "low"
-reasoningSummary: "auto"
-temperature: 0.4
 permissions:
   edit: "ask"
   write: "ask"

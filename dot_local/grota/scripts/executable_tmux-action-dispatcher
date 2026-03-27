@@ -3,8 +3,7 @@
 FIRST="${1:-}"
 SECOND="${2:-}"
 if [ -z "$FIRST" ]; then
-  FIRST="$(echo -e 'session restore\nsession save\nkeybindings\nfile\npaste_navi\ntmux-fzf'| fzf --tmux)"
-  # FIRST="$(echo -e 'session restore\nsession save\nkeybindings\nfile\npaste_navi\ntmux-fzf\ndsnote'| fzf --tmux)"
+  FIRST="$(echo -e 'file-dir\nsession restore\ntmux-fzf\nsession save\nkeybindings\npaste_navi'| fzf --tmux)"
 fi
 if [ "$FIRST" == "keybindings" ]; then
   # Second arg is tmux table in this context.
@@ -23,12 +22,20 @@ elif [ "$FIRST" = "session save" ]; then
   tmux display-popup -E "navi --best-match --query 'tmux session save'" || true
 elif [ "$FIRST" = "tmux-fzf" ]; then
   /home/grota/.local/share/tmux/plugins/tmux-fzf/main.sh
-elif [ "$FIRST" = 'file' ]; then
-  tmux display-popup -w 90% -h 90% -EE "tmux-file-picker"
-# elif [ "$FIRST" = 'dsnote' ]; then
-#   if [ -z "$SECOND" ]; then
-#     tmux display-popup -EE "navi --query 'dsnote '"
-#   else
-#     "$HOME/.local/grota/scripts/dsnote-wrapper.sh" "$SECOND"
-#   fi
+elif [ "$FIRST" = 'file-dir' ]; then
+  if [ -z "$SECOND" ]; then
+    SECOND=$(echo -e 'files\ndirs\nzoxide\nzoxide-and-files\nzoxide-and-dirs'| fzf --tmux)
+    if [ "$SECOND" == 'files' ]; then
+      TMUX_FILE_PICKER_ARGS=''
+    elif [ "$SECOND" == 'dirs' ]; then
+      TMUX_FILE_PICKER_ARGS='--directories'
+    elif [ "$SECOND" == 'zoxide' ]; then
+      TMUX_FILE_PICKER_ARGS='--zoxide --dir-only'
+    elif [ "$SECOND" == 'zoxide-and-files' ]; then
+      TMUX_FILE_PICKER_ARGS='--zoxide'
+    elif [ "$SECOND" == 'zoxide-and-dirs' ]; then
+      TMUX_FILE_PICKER_ARGS='--zoxide --directories'
+    fi
+  fi
+  tmux display-popup -w 90% -h 90% -EE "tmux-file-picker $TMUX_FILE_PICKER_ARGS"
 fi

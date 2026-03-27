@@ -12,9 +12,11 @@ Use tmux to interact with programs that need a real terminal — interactive REP
 Every tmux interaction follows this pattern: create an isolated session, interact with it, and clean up. Here's the full flow:
 
 ```bash
-# 1. Pick a unique socket value (avoid collisions with user's tmux or other agents)
-# Once you've picked a `$SOCKET` value, reuse it for every tmux command in the task. Don't create a new socket per command.
-SOCKET="tmux-agent-$(date +%s%N)"
+# 1. If you just started using this skill you need to pick a unique socket name.
+# You do that by listing the files in /tmp/tmux-$(id -u)/ and choosing a name that
+# doesn't exist yet (to avoid collisions with user's tmux or other agents).
+# Once you've picked a `$SOCKET` value, remember it and reuse it for every tmux command of yours, don't create a new socket per command.
+ls /tmp/tmux-$(id -u)/
 
 # 2. Create an isolated session
 #    -L $SOCKET  → use our own tmux server (never touch the user's)
@@ -28,7 +30,7 @@ sleep 0.5
 tmux -L $SOCKET capture-pane -t main -p
 
 # 4. Clean up when done (orphaned servers waste resources and can confuse future runs)
-tmux -L $SOCKET kill-server
+tmux -L $SOCKET kill-server && rm -f /tmp/tmux-$(id -u)/$SOCKET
 ```
 
 Once you've picked a `$SOCKET` value, reuse it for every tmux command in the task. Don't create a new socket per command.
@@ -127,15 +129,7 @@ Polling is better than fixed delays when: a program has variable startup time, y
 
 ## Error Handling
 
-**Session creation fails**: This usually means the socket path is invalid or tmux isn't installed. Check `which tmux` first if there's any doubt.
-
 **Capture returns empty/stale output**: The program hasn't rendered yet. Increase the delay or switch to polling.
-
-**Socket already exists**: If you're reusing a socket name from a crashed previous run, `kill-server` it first:
-```bash
-tmux -L $SOCKET kill-server 2>/dev/null
-tmux -L $SOCKET -f <(:) new-session -d -s main -x $COLUMNS -y $LINES "bash"
-```
 
 **Program exited unexpectedly**: The pane may have closed. Check if the session still exists:
 ```bash
@@ -162,7 +156,7 @@ sleep 0.3
 tmux -L $SOCKET capture-pane -t main -p
 
 tmux -L $SOCKET send-keys -t main "exit()" C-m
-tmux -L $SOCKET kill-server
+tmux -L $SOCKET kill-server && rm -f /tmp/tmux-$(id -u)/$SOCKET
 ```
 
 ### Monitoring a Long-Running Process
@@ -178,7 +172,7 @@ tmux -L $SOCKET capture-pane -t main -p
 # When done monitoring
 tmux -L $SOCKET send-keys -t main C-c
 sleep 0.3
-tmux -L $SOCKET kill-server
+tmux -L $SOCKET kill-server && rm -f /tmp/tmux-$(id -u)/$SOCKET
 ```
 
 ### Vim Automation
@@ -197,7 +191,7 @@ tmux -L $SOCKET send-keys -t main ":wq" C-m
 sleep 0.3
 
 tmux -L $SOCKET capture-pane -t main -p
-tmux -L $SOCKET kill-server
+tmux -L $SOCKET kill-server && rm -f /tmp/tmux-$(id -u)/$SOCKET
 ```
 
 Note: the Vim example uses `send-keys -l` for the text content so that any special characters in the text are sent literally rather than interpreted as tmux key bindings.

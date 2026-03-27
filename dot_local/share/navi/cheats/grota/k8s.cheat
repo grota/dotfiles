@@ -1,12 +1,18 @@
 % kubernetes
 
-# kubectl exec into a pod
+# get pod yaml
+kubectl get pod <podid> -o yaml | bat -l yaml
+
+# pod describe
+kubectl describe pod <podid>
+
+# pod exec into shell
 kubectl exec -it <podid> -- ash -il
 
-# kubectl logs -f of a pod
+# pod logs -f
 kubectl logs -f <podid>
 
-# kubectl create job from cronjob
+# create k8s job from cronjob
 kubectl create job --from=cronjob/<cronjobname>
 
 $ podid: kubectl get pods --- --headers 1 --column 1
