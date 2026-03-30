@@ -49,7 +49,8 @@ map(
 
 map("x", ".", ":normal .<CR>", { desc = "Do . on all selected line" })
 
-map("n", "<leader>yf", '<cmd>let @+=expand("%")<CR>:echo "copied " . expand("%")<CR>', { desc = "Copy full path" })
+map("n", "<leader>yf", '<cmd>let @+=expand("%")<CR>:echo "copied " . expand("%")<CR>', { desc = "Copy file name" })
+map("n", "<leader>yF", '<cmd>let @+=expand("%:p")<CR>:echo "copied " . expand("%:p")<CR>', { desc = "Copy full path" })
 map("n", "<leader>yo", '<cmd>let @+=expand("%:t")<CR>:echo "copied " . expand("%:t")<CR>', { desc = "Copy filename" })
 map(
 	"n",

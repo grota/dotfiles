@@ -54,6 +54,7 @@ keybind = ctrl+m=text:\x0D
 clipboard-read = allow
 # conf file that only has the theme settings, external to be ignored from my dotfiles
 # It toggles between two theme lines like these where only one is active and only one is inactive.
-# #theme=light:Builtin Tango Light,dark:Builtin Tango Dark
-# theme=Builtin Tango Dark
-config-file = ./ghostty-theme
+config-file = ?ghostty-theme
+
+#theme=Gruvbox Light Hard
+#theme=Builtin Tango Dark

@@ -162,7 +162,11 @@
       "git checkout -- .*": "ask",
       "git branch -D*": "ask",
 
-      "git add": "deny"
+      "git add": "ask",
+      "git push": "ask"
+    },
+    "external_directory": {
+      "/home/grota/Projects/Sparkfabrik/**": "allow",
     }
   }
 }

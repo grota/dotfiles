@@ -3,7 +3,11 @@
 FIRST="${1:-}"
 SECOND="${2:-}"
 if [ -z "$FIRST" ]; then
-  FIRST="$(echo -e 'file-dir\nsession restore\ntmux-fzf\nsession save\nkeybindings\npaste_navi'| fzf --tmux)"
+  FIRST="file-dir\nsession restore\ntmux-fzf\nsession save"
+  if [ -n "$TMUX" ]; then
+    FIRST="${FIRST}\nkeybindings"
+  fi
+    FIRST="$(echo -e "$FIRST" | fzf --tmux)"
 fi
 if [ "$FIRST" == "keybindings" ]; then
   # Second arg is tmux table in this context.
@@ -38,4 +42,6 @@ elif [ "$FIRST" = 'file-dir' ]; then
     fi
   fi
   tmux display-popup -w 90% -h 90% -EE "tmux-file-picker $TMUX_FILE_PICKER_ARGS"
+elif [ "$FIRST" = 'shortcuts-1' ]; then
+  navi --tag-rules='trending-commands'
 fi

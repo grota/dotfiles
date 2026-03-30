@@ -1,20 +1,6 @@
 #!/usr/bin/env bash
 
 # functions {{{
-function ghostty-toggle-theme() {
-  local config="$HOME/.config/ghostty/ghostty-theme"
-  # Each call flips the # on each theme= line (commented <-> uncommented).
-  # 1. s/^#(theme=)/\1/ — if the line starts with #theme=, remove the #
-  # 2. t — if the previous substitution matched, skip the next expression for this line
-  # 3. s/^(theme=)/#\1/ — otherwise, if the line starts with theme=, prepend #
-  sed -i -E \
-    -e 's/^#(theme=)/\1/' \
-    -e 't' \
-    -e 's/^(theme=)/#\1/' \
-    "$config"
-  echo "ghostty theme toggled:"
-  bat -p -l INI "$config"
-}
 function mkcd() { mkdir -p "$@" && eval cd "\"\$$#\""; }
 function resunity() {
 	xset r rate 200 90
