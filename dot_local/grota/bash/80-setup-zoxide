@@ -1,2 +1,7 @@
 # vim: set tabstop=2 shiftwidth=2 ft=bash foldmethod=marker:
 eval "$(zoxide init bash)"
+
+_fzf_complete_z() {
+  FZF_COMPLETION_TRIGGER='' _fzf_complete --multi --reverse --prompt="> " -- "$@" < <(zoxide query --list)
+}
+complete -F _fzf_complete_z -o default -o bashdefault z

@@ -1,0 +1,9 @@
+% trending-commands
+
+# pump volume
+pump-volume <volume>
+
+# ghostty toggle theme
+ghostty-toggle-theme
+
+$ volume:  echo -e '125\n150\n175'

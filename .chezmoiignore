@@ -425,3 +425,8 @@ chezmoi_ignored
 /local/bin/plannotator
 /.config/visidata/input_history.jsonl
 /.local/share/gem
+/.config/ghostty/ghostty-theme
+/.context7
+/.agent-browser/grota-profiles
+
+**/__pycache__

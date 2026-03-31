@@ -139,8 +139,7 @@
   },
   "formatter": false,
   "plugin": [
-    // "oh-my-opencode@latest",
-    // "@plannotator/opencode@latest",
+    "@mohak34/opencode-notifier@latest",
     "opencode-antigravity-auth@latest"
   ],
   "permission": {

@@ -7,3 +7,5 @@ function resunity() {
 	echo h xkb
 }
 # }}}
+
+bind -x '"\C-x\C-x": ~/.local/grota/scripts/tmux-action-dispatcher shortcuts-1'
