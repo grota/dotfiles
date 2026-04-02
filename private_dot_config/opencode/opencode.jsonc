@@ -141,6 +141,13 @@
   "plugin": [
     "@mohak34/opencode-notifier@latest",
     "opencode-antigravity-auth@latest"
+//    [
+//      "oc-plugin-vault-tec",
+//      {
+//        "enabled": true,
+//        "mode": "append"
+//      }
+//    ]
   ],
   "permission": {
     "bash": {

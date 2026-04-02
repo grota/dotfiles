@@ -10,7 +10,6 @@ alias ll='fzfllm'
 alias l='lsd -lrt'
 alias bc='bc -l'
 alias py=python
-alias nv=nordvpn
 alias d=docker
 alias dc=docker-compose
 if ! declare -F __start_docker &>/dev/null; then

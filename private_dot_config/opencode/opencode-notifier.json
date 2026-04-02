@@ -19,10 +19,12 @@
   "events": {
     "permission"       : { "sound": true, "notification" : true, "command" : true },
     "complete"         : { "sound": true, "notification" : true, "command" : true },
-    "subagent_complete": { "sound": false, "notification": false, "command": true },
+    "subagent_complete": { "sound": true, "notification": false, "command" : true },
     "error"            : { "sound": true, "notification" : true, "command" : true },
     "question"         : { "sound": true, "notification" : true, "command" : true },
-    "user_cancelled"   : { "sound": false, "notification": false, "command": true }
+    "user_cancelled"   : { "sound": false, "notification": false, "command": true },
+    "user_message"     : { "sound": true, "notification" : false,"command" : true },
+    "session_started"  : { "sound": true, "notification" : false,"command" : true }
   },
   "messages": {
     "permission": "Session needs permission: {sessionTitle}",
@@ -30,15 +32,19 @@
     "subagent_complete": "Subagent task completed: {sessionTitle}",
     "error": "Session encountered an error: {sessionTitle}",
     "question": "Session has a question: {sessionTitle}",
-    "user_cancelled": "Session was cancelled by user: {sessionTitle}"
+    "user_cancelled": "Session was cancelled by user: {sessionTitle}",
+    "user_message": "Session message: {sessionTitle}",
+    "session_started": "Session started: {sessionTitle}"
   },
   "sounds": {
-    "permission": null,
-    "complete": null,
-    "subagent_complete": null,
-    "error": null,
-    "question": null,
-    "user_cancelled": null
+    "permission": "/home/grota/.local/share/chezmoi/private_dot_config/opencode/soundpacks/fallout-1/ui_health_chems_wearoff.wav",
+    "complete": "/home/grota/.local/share/chezmoi/private_dot_config/opencode/soundpacks/fallout-1/ui_leveluptext.wav",
+    "subagent_complete": "/home/grota/.local/share/chezmoi/private_dot_config/opencode/soundpacks/fallout-1/ui_items_takeall.wav",
+    "error": "/home/grota/.local/share/chezmoi/private_dot_config/opencode/soundpacks/fallout-1/ui_popup_questupdate.wav",
+    "question": "/home/grota/.local/share/chezmoi/private_dot_config/opencode/soundpacks/fallout-1/ui_hacking_charmultiple_02.wav",
+    "user_cancelled": null,
+    "user_message": "/home/grota/.local/share/chezmoi/private_dot_config/opencode/soundpacks/fallout-1/ui_hacking_charmultiple_02.wav",
+    "session_started": "/home/grota/.local/share/chezmoi/private_dot_config/opencode/soundpacks/fallout-1/ui_hacking_passgood.wav"
   },
   "volumes": {
     "permission": 1,
@@ -46,6 +52,8 @@
     "subagent_complete": 1,
     "error": 1,
     "question": 1,
-    "user_cancelled": 1
+    "user_cancelled": 1,
+    "user_message": 1,
+    "session_started": 1
   }
 }

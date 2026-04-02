@@ -1,4 +1,19 @@
 {
   "$schema": "https://opencode.ai/tui.json",
-  "theme": "system"
+  "theme": "system",
+  // "plugin": [
+    // "@mohak34/opencode-notifier@latest"
+    // [
+    //   "oc-plugin-vault-tec",
+    //   {
+    //     "enabled": false,
+    //     "set_theme": true,
+    //     "scanlines": true,
+    //     "scanline_speed": 0.012,
+    //     "vignette": 0.75,
+    //     "sidebar": true,
+    //     "tips": true
+    //   }
+    // ]
+  // ]
 }

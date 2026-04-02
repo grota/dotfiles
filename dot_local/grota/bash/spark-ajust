@@ -1,0 +1,2 @@
+# Decomment to update
+# JUST_COMPLETE=bash just| sed -E 's/([\(_" ])just/\1ajust/g' > ~/.bash_completion.d/opencode-completions
