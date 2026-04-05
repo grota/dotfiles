@@ -102,6 +102,7 @@ chezmoi_ignored
 /.config/opencode/bun.lock
 /.config/opencode/node_modules
 /.config/opencode/package.json
+/.config/opencode/opencode-notifier-state.json
 /.config/paperwm
 /.config/pavucontrol.ini
 /.config/pulse

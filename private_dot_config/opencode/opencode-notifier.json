@@ -17,14 +17,15 @@
     "minDuration": 0
   },
   "events": {
-    "permission"       : { "sound": true, "notification" : true, "command" : true },
-    "complete"         : { "sound": true, "notification" : true, "command" : true },
-    "subagent_complete": { "sound": true, "notification": false, "command" : true },
-    "error"            : { "sound": true, "notification" : true, "command" : true },
-    "question"         : { "sound": true, "notification" : true, "command" : true },
-    "user_cancelled"   : { "sound": false, "notification": false, "command": true },
-    "user_message"     : { "sound": true, "notification" : false,"command" : true },
-    "session_started"  : { "sound": true, "notification" : false,"command" : true }
+    "permission"       : { "sound": true,  "notification" : true,  "command" : true },
+    "complete"         : { "sound": true,  "notification" : true,  "command" : true },
+    "subagent_complete": { "sound": true,  "notification" : false, "command" : true },
+    "error"            : { "sound": true,  "notification" : true,  "command" : true },
+    "question"         : { "sound": true,  "notification" : true,  "command" : true },
+    "user_cancelled"   : { "sound": false, "notification" : false, "command" : true },
+    "user_message"     : { "sound": true,  "notification" : false, "command" : true },
+    "client_connected" : { "sound": true,  "notification" : false, "command" : true },
+    "session_started"  : { "sound": true,  "notification" : true,  "command" : true }
   },
   "messages": {
     "permission": "Session needs permission: {sessionTitle}",
@@ -34,17 +35,19 @@
     "question": "Session has a question: {sessionTitle}",
     "user_cancelled": "Session was cancelled by user: {sessionTitle}",
     "user_message": "Session message: {sessionTitle}",
+    "client_connected": "Session started: {sessionTitle}",
     "session_started": "Session started: {sessionTitle}"
   },
   "sounds": {
-    "permission": "/home/grota/.local/share/chezmoi/private_dot_config/opencode/soundpacks/fallout-1/ui_health_chems_wearoff.wav",
-    "complete": "/home/grota/.local/share/chezmoi/private_dot_config/opencode/soundpacks/fallout-1/ui_leveluptext.wav",
-    "subagent_complete": "/home/grota/.local/share/chezmoi/private_dot_config/opencode/soundpacks/fallout-1/ui_items_takeall.wav",
-    "error": "/home/grota/.local/share/chezmoi/private_dot_config/opencode/soundpacks/fallout-1/ui_popup_questupdate.wav",
-    "question": "/home/grota/.local/share/chezmoi/private_dot_config/opencode/soundpacks/fallout-1/ui_hacking_charmultiple_02.wav",
+    "permission": "/home/grota/.local/share/chezmoi/chezmoi_ignored/soundpacks/fallout-1/ui_health_chems_wearoff.wav",
+    "complete": "/home/grota/.local/share/chezmoi/chezmoi_ignored/soundpacks/fallout-1/ui_leveluptext.wav",
+    "subagent_complete": "/home/grota/.local/share/chezmoi/chezmoi_ignored/soundpacks/fallout-1/ui_items_takeall.wav",
+    "error": "/home/grota/.local/share/chezmoi/chezmoi_ignored/soundpacks/fallout-1/ui_popup_questupdate.wav",
+    "question": "/home/grota/.local/share/chezmoi/chezmoi_ignored/soundpacks/fallout-1/ui_popup_messagewindow.wav",
     "user_cancelled": null,
-    "user_message": "/home/grota/.local/share/chezmoi/private_dot_config/opencode/soundpacks/fallout-1/ui_hacking_charmultiple_02.wav",
-    "session_started": "/home/grota/.local/share/chezmoi/private_dot_config/opencode/soundpacks/fallout-1/ui_hacking_passgood.wav"
+    "user_message": "/home/grota/.local/share/chezmoi/chezmoi_ignored/soundpacks/fallout-1/ui_hacking_charmultiple_02.wav",
+    "client_connected": "/home/grota/.local/share/chezmoi/chezmoi_ignored/soundpacks/fallout-1/ui_hacking_passgood.wav",
+    "session_started": "/home/grota/.local/share/chezmoi/chezmoi_ignored/soundpacks/fallout-1/ui_vats_camera_in.wav"
   },
   "volumes": {
     "permission": 1,
@@ -54,6 +57,7 @@
     "question": 1,
     "user_cancelled": 1,
     "user_message": 1,
+    "client_connected": 1,
     "session_started": 1
   }
 }
