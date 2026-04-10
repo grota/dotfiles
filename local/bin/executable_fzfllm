@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
 
 FZFLLM=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)/$(basename -- "${BASH_SOURCE[0]}")
-_bgreen() { printf "%b%s%b" '\e[1;32m' "$@" '\e[0m' ; }
-_bwhite() { printf "%b%s%b" '\e[1;37m' "$@" '\e[0m' ; }
-_white() { printf "%b%s%b" '\e[0;37m' "$@" '\e[0m' ; }
+# shellcheck source=dot_local/grota/scripts/fzf-scripts-utils.sh
+source "$HOME/.local/grota/scripts/fzf-scripts-utils.sh"
 
 LLM_GET_THREAD_CMD="${LLM_GET_THREAD_CMD:-llm logs list --cid {1}}"
 LLM_OPEN_IN_PAGER_CMD="${LLM_OPEN_IN_PAGER_CMD:-bat --language markdown --color always --paging=always --plain --pager=\"less -R -+S --wordwrap\"}"
-LLM_PREVIEW_DECORATOR="${LLM_PREVIEW_DECORATOR:-bat --language markdown --color always --plain}"
 
-KEY_TOGGLE_HEADER="${KEY_TOGGLE_HEADER:-alt-/}"
 KEY_NEW_THREAD="${KEY_NEW_THREAD:-ctrl-t}"
 KEY_SEARCH_THREADS="${KEY_SEARCH_THREADS:-ctrl-/}"
 KEY_DELETE="${KEY_DELETE:-ctrl-delete}"
@@ -18,40 +15,27 @@ KEY_OPEN_IN_EDITOR="${KEY_OPEN_IN_EDITOR:-alt-enter}"
 KEY_CONTINUE_THREAD="${KEY_CONTINUE_THREAD:-ctrl-o}"
 KEY_RENAME_THREAD="${KEY_RENAME_THREAD:-ctrl-r}"
 KEY_EDIT_THREAD_MESSAGES="${KEY_EDIT_THREAD_MESSAGES:-alt-e}"
-KEY_SHOW_HELP="${KEY_SHOW_HELP:-?}"
-KEY_CHANGE_PREVIEW_PRESET="${KEY_CHANGE_PREVIEW_PRESET:-ctrl-g}"
-KEY_PREVIEW_UP_1="${KEY_PREVIEW_UP_1:-alt-k}"
-KEY_PREVIEW_UP_2="${KEY_PREVIEW_UP_2:-alt-p}"
-KEY_PREVIEW_DOWN_1="${KEY_PREVIEW_DOWN_1:-alt-j}"
-KEY_PREVIEW_DOWN_2="${KEY_PREVIEW_DOWN_2:-alt-n}"
 KEY_CLEAN_FRAGMENTS="${KEY_CLEAN_FRAGMENTS:-alt-f}"
 
 HEADER_TEXT="Press $KEY_SHOW_HELP for help"
 
-# Just UI/UX/style, can be freely changed.
-FZFLLM_FZF_GRAPHICAL_OPTS="
---layout=reverse --height='100%'
---preview-window='right,60%,wrap,border-rounded'
---bind='$KEY_CHANGE_PREVIEW_PRESET:change-preview-window:right,76%,wrap|right,60%,wrap'
---border=\"bold\" --color=gutter:-1,border:#4e440c,preview-border:#1d077d,preview-scrollbar:bright-black
---header '$HEADER_TEXT' --header-first
---info=hidden
---cycle --no-sort --exit-0 --tiebreak=index
---listen --bind='start:execute-silent:{ sleep 2 && curl -XPOST localhost:\$FZF_PORT -d hide-header ; }&'
-"
+FZFLIB_FIFO=$(mktemp -u "fzfllm_fifo_XXXX.md" --tmpdir)
+mkfifo "$FZFLIB_FIFO"
+
+function cleanup {
+  rm -f "$FZFLIB_FIFO"
+}
+
+trap cleanup EXIT
 
 # We assume NUL-terminated input to fzf to accomodate multiline input.
 # See https://junegunn.github.io/fzf/tips/processing-multi-line-items/
 # Input to fzf is assumed to be tab delimited, with the thread id in
 # the first field and text in the second.
 FZFLLM_FZF_GENERAL_OPTS="
-$FZFLLM_FZF_GRAPHICAL_OPTS
+$(_fzflib_graphical_opts "$HEADER_TEXT" "$FZFLLM help")
 --ansi --no-multi --no-select-1
 --nth=1 --with-nth=2 --delimiter='\x1F' --read0 --highlight-line
---bind='$KEY_PREVIEW_UP_1:preview-up,$KEY_PREVIEW_UP_2:preview-up'
---bind='$KEY_PREVIEW_DOWN_1:preview-down,$KEY_PREVIEW_DOWN_2:preview-down'
---bind='$KEY_SHOW_HELP:preview($FZFLLM help)'
---bind='$KEY_TOGGLE_HEADER:toggle-header'
 $FZFLLM_FZF_GENERAL_OPTS"
 
 # We prefer the pattern transform[echo print:SUBCOMMAND \"{1}\"]+accept
@@ -59,7 +43,7 @@ $FZFLLM_FZF_GENERAL_OPTS"
 # because with execute the spawned process will inherit the environment
 # and inheriting FZF_DEFAULT_OPTS is a problem (duplicates).
 FZFLLM_BINDS_FOR_LIST_OF_THREADS="
---preview='$LLM_GET_THREAD_CMD | $LLM_PREVIEW_DECORATOR'
+--preview='$LLM_GET_THREAD_CMD | $FZF_MARKDOWN_PREVIEW_COMMAND'
 --bind='$KEY_OPEN_IN_PAGER:execute($LLM_GET_THREAD_CMD | $LLM_OPEN_IN_PAGER_CMD)'
 --bind='$KEY_DELETE:transform[echo print:delete_thread {1}]+accept'
 --bind='$KEY_OPEN_IN_EDITOR:execute($LLM_GET_THREAD_CMD | $FZFLLM open_stdin_in_editor)'
@@ -70,15 +54,6 @@ FZFLLM_BINDS_FOR_LIST_OF_THREADS="
 --bind='$KEY_EDIT_THREAD_MESSAGES:transform[echo print:edit_thread_messages {1}]+accept'
 --bind='$KEY_CLEAN_FRAGMENTS:transform[echo print:clean_fragments]+accept'
 "
-
-fifo=$(mktemp -u "fzfllm_fifo_XXXX.md" --tmpdir)
-mkfifo "$fifo"
-
-function cleanup {
-  rm -f "$fifo"
-}
-
-trap cleanup EXIT
 
 _fzfllm_main() {
   local NEXT_COMMAND=list_threads
@@ -152,7 +127,7 @@ _fzfllm_edit_thread_messages() {
   local OPTS="
   $FZF_DEFAULT_OPTS
   $FZFLLM_FZF_GENERAL_OPTS
-  --preview='$FZFLLM preview_message {1} | $LLM_PREVIEW_DECORATOR'
+  --preview='$FZFLLM preview_message {1} | $FZF_MARKDOWN_PREVIEW_COMMAND'
   --prompt=\"🗨  messages\> \"
   --bind='$KEY_DELETE:transform[echo print:delete_message {1}]+accept'
   --bind='$KEY_OPEN_IN_PAGER:execute($FZFLLM preview_message {1} | $LLM_OPEN_IN_PAGER_CMD)'
@@ -196,11 +171,7 @@ _fzfllm_delete_message() {
 }
 
 _fzfllm_open_stdin_in_editor() {
-  local FILE
-  FILE=$(mktemp "fzfllm_cid_${1}_XXX.md" --tmpdir)
-  cat > "$FILE"
-  "${EDITOR:-nvim}" "$FILE"
-  rm -f "$FILE"
+  _fzflib_open_stdin_in_editor "fzfllm_cid_${1}"
 }
 
 _fzfllm_new_thread() {
@@ -275,6 +246,7 @@ _fzfllm_help() {
   $(_bgreen "$KEY_CHANGE_PREVIEW_PRESET"): toggles between the two preview layout presets.
   $(_bgreen "$KEY_PREVIEW_DOWN_1", "$KEY_PREVIEW_DOWN_2"): scrolls the preview down.
   $(_bgreen "$KEY_PREVIEW_UP_1", "$KEY_PREVIEW_UP_2"): scrolls the preview up.
+  $(_bgreen "$KEY_PAGE_UP", "$KEY_PAGE_DOWN"): scrolls the preview by a full page.
 
   $(_bgreen "$KEY_CLEAN_FRAGMENTS"): Cleans fragments (useful for llm-docs plugin)
 
@@ -292,55 +264,6 @@ _fzfllm_help() {
 _fzfllm_execute_query() {
   DB=$(llm logs path)
   sqlite3 -separator $'\x1F' -newline $'\x1E' "$DB" "$1" | tr $'\x1E' '\0'
-}
-
-# Function to create a box around text using UTF-8 characters
-create_box() {
-  local text="$1"
-  local padding=2
-  local max_overall_width="${FZF_PREVIEW_COLUMNS}"
-  local longest_text_width_found=0
-  local formatted_text=""
-  local line
-  local max_text_width
-  local width_of_text_plus_padding
-
-  # 2 is for the 2 external vertical lines
-  # then padding is times 2 because of left and right
-  (( max_text_width = max_overall_width - 2 - padding * 2 ))
-  # Format the text by breaking lines longer than max_overall_width
-  while IFS= read -r line; do
-    while [[ ${#line} -gt $((max_text_width)) ]]; do
-      formatted_text+="${line:0:$((max_text_width))}"'\0'
-      line=${line:$((max_text_width))}
-    done
-    formatted_text+="$line"'\0'
-  done <<< "$text"
-
-  # Calculate the longest_text_width_found of the box
-  {
-    echo -E "$formatted_text" | sed -e 's/\\0/\x00/g' > "$fifo"
-  } &
-  while IFS= read -d '' -r line; do
-    (( ${#line} > longest_text_width_found )) && longest_text_width_found=${#line}
-  done < "$fifo"
-
-  (( width_of_text_plus_padding = longest_text_width_found + (padding * 2) ))
-
-  # Print the top border
-  printf "┌"
-  printf "%${width_of_text_plus_padding}s" "" | sed "s/ /─/g"
-  printf "┐\n"
-
-  # Print |text with padding|
-  echo -E "$formatted_text" | sed -e 's/\\0/\x00/g' | while IFS= read -d '' -r line; do
-    printf "│%${padding}s%-${longest_text_width_found}s%${padding}s│\n" "" "$line" ""
-  done
-
-  # Print the bottom border
-  printf "└"
-  printf "%${width_of_text_plus_padding}s" | sed "s/ /─/g"
-  printf "┘\n"
 }
 
 # This subcommand parses the stdin which is assumed to be

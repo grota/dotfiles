@@ -25,7 +25,7 @@ require("lazy").setup({
     lazy = false,
     version = false,
   },
-  install = { colorscheme = { "catppuccin" } },
+  -- install = { colorscheme = { "catppuccin" } },
   concurrency = 5,
   checker = { enabled = false },
   performance = {

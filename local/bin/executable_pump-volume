@@ -9,7 +9,7 @@ MAX_ALLOWED=300
 
 # Source shared volume utilities
 # shellcheck source=dot_local/grota/scripts/volume-utils.sh
-source "${DOTFILESREPO}/dot_local/grota/scripts/volume-utils.sh"
+source "$HOME/.local/grota/scripts/volume-utils.sh"
 
 # ============================================================================
 # Help

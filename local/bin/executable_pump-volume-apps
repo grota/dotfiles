@@ -12,7 +12,7 @@ BLACKLIST_PATTERN="speech-dispatcher"
 
 # Source shared volume utilities
 # shellcheck source=dot_local/grota/scripts/volume-utils.sh
-source "${DOTFILESREPO}/dot_local/grota/scripts/volume-utils.sh"
+source "$HOME/.local/grota/scripts/volume-utils.sh"
 
 # ============================================================================
 # Help

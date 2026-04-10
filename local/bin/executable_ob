@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+
+OB=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)/$(basename -- "${BASH_SOURCE[0]}")
+# shellcheck source=dot_local/grota/scripts/fzf-scripts-utils.sh
+source "$HOME/.local/grota/scripts/fzf-scripts-utils.sh"
+
+KEY_OPEN_IN_EDITOR="${KEY_OPEN_IN_EDITOR:-enter}"
+KEY_OPEN_IN_VIEWER="${KEY_OPEN_IN_VIEWER:-ctrl-v}"
+
+HEADER_TEXT="Press $KEY_SHOW_HELP for help"
+
+FZFLIB_FIFO=$(mktemp -u "ob_fifo_XXXX.md" --tmpdir)
+mkfifo "$FZFLIB_FIFO"
+
+function cleanup {
+  rm -f "$FZFLIB_FIFO"
+}
+
+trap cleanup EXIT
+
+OB_FZF_GENERAL_OPTS="
+$(_fzflib_graphical_opts "$HEADER_TEXT" "$OB help")
+--ansi --no-multi --no-select-1
+--highlight-line
+$OB_FZF_GENERAL_OPTS"
+
+_ob_main() {
+  local VAULT_PATH
+  VAULT_PATH=$(jq -r '.vaults | to_entries[] | select(.value.open == true) | .value.path' \
+    ~/.config/obsidian/obsidian.json | head -1)
+
+  if [ -z "$VAULT_PATH" ]; then
+    echo "ob: no open Obsidian vault found in ~/.config/obsidian/obsidian.json" >&2
+    exit 1
+  fi
+
+  # Number of path segments in VAULT_PATH; +1 for fzf (1-indexed, skip leading slash)
+  local WITH_NTH
+  WITH_NTH=$(( $(awk -F/ '{print NF}' <<< "$VAULT_PATH") + 1 ))
+
+  local OPTS="
+  $FZF_DEFAULT_OPTS
+  $OB_FZF_GENERAL_OPTS
+  --walker-root='$VAULT_PATH' --walker=file
+  --delimiter '/' --with-nth ${WITH_NTH}..
+  --preview='$FZF_MARKDOWN_PREVIEW_COMMAND {}'
+  --bind='$KEY_OPEN_IN_EDITOR:execute(\"${EDITOR:-nvim}\" {})'
+  --bind='$KEY_OPEN_IN_VIEWER:execute(${OB_VIEWER:-mdt} {})'
+  --exact
+  --prompt='notes> '
+  $OB_MAIN_FZF_OPTS"
+  # --query=\'
+
+
+  FZF_DEFAULT_COMMAND='' FZF_DEFAULT_OPTS="$OPTS" fzf
+}
+
+_ob_help() {
+  local HELP_TEXT
+  HELP_TEXT="$(_bwhite "ob -- fuzzy Obsidian vault file selector")
+
+$(_bwhite "Keys:")
+  $(_bgreen "$KEY_OPEN_IN_EDITOR"): OPEN selected file in \$EDITOR (fallback: nvim).
+  $(_bgreen "$KEY_OPEN_IN_VIEWER"): VIEW selected file with \$OB_VIEWER (fallback: mdt).
+
+  $(_bgreen "${KEY_TOGGLE_HEADER}"): toggle the header line.
+  $(_bgreen "$KEY_CHANGE_PREVIEW_PRESET"): toggle between preview layout presets.
+  $(_bgreen "$KEY_PREVIEW_DOWN_1", "$KEY_PREVIEW_DOWN_2"): scroll preview down.
+  $(_bgreen "$KEY_PREVIEW_UP_1", "$KEY_PREVIEW_UP_2"): scroll preview up.
+  $(_bgreen "$KEY_PAGE_UP", "$KEY_PAGE_DOWN"): scroll preview by a full page.
+
+$(_bwhite "Environment variables:")
+  $(_bgreen "OB_VIEWER"): viewer command (fallback mdt).
+  $(_bgreen "FZF_MARKDOWN_PREVIEW_COMMAND"): preview renderer command (default: $FZF_MARKDOWN_PREVIEW_COMMAND).
+
+  Other default fzf mappings apply:
+  $(_white "ctrl-c Esc ctrl-q"): quit
+  $(_white "ctrl-j ctrl-n down"): go down
+  $(_white "ctrl-k ctrl-p up"): go up
+
+  Keys can be freely changed via env vars -- read the source to see how :)
+  "
+  echo "$HELP_TEXT"
+}
+
+cmd="${1:-main}"
+shift
+
+public_commands=(
+  "main"
+  "help"
+)
+
+# shellcheck disable=SC2076
+if [[ ! " ${public_commands[*]} " =~ " ${cmd} " ]]; then
+  echo "ob: invalid command '$cmd'" >&2
+  sleep 1
+  exit 1
+fi
+
+_ob_"${cmd}" "$@"

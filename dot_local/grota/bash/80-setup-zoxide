@@ -2,6 +2,6 @@
 eval "$(zoxide init bash)"
 
 _fzf_complete_z() {
-  FZF_COMPLETION_TRIGGER='' _fzf_complete --multi --reverse --prompt="> " -- "$@" < <(zoxide query --list)
+  FZF_COMPLETION_TRIGGER='' _fzf_complete --reverse --prompt="> " --bind=tab:down --bind=shift-tab:up -- "$@" < <(zoxide query --list)
 }
 complete -F _fzf_complete_z -o default -o bashdefault z
