@@ -13,6 +13,7 @@ get_snapshot_name() {
     --ansi
     --bind=\"ctrl-r:execute(read -r -p 'new name: ' -i '{}' -e newname; mv $(snapshot_dir)/'{}' $(snapshot_dir)/\$newname)+reload($provider)\"
     --bind=\"ctrl-d:execute(rm $(snapshot_dir)/'{}')+reload($provider)\"
+    --bind=enter:accept-or-print-query
     "
     name=$($provider | FZF_DEFAULT_OPTS="$OPTS" fzf)
   fi

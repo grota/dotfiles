@@ -6,36 +6,45 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/skills.git",
       "skillPath": "skills/find-skills/SKILL.md",
-      "skillFolderHash": "c2f31172b6f256272305a5e6e7228b258446899f",
+      "skillFolderHash": "3013fdeb8a11b10b1eb795ec3ae8bfca38f7c26d",
       "installedAt": "2026-02-01T16:31:06.835Z",
-      "updatedAt": "2026-03-04T08:04:16.078Z"
+      "updatedAt": "2026-04-17T08:20:10.696Z"
     },
     "skill-creator": {
       "source": "anthropics/skills",
       "sourceType": "github",
       "sourceUrl": "https://github.com/anthropics/skills.git",
       "skillPath": "skills/skill-creator/SKILL.md",
-      "skillFolderHash": "5c26c1472b98de33a48074ba5d3efe3a727b8e37",
+      "skillFolderHash": "98a510d1cfef9f82c3b1eec200229ca68725e613",
       "installedAt": "2026-02-07T10:33:51.850Z",
-      "updatedAt": "2026-02-26T18:08:08.179Z"
+      "updatedAt": "2026-04-17T08:20:13.662Z"
     },
     "opentui": {
       "source": "msmps/opentui-skill",
       "sourceType": "github",
       "sourceUrl": "https://github.com/msmps/opentui-skill.git",
       "skillPath": "skill/opentui/SKILL.md",
-      "skillFolderHash": "00be9b06139cfcfc3a4f63469e148b574a31781b",
+      "skillFolderHash": "5762c20998971757745d9c3dc8d55e9b64539fd3",
       "installedAt": "2026-03-01T15:47:32.006Z",
-      "updatedAt": "2026-03-01T15:47:32.006Z"
+      "updatedAt": "2026-04-17T08:20:16.631Z"
     },
     "agent-browser": {
       "source": "vercel-labs/agent-browser",
       "sourceType": "github",
       "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
       "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "368263b629b1c1af2abd68ff2e45fa40ead82601",
+      "skillFolderHash": "121eecacd86c0aab06aef5cd4663e80c5397cd41",
       "installedAt": "2026-03-03T08:29:02.228Z",
-      "updatedAt": "2026-03-04T08:02:28.620Z"
+      "updatedAt": "2026-04-17T08:20:18.317Z"
+    },
+    "gh-stack": {
+      "source": "github/gh-stack",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/github/gh-stack.git",
+      "skillPath": "skills/gh-stack/SKILL.md",
+      "skillFolderHash": "f900e01d90dd042162d0632dc31ee9541dd07841",
+      "installedAt": "2026-04-15T07:41:52.615Z",
+      "updatedAt": "2026-04-15T07:41:52.615Z"
     }
   },
   "dismissed": {
@@ -43,12 +52,16 @@
   },
   "lastSelectedAgents": [
     "amp",
+    "antigravity",
     "cline",
     "codex",
     "cursor",
+    "deepagents",
+    "firebender",
     "gemini-cli",
     "github-copilot",
     "kimi-cli",
-    "opencode"
+    "opencode",
+    "warp"
   ]
 }

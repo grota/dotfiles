@@ -6,12 +6,13 @@ This file covers common `glab api` patterns for operations that go beyond the bu
 
 1. [Authentication and basics](#authentication-and-basics)
 2. [Project information](#project-information)
-3. [Repository files](#repository-files)
-4. [Issues (advanced)](#issues-advanced)
-5. [Merge requests (advanced)](#merge-requests-advanced)
-6. [Users and members](#users-and-members)
-7. [Labels and milestones](#labels-and-milestones)
-8. [GraphQL queries](#graphql-queries)
+3. [Groups](#groups)
+4. [Repository files](#repository-files)
+5. [Issues (advanced)](#issues-advanced)
+6. [Merge requests (advanced)](#merge-requests-advanced)
+7. [Users and members](#users-and-members)
+8. [Labels and milestones](#labels-and-milestones)
+9. [GraphQL queries](#graphql-queries)
 
 ---
 
@@ -53,6 +54,18 @@ glab api projects/:id/issues --paginate
 glab api "projects/:id/issues?per_page=100&page=2"
 ```
 
+> **Concatenated arrays:** `--paginate` outputs each page's JSON array back-to-back (`[...][...]`), which is **not valid JSON**. Piping directly to `jq '.[].field'` will fail on multi-page results. Always merge the arrays first with `jq -s 'add'`:
+>
+> ```bash
+> # WRONG -- breaks when response spans multiple pages:
+> glab api projects/:id/issues --paginate | jq '.[].title'
+>
+> # CORRECT -- merge pages into a single array:
+> glab api projects/:id/issues --paginate | jq -s 'add | .[].title'
+> ```
+>
+> For single-page results both forms work, but using `jq -s 'add'` is always safe.
+
 ---
 
 ## Project information
@@ -79,6 +92,36 @@ glab api projects/:id/hooks
 
 ---
 
+## Groups
+
+Group paths must be URL-encoded (slashes as `%2F`), just like project paths.
+
+```bash
+# List projects in a group
+GITLAB_HOST=gitlab.example.com glab api \
+  "groups/team%2Fsubgroup/projects" --paginate \
+  | jq -s 'add | .[] | {name, path_with_namespace, web_url}'
+
+# List projects (names only, sorted)
+GITLAB_HOST=gitlab.example.com glab api \
+  "groups/team%2Fsubgroup/projects" --paginate \
+  | jq -s 'add | .[].name' -r | sort
+
+# Include projects from descendant subgroups
+GITLAB_HOST=gitlab.example.com glab api \
+  "groups/team%2Fsubgroup/projects?include_subgroups=true" --paginate \
+  | jq -s 'add | .[].path_with_namespace' -r
+
+# List subgroups
+GITLAB_HOST=gitlab.example.com glab api \
+  "groups/team/subgroups" | jq '.[].full_path'
+
+# Group details
+GITLAB_HOST=gitlab.example.com glab api "groups/team%2Fsubgroup"
+```
+
+---
+
 ## Repository files
 
 ```bash
@@ -95,8 +138,9 @@ glab api "projects/:id/repository/files/.gitlab-ci.yml?ref=main"
 # List files in a directory
 glab api "projects/:id/repository/tree?ref=main&path=deploy"
 
-# Recursive directory listing
-glab api "projects/:id/repository/tree?ref=main&recursive=true&per_page=100" --paginate
+# Recursive directory listing (use jq -s 'add' with --paginate)
+glab api "projects/:id/repository/tree?ref=main&recursive=true&per_page=100" --paginate \
+  | jq -s 'add | .[].path'
 
 # List files with details (name, type, path)
 glab api "projects/:id/repository/tree?ref=main&path=src" | jq '.[] | {name, type, path}'

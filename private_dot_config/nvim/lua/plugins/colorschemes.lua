@@ -43,8 +43,8 @@ return {
               -- diffAdded = { fg = "#00aa00" },
               -- diffRemoved = { fg = "#dd0022" },
               FlashLabel = {
-                fg = '#5555ff',
-                bg = '#550000',
+                fg = '#ff2222',
+                bg = '#222222',
                 bold = true,
               },
               FlashMatch = {

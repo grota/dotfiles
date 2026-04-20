@@ -174,6 +174,17 @@ glab issue close 42                               # close (ask confirmation firs
 glab issue reopen 42
 ```
 
+### State filtering (open / closed / all)
+
+`glab` does **not** have a `--state` flag (that's `gh`, not `glab`) — using it fails with "Unknown flag". Use these flags instead:
+
+| What you want | `glab issue list` | `glab mr list` |
+|---|---|---|
+| Open only (default) | _(no flag)_ | _(no flag)_ |
+| Closed only | `--closed` | `--closed` |
+| All (open + closed) | `--all` | `--all` |
+| Merged only | n/a | `--merged` |
+
 > **Closing/reopening with a comment**: `glab issue close` and `glab issue reopen` do not accept `--message`. Add a note first: `glab issue note 42 --message "..."`, then `glab issue close 42`.
 
 ### Issue template selection
@@ -561,7 +572,7 @@ GITLAB_HOST=<hostname> glab mr update 4 --description "## Screenshot
 
 ## `glab api` -- last resort for advanced operations
 
-> **Do NOT use `glab api` when a CLI subcommand can do the job.** For issues, MRs, CI, labels -- always use the dedicated subcommands first. Use `glab api` only for operations not covered by any subcommand (e.g., project members, GraphQL queries, custom endpoints).
+> **Do NOT use `glab api` when a CLI subcommand can do the job.** For issues, MRs, CI, labels -- always use the dedicated subcommands first. Use `glab api` only for operations not covered by any subcommand (e.g., group projects, project members, GraphQL queries, custom endpoints).
 
 ```bash
 glab api projects/:id/members                                        # GET
@@ -570,6 +581,31 @@ glab api -X PUT projects/:id/merge_requests/15 -f title="Updated"   # PUT
 glab api projects/:id/issues --paginate                              # paginate
 ```
 
+> **`--paginate` concatenation:** `--paginate` outputs each page's JSON array back-to-back (`[...][...]`), which is not valid JSON. Always merge with `jq -s 'add'`:
+>
+> ```bash
+> # WRONG -- breaks on multi-page results:
+> glab api projects/:id/issues --paginate | jq '.[].title'
+>
+> # CORRECT:
+> glab api projects/:id/issues --paginate | jq -s 'add | .[].title'
+> ```
+
+### Group-level operations
+
+There is no `glab` subcommand for group operations -- use `glab api` with URL-encoded group paths (slashes as `%2F`):
+
+```bash
+# List projects in a group
+GITLAB_HOST=gitlab.example.com glab api \
+  "groups/team%2Fsubgroup/projects" --paginate | jq -s 'add | .[].name' -r | sort
+
+# Include descendant subgroups
+GITLAB_HOST=gitlab.example.com glab api \
+  "groups/team%2Fsubgroup/projects?include_subgroups=true" --paginate \
+  | jq -s 'add | .[].path_with_namespace' -r
+```
+
 Placeholder variables (auto-resolved inside a git repo): `:id`, `:fullpath`, `:repo`.
 
-For comprehensive API patterns (GraphQL, pagination, advanced queries), read `references/api-patterns.md`.
+For comprehensive API patterns (GraphQL, pagination, groups, advanced queries), read `references/api-patterns.md`.

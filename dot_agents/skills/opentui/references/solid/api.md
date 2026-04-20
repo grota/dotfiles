@@ -159,13 +159,15 @@ function GameControls() {
 
 ### usePaste(handler)
 
-Handle paste events.
+Handle paste events. Receives a `PasteEvent` with raw bytes.
 
 ```tsx
 import { usePaste } from "@opentui/solid"
+import { decodePasteBytes } from "@opentui/core"
 
 function PasteHandler() {
-  usePaste((text) => {
+  usePaste((event) => {
+    const text = decodePasteBytes(event.bytes)
     console.log("Pasted:", text)
   })
   
@@ -208,9 +210,31 @@ function ResponsiveLayout() {
 }
 ```
 
+### onFocus(callback) / onBlur(callback)
+
+Handle terminal window focus and blur events. Solid-only hooks.
+
+```tsx
+import { onFocus, onBlur } from "@opentui/solid"
+
+function App() {
+  onFocus(() => {
+    console.log("Terminal window gained focus")
+  })
+  
+  onBlur(() => {
+    console.log("Terminal window lost focus")
+  })
+  
+  return <text>Focus/blur tracking</text>
+}
+```
+
+These hooks fire when the terminal emulator window gains or loses operating system focus. The renderer deduplicates events (won't re-emit the same focus state).
+
 ### useSelectionHandler(handler)
 
-Handle text selection events. Solid-only hook - React does not have this.
+Handle text selection events. Fires when the user finishes a mouse selection (mouse-up). Solid-only hook - React does not have this.
 
 ```tsx
 import { useSelectionHandler } from "@opentui/solid"
@@ -218,13 +242,13 @@ import type { Selection } from "@opentui/core"
 
 function SelectableText() {
   const [selected, setSelected] = createSignal("")
+  const renderer = useRenderer()
   
   useSelectionHandler((selection: Selection) => {
     const text = selection.getSelectedText()
     if (text) {
       setSelected(text)
-      // Copy to clipboard if needed
-      selection.copyToClipboard()
+      renderer.copyToClipboardOSC52(text)
     }
   })
   
@@ -237,11 +261,7 @@ function SelectableText() {
 }
 ```
 
-**Selection properties/methods:**
-- `getSelectedText(): string` - Get the selected text content
-- `copyToClipboard(): void` - Copy selection to system clipboard (via OSC 52)
-- `start: ConsolePosition` - Selection start position
-- `end: ConsolePosition` - Selection end position
+The `Selection` object aggregates selected text from all selectable renderables in the tree. See `keyboard/REFERENCE.md` (selection) for full details on the selection API and traversal model.
 
 ### useTimeline(options?)
 
@@ -457,6 +477,7 @@ function AnimatedBox() {
   newCode={modifiedCode}
   language="typescript"
   mode="unified"            // unified | split
+  syncScroll                // Sync scroll between split view panes
 />
 ```
 

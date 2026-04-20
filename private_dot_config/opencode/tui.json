@@ -1,6 +1,6 @@
 {
   "$schema": "https://opencode.ai/tui.json",
-  "theme": "system",
+  "theme": "ayu",
   "plugin": [
     [
       "oc-plugin-vault-tec",

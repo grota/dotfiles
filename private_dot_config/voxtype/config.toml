@@ -3,6 +3,10 @@
 # Location: ~/.config/voxtype/config.toml
 # All settings can be overridden via CLI flags
 
+# Transcription engine: "whisper" (default) or "parakeet"
+# Whisper: whisper.cpp via whisper-rs (most compatible)
+# Parakeet: NVIDIA FastConformer via ONNX Runtime (requires --features parakeet)
+# engine = "whisper"
 # State file for external integrations (Waybar, polybar, etc.)
 # Use "auto" for default location ($XDG_RUNTIME_DIR/voxtype/state),
 # a custom path, or "disabled" to turn off. The daemon writes state
@@ -13,7 +17,18 @@ engine = "parakeet"
 state_file = "auto"
 
 [hotkey]
-# Key to hold for push-to-talk
+# Built-in hotkey using evdev (Linux input subsystem)
+#
+# Most users should leave this disabled and use compositor keybindings instead:
+#   - Hyprland: bind/bindr in hyprland.conf
+#   - Sway: bindsym --no-repeat/--release in config
+#   - River: riverctl map / map -release
+#
+# Enable this if you're on X11, using a compositor without key-release support,
+# or prefer a dedicated key like ScrollLock. Requires 'input' group membership.
+#enabled = false
+
+# Key to hold for push-to-talk (when enabled = true)
 # Common choices: SCROLLLOCK, PAUSE, RIGHTALT, F13-F24
 # Use `evtest` to find key names for your keyboard
 key = "INSERT"
@@ -21,22 +36,21 @@ cancel_key = "ESC"
 
 # Optional modifier keys that must also be held
 # Example: modifiers = ["LEFTCTRL", "LEFTALT"]
-# modifiers = ["RIGHTCTRL"]
+modifiers = []
 
 # Activation mode: "push_to_talk" or "toggle"
 # - push_to_talk: Hold hotkey to record, release to transcribe (default)
 # - toggle: Press hotkey once to start recording, press again to stop
 mode = "toggle"
 
-# Enable built-in hotkey detection (default: true)
-# Set to false when using compositor keybindings (Hyprland, Sway) instead
-# When disabled, use `voxtype record start/stop/toggle` to control recording
-# enabled = true
-
-# Modifier key to select secondary model (evdev input mode only)
-# When held while pressing the hotkey, uses whisper.secondary_model instead
-# Example: model_modifier = "LEFTSHIFT"  # Shift+hotkey uses secondary model
+# Modifier key for secondary model selection (evdev only)
+# Hold this key while pressing the hotkey to use secondary_model
 # model_modifier = "LEFTSHIFT"
+# Profile modifiers for context-aware post-processing (evdev only)
+# Maps modifier keys to named profiles defined in [profiles.*] sections
+# [hotkey.profile_modifiers]
+# LEFTSHIFT = "translate"   # Shift+hotkey activates [profiles.translate]
+# RIGHTALT = "formal"       # RightAlt+hotkey activates [profiles.formal]
 
 [audio]
 # Audio input device ("default" uses system default)
@@ -49,15 +63,19 @@ sample_rate = 16000
 # Maximum recording duration in seconds (safety limit)
 max_duration_secs = 120
 
+# Pause MPRIS media players (Spotify, Firefox, etc.) when recording starts,
+# resume them when recording stops. Requires playerctl.
+pause_media = true
+
 [audio.feedback]
 # Enable audio feedback sounds (beeps when recording starts/stops)
 enabled = true
 #
 # Sound theme: "default", "subtle", "mechanical", or path to custom theme directory
-theme = "mechanical"
+theme = "subtle"
 #
 # Volume level (0.0 to 1.0)
-# volume = 0.7
+volume = 1
 
 [whisper]
 # Transcription backend: "local" or "remote"
@@ -80,13 +98,53 @@ model = "base.en"
 # The array form helps with multilingual users where Whisper might misdetect
 # the language, especially for short sentences.
 # See: https://github.com/openai/whisper#available-models-and-languages
-language = ["en", "it", "es"]
+language = "en"
 
 # Translate non-English speech to English
 translate = false
 
 # Number of CPU threads for inference (omit for auto-detection)
 # threads = 4
+
+# Load model on-demand when recording starts (true) or keep loaded (false)
+# When true, model is loaded when recording starts and unloaded after transcription
+# When false, model is kept in memory for faster response times (default)
+on_demand_loading = false
+
+# GPU memory isolation mode
+# Enable on laptops with hybrid graphics to let dGPU sleep between transcriptions.
+# gpu_isolation = true
+
+# Context window optimization for short recordings (disabled by default)
+# Speeds up transcription for clips under 22.5 seconds. Disabled by default
+# because some models (especially large-v3/turbo) may experience repetition
+# loops. Enable if you want faster transcription and don't experience issues.
+# context_window_optimization = true
+
+# --- Remote mode settings (used when mode = "remote") ---
+# remote_endpoint = "http://192.168.1.100:8080"  # Required
+# remote_model = "whisper-1"                      # Model to request from server
+# remote_api_key = "sk-..."                       # Or use VOXTYPE_WHISPER_API_KEY env var
+# remote_timeout_secs = 30
+
+# --- CLI mode settings (used when mode = "cli") ---
+# Uses whisper-cli subprocess instead of whisper-rs FFI bindings.
+# Fallback for systems where whisper-rs crashes (e.g., glibc 2.42+ on Ubuntu 25.10).
+# Requires whisper-cli from whisper.cpp: https://github.com/ggerganov/whisper.cpp
+# whisper_cli_path = "/usr/local/bin/whisper-cli"  # Optional, searches PATH if not set
+
+
+
+# GPU device index for Vulkan/CUDA backend selection.
+# On multi-GPU systems, whisper.cpp may default to the integrated GPU (index 0),
+# causing slower transcription. For different-vendor setups (e.g., Intel iGPU +
+# NVIDIA dGPU), use VOXTYPE_VULKAN_DEVICE=nvidia instead (simpler).
+# Use gpu_device for same-vendor GPUs or precise index control.
+# gpu_device = 1
+
+# Enable flash attention for GPU inference (default: false)
+# Reduces memory usage (~75%) and improves speed (~10%) on CUDA/Vulkan.
+# flash_attention = false
 
 # Initial prompt to provide context for transcription
 # Use this to hint at terminology, proper nouns, or formatting conventions.
@@ -109,6 +167,18 @@ translate = false
 # Default: 300 (5 minutes). Only applies when gpu_isolation = false.
 # cold_model_timeout_secs = 300
 
+# --- Eager processing settings ---
+#
+# Enable eager input processing (transcribe chunks while recording continues)
+# Reduces perceived latency on slower machines by processing audio in parallel.
+# eager_processing = false
+#
+# Duration of each audio chunk in seconds (default: 5.0)
+# eager_chunk_secs = 5.0
+#
+# Overlap between chunks in seconds (helps catch words at boundaries, default: 0.5)
+# eager_overlap_secs = 0.5
+
 # --- Remote backend settings (used when backend = "remote") ---
 #
 # Remote server endpoint URL (required for remote backend)
@@ -126,17 +196,25 @@ translate = false
 # Timeout for remote requests in seconds (default: 30)
 # remote_timeout_secs = 30
 
-[output]
-# Primary output mode: "type" or "clipboard"
-# - type: Simulates keyboard input at cursor position (requires ydotool)
-# - clipboard: Copies text to clipboard (requires wl-copy)
-mode = "paste"
-restore_clipboard = true
+[parakeet]
+# Parakeet configuration (only used when engine = "parakeet")
+# Requires: cargo build --features parakeet
+#
+# Model name (from ~/.local/share/voxtype/models/) or absolute path
+model = "parakeet-tdt-0.6b-v3"
+#
+# Model type: "tdt" (recommended, proper punctuation) or "ctc" (faster, char-level)
+# Auto-detected from model directory if not specified
+# model_type = "tdt"
+#
+on_demand_loading = false
 
-# GROTA: eitype for some reason cannot say quantità (direction of accent)
-# wtype: gnome is not compatible. dotool: somehow does not work, maybe a conflict with input-remapper. ydotool: does not support chars like é.
-driver_order = [ "clipboard"]
-paste_keys = "shift+ctrl+v"
+[output]
+# Primary output mode: "type", "clipboard", or "paste"
+# - type: Simulates keyboard input at cursor position (requires wtype or ydotool)
+# - clipboard: Copies text to clipboard (requires wl-copy)
+# - paste: Copies to clipboard then simulates paste keystroke (requires wl-copy and wtype or ydotool)
+mode = "type"
 
 # Fall back to clipboard if typing fails
 fallback_to_clipboard = true
@@ -160,13 +238,55 @@ type_delay_ms = 0
 # to auto-submit after dictation
 # auto_submit = true
 
+# Delay before typing starts (ms)
+# Allows virtual keyboard to initialize. Some users report this helps prevent
+# the first character from being dropped on text insertion. Try 100-200ms.
+# Note: When using compositor integration (via `voxtype setup compositor`),
+# best results come from not binding Escape in the submap. Some users have
+# had success with Escape bound by increasing this delay, but the most
+# consistent fix is to use F12 or another key instead.
+pre_type_delay_ms = 0
+
 # Convert newlines to Shift+Enter instead of regular Enter
 # Useful for applications where Enter submits (e.g., Cursor IDE, Slack, Discord)
 # shift_enter_newlines = false
 
+# Prefix wtype output with a Shift key press/release
+# Workaround for apps (e.g., Discord) that drop the first CJK character
+# wtype_shift_prefix = false
+
+# Restore clipboard content after paste mode (default: false)
+# Saves clipboard before transcription, restores it after paste keystroke
+# Only applies to mode = "paste". Useful when you want to preserve your
+# existing clipboard content across dictation operations.
+# restore_clipboard = false
+
+# Delay after paste before restoring clipboard (milliseconds)
+# Allows time for the paste operation to complete (default: 200)
+# restore_clipboard_delay_ms = 200
+
 # Pre/post output hooks (optional)
 # Commands to run before and after typing output. Useful for compositor integration.
 # Example: Block modifier keys during typing with Hyprland submap:
+# Keystroke for paste mode (when mode = "paste")
+# Default is "ctrl+v". Change for environments with different paste shortcuts.
+# Examples:
+#   paste_keys = "ctrl+v"        # Standard (default)
+#   paste_keys = "shift+insert"  # Hyprland/Omarchy universal paste
+#   paste_keys = "ctrl+shift+v"  # Some terminal emulators
+# paste_keys = "ctrl+v"
+
+# Compositor integration hooks
+# Use `voxtype setup compositor hyprland|sway|river` for automatic setup.
+#
+# pre_recording_command: Runs when recording starts. Switch to a submap/mode
+#   where F12 can cancel recording/transcription.
+# pre_output_command: Runs before typing output. Switch to a submap/mode that
+#   blocks modifier keys from triggering compositor shortcuts during typing.
+# post_output_command: Runs after typing output. Reset to normal mode.
+#
+# Example (Hyprland):
+# pre_recording_command = "hyprctl dispatch submap voxtype_recording"
 #   pre_output_command = "hyprctl dispatch submap voxtype_suppress"
 #   post_output_command = "hyprctl dispatch submap reset"
 # See troubleshooting docs for the required Hyprland submap configuration.
@@ -180,6 +300,8 @@ type_delay_ms = 0
 # [output.post_process]
 # command = "ollama run llama3.2:1b 'Clean up this dictation. Fix grammar, remove filler words. Output only the cleaned text:'"
 # timeout_ms = 30000  # 30 second timeout (generous for LLM)
+# trim = true         # Strip leading/trailing whitespace from output (default: true)
+# fallback_on_empty = true  # Use original text if command returns empty (default: true)
 
 [output.notification]
 # Show notification when recording starts (hotkey pressed)
@@ -191,12 +313,20 @@ on_recording_stop = false
 # Show notification with transcribed text after transcription completes
 on_transcription = false
 
+# [output.post_process]
+# Pipe transcribed text through an external command for cleanup before output.
+# The command receives text on stdin and outputs processed text on stdout.
+# Useful for LLM-based text cleanup, grammar correction, filler word removal.
+# On any failure (timeout, error), falls back to original transcription.
+#
+# command = "ollama run llama3.2:1b 'Clean up this dictation. Fix grammar, remove filler words. Output only the cleaned text:'"
+# timeout_ms = 30000  # 30 second timeout (generous for LLM)
 [text]
 # Text processing options (word replacements, spoken punctuation)
 #
 # Enable spoken punctuation conversion (e.g., say "period" to get ".")
-spoken_punctuation = true
-
+# spoken_punctuation = false
+#
 [text.replacements]
 "vox type" = "voxtype"
 "Package base" = '`pkg_base`'
@@ -204,6 +334,18 @@ spoken_punctuation = true
 "Package Composer plugin" = '`pkg_composer_plugin`'
 "Tmax" = 'tmux'
 "sim link" = 'symlink'
+
+# Smart auto-submit: say "submit" at the end of dictation to press Enter.
+# The word "submit" is stripped from the output text and Enter is pressed.
+# smart_auto_submit = false
+
+# [vad]
+# Voice Activity Detection - filters silence-only recordings
+# Prevents Whisper hallucinations on silent audio
+#
+# enabled = false      # Enable VAD (off by default)
+# threshold = 0.5      # 0.0 = sensitive, 1.0 = aggressive
+# min_speech_duration_ms = 100  # Minimum speech required
 
 # [status]
 # Status display icons for Waybar/tray integrations
@@ -240,7 +382,3 @@ spoken_punctuation = true
 # [profiles.code]
 # post_process_command = "ollama run llama3.2:1b 'Format as code comment...'"
 # output_mode = "clipboard"
-
-[parakeet]
-model = "parakeet-tdt-0.6b-v3"
-on_demand_loading = false

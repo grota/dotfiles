@@ -12,6 +12,9 @@ for file in ~/.local/grota/bash/* ; do
   . "$file"
 done
 
+# Files in ~/.local/share/bash-completion/completions/ are loaded dynamically on tab based on the command name.
+# While the ~/.bash_completion file is loaded immediately when you start your shell.
+
 PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'history -a; history -n;'
 
 complete -C "$(which aws_completer)" aws
