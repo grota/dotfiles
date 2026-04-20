@@ -3,4 +3,4 @@ alias cm=chezmoi
 alias cmst='cm status -i noencrypted'
 alias cmdiff='cm diff -i noencrypted'
 alias cmcd='cd "$(chezmoi source-path)"'
-eval "$(~/local/bin/chezmoi completion bash)"
+eval "$(chezmoi completion bash)"

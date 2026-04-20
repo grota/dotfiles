@@ -246,7 +246,6 @@ chezmoi_ignored
 /.yarnrc
 /.z
 /local/bin/bw
-/local/bin/chezmoi
 /local/bin/diff-so-fancy-next
 /local/bin/exercism
 /local/bin/spark-run-*
