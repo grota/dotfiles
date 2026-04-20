@@ -1,2 +1,2 @@
 # Decomment to update
-# opencode completion > ~/.bash_completion.d/opencode-completions
+#opencode completion > ~/.local/share/bash-completion/completions/opencode

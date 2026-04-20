@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# This file is sourced eagerly by bash-complete
+# Here we delegate to the files in ~/.bash_completion.d just for separation of concerns.
 
 for bcfile in ~/.bash_completion.d/* ; do
   #echo ".bash_completion sourcing $bcfile"

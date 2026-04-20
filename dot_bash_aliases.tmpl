@@ -17,8 +17,6 @@ done
 
 PROMPT_COMMAND=${PROMPT_COMMAND:+$PROMPT_COMMAND; }'history -a; history -n;'
 
-complete -C "$(which aws_completer)" aws
-
 DOTFILESREPO="$("$HOME"/local/bin/chezmoi source-path)"
 export DOTFILESREPO
 
