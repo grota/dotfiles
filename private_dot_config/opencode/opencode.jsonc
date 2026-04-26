@@ -1,7 +1,6 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "username": "beppe",
-  "theme": "ayu",
   "small_model": "openai/gpt-5-nano",
   "autoshare": false,
   "autoupdate": false,
@@ -142,13 +141,13 @@
   "plugin": [
     "@mohak34/opencode-notifier@latest",
     "opencode-antigravity-auth@latest",
-    [
-      "oc-plugin-vault-tec",
-      {
-        "enabled": true,
-        "mode": "append"
-      }
-    ]
+    // [
+    //   "oc-plugin-vault-tec",
+    //   {
+    //     "enabled": true,
+    //     "mode": "append"
+    //   }
+    // ]
   ],
   "permission": {
     "bash": {

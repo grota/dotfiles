@@ -1,0 +1,190 @@
+#!/usr/bin/env bash
+
+BWT=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)/$(basename -- "${BASH_SOURCE[0]}")
+# shellcheck source=dot_local/grota/scripts/fzf-scripts-utils.sh
+source "$HOME/.local/grota/scripts/fzf-scripts-utils.sh"
+
+KEY_COPY_USERNAME="${KEY_COPY_USERNAME:-alt-u}"
+KEY_COPY_PASSWORD="${KEY_COPY_PASSWORD:-alt-p}"
+KEY_COPY_URI="${KEY_COPY_URI:-alt-l}"
+KEY_COPY_NOTES="${KEY_COPY_NOTES:-alt-n}"
+
+HEADER_TEXT="Press $KEY_SHOW_HELP for help"
+
+# Only the main invocation creates temp files and sets up cleanup.
+# Sub-invocations (preview, _copy) inherit BWT_ITEM_FILE via the environment.
+if [ -z "$BWT_ITEM_FILE" ]; then
+  BWT_ITEM_FILE=$(mktemp --tmpdir bwt_item_XXXX.tsv)
+  export BWT_ITEM_FILE
+  FZFLIB_FIFO=$(mktemp -u "bwt_fifo_XXXX.md" --tmpdir)
+  mkfifo "$FZFLIB_FIFO"
+  function cleanup {
+    rm -f "$FZFLIB_FIFO" "$BWT_ITEM_FILE"
+  }
+  trap cleanup EXIT
+fi
+
+# ---------------------------------------------------------------------------
+# preview subcommand: reads item TSV from BWT_ITEM_FILE and prints fields.
+# ---------------------------------------------------------------------------
+_bwt_preview() {
+  local item_json
+  item_json=$(cut -f2- "$BWT_ITEM_FILE")
+  local username password notes uris
+  username=$(echo "$item_json" | jq -r '.login.username // empty')
+  password=$(echo "$item_json" | jq -r '.login.password // empty')
+  notes=$(echo "$item_json" | jq -r '.notes // empty' | sed 's/\\n/\n/g')
+  uris=$(echo "$item_json" | jq -r '.login.uris[]?.uri // empty' 2>/dev/null)
+
+  echo "=== Username ==="
+  if [ -n "$username" ]; then echo "$username"; else echo "(none)"; fi
+  echo ""
+  echo "=== Password ==="
+  if [ -n "$password" ]; then echo "$password"; else echo "(none)"; fi
+  echo ""
+  echo "=== URIs ==="
+  if [ -n "$uris" ]; then echo "$uris"; else echo "(none)"; fi
+  echo ""
+  echo "=== Notes ==="
+  if [ -n "$notes" ]; then echo "$notes"; else echo "(none)"; fi
+}
+
+# ---------------------------------------------------------------------------
+# _copy subcommand: called by fzf execute-silent to copy a field and restore
+# the preview after a flash delay.
+# Usage: bwt _copy <label> <jq_expr> <fzf_port>
+# ---------------------------------------------------------------------------
+_bwt__copy() {
+  local label="$1"
+  local jq_expr="$2"
+  local fzf_port="$3"
+  local val
+  val=$(cut -f2- "$BWT_ITEM_FILE" | jq -r "${jq_expr} // empty")
+  printf '%s' "$val" | wl-copy
+  # After the flash delay, restore the real preview command and refresh.
+  local RESTORE_CMD="printf %s {} > ${BWT_ITEM_FILE}; ${BWT} preview"
+  ( sleep 1.5
+    curl -s -XPOST "localhost:${fzf_port}" -d "change-preview(${RESTORE_CMD})"
+    curl -s -XPOST "localhost:${fzf_port}" -d 'refresh-preview'
+  ) &
+  disown
+}
+
+# ---------------------------------------------------------------------------
+# _bwt_copy_action: returns fzf action string for a copy key bind.
+# Uses the _copy subcommand so execute-silent has no inner parentheses.
+# ---------------------------------------------------------------------------
+_bwt_copy_action() {
+  local label="$1"
+  local jq_expr="$2"
+  printf '%s' \
+    "execute-silent(${BWT} _copy ${label} ${jq_expr} \$FZF_PORT)" \
+    "+change-preview(echo   Copied ${label} to clipboard!)"
+}
+
+_bwt_main() {
+  local ITEMS_JSON
+  ITEMS_JSON=$(bw list items 2>/dev/null)
+
+  if [ -z "$ITEMS_JSON" ]; then
+    echo "bwt: failed to list vault items. Are you logged in?" >&2
+    exit 1
+  fi
+
+  # Build TSV: <name>\t<json>
+  local ITEMS_TSV
+  ITEMS_TSV=$(echo "$ITEMS_JSON" | jq -r '.[] | [.name, (. | tojson)] | @tsv')
+
+  # Build graphical opts; strip --listen so --listen-unsafe is the sole listener.
+  local GRAPHICAL_OPTS
+  GRAPHICAL_OPTS=$(_fzflib_graphical_opts "$HEADER_TEXT" "$BWT help")
+  local -a GRAPHICAL_ARGS
+  eval "GRAPHICAL_ARGS=($GRAPHICAL_OPTS)"
+  local -a FILTERED_ARGS
+  for arg in "${GRAPHICAL_ARGS[@]}"; do
+    [[ "$arg" == "--listen" ]] && continue
+    FILTERED_ARGS+=("$arg")
+  done
+
+  # --preview writes {} to BWT_ITEM_FILE then calls preview (reads the file).
+  # Use a variable to avoid single quotes inside double-quoted array elements.
+  local PREVIEW_CMD
+  PREVIEW_CMD="printf %s {} > ${BWT_ITEM_FILE}; ${BWT} preview"
+
+  local BIND_USERNAME BIND_PASSWORD BIND_URI BIND_NOTES BIND_ENTER
+  BIND_USERNAME="${KEY_COPY_USERNAME}:$(_bwt_copy_action username .login.username)"
+  BIND_PASSWORD="${KEY_COPY_PASSWORD}:$(_bwt_copy_action password .login.password)"
+  BIND_URI="${KEY_COPY_URI}:$(_bwt_copy_action URI .login.uris[0].uri)"
+  BIND_NOTES="${KEY_COPY_NOTES}:$(_bwt_copy_action notes .notes)"
+  BIND_ENTER="enter:execute-silent(printf %s {} > ${BWT_ITEM_FILE})+become(${BWT} preview)"
+
+  local -a FZF_ARGS
+  FZF_ARGS=(
+    "${FILTERED_ARGS[@]}"
+    --listen-unsafe
+    --ansi --no-multi --no-select-1
+    --highlight-line
+    --delimiter=$'\t' --with-nth=1
+    --preview="${PREVIEW_CMD}"
+    --bind="${BIND_USERNAME}"
+    --bind="${BIND_PASSWORD}"
+    --bind="${BIND_URI}"
+    --bind="${BIND_NOTES}"
+    --bind="${BIND_ENTER}"
+    --prompt='vault> '
+  )
+
+  echo "$ITEMS_TSV" | FZF_DEFAULT_OPTS='' FZF_DEFAULT_COMMAND='' fzf "${FZF_ARGS[@]}"
+}
+
+_bwt_help() {
+  local HELP_TEXT
+  HELP_TEXT="$(_bwhite "bwt -- fuzzy Bitwarden vault selector")
+
+$(_bwhite "Keys:")
+  $(_bgreen "$KEY_COPY_USERNAME"): copy username to clipboard.
+  $(_bgreen "$KEY_COPY_PASSWORD"): copy password to clipboard.
+  $(_bgreen "$KEY_COPY_URI"): copy first URI to clipboard.
+  $(_bgreen "$KEY_COPY_NOTES"): copy notes to clipboard.
+  $(_bgreen "enter"): print item details to stdout and exit.
+
+  $(_bgreen "${KEY_TOGGLE_HEADER}"): toggle the header line.
+  $(_bgreen "$KEY_CHANGE_PREVIEW_PRESET"): toggle between preview layout presets.
+  $(_bgreen "$KEY_PREVIEW_DOWN_1", "$KEY_PREVIEW_DOWN_2"): scroll preview down.
+  $(_bgreen "$KEY_PREVIEW_UP_1", "$KEY_PREVIEW_UP_2"): scroll preview up.
+  $(_bgreen "$KEY_PAGE_UP", "$KEY_PAGE_DOWN"): scroll preview by a full page.
+
+$(_bwhite "Environment variables:")
+  $(_bgreen "KEY_COPY_USERNAME"): key to copy username (default: $KEY_COPY_USERNAME).
+  $(_bgreen "KEY_COPY_PASSWORD"): key to copy password (default: $KEY_COPY_PASSWORD).
+  $(_bgreen "KEY_COPY_URI"): key to copy URI (default: $KEY_COPY_URI).
+  $(_bgreen "KEY_COPY_NOTES"): key to copy notes (default: $KEY_COPY_NOTES).
+
+  Other default fzf mappings apply:
+  $(_white "ctrl-c Esc ctrl-q"): quit
+  $(_white "ctrl-j ctrl-n down"): go down
+  $(_white "ctrl-k ctrl-p up"): go up
+
+  Keys can be freely changed via env vars -- read the source to see how :)
+  "
+  echo "$HELP_TEXT"
+}
+
+cmd="${1:-main}"
+shift
+
+public_commands=(
+  "main"
+  "help"
+  "preview"
+  "_copy"
+)
+
+# shellcheck disable=SC2076
+if [[ ! " ${public_commands[*]} " =~ " ${cmd} " ]]; then
+  echo "bwt: invalid command '$cmd'" >&2
+  sleep 1
+  exit 1
+fi
+
+_bwt_"${cmd}" "$@"
