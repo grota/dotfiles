@@ -6,6 +6,8 @@ source "$HOME/.local/grota/scripts/fzf-scripts-utils.sh"
 
 KEY_OPEN_IN_EDITOR="${KEY_OPEN_IN_EDITOR:-ctrl-e}"
 KEY_OPEN_IN_VIEWER="${KEY_OPEN_IN_VIEWER:-enter}"
+KEY_GREP_CONTENTS="${KEY_GREP_CONTENTS:-ctrl-f}"
+KEY_FILTER_GREP="${KEY_FILTER_GREP:-alt-f}"
 FZF_MARKDOWN_PREVIEW_COMMAND="${FZF_MARKDOWN_PREVIEW_COMMAND:-rich --emoji --force-terminal}"
 OB_VIEWER="${OB_VIEWER:-gomd}"
 EDITOR="${EDITOR:-nvim}"
@@ -28,33 +30,74 @@ $(_fzflib_graphical_opts "$HEADER_TEXT" "$OB help")
 $OB_FZF_GENERAL_OPTS"
 
 _ob_main() {
-  local VAULT_PATH
-  VAULT_PATH=$(jq -r '.vaults | to_entries[] | select(.value.open == true) | .value.path' \
+  export OB_VAULT_PATH
+  OB_VAULT_PATH=$(jq -r '.vaults | to_entries[] | select(.value.open == true) | .value.path' \
     ~/.config/obsidian/obsidian.json | head -1)
 
-  if [ -z "$VAULT_PATH" ]; then
+  if [ -z "$OB_VAULT_PATH" ]; then
     echo "ob: no open Obsidian vault found in ~/.config/obsidian/obsidian.json" >&2
     exit 1
   fi
 
   # Number of path segments in VAULT_PATH; +1 for fzf (1-indexed, skip leading slash)
   local WITH_NTH
-  WITH_NTH=$(( $(awk -F/ '{print NF}' <<< "$VAULT_PATH") + 1 ))
+  WITH_NTH=$(( $(awk -F/ '{print NF}' <<< "$OB_VAULT_PATH") + 1 ))
+
+  # shellcheck disable=SC2016
+  local GREP_CMD='git -C "$OB_VAULT_PATH" grep -rl --untracked -- {q} -- "*.md" 2>/dev/null | sed "s|^|$OB_VAULT_PATH/|"'
 
   local OPTS="
   $FZF_DEFAULT_OPTS
   $OB_FZF_GENERAL_OPTS
-  --walker-root='$VAULT_PATH' --walker=file
   --delimiter '/' --with-nth ${WITH_NTH}..
   --preview='$FZF_MARKDOWN_PREVIEW_COMMAND {}'
   --bind='$KEY_OPEN_IN_EDITOR:execute(\"${EDITOR}\" {})'
   --bind='$KEY_OPEN_IN_VIEWER:execute(${OB_VIEWER} {})'
+  --bind='$KEY_GREP_CONTENTS:transform($OB _toggle)'
+  --bind='$KEY_FILTER_GREP:transform($OB _toggle-filter)'
+  --bind='change:reload($GREP_CMD)'
+  --bind='start:unbind(change)'
   --exact
   --prompt='notes> '
   $OB_MAIN_FZF_OPTS"
 
+  FZF_DEFAULT_COMMAND='find "$OB_VAULT_PATH" -type f -name "*.md" 2>/dev/null' FZF_DEFAULT_OPTS="$OPTS" fzf
+}
 
-  FZF_DEFAULT_COMMAND='' FZF_DEFAULT_OPTS="$OPTS" fzf
+# Internal subcommand called by fzf's transform action to toggle between
+# notes and grep modes (ctrl-f).
+# fzf provides $FZF_PROMPT so we can detect the current mode.
+#
+# The output is a chain of fzf actions:
+#   disable-search:   turn off fzf's built-in fuzzy matching (grep mode does its own filtering)
+#   enable-search:    turn fzf's built-in fuzzy matching back on (notes mode)
+#   clear-query:      reset the query string when switching modes
+#   change-prompt:    switch the visible prompt to indicate the active mode
+#   reload:           replace the item list with the output of a new command
+#   rebind(change):   activate the "change" event binding so each keystroke re-runs git grep
+#   unbind(change):   deactivate the "change" event binding (notes mode uses built-in search)
+_ob__toggle() {
+  if [ "$FZF_PROMPT" = "notes> " ]; then
+    echo "disable-search+clear-query+change-prompt(grep> )+reload(git -C \"$OB_VAULT_PATH\" grep -rl --untracked -- {q} -- '*.md' 2>/dev/null | sed \"s|^|$OB_VAULT_PATH/|\")+rebind(change)"
+  else
+    # From grep mode or filter-grep-results mode, go back to notes mode
+    echo "enable-search+clear-query+change-prompt(notes> )+reload(find \"$OB_VAULT_PATH\" -type f -name '*.md' 2>/dev/null)+unbind(change)"
+  fi
+}
+
+# Internal subcommand called by fzf's transform action to toggle between
+# grep and filter-grep-results modes (alt-f).
+# In filter-grep-results mode, fzf's built-in fuzzy matching is re-enabled
+# on the current list of grep results (no reload, no change event).
+_ob__toggle_filter() {
+  if [ "$FZF_PROMPT" = "grep> " ]; then
+    # Keep the current grep results list, enable fuzzy filtering on them
+    echo "enable-search+clear-query+change-prompt(filter-grep-results> )+unbind(change)"
+  elif [ "$FZF_PROMPT" = "filter-grep-results> " ]; then
+    # Go back to grep mode: disable built-in search, rebind change for live grep
+    echo "disable-search+clear-query+change-prompt(grep> )+rebind(change)"
+  fi
+  # In notes mode, alt-f does nothing
 }
 
 _ob_help() {
@@ -64,6 +107,8 @@ _ob_help() {
 $(_bwhite "Keys:")
   $(_bgreen "$KEY_OPEN_IN_VIEWER"): VIEW selected file with ${OB_VIEWER}.
   $(_bgreen "$KEY_OPEN_IN_EDITOR"): OPEN selected file in ${EDITOR}.
+  $(_bgreen "$KEY_GREP_CONTENTS"): TOGGLE between files and grep-inside-files modes.
+  $(_bgreen "$KEY_FILTER_GREP"): in grep mode, TOGGLE to filter grep results with fuzzy matching.
 
   $(_bgreen "${KEY_TOGGLE_HEADER}"): toggle the header line.
   $(_bgreen "$KEY_CHANGE_PREVIEW_PRESET"): toggle between preview layout presets.
@@ -75,6 +120,7 @@ $(_bwhite "Environment variables:")
   $(_bgreen "OB_VIEWER"): viewer command (current: $OB_VIEWER).
   $(_bgreen "EDITOR"): editor command (current: \"$EDITOR\").
   $(_bgreen "FZF_MARKDOWN_PREVIEW_COMMAND"): preview renderer command (current: \"$FZF_MARKDOWN_PREVIEW_COMMAND\").
+  $(_bgreen "KEY_GREP_CONTENTS"): key to toggle grep mode (current: $KEY_GREP_CONTENTS).
 
   Other default fzf mappings apply:
   $(_white "ctrl-c Esc ctrl-q"): quit
@@ -93,6 +139,16 @@ public_commands=(
   "main"
   "help"
 )
+
+# Internal subcommands (not in public_commands) called by fzf's transform action
+if [[ "$cmd" == "_toggle" ]]; then
+  _ob__toggle "$@"
+  exit 0
+fi
+if [[ "$cmd" == "_toggle-filter" ]]; then
+  _ob__toggle_filter "$@"
+  exit 0
+fi
 
 # shellcheck disable=SC2076
 if [[ ! " ${public_commands[*]} " =~ " ${cmd} " ]]; then
