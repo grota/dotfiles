@@ -8,3 +8,6 @@ uv pip list --outdated
 
 # upgrade all deps
 uv lock --upgrade && uv sync
+
+# upgrate all tools
+uv tool upgrade --all

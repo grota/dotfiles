@@ -5,8 +5,8 @@ hash = "92fbb5483657fa7976cdf4e0104e18e0"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
-rev = "1962818"
-hash = "6fa6a05a81c98dd000fbca3cca6e9682"
+rev = "1db18bb"
+hash = "eff8ff12fa4e5f035a10d8aeeb4c258d"
 
 [[plugin.deps]]
 use = "alberti42/faster-piper"
@@ -15,8 +15,8 @@ hash = "fac71f8ce9447ad509b5aad9e0d8c694"
 
 [[plugin.deps]]
 use = "yazi-rs/plugins:types"
-rev = "1962818"
-hash = "4161cfa043b5ba3341d82c6869007b41"
+rev = "1db18bb"
+hash = "9105494e98299f392aee95340066da9f"
 
 [[flavor.deps]]
 use = "BennyOe/tokyo-night"

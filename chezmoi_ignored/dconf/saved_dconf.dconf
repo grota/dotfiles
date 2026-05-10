@@ -64,7 +64,7 @@ services=[('0C:89:5A:01:09:6C', '00000000-0000-0000-0000-000000000000'), ('E8:9E
 auto-power-on=@mb false
 
 [org/blueman/plugins/recentconns]
-recent-connections=[{'adapter': '84:5C:F3:F0:6C:CE', 'address': '0C:89:5A:01:09:6C', 'alias': 'E18', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1661347620.9262052'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '74:74:46:E4:C3:BF', 'alias': 'Pixel Buds A-Series de Giuseppe', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1767808252.2869282', 'device': '/org/bluez/hci0/dev_74_74_46_E4_C3_BF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'F8:1A:2B:E0:F5:E9', 'alias': 'Pixel 4a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160545.2074506'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '24:29:34:92:3C:CF', 'alias': 'Pixel 6a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160577.464688', 'device': '/org/bluez/hci0/dev_24_29_34_92_3C_CF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'DE:EE:F9:9F:29:C5', 'alias': 'MX Master 3S', 'icon': 'input-mouse', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1732708767.8526783'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'E8:9E:13:8D:DF:DD', 'alias': 'WF-C700N', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1777210183.5513518', 'device': '/org/bluez/hci0/dev_E8_9E_13_8D_DF_DD'}]
+recent-connections=[{'adapter': '84:5C:F3:F0:6C:CE', 'address': '0C:89:5A:01:09:6C', 'alias': 'E18', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1661347620.9262052'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '74:74:46:E4:C3:BF', 'alias': 'Pixel Buds A-Series de Giuseppe', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1767808252.2869282', 'device': '/org/bluez/hci0/dev_74_74_46_E4_C3_BF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'F8:1A:2B:E0:F5:E9', 'alias': 'Pixel 4a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160545.2074506'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': '24:29:34:92:3C:CF', 'alias': 'Pixel 6a', 'icon': 'phone', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1691160577.464688', 'device': '/org/bluez/hci0/dev_24_29_34_92_3C_CF'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'DE:EE:F9:9F:29:C5', 'alias': 'MX Master 3S', 'icon': 'input-mouse', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1732708767.8526783'}, {'adapter': '84:5C:F3:F0:6C:CE', 'address': 'E8:9E:13:8D:DF:DD', 'alias': 'WF-C700N', 'icon': 'audio-headset', 'name': 'Audio and input profiles', 'uuid': '00000000-0000-0000-0000-000000000000', 'time': '1778405669.399065', 'device': '/org/bluez/hci0/dev_E8_9E_13_8D_DF_DD'}]
 
 [org/freedesktop/tracker/miner/files]
 index-recursive-directories=['&DESKTOP', '&MUSIC', '&VIDEOS']
@@ -147,7 +147,7 @@ panel-id='timer'
 size=(1440, 1051)
 
 [org/gnome/control-center]
-last-panel='background'
+last-panel='bluetooth'
 window-state=(1920, 1051, true)
 
 [org/gnome/deja-dup]
@@ -186,8 +186,8 @@ translate=true
 [org/gnome/desktop/background]
 color-shading-type='solid'
 picture-options='zoom'
-picture-uri='file:///home/grota/Pictures/gnome_wallpapers/anime/a_tree_branch_with_snow_on_it.jpg'
-picture-uri-dark='file:///home/grota/Pictures/gnome_wallpapers/anime/a_tree_branch_with_snow_on_it.jpg'
+picture-uri='file:///home/grota/Pictures/gnome_wallpapers/anime/a_cat_lying_on_a_piano.jpg'
+picture-uri-dark='file:///home/grota/Pictures/gnome_wallpapers/anime/a_cat_lying_on_a_piano.jpg'
 primary-color='#000000000000'
 secondary-color='#000000000000'
 
@@ -216,13 +216,13 @@ xkb-options=['lv3:ralt_switch', 'ctrl:nocaps']
 [org/gnome/desktop/interface]
 clock-show-seconds=false
 clock-show-weekday=true
-color-scheme='prefer-dark'
+color-scheme='default'
 cursor-blink=true
 cursor-blink-time=1000
 cursor-size=24
 cursor-theme='breeze_cursors'
 enable-animations=true
-enable-hot-corners=false
+enable-hot-corners=true
 font-antialiasing='grayscale'
 font-hinting='medium'
 font-name='Noto Sans,  10'
@@ -562,12 +562,12 @@ dual-page-odd-left=true
 enable-spellchecking=true
 fullscreen=false
 inverted-colors=false
-show-sidebar=true
-sidebar-page='links'
+show-sidebar=false
+sidebar-page='thumbnails'
 sidebar-size=148
 sizing-mode='fit-width'
-window-ratio=(2.4242424242424243, 1.7173202614379084)
-zoom=0.60142495781185534
+window-ratio=(0.98039215686274506, 1.327020202020202)
+zoom=0.99901206935259657
 
 [org/gnome/evolution-data-server]
 migrated=true
@@ -762,6 +762,13 @@ col-6-width=290
 col-26-visible=false
 col-26-width=0
 
+[org/gnome/maps]
+last-viewed-location=[36.099199686463173, -5.4388496133315414]
+map-type='MapsVectorSource'
+transportation-type='pedestrian'
+window-maximized=true
+zoom-level=14
+
 [org/gnome/meld]
 filename-filters=[('Backups', true, '#*# .#* ~* *~ *.{orig,bak,swp}'), ('OS-specific metadata', true, '.DS_Store ._* .Spotlight-V100 .Trashes Thumbs.db Desktop.ini'), ('Version Control', true, '_MTN .bzr .svn .svn .hg .fslckout _FOSSIL_ .fos CVS _darcs .git .svn .osc'), ('Binaries', true, '*.{pyc,a,obj,o,so,la,lib,dll,exe}'), ('Media', false, '*.{jpg,gif,png,bmp,wav,mp3,ogg,flac,avi,mpg,xcf,xpm}'), ('yamel', false, '*.yml')]
 folder-status-filters=['new', 'modified']
@@ -840,11 +847,16 @@ ignore-phase2-ca-cert=false
 ignore-ca-cert=false
 ignore-phase2-ca-cert=false
 
+[org/gnome/photos]
+window-maximized=false
+window-position=[26, 23]
+window-size=[1920, 1051]
+
 [org/gnome/portal/filechooser/com.google.Chrome]
 last-folder-path='/home/grota/Downloads'
 
 [org/gnome/portal/filechooser/firefox]
-last-folder-path='/home/grota/Downloads'
+last-folder-path='/home/grota/Documents/commercialista/2026'
 
 [org/gnome/portal/filechooser/gnome-control-center]
 last-folder-path='/home/grota/Downloads'
@@ -930,7 +942,7 @@ app-picker-layout=[{'org.gnome.Contacts.desktop': <{'position': <0>}>, 'org.gnom
 command-history=['r', 'lllg', 'ls', 'rest', 'restart', 'l', 'kg', 'gl', 'lg']
 disable-user-extensions=false
 disabled-extensions=['beampointer@grota.github.com', 'freon@UshakovVasilii_Github.yahoo.com', 'windowsNavigator@gnome-shell-extensions.gcampax.github.com', 'BringOutSubmenuOfPowerOffLogoutButton@pratap.fastmail.fm']
-enabled-extensions=['clipboard-indicator@tudmotu.com', 'screenshot-window-sizer@gnome-shell-extensions.gcampax.github.com', 'solaar-extension@sidevesh', 'status-icons@gnome-shell-extensions.gcampax.github.com', 'switcher@landau.fi', 'trayIconsReloaded@selfmade.pl', 'system-monitor@gnome-shell-extensions.gcampax.github.com', 'appindicatorsupport@rgcjonas.gmail.com', 'paperwm@paperwm.github.com', 'azwallpaper@azwallpaper.gitlab.com']
+enabled-extensions=['clipboard-indicator@tudmotu.com', 'solaar-extension@sidevesh', 'status-icons@gnome-shell-extensions.gcampax.github.com', 'switcher@landau.fi', 'trayIconsReloaded@selfmade.pl', 'system-monitor@gnome-shell-extensions.gcampax.github.com', 'paperwm@paperwm.github.com', 'azwallpaper@azwallpaper.gitlab.com', 'gsconnect@andyholmes.github.io', 'freon@UshakovVasilii_Github.yahoo.com', 'appindicatorsupport@rgcjonas.gmail.com']
 favorite-apps=['firefox.desktop', 'com.mitchellh.ghostty.desktop', 'slack.desktop', 'obsidian.desktop', 'org.gnome.Nautilus.desktop', 'org.gnome.Settings.desktop', 'google-chrome.desktop', 'solaar.desktop', 'input-remapper-gtk.desktop', 'org.gnome.clocks.desktop', 'org.gnome.tweaks.desktop']
 had-bluetooth-devices-setup=true
 last-selected-power-profile='performance'
@@ -941,22 +953,26 @@ welcome-dialog-last-shown-version='41.2'
 current-workspace-only=true
 
 [org/gnome/shell/extensions/appindicator]
-icon-opacity=200
+compact-mode-enabled=true
+icon-brightness=0.0
+icon-contrast=0.99999999999999989
+icon-opacity=1
+icon-saturation=2.7755575615628914e-17
 icon-size=12
 legacy-tray-enabled=true
-tray-pos='center'
+tray-pos='right'
 
 [org/gnome/shell/extensions/azwallpaper]
 prefs-visible-page=''
 slideshow-change-slide-event=0
-slideshow-current-slide-index=15
-slideshow-current-wallpaper='a_tree_branch_with_snow_on_it.jpg'
+slideshow-current-slide-index=91
+slideshow-current-wallpaper='a_cat_lying_on_a_piano.jpg'
 slideshow-directory='/home/grota/Pictures/gnome_wallpapers/anime'
 slideshow-queue=[{'name': 'a_building_with_trees_in_the_background_03.jpg', 'date': '1768741025'}, {'name': 'a_bench_in_a_bamboo_forest.png', 'date': '1768741025'}, {'name': 'a_house_with_ivy_on_the_front.jpg', 'date': '1768741027'}, {'name': 'water_drops_on_a_window.jpg', 'date': '1768741028'}, {'name': 'a_stone_tower_with_windows.png', 'date': '1768741028'}, {'name': 'a_cartoon_of_a_city.jpg', 'date': '1768741025'}, {'name': 'a_city_with_towers_and_towers.jpg', 'date': '1768741027'}, {'name': 'a_woman_standing_on_a_road_with_sunflowers.png', 'date': '1768741028'}, {'name': 'a_painting_of_a_forest_with_trees_and_sun_rays.jpg', 'date': '1768741027'}, {'name': 'a_cartoon_character_in_a_pond_surrounded_by_leaves.png', 'date': '1768741025'}, {'name': 'a_cartoon_of_a_girl_holding_a_book.jpg', 'date': '1768741025'}, {'name': 'a_cat_standing_in_front_of_a_building.jpg', 'date': '1768741027'}, {'name': 'a_cartoon_of_a_woman_standing_on_a_railing_overlooking_a_body_of_water.jpg', 'date': '1768741026'}, {'name': 'a_cartoon_of_a_castle_01.png', 'date': '1768741025'}, {'name': 'a_road_leading_to_a_body_of_water.png', 'date': '1768741028'}, {'name': 'a_tree_branch_with_snow_on_it.jpg', 'date': '1768741028'}, {'name': 'a_cartoon_of_a_girl_with_long_pink_hair_sitting_on_a_balcony.png', 'date': '1768741026'}, {'name': 'a_view_of_the_ocean_from_a_balcony.jpeg', 'date': '1768741028'}, {'name': 'a_city_skyline_with_trees_and_clouds.jpg', 'date': '1768741027'}, {'name': 'a_person_standing_on_a_broken_object_in_a_field_with_a_large_white_moon.png', 'date': '1768741028'}, {'name': 'a_city_landscape_with_trees_and_buildings.jpeg', 'date': '1768741027'}, {'name': 'a_cartoon_of_a_doll_house.jpeg', 'date': '1768741025'}, {'name': 'a_body_of_water_with_a_bridge_and_trees.jpg', 'date': '1768741025'}, {'name': 'a_house_on_an_island_by_water.jpg', 'date': '1768741027'}, {'name': 'a_park_with_a_playground_and_trees_01.jpg', 'date': '1768741027'}, {'name': 'a_cartoon_of_a_woman_with_birds_in_the_air.png', 'date': '1768741026'}, {'name': 'a_man_and_dog_riding_bikes_in_a_field_with_a_house_in_the_background.jpg', 'date': '1768741027'}, {'name': 'a_path_leading_to_a_lake.jpg', 'date': '1768741027'}, {'name': 'a_building_with_a_light_on_the_side.jpg', 'date': '1768741025'}, {'name': 'a_bird_sitting_on_a_railing_next_to_a_satellite_dish.jpg', 'date': '1768741025'}, {'name': 'a_group_of_people_standing_in_a_room_with_a_large_globe.jpg', 'date': '1768741027'}, {'name': 'a_colorful_buildings_with_power_lines.jpg', 'date': '1768741027'}, {'name': 'rain_drops_of_water_on_a_tile_surface.jpg', 'date': '1768741028'}, {'name': 'a_bird_flying_over_a_building.jpeg', 'date': '1768741025'}, {'name': 'a_beach_with_a_bridge_and_trees.jpg', 'date': '1768741025'}, {'name': 'a_cartoon_of_a_girl_with_long_hair_wearing_a_black_hat_and_jacket.png', 'date': '1768741026'}, {'name': 'a_house_with_a_lawn_chair_and_a_bicycle.jpg', 'date': '1768741027'}, {'name': 'a_garden_with_stairs_and_flowers.jpg', 'date': '1768741027'}, {'name': 'a_cartoon_of_a_flying_ship_with_buildings_and_a_person_walking.jpg', 'date': '1768741025'}, {'name': 'a_tree_in_the_forest.png', 'date': '1768741028'}, {'name': 'a_road_with_power_lines_and_power_lines_02.jpg', 'date': '1768741028'}, {'name': 'a_road_leading_to_a_city.jpg', 'date': '1768741028'}, {'name': 'a_computer_generated_image_of_a_machine.png', 'date': '1768741027'}, {'name': 'a_cartoon_of_a_girl_with_blue_hair_and_a_skull.jpg', 'date': '1768741026'}, {'name': 'a_person_on_a_boat_in_a_pond_with_lily_pads.png', 'date': '1768741027'}, {'name': 'a_house_with_a_bike_and_a_chair.jpg', 'date': '1768741027'}, {'name': 'a_tower_with_a_building_and_trees.jpg', 'date': '1768741028'}, {'name': 'a_building_with_trees_in_the_background_01.jpg', 'date': '1768741025'}, {'name': 'a_city_skyline_with_a_tall_tower_lit_up_at_night.jpeg', 'date': '1768741027'}, {'name': 'a_tree_trunk_with_a_branch.png', 'date': '1768741028'}, {'name': 'a_train_on_tracks_in_a_snowy_city.jpg', 'date': '1768741028'}, {'name': 'a_sunset_over_a_beach.jpg', 'date': '1768741028'}, {'name': 'a_white_picket_fence_with_flowers_and_a_bridge_over_water.jpg', 'date': '1768741028'}, {'name': 'a_landscape_of_a_farm_with_trees_and_a_blue_sky.png', 'date': '1768741027'}, {'name': 'a_road_with_power_lines_and_power_lines.png', 'date': '1768741028'}, {'name': 'a_road_with_power_lines_and_power_lines_01.jpg', 'date': '1768741028'}, {'name': 'power_lines_and_trees_at_sunset.jpg', 'date': '1768741028'}, {'name': 'a_cartoon_of_a_cat_on_a_balcony.jpeg', 'date': '1768741025'}, {'name': 'a_girl_standing_on_a_railroad_crossing.png', 'date': '1768741027'}, {'name': 'a_forest_with_tall_trees_and_grass.jpeg', 'date': '1768741027'}, {'name': 'a_beach_with_palm_trees_and_a_moon.png', 'date': '1768741025'}, {'name': 'a_cartoon_of_a_girl_and_a_dog.png', 'date': '1768741025'}, {'name': 'a_waterfall_in_the_rain.jpg', 'date': '1768741028'}, {'name': 'a_cartoon_of_a_woman_standing_in_front_of_a_building.jpg', 'date': '1768741026'}, {'name': 'cartoon_of_people_sitting_at_tables_in_a_room_with_plants.png', 'date': '1768741028'}, {'name': 'a_view_of_a_city_from_a_balcony.jpeg', 'date': '1768741028'}, {'name': 'a_cartoon_house_on_a_floating_platform.jpg', 'date': '1768741025'}, {'name': 'a_person_on_a_bicycle_on_a_railing_with_a_city_in_the_background.png', 'date': '1768741027'}, {'name': 'a_tree_in_a_forest.png', 'date': '1768741028'}, {'name': 'a_train_crossing_with_a_train_track_and_a_body_of_water.png', 'date': '1768741028'}, {'name': 'a_girl_standing_on_a_road_with_trees_and_mountains_in_the_background.jpg', 'date': '1768741027'}, {'name': 'aeb9uhrbr41a1.webp', 'date': '1768741028'}, {'name': 'a_cartoon_of_a_girl_holding_an_umbrella.png', 'date': '1768741025'}, {'name': 'a_cartoon_of_a_airship_flying_over_a_mountain.png', 'date': '1768741025'}, {'name': 'a_building_with_boats_in_the_water.jpg', 'date': '1768741025'}, {'name': 'a_rock_cliff_with_trees_on_top.png', 'date': '1768741028'}, {'name': 'a_group_of_pink_flowers.png', 'date': '1768741027'}, {'name': 'a_cartoon_of_a_girl_holding_a_bouquet_of_flowers.png', 'date': '1768741025'}, {'name': 'a_door_with_a_doorway_and_shoes_on_the_ground.jpg', 'date': '1768741027'}, {'name': 'a_cartoon_of_a_castle.png', 'date': '1768741025'}, {'name': 'a_painting_of_a_clock_with_a_paper_and_scissors_from_it.png', 'date': '1768741027'}, {'name': 'a_building_with_a_clock_tower_and_lights_on_it.png', 'date': '1768741025'}, {'name': 'a_couple_of_people_walking_on_a_road_with_power_lines_and_telephone_poles.jpg', 'date': '1768741027'}, {'name': 'a_landscape_with_buildings_and_clouds.jpg', 'date': '1768741027'}, {'name': 'a_house_with_plants_and_flowers.jpeg', 'date': '1768741027'}, {'name': 'a_moon_and_clouds_at_night.jpg', 'date': '1768741027'}, {'name': 'a_woman_in_a_red_dress_sitting_in_front_of_a_gas_station.jpg', 'date': '1768741028'}, {'name': 'a_dirt_road_with_trees_and_power_lines.png', 'date': '1768741027'}, {'name': 'a_person_riding_a_bicycle_on_a_hill_with_sunflowers.jpeg', 'date': '1768741028'}, {'name': 'a_building_with_a_flag_on_the_roof.jpg', 'date': '1768741025'}, {'name': 'a_road_with_power_lines_and_grass_fields.jpg', 'date': '1768741028'}, {'name': 'a_cat_lying_on_a_piano.jpg', 'date': '1768741027'}, {'name': 'a_road_with_a_body_of_water_and_mountains_in_the_background.jpg', 'date': '1768741028'}, {'name': 'a_painting_of_a_forest_with_trees_and_fog.jpg', 'date': '1768741027'}, {'name': 'a_house_with_a_chair_and_a_bicycle.jpg', 'date': '1768741027'}, {'name': 'a_building_with_trees_in_the_background.jpg', 'date': '1768741025'}, {'name': 'a_ship_in_the_ocean.jpeg', 'date': '1768741028'}, {'name': 'a_house_with_stairs_leading_to_the_front.png', 'date': '1768741027'}, {'name': 'a_park_with_a_playground_and_trees_02.jpg', 'date': '1768741027'}, {'name': 'a_park_with_a_playground_and_trees.jpg', 'date': '1768741027'}, {'name': 'a_woman_sitting_in_a_chair_under_a_tent.png', 'date': '1768741028'}, {'name': 'a_statue_of_a_man_in_a_park_with_flags.jpg', 'date': '1768741028'}, {'name': 'a_bench_next_to_a_river.jpg', 'date': '1768741025'}, {'name': 'a_woman_wearing_a_helmet.jpg', 'date': '1768741028'}, {'name': 'a_painting_of_a_forest_with_trees_and_a_path.jpg', 'date': '1768741027'}, {'name': 'a_scooter_parked_on_a_street.jpg', 'date': '1768741028'}, {'name': 'a_bird_on_a_branch.jpg', 'date': '1768741025'}, {'name': 'a_building_with_boats_on_the_water.jpg', 'date': '1768741025'}, {'name': 'a_train_at_a_train_station.jpg', 'date': '1768741028'}, {'name': 'a_cartoon_of_a_city_with_a_clock_tower.jpeg', 'date': '1768741025'}, {'name': 'a_park_with_benches_and_trees_at_night.jpg', 'date': '1768741027'}, {'name': 'a_statue_of_a_man_standing_on_a_pedestal_in_front_of_a_row_of_flags.jpg', 'date': '1768741028'}, {'name': 'a_deck_overlooking_the_water.jpg', 'date': '1768741027'}, {'name': 'stars_in_the_sky_at_night.png', 'date': '1768741028'}, {'name': 'a_woman_standing_on_a_bridge_over_a_bridge_with_windmills_in_the_background.png', 'date': '1768741028'}, {'name': 'a_house_in_the_woods.png', 'date': '1768741027'}, {'name': 'a_silhouette_of_a_castle_with_a_sunset_behind_it.png', 'date': '1768741028'}, {'name': 'a_pond_with_flowers_and_a_bench_in_the_middle.jpg', 'date': '1768741028'}, {'name': 'water_droplets_on_a_puddle.png', 'date': '1768741028'}, {'name': 'a_cartoon_of_a_boat_in_water.png', 'date': '1768741025'}, {'name': 'a_log_cabin_in_the_woods.png', 'date': '1768741027'}, {'name': 'a_building_with_trees_in_the_background_02.jpg', 'date': '1768741025'}, {'name': 'a_train_going_through_a_lake.jpg', 'date': '1768741028'}, {'name': 'a_road_with_power_lines_and_power_lines.jpg', 'date': '1768741028'}]
 slideshow-slide-duration=(1, 0, 0)
-slideshow-time-of-slide-start=uint64 1776239764945
-slideshow-timer-remaining=2289
-update-notifier-project-version=17
+slideshow-time-of-slide-start=uint64 1778408503967
+slideshow-timer-remaining=3600
+update-notifier-project-version=19
 
 [org/gnome/shell/extensions/clipboard-indicator]
 clear-history=@as []
@@ -968,6 +984,10 @@ notify-on-cycle=false
 prev-entry=['<Control>F7']
 preview-size=38
 private-mode-binding=@as []
+show-edit-button=false
+show-preview-button=true
+show-private-mode=false
+show-tag-button=false
 strip-text=false
 toggle-menu=['<Control>F5']
 topbar-preview-size=70
@@ -975,7 +995,9 @@ topbar-preview-size=70
 [org/gnome/shell/extensions/freon]
 hot-sensors=['__max__', '__average__']
 panel-box-index=3
-position-in-panel='left'
+position-in-panel=0
+show-icon-on-panel=true
+use-gpu-nvidia=true
 
 [org/gnome/shell/extensions/gsconnect]
 devices=['b352a8f323a9e94c', '_7d72bfad_a6d6_49c7_a922_f2bd9973528e_', '83e0a65b3ccc4121a52a90cad99d16c3']
@@ -1053,7 +1075,7 @@ window-size=(640, 1001)
 
 [org/gnome/shell/extensions/gsconnect/preferences]
 window-maximized=false
-window-size=(770, 1001)
+window-size=(770, 971)
 
 [org/gnome/shell/extensions/just-perfection]
 accessibility-menu=true
@@ -1168,7 +1190,7 @@ show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/b3a1e851-310c-4f75-80bb-efffff075d8f]
-index=5
+index=2
 show-position-bar=true
 show-top-bar=true
 
@@ -1177,12 +1199,12 @@ index=4
 name='Workspace 3'
 
 [org/gnome/shell/extensions/paperwm/workspaces/d554f895-e877-4006-8603-ab75e3fe7553]
-index=2
+index=3
 show-position-bar=true
 show-top-bar=true
 
 [org/gnome/shell/extensions/paperwm/workspaces/e8c8f783-5429-42af-9114-9fb85bcf9fed]
-index=3
+index=5
 show-position-bar=true
 show-top-bar=true
 
@@ -1220,20 +1242,148 @@ position-weight=-1
 tray-position='left'
 
 [org/gnome/shell/extensions/vertical-workspaces]
+aaa-loading-profile=false
+activate-settings-window=2
+always-activate-selected-window=false
+animation-speed-factor=100
+app-display-module=true
+app-favorites-module=true
+app-folder-close-button=true
+app-folder-order=0
+app-folder-remove-button=1
+app-grid-active-preview=false
+app-grid-animation=4
+app-grid-bg-blur-sigma=300
+app-grid-bg-brightness=50
+app-grid-columns=0
 app-grid-content=2
+app-grid-folder-center=true
+app-grid-folder-columns=0
+app-grid-folder-icon-grid=3
+app-grid-folder-icon-size=-1
+app-grid-folder-rows=0
+app-grid-folder-spacing=12
+app-grid-icon-size=-1
+app-grid-incomplete-pages=false
+app-grid-names=1
 app-grid-order=0
+app-grid-orientation=0
+app-grid-page-height-scale=90
+app-grid-page-width-scale=85
+app-grid-performance=false
+app-grid-remember-page=false
+app-grid-rows=0
+app-grid-show-package-type=1
+app-grid-show-page-arrows=true
+app-grid-show-page-indicators=true
+app-grid-spacing=30
+app-menu-close-wins-ws=true
+app-menu-force-quit=true
+app-menu-move-app=true
+app-menu-window-tmb=true
+center-app-grid=false
+center-dash-to-ws=false
+center-search=true
+click-empty-close=false
+close-ws-button-mode=2
 dash-bg-color=1
+dash-bg-gs3-style=false
+dash-bg-opacity=20
+dash-bg-radius=0
+dash-icon-scroll=2
+dash-isolate-workspaces=false
+dash-max-icon-size=0
+dash-module=true
 dash-position=0
+dash-position-adjust=0
+dash-show-windows-before-activation=0
+delay-startup=false
+enable-page-shortcuts=true
+favorites-notify=1
+highlighting-style=1
+hot-corner-action=2
+hot-corner-fullscreen=true
 hot-corner-position=0
+hot-corner-ripples=true
+layout-module=true
+message-tray-module=true
+new-window-focus-fix=false
+new-window-monitor-fix=false
 notification-position=2
+osd-position=6
+osd-window-module=true
+overlay-key-module=true
+overlay-key-primary=1
+overlay-key-secondary=1
+overview-bg-blur-sigma=300
+overview-bg-brightness=50
+overview-esc-behavior=0
 overview-mode=0
 overview-select-window=0
 overview-sort-windows=0
+panel-module=true
 panel-overview-style=1
+panel-position=0
+panel-visibility=0
+profile-data-0={'workspaceThumbnailsPosition': '0', 'wsMaxSpacing': '30', 'wsPreviewScale': '95', 'secWsPreviewScale': '95', 'secWsPreviewShift': 'false', 'wsThumbnailsFull': 'false', 'secWsThumbnailsPosition': '2', 'dashPosition': '0', 'dashPositionAdjust': '0', 'wsTmbPositionAdjust': '2', 'showWsTmbLabels': '3', 'showWsTmbLabelsOnHover': 'true', 'closeWsButtonMode': '2', 'secWsTmbPositionAdjust': '0', 'dashMaxIconSize': '0', 'centerDashToWs': 'false', 'showAppsIconPosition': '0', 'wsThumbnailScale': '10', 'wsThumbnailScaleAppGrid': '10', 'secWsThumbnailScale': '8', 'showSearchEntry': 'false', 'centerSearch': 'true', 'centerAppGrid': 'false', 'dashBgOpacity': '20', 'dashBgColor': '1', 'dashBgRadius': '0', 'dashBgGS3Style': 'false', 'runningDotStyle': '0', 'enablePageShortcuts': 'true', 'showWsSwitcherBg': 'true', 'showWsPreviewBg': 'true', 'wsPreviewBgRadius': '30', 'showOverviewBackground': '1', 'overviewBgBrightness': '50', 'appGridBgBrightness': '50', 'searchBgBrightness': '40', 'overviewBgBlurSigma': '300', 'appGridBgBlurSigma': '300', 'appGridAnimation': '4', 'searchViewAnimation': '0', 'searchResultsBgStyle': '0', 'workspaceAnimation': '1', 'animationSpeedFactor': '100', 'winPreviewIconSize': '1', 'winTitlePosition': '0', 'startupState': '0', 'overviewMode': '0', 'workspaceSwitcherAnimation': '1', 'wsSwitcherMode': '0', 'searchIconSize': '0', 'searchViewScale': '100', 'appGridOrientation': '0', 'appGridIconSize': '-1', 'appGridColumns': '0', 'appGridRows': '0', 'appGridFolderIconSize': '-1', 'appGridFolderColumns': '0', 'appGridFolderRows': '0', 'appGridFolderIconGrid': '3', 'appGridContent': '2', 'appGridIncompletePages': 'false', 'appGridOrder': '0', 'appFolderOrder': '0', 'appGridNamesMode': '1', 'appGridActivePreview': 'false', 'appGridFolderCenter': 'true', 'appGridPageWidthScale': '85', 'appGridPageHeightScale': '90', 'appGridSpacing': '30', 'appGridFolderSpacing': '12', 'appGridRememberPage': 'false', 'appFolderRemoveButton': '1', 'appFolderCloseButton': 'true', 'appGridShowPageArrows': 'true', 'appGridShowPageIndicators': 'true', 'appGridShowPackageType': '1', 'searchFuzzy': 'false', 'searchMaxResultsRows': '5', 'searchAppGridMode': '1', 'searchIncludeSettings': 'true', 'activateSettingsWindow': '2', 'dashShowWindowsBeforeActivation': '0', 'dashIconScroll': '2', 'dashIsolateWorkspaces': 'false', 'appMenuForceQuit': 'true', 'appMenuCloseWinsWs': 'true', 'appMenuMoveApp': 'true', 'appMenuWindowTmb': 'true', 'searchWindowsIconScroll': '1', 'panelVisibility': '0', 'panelPosition': '0', 'panelOverviewStyle': '1', 'windowAttentionMode': '0', 'wsSwPopupHPosition': '50', 'wsSwPopupVPosition': '95', 'wsSwPopupMode': '1', 'wsSwitcherWraparound': 'false', 'wsSwitcherIgnoreLast': 'false', 'favoritesNotify': '1', 'notificationPosition': '2', 'osdPosition': '6', 'hotCornerAction': '2', 'hotCornerPosition': '0', 'hotCornerFullscreen': 'true', 'hotCornerRipples': 'true', 'alwaysActivateSelectedWindow': 'false', 'winPreviewSecBtnAction': '3', 'winPreviewMidBtnAction': '0', 'winPreviewShowCloseButton': 'true', 'windowIconClickAction': '1', 'winPreviewHeightCompensation': '80', 'overlayKeyPrimary': '1', 'overlayKeySecondary': '1', 'overviewEscBehavior': '0', 'overviewSortWindows': '0', 'overviewSelectWindow': '0', 'clickEmptyClose': 'false', 'highlightingStyle': '1', 'delayStartup': 'false', 'appGridPerformance': 'false', 'smoothOverviewAnimation': 'true', 'newWindowMonitorFix': 'false', 'newWindowFocusFix': 'false', 'workspaceSwitcherPopupModule': 'true', 'workspaceAnimationModule': 'true', 'workspaceModule': 'true', 'windowManagerModule': 'true', 'windowPreviewModule': 'true', 'windowAttentionHandlerModule': 'true', 'swipeTrackerModule': 'true', 'searchControllerModule': 'true', 'searchModule': 'true', 'panelModule': 'true', 'overlayKeyModule': 'true', 'osdWindowModule': 'true', 'messageTrayModule': 'true', 'layoutModule': 'true', 'dashModule': 'true', 'appFavoritesModule': 'true', 'appDisplayModule': 'true'}
+running-dot-style=0
+search-app-grid-mode=1
+search-bg-brightness=40
+search-controller-module=true
+search-fuzzy=false
+search-icon-size=0
+search-include-settings=true
+search-max-results-rows=5
+search-module=true
+search-results-bg-style=0
+search-view-animation=0
+search-width-scale=100
+search-windows-icon-scroll=1
+sec-wst-position-adjust=0
+secondary-ws-preview-scale=95
+secondary-ws-preview-shift=false
+secondary-ws-thumbnail-scale=8
+secondary-ws-thumbnails-position=2
 show-app-icon-position=0
+show-overview-background=1
+show-search-entry=false
+show-ws-preview-bg=true
+show-ws-switcher-bg=true
+show-wst-labels=3
+show-wst-labels-on-hover=true
+smooth-overview-animation=true
+startup-state=0
+swipe-tracker-module=true
+win-attention-handler-module=true
+win-preview-height-compensation=80
+win-preview-icon-size=1
+win-preview-mid-mouse-btn-action=0
 win-preview-sec-mouse-btn-action=3
+win-preview-show-close-button=true
 win-title-position=0
+window-attention-mode=0
+window-icon-click-action=1
+window-manager-module=true
+window-preview-module=true
+workspace-animation=1
+workspace-animation-module=true
+workspace-module=true
+workspace-switcher-animation=1
+workspace-switcher-popup-module=true
+ws-max-spacing=30
+ws-preview-bg-radius=30
+ws-preview-scale=95
+ws-sw-popup-h-position=50
+ws-sw-popup-mode=1
+ws-sw-popup-v-position=95
+ws-switcher-ignore-last=false
+ws-switcher-mode=0
+ws-switcher-wraparound=false
+ws-thumbnail-scale=10
+ws-thumbnail-scale-appgrid=10
+ws-thumbnails-full=false
 ws-thumbnails-position=0
+wst-position-adjust=2
 
 [org/gnome/shell/extensions/window-list]
 display-all-workspaces=true
@@ -1267,9 +1417,9 @@ save-format='application/pdf'
 selected-device='hpaio:/net/envy_6000_series?ip=192.168.0.215&queue=false'
 
 [org/gnome/software]
-check-timestamp=int64 1777194544
+check-timestamp=int64 1778399095
 first-run=false
-flatpak-purge-timestamp=int64 1777139194
+flatpak-purge-timestamp=int64 1778401654
 
 [org/gnome/terminal/legacy]
 always-check-default-terminal=false
@@ -1383,7 +1533,7 @@ inspector-warning=false
 [org/gtk/gtk4/settings/file-chooser]
 date-format='regular'
 location-mode='path-bar'
-show-hidden=true
+show-hidden=false
 show-size-column=true
 show-type-column=true
 sidebar-width=259

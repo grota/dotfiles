@@ -214,7 +214,12 @@ on_demand_loading = false
 # - type: Simulates keyboard input at cursor position (requires wtype or ydotool)
 # - clipboard: Copies text to clipboard (requires wl-copy)
 # - paste: Copies to clipboard then simulates paste keystroke (requires wl-copy and wtype or ydotool)
-mode = "type"
+# GROTA: eitype for some reason cannot say quantità (direction of accent)
+# wtype: gnome is not compatible. dotool: somehow does not work, maybe a conflict with input-remapper. ydotool: does not support chars like é.
+# mode = "paste"
+mode = "paste"
+# dotool_xkb_layout = "custom"
+# dotool_xkb_variant = "beppe"
 
 # Fall back to clipboard if typing fails
 fallback_to_clipboard = true
@@ -274,7 +279,7 @@ pre_type_delay_ms = 0
 #   paste_keys = "ctrl+v"        # Standard (default)
 #   paste_keys = "shift+insert"  # Hyprland/Omarchy universal paste
 #   paste_keys = "ctrl+shift+v"  # Some terminal emulators
-# paste_keys = "ctrl+v"
+paste_keys = "ctrl+shift+v"
 
 # Compositor integration hooks
 # Use `voxtype setup compositor hyprland|sway|river` for automatic setup.

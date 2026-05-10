@@ -4,8 +4,11 @@ OB=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)/$(basename --
 # shellcheck source=dot_local/grota/scripts/fzf-scripts-utils.sh
 source "$HOME/.local/grota/scripts/fzf-scripts-utils.sh"
 
-KEY_OPEN_IN_EDITOR="${KEY_OPEN_IN_EDITOR:-enter}"
-KEY_OPEN_IN_VIEWER="${KEY_OPEN_IN_VIEWER:-ctrl-v}"
+KEY_OPEN_IN_EDITOR="${KEY_OPEN_IN_EDITOR:-ctrl-e}"
+KEY_OPEN_IN_VIEWER="${KEY_OPEN_IN_VIEWER:-enter}"
+FZF_MARKDOWN_PREVIEW_COMMAND="${FZF_MARKDOWN_PREVIEW_COMMAND:-rich --emoji --force-terminal}"
+OB_VIEWER="${OB_VIEWER:-gomd}"
+EDITOR="${EDITOR:-nvim}"
 
 HEADER_TEXT="Press $KEY_SHOW_HELP for help"
 
@@ -44,12 +47,11 @@ _ob_main() {
   --walker-root='$VAULT_PATH' --walker=file
   --delimiter '/' --with-nth ${WITH_NTH}..
   --preview='$FZF_MARKDOWN_PREVIEW_COMMAND {}'
-  --bind='$KEY_OPEN_IN_EDITOR:execute(\"${EDITOR:-nvim}\" {})'
-  --bind='$KEY_OPEN_IN_VIEWER:execute(${OB_VIEWER:-mdt} {})'
+  --bind='$KEY_OPEN_IN_EDITOR:execute(\"${EDITOR}\" {})'
+  --bind='$KEY_OPEN_IN_VIEWER:execute(${OB_VIEWER} {})'
   --exact
   --prompt='notes> '
   $OB_MAIN_FZF_OPTS"
-  # --query=\'
 
 
   FZF_DEFAULT_COMMAND='' FZF_DEFAULT_OPTS="$OPTS" fzf
@@ -60,8 +62,8 @@ _ob_help() {
   HELP_TEXT="$(_bwhite "ob -- fuzzy Obsidian vault file selector")
 
 $(_bwhite "Keys:")
-  $(_bgreen "$KEY_OPEN_IN_EDITOR"): OPEN selected file in \$EDITOR (fallback: nvim).
-  $(_bgreen "$KEY_OPEN_IN_VIEWER"): VIEW selected file with \$OB_VIEWER (fallback: mdt).
+  $(_bgreen "$KEY_OPEN_IN_VIEWER"): VIEW selected file with ${OB_VIEWER}.
+  $(_bgreen "$KEY_OPEN_IN_EDITOR"): OPEN selected file in ${EDITOR}.
 
   $(_bgreen "${KEY_TOGGLE_HEADER}"): toggle the header line.
   $(_bgreen "$KEY_CHANGE_PREVIEW_PRESET"): toggle between preview layout presets.
@@ -70,8 +72,9 @@ $(_bwhite "Keys:")
   $(_bgreen "$KEY_PAGE_UP", "$KEY_PAGE_DOWN"): scroll preview by a full page.
 
 $(_bwhite "Environment variables:")
-  $(_bgreen "OB_VIEWER"): viewer command (fallback mdt).
-  $(_bgreen "FZF_MARKDOWN_PREVIEW_COMMAND"): preview renderer command (default: $FZF_MARKDOWN_PREVIEW_COMMAND).
+  $(_bgreen "OB_VIEWER"): viewer command (current: $OB_VIEWER).
+  $(_bgreen "EDITOR"): editor command (current: \"$EDITOR\").
+  $(_bgreen "FZF_MARKDOWN_PREVIEW_COMMAND"): preview renderer command (current: \"$FZF_MARKDOWN_PREVIEW_COMMAND\").
 
   Other default fzf mappings apply:
   $(_white "ctrl-c Esc ctrl-q"): quit
