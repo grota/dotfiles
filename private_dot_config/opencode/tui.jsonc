@@ -14,5 +14,12 @@
     //     "tips": true
     //   }
     // ]
-  ]
+  ],
+  "attention": {
+    "enabled": true,
+    "notifications": true,
+    "sound": true,
+    "volume": 0.7,
+    "sound_pack": "opencode.default"
+  }
 }

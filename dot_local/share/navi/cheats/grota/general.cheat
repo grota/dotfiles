@@ -1,4 +1,7 @@
 % general
 
-# input-remapper mx master 3s
-input-remapper-control --command start --device 'Logitech MX Master 3S' --preset 'button remaps'
+; # input-remapper mx master 3s
+; input-remapper-control --command start --device 'Logitech MX Master 3S' --preset 'button remaps'
+
+# input-remapper ThinkPad Extra Buttons
+input-remapper-control --command start --device 'ThinkPad Extra Buttons' --preset 'hangup=playpause'

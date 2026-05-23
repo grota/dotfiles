@@ -42,6 +42,7 @@ modifiers = []
 # - push_to_talk: Hold hotkey to record, release to transcribe (default)
 # - toggle: Press hotkey once to start recording, press again to stop
 mode = "toggle"
+enabled = true
 
 # Modifier key for secondary model selection (evdev only)
 # Hold this key while pressing the hotkey to use secondary_model
@@ -110,6 +111,9 @@ translate = false
 # When true, model is loaded when recording starts and unloaded after transcription
 # When false, model is kept in memory for faster response times (default)
 on_demand_loading = false
+mode = "local"
+flash_attention = false
+gpu_isolation = false
 
 # GPU memory isolation mode
 # Enable on laptops with hybrid graphics to let dGPU sleep between transcriptions.
@@ -216,13 +220,12 @@ on_demand_loading = false
 # - paste: Copies to clipboard then simulates paste keystroke (requires wl-copy and wtype or ydotool)
 # GROTA: eitype for some reason cannot say quantità (direction of accent)
 # wtype: gnome is not compatible. dotool: somehow does not work, maybe a conflict with input-remapper. ydotool: does not support chars like é.
-# mode = "paste"
 mode = "paste"
 # dotool_xkb_layout = "custom"
 # dotool_xkb_variant = "beppe"
 
 # Fall back to clipboard if typing fails
-fallback_to_clipboard = true
+fallback_to_clipboard = false
 
 # Custom driver order for type mode (optional)
 # Default order: wtype -> dotool -> ydotool -> clipboard
@@ -233,6 +236,7 @@ fallback_to_clipboard = true
 # Example: use only ydotool, no fallback:
 #   driver_order = ["ydotool"]
 # driver_order = ["wtype", "dotool", "ydotool", "clipboard"]
+driver_order = ["eitype"]
 
 # Delay between typed characters in milliseconds
 # 0 = fastest possible, increase if characters are dropped
@@ -280,6 +284,8 @@ pre_type_delay_ms = 0
 #   paste_keys = "shift+insert"  # Hyprland/Omarchy universal paste
 #   paste_keys = "ctrl+shift+v"  # Some terminal emulators
 paste_keys = "ctrl+shift+v"
+auto_submit = false
+shift_enter_newlines = false
 
 # Compositor integration hooks
 # Use `voxtype setup compositor hyprland|sway|river` for automatic setup.
@@ -317,6 +323,7 @@ on_recording_stop = false
 
 # Show notification with transcribed text after transcription completes
 on_transcription = false
+show_engine_icon = false
 
 # [output.post_process]
 # Pipe transcribed text through an external command for cleanup before output.
@@ -327,6 +334,8 @@ on_transcription = false
 # command = "ollama run llama3.2:1b 'Clean up this dictation. Fix grammar, remove filler words. Output only the cleaned text:'"
 # timeout_ms = 30000  # 30 second timeout (generous for LLM)
 [text]
+spoken_punctuation = false
+smart_auto_submit = false
 # Text processing options (word replacements, spoken punctuation)
 #
 # Enable spoken punctuation conversion (e.g., say "period" to get ".")
@@ -334,11 +343,33 @@ on_transcription = false
 #
 [text.replacements]
 "vox type" = "voxtype"
-"Package base" = '`pkg_base`'
-"Package drupal" = '`pkg_drupal`'
-"Package Composer plugin" = '`pkg_composer_plugin`'
-"Tmax" = 'tmux'
-"sim link" = 'symlink'
+"Package base" = "`pkg_base`"
+"Package drupal" = "`pkg_drupal`"
+"Package Composer plugin" = "`pkg_composer_plugin`"
+"Tmax" = "tmux"
+"sim link" = "symlink"
+
+[meeting]
+enabled = false
+
+[meeting.diarization]
+enabled = false
+
+[meeting.audio]
+source = "mic"
+
+[osd]
+enabled = true
+frontend = "gtk4"
+position = "bottom-center"
+width_px = 400
+height_px = 48
+margin_px = 24
+top_margin = 0.85
+opacity = 0.95
+waveform_window_secs = 3.0
+peak_decay_db_per_sec = 6.0
+waveform_gain = 10.0
 
 # Smart auto-submit: say "submit" at the end of dictation to press Enter.
 # The word "submit" is stripped from the output text and Enter is pressed.

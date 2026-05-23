@@ -139,7 +139,7 @@
   },
   "formatter": false,
   "plugin": [
-    "@mohak34/opencode-notifier@latest",
+    // "@mohak34/opencode-notifier@latest",
     "opencode-antigravity-auth@latest",
     // [
     //   "oc-plugin-vault-tec",
