@@ -41,3 +41,7 @@ vim.api.nvim_create_autocmd('BufEnter', {
     end
   end,
 })
+
+vim.g.mkdp_preview_options = {
+  katex = {},
+}

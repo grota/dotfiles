@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
 
 FZFLLM=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)/$(basename -- "${BASH_SOURCE[0]}")
+FZF_MARKDOWN_PREVIEW_COMMAND="${FZF_MARKDOWN_PREVIEW_COMMAND:-gomd -r}"
 # shellcheck source=dot_local/grota/scripts/fzf-scripts-utils.sh
 source "$HOME/.local/grota/scripts/fzf-scripts-utils.sh"
 
 LLM_GET_THREAD_CMD="${LLM_GET_THREAD_CMD:-llm logs list --cid {1}}"
-LLM_OPEN_IN_PAGER_CMD="${LLM_OPEN_IN_PAGER_CMD:-bat --language markdown --color always --paging=always --plain --pager=\"less -R -+S --wordwrap\"}"
+LLM_OPEN_IN_PAGER_CMD="${LLM_OPEN_IN_PAGER_CMD:-gomd}"
+# LLM_OPEN_IN_PAGER_CMD="${LLM_OPEN_IN_PAGER_CMD:-bat --language markdown --color always --paging=always --plain --pager=\"less -R -+S --wordwrap\"}"
 
 KEY_NEW_THREAD="${KEY_NEW_THREAD:-ctrl-t}"
 KEY_SEARCH_THREADS="${KEY_SEARCH_THREADS:-ctrl-/}"
@@ -82,7 +84,7 @@ _fzfllm_list_threads() {
   $FZF_DEFAULT_OPTS
   $FZFLLM_FZF_GENERAL_OPTS
   $FZFLLM_BINDS_FOR_LIST_OF_THREADS
-  --prompt=\"🧵threads\> \"
+  --prompt=\"🧵llm chats\> \"
   --pointer='👉'
   $FZFLLM_LIST_THREADS_FZF_OPTS"
 
@@ -240,7 +242,7 @@ _fzfllm_help() {
   $(_bgreen "$KEY_OPEN_IN_EDITOR"): OPEN IN EDITOR the currently selected thread.
   $(_bgreen "$KEY_CONTINUE_THREAD"): CONTINUE the currently selected thread.
   $(_bgreen "$KEY_DELETE"): DELETE the currently select entry.
-  $(_bgreen "$KEY_SEARCH_THREADS"): SEARCH threads matching the current query (sqlite fts5 in prompts and responses).
+  $(_bgreen "$KEY_SEARCH_THREADS"): SEARCH chats matching the current query (sqlite fts5 in prompts and responses).
 
   $(_bgreen "${KEY_TOGGLE_HEADER}"): toggles the header help (the one showing the \"$HEADER_TEXT\" text)
   $(_bgreen "$KEY_CHANGE_PREVIEW_PRESET"): toggles between the two preview layout presets.

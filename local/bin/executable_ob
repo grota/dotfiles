@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
 OB=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)/$(basename -- "${BASH_SOURCE[0]}")
+
+# FZF_MARKDOWN_PREVIEW_COMMAND="${FZF_MARKDOWN_PREVIEW_COMMAND:-rich --emoji --force-terminal -m}"
+FZF_MARKDOWN_PREVIEW_COMMAND="${FZF_MARKDOWN_PREVIEW_COMMAND:-gomd -r}"
 # shellcheck source=dot_local/grota/scripts/fzf-scripts-utils.sh
 source "$HOME/.local/grota/scripts/fzf-scripts-utils.sh"
 
@@ -57,7 +60,8 @@ _ob_main() {
   --bind='change:reload($GREP_CMD)'
   --bind='start:unbind(change)'
   --exact
-  --prompt='notes> '
+  --prompt='📝notes> '
+  --pointer='👉'
   $OB_MAIN_FZF_OPTS"
 
   FZF_DEFAULT_COMMAND='find "$OB_VAULT_PATH" -type f -name "*.md" 2>/dev/null' FZF_DEFAULT_OPTS="$OPTS" fzf

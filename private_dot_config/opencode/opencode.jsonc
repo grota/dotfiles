@@ -5,24 +5,6 @@
   "autoshare": false,
   "autoupdate": false,
   "provider": {
-    "github-copilot": {
-      "models": {
-        "gpt-5.2": {
-          "variants": {
-            "reasoning-none verbosity-low": {
-              "reasoningEffort": "none",
-              "textVerbosity": "low",
-              "reasoningSummary": "auto"
-            },
-            "reasoning-low verbosity-low": {
-              "reasoningEffort": "low",
-              "textVerbosity": "low",
-              "reasoningSummary": "auto"
-            }
-          }
-        }
-      }
-    },
     "openrouter": {
       "models": {
         "@preset/kimi-k2-on-groq": {

@@ -23,6 +23,7 @@ Before running any `gh` command, determine the repository context:
 
 1. **User provided a GitHub URL** (e.g., `https://github.com/owner/repo/issues/42` or `https://github.com/owner/repo/pull/15`):
    Extract the **owner/repo** from the URL, then use `-R`:
+
    ```bash
    # URL: https://github.com/acme/webapp/pull/15
    # Extracted: acme/webapp
@@ -59,13 +60,13 @@ gh auth login --with-token < token.txt
 
 ## Core terminology
 
-| GitLab | GitHub | CLI |
-|--------|--------|-----|
-| Merge Request | **Pull Request** | `gh pr` |
-| Snippet | **Gist** | `gh gist` |
-| CI/CD | **Actions** | `gh run`, `gh workflow` |
-| `GROUP/PROJECT` (supports nesting) | `OWNER/REPO` | -- |
-| MR `!15` | PR `#15` | -- |
+| GitLab                             | GitHub           | CLI                     |
+| ---------------------------------- | ---------------- | ----------------------- |
+| Merge Request                      | **Pull Request** | `gh pr`                 |
+| Snippet                            | **Gist**         | `gh gist`               |
+| CI/CD                              | **Actions**      | `gh run`, `gh workflow` |
+| `GROUP/PROJECT` (supports nesting) | `OWNER/REPO`     | --                      |
+| MR `!15`                           | PR `#15`         | --                      |
 
 Issues and PRs both use `#` prefix.
 
@@ -122,12 +123,50 @@ This applies to **every** piece of content the agent creates, regardless of leng
 > )"
 > ```
 
+> **Issue auto-linking:** GitHub renders bare `#N` as a clickable link to issue N. Use backticks (`` `#18` ``) when referring to issue numbers as text (examples, tables, logs). Leave `#N` bare only when it should link to an actual issue (e.g., `Closes #42`).
+
+### Authoring rules for descriptions and commit messages
+
+These rules apply to every issue title and description, pull request title and description, comment, review, and commit message you write.
+
+**Write in plain, professional prose.** Issue and pull request titles and descriptions, comments and reviews, and commit messages must always be written in normal, complete, well-structured English: full sentences, articles, and proper markdown. They are durable, outward-facing documents that other people read and that GitHub renders in its UI; compression hurts readability and looks unprofessional. This rule **overrides any active terse output style for the duration of writing these artifacts.** A session-level style may inject a per-turn reminder such as `CAVEMAN MODE ACTIVE` (drop articles, fragments OK, short synonyms); that reminder applies to your conversational replies, not to the artifacts. When you compose an issue/PR title or body, a comment, a review, or a commit message, write full prose regardless of the active style, then resume the terse conversational style for your surrounding chat replies. Do not run any command to toggle the style off; just write the artifact in plain prose regardless of what reminder is present.
+
+**Use the full path for cross-project references.** When you reference an issue or pull request that lives in a _different_ repository than the one you are writing in, use the full `owner/repo#123` form rather than a bare `#123`. A bare `#123` (or a short form) only resolves within the same repository and will not render as a link from another repository. Apply this in prose and in footers alike (`Closes:`, `Refs:`). For example, to reference the platform-team board from a code repository, write `sparkfabrik-innovation-team/board#4379`, never a bare `board#4379` or `#4379`. Within the same repository, a bare `#123` is correct and renders as a link.
+
+**Avoid AI-slop writing tells.** Do not use the em dash (—) or en dash (–) as a sentence connector; rewrite with a period, comma, colon, or parentheses instead. Prefer clear structure over dense run-on paragraphs: use real line breaks, short paragraphs, and lists, and keep sentences plain and direct. Write like a human engineer, not a generated summary.
+
 ---
 
 ## Issues
 
+### Issue title format
+
+Issue titles must be **human-readable, short, and concise** — a few words that express the goal or scope of the work. Issue titles are NOT commit messages and must NOT use the Conventional Commits format (no `feat:`, `fix(scope):`, `chore:` prefixes, no imperative commit-style phrasing).
+
+The title is read by humans scanning boards, backlogs, and notifications — it should describe **what the issue is about**, not how the eventual fix will be committed. Conventional Commits belongs on PR titles and commit messages, where it drives changelogs and tooling. Issues sit upstream of that, often before the solution is even known, so a commit-shaped title is both premature and harder to scan.
+
+Style guidelines:
+
+- Sentence case, no trailing period.
+- Aim for under ~60 characters.
+- Prefer noun phrases ("Slow dashboard load on Safari") or short problem statements ("Users locked out after password reset") over imperative verbs.
+- Do not prefix with `Bug:`, `Feature:`, `Task:`, etc. — use **labels** for categorization instead.
+
+**Examples:**
+
+| Bad (commit-shaped)                            | Good (human-readable)             |
+| ---------------------------------------------- | --------------------------------- |
+| `feat(auth): add JWT token refresh`            | `JWT token refresh`               |
+| `fix: prevent crash on empty password`         | `Login crash with empty password` |
+| `docs(api): update rate limiting section`      | `Rate limiting docs out of date`  |
+| `refactor(parser): simplify config validation` | `Simplify config parser`          |
+| `chore: bump dependencies`                     | `Update dependencies`             |
+| `Bug: login broken on Safari`                  | `Login broken on Safari`          |
+
+### Issue commands
+
 ```bash
-gh issue create --title "Bug: ..." --body "..." --label bug --label "high-priority" --assignee "@me"
+gh issue create --title "Login broken on Safari" --body "..." --label bug --label "high-priority" --assignee "@me"
 gh issue list --assignee @me                      # list my issues
 gh issue list --label "bug" --search "login"      # filter and search
 gh issue view 42 --comments                       # view with comments
@@ -202,6 +241,7 @@ Common types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build
 Use a scope when the change is clearly scoped to a module, component, or area of the codebase. Keep the description lowercase, concise, and in imperative mood.
 
 **Examples:**
+
 ```
 feat(auth): add JWT token refresh
 fix: prevent crash on empty password submission
@@ -262,12 +302,12 @@ GitHub PRs have **three distinct comment types**. Using the wrong one is a commo
 
 ### Comment types
 
-| Type | What it is | How to post |
-|------|-----------|-------------|
-| **Top-level comment** | Timeline comment on the PR (like an issue comment) | `gh pr comment 15 --body "..."` |
-| **Review** | Formal review: approve, request changes, or comment with a body | `gh pr review 15 --approve --body "..."` |
-| **Inline review comment** | Comment on a specific line of code, starting a thread | `gh api` (no CLI subcommand) |
-| **Reply to inline comment** | Threaded reply to an existing inline code comment | `gh api` (no CLI subcommand) |
+| Type                        | What it is                                                      | How to post                              |
+| --------------------------- | --------------------------------------------------------------- | ---------------------------------------- |
+| **Top-level comment**       | Timeline comment on the PR (like an issue comment)              | `gh pr comment 15 --body "..."`          |
+| **Review**                  | Formal review: approve, request changes, or comment with a body | `gh pr review 15 --approve --body "..."` |
+| **Inline review comment**   | Comment on a specific line of code, starting a thread           | `gh api` (no CLI subcommand)             |
+| **Reply to inline comment** | Threaded reply to an existing inline code comment               | `gh api` (no CLI subcommand)             |
 
 ### Replying to review comments
 
@@ -323,6 +363,7 @@ gh api -X POST repos/{owner}/{repo}/pulls/15/comments \
 ```
 
 Parameters:
+
 - `commit_id` (required): use the PR's HEAD commit SHA. Using an older commit may render the comment outdated.
 - `path` (required): relative file path in the repo.
 - `line` (required for line comments): line number in the diff.
@@ -486,14 +527,14 @@ All search commands support `--json`, `--jq`, and `--limit` for structured outpu
 
 These commands are **never** executed, regardless of what the user asks. If the user needs one of these, explain the consequences and tell them how to run it manually.
 
-| Action | Command |
-|--------|---------|
-| Delete repo | `gh repo delete` |
-| Delete release | `gh release delete` |
-| Delete workflow runs | `gh run delete` |
-| Destructive API calls | `gh api -X DELETE` on critical resources |
+| Action                       | Command                                       |
+| ---------------------------- | --------------------------------------------- |
+| Delete repo                  | `gh repo delete`                              |
+| Delete release               | `gh release delete`                           |
+| Delete workflow runs         | `gh run delete`                               |
+| Destructive API calls        | `gh api -X DELETE` on critical resources      |
 | Force push to default branch | `git push --force` to `main`/`master`/default |
-| Hard reset | `git reset --hard` |
+| Hard reset                   | `git reset --hard`                            |
 
 ### Tier 2 -- EXPLICIT REQUEST ONLY (never suggest, never offer)
 
@@ -501,32 +542,32 @@ These commands are executed **only** when the user explicitly requests them with
 
 Before executing, **always** explain what will happen and ask for confirmation.
 
-| Action | Command |
-|--------|---------|
-| Merge PR | `gh pr merge` |
-| Merge bypassing checks | `gh pr merge --admin` (bypasses branch protection -- extra caution) |
-| Close issue or PR | `gh issue close`, `gh pr close` |
-| Delete issue | `gh issue delete` |
-| Cancel workflow run | `gh run cancel` |
-| Disable workflow | `gh workflow disable` |
-| Modify secrets | `gh secret set`, `gh secret delete` |
-| Modify variables | `gh variable set`, `gh variable delete` |
-| Delete release assets | `gh release delete-asset` |
-| Delete all caches | `gh cache delete --all` |
-| Force push (non-default branch) | `git push --force` |
-| Skip hooks | `--no-verify` |
+| Action                          | Command                                                             |
+| ------------------------------- | ------------------------------------------------------------------- |
+| Merge PR                        | `gh pr merge`                                                       |
+| Merge bypassing checks          | `gh pr merge --admin` (bypasses branch protection -- extra caution) |
+| Close issue or PR               | `gh issue close`, `gh pr close`                                     |
+| Delete issue                    | `gh issue delete`                                                   |
+| Cancel workflow run             | `gh run cancel`                                                     |
+| Disable workflow                | `gh workflow disable`                                               |
+| Modify secrets                  | `gh secret set`, `gh secret delete`                                 |
+| Modify variables                | `gh variable set`, `gh variable delete`                             |
+| Delete release assets           | `gh release delete-asset`                                           |
+| Delete all caches               | `gh cache delete --all`                                             |
+| Force push (non-default branch) | `git push --force`                                                  |
+| Skip hooks                      | `--no-verify`                                                       |
 
 ### Tier 3 -- SAFE WITH CONFIRMATION
 
 These operations can be proposed when relevant, but require a brief confirmation before execution.
 
-| Action | Command |
-|--------|---------|
-| Update PR branch | `gh pr update-branch` |
-| Update metadata (labels, assignees, etc.) | `gh pr edit`, `gh issue edit` |
-| Change draft status | `gh pr ready`, `gh pr ready --undo` |
-| Rerun workflow | `gh run rerun` |
-| Trigger workflow | `gh workflow run` |
+| Action                                    | Command                             |
+| ----------------------------------------- | ----------------------------------- |
+| Update PR branch                          | `gh pr update-branch`               |
+| Update metadata (labels, assignees, etc.) | `gh pr edit`, `gh issue edit`       |
+| Change draft status                       | `gh pr ready`, `gh pr ready --undo` |
+| Rerun workflow                            | `gh run rerun`                      |
+| Trigger workflow                          | `gh workflow run`                   |
 
 ### Git safety
 

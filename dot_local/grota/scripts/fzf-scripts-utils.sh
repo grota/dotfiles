@@ -19,7 +19,7 @@ _white()  { printf "%b%s%b" '\e[0;37m' "$@" '\e[0m'; }
 # Shared environment defaults
 # ---------------------------------------------------------------------------
 # FZF_MARKDOWN_PREVIEW_COMMAND="${FZF_MARKDOWN_PREVIEW_COMMAND:-bat --language markdown --color always --plain}"
-FZF_MARKDOWN_PREVIEW_COMMAND="${FZF_MARKDOWN_PREVIEW_COMMAND:-rich --emoji --force-terminal}"
+FZF_MARKDOWN_PREVIEW_COMMAND="${FZF_MARKDOWN_PREVIEW_COMMAND:-rich --emoji --force-terminal -m -}"
 
 # ---------------------------------------------------------------------------
 # Shared key bindings (callers may override before sourcing or after)
