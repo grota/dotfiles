@@ -1,1 +1,1 @@
-gpt-5.4
+deepseek-v4-flash

@@ -1,0 +1,87 @@
+[
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 125,
+                "origin_hash": "b4551b264f66b602825145a9af079d63"
+            },
+            {
+                "type": 1,
+                "code": 59,
+                "origin_hash": "b4551b264f66b602825145a9af079d63"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "XF86AudioMute",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 125,
+                "origin_hash": "b4551b264f66b602825145a9af079d63"
+            },
+            {
+                "type": 1,
+                "code": 60,
+                "origin_hash": "b4551b264f66b602825145a9af079d63"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "XF86AudioLowerVolume",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 125,
+                "origin_hash": "b4551b264f66b602825145a9af079d63"
+            },
+            {
+                "type": 1,
+                "code": 61,
+                "origin_hash": "b4551b264f66b602825145a9af079d63"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "XF86AudioRaiseVolume",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 125,
+                "origin_hash": "b4551b264f66b602825145a9af079d63"
+            },
+            {
+                "type": 1,
+                "code": 63,
+                "origin_hash": "b4551b264f66b602825145a9af079d63"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "XF86MonBrightnessDown",
+        "mapping_type": "key_macro"
+    },
+    {
+        "input_combination": [
+            {
+                "type": 1,
+                "code": 125,
+                "origin_hash": "b4551b264f66b602825145a9af079d63"
+            },
+            {
+                "type": 1,
+                "code": 64,
+                "origin_hash": "b4551b264f66b602825145a9af079d63"
+            }
+        ],
+        "target_uinput": "keyboard",
+        "output_symbol": "XF86MonBrightnessUp",
+        "mapping_type": "key_macro"
+    }
+]

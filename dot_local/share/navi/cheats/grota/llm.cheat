@@ -9,6 +9,12 @@ visidata $HOME/.config/io.datasette.llm/logs.db
 # edit llm templates
 $EDITOR $(llm templates path)
 
+# Ask llm about itself
+llm -f docs:llm
+
+# show model options
+llm models --options <llm_model>
+
 $ llm_model: v=<model>; \
 if [ "$v" = 'none' ]; then \
   echo ''; \
