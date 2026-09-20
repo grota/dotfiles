@@ -1,1 +1,2 @@
 prefix=/home/grota/.npm-global
+allow-scripts=better-sqlite3

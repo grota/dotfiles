@@ -88,13 +88,37 @@ _fzfllm_list_threads() {
   --pointer='👉'
   $FZFLLM_LIST_THREADS_FZF_OPTS"
 
-  local CONVERSATIONS_QUERY="
-  SELECT conversations.id, conversations.name
-  FROM conversations
-  INNER JOIN responses on conversations.id=responses.conversation_id
-  GROUP BY conversations.id
-  ORDER BY responses.datetime_utc DESC"
-  _fzfllm_execute_query "$CONVERSATIONS_QUERY" | FZF_DEFAULT_OPTS="$OPTS" fzf
+  local THREADS_QUERY
+  if _fzfllm_has_new_schema; then
+    # New-generation threads (threads/turns) plus legacy conversations
+    # (conversations/responses), deduped by id with the new-generation row
+    # winning, ordered by most recent activity. Thread ids and conversation
+    # ids are both ULIDs in the same space, so they merge cleanly.
+    THREADS_QUERY="
+    SELECT id, name FROM (
+      SELECT threads.id, threads.name, MAX(turns.datetime_utc) AS last_used
+      FROM threads
+      INNER JOIN turns on turns.thread_id=threads.id
+      GROUP BY threads.id
+      UNION ALL
+      SELECT conversations.id, conversations.name, MAX(responses.datetime_utc)
+      FROM conversations
+      INNER JOIN responses on conversations.id=responses.conversation_id
+      WHERE conversations.id NOT IN (SELECT id FROM threads)
+      GROUP BY conversations.id
+    )
+    GROUP BY id
+    ORDER BY last_used DESC"
+  else
+    # Installed llm predates 0.32: only the legacy tables exist.
+    THREADS_QUERY="
+    SELECT conversations.id, conversations.name
+    FROM conversations
+    INNER JOIN responses on conversations.id=responses.conversation_id
+    GROUP BY conversations.id
+    ORDER BY responses.datetime_utc DESC"
+  fi
+  _fzfllm_execute_query "$THREADS_QUERY" | FZF_DEFAULT_OPTS="$OPTS" fzf
 }
 
 _fzfllm_search_threads() {
@@ -106,13 +130,48 @@ _fzfllm_search_threads() {
   --pointer='👉'
   $FZFLLM_SEARCH_THREADS_FZF_OPTS"
 
-  local SEARCH_QUERY="
-  SELECT conversations.id, conversations.name
-    FROM responses
-    LEFT JOIN conversations ON responses.conversation_id = conversations.id
-    JOIN responses_fts ON responses_fts.rowid = responses.rowid
-    WHERE responses_fts match $*
-    ORDER BY responses_fts.rank DESC"
+  # The fzf bind passes the query wrapped in double quotes; strip those and
+  # single-quote-escape the term for SQL. (The old `match $*` form relied on
+  # SQLite's double-quoted-string fallback, which newer sqlite3 rejects.)
+  local Q="$*"
+  Q="${Q#\"}"
+  Q="${Q%\"}"
+  Q="${Q//\'/\'\'}"
+
+  local SEARCH_QUERY
+  if _fzfllm_has_new_schema; then
+    # FTS5 search over both generations: turn_search_fts for the new
+    # content-addressed tables, responses_fts for legacy history. Same
+    # bm25() prompt/response weights llm itself uses; the legacy branch
+    # excludes ids that are already turns (dual-write-era dedup). The
+    # two bm25 scores come from separate indexes, so they are carried as
+    # a rank column and sorted together, like merged_log_rows does.
+    SEARCH_QUERY="
+    SELECT id, name FROM (
+      SELECT threads.id, threads.name, bm25(turn_search_fts, 10.0, 1.0) AS rank
+        FROM turn_search
+        JOIN turn_search_fts ON turn_search_fts.rowid = turn_search.id
+        JOIN turns ON turns.id = turn_search.turn_id
+        JOIN threads ON threads.id = turns.thread_id
+        WHERE turn_search_fts match '$Q'
+      UNION ALL
+      SELECT conversations.id, conversations.name, bm25(responses_fts, 10.0, 1.0)
+        FROM responses
+        LEFT JOIN conversations ON responses.conversation_id = conversations.id
+        JOIN responses_fts ON responses_fts.rowid = responses.rowid
+        WHERE responses_fts match '$Q'
+        AND responses.id NOT IN (SELECT id FROM turns)
+    )
+    ORDER BY rank"
+  else
+    SEARCH_QUERY="
+    SELECT conversations.id, conversations.name
+      FROM responses
+      LEFT JOIN conversations ON responses.conversation_id = conversations.id
+      JOIN responses_fts ON responses_fts.rowid = responses.rowid
+      WHERE responses_fts match '$Q'
+      ORDER BY responses_fts.rank DESC"
+  fi
   local SEARCH_RESULTS
   # Here we do no care much about keeping newlines from the results because
   # we fetch conversations.name. Also command substitution would strip the null
@@ -136,14 +195,51 @@ _fzfllm_edit_thread_messages() {
   --bind='$KEY_OPEN_IN_EDITOR:execute($FZFLLM preview_message {1} | $FZFLLM open_stdin_in_editor)'
   $FZFLLM_EDIT_THREAD_MESSAGES_FZF_OPTS"
 
-  _fzfllm_execute_query "
-  SELECT id, substring(prompt, 0, 1000) from responses where conversation_id='$1'
-  ORDER BY datetime_utc ASC
-  " | FZF_DEFAULT_OPTS="$OPTS" fzf
+  if _fzfllm_has_new_schema; then
+    # New turns and legacy responses for this thread, deduped (turn wins),
+    # chronological. The prompt text comes from turn_search for new turns
+    # (the plain typed prompt, fragments excluded) and responses.prompt
+    # for legacy rows. Emitted ids are understood by preview_message.
+    _fzfllm_execute_query "
+    SELECT id, substr(prompt, 0, 1000) FROM (
+      SELECT turns.id AS id,
+             coalesce(turn_search.prompt, '') AS prompt,
+             turns.datetime_utc AS ts
+      FROM turns
+      LEFT JOIN turn_search ON turn_search.turn_id = turns.id
+      WHERE turns.thread_id = '$1'
+      UNION ALL
+      SELECT responses.id, responses.prompt, responses.datetime_utc
+      FROM responses
+      WHERE responses.conversation_id = '$1'
+      AND responses.id NOT IN (SELECT id FROM turns)
+    ) ORDER BY ts ASC
+    " | FZF_DEFAULT_OPTS="$OPTS" fzf
+  else
+    _fzfllm_execute_query "
+    SELECT id, substring(prompt, 0, 1000) from responses where conversation_id='$1'
+    ORDER BY datetime_utc ASC
+    " | FZF_DEFAULT_OPTS="$OPTS" fzf
+  fi
 }
 
 _fzfllm_preview_message() {
-  IFS=$'\x1f' read -r -d '' -a sections < <(_fzfllm_execute_query "SELECT prompt, response, datetime_utc from responses where id='$1'")
+  local sections
+  if _fzfllm_has_new_schema; then
+    # $1 may be a new-schema turn id or a legacy response id. Try the new
+    # content-addressed tables first (prompt/response from turn_search),
+    # then fall back to the legacy responses row.
+    IFS=$'\x1f' read -r -d '' -a sections < <(_fzfllm_execute_query "
+    SELECT turn_search.prompt, turn_search.response, turns.datetime_utc
+    FROM turns
+    LEFT JOIN turn_search ON turn_search.turn_id = turns.id
+    WHERE turns.id = '$1'")
+    if [ ${#sections[@]} -eq 0 ]; then
+      IFS=$'\x1f' read -r -d '' -a sections < <(_fzfllm_execute_query "SELECT prompt, response, datetime_utc from responses where id='$1'")
+    fi
+  else
+    IFS=$'\x1f' read -r -d '' -a sections < <(_fzfllm_execute_query "SELECT prompt, response, datetime_utc from responses where id='$1'")
+  fi
   echo "# Message from ${sections[2]:0:19}"
   echo
   echo "## 🧑 Prompt:"
@@ -156,17 +252,58 @@ _fzfllm_preview_message() {
 }
 
 _fzfllm_delete_thread() {
-  _fzfllm_execute_query "
-  DELETE FROM responses WHERE conversation_id = '${1}';
-  DELETE FROM conversations WHERE id = '${1}';"
+  if _fzfllm_has_new_schema; then
+    # Remove the thread's turns (children first) and the thread row, plus
+    # the legacy responses/conversations rows. Message and part rows are
+    # deliberately left behind: since 0.32 messages are content-addressed
+    # and shared between threads, LLM never garbage-collects them.
+    _fzfllm_execute_query "
+    DELETE FROM turn_search WHERE turn_id IN (SELECT id FROM turns WHERE thread_id = '${1}');
+    DELETE FROM turn_tools WHERE turn_id IN (SELECT id FROM turns WHERE thread_id = '${1}');
+    DELETE FROM turn_fragments WHERE turn_id IN (SELECT id FROM turns WHERE thread_id = '${1}');
+    DELETE FROM tool_instantiations WHERE turn_id IN (SELECT id FROM turns WHERE thread_id = '${1}');
+    DELETE FROM turns WHERE thread_id = '${1}';
+    DELETE FROM threads WHERE id = '${1}';
+    DELETE FROM responses WHERE conversation_id = '${1}';
+    DELETE FROM conversations WHERE id = '${1}';"
+  else
+    _fzfllm_execute_query "
+    DELETE FROM responses WHERE conversation_id = '${1}';
+    DELETE FROM conversations WHERE id = '${1}';"
+  fi
 }
 
 _fzfllm_delete_message() {
-  cid=$(_fzfllm_execute_query "SELECT conversation_id FROM responses WHERE id = '${1}'" | tr '\0' '\n')
-  _fzfllm_execute_query "DELETE FROM responses WHERE id = '${1}';"
-  remaining_messages=$(_fzfllm_execute_query "SELECT count(*) FROM responses WHERE conversation_id = '${cid}'" | tr '\0' '\n')
+  local cid remaining_messages
+  if _fzfllm_has_new_schema; then
+    # $1 may be a new-schema turn id or a legacy response id.
+    cid=$(_fzfllm_execute_query "SELECT thread_id FROM turns WHERE id = '${1}'" | tr '\0' '\n')
+    if [ -z "$cid" ]; then
+      cid=$(_fzfllm_execute_query "SELECT conversation_id FROM responses WHERE id = '${1}'" | tr '\0' '\n')
+    fi
+    _fzfllm_execute_query "
+    DELETE FROM turn_search WHERE turn_id = '${1}';
+    DELETE FROM turn_tools WHERE turn_id = '${1}';
+    DELETE FROM turn_fragments WHERE turn_id = '${1}';
+    DELETE FROM tool_instantiations WHERE turn_id = '${1}';
+    DELETE FROM turns WHERE id = '${1}';
+    DELETE FROM responses WHERE id = '${1}';"
+    remaining_messages=$(_fzfllm_execute_query "
+    SELECT (SELECT count(*) FROM turns WHERE thread_id = '${cid}')
+         + (SELECT count(*) FROM responses WHERE conversation_id = '${cid}' AND id NOT IN (SELECT id FROM turns))" | tr '\0' '\n')
+  else
+    cid=$(_fzfllm_execute_query "SELECT conversation_id FROM responses WHERE id = '${1}'" | tr '\0' '\n')
+    _fzfllm_execute_query "DELETE FROM responses WHERE id = '${1}';"
+    remaining_messages=$(_fzfllm_execute_query "SELECT count(*) FROM responses WHERE conversation_id = '${cid}'" | tr '\0' '\n')
+  fi
   if [ "$remaining_messages" -eq 0 ]; then
-    _fzfllm_execute_query "DELETE FROM conversations WHERE id = '${cid}';"
+    if _fzfllm_has_new_schema; then
+      _fzfllm_execute_query "
+      DELETE FROM threads WHERE id = '${cid}';
+      DELETE FROM conversations WHERE id = '${cid}';"
+    else
+      _fzfllm_execute_query "DELETE FROM conversations WHERE id = '${cid}';"
+    fi
     return
   fi
   echo edit_thread_messages "$cid"
@@ -225,11 +362,27 @@ _fzfllm_clean_fragments() {
   if [ -z "$FRAGMENT_ID" ]; then
     return
   fi
-  _fzfllm_execute_query "
-  DELETE FROM prompt_fragments WHERE fragment_id = $FRAGMENT_ID;
-  DELETE FROM system_fragments WHERE fragment_id = $FRAGMENT_ID;
-  DELETE FROM fragment_aliases WHERE fragment_id = $FRAGMENT_ID;
-  DELETE FROM fragments WHERE id = $FRAGMENT_ID;"
+  if _fzfllm_has_new_schema; then
+    # Since 0.32 new-schema fragments are referenced by turn_fragments
+    # (provenance) and part_fragments (text_ref content), not the legacy
+    # prompt/system_fragments tables. Note: deleting a fragment breaks
+    # text_ref resolution in stored messages that borrowed its content -
+    # that is the point of cleaning, and llm logs renders such parts as
+    # missing text.
+    _fzfllm_execute_query "
+    DELETE FROM turn_fragments WHERE fragment_id = $FRAGMENT_ID;
+    DELETE FROM part_fragments WHERE fragment_id = $FRAGMENT_ID;
+    DELETE FROM prompt_fragments WHERE fragment_id = $FRAGMENT_ID;
+    DELETE FROM system_fragments WHERE fragment_id = $FRAGMENT_ID;
+    DELETE FROM fragment_aliases WHERE fragment_id = $FRAGMENT_ID;
+    DELETE FROM fragments WHERE id = $FRAGMENT_ID;"
+  else
+    _fzfllm_execute_query "
+    DELETE FROM prompt_fragments WHERE fragment_id = $FRAGMENT_ID;
+    DELETE FROM system_fragments WHERE fragment_id = $FRAGMENT_ID;
+    DELETE FROM fragment_aliases WHERE fragment_id = $FRAGMENT_ID;
+    DELETE FROM fragments WHERE id = $FRAGMENT_ID;"
+  fi
 }
 
 _fzfllm_help() {
@@ -262,8 +415,38 @@ _fzfllm_help() {
   echo "$HELP_TEXT"
 }
 
+# Since 0.32 llm logs new data to content-addressed tables (threads, turns,
+# turn_search, ...) and the legacy tables are read-only history. `llm logs
+# path` does not migrate a database, so ensure the new tables exist before
+# querying them (migrate() runs on `llm logs status`). If they are still
+# absent the installed llm predates 0.32, and the caller falls back to
+# querying the legacy tables only.
+_fzfllm_ensure_migrated() {
+  if [ -z "${LLM_FZFLLM_MIGRATED:-}" ]; then
+    LLM_FZFLLM_MIGRATED=1
+    LLM_FZFLLM_NEW_SCHEMA=
+    local DB
+    DB=$(llm logs path)
+    if [ -z "$(sqlite3 "$DB" "SELECT name FROM sqlite_master WHERE type='table' AND name='threads'")" ]; then
+      llm logs status >/dev/null 2>&1 || true
+    fi
+    if [ -n "$(sqlite3 "$DB" "SELECT name FROM sqlite_master WHERE type='table' AND name='threads'")" ]; then
+      LLM_FZFLLM_NEW_SCHEMA=1
+    fi
+  fi
+}
+
+_fzfllm_has_new_schema() {
+  # The guard is idempotent; run it here too so the very first branch
+  # decision is not made before the schema is detected.
+  _fzfllm_ensure_migrated
+  [ "${LLM_FZFLLM_NEW_SCHEMA:-}" = 1 ]
+}
+
 # sqlite3 seems to have a problem if we specify the separator as a NUL byte directly.
 _fzfllm_execute_query() {
+  _fzfllm_ensure_migrated
+  local DB
   DB=$(llm logs path)
   sqlite3 -separator $'\x1F' -newline $'\x1E' "$DB" "$1" | tr $'\x1E' '\0'
 }

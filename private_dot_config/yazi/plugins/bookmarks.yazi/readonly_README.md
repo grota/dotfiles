@@ -6,7 +6,7 @@ https://github.com/dedukun/bookmarks.yazi/assets/25795432/9a9fe345-dd06-442e-99f
 
 ## Requirements
 
-- [Yazi](https://github.com/sxyazi/yazi) v25.4.8+
+- [Yazi](https://github.com/sxyazi/yazi) v25.5.28+
 
 ## Features
 
@@ -33,7 +33,6 @@ the bookmarks are saved in DDS's state file (`~/.local/state/yazi/.dds` on Linux
 Add this to your `keymap.toml`:
 
 ```toml
-# If your yazi version is lower than v25.5.28, repleace "mgr" by "manager".
 [[mgr.prepend_keymap]]
 on = [ "m" ]
 run = "plugin bookmarks save"

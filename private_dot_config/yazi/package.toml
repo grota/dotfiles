@@ -1,9 +1,4 @@
 [[plugin.deps]]
-use = "dedukun/bookmarks"
-rev = "9ef1254"
-hash = "92fbb5483657fa7976cdf4e0104e18e0"
-
-[[plugin.deps]]
 use = "yazi-rs/plugins:full-border"
 rev = "1db18bb"
 hash = "eff8ff12fa4e5f035a10d8aeeb4c258d"
@@ -17,6 +12,11 @@ hash = "fac71f8ce9447ad509b5aad9e0d8c694"
 use = "yazi-rs/plugins:types"
 rev = "1db18bb"
 hash = "9105494e98299f392aee95340066da9f"
+
+[[plugin.deps]]
+use = "sidhantunnithan/bookmarks"
+rev = "f60eec3"
+hash = "c2f3cd63d6959e9c65426b329abd9ddf"
 
 [[flavor.deps]]
 use = "BennyOe/tokyo-night"

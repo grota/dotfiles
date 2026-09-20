@@ -1,0 +1,30 @@
+{
+  "$schema": "https://raw.githubusercontent.com/goodroot/hyprwhspr/main/share/config.schema.json",
+  "primary_shortcut": "KEY_CAPSLOCK",
+  "cancel_shortcut": "KEY_LEFTSHIFT+KEY_CAPSLOCK",
+  "recording_mode": "toggle",
+
+  "keyboard_device_names": [
+    "AT Translated Set 2 keyboard",
+    "SIGMACHIP Trust Keyboard"
+  ],
+  "continuous_silence_seconds": 3,
+
+  "transcription_backend": "rest-api",
+
+  "rest_endpoint_url": "https://api.openai.com/v1/audio/transcriptions",
+  "rest_api_provider": "openai",
+  "rest_body": {
+    "model": "gpt-transcribe"
+  },
+  "whisper_prompt_en": "Optimize the transcript for reading by applying intelligent post-processing: - Disfluency removal: Strips conversational filler words, stuttering, and false starts. - Inline self-corrections: Resolves spoken corrections directly (for example, \"Let's meet on Tuesday, actually no, Wednesday at two\" becomes \"Let's meet on Wednesday at 2:00 PM\"). - Automatic structured formatting: Automatically structures spoken thoughts into paragraphs, numbered lists, bullet points, formatted dates, currencies, and numbers. - Grammatical cleanup: Applies natural punctuation, sentence casing, and flow.",
+
+  "websocket_provider": "openai",
+  "websocket_model": "gpt-live-transcribe",
+  "realtime_timeout": 1,
+  "realtime_mode": "transcribe",
+  "mic_osd_enabled": false,
+  "audio_ducking": true,
+  "audio_ducking_mode": "pause",
+  "audio_ducking_percent": 70
+}

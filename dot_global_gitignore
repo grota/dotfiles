@@ -1,2 +1,4 @@
 doc/tags
 .aider*
+
+**/.claude/settings.local.json
