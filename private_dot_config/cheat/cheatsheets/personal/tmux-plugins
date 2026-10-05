@@ -4,22 +4,16 @@ tmux-plugins/tmux-yank
   IN COPY   MODE y          copy selection to system clipboard
   IN COPY   MODE Y          paste selection into pane (no copy to system clipboard)
 
+and-rs/flash.tmux
+  <prefix>s
+  <copy-mode>s
+
 Morantron/tmux-fingers
   <prefix> f  enter finger mode
-
-IngoMeyer441/tmux-easy-motion
-  <prefix><space><movement>
-  in copymode <space><movement>
-  movements:
-  b, B, w, W, e, E, ge, gE, j, k, f, F, t, T
-  J, K (like j/k but EOL), c (camelcase)
 
 christoomey_vim-tmux-navigator.conf
   M-Shift-Left/Right/Up/Down
   M-Shift-\ switch to last pane
-
-laktak/extrakto
-  <prefix>e lauch extrakto
 
 tmux-plugins/tmux-sensible
   prev window        prefix+C-p

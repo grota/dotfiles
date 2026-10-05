@@ -1,2 +1,2 @@
 prefix=/home/grota/.npm-global
-allow-scripts=better-sqlite3
+allow-scripts=@opencode/cli
