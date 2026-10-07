@@ -246,7 +246,6 @@ chezmoi_ignored
 .z
 local/bin/diff-so-fancy-next
 local/bin/exercism
-local/bin/spark-run-*
 local/bin/terraform-ls
 local/bin/terraform-lsp
 local/bin/tmux-action-dispatcher
@@ -397,7 +396,6 @@ local/bin/yq4
 .local/share/virtualenv
 .local/share/voxtype
 .local/share/xdg-desktop-portal
-.local/spark/http-proxy/certs
 .mcpjam
 .mitmproxy
 .mux

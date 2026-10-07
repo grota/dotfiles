@@ -1,2 +1,0 @@
-# Decomment to update
-#JUST_COMPLETE=bash just| sed -E 's/([\(_" ])just/\1ajust/g' > ~/.local/share/bash-completion/completions/ajust
