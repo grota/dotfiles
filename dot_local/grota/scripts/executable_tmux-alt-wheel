@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# Make Alt+wheel (M-WheelUpPane/M-WheelDownPane) scroll like the plain wheel.
+#
+# input-remapper boosts scrolling while Alt_L is held, so Alt reaches tmux too.
+# Without arguments: copy the plain wheel bindings (set by tmux-better-mouse-mode,
+# so run this after tpm) to their M- variants. In panes whose app requested SGR
+# mouse reporting (e.g. Claude Code), send a plain wheel event instead of
+# forwarding the Alt-modified one, which such apps ignore.
+#
+# With "send <up|down> <pane_id> <mouse_x> <mouse_y>": write the SGR wheel
+# sequence to the pane (coordinates are 0-based and pane-relative).
+
+set -euo pipefail
+
+SELF="$HOME/.local/grota/scripts/tmux-alt-wheel"
+
+if [ "${1:-}" = "send" ]; then
+  button=64
+  [ "$2" = "down" ] && button=65
+  tmux send-keys -t "$3" -l "$(printf '\033[<%d;%d;%dM' "$button" $(($4 + 1)) $(($5 + 1)))"
+  exit 0
+fi
+
+sgr_cond='#{&&:#{mouse_any_flag},#{mouse_sgr_flag}}'
+
+tmux list-keys | grep -E ' Wheel(Up|Down)Pane ' | while IFS= read -r line; do
+  if [[ "$line" =~ ^bind-key\ +-T\ +root\ +Wheel(Up|Down)Pane\ +(.*)$ ]]; then
+    dir="${BASH_REMATCH[1]}"
+    cmd="${BASH_REMATCH[2]}"
+    send="run-shell \"$SELF send $(printf %s "$dir" | tr "[:upper:]" "[:lower:]") #{pane_id} #{mouse_x} #{mouse_y}\""
+    printf 'bind-key -T root M-Wheel%sPane if-shell -F "%s" { %s } { %s }\n' \
+      "$dir" "$sgr_cond" "$send" "$cmd"
+  else
+    printf '%s\n' "$line" | sed -E 's/ (Wheel(Up|Down)Pane) / M-\1 /'
+  fi
+done | tmux source-file -

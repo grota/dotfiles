@@ -1,0 +1,20 @@
+#!/usr/bin/env python3
+# List recent Claude Code sessions across all projects (foreground and background).
+# Usage: claude-sessions [N]   (default 20). Resume: cd <cwd> && claude --resume <id>
+import json, glob, os, sys, datetime
+
+limit = int(sys.argv[1]) if len(sys.argv) > 1 else 20
+files = sorted(glob.glob(os.path.expanduser("~/.claude/projects/*/*.jsonl")), key=os.path.getmtime, reverse=True)
+for f in files[:limit]:
+    cwd = prompt = None
+    for l in open(f):
+        try: j = json.loads(l)
+        except Exception: continue
+        cwd = cwd or j.get("cwd")
+        if j.get("type") == "user" and not j.get("isMeta") and not prompt:
+            c = j["message"]["content"]
+            t = c if isinstance(c, str) else " ".join(x.get("text", "") for x in c if isinstance(x, dict) and x.get("type") == "text")
+            if t.strip() and not t.startswith("<"): prompt = t.replace("\n", " ")[:70]
+        if cwd and prompt: break
+    ts = datetime.datetime.fromtimestamp(os.path.getmtime(f)).strftime("%m-%d %H:%M")
+    print(ts, os.path.basename(f)[:36], cwd, "|", prompt)

@@ -22,15 +22,7 @@ else
 fi
 alias ffmpeg='ffmpeg -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
-function cc () {
-  local CHROME=google-chrome
-  if [ -n "$1" ]; then
-    local PROFILE_DIR=$1
-    local CHROME_ARGS="--user-data-dir=/home/grota/.config/${CHROME}_others/$PROFILE_DIR"
-  fi
-  echo "Running: " "$CHROME" "$CHROME_ARGS"
-  $CHROME "$CHROME_ARGS" &> /dev/null &
-}
+alias cc='claude'
 alias pg='pgrep -a'
 alias rstty='stty start undef stop undef'
 alias ..="cd ../"

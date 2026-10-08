@@ -5,9 +5,13 @@ SECOND="${2:-}"
 if [ -z "$FIRST" ]; then
   FIRST="file-dir\nsession restore\ntmux-fzf\nsession save"
   if [ -n "$TMUX" ]; then
-    FIRST="${FIRST}\nkeybindings"
+    FIRST="${FIRST}\nkeybindings\nSend key to all panes"
   fi
     FIRST="$(echo -e "$FIRST" | fzf --tmux)"
+fi
+# Map human labels to action names.
+if [ "$FIRST" = "Send key to all panes" ]; then
+  FIRST="send-keys-to-all-panes"
 fi
 if [ "$FIRST" == "keybindings" ]; then
   # Second arg is tmux table in this context.
@@ -42,6 +46,27 @@ elif [ "$FIRST" = 'file-dir' ]; then
     fi
   fi
   tmux display-popup -w 90% -h 90% -EE "tmux-file-picker $TMUX_FILE_PICKER_ARGS"
+elif [ "$FIRST" = "send-keys-to-all-panes" ]; then
+  # Second arg is the scope: "panes of the window" (default) or "panes of the session".
+  if [ -z "$SECOND" ]; then
+    SECOND=$(echo -e 'panes of the window\npanes of the session' | fzf --tmux) || exit 0
+  fi
+  if [ "$SECOND" = "panes of the session" ]; then
+    SCOPE_FLAG="-s"
+    TARGET="$(tmux display-message -p '#{session_id}')"
+  else
+    SCOPE_FLAG=""
+    TARGET="$(tmux display-message -p '#{window_id}')"
+  fi
+  tmux display-popup -E -h 3 -w 60% "$0 send-keys-to-all-panes-prompt '$TARGET' $SCOPE_FLAG"
+elif [ "$FIRST" = "send-keys-to-all-panes-prompt" ]; then
+  # Internal: runs inside the popup. Second arg is the target window or session id,
+  # third arg is the optional list-panes scope flag (-s for the whole session).
+  read -r -e -p "Send keys to all panes: " KEYS || exit 0
+  [ -z "$KEYS" ] && exit 0
+  tmux list-panes ${3:-} -t "$SECOND" -F '#{pane_id}' | while read -r PANE; do
+    tmux send-keys -t "$PANE" "$KEYS" Enter
+  done
 elif [ "$FIRST" = 'shortcuts-1' ]; then
   navi --tag-rules='trending-commands'
 fi
