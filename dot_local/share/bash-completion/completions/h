@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Completion for the `h` alias (alias h=cheat), lazy-loaded by bash-completion on tab.
+if ! declare -F __start_cheat &>/dev/null; then
+  source /usr/share/bash-completion/completions/cheat
+fi
+if [[ $(type -t compopt) = "builtin" ]]; then
+  complete -o default -F __start_cheat h
+else
+  complete -o default -o nospace -F __start_cheat h
+fi

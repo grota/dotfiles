@@ -38,6 +38,8 @@ alias c="bat -p"
 alias v=nvim
 alias oc=opencode
 alias x="xdg-open"
+# completions for h are lazy-loaded from ~/.local/share/bash-completion/completions/h
+alias h=cheat
 function rga() {
   rg --with-filename --line-number --column --smart-case --hidden -g='!.git/**' --no-ignore --no-ignore-parent --pretty "${@}" | LESS='' less --RAW-CONTROL-CHARS --ignore-case --quit-if-one-screen
 }
