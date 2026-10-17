@@ -421,7 +421,6 @@ local/bin/yq4
 local/bin/plannotator
 .config/visidata/input_history.jsonl
 .local/share/gem
-.config/ghostty/ghostty-theme
 .context7
 .agent-browser/grota-profiles
 

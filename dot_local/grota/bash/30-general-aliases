@@ -22,7 +22,7 @@ else
 fi
 alias ffmpeg='ffmpeg -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
-alias cc='claude'
+alias cc='claude --plugin-dir /home/grota/Projects/personal/beppe-claude-mods/plugins/collapse-tools/'
 alias pg='pgrep -a'
 alias rstty='stty start undef stop undef'
 alias ..="cd ../"

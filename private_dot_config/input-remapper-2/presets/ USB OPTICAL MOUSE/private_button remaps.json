@@ -39,7 +39,7 @@
             }
         ],
         "target_uinput": "mouse",
-        "output_symbol": "if_eq($foo, 1, wheel(down, 500), wheel(down, 50))",
+        "output_symbol": "if_eq($foo, 1, wheel(down, 400), wheel(down, 30))",
         "mapping_type": "key_macro"
     },
     {
@@ -58,7 +58,7 @@
             }
         ],
         "target_uinput": "mouse",
-        "output_symbol": "if_eq($foo, 1, wheel(up, 500), wheel(up, 50))",
+        "output_symbol": "if_eq($foo, 1, wheel(up, 400), wheel(up, 30))",
         "mapping_type": "key_macro"
     }
 ]

@@ -3,7 +3,16 @@
 # pump volume
 pump-volume <volume>
 
-# ghostty toggle theme
-ghostty-toggle-theme
+# bitwarden cli
+bwt
+
+# obsidian cli
+ob
+
+# toggle gnome dark mode style
+toggle-gnome-dark-mode-style
+
+# enable gemini in chrome
+enable-gemini-in-chrome
 
 $ volume:  echo -e '125\n150\n175'

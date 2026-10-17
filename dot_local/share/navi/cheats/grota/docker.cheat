@@ -3,7 +3,10 @@
 # Remove an image
 docker image rm <image_id>
 
-# docker cleanup
-docker builder prune -f; docker system prune --volumes -f -a
+# docker safe cleanup
+docker builder prune -f; docker buildx prune -f
+
+#docker full cleanup
+docker builder prune -f; docker buildx prune -f; docker system prune --volumes -f -a
 
 $ image_id: docker images --- --headers 1 --column 1 --multi --expand
