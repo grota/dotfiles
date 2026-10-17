@@ -21,5 +21,8 @@ data:
 
 hooks:
   re-add:
-    post:
-      command: {{ .chezmoi.sourceDir }}/chezmoi_ignored/dconf/refresh-dconf-dump.sh
+    pre:
+      command: sh
+      args:
+        - -c
+        - /home/grota/.local/share/chezmoi/chezmoi_ignored/dconf/refresh-dconf-dump.sh && noctalia config export > ~/.config/noctalia/config.toml

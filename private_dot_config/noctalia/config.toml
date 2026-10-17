@@ -1,0 +1,200 @@
+[backdrop]
+blur_intensity = 0.99999997764825821
+tint_intensity = 0.0099999997764825821
+
+[bar.default]
+center = [ "clock", "notifications", "media" ]
+end = [ "theme_mode", "clipboard", "session", "bluetooth", "group:g1", "control-center" ]
+reserve_space = false
+smart_auto_hide = true
+start = [ "wallpaper", "workspaces", "tray", "network", "group:g2" ]
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border = "tertiary"
+    border_width = 1.0
+    enabled = true
+    fill = "surface_variant"
+    id = "g1"
+    members = [ "battery", "power_profile" ]
+    opacity = 1.0
+    padding = 6.0
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border_width = 1.0
+    enabled = true
+    fill = "outline"
+    id = "g2"
+    members = [ "brightness", "volume" ]
+    opacity = 1.0
+    padding = 6.0
+
+[desktop_widgets]
+schema_version = 2
+widget_order = [
+    "desktop-widget-0000000000000001",
+    "desktop-widget-0000000000000002",
+    "desktop-widget-0000000000000003",
+    "desktop-widget-0000000000000004",
+    "desktop-widget-0000000000000005"
+]
+
+    [desktop_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [desktop_widgets.widget.desktop-widget-0000000000000001]
+    box_height = 144.0
+    box_width = 240.0
+    cx = 560.0
+    cy = 540.0
+    output = "eDP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "audio_visualizer"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000001.settings]
+        bands = 32
+        show_when_idle = true
+
+    [desktop_widgets.widget.desktop-widget-0000000000000002]
+    box_height = 0.0
+    box_width = 0.0
+    cx = 1222.0
+    cy = 468.0
+    output = "eDP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "fancy_audio_visualizer"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000002.settings]
+        background = false
+        visualization_mode = "wave_rings"
+
+    [desktop_widgets.widget.desktop-widget-0000000000000003]
+    box_height = 160.0
+    box_width = 288.0
+    cx = 1576.0
+    cy = 204.0
+    output = "eDP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "sysmon"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000003.settings]
+        stat = "cpu_usage"
+        stat2 = "cpu_temp"
+
+    [desktop_widgets.widget.desktop-widget-0000000000000004]
+    box_height = 128.0
+    box_width = 304.0
+    cx = 960.0
+    cy = 892.0
+    output = "eDP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "media_player"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000004.settings]
+        album_art_background = true
+        audio_visualizer = false
+        background = false
+        hide_when_no_media = false
+        layout = "horizontal"
+
+    [desktop_widgets.widget.desktop-widget-0000000000000005]
+    box_height = 128.0
+    box_width = 288.0
+    cx = 1576.0
+    cy = 348.0
+    output = "eDP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "sysmon"
+
+        [desktop_widgets.widget.desktop-widget-0000000000000005.settings]
+        interface = "wlp0s20f3"
+        stat = "ram_pct"
+        stat2 = "net_rx"
+
+[dock]
+enabled = false
+
+[lockscreen_widgets]
+enabled = true
+schema_version = 2
+widget_order = [ "lockscreen-login-box@eDP-1" ]
+
+    [lockscreen_widgets.grid]
+    cell_size = 16
+    major_interval = 4
+    visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 898.0
+    output = "eDP-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@eDP-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
+
+[plugins]
+enabled = [ "goodroot/noctwhspr" ]
+
+[shell]
+niri_overview_type_to_launch_enabled = true
+
+[theme]
+mode = "dark"
+
+    [theme.templates.user.noctwhspr_mic_osd]
+    input_path = "/home/grota/.config/noctalia/templates/noctwhspr-mic-osd.css"
+    output_path = "/home/grota/.config/hyprwhspr/theme/mic-osd.css"
+
+[wallpaper.default]
+path = "/usr/share/noctalia/assets/noctalia-wallpaper.png"
+
+[wallpaper.last]
+path = "/usr/share/noctalia/assets/noctalia-wallpaper.png"
+
+[widget.clock]
+anchor = true
+
+[widget.control-center]
+glyph = "settings"
+
+    [widget.control-center.actions]
+    right = "settings-toggle"
+
+[widget.network]
+scale = 1.4000000000000001
+show_label = false
