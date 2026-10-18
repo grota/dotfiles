@@ -1,0 +1,24 @@
+{
+  "settings": {
+    "command": {
+      "description": "Shell command whose output is shown (run through /bin/sh -c)",
+      "label": "Command"
+    },
+    "glyph": {
+      "description": "Glyph shown before the text; leave empty for none",
+      "label": "Glyph"
+    },
+    "hide_when_empty": {
+      "description": "Hide the widget when the command prints nothing",
+      "label": "Hide When Empty"
+    },
+    "interval": {
+      "description": "Seconds between runs; the refresh IPC event re-runs it immediately",
+      "label": "Interval"
+    },
+    "max_chars": {
+      "description": "Characters of the first output line shown in the bar (0 = no limit)",
+      "label": "Max Characters"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "settings": {
+    "mode": {
+      "description": "How to show the position when it changes",
+      "label": "Display",
+      "options": {
+        "notification": "Notification",
+        "off": "Off",
+        "overlay": "Overlay"
+      }
+    },
+    "timeout_ms": {
+      "description": "How long the overlay or notification stays on screen",
+      "label": "Duration (ms)"
+    }
+  },
+  "ui": {
+    "column": "Column",
+    "floating": "Floating window",
+    "window": "Window",
+    "workspace": "Workspace"
+  }
+}

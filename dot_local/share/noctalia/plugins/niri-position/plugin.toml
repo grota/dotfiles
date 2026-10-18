@@ -1,0 +1,56 @@
+id           = "grota/niri-position"
+name         = "Niri Position"
+version      = "1.0.0"
+plugin_api   = 30
+min_noctalia = "5.3.0"
+author       = "grota"
+license      = "MIT"
+icon         = "layout-columns"
+description  = "Shows the focused workspace, column and window position when you move around in Niri."
+dependencies = ["niri"]
+tags         = ["niri", "service", "panel", "utility"]
+
+[[setting]]
+key             = "mode"
+type            = "select"
+label_key       = "settings.mode.label"
+description_key = "settings.mode.description"
+default         = "overlay"
+
+  [[setting.options]]
+  value     = "overlay"
+  label_key = "settings.mode.options.overlay"
+
+  [[setting.options]]
+  value     = "notification"
+  label_key = "settings.mode.options.notification"
+
+  [[setting.options]]
+  value     = "off"
+  label_key = "settings.mode.options.off"
+
+[[setting]]
+key             = "timeout_ms"
+type            = "int"
+label_key       = "settings.timeout_ms.label"
+description_key = "settings.timeout_ms.description"
+default         = 900
+min             = 300
+max             = 5000
+step            = 100
+
+[[service]]
+id    = "tracker"
+entry = "service.luau"
+
+[[panel]]
+id                       = "overlay"
+entry                    = "overlay.luau"
+width                    = 320
+height                   = 128
+placement                = "floating"
+position                 = "center"
+layer                    = "overlay"
+persistent               = true
+dismiss_on_outside_click = false
+keyboard_focus           = "none"

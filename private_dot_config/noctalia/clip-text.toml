@@ -1,0 +1,7 @@
+# Bar widget showing the last copied text, written by ~/local/bin/clip-notify.
+[widget.clip_text]
+type = "grota/command-label:label"
+command = 'cat "$XDG_RUNTIME_DIR/clip-notify/last" 2>/dev/null'
+interval = 60
+max_chars = 40
+glyph = "clipboard"

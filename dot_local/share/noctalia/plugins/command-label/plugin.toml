@@ -1,0 +1,54 @@
+id           = "grota/command-label"
+name         = "Command Label"
+version      = "1.0.0"
+plugin_api   = 26
+min_noctalia = "5.3.0"
+author       = "grota"
+license      = "MIT"
+icon         = "terminal"
+description  = "Bar widget that shows the output of a shell command, refreshed on an interval or via IPC."
+dependencies = []
+tags         = ["bar", "utility"]
+
+[[widget]]
+id    = "label"
+entry = "widget.luau"
+
+  [[widget.setting]]
+  key             = "command"
+  type            = "string"
+  label_key       = "settings.command.label"
+  description_key = "settings.command.description"
+  default         = ""
+
+  [[widget.setting]]
+  key             = "interval"
+  type            = "int"
+  label_key       = "settings.interval.label"
+  description_key = "settings.interval.description"
+  default         = 10
+  min             = 1
+  max             = 3600
+
+  [[widget.setting]]
+  key             = "max_chars"
+  type            = "int"
+  label_key       = "settings.max_chars.label"
+  description_key = "settings.max_chars.description"
+  default         = 40
+  min             = 0
+  max             = 500
+
+  [[widget.setting]]
+  key             = "glyph"
+  type            = "glyph"
+  label_key       = "settings.glyph.label"
+  description_key = "settings.glyph.description"
+  default         = "terminal"
+
+  [[widget.setting]]
+  key             = "hide_when_empty"
+  type            = "bool"
+  label_key       = "settings.hide_when_empty.label"
+  description_key = "settings.hide_when_empty.description"
+  default         = true

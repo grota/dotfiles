@@ -1,0 +1,49 @@
+#!/bin/sh
+# Notify on every clipboard change and keep the last copied text in
+# $XDG_RUNTIME_DIR/clip-notify/last for the Noctalia bar (command-label plugin).
+set -u
+
+state_dir="${XDG_RUNTIME_DIR:-/tmp}/clip-notify"
+last="$state_dir/last"
+
+# Invoked by wl-paste --watch with the new clipboard content on stdin.
+handle() {
+  types=$(wl-paste --list-types 2>/dev/null)
+  if printf '%s\n' "$types" | grep -q 'x-kde-passwordManagerHint'; then
+    body="(hidden: password manager)"
+    cat >/dev/null
+  elif printf '%s\n' "$types" | grep -q -E '^(text/|UTF8_STRING$|STRING$|TEXT$)'; then
+    # iconv -c drops a multi-byte character cut in half by head -c.
+    body=$(head -c 1000 | tr -d '\000' | iconv -f UTF-8 -t UTF-8 -c)
+  else
+    body="($(printf '%s\n' "$types" | head -n 1))"
+    cat >/dev/null
+  fi
+
+  # Some apps write the clipboard several times per copy (tmux with tmux-yank
+  # plus OSC 52 sends it twice, one of them briefly empty): skip empty and
+  # repeated content.
+  [ -n "$body" ] || return 0
+  printf '%s\n' "$body" >"$last.tmp"
+  if cmp -s "$last.tmp" "$last"; then
+    rm -f "$last.tmp"
+    return 0
+  fi
+  mv "$last.tmp" "$last"
+
+  # Replace the previous clipboard notification instead of stacking a new one.
+  id=$(cat "$state_dir/notify-id" 2>/dev/null)
+  id=$(notify-send -p ${id:+-r "$id"} -a Clipboard -t 2000 "Clipboard changed" \
+    "$(printf '%s' "$body" | head -c 200 | iconv -f UTF-8 -t UTF-8 -c)")
+  printf '%s\n' "$id" >"$state_dir/notify-id"
+  noctalia msg plugin grota/command-label:label all refresh >/dev/null 2>&1 || true
+}
+
+if [ "${1:-}" = "--handle" ]; then
+  handle
+  exit 0
+fi
+
+umask 077
+mkdir -p "$state_dir"
+exec wl-paste --watch "$0" --handle

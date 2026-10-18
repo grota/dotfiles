@@ -645,6 +645,7 @@ binds {
     Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "noctalia" "msg" "session" "lock"; }
 }
 spawn-at-startup "noctalia"
+spawn-at-startup "sh" "-c" "exec ~/local/bin/clip-notify"
 // Undo radio blocks left behind when a GNOME session ends.
 spawn-at-startup "rfkill" "unblock" "all"
 

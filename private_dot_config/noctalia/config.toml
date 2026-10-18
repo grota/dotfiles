@@ -4,7 +4,7 @@ tint_intensity = 0.0099999997764825821
 
 [bar.default]
 center = [ "clock", "notifications", "media" ]
-end = [ "theme_mode", "clipboard", "session", "bluetooth", "group:g1", "control-center" ]
+end = [ "clip_text", "theme_mode", "clipboard", "session", "bluetooth", "group:g1", "control-center" ]
 reserve_space = false
 smart_auto_hide = true
 start = [ "wallpaper", "workspaces", "tray", "network", "group:g2" ]
@@ -168,7 +168,7 @@ widget_order = [ "lockscreen-login-box@eDP-1" ]
         show_weather = true
 
 [plugins]
-enabled = [ "goodroot/noctwhspr" ]
+enabled = [ "goodroot/noctwhspr", "grota/command-label", "grota/niri-position" ]
 
 [shell]
 niri_overview_type_to_launch_enabled = true
