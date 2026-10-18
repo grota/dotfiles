@@ -29,7 +29,25 @@ handle() {
     rm -f "$last.tmp"
     return 0
   fi
+
+  # hyprwhspr pastes dictation through the clipboard and puts the previous
+  # content back a few seconds later (clipboard_clear_delay, default 5s): a
+  # quick return to the content before the last change is a restore, so
+  # update the bar but skip the notification.
+  now=$(date +%s)
+  changed_at=$(cat "$state_dir/changed-at" 2>/dev/null || echo 0)
+  restore=false
+  if cmp -s "$last.tmp" "$state_dir/prev" && [ $((now - changed_at)) -le 15 ]; then
+    restore=true
+  fi
+  [ -f "$last" ] && mv "$last" "$state_dir/prev"
   mv "$last.tmp" "$last"
+  printf '%s\n' "$now" >"$state_dir/changed-at"
+
+  if [ "$restore" = true ]; then
+    noctalia msg plugin grota/command-label:label all refresh >/dev/null 2>&1 || true
+    return 0
+  fi
 
   # Replace the previous clipboard notification instead of stacking a new one.
   id=$(cat "$state_dir/notify-id" 2>/dev/null)
