@@ -3,21 +3,22 @@ blur_intensity = 0.99999997764825821
 tint_intensity = 0.0099999997764825821
 
 [bar.default]
-center = [ "clock", "notifications", "media" ]
-end = [ "clip_text", "theme_mode", "clipboard", "session", "bluetooth", "group:g1", "control-center" ]
+center = [ "clip_text", "clock", "notifications", "media" ]
+end = [ "theme_mode", "clipboard", "session", "bluetooth", "group:g1", "control-center" ]
 reserve_space = false
 smart_auto_hide = true
 start = [ "wallpaper", "workspaces", "tray", "network", "group:g2" ]
+thickness = 40
 
     [[bar.default.capsule_group]]
     accordion = false
     accordion_direction = "end"
-    border = "tertiary"
+    border = ""
     border_width = 1.0
     enabled = true
-    fill = "surface_variant"
+    fill = "#2F2103"
     id = "g1"
-    members = [ "battery", "power_profile" ]
+    members = [ "power_profile", "battery" ]
     opacity = 1.0
     padding = 6.0
 
@@ -174,22 +175,48 @@ enabled = [ "goodroot/noctwhspr", "grota/command-label", "grota/niri-position" ]
 niri_overview_type_to_launch_enabled = true
 
 [theme]
+builtin = "Ayu"
+community_palette = "Occult Umbral"
 mode = "dark"
+source = "wallpaper"
+wallpaper_scheme = "m3-content"
 
     [theme.templates.user.noctwhspr_mic_osd]
     input_path = "/home/grota/.config/noctalia/templates/noctwhspr-mic-osd.css"
     output_path = "/home/grota/.config/hyprwhspr/theme/mic-osd.css"
 
-[wallpaper.default]
-path = "/usr/share/noctalia/assets/noctalia-wallpaper.png"
+[wallpaper]
+directory = "/home/grota/Downloads/walls-main"
 
-[wallpaper.last]
-path = "/usr/share/noctalia/assets/noctalia-wallpaper.png"
+    [wallpaper.default]
+    path = "/home/grota/Downloads/walls-main/architecture/a_narrow_street_with_shops_and_signs.png"
+
+    [wallpaper.last]
+    path = "/home/grota/Downloads/walls-main/architecture/a_narrow_street_with_shops_and_signs.png"
+
+    [wallpaper.monitors.eDP-1]
+    path = "/home/grota/Downloads/walls-main/architecture/a_narrow_street_with_shops_and_signs.png"
+
+[widget.bluetooth]
+capsule = true
+capsule_fill = "primary"
+capsule_foreground = "on_secondary"
+
+[widget.clip_text]
+command = "cat \"$XDG_RUNTIME_DIR/clip-notify/last\" 2>/dev/null"
+glyph = "clipboard"
+interval = 60
+max_chars = 40
+type = "grota/command-label:label"
 
 [widget.clock]
 anchor = true
+format = "{:%H:%M | %d %B  (%A)}"
 
 [widget.control-center]
+capsule = true
+capsule_fill = "surface_variant"
+color = "#037800"
 glyph = "settings"
 
     [widget.control-center.actions]
@@ -198,3 +225,13 @@ glyph = "settings"
 [widget.network]
 scale = 1.4000000000000001
 show_label = false
+
+[widget.notifications]
+scale = 1.1500000000000001
+
+[widget.power_profile]
+scale = 1.25
+
+[widget.session]
+capsule = true
+capsule_fill = "on_primary"

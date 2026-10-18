@@ -8,7 +8,16 @@
     "AT Translated Set 2 keyboard",
     "SIGMACHIP Trust Keyboard"
   ],
-  "whisper_prompt_en": "Optimize the transcript for reading by applying intelligent post-processing: - Disfluency removal: Strips conversational filler words, stuttering, and false starts. - Inline self-corrections: Resolves spoken corrections directly (for example, \"Let's meet on Tuesday, actually no, Wednesday at two\" becomes \"Let's meet on Wednesday at 2:00 PM\"). - Automatic structured formatting: Automatically structures spoken thoughts into paragraphs, numbered lists, bullet points, formatted dates, currencies, and numbers. - Grammatical cleanup: Applies natural punctuation, sentence casing, and flow.",
+  "whisper_prompt_en": "Dictation by a software developer on Linux, about tools like tmux, Neovim, chezmoi, Claude Code (Anthropic's Claude), GitLab, kubectl and Docker. Optimize the transcript for reading by applying intelligent post-processing: - Disfluency removal: Strips conversational filler words, stuttering, and false starts. - Inline self-corrections: Resolves spoken corrections directly (for example, \"Let's meet on Tuesday, actually no, Wednesday at two\" becomes \"Let's meet on Wednesday at 2:00 PM\"). - Automatic structured formatting: Automatically structures spoken thoughts into paragraphs, numbered lists, bullet points, formatted dates, currencies, and numbers. - Grammatical cleanup: Applies natural punctuation, sentence casing, and flow.",
+  "word_overrides": {
+    "hyper whisper": "hyprwhspr",
+    "tmax": "tmux",
+    "t-max": "tmux",
+    "tee mux": "tmux",
+    "cloud code": "Claude Code",
+    "cloud AI": "Claude AI",
+    "Neeri": "niri"
+  },
   "transcription_backend": "rest-api",
   "rest_endpoint_url": "https://api.openai.com/v1/audio/transcriptions",
   "rest_api_provider": "openai",
