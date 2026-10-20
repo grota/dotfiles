@@ -3,12 +3,18 @@ blur_intensity = 0.99999997764825821
 tint_intensity = 0.0099999997764825821
 
 [bar.default]
-center = [ "clip_text", "clock", "notifications", "media" ]
-end = [ "theme_mode", "clipboard", "session", "bluetooth", "group:g1", "control-center" ]
+center = [ "clip_text", "notifications", "clock" ]
+end = [ "theme_mode", "clipboard", "bluetooth", "group:g1", "control-center", "session" ]
+position = "bottom"
 reserve_space = false
 smart_auto_hide = true
-start = [ "wallpaper", "workspaces", "tray", "network", "group:g2" ]
+start = [ "wallpaper", "workspaces", "tray", "network", "group:g2", "media" ]
 thickness = 40
+
+    [bar.default.dead_zone.actions]
+    scroll_down = "exec niri msg action focus-column-right"
+    scroll_right = "none"
+    scroll_up = "exec niri msg action focus-column-left"
 
     [[bar.default.capsule_group]]
     accordion = false
@@ -130,6 +136,9 @@ widget_order = [
 [dock]
 enabled = false
 
+[location]
+address = "chiclana de la frontera"
+
 [lockscreen_widgets]
 enabled = true
 schema_version = 2
@@ -172,6 +181,7 @@ widget_order = [ "lockscreen-login-box@eDP-1" ]
 enabled = [ "goodroot/noctwhspr", "grota/command-label", "grota/niri-position" ]
 
 [shell]
+clipboard_confirm_clear_history = false
 niri_overview_type_to_launch_enabled = true
 
 [theme]
@@ -210,8 +220,12 @@ max_chars = 40
 type = "grota/command-label:label"
 
 [widget.clock]
-anchor = true
+anchor = false
 format = "{:%H:%M | %d %B  (%A)}"
+
+    [widget.clock.actions]
+    scroll_down = "exec niri msg action focus-workspace-down"
+    scroll_up = "exec niri msg action focus-workspace-up"
 
 [widget.control-center]
 capsule = true
@@ -227,6 +241,7 @@ scale = 1.4000000000000001
 show_label = false
 
 [widget.notifications]
+anchor = true
 scale = 1.1500000000000001
 
 [widget.power_profile]
@@ -235,3 +250,9 @@ scale = 1.25
 [widget.session]
 capsule = true
 capsule_fill = "on_primary"
+
+[widget.wallpaper]
+enabled = false
+
+[widget.workspaces]
+enabled = false

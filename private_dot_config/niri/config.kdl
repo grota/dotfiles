@@ -20,6 +20,11 @@ input {
             // from org.freedesktop.locale1. You can control these using
             // localectl set-x11-keymap.
 
+            // "English (Beppe intl., with AltGr dead keys)", defined in
+            // ~/.config/xkb/symbols/custom (see the xkb cheatsheet).
+            layout "custom"
+            variant "beppe"
+
             // Caps Lock is the hyprwhspr hotkey: keep the key, drop the lock.
             options "caps:none"
         }
@@ -516,6 +521,8 @@ binds {
     // touchpads by default.
     // Mod+TouchpadScrollDown { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02+"; }
     // Mod+TouchpadScrollUp   { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.02-"; }
+    Mod+TouchpadScrollRight cooldown-ms=150 { focus-column-right; }
+    Mod+TouchpadScrollLeft  cooldown-ms=150 { focus-column-left; }
 
     // You can refer to workspaces by index. However, keep in mind that
     // niri is a dynamic workspace system, so these commands are kind of

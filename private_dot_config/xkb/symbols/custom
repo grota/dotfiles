@@ -1,0 +1,8 @@
+partial alphanumeric_keys
+xkb_symbols "beppe" {
+   include "us(altgr-intl)"
+   name[Group1]= "English (Beppe intl., with AltGr dead keys)";
+   key <SPCE> { [ space, space, Prior, Next ] };
+   key <BKSP> { [ BackSpace, BackSpace, Delete, BackSpace ] };
+   key <LWIN> { [ Super_L, Super_L, Super_R, Super_R ] };
+};

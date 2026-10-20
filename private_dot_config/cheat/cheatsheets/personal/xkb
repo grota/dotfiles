@@ -6,7 +6,10 @@
 # dpkg-reconfigure xkb-data && reboot
 xkbcomp $DISPLAY /tmp/xkb.dump
 
-# write this to /usr/share/X11/xkb/symbols/custom (symbol already set to be used via dconf)
+# Wayland (niri, libxkbcommon): managed by chezmoi at ~/.config/xkb/symbols/custom,
+# selected in niri config.kdl with layout "custom" + variant "beppe".
+# GNOME/X11 only reads system paths: write this to /usr/share/X11/xkb/symbols/custom
+# (symbol already set to be used via dconf)
 partial alphanumeric_keys
 xkb_symbols "beppe" {
    include "us(altgr-intl)"

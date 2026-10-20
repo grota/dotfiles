@@ -23,6 +23,7 @@ fi
 alias ffmpeg='ffmpeg -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
 alias cc='claude --plugin-dir /home/grota/Projects/personal/beppe-claude-mods/plugins/collapse-tools/'
+alias ccp="claude --plugin-dir /home/grota/Projects/personal/beppe-claude-mods/plugins/collapse-tools/ --settings '{\"enabledPlugins\": {\"sf-timetracker@sparkfabrik-plugins\": false}}'"
 alias pg='pgrep -a'
 alias rstty='stty start undef stop undef'
 alias ..="cd ../"

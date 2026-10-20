@@ -16,7 +16,8 @@
     "tee mux": "tmux",
     "cloud code": "Claude Code",
     "cloud AI": "Claude AI",
-    "Neeri": "niri"
+    "Neeri": "niri",
+    "Herder": "herdr"
   },
   "transcription_backend": "rest-api",
   "rest_endpoint_url": "https://api.openai.com/v1/audio/transcriptions",
@@ -31,5 +32,6 @@
   "mic_osd_enabled": true,
   "audio_ducking": true,
   "audio_ducking_mode": "pause",
-  "audio_ducking_percent": 70
+  "audio_ducking_percent": 70,
+  "clipboard_clear_delay": 0.2
 }
