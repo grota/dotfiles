@@ -3,12 +3,12 @@ blur_intensity = 0.99999997764825821
 tint_intensity = 0.0099999997764825821
 
 [bar.default]
-center = [ "clip_text", "notifications", "clock" ]
-end = [ "theme_mode", "clipboard", "bluetooth", "group:g1", "control-center", "session" ]
-position = "bottom"
-reserve_space = false
-smart_auto_hide = true
-start = [ "wallpaper", "workspaces", "tray", "network", "group:g2", "media" ]
+center = [ "clock" ]
+end = [ "clip_text", "notifications", "clipboard", "bluetooth", "group:g4", "group:g3", "control-center", "session" ]
+position = "top"
+reserve_space = true
+smart_auto_hide = false
+start = [ "wallpaper", "workspaces", "tray", "network", "media" ]
 thickness = 40
 
     [bar.default.dead_zone.actions]
@@ -22,7 +22,7 @@ thickness = 40
     border = ""
     border_width = 1.0
     enabled = true
-    fill = "#2F2103"
+    fill = "outline"
     id = "g1"
     members = [ "power_profile", "battery" ]
     opacity = 1.0
@@ -35,7 +35,29 @@ thickness = 40
     enabled = true
     fill = "outline"
     id = "g2"
-    members = [ "brightness", "volume" ]
+    members = [ "brightness", "output_volume" ]
+    opacity = 1.0
+    padding = 6.0
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border_width = 1.0
+    enabled = true
+    fill = "surface_variant"
+    id = "g3"
+    members = [ "power_profile", "battery" ]
+    opacity = 1.0
+    padding = 6.0
+
+    [[bar.default.capsule_group]]
+    accordion = false
+    accordion_direction = "end"
+    border_width = 1.0
+    enabled = true
+    fill = "surface_variant"
+    id = "g4"
+    members = [ "volume", "brightness" ]
     opacity = 1.0
     padding = 6.0
 
@@ -142,12 +164,40 @@ address = "chiclana de la frontera"
 [lockscreen_widgets]
 enabled = true
 schema_version = 2
-widget_order = [ "lockscreen-login-box@eDP-1" ]
+widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
 
     [lockscreen_widgets.grid]
     cell_size = 16
     major_interval = 4
     visible = true
+
+    [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1"]
+    box_height = 196.0
+    box_width = 810.0
+    cx = 960.0
+    cy = 898.0
+    output = "HDMI-A-1"
+    placement_height = 1080.0
+    placement_width = 1920.0
+    rotation = 0.0
+    type = "login_box"
+
+        [lockscreen_widgets.widget."lockscreen-login-box@HDMI-A-1".settings]
+        background_color = "surface_variant"
+        background_opacity = 0.88
+        background_radius = 12.0
+        center_password_text = false
+        input_opacity = 1.0
+        input_radius = 6.0
+        layout = "regular"
+        show_caps_lock = true
+        show_keyboard_layout = true
+        show_login_button = true
+        show_media = true
+        show_password_reveal = true
+        show_session_buttons = true
+        show_unlock_hint = true
+        show_weather = true
 
     [lockscreen_widgets.widget."lockscreen-login-box@eDP-1"]
     box_height = 196.0
@@ -187,7 +237,7 @@ niri_overview_type_to_launch_enabled = true
 [theme]
 builtin = "Ayu"
 community_palette = "Occult Umbral"
-mode = "dark"
+mode = "light"
 source = "wallpaper"
 wallpaper_scheme = "m3-content"
 
@@ -220,7 +270,6 @@ max_chars = 40
 type = "grota/command-label:label"
 
 [widget.clock]
-anchor = false
 format = "{:%H:%M | %d %B  (%A)}"
 
     [widget.clock.actions]
@@ -236,12 +285,17 @@ glyph = "settings"
     [widget.control-center.actions]
     right = "settings-toggle"
 
+[widget.label]
+color = "primary"
+command = "cat \"$XDG_RUNTIME_DIR/clip-notify/last\" 2>/dev/null"
+type = "grota/command-label:label"
+
 [widget.network]
 scale = 1.4000000000000001
 show_label = false
 
 [widget.notifications]
-anchor = true
+anchor = false
 scale = 1.1500000000000001
 
 [widget.power_profile]

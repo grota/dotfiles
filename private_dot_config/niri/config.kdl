@@ -78,7 +78,7 @@ input {
 
     // Focus windows and outputs automatically when moving the mouse into them.
     // Setting max-scroll-amount="0%" makes it work only on windows already fully on screen.
-    // focus-follows-mouse max-scroll-amount="0%"
+    focus-follows-mouse max-scroll-amount="0%"
 }
 
 // You can configure outputs by their name, which you can find
@@ -116,6 +116,27 @@ input {
     // If the position is unset or results in an overlap, the output is instead placed
     // automatically.
     position x=1280 y=0
+}
+
+// Built-in laptop screen, kept at the origin so external screens are placed relative to it.
+output "eDP-1" {
+    position x=0 y=0
+}
+
+// External monitor. Both screens are 1920x1080 at scale 1.
+// Keep exactly one position line uncommented.
+output "HDMI-A-1" {
+    // Below the laptop screen.
+    position x=0 y=1080
+
+    // Left of the laptop screen.
+    // position x=-1920 y=0
+
+    // Right of the laptop screen.
+    // position x=1920 y=0
+
+    // Above the laptop screen.
+    // position x=0 y=-1080
 }
 
 // Settings that influence how windows are positioned and sized.
@@ -340,7 +361,12 @@ window-rule {
 }
 
 window-rule {
-  match title="^Picture in picture$"
+  match title=r#"^Picture in picture$"#
+  open-floating true
+}
+
+window-rule {
+  match title=r#"^meet\.google\.com is sharing.*$"#
   open-floating true
 }
 
@@ -610,7 +636,8 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
+    Mod+v { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
+    Mod+Alt+V       { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
     // Toggle tabbed column display mode.
@@ -648,7 +675,6 @@ binds {
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
 
-    Mod+Alt+v { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
     Super+Alt+L hotkey-overlay-title="Lock the Screen" { spawn "noctalia" "msg" "session" "lock"; }
  
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
@@ -658,6 +684,34 @@ binds {
     Mod+W { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
     Mod+Shift+S { spawn "systemctl" "suspend"; }
 }
+
+// Recent windows switcher (Alt+Tab), built into niri.
+// Without a recent-windows section, niri uses the default binds below.
+// Reference: https://niri-wm.github.io/niri/Configuration:-Recent-Windows
+// Notes:
+// - Any binds {} section here, even an empty one, replaces all the defaults.
+// - Binds in the main binds section take precedence over these.
+// - Every bind needs a modifier: the switcher stays open while it is held.
+// - Actions accept filter="app-id" and scope="all", "output" or "workspace".
+// - Put `off` inside recent-windows to disable the switcher entirely.
+// Remember to uncomment the node by removing "/-"!
+/-recent-windows {
+    binds {
+        Alt+Tab         { next-window; }
+        Mod+Tab         { next-window; }
+        Alt+Shift+Tab   { previous-window; }
+        Mod+Shift+Tab   { previous-window; }
+        Alt+grave       { next-window     filter="app-id"; }
+        Mod+grave       { next-window     filter="app-id"; }
+        Alt+Shift+grave { previous-window filter="app-id"; }
+        Mod+Shift+grave { previous-window filter="app-id"; }
+    }
+}
+
+// Alternative: Noctalia's window switcher. To use it, move this line into
+// the binds section above; it then overrides niri's switcher on Alt+Tab.
+// Reference: https://docs.noctalia.dev/noctalia/compositor-settings/niri/
+// Alt+Tab { spawn-sh "noctalia msg window-switcher hold"; }
 spawn-at-startup "noctalia"
 spawn-at-startup "sh" "-c" "exec ~/local/bin/clip-notify"
 // Undo radio blocks left behind when a GNOME session ends.

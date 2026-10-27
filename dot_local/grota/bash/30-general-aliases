@@ -22,8 +22,8 @@ else
 fi
 alias ffmpeg='ffmpeg -hide_banner'
 alias ffprobe='ffprobe -hide_banner'
-alias cc='claude --plugin-dir /home/grota/Projects/personal/beppe-claude-mods/plugins/collapse-tools/'
-alias ccp="claude --plugin-dir /home/grota/Projects/personal/beppe-claude-mods/plugins/collapse-tools/ --settings '{\"enabledPlugins\": {\"sf-timetracker@sparkfabrik-plugins\": false}}'"
+alias cc='claude --plugin-dir /home/grota/Projects/personal/beppe-claude-mods/plugins/collapse-tools/ --plugin-dir /home/grota/Projects/personal/tmux-orchestrator/plugins/claude'
+alias ccp="claude --plugin-dir /home/grota/Projects/personal/beppe-claude-mods/plugins/collapse-tools/ --plugin-dir /home/grota/Projects/personal/tmux-orchestrator/plugins/claude/ --settings '{\"enabledPlugins\": {\"sf-timetracker@sparkfabrik-plugins\": false}}'"
 alias pg='pgrep -a'
 alias rstty='stty start undef stop undef'
 alias ..="cd ../"
@@ -33,12 +33,12 @@ alias ..4="cd ../../../../"
 alias ..5="cd ../../../../../"
 # there's a ss bin but that's ok for me
 alias ss='sudo su -'
-#alias xc='sleep 1.0; xdotool type "$(xclip -o -selection clipboard)"'
 alias cat=bat
 alias c="bat -p"
 alias v=nvim
 alias oc=opencode
 alias x="xdg-open"
+alias tm=tmux
 # completions for h are lazy-loaded from ~/.local/share/bash-completion/completions/h
 alias h=cheat
 function rga() {

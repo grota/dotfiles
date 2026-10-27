@@ -53,4 +53,5 @@ keybind = ctrl+j=text:\x0A
 keybind = ctrl+m=text:\x0D
 clipboard-read = allow
 
-theme=light:Builtin Light,dark:Builtin Tango Dark
+theme=light:Atom One Light,dark:Builtin Tango Dark
+link-previews = true

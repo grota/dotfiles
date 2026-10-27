@@ -4,6 +4,7 @@
         "Logitech MX Master 3S": "button remaps",
         " USB OPTICAL MOUSE": "button remaps",
         "AT Translated Set 2 keyboard": "alt-l",
-        "ThinkPad Extra Buttons": "hangup=playpause"
+        "ThinkPad Extra Buttons": "hangup=playpause",
+        "SIGMACHIP Trust Keyboard": "simulate embedded laptop keys"
     }
 }

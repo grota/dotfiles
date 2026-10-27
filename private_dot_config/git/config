@@ -96,3 +96,5 @@
 	updateRefs = true
 [pull]
 	rebase = true
+[safe]
+	directory = /home/grota/.local/spark/sparkdock
