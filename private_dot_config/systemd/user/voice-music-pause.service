@@ -1,0 +1,15 @@
+[Unit]
+Description=Pause media players while Claude Code voice mode records
+PartOf=graphical-session.target
+After=graphical-session.target
+After=pipewire-pulse.service wireplumber.service
+Wants=pipewire-pulse.service
+
+[Service]
+Type=simple
+ExecStart=%h/.local/grota/scripts/voice-music-pause
+Restart=always
+RestartSec=2
+
+[Install]
+WantedBy=graphical-session.target

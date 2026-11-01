@@ -110,7 +110,10 @@ chezmoi_ignored
 .config/session/
 .config/simple-scan
 .config/steamtinkerlaunch
-.config/systemd
+.config/systemd/*
+!.config/systemd/user
+.config/systemd/user/*
+!.config/systemd/user/voice-music-pause.service
 .config/touchegg
 .config/transmission
 .config/unity3d

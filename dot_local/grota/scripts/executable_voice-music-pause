@@ -1,0 +1,170 @@
+#!/usr/bin/env python3
+"""Pause MPRIS players while Claude Code voice mode records from a microphone.
+
+Claude Code records through pipewire-alsa: holding Space opens a capture
+stream (source-output) and releasing it closes the stream. This daemon follows
+`pactl subscribe` and pauses the players that are playing while such a stream
+is open, then resumes only those players once it closes.
+
+A stream counts only when the owning process runs a Claude Code binary and the
+stream is connected to a hardware capture source (ALSA or Bluetooth), never to
+the .monitor of an output sink. The connected source is read on every event,
+so moves to a new default source or a headset are followed.
+
+Paused players are kept in $XDG_RUNTIME_DIR/voice-music-pause/paused, so a
+restart of the daemon still resumes them.
+"""
+import json
+import os
+import re
+import select
+import subprocess
+import sys
+import time
+
+EXE_RE = re.compile(
+    os.environ.get("VOICE_PAUSE_EXE_REGEX", r"/claude/versions/[^/]+$|/claude$")
+)
+HW_APIS = {"alsa", "bluez5"}
+# Events arrive in bursts (new + several changes): wait for the burst to end.
+SETTLE = 0.15
+# Grace period before resuming, in case the stream closes and reopens.
+RELEASE_GRACE = 0.5
+
+state_file = os.path.join(
+    os.environ.get("XDG_RUNTIME_DIR", "/tmp"), "voice-music-pause", "paused"
+)
+
+
+def log(msg):
+    print(msg, file=sys.stderr, flush=True)
+
+
+def pactl_json(*args):
+    out = subprocess.run(
+        ["pactl", "-f", "json", *args], capture_output=True, text=True, check=True
+    ).stdout
+    return json.loads(out)
+
+
+def is_hw_mic(source):
+    props = source.get("properties", {})
+    return (
+        not source.get("monitor_source")
+        and props.get("device.class") != "monitor"
+        and props.get("media.class") == "Audio/Source"
+        and props.get("device.api") in HW_APIS
+    )
+
+
+def is_claude(pid):
+    try:
+        return bool(EXE_RE.search(os.readlink(f"/proc/{pid}/exe")))
+    except (OSError, ValueError):
+        return False
+
+
+def recording_source():
+    """Name of the hardware source Claude Code records from, or None."""
+    sources = {s["index"]: s for s in pactl_json("list", "sources")}
+    clients = {str(c["index"]): c for c in pactl_json("list", "clients")}
+    for so in pactl_json("list", "source-outputs"):
+        if so.get("corked"):
+            continue
+        client = clients.get(str(so.get("client")), {})
+        pid = client.get("properties", {}).get("application.process.id")
+        if not pid or not is_claude(pid):
+            continue
+        source = sources.get(so.get("source"))
+        if source and is_hw_mic(source):
+            return source["name"]
+    return None
+
+
+def playerctl(*args):
+    return subprocess.run(
+        ["playerctl", *args], capture_output=True, text=True
+    ).stdout.strip()
+
+
+def load_paused():
+    try:
+        with open(state_file) as f:
+            return [line for line in f.read().splitlines() if line]
+    except FileNotFoundError:
+        return []
+
+
+def save_paused(players):
+    os.makedirs(os.path.dirname(state_file), exist_ok=True)
+    with open(state_file, "w") as f:
+        f.write("".join(p + "\n" for p in players))
+
+
+def pause_playing(source):
+    paused = [
+        p
+        for p in playerctl("-l").splitlines()
+        if playerctl("-p", p, "status") == "Playing"
+    ]
+    for p in paused:
+        playerctl("-p", p, "pause")
+    save_paused(paused)
+    log(f"recording on {source}: paused {', '.join(paused) or 'nothing'}")
+
+
+def resume_paused():
+    paused = load_paused()
+    # Skip players the user stopped or restarted in the meantime.
+    resumed = [p for p in paused if playerctl("-p", p, "status") == "Paused"]
+    for p in resumed:
+        playerctl("-p", p, "play")
+    try:
+        os.remove(state_file)
+    except FileNotFoundError:
+        pass
+    log(f"recording stopped: resumed {', '.join(resumed) or 'nothing'}")
+
+
+def main():
+    sub = subprocess.Popen(
+        ["pactl", "subscribe"], stdout=subprocess.PIPE, text=True, bufsize=1
+    )
+    active = os.path.exists(state_file)
+    pending = time.monotonic()  # evaluate once at startup
+    release_at = None
+
+    while True:
+        now = time.monotonic()
+        deadlines = [d for d in (pending, release_at) if d is not None]
+        timeout = max(0.0, min(deadlines) - now) if deadlines else None
+        ready, _, _ = select.select([sub.stdout], [], [], timeout)
+        if ready:
+            line = sub.stdout.readline()
+            if not line:
+                log("pactl subscribe exited")
+                return 1
+            if "on source-output" in line or "on server" in line:
+                pending = time.monotonic() + SETTLE
+            continue
+
+        now = time.monotonic()
+        if pending is not None and now >= pending:
+            pending = None
+            source = recording_source()
+            if source and not active:
+                pause_playing(source)
+                active = True
+            if source:
+                release_at = None
+            elif active and release_at is None:
+                release_at = now + RELEASE_GRACE
+        if release_at is not None and now >= release_at:
+            release_at = None
+            if recording_source() is None:
+                resume_paused()
+                active = False
+
+
+if __name__ == "__main__":
+    sys.exit(main())
