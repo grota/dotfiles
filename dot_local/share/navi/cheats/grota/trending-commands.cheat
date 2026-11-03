@@ -9,9 +9,6 @@ bwt
 # obsidian cli
 ob
 
-# toggle gnome dark mode style
-toggle-gnome-dark-mode-style
-
 # enable gemini in chrome
 enable-gemini-in-chrome
 

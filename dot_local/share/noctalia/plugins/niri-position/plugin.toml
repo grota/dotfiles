@@ -91,6 +91,27 @@ default         = "right"
   value     = "left"
   label_key = "settings.dots_position.options.left"
 
+[[setting]]
+key             = "current_color"
+type            = "color"
+label_key       = "settings.current_color.label"
+description_key = "settings.current_color.description"
+default         = "primary"
+
+[[setting]]
+key             = "item_color"
+type            = "color"
+label_key       = "settings.item_color.label"
+description_key = "settings.item_color.description"
+default         = "outline_variant"
+
+[[setting]]
+key             = "marker_color"
+type            = "color"
+label_key       = "settings.marker_color.label"
+description_key = "settings.marker_color.description"
+default         = "primary"
+
 [[service]]
 id    = "tracker"
 entry = "service.luau"

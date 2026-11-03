@@ -41,6 +41,20 @@ local function slots(current, total)
   return list
 end
 
+-- Colors from the settings: a palette role ("primary") or a hex value.
+local function color(key, default)
+  local value = noctalia.getConfig(key)
+  return if type(value) == "string" and value ~= "" then value else default
+end
+
+local function currentColor()
+  return color("current_color", "primary")
+end
+
+local function itemColor()
+  return color("item_color", "outline_variant")
+end
+
 local function slotLength(kind)
   if kind == "current" then
     return CURRENT
@@ -63,9 +77,9 @@ end
 local function strip(key, current, total, vertical)
   local children = {}
   for i, kind in ipairs(slots(current, total)) do
-    local long, short, fill, opacity = slotLength(kind), DOT, "outline", 1
+    local long, short, fill, opacity = slotLength(kind), DOT, itemColor(), 1
     if kind == "current" then
-      fill = "primary"
+      fill = currentColor()
     elseif kind == "more" then
       short, opacity = MORE, 0.6
     end
@@ -146,10 +160,10 @@ local function miniMap(map)
     local ws = map[i]
     local children = {
       -- Marks the current workspace.
-      ui.box({ key = `mark{i}`, width = 3, height = rowHeight, radius = 1.5, fill = if ws.current then "primary" else "outline", opacity = if ws.current then 1 else 0 }),
+      ui.box({ key = `mark{i}`, width = 3, height = rowHeight, radius = 1.5, fill = color("marker_color", "primary"), opacity = if ws.current then 1 else 0 }),
     }
     if #ws.columns == 0 then
-      table.insert(children, ui.box({ key = `empty{i}`, width = rowHeight * 2, height = rowHeight, radius = 3, border = "outline", borderWidth = 1 }))
+      table.insert(children, ui.box({ key = `empty{i}`, width = rowHeight * 2, height = rowHeight, radius = 3, border = itemColor(), borderWidth = 1 }))
     end
     for c, col in ipairs(ws.columns) do
       local width = math.max(4, math.floor(col.width * scale))
@@ -165,7 +179,7 @@ local function miniMap(map)
           width = width,
           height = math.max(2, if total > 0 then available * win.height / total else available),
           radius = 2,
-          fill = if win.focused then "primary" else "outline",
+          fill = if win.focused then currentColor() else itemColor(),
         }))
       end
       table.insert(children, ui.column({ key = `col{i}-{c}`, gap = 1 }, stack))

@@ -1,0 +1,8 @@
+# Scripts retired to chezmoi_ignored/attic/local/bin/
+local/bin/browser-automation
+local/bin/ghostty-toggle-theme
+local/bin/git-install-phpactor-for-drupal
+local/bin/git-install-psysh-commands
+local/bin/phpactor
+local/bin/toggle-gnome-dark-mode-style
+local/bin/transcribe_mp3

@@ -1,0 +1,10 @@
+#!/bin/sh
+# Chrome on the NVIDIA dGPU via PRIME offload.
+# Runs through XWayland: Chrome's native Wayland backend shows a blank cyan
+# window on the dGPU. Uses a separate, disposable profile so it can run
+# alongside the normal Wayland Chrome.
+exec prime-run google-chrome-stable \
+  --ozone-platform=x11 \
+  --user-data-dir="$HOME/.config/google-chrome-custom-profile-for-nvidia-prime-run" \
+  --class=chrome-nvidia \
+  "$@"

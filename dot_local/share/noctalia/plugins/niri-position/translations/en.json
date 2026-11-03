@@ -1,5 +1,9 @@
 {
   "settings": {
+    "current_color": {
+      "description": "The focused column or window, and the current dot",
+      "label": "Current color"
+    },
     "dots_position": {
       "description": "Draw the column dots left or right of the column text (Dots style)",
       "label": "Column dots",
@@ -15,6 +19,14 @@
     "hold_delay_ms": {
       "description": "How long Super must be held before it counts as a hold; shorter presses are taps",
       "label": "Hold delay (ms)"
+    },
+    "item_color": {
+      "description": "The other columns, windows and dots",
+      "label": "Other items color"
+    },
+    "marker_color": {
+      "description": "The bar marking the current workspace in the mini-map",
+      "label": "Workspace marker color"
     },
     "on_change": {
       "description": "Show the overlay for the duration below when the workspace, column or window changes",

@@ -433,8 +433,8 @@ binds {
     // but you need to manually put each argument in separate "" quotes.
     // XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
     // XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
-    XF86MonBrightnessUp allow-when-locked=true { spawn "noctalia" "msg" "brightness-up" "eDP-1" "50"; }
-    XF86MonBrightnessDown allow-when-locked=true { spawn "noctalia" "msg" "brightness-down" "eDP-1" "50"; }
+    XF86MonBrightnessUp allow-when-locked=true { spawn "noctalia" "msg" "brightness-up" "eDP-1" "34"; }
+    XF86MonBrightnessDown allow-when-locked=true { spawn "noctalia" "msg" "brightness-down" "eDP-1" "34"; }
 
     Mod+Q repeat=false { close-window; }
 
