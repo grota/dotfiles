@@ -1,33 +1,35 @@
 id           = "grota/niri-position"
 name         = "Niri Position"
-version      = "1.0.0"
+version      = "1.1.0"
 plugin_api   = 30
 min_noctalia = "5.3.0"
 author       = "grota"
 license      = "MIT"
 icon         = "layout-columns"
-description  = "Shows the focused workspace, column and window position when you move around in Niri."
+description  = "Shows the focused workspace, column and window position in Niri when it changes, while Super is held, or on a Super double-tap."
 dependencies = ["niri"]
 tags         = ["niri", "service", "panel", "utility"]
 
 [[setting]]
-key             = "mode"
-type            = "select"
-label_key       = "settings.mode.label"
-description_key = "settings.mode.description"
-default         = "overlay"
+key             = "on_change"
+type            = "bool"
+label_key       = "settings.on_change.label"
+description_key = "settings.on_change.description"
+default         = true
 
-  [[setting.options]]
-  value     = "overlay"
-  label_key = "settings.mode.options.overlay"
+[[setting]]
+key             = "on_hold"
+type            = "bool"
+label_key       = "settings.on_hold.label"
+description_key = "settings.on_hold.description"
+default         = true
 
-  [[setting.options]]
-  value     = "notification"
-  label_key = "settings.mode.options.notification"
-
-  [[setting.options]]
-  value     = "off"
-  label_key = "settings.mode.options.off"
+[[setting]]
+key             = "on_double_tap"
+type            = "bool"
+label_key       = "settings.on_double_tap.label"
+description_key = "settings.on_double_tap.description"
+default         = false
 
 [[setting]]
 key             = "timeout_ms"
@@ -35,22 +37,74 @@ type            = "int"
 label_key       = "settings.timeout_ms.label"
 description_key = "settings.timeout_ms.description"
 default         = 900
-min             = 300
-max             = 5000
+min             = 100
+max             = 3000
 step            = 100
+
+[[setting]]
+key             = "hold_delay_ms"
+type            = "int"
+label_key       = "settings.hold_delay_ms.label"
+description_key = "settings.hold_delay_ms.description"
+default         = 250
+min             = 50
+max             = 1000
+step            = 50
+
+[[setting]]
+key             = "double_tap_ms"
+type            = "int"
+label_key       = "settings.double_tap_ms.label"
+description_key = "settings.double_tap_ms.description"
+default         = 300
+min             = 100
+max             = 1000
+step            = 50
+
+[[setting]]
+key             = "style"
+type            = "select"
+label_key       = "settings.style.label"
+description_key = "settings.style.description"
+default         = "dots"
+
+  [[setting.options]]
+  value     = "dots"
+  label_key = "settings.style.options.dots"
+
+  [[setting.options]]
+  value     = "map"
+  label_key = "settings.style.options.map"
+
+[[setting]]
+key             = "dots_position"
+type            = "select"
+label_key       = "settings.dots_position.label"
+description_key = "settings.dots_position.description"
+default         = "right"
+
+  [[setting.options]]
+  value     = "right"
+  label_key = "settings.dots_position.options.right"
+
+  [[setting.options]]
+  value     = "left"
+  label_key = "settings.dots_position.options.left"
 
 [[service]]
 id    = "tracker"
 entry = "service.luau"
 
+# Opened and closed by the service. Placement is fixed by the manifest: the
+# shell's global panel placement setting does not apply. Noctalia only allows
+# persistent = true (no open/close animation) with placement = "floating".
 [[panel]]
 id                       = "overlay"
 entry                    = "overlay.luau"
 width                    = 320
 height                   = 128
-placement                = "floating"
-position                 = "center"
+placement                = "attached"
+position                 = "top_center"
 layer                    = "overlay"
-persistent               = true
 dismiss_on_outside_click = false
 keyboard_focus           = "none"

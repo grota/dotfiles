@@ -1,16 +1,43 @@
 {
   "settings": {
-    "mode": {
-      "description": "How to show the position when it changes",
-      "label": "Display",
+    "dots_position": {
+      "description": "Draw the column dots left or right of the column text (Dots style)",
+      "label": "Column dots",
       "options": {
-        "notification": "Notification",
-        "off": "Off",
-        "overlay": "Overlay"
+        "left": "Left of the text",
+        "right": "Right of the text"
+      }
+    },
+    "double_tap_ms": {
+      "description": "How soon after the first tap the second must start to count as a double-tap",
+      "label": "Double-tap window (ms)"
+    },
+    "hold_delay_ms": {
+      "description": "How long Super must be held before it counts as a hold; shorter presses are taps",
+      "label": "Hold delay (ms)"
+    },
+    "on_change": {
+      "description": "Show the overlay for the duration below when the workspace, column or window changes",
+      "label": "On position change"
+    },
+    "on_double_tap": {
+      "description": "Show the overlay for the duration below when Super is tapped twice quickly",
+      "label": "On Super double-tap"
+    },
+    "on_hold": {
+      "description": "Show the overlay while the Super key is held",
+      "label": "While Super is held"
+    },
+    "style": {
+      "description": "Dots for the workspace and column positions, or a mini-map of every workspace's columns and windows",
+      "label": "Style",
+      "options": {
+        "dots": "Dots",
+        "map": "Mini-map"
       }
     },
     "timeout_ms": {
-      "description": "How long the overlay or notification stays on screen",
+      "description": "How long the overlay stays on screen after a position change or double-tap",
       "label": "Duration (ms)"
     }
   },
