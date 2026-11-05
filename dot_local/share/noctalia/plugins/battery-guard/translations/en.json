@@ -1,0 +1,63 @@
+{
+  "settings": {
+    "auto_dismiss_s": {
+      "description": "Hide the panel or notification after this many seconds; 0 keeps it until clicked",
+      "label": "Auto-dismiss (s)"
+    },
+    "critical_color": {
+      "description": "Accent of the panel for critical warnings",
+      "label": "Critical color"
+    },
+    "critical_interval_min": {
+      "description": "Minutes between repeated warnings below the critical threshold",
+      "label": "Critical repeat interval (min)"
+    },
+    "critical_threshold": {
+      "description": "At or below this level warnings repeat faster, use the critical color and always show the panel (in notification mode, only while Do Not Disturb is on)",
+      "label": "Critical threshold (%)"
+    },
+    "delivery": {
+      "description": "How warnings are shown",
+      "label": "Delivery",
+      "options": {
+        "notify": "Notification",
+        "panel": "Panel"
+      }
+    },
+    "dnd_fallback": {
+      "description": "Show the panel instead of the notification while Do Not Disturb is on, since Do Not Disturb hides notifications",
+      "label": "Panel when Do Not Disturb is on"
+    },
+    "interval_min": {
+      "description": "Minutes between repeated warnings while the battery keeps discharging",
+      "label": "Repeat interval (min)"
+    },
+    "simulate_percent": {
+      "description": "Pretend the battery is discharging at this level, to preview the warnings; 0 uses the real battery",
+      "label": "Simulate level (%)"
+    },
+    "sound": {
+      "description": "Play a sound with every warning",
+      "label": "Sound"
+    },
+    "sound_file": {
+      "description": "Sound to play with every warning",
+      "label": "Sound file"
+    },
+    "start_threshold": {
+      "description": "Warnings start when the battery is discharging at or below this level",
+      "label": "Start threshold (%)"
+    },
+    "warning_color": {
+      "description": "Accent of the panel for low-battery warnings",
+      "label": "Warning color"
+    }
+  },
+  "ui": {
+    "critical_title": "Battery critical",
+    "dismiss_hint": "Click to dismiss",
+    "low_title": "Battery low",
+    "remaining": "{percent}% remaining",
+    "remaining_time": "{percent}% remaining · ~{time} left"
+  }
+}

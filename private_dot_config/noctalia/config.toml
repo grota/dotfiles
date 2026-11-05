@@ -228,7 +228,7 @@ widget_order = [ "lockscreen-login-box@HDMI-A-1", "lockscreen-login-box@eDP-1" ]
         show_weather = true
 
 [plugins]
-enabled = [ "goodroot/noctwhspr", "grota/command-label", "grota/niri-position" ]
+enabled = [ "goodroot/noctwhspr", "grota/battery-guard", "grota/command-label", "grota/niri-position" ]
 
 [shell]
 clipboard_confirm_clear_history = false

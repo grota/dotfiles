@@ -1,0 +1,146 @@
+id           = "grota/battery-guard"
+name         = "Battery Guard"
+version      = "1.0.0"
+plugin_api   = 30
+min_noctalia = "5.3.0"
+author       = "grota"
+license      = "MIT"
+icon         = "battery-exclamation"
+description  = "Repeated low-battery warnings while discharging, as a panel or a notification, with a separate critical tier."
+dependencies = []
+tags         = ["battery", "service", "panel", "notifications"]
+
+[[setting]]
+key             = "start_threshold"
+type            = "int"
+label_key       = "settings.start_threshold.label"
+description_key = "settings.start_threshold.description"
+default         = 20
+min             = 5
+max             = 50
+step            = 1
+
+[[setting]]
+key             = "interval_min"
+type            = "int"
+label_key       = "settings.interval_min.label"
+description_key = "settings.interval_min.description"
+default         = 5
+min             = 1
+max             = 30
+step            = 1
+
+[[setting]]
+key             = "critical_threshold"
+type            = "int"
+label_key       = "settings.critical_threshold.label"
+description_key = "settings.critical_threshold.description"
+default         = 8
+min             = 1
+max             = 30
+step            = 1
+
+[[setting]]
+key             = "critical_interval_min"
+type            = "int"
+label_key       = "settings.critical_interval_min.label"
+description_key = "settings.critical_interval_min.description"
+default         = 1
+min             = 1
+max             = 30
+step            = 1
+
+[[setting]]
+key             = "delivery"
+type            = "select"
+label_key       = "settings.delivery.label"
+description_key = "settings.delivery.description"
+default         = "panel"
+
+  [[setting.options]]
+  value     = "panel"
+  label_key = "settings.delivery.options.panel"
+
+  [[setting.options]]
+  value     = "notify"
+  label_key = "settings.delivery.options.notify"
+
+[[setting]]
+key             = "dnd_fallback"
+type            = "bool"
+label_key       = "settings.dnd_fallback.label"
+description_key = "settings.dnd_fallback.description"
+default         = true
+visible_when    = { key = "delivery", values = ["notify"] }
+
+[[setting]]
+key             = "auto_dismiss_s"
+type            = "int"
+label_key       = "settings.auto_dismiss_s.label"
+description_key = "settings.auto_dismiss_s.description"
+default         = 2
+min             = 0
+max             = 120
+step            = 1
+
+[[setting]]
+key             = "warning_color"
+type            = "color"
+label_key       = "settings.warning_color.label"
+description_key = "settings.warning_color.description"
+default         = "tertiary"
+
+[[setting]]
+key             = "critical_color"
+type            = "color"
+label_key       = "settings.critical_color.label"
+description_key = "settings.critical_color.description"
+default         = "error"
+
+[[setting]]
+key             = "sound"
+type            = "bool"
+label_key       = "settings.sound.label"
+description_key = "settings.sound.description"
+default         = false
+
+[[setting]]
+key             = "sound_file"
+type            = "file"
+label_key       = "settings.sound_file.label"
+description_key = "settings.sound_file.description"
+default         = ""
+extensions      = [".ogg", ".oga", ".wav", ".mp3", ".flac"]
+visible_when    = { key = "sound", values = ["true"] }
+
+# Pretends the battery is discharging at this level, to preview the warnings.
+[[setting]]
+key             = "simulate_percent"
+type            = "int"
+label_key       = "settings.simulate_percent.label"
+description_key = "settings.simulate_percent.description"
+default         = 0
+min             = 0
+max             = 100
+step            = 1
+advanced        = true
+
+[[service]]
+id    = "monitor"
+entry = "service.luau"
+
+# Persistent: stays up when another panel (control center, launcher) opens.
+# Persistent panels are always floating; Noctalia adds Position and Layer
+# settings for it automatically. keyboard_focus = "none" never steals focus
+# from the window being typed in, which in turn requires no outside-click
+# dismissal: a click on the panel itself dismisses it.
+[[panel]]
+id                       = "alert"
+entry                    = "alert.luau"
+width                    = 320
+height                   = 92
+position                 = "top_center"
+layer                    = "overlay"
+persistent               = true
+dismiss_on_outside_click = false
+keyboard_focus           = "none"
