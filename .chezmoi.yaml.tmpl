@@ -26,4 +26,4 @@ hooks:
       args:
         - -c
         # - /home/grota/.local/share/chezmoi/chezmoi_ignored/dconf/refresh-dconf-dump.sh && noctalia config export > ~/.config/noctalia/config.toml
-        - /home/grota/.local/share/chezmoi/chezmoi_ignored/dconf/refresh-dconf-dump.sh
+        - 'case ":${XDG_CURRENT_DESKTOP}:" in *:GNOME:*) /home/grota/.local/share/chezmoi/chezmoi_ignored/dconf/refresh-dconf-dump.sh ;; esac'

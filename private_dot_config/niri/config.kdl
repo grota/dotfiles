@@ -405,7 +405,7 @@ binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
+    Mod+Return hotkey-overlay-title=null { spawn "ghostty"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -436,7 +436,7 @@ binds {
     XF86MonBrightnessUp allow-when-locked=true { spawn "noctalia" "msg" "brightness-up" "eDP-1" "34"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "noctalia" "msg" "brightness-down" "eDP-1" "34"; }
 
-    Mod+Q repeat=false { close-window; }
+    Mod+Q hotkey-overlay-title=null repeat=false { close-window; }
 
     Mod+Left  { focus-column-left-or-last; }
     Mod+H     { focus-column-left-or-last; }
@@ -586,8 +586,8 @@ binds {
     // The following binds move the focused window in and out of a column.
     // If the window is alone, they will consume it into the nearby column to the side.
     // If the window is already in a column, they will expel it out.
-    Mod+BracketLeft  { consume-or-expel-window-left; }
-    Mod+BracketRight { consume-or-expel-window-right; }
+    Mod+BracketLeft hotkey-overlay-title=null  { consume-or-expel-window-left; }
+    Mod+BracketRight hotkey-overlay-title=null { consume-or-expel-window-right; }
 
     // Consume one window from the right to the bottom of the focused column.
     Mod+Comma  { consume-window-into-column; }
@@ -595,14 +595,14 @@ binds {
     Mod+Period { expel-window-from-column; }
 
     // Cycle through widths set in preset-column-widths.
-    Mod+R { switch-preset-column-width; }
+    Mod+R hotkey-overlay-title=null { switch-preset-column-width; }
     // Cycling through the presets in reverse order is also possible.
     Mod+Shift+R { switch-preset-column-width-back; }
 
     Mod+Ctrl+Shift+R { switch-preset-window-height; }
     Mod+Ctrl+R { reset-window-height; }
 
-    Mod+F { maximize-column; }
+    Mod+F hotkey-overlay-title=null { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
 
     // While maximize-column leaves gaps and borders around the window,
@@ -636,7 +636,6 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+v { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
     Mod+Alt+V       { toggle-window-floating; }
     Mod+Shift+V { switch-focus-between-floating-and-tiling; }
 
@@ -653,7 +652,7 @@ binds {
     // Mod+Space       { switch-layout "next"; }
     // Mod+Shift+Space { switch-layout "prev"; }
 
-    Print { screenshot; }
+    Print hotkey-overlay-title=null { screenshot; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
 
@@ -680,9 +679,10 @@ binds {
     // Open/close the Overview: a zoomed-out view of workspaces and windows.
     // You can also move the mouse into the top-left hot corner,
     // or do a four-finger swipe up on a touchpad.
-    Mod+E repeat=false { toggle-overview; }
-    Mod+W { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
-    Mod+Shift+S { spawn "systemctl" "suspend"; }
+    Mod+E hotkey-overlay-title=null repeat=false { toggle-overview; }
+    Mod+W hotkey-overlay-title="App Launcher (Noctalia)" { spawn "noctalia" "msg" "panel-toggle" "launcher"; }
+    Mod+v hotkey-overlay-title="Clipboard History (Noctalia)" { spawn "noctalia" "msg" "panel-toggle" "clipboard"; }
+    Mod+Shift+S hotkey-overlay-title=null { spawn "systemctl" "suspend"; }
 }
 
 // Recent windows switcher (Alt+Tab), built into niri.
