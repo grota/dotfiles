@@ -433,3 +433,37 @@ local/bin/plannotator
 .bash_completion.d/opencode-completions
 
 **/__pycache__
+
+# --- Hermes Agent (see private_dot_hermes) ---
+.hermes/.env
+.hermes/auth.json
+.hermes/state.db*
+.hermes/shared-state.db*
+.hermes/kanban.db*
+.hermes/projects.db*
+.hermes/sessions
+.hermes/logs
+.hermes/cache
+.hermes/tools
+.hermes/installs
+.hermes/hermes-agent
+.hermes/backups
+.hermes/state-snapshots
+.hermes/checkpoints
+.hermes/whatsapp
+.hermes/webapp
+.hermes/telemetry
+.hermes/pairing
+.hermes/audio_cache
+.hermes/image_cache
+.hermes/pending
+.hermes/models_dev_cache.json
+.hermes/.skills_prompt_snapshot.json
+.hermes/config.yaml.bak*
+.hermes/skills/.bundled_manifest
+.hermes/skills/.hub
+.hermes/skills/.archive
+.hermes/skills/.curator*
+.hermes/plugins/.install-metadata.json*
+**/.git
+.hermes/cron

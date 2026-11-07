@@ -1,0 +1,11 @@
+manifest_version: 1
+name: my-provider          # directory name, plugin key, `hermes plugins enable <name>`
+kind: standalone           # standalone | backend | exclusive | platform | model-provider
+version: 0.1.0
+requires_hermes: ">=0.22.2"
+description: >-
+  One sentence on the backend it provides and what the built-ins cannot do.
+author: <user or team>
+license: MIT
+tags: [tts]
+capabilities: []           # MUST be a list; a mapping is ignored with a warning

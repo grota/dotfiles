@@ -9,7 +9,9 @@ pager: cat
 sourceDir: {{ output "pwd" -}}
 {{- end -}}
 gpg:
-  recipient: Giuseppe Rota
+  # key ID, not the name: "Giuseppe Rota" matches two keys in this keyring
+  # (2021 drupal uid + 2022 github-anon uid) and gpg picks the wrong one.
+  recipient: A2CF72B90ADE5E7C
 {{- if (and (not (lookPath "bw")) (stat (joinPath .chezmoi.homeDir "local" "bin" "bw"))) }}
 bitwarden:
   command: {{ .chezmoi.homeDir }}/local/bin/bw
