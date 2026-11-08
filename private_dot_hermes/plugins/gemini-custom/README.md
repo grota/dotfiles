@@ -51,6 +51,7 @@ per-call arguments are how a `/voice` pick and `tools/render.py` flags arrive.
 | `voice` | `Kore` | A prebuilt name (`Kore`, `Puck`, …), any id from the Extended Voice Library (`es-ES` castilian voices: `es-es-podcaster-5`, `es-es-training-12`, …), a Voice design `voice_…` id, a replication id, or `auto` |
 | `language` | `""` | Only with `voice: auto`: pick the first catalogue voice whose `language_code` matches, e.g. `es-ES` |
 | `style` | `""` | `speech_metadata.style` — turn-level delivery: `"whispered urgently"`, `"warm and enthusiastic"`, `"speaking slowly"` |
+| `tags` | `false` | Insert inline vocal tags (`<laugh>`, `<sigh>`, `<breath>`, `<short pause>`) with the auxiliary model registered as `auxiliary.tts_audio_tags`. Off by default: one extra model round trip per request |
 | `audio_format` | `l16` | `wav`, `l16`, `mulaw`, `alaw` — the encoding requested from the API |
 | `sample_rate` | `24000` | `24000`, `16000`, `8000`; the *reported* rate is used for decoding, since the API clamps some encodings (mu-law comes back at 8000) |
 | `speed` | `1.0` | Rate multiplier applied locally with ffmpeg `atempo` (the API has no rate parameter); chained for values outside 0.5–2.0 |
@@ -61,26 +62,28 @@ per-call arguments are how a `/voice` pick and `tools/render.py` flags arrive.
 Nothing else: the delivered container comes from the caller's `format`, the
 chunk cap from Hermes (below), and vocal tags are simply part of the text.
 
-## Chunk cap — not a plugin setting
+## Chunk cap — supplied by the plugin, not by config
 
-Hermes splits a long reply **before** calling the provider and reads the
-per-request cap from
+Hermes splits a long reply **before** any provider code runs, taking the
+per-request cap from `tools.tts_tool_delivery.PROVIDER_MAX_TEXT_LENGTH` (and
+falling back to 4000 characters for a name it does not know). That table is
+importable at plugin-registration time, which is earlier than the first reply, so
+the plugin publishes its own entry there:
 
-```yaml
-tts:
-  gemini-custom:            # flat tts.<provider> — where the built-ins live too
-    max_text_length: 16000
-```
+- `register()` calls `install_chunk_cap()`, which uses the cached introspection
+  result or, failing that, the documented 8192-token window × 2 chars/token =
+  **16000 chars** (rounded down to 1000).
+- the `pre_llm_call` hook re-installs it and refreshes the cache — one
+  `GET /v1beta/models/{model}` per model per **30 days**, cached in
+  `~/.hermes/cache/gemini_model_limits.json`. A metadata request is not a
+  synthesis call, so it does not touch the 10-a-day TTS quota.
+- an entry the plugin did not write is never overwritten, and any failure leaves
+  Hermes' own resolution in place.
 
-That namespace matters: the same key under `tts.providers.gemini-custom` is
-never read, and an unrecognised provider silently falls back to 4000 characters.
-The plugin cannot supply the number — Hermes resolves it from config before any
-provider code runs.
-
-`tools/limits.py` derives a safe value from the model's published window
-(`inputTokenLimit` = 8 192 tokens on every 3.8/3.1/2.5 TTS model) instead of a
-guess: 16000 chars is ~4 000 tokens of ordinary prose — half the window, with
-room for dense text.
+So there is nothing to put in `config.yaml`, and no `not a recognized config
+key` warning. A flat `tts.gemini-custom.max_text_length` would still win if you
+set one, but it is redundant. `tools/limits.py` prints what the models report
+and what the plugin will publish.
 
 ## Capability map (Google docs → this provider)
 
@@ -88,7 +91,7 @@ room for dense text.
 |---|---|
 | Single-speaker TTS | one turn: `voice` + optional `style` |
 | Turn-level style / pace / tone | `style:` (or `style=` per call) |
-| Inline vocal tags (`<laugh>`, `<sigh>`, `<short pause>`) | put them in the text; Hermes' normaliser passes them through untouched |
+| Inline vocal tags (`<laugh>`, `<sigh>`, `<short pause>`) | `tags: true` to have the auxiliary model insert them (off by default), or write them in the text yourself — Hermes' normaliser passes them through untouched |
 | Prebuilt voices (30 studio voices) | `voice: Kore`, `Puck`, `Charon`, … |
 | Extended Voice Library (2114 voices, 108 Spanish) | `voice: es-es-podcaster-5` etc.; `list_voices()` reads `GET /v1beta/voices`, cached 24 h in `~/.hermes/cache/gemini_voices.json` |
 | Voice design / replication ids | `voice: voice_…` (or `voicekey_…`) — passed through verbatim |
@@ -130,7 +133,7 @@ python3 ~/.hermes/plugins/gemini-custom/tools/render.py "Hola" \
 # browse the voice catalogue (cached 24 h, no API cost)
 python3 ~/.hermes/plugins/gemini-custom/tools/voices.py --language es-ES
 
-# what the model's token window implies for tts.gemini-custom.max_text_length
+# what the model's token window implies for the chunk cap the plugin publishes
 python3 ~/.hermes/plugins/gemini-custom/tools/limits.py
 
 # offline test suite (no API calls)

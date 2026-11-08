@@ -104,25 +104,44 @@ re-runnable probe: `references/gemini-tts.md` in the
   text is always the transcript, steered by `style` + inline tags. There is no
   per-call override channel left, so a change is `hermes config set` and it
   applies to the next reply.
-- **The chunk cap is Hermes-side and in a different namespace:**
-  `tts.gemini-custom.max_text_length` (flat `tts.<provider>`), because
-  `tools/tts_tool_delivery._resolve_max_text_length` reads `tts[<provider>]`.
-  The same key under `tts.providers.gemini-custom` is **silently ignored** and an
-  unrecognised provider falls back to 4000 chars. `hermes config set` answers
-  "not a recognized config key" — cosmetic; the runtime does read it (prove it by
-  calling `_resolve_max_text_length('gemini-custom', _load_tts_config())`).
-- **Derive the cap, don't guess:** `tools/limits.py` prints `inputTokenLimit`
-  from `GET /v1beta/models/{model}` (8192 on every 3.8/3.1/2.5 TTS model) and a
-  safe char cap. Configured here: 16000 chars ≈ 4000 tokens, half the window.
+- **The chunk cap is supplied by the plugin, not by config.** Hermes splits a
+  reply before any provider code runs, reading
+  `tools.tts_tool_delivery.PROVIDER_MAX_TEXT_LENGTH` (fallback 4000 chars for an
+  unknown name). `gemini-custom` publishes its entry at registration time and
+  refreshes it from the `pre_llm_call` hook: `inputTokenLimit` x 2 chars/token,
+  rounded down to 1000 (8192 tokens → 16000 chars). The introspection
+  (`GET /v1beta/models/{model}`) is cached 30 days in
+  `~/.hermes/cache/gemini_model_limits.json`, is not a synthesis call, and falls
+  back to the documented window when offline. No config key, no "unrecognized
+  config key" warning. A flat `tts.<provider>.max_text_length` would still win —
+  that is where the chunker looks, and it is a *different* namespace from
+  `tts.providers.<provider>`, where the plugin reads its own knobs; Hermes'
+  schema only knows built-in provider names, hence the warning.
+- **Tags:** `tags: true` inserts `<laugh>`/`<sigh>`/`<breath>` via the auxiliary
+  task `tts_audio_tags` (the same helper Hermes' own Gemini/xAI adapters use),
+  skipped when the text is already tagged, above 80% of the cap, or when the
+  auxiliary call fails (logged; spoken untagged). Off by default: one extra LLM
+  round trip per request. Aux caveat on this box: from a bare shell the auxiliary
+  client cannot validate the main `opencode-zen` provider and looks for
+  `GOOGLE_API_KEY`, while the working key is `GOOGLE_GENERATIVE_AI_API_KEY` — pin
+  `auxiliary.tts_audio_tags` to a keyed provider/model if tags must work.
+- **Run Hermes-workspace scripts with `python`** (the install venv), not
+  `python3`: the `python3` shim re-execs through `runpy` and breaks on stdin or
+  heredoc input, and the interpreter it relaunches may lack `ruamel`.
 - **Container:** Hermes passes `format` (`tts.output_format`, default mp3) and
   then converts to Opus itself for voice bubbles. The plugin writes `.ogg`
   directly when asked for ogg/opus, which makes Hermes skip that pass —
   `tts.output_format: ogg` is one ffmpeg encode saved per reply.
-- **Key names:** the plugin accepts `GEMINI_API_KEY`, `GOOGLE_API_KEY` and
-  `GOOGLE_GENERATIVE_AI_API_KEY`. On this box a plain shell sees only the last
-  one (`GEMINI_API_KEY` is an unresolved `${...}` reference outside the gateway),
-  so any script touching this plugin must try all three.
-- Offline suite: `tests/selftest.py` (38 checks, no API calls); contract check:
+- **Key names, and a key that exists but is invalid:** the plugin accepts
+  `GOOGLE_GENERATIVE_AI_API_KEY`, `GEMINI_API_KEY`, `GOOGLE_API_KEY`. On this box
+  a plain shell sees only the first (`GEMINI_API_KEY` is an unresolved `${...}`
+  reference), and inside the gateway the same names can be *present yet rejected*
+  (`400 API_KEY_INVALID`) — presence is not validity. So consume keys as a
+  **candidate list**, retry the next candidate on an auth failure only
+  (`api key not valid` / `API_KEY_INVALID`, never on quota or 5xx), and remember
+  the key that worked for the rest of the process. Reject values containing `$`
+  before trying them.
+- Offline suite: `tests/selftest.py` (49 checks, no API calls); contract check:
   `hermes plugins doctor gemini-custom`.
 
 ## Pitfalls
@@ -137,8 +156,11 @@ re-runnable probe: `references/gemini-tts.md` in the
 - **Never edit `config.yaml` by hand** for the voice; `hermes config set` writes it.
 - **Don't pick the voice by ear for the user.** You have no audio perception:
   generate samples, attach them, let them choose, then apply the choice.
-- **Per-call voice override does not exist** — the `text_to_speech` tool takes no
-  `voice` argument; the configured profile voice is the only lever.
+- **The `text_to_speech` tool has no `voice` argument; the provider's
+  `synthesize()` does.** A `/voice` pick and a script's `voice=` argument reach
+  the provider as per-call kwargs that beat the config block, but an agent cannot
+  pass one through the tool schema — there the configured profile voice is the
+  only lever.
 - **A single Voice Library / cloned voice on ElevenLabs is not reachable on the
   free plan via API** — cloned or library voices need a paid tier, so don't promise
   a specific community voice on a free key.

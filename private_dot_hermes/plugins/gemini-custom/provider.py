@@ -27,6 +27,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import shutil
 import struct
 import subprocess
@@ -45,6 +46,7 @@ DEFAULTS: dict[str, Any] = {
     "voice": "Kore",
     "language": "",          # only used when voice == "auto": pick a catalogue voice for this locale
     "style": "",             # speech_metadata.style — turn-level delivery, e.g. "warm and enthusiastic"
+    "tags": False,           # insert <laugh>/<sigh>/<short pause> via the auxiliary tts_audio_tags task
     "audio_format": "l16",   # wav | l16 | mulaw | alaw  (what we ask the API for)
     "sample_rate": 24000,    # 24000 | 16000 | 8000
     "speed": 1.0,            # applied locally with ffmpeg atempo (the API has no rate parameter)
@@ -143,6 +145,58 @@ def _ogg_path(output_path: str) -> str:
     transcode (``_finalize_voice_delivery`` short-circuits on that suffix)."""
     path = Path(output_path).expanduser()
     return str(path) if str(path).lower().endswith(".ogg") else str(path.with_suffix(".ogg"))
+
+
+# --- inline vocal tags -----------------------------------------------------
+# Gemini 3.8 wants point-in-time vocal events as angle-bracket tags inside the
+# transcript (<laugh>, <sigh>, <cough>, <breath>, <short pause>) and *delivery*
+# in speech_metadata.style. Hermes already ships that rewriting as an auxiliary
+# task — `auxiliary.tts_audio_tags` picks the model — so this reuses that task
+# instead of opening a second LLM path. Off by default: it costs one extra model
+# round trip per request (i.e. per chunk) and adds its latency to the reply.
+_TAGGED_RE = re.compile(
+    r"<\s*/?\s*(?:laugh|laughs|sigh|sighs|cough|breath|gasp|hum|short pause|long pause)\b[^>]*>",
+    re.IGNORECASE)
+
+_TAG_SYSTEM_PROMPT = (
+    "You rewrite a transcript for Gemini 3.8 Flash TTS by inserting inline "
+    "angle-bracket vocal events.\n\n"
+    "Allowed tags: <laugh>, <sigh>, <cough>, <breath>, <gasp>, <short pause>. "
+    "Use them sparingly — only where a person would actually make that sound, at "
+    "most one per sentence, and never in the first or the last sentence.\n\n"
+    "Rules:\n"
+    "- Preserve the spoken words, order and meaning exactly.\n"
+    "- Do not add, remove, reword or translate anything that is spoken.\n"
+    "- Do not insert delivery instructions (whispered, excited, slowly) and do "
+    "not use square brackets: delivery is set separately through "
+    "speech_metadata.style.\n"
+    "- No SSML, no XML other than the tags listed above.\n"
+    "- Do not explain or comment. Return only the tagged transcript."
+)
+
+
+def _rewrite_tags(system_prompt: str, user_prompt: str, fallback: str) -> str:
+    """Delegate to Hermes' tag-rewrite helper (task ``tts_audio_tags``, aux model)."""
+    import logging
+
+    from tools.tts_tool_providers import _rewrite_with_auxiliary_model
+
+    return _rewrite_with_auxiliary_model(
+        system_prompt, user_prompt, fallback, label="gemini-custom TTS",
+        fallback_label="untagged text", level=logging.DEBUG)
+
+
+# --- API key selection -----------------------------------------------------
+# Several env names can hold a Google key and they are not interchangeable: one
+# may be a stale or unexpanded value that the API rejects with 400
+# API_KEY_INVALID. So a rejected key must not take the reply down with it.
+_AUTH_HINTS = ("api key not valid", "api_key_invalid", "invalid api key", "unauthorized")
+_GOOD_KEY: Optional[str] = None   # last key that actually worked in this process
+
+
+def _looks_like_auth_failure(exc: BaseException) -> bool:
+    text = str(exc).lower()
+    return any(hint in text for hint in _AUTH_HINTS)
 
 
 def _atempo_chain(speed: float) -> list[str]:
@@ -244,6 +298,59 @@ class GeminiCustomTTS(TTSProvider):
                     return str(entry["id"])
         return "Kore"
 
+    def _tagged_text(self, text: str, settings: dict[str, Any]) -> str:
+        """Inline vocal tags when ``tags:`` is on. Never raises, never blocks speech."""
+        if not settings.get("tags"):
+            return text
+        if _TAGGED_RE.search(text):
+            return text  # already tagged (by the model or the user): trust it as-is
+        try:
+            cap = api.chunk_cap_for(allow_network=False)
+        except Exception:
+            cap = 0
+        if cap and len(text) > int(cap * 0.8):
+            return text  # tags would push the request past the model window
+        try:
+            tagged = _rewrite_tags(_TAG_SYSTEM_PROMPT, f"TRANSCRIPT TO TAG:\n{text}", text)
+        except Exception:
+            return text
+        if tagged == text:
+            # Auxiliary model unreachable or it declined: speak untagged rather than fail.
+            import logging
+
+            logging.getLogger(__name__).warning(
+                "gemini-custom: tags requested but the auxiliary tts_audio_tags rewrite "
+                "returned the text unchanged; speaking it untagged")
+        return tagged
+
+    def _request(self, payload: dict[str, Any], settings: dict[str, Any]) -> tuple[bytes, str, dict[str, Any]]:
+        """Synthesize, rotating to the next candidate key if one is rejected.
+
+        A stale ``GEMINI_API_KEY`` next to a valid ``GOOGLE_GENERATIVE_AI_API_KEY``
+        must cost a retry, not the reply. The key that works is remembered for the
+        rest of the process.
+        """
+        global _GOOD_KEY
+        keys = api.candidate_api_keys()
+        if not keys:
+            raise RuntimeError("gemini-custom: no GEMINI_API_KEY / GOOGLE_API_KEY available")
+        order = ([_GOOD_KEY] + [k for k in keys if k != _GOOD_KEY]) if _GOOD_KEY else keys
+        timeout = float(settings.get("timeout") or 120)
+        retries = int(settings.get("retries") or 0)
+        last: Optional[BaseException] = None
+        for key in order:
+            try:
+                raw, reported_mime, usage = api.synthesize_request(
+                    payload, api_key=key, timeout=timeout, retries=retries)
+            except api.GeminiTTSError as exc:
+                last = exc
+                if not _looks_like_auth_failure(exc):
+                    raise
+                continue
+            _GOOD_KEY = key
+            return raw, reported_mime, usage
+        raise last if last else RuntimeError("gemini-custom: no usable API key")
+
     def _container_for(self, requested: str) -> str:
         """The caller's ``format``, clamped to the containers we can actually write."""
         fmt = str(requested or "mp3").lower().strip().lstrip(".")
@@ -318,6 +425,7 @@ class GeminiCustomTTS(TTSProvider):
                    format: str = "mp3", **extra: Any) -> str:
         settings = resolve_settings(voice=voice, model=model, speed=speed,
                                     style=extra.get("style"))
+        text = self._tagged_text(text, settings)
         mime = api.MIME_BY_FORMAT.get(str(settings.get("audio_format") or "l16").lower(), "audio/l16")
         try:
             sample_rate = int(settings.get("sample_rate") or 24000)
@@ -330,9 +438,7 @@ class GeminiCustomTTS(TTSProvider):
         key = api.resolve_api_key()
         if not key:
             raise RuntimeError("gemini-custom: no GEMINI_API_KEY / GOOGLE_API_KEY available")
-        raw, reported_mime, usage = api.synthesize_request(
-            payload, api_key=key, timeout=float(settings.get("timeout") or 120),
-            retries=int(settings.get("retries") or 0))
+        raw, reported_mime, usage = self._request(payload, settings)
         container = self._container_for(format)
         target = _ogg_path(output_path) if container in _OGG_FAMILY else output_path
         written = self._write_audio(raw, reported_mime or mime, target, container,
@@ -344,6 +450,7 @@ class GeminiCustomTTS(TTSProvider):
                format: str = "opus", **extra: Any) -> Iterator[bytes]:
         """Yield raw 24 kHz mono int16 PCM (Hermes' live voice path consumes PCM)."""
         settings = resolve_settings(voice=voice, model=model, style=extra.get("style"))
+        text = self._tagged_text(text, settings)
         payload = api.build_payload(
             model=str(settings.get("model") or DEFAULTS["model"]), text=text,
             voice=self._pick_voice(settings), style=str(settings.get("style") or ""),

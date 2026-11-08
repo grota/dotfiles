@@ -12,6 +12,7 @@ import base64
 import importlib.util
 import json
 import math
+import os
 import struct
 import subprocess
 import sys
@@ -191,6 +192,63 @@ check("voice_compatible", inst.voice_compatible is True)
 check("streams_pcm", inst.streams_pcm is True)
 check("default_voice follows config", inst.default_voice() == provider.resolve_settings()["voice"],
       f"{inst.default_voice()} vs {provider.resolve_settings()['voice']}")
+
+# ---- chunk cap: published to Hermes' table, no config key ---------------
+try:
+    from tools.tts_tool_delivery import PROVIDER_MAX_TEXT_LENGTH, _resolve_max_text_length
+
+    PROVIDER_MAX_TEXT_LENGTH.pop("gemini-custom", None)
+    api._table.clear()
+    published = api.install_chunk_cap(allow_network=False)
+    check("cap published with no config", published == 16000, str(published))
+    check("chunker sees it with an empty config",
+          _resolve_max_text_length("gemini-custom", {}) == 16000)
+    check("an entry we did not write is respected",
+          (PROVIDER_MAX_TEXT_LENGTH.__setitem__("gemini-custom", 9999)
+           or api.install_chunk_cap(allow_network=False)) == 9999
+          and PROVIDER_MAX_TEXT_LENGTH["gemini-custom"] == 9999)
+    PROVIDER_MAX_TEXT_LENGTH.pop("gemini-custom", None)
+    api._table.clear()
+except ImportError:
+    print("SKIP cap-install checks (tools.tts_tool_delivery not importable)")
+
+# introspection cache: a cached window drives the number, offline
+_orig_home = os.environ.get("HERMES_HOME")
+_cache_home = Path(tempfile.mkdtemp(prefix="gemini-home-"))
+(_cache_home / "cache").mkdir(parents=True)
+(_cache_home / "cache" / "gemini_model_limits.json").write_text(json.dumps(
+    {"some-model": {"inputTokenLimit": 4096, "outputTokenLimit": 8192, "checked_at": 2 ** 31}}))
+os.environ["HERMES_HOME"] = str(_cache_home)
+check("cached window drives the cap", api.chunk_cap_for("some-model", allow_network=False) == 8000,
+      str(api.chunk_cap_for("some-model", allow_network=False)))
+check("stale model falls back to the documented window",
+      api.chunk_cap_for("unknown-model", allow_network=False) == 16000)
+if _orig_home is None:
+    os.environ.pop("HERMES_HOME", None)
+else:
+    os.environ["HERMES_HOME"] = _orig_home
+
+# ---- inline vocal tags (auxiliary task, off by default) -----------------
+_orig_rewrite = provider._rewrite_tags
+provider._rewrite_tags = lambda system, user, fallback: fallback.replace("Hola", "Hola <laugh>")
+check("tags off by default", provider.GeminiCustomTTS()._tagged_text("Hola.", {}) == "Hola.")
+check("tags applied when enabled",
+      provider.GeminiCustomTTS()._tagged_text("Hola.", {"tags": True}) == "Hola <laugh>.")
+check("already-tagged text is left alone",
+      provider.GeminiCustomTTS()._tagged_text("Hola <sigh> qué tal.", {"tags": True}) == "Hola <sigh> qué tal.")
+long_text = "palabra " * 6000
+check("long text is not tagged (window guard)",
+      provider.GeminiCustomTTS()._tagged_text(long_text, {"tags": True}) == long_text)
+
+
+def _boom(system: str, user: str, fallback: str) -> str:
+    raise RuntimeError("auxiliary down")
+
+
+provider._rewrite_tags = _boom
+check("a failing rewrite returns the original text",
+      provider.GeminiCustomTTS()._tagged_text("Hola.", {"tags": True}) == "Hola.")
+provider._rewrite_tags = _orig_rewrite
 
 print()
 if FAILED:

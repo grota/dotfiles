@@ -1,12 +1,14 @@
 manifest_version: 1
 name: gemini-custom
 kind: standalone
-version: 0.1.0
+version: 0.2.0
 requires_hermes: ">=0.22.2"
 description: >-
-  Gemini 3.x TTS engine with full control over speech_metadata, inline tags,
-  multi-speaker dialogue, audit output formats and PCM streaming.
+  Gemini 3.x TTS engine: speech_metadata style, optional inline vocal tags,
+  exact audio encodings, PCM streaming, and a self-published chunk cap.
 author: Beppe (built with Hermes)
 license: MIT
 tags: [tts, gemini, speech, voice]
 capabilities: []
+provides_hooks:
+  - pre_llm_call

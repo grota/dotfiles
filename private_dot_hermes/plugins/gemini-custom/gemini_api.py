@@ -54,32 +54,46 @@ def _hermes_home() -> Path:
     return Path(os.environ.get("HERMES_HOME") or (Path.home() / ".hermes"))
 
 
-KEY_ENV_NAMES = ("GEMINI_API_KEY", "GOOGLE_API_KEY", "GOOGLE_GENERATIVE_AI_API_KEY")
+KEY_ENV_NAMES = ("GOOGLE_GENERATIVE_AI_API_KEY", "GEMINI_API_KEY", "GOOGLE_API_KEY")
 
 
-def resolve_api_key() -> Optional[str]:
-    """First key found: env, then the profile dotenv.
+def _clean(value: str) -> str:
+    return (value or "").strip().strip('"').strip("'")
 
-    ``GOOGLE_GENERATIVE_AI_API_KEY`` is the name Google's own SDKs use and what a
-    ``secrets.command`` helper commonly exports (it is the one a shell process
-    sees here); ``GEMINI_API_KEY`` may be an unresolved ``${...}`` reference
-    outside the gateway, so it is tried first but never trusted blindly.
+
+def candidate_api_keys() -> list[str]:
+    """Distinct usable keys, best guess first: env, then the profile dotenv.
+
+    More than one name can be set and they are not necessarily equivalent — on
+    this install ``GEMINI_API_KEY`` is a ``${...}`` reference that may expand to
+    something the API rejects, while ``GOOGLE_GENERATIVE_AI_API_KEY`` (the name
+    Google's SDKs use) works. So the caller tries them in order rather than
+    trusting the first hit.
     """
+    found: list[str] = []
+
+    def add(value: str) -> None:
+        value = _clean(value)
+        if value and "$" not in value and value not in found:
+            found.append(value)
+
     for name in KEY_ENV_NAMES:
-        value = (os.environ.get(name) or "").strip()
-        if value and "$" not in value:
-            return value
+        add(os.environ.get(name) or "")
     dotenv = _hermes_home() / ".env"
     try:
         for line in dotenv.read_text(encoding="utf-8", errors="replace").splitlines():
             name, sep, value = line.strip().partition("=")
             if sep and name in KEY_ENV_NAMES:
-                value = value.strip().strip('"').strip("'")
-                if value and "$" not in value:
-                    return value
+                add(value)
     except OSError:
         pass
-    return None
+    return found
+
+
+def resolve_api_key() -> Optional[str]:
+    """First candidate key, or ``None``."""
+    keys = candidate_api_keys()
+    return keys[0] if keys else None
 
 
 def _post(url: str, payload: dict[str, Any], *, timeout: float, retries: int,
@@ -221,3 +235,130 @@ def list_voice_catalog(*, api_key: str, cache_path: Path, ttl_seconds: int = 864
     except OSError:
         pass
     return voices
+
+
+# --- chunk cap: the number Hermes needs before it ever calls us ------------
+#
+# Hermes splits a long reply *before* dispatching to a provider and takes the
+# per-request cap from ``tools.tts_tool_delivery.PROVIDER_MAX_TEXT_LENGTH`` — a
+# plain dict of provider -> characters, falling back to 4000 for a name it does
+# not know. That table is importable at plugin-registration time, which is
+# earlier than the first reply, so a plugin can publish its cap there and the
+# user never has to put ``max_text_length`` in config.yaml (and never sees the
+# "not a recognized config key" warning that a flat ``tts.<name>`` key earns).
+#
+# The number itself comes from the model card, verified live via
+# ``GET /v1beta/models/{model}`` -> ``inputTokenLimit`` (8192 on every 3.8/3.1/2.5
+# TTS model). One metadata request per model per 30 days; a synthesis call is
+# never made for this, so the 10-a-day TTS quota is untouched.
+
+CHARS_PER_TOKEN_FLOOR = 2.0   # dense text (numbers, code, short words) can reach this
+FALLBACK_INPUT_TOKENS = 8192  # the documented window; used only if introspection is unavailable
+LIMITS_TTL_SECONDS = 30 * 86400
+
+_table: dict[str, int] = {}   # provider -> cap we published (so we can refresh our own entry)
+
+
+def _limits_cache_path() -> Path:
+    return _hermes_home() / "cache" / "gemini_model_limits.json"
+
+
+def _configured_model() -> str:
+    """``tts.providers.gemini-custom.model``, else the plugin's default."""
+    try:
+        from hermes_cli.config import load_config_readonly
+
+        tts = (load_config_readonly() or {}).get("tts") or {}
+        section = (tts.get("providers") or {}).get("gemini-custom") or {}
+        model = str(section.get("model") or "").strip()
+        if model:
+            return model
+    except Exception:
+        pass
+    return "gemini-3.8-flash-tts"
+
+
+def model_limits(model: str, *, allow_network: bool = True, timeout: float = 10.0,
+                 ttl_seconds: int = LIMITS_TTL_SECONDS) -> dict[str, Any]:
+    """Cached ``GET /v1beta/models/{model}`` metadata; ``{}`` when unavailable.
+
+    Fail-soft on purpose: the cap must never be the reason a reply stays silent.
+    """
+    cache_path = _limits_cache_path()
+    cache: dict[str, Any] = {}
+    try:
+        loaded = json.loads(cache_path.read_text(encoding="utf-8"))
+        if isinstance(loaded, dict):
+            cache = loaded
+    except (OSError, ValueError):
+        cache = {}
+
+    entry = cache.get(model)
+    if isinstance(entry, dict) and (time.time() - float(entry.get("checked_at") or 0)) < ttl_seconds:
+        return entry
+
+    if not allow_network:
+        return entry if isinstance(entry, dict) else {}
+
+    key = resolve_api_key()
+    if not key:
+        return entry if isinstance(entry, dict) else {}
+    request = urllib.request.Request(f"{BASE_URL}/models/{model}", headers={"x-goog-api-key": key})
+    try:
+        with urllib.request.urlopen(request, timeout=timeout) as response:
+            data = json.load(response)
+    except (urllib.error.HTTPError, urllib.error.URLError, ValueError, OSError):
+        return entry if isinstance(entry, dict) else {}
+    entry = {"inputTokenLimit": data.get("inputTokenLimit"),
+             "outputTokenLimit": data.get("outputTokenLimit"),
+             "checked_at": int(time.time())}
+    if isinstance(entry["inputTokenLimit"], int):
+        cache[model] = entry
+        try:
+            cache_path.parent.mkdir(parents=True, exist_ok=True)
+            cache_path.write_text(json.dumps(cache, indent=1), encoding="utf-8")
+        except OSError:
+            pass
+    return entry
+
+
+def chunk_cap_for(model: Optional[str] = None, *, allow_network: bool = True) -> int:
+    """Character cap implied by the model's input window, rounded down to 1000."""
+    model = model or _configured_model()
+    limits = model_limits(model, allow_network=allow_network)
+    tokens = limits.get("inputTokenLimit")
+    if not isinstance(tokens, int) or tokens <= 0:
+        tokens = FALLBACK_INPUT_TOKENS
+    return max(1000, int(tokens * CHARS_PER_TOKEN_FLOOR) // 1000 * 1000)
+
+
+def install_chunk_cap(name: str = "gemini-custom", *, allow_network: bool = False) -> Optional[int]:
+    """Publish the cap into Hermes' provider table; returns what Hermes will use.
+
+    Idempotent and non-destructive: an entry we did not write (upstream's, or a
+    future config-driven one) is left alone. Any failure means "leave Hermes'
+    own resolution in place", which is the pre-existing behaviour.
+    """
+    try:
+        from tools.tts_tool_delivery import PROVIDER_MAX_TEXT_LENGTH
+    except Exception:
+        return None
+    cap = chunk_cap_for(allow_network=allow_network)
+    current = PROVIDER_MAX_TEXT_LENGTH.get(name)
+    if current is not None and current != _table.get(name):
+        return current  # somebody else owns the entry; don't fight it
+    PROVIDER_MAX_TEXT_LENGTH[name] = cap
+    _table[name] = cap
+    return cap
+
+
+def refresh_chunk_cap(**_kwargs: Any) -> None:
+    """``pre_llm_call`` hook body: one metadata request per model per 30 days.
+
+    Hook failures must never touch the turn, so everything is swallowed.
+    """
+    try:
+        install_chunk_cap(allow_network=True)
+    except Exception:
+        return
+

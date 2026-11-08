@@ -71,7 +71,6 @@ plugins:
 # =============================================================================
   enabled:
     - gemini-custom
-    - opencode-free-acp
   disabled: []
 model:
   # Default model to use (can be overridden with --model flag)
@@ -2160,6 +2159,15 @@ tts:
       # a different accent here — pick a different voice for that.
       style: warm, bantering, flirting, intimate, positive, enthusiastic
 
+      # Inline vocal tags (<laugh>, <sigh>, <cough>, <breath>, <short pause>),
+      # inserted by the auxiliary model registered under auxiliary.tts_audio_tags.
+      # Off by default: it costs one extra model round trip per request (per
+      # chunk) and adds that latency to every reply. `style` above carries
+      # delivery; tags are only for momentary sounds. Skipped when the text is
+      # already tagged, when it is longer than 80% of the chunk cap, or when the
+      # auxiliary call fails (the reply is then spoken untagged).
+      tags: false
+
       # ── optional keys (defaults shown; uncomment to use) ──────────────────
       # Only used with `voice: auto` above: pick a voice by locale instead of name,
       # e.g. es-ES (Castilian), es-419 (Latin American), it-IT, en-GB, pt-PT.
@@ -2200,8 +2208,8 @@ tts:
       #   python3 ~/.hermes/plugins/gemini-custom/tools/voices.py --stats
       # Offline test suite (38 checks, no API calls):
       #   python3 ~/.hermes/plugins/gemini-custom/tests/selftest.py
-      # What the model's token window implies for tts.gemini-custom.max_text_length
-      # (metadata call, no audio, no quota):
+      # What the model's token window implies for the chunk cap the plugin
+      # publishes (metadata call, no audio, no quota):
       #   python3 ~/.hermes/plugins/gemini-custom/tools/limits.py
       # Usage log, one JSON line per call (model, voice, chars, audio tokens):
       #   ~/.hermes/gemini-tts-usage.jsonl
@@ -2210,20 +2218,12 @@ tts:
     model: gemini-2.5-flash-preview-tts
     audio_tags: false
     persona_prompt_file: ""
-  # Knobs Hermes itself reads, mirroring tts.gemini / tts.edge (flat
-  # tts.<provider>) — NOT the plugin block below; the provider code never sees
-  # these. `hermes config set` appended this key here, which is fine.
-  #
-  # max_text_length is the per-request CHARACTER cap Hermes applies when it
-  # splits a long reply. It is read before the provider is called, which is why
-  # the plugin cannot supply it. The same key under tts.providers.gemini-custom
-  # is silently ignored, and an unknown provider falls back to 4000 chars.
-  # Derive it instead of guessing:
-  #   python3 ~/.hermes/plugins/gemini-custom/tools/limits.py
-  # Every 3.8/3.1/2.5 TTS model reports inputTokenLimit 8192; 16000 chars is
-  # ~4000 tokens of prose — half the window, with headroom for dense text.
-  gemini-custom:
-    max_text_length: 16000
+  # The per-request chunk cap is NOT configured here. The gemini-custom plugin
+  # publishes it into Hermes' own table (tts_tool_delivery.PROVIDER_MAX_TEXT_LENGTH)
+  # at registration time, derived from the model's inputTokenLimit (8192 tokens
+  # -> 16000 chars), and refreshes it from the pre_llm_call hook once per 30 days.
+  # A flat `tts.gemini-custom.max_text_length` would still win if set, but it is
+  # not needed — and `hermes config set` warns about it as an unknown key.
 approvals:
   destructive_slash_confirm: false
 auxiliary:
