@@ -93,6 +93,46 @@ files (so one key decrypts the whole repo).
 Cost worth stating to the user: memory files are rewritten every session, so each
 commit is an opaque blob diff — that is the price of tracking them encrypted.
 
+## Re-encrypting after the target changed
+
+Editing the *deployed* plaintext (the tempting quick fix when an agent or you add
+a value there) and then calling `chezmoi add` is a trap: on an existing encrypted
+source chezmoi asks `adding <target> would remove encrypted attribute, continue?`
+and answering yes stores **plaintext** in the repo. Use the flag instead:
+
+```bash
+chezmoi add --encrypt ~/.local/grota/bash/35-private-ai-keys
+```
+
+It rewrites the source encrypted *and* applies the `private` attribute, so the
+source is renamed `encrypted_private_<name>.asc` and the next `apply` chmods the
+target 0600 (a plain `chattr +encrypted` leaves 0644, which defeats the point).
+Confirm with `chezmoi status` (empty), `chezmoi source-path <target>`, and a
+decrypt-and-count that prints no values.
+
+## Readable diffs of encrypted sources (git textconv)
+
+`git diff` on an `.asc` is armor. Three pieces make it plaintext:
+
+```gitattributes
+encrypted*.asc diff=chezmoi-decrypt
+```
+```ini
+# .gitconfig in the repo root, so it travels with the clone
+[diff "chezmoi-decrypt"]
+    textconv = chezmoi decrypt 2> /dev/null
+```
+```bash
+git config --local include.path ../.gitconfig     # PER-CLONE, untracked
+```
+
+Without that last line the attribute names a driver git does not know and it
+silently falls back to ciphertext — the symptom is `git diff` producing exactly as
+many lines as `git diff --no-textconv`. Never set `cachetextconv = true` for this
+driver: git then caches the decrypted text inside `.git`, i.e. plaintext secrets
+persisted in the repo. And remember diffs now print values: use
+`git diff -- <f> | grep '^[+-]' | cut -d= -f1` for a names-only view.
+
 ## Tracked hook scripts
 
 `apply` rewrites a hook script's mtime, and shell-hook consent pins that mtime —

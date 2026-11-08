@@ -101,7 +101,10 @@ allows **3 requests/minute and 10 requests/day** (probe scripts burn the daily
 aliquot in minutes, and the 429 names the model, not the caller). `gemini-2.5-pro-preview-tts`
 is `limit: 0` on a free key. Plan a daily-driver voice that costs nothing (Edge)
 and keep a keyed engine for special renders; never leave a quota-bound provider
-as the default unless the user accepts silent failures.
+as the default unless the user accepts silent failures. Long replies are chunked
+before dispatch (4000 characters for a plugin provider, see
+`hermes-plugin-development`), and every chunk is its own request — ten requests a
+day fund ten short replies, not ten long ones.
 
 ## Making a fair listening test
 

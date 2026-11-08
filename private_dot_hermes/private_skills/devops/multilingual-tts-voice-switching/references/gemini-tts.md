@@ -98,5 +98,22 @@ Verified against the live API, `POST /v1beta/interactions` is the 3.8 path:
   Those ids are what a `voice:` setting should accept — the only way to guarantee Peninsular
   accent by construction rather than by steering.
 
+**How a provider plugin recurses on that API** — verified by reading `gemini-custom`, and the
+places to check in any sibling:
+
+- **Multi-speaker is script mode, not dialogue formatting.** `multi_speaker.turns` is rendered
+  *instead of* the reply: the plugin's `_turns()` discards `text` whenever two speakers and any
+  turns are configured, and `stream()` shares that path, so a configured script also hijacks
+  live voice. Two speakers max; one or three silently degrade to the reply spoken by speaker A.
+  Without `turns` the reply plays in speaker 0 with the global `style`. Google requires every
+  turn to carry a `speaker` naming a configured one, and the plugin passes the label through
+  unvalidated — a missing label therefore surfaces as an API error, not a local one.
+- **Two documented keys were inert at review: `inline_tags` and `max_text_length`.** Neither is
+  read anywhere in the code; Hermes' own normaliser (`prepare_spoken_text`) passes `<laugh>` and
+  `<short pause>` through untouched, so tags always reach the model and the only way to drop
+  them is not to write them. The effective chunk cap comes from Hermes core (4000 chars for
+  this provider name), not from the plugin block. `grep -n '"inline_tags"\|"max_text_length"'
+  provider.py` before repeating the README on these.
+
 Plugin contract, layout, runtime-config pattern and test recipe: `hermes-plugin-development`.
 Through the built-in `gemini` provider none of the above is reachable, whatever the config says.

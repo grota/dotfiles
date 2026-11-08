@@ -44,23 +44,8 @@ def main() -> int:
         pathlib.Path.home() / ".hermes/cache/tts-demo" / f"tts_{time.strftime('%Y%m%d_%H%M%S')}.{args.format}")
     out.parent.mkdir(parents=True, exist_ok=True)
 
-    # style is a config knob, not a synthesize() argument: pass it through the live override file
-    if args.style:
-        import json
-
-        override = pathlib.Path.home() / ".hermes/gemini-tts.json"
-        current = {}
-        if override.exists():
-            try:
-                current = json.loads(override.read_text())
-            except ValueError:
-                current = {}
-        current["style"] = args.style
-        override.write_text(json.dumps(current), encoding="utf-8")
-        print(f"(style pinned in {override}; delete that key to go back to config)")
-
     written = provider.synthesize(text, str(out), voice=args.voice, model=args.model,
-                                  speed=args.speed, format=args.format)
+                                  speed=args.speed, style=args.style, format=args.format)
     size = pathlib.Path(written).stat().st_size
     print(f"wrote {written} ({size} bytes)")
     print(f"play:  ffplay -nodisp -autoexit -loglevel error {written}")

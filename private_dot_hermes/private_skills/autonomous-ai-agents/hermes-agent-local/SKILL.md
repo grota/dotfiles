@@ -22,7 +22,8 @@ whenever the question is about Hermes itself.
 
 Any question about Hermes itself where the bundled `hermes-agent` hub does not
 carry the answer: memory layers and retention, profiles and gateways, TTS voice
-selection, auxiliary model routing, safe `config.yaml` edits, and putting the
+selection, auxiliary model routing, cron job modes and watchdogs, safe
+`config.yaml` edits, and putting the
 Hermes home under a dotfile manager. Also load it whenever you load
 `hermes-agent`, and before editing anything under `~/.hermes/skills/`.
 
@@ -34,10 +35,11 @@ Hermes home under a dotfile manager. Also load it whenever you load
 | A second agent or a household member's own bot: profiles, command aliases, one-gateway multiplexing, channel pairing, `profile_routes`, the shared-bot satellite rule | `references/profiles-and-gateways.md` |
 | Per-task auxiliary models (titling, compression, vision, background review, TTS), provider gates, cost caps | `references/auxiliary-tasks.md` |
 | Picking or fixing the TTS voice, wrong accent, language binding, comparison clips | `references/tts-voices.md` + `scripts/edge_voice_compare.py` |
-| Editing `config.yaml` safely, which changes need a restart vs `/new`, keys from the environment instead of `.env`, gateway-service environment | `references/local-config-and-providers.md` |
+| Editing `config.yaml` safely, which changes need a restart vs `/new`, keys from the environment instead of `.env`, which env var a provider actually reads (and why the model provider's key must stay in `.env`/the pool), the gateway-service environment, implementing a `secrets.command` helper (and proving no value leaked: `scripts/secret_leak_check.py`) | `references/local-config-and-providers.md` |
 | Bundled-skill sync mechanics, `list-modified`/`diff`, the reset traps, salvaging an existing local edit | `references/skills-and-upstream.md` |
 | Making a rule enforceable: `pre_tool_call` shell hooks — registering, consent allowlist, blocking contract, `hooks test` | `references/shell-hooks.md` |
 | Tracking `~/.hermes` in chezmoi/dotfiles: what to version, encrypted memory files, `forget`/`add --recursive`/`chattr +encrypted` pitfalls | `references/chezmoi-integration.md` |
+| Scheduled jobs: which cron mode costs what inference, script-only watchdogs (`--no-agent`), the silent-when-empty stdout contract, proving a fire was actually delivered | `references/cron-jobs.md` |
 | Citing hours, prices, schedules or eligibility that may be stale | skill `citation-freshness` |
 
 ## Ground rules
@@ -49,6 +51,10 @@ Hermes home under a dotfile manager. Also load it whenever you load
   rule forbids an action outright, delete the recovery tooling for that action
   rather than keeping both (the user will ask for the duplicate to go), and keep
   only the condensed procedure in a reference.
+- **Never read a credential file into the transcript.** Extract names, counts,
+  lengths or names-only diffs; when the user asks whether you saw the values,
+  state exactly which categories you saw and prove the rest with
+  `scripts/secret_leak_check.py` before saying anything about rotation.
 - This skill is agent-created: editing it, adding references and patching it are
   all fine, and `hermes update` never touches it.
 - Keep the routing row and the reference in sync — a reference nobody routes to is

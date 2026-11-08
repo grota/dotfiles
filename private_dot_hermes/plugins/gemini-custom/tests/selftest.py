@@ -75,7 +75,7 @@ check("atempo 4.0", provider._atempo_chain(4.0) == ["atempo=2.0000", "atempo=2.0
 check("atempo 0.25", provider._atempo_chain(0.25) == ["atempo=0.5000", "atempo=0.5000"])
 
 # ---- payload shape -------------------------------------------------------
-single = api.build_payload(model="m", turns=[{"text": "hola", "style": "warm"}], voice="Kore",
+single = api.build_payload(model="m", text="hola", voice="Kore", style="warm",
                            mime_type="audio/l16", sample_rate=24000)
 check("payload single speech_config is list", single["generation_config"]["speech_config"] == [{"voice": "Kore"}])
 check("payload annotations", single["input"][0]["content"][0]["annotations"] ==
@@ -83,14 +83,11 @@ check("payload annotations", single["input"][0]["content"][0]["annotations"] ==
 check("payload response_format", single["response_format"] ==
       {"type": "audio", "mime_type": "audio/l16", "sample_rate": 24000})
 check("payload no stream flag", "stream" not in single)
+check("payload one text part", len(single["input"][0]["content"]) == 1)
 
-multi = api.build_payload(model="m", turns=[{"text": "a", "speaker": "A"}, {"text": "b", "speaker": "B"}],
-                          voice="Kore", speakers=[{"speaker": "A", "voice": "Kore"},
-                                                  {"speaker": "B", "voice": "Puck"}])
-check("payload multi speakers object", multi["generation_config"]["speech_config"]["speakers"][1] ==
-      {"speaker": "B", "voice": "Puck"})
-check("payload multi turns have speaker", [t.get("annotations", [{}])[0].get("speaker")
-                                           for t in multi["input"][0]["content"]] == ["A", "B"])
+plain = api.build_payload(model="m", text="hola", voice="Kore")
+check("payload no annotations without style", "annotations" not in plain["input"][0]["content"][0])
+check("payload no sample_rate when unset", plain["response_format"] == {"type": "audio", "mime_type": "audio/l16"})
 
 # ---- media conversion ----------------------------------------------------
 inst = provider.GeminiCustomTTS()
@@ -144,14 +141,38 @@ pass_out = inst._write_audio(real_wav, "audio/wav", str(tmp / "pass.wav"), "wav"
 check("wav passthrough byte-identical", Path(pass_out).read_bytes() == real_wav)
 
 # ---- settings precedence -------------------------------------------------
-_orig_sections, _orig_override = provider._load_config_sections, provider._load_override_file
-provider._load_config_sections = lambda: [{"model": "from-config", "voice": "voice-config"}]
-provider._load_override_file = lambda: {"voice": "voice-runtime"}
-settings = provider.resolve_settings(model="dispatcher-model", voice="dispatcher-voice", speed=1.5)
-check("precedence config<kwargs<runtime",
-      settings["model"] == "dispatcher-model" and settings["voice"] == "voice-runtime"
-      and settings["speed"] == 1.5, json.dumps({k: settings[k] for k in ("model", "voice", "speed")}))
-provider._load_config_sections, provider._load_override_file = _orig_sections, _orig_override
+_orig_section = provider._load_config_section
+provider._load_config_section = lambda: {"model": "from-config", "voice": "voice-config"}
+settings = provider.resolve_settings(model="dispatcher-model", speed=1.5, style="from-call")
+check("precedence config<kwargs",
+      settings["model"] == "dispatcher-model" and settings["voice"] == "voice-config"
+      and settings["speed"] == 1.5 and settings["style"] == "from-call",
+      json.dumps({k: settings[k] for k in ("model", "voice", "speed", "style")}))
+check("precedence keeps defaults", settings["sample_rate"] == 24000 and settings["audio_format"] == "l16")
+provider._load_config_section = _orig_section
+
+check("no runtime override file left", not hasattr(provider, "_load_override_file")
+      and not hasattr(provider, "OVERRIDE_FILE"))
+check("no dead per-plugin knobs", not ({"multi_speaker", "output_format", "max_text_length",
+                                        "inline_tags", "speaker"} & set(provider.DEFAULTS)))
+
+# ---- container selection (format is the only input) ----------------------
+check("container follows format", inst._container_for("ogg") == "ogg")
+check("container default mp3", inst._container_for("") == "mp3")
+check("container clamps unknown", inst._container_for("aiff") == "mp3")
+check("ogg family retargets path", provider._ogg_path("/tmp/tts_1.mp3") == "/tmp/tts_1.ogg")
+check("ogg path kept", provider._ogg_path("/tmp/tts_1.ogg") == "/tmp/tts_1.ogg")
+
+# ---- Hermes chunk cap: the key must live in tts.<provider> ---------------
+try:
+    from tools.tts_tool_delivery import _resolve_max_text_length
+
+    check("cap honoured at tts.<provider>",
+          _resolve_max_text_length("gemini-custom", {"gemini-custom": {"max_text_length": 16000}}) == 16000)
+    check("cap inert under tts.providers",
+          _resolve_max_text_length("gemini-custom", {"providers": {"gemini-custom": {"max_text_length": 16000}}}) == 4000)
+except ImportError:
+    print("SKIP cap checks (tools.tts_tool_delivery not importable)")
 
 # ---- SSE parsing ---------------------------------------------------------
 sse = "\n".join([

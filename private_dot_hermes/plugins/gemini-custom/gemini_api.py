@@ -3,8 +3,8 @@
 Everything here is verified against the live API (free tier, Nov 2026):
 
 * ``POST /v1beta/interactions`` — unary TTS. ``generation_config.speech_config``
-  is a *list* ``[{"voice": ...}]`` for one speaker and an *object*
-  ``{"speakers": [{"speaker": ..., "voice": ...}, ...]}`` for exactly two.
+  is a *list* ``[{"voice": ...}]`` for one speaker; a two-speaker dialogue would
+  use an *object* ``{"speakers": [...]}``, which this provider does not send.
 * The audio lands in ``steps[*].content[*]`` as ``{"type": "audio", "data": b64,
   "mime_type": "audio/wav" | "audio/l16" | "audio/mulaw" | "audio/alaw"}``.
   Unary defaults to WAV with a RIFF header; ``mime_type`` + ``sample_rate`` in
@@ -54,18 +54,29 @@ def _hermes_home() -> Path:
     return Path(os.environ.get("HERMES_HOME") or (Path.home() / ".hermes"))
 
 
+KEY_ENV_NAMES = ("GEMINI_API_KEY", "GOOGLE_API_KEY", "GOOGLE_GENERATIVE_AI_API_KEY")
+
+
 def resolve_api_key() -> Optional[str]:
-    """GEMINI_API_KEY / GOOGLE_API_KEY from the process env, else from the profile dotenv."""
-    for name in ("GEMINI_API_KEY", "GOOGLE_API_KEY"):
+    """First key found: env, then the profile dotenv.
+
+    ``GOOGLE_GENERATIVE_AI_API_KEY`` is the name Google's own SDKs use and what a
+    ``secrets.command`` helper commonly exports (it is the one a shell process
+    sees here); ``GEMINI_API_KEY`` may be an unresolved ``${...}`` reference
+    outside the gateway, so it is tried first but never trusted blindly.
+    """
+    for name in KEY_ENV_NAMES:
         value = (os.environ.get(name) or "").strip()
-        if value:
+        if value and "$" not in value:
             return value
     dotenv = _hermes_home() / ".env"
     try:
         for line in dotenv.read_text(encoding="utf-8", errors="replace").splitlines():
-            line = line.strip()
-            if line.startswith(("GEMINI_API_KEY=", "GOOGLE_API_KEY=")):
-                return line.split("=", 1)[1].strip().strip('"').strip("'") or None
+            name, sep, value = line.strip().partition("=")
+            if sep and name in KEY_ENV_NAMES:
+                value = value.strip().strip('"').strip("'")
+                if value and "$" not in value:
+                    return value
     except OSError:
         pass
     return None
@@ -108,38 +119,29 @@ def _post(url: str, payload: dict[str, Any], *, timeout: float, retries: int,
 
 
 def build_payload(
-    *, model: str, turns: list[dict[str, Any]], voice: str,
-    speakers: Optional[list[dict[str, str]]] = None, mime_type: str = "audio/l16",
-    sample_rate: Optional[int] = None, stream: bool = False,
+    *, model: str, text: str, voice: str, style: str = "",
+    mime_type: str = "audio/l16", sample_rate: Optional[int] = None, stream: bool = False,
 ) -> dict[str, Any]:
-    """Assemble an interactions request. *turns* items: {"text", "style"?, "speaker"?}."""
-    content = []
-    for turn in turns:
-        annotation: dict[str, Any] = {"type": "speech_metadata"}
-        if turn.get("style"):
-            annotation["style"] = turn["style"]
-        if turn.get("speaker"):
-            annotation["speaker"] = turn["speaker"]
-        part: dict[str, Any] = {"type": "text", "text": turn["text"]}
-        if len(annotation) > 1:
-            part["annotations"] = [annotation]
-        content.append(part)
+    """Assemble one single-speaker interactions request.
+
+    The transcript is one ``text`` part; ``style`` rides in a ``speech_metadata``
+    annotation because Gemini 3.8 reads the part itself verbatim. Multi-speaker
+    requests (``speech_config.speakers``, exactly two) are deliberately not
+    supported by this provider — see ``provider.py``.
+    """
+    part: dict[str, Any] = {"type": "text", "text": text}
+    if style:
+        part["annotations"] = [{"type": "speech_metadata", "style": style}]
 
     response_format: dict[str, Any] = {"type": "audio", "mime_type": mime_type}
     if sample_rate:
         response_format["sample_rate"] = int(sample_rate)
 
-    if speakers:
-        speech_config: Any = {"speakers": [{"speaker": s["speaker"], "voice": s["voice"]}
-                                           for s in speakers]}
-    else:
-        speech_config = [{"voice": voice}]
-
     payload: dict[str, Any] = {
         "model": model,
-        "input": [{"type": "user_input", "content": content}],
+        "input": [{"type": "user_input", "content": [part]}],
         "response_format": response_format,
-        "generation_config": {"speech_config": speech_config},
+        "generation_config": {"speech_config": [{"voice": voice}]},
     }
     if stream:
         payload["stream"] = True

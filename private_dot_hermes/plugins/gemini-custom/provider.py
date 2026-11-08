@@ -2,9 +2,20 @@
 
 Design notes worth keeping:
 
-* All knobs are re-read on every call (``config.yaml`` section + a live override
-  JSON file), so a change applies to the next reply without restarting the
-  gateway. Nothing is cached except the voice catalogue.
+* Every knob is re-read from ``tts.providers.gemini-custom`` on each call, so an
+  edit applies to the next reply without restarting the gateway. Nothing is
+  cached except the voice catalogue.
+* Single speaker, one turn, the reply text is the transcript. Gemini 3.8 treats
+  input as verbatim, so delivery is steered by ``speech_metadata.style`` and by
+  inline tags in the text — never by direction words inside the text.
+  (Multi-speaker dialogue was removed: the API accepts exactly two speakers, and
+  when turns were configured the reply text was discarded, so the provider could
+  never speak what Hermes actually asked for.)
+* The per-request chunk cap is NOT a plugin setting. Hermes splits the text
+  before calling us and reads the cap from ``tts.gemini-custom.max_text_length``
+  — the flat ``tts.<provider>`` namespace where the built-in engines keep theirs
+  (``tts.gemini``, ``tts.edge``). ``tools/limits.py`` derives a safe cap from the
+  model's published token window (8 192 input tokens for the 3.8 TTS models).
 * Audio is requested as ``audio/l16`` by default and wrapped here, because the
   built-in adapter blindly prepends a RIFF header — which double-wraps the WAV
   that Gemini 3.8 returns and leaves a 0.9 ms click of header bytes as PCM.
@@ -20,7 +31,6 @@ import shutil
 import struct
 import subprocess
 import tempfile
-import wave
 from pathlib import Path
 from typing import Any, Iterator, Optional
 
@@ -29,24 +39,18 @@ from agent.tts_provider import TTSProvider
 from . import gemini_api as api
 
 CONFIG_KEY = "gemini-custom"
-OVERRIDE_FILE = "gemini-tts.json"
 
 DEFAULTS: dict[str, Any] = {
     "model": "gemini-3.8-flash-tts",
     "voice": "Kore",
     "language": "",          # only used when voice == "auto": pick a catalogue voice for this locale
     "style": "",             # speech_metadata.style — turn-level delivery, e.g. "warm and enthusiastic"
-    "speaker": "",           # speaker label for the single-speaker turn (multi-speaker mode uses turns)
     "audio_format": "l16",   # wav | l16 | mulaw | alaw  (what we ask the API for)
     "sample_rate": 24000,    # 24000 | 16000 | 8000
     "speed": 1.0,            # applied locally with ffmpeg atempo (the API has no rate parameter)
-    "inline_tags": True,     # keep <laugh> / <sigh> / <short pause> tags in the transcript
-    "output_format": "",     # container override; empty = whatever Hermes asked for
     "timeout": 120,
     "retries": 2,
-    "max_text_length": 8000,
     "voice_catalog_limit": 0,  # 0 = no cap in list_voices()
-    "multi_speaker": {},     # {"speakers": [{"speaker": "A", "voice": "Kore"}, ...], "turns": [...]}
 }
 
 _CONTAINER_ARGS = {
@@ -56,6 +60,11 @@ _CONTAINER_ARGS = {
     "flac": ["-codec:a", "flac"],
     "wav": ["-codec:a", "pcm_s16le"],
 }
+
+# Ogg-backed containers are written to a .ogg path on purpose: Hermes' final
+# voice-bubble pass short-circuits on ".ogg", so the audio is encoded once here
+# instead of once here and once more by ffmpeg downstream.
+_OGG_FAMILY = frozenset({"ogg", "opus"})
 
 _G711_INPUT = {"mulaw": ["-f", "mulaw"], "alaw": ["-f", "alaw"]}
 
@@ -88,49 +97,35 @@ def _profile_home() -> Path:
     return Path(os.environ.get("HERMES_HOME") or (Path.home() / ".hermes"))
 
 
-def _load_config_sections() -> list[dict[str, Any]]:
-    """``tts.providers.gemini-custom`` then ``tts.gemini_custom``, freshest read each call."""
-    sections: list[dict[str, Any]] = []
+def _load_config_section() -> dict[str, Any]:
+    """``tts.providers.gemini-custom``, freshest read each call."""
     try:
         from hermes_cli.config import load_config_readonly
 
         config = load_config_readonly() or {}
     except Exception:  # health: config loading must never break speech
-        return sections
+        return {}
     tts = config.get("tts") if isinstance(config, dict) else None
     if not isinstance(tts, dict):
-        return sections
-    providers = tts.get("providers")
-    if isinstance(providers, dict) and isinstance(providers.get(CONFIG_KEY), dict):
-        sections.append(providers[CONFIG_KEY])
-    if isinstance(tts.get("gemini_custom"), dict):
-        sections.append(tts["gemini_custom"])
-    return sections
-
-
-def _load_override_file() -> dict[str, Any]:
-    path = _profile_home() / OVERRIDE_FILE
-    try:
-        data = json.loads(path.read_text(encoding="utf-8"))
-        return data if isinstance(data, dict) else {}
-    except (OSError, ValueError):
         return {}
+    providers = tts.get("providers")
+    section = providers.get(CONFIG_KEY) if isinstance(providers, dict) else None
+    return section if isinstance(section, dict) else {}
 
 
 def resolve_settings(**kwargs: Any) -> dict[str, Any]:
-    """Order: DEFAULTS < dispatcher kwargs < config.yaml sections < live override file.
+    """Order: ``DEFAULTS < config.yaml section < per-call kwargs``.
 
-    The order is DEFAULTS < config.yaml sections < per-call kwargs < live override
-    file, so an explicit ``voice=``/``model=`` argument beats the static config and
-    ``~/.hermes/gemini-tts.json`` beats everything (change without a restart).
+    Per-call ``voice``/``model``/``speed``/``style`` beat the static config: that
+    is how a ``/voice`` pick and ``tools/render.py`` flags reach the request.
+    Everything else comes from ``tts.providers.gemini-custom``.
     """
     settings = dict(DEFAULTS)
-    for section in _load_config_sections():
-        settings.update({k: v for k, v in section.items() if k not in ("type", "command")})
-    for key in ("voice", "model", "speed"):
+    settings.update({k: v for k, v in _load_config_section().items()
+                     if k not in ("type", "command")})
+    for key in ("voice", "model", "speed", "style"):
         if kwargs.get(key) is not None:
             settings[key] = kwargs[key]
-    settings.update(_load_override_file())
     return settings
 
 
@@ -141,6 +136,13 @@ def _wrap_pcm_wav(pcm: bytes, *, sample_rate: int, channels: int = 1, width: int
     data = struct.pack("<4sI", b"data", len(pcm))
     riff = struct.pack("<4sI4s", b"RIFF", 4 + len(fmt) + len(data) + len(pcm), b"WAVE")
     return riff + fmt + data + pcm
+
+
+def _ogg_path(output_path: str) -> str:
+    """Path to write an Ogg-backed container to: ``.ogg``, so Hermes skips its own
+    transcode (``_finalize_voice_delivery`` short-circuits on that suffix)."""
+    path = Path(output_path).expanduser()
+    return str(path) if str(path).lower().endswith(".ogg") else str(path.with_suffix(".ogg"))
 
 
 def _atempo_chain(speed: float) -> list[str]:
@@ -158,7 +160,7 @@ def _atempo_chain(speed: float) -> list[str]:
 
 
 class GeminiCustomTTS(TTSProvider):
-    """Gemini 3.x TTS with speech_metadata, tags, dialogue, formats and PCM streaming."""
+    """Gemini 3.x TTS with speech_metadata, inline tags, formats and PCM streaming."""
 
     streams_pcm = True
 
@@ -188,7 +190,7 @@ class GeminiCustomTTS(TTSProvider):
 
     def get_setup_schema(self) -> dict[str, Any]:
         return {"name": self.display_name, "badge": "gemini", "tag": "3.8 TTS",
-                "env_vars": [{"key": "GOOGLE_API_KEY",
+                "env_vars": [{"key": "GEMINI_API_KEY",
                               "prompt": "Google AI Studio API key",
                               "url": "https://aistudio.google.com/app/apikey"}]}
 
@@ -242,27 +244,9 @@ class GeminiCustomTTS(TTSProvider):
                     return str(entry["id"])
         return "Kore"
 
-    def _turns(self, text: str, settings: dict[str, Any]) -> tuple[list[dict[str, Any]],
-                                                                   Optional[list[dict[str, str]]]]:
-        multi = settings.get("multi_speaker")
-        if isinstance(multi, dict):
-            speakers = [s for s in (multi.get("speakers") or [])
-                        if isinstance(s, dict) and s.get("speaker") and s.get("voice")][:2]
-            if len(speakers) == 2:
-                turns = [t for t in (multi.get("turns") or []) if isinstance(t, dict) and t.get("text")]
-                if not turns:
-                    turns = [{"text": text, "speaker": speakers[0]["speaker"],
-                              "style": settings.get("style") or ""}]
-                return ([{"text": t.get("text", ""), "speaker": t.get("speaker"),
-                          "style": t.get("style", "")} for t in turns],
-                        [{"speaker": s["speaker"], "voice": s["voice"]} for s in speakers])
-        turn = {"text": text, "style": str(settings.get("style") or "")}
-        if settings.get("speaker"):
-            turn["speaker"] = str(settings["speaker"])
-        return [turn], None
-
-    def _container_for(self, requested: str, settings: dict[str, Any]) -> str:
-        fmt = str(settings.get("output_format") or requested or "mp3").lower().strip().lstrip(".")
+    def _container_for(self, requested: str) -> str:
+        """The caller's ``format``, clamped to the containers we can actually write."""
+        fmt = str(requested or "mp3").lower().strip().lstrip(".")
         return fmt if fmt in _CONTAINER_ARGS else "mp3"
 
     def _write_audio(self, raw: bytes, mime: str, output_path: str, container: str,
@@ -332,25 +316,26 @@ class GeminiCustomTTS(TTSProvider):
     def synthesize(self, text: str, output_path: str, *, voice: Optional[str] = None,
                    model: Optional[str] = None, speed: Optional[float] = None,
                    format: str = "mp3", **extra: Any) -> str:
-        settings = resolve_settings(voice=voice, model=model, speed=speed)
-        payload_voice = self._pick_voice(settings)
-        turns, speakers = self._turns(text, settings)
+        settings = resolve_settings(voice=voice, model=model, speed=speed,
+                                    style=extra.get("style"))
         mime = api.MIME_BY_FORMAT.get(str(settings.get("audio_format") or "l16").lower(), "audio/l16")
         try:
             sample_rate = int(settings.get("sample_rate") or 24000)
         except (TypeError, ValueError):
             sample_rate = 24000
         payload = api.build_payload(
-            model=str(settings.get("model") or DEFAULTS["model"]), turns=turns, voice=payload_voice,
-            speakers=speakers, mime_type=mime, sample_rate=sample_rate)
+            model=str(settings.get("model") or DEFAULTS["model"]), text=text,
+            voice=self._pick_voice(settings), style=str(settings.get("style") or ""),
+            mime_type=mime, sample_rate=sample_rate)
         key = api.resolve_api_key()
         if not key:
             raise RuntimeError("gemini-custom: no GEMINI_API_KEY / GOOGLE_API_KEY available")
         raw, reported_mime, usage = api.synthesize_request(
             payload, api_key=key, timeout=float(settings.get("timeout") or 120),
             retries=int(settings.get("retries") or 0))
-        container = self._container_for(format, settings)
-        written = self._write_audio(raw, reported_mime or mime, output_path, container,
+        container = self._container_for(format)
+        target = _ogg_path(output_path) if container in _OGG_FAMILY else output_path
+        written = self._write_audio(raw, reported_mime or mime, target, container,
                                     sample_rate, float(settings.get("speed") or 1.0))
         self._log_usage(settings, usage, len(text))
         return written
@@ -358,11 +343,10 @@ class GeminiCustomTTS(TTSProvider):
     def stream(self, text: str, *, voice: Optional[str] = None, model: Optional[str] = None,
                format: str = "opus", **extra: Any) -> Iterator[bytes]:
         """Yield raw 24 kHz mono int16 PCM (Hermes' live voice path consumes PCM)."""
-        settings = resolve_settings(voice=voice, model=model)
-        turns, speakers = self._turns(text, settings)
+        settings = resolve_settings(voice=voice, model=model, style=extra.get("style"))
         payload = api.build_payload(
-            model=str(settings.get("model") or DEFAULTS["model"]), turns=turns,
-            voice=self._pick_voice(settings), speakers=speakers,
+            model=str(settings.get("model") or DEFAULTS["model"]), text=text,
+            voice=self._pick_voice(settings), style=str(settings.get("style") or ""),
             mime_type="audio/l16", sample_rate=int(settings.get("sample_rate") or 24000), stream=True)
         key = api.resolve_api_key()
         if not key:

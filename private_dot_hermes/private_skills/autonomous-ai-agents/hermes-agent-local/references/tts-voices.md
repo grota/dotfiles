@@ -96,7 +96,41 @@ handles only the raw-PCM ones cleanly. Model matrix, the double-WAV-wrap tick an
 re-runnable probe: `references/gemini-tts.md` in the
 `multilingual-tts-voice-switching` skill.
 
+## The local `gemini-custom` provider (this install)
+
+- **Knobs** live in `tts.providers.gemini-custom`, re-read on every call (no
+  restart, no `/new`). **Single speaker only** — the two-speaker dialogue mode
+  and the `~/.hermes/gemini-tts.json` runtime override were removed; the reply
+  text is always the transcript, steered by `style` + inline tags. There is no
+  per-call override channel left, so a change is `hermes config set` and it
+  applies to the next reply.
+- **The chunk cap is Hermes-side and in a different namespace:**
+  `tts.gemini-custom.max_text_length` (flat `tts.<provider>`), because
+  `tools/tts_tool_delivery._resolve_max_text_length` reads `tts[<provider>]`.
+  The same key under `tts.providers.gemini-custom` is **silently ignored** and an
+  unrecognised provider falls back to 4000 chars. `hermes config set` answers
+  "not a recognized config key" — cosmetic; the runtime does read it (prove it by
+  calling `_resolve_max_text_length('gemini-custom', _load_tts_config())`).
+- **Derive the cap, don't guess:** `tools/limits.py` prints `inputTokenLimit`
+  from `GET /v1beta/models/{model}` (8192 on every 3.8/3.1/2.5 TTS model) and a
+  safe char cap. Configured here: 16000 chars ≈ 4000 tokens, half the window.
+- **Container:** Hermes passes `format` (`tts.output_format`, default mp3) and
+  then converts to Opus itself for voice bubbles. The plugin writes `.ogg`
+  directly when asked for ogg/opus, which makes Hermes skip that pass —
+  `tts.output_format: ogg` is one ffmpeg encode saved per reply.
+- **Key names:** the plugin accepts `GEMINI_API_KEY`, `GOOGLE_API_KEY` and
+  `GOOGLE_GENERATIVE_AI_API_KEY`. On this box a plain shell sees only the last
+  one (`GEMINI_API_KEY` is an unresolved `${...}` reference outside the gateway),
+  so any script touching this plugin must try all three.
+- Offline suite: `tests/selftest.py` (38 checks, no API calls); contract check:
+  `hermes plugins doctor gemini-custom`.
+
 ## Pitfalls
+
+- **A dead config key is worse than none.** The plugin shipped `inline_tags`,
+  `output_format` and `max_text_length` as knobs that nothing read (and a README
+  that promised they worked). When adding a knob, wire it, then prove it with a
+  test — a documented-but-inert key costs a debugging session later.
 
 - **Never reach for a new provider before reading `tts.edge.voice`.** Voice-id
   language mismatch is the top cause of "accented" speech.

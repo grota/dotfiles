@@ -77,7 +77,14 @@ it), so this check is the one that matters.
 - `stream()` may be called concurrently (the speaker prefetches several sentences): keep it
   stateless or lock it.
 - `synthesize()` must **raise** on failure — the dispatcher turns the exception into its error
-  envelope — and must write `output_path` with an extension matching the container.
+  envelope — and must write `output_path`. Its `format=` argument is **not** the destination
+  container: `_dispatch_to_plugin_provider` passes `tts.output_format` (global, default `mp3`),
+  and the path Hermes hands over always ends `.mp3` because `_NATIVE_OPUS_PROVIDERS` excludes
+  plugin names. With `voice_compatible = True` Hermes then transcodes to Ogg/Opus itself in
+  `_finalize_voice_delivery`, so an mp3-writing plugin pays two ffmpeg passes per reply: return
+  a sibling `.ogg` path and the second pass is skipped. A container that disagrees with the path
+  is only repaired for `.ogg` paths (`_repair_ogg_container`), so foreign bytes in a `.mp3` path
+  reach ffmpeg unchecked.
 - Built-in names always win, and a `tts.providers.<name>: type: command` entry wins over a
   plugin of the same name. Config is treated as more specific than an install.
 
@@ -113,6 +120,16 @@ print `PASS`/`FAIL` per case and exit non-zero.
 
 ## Pitfalls
 
+- **A key in your `DEFAULTS` dict and your README is not a key anyone reads.** Grep the plugin for
+  reads of the key before describing its behaviour to the user: an unused knob is silent — no
+  error, no log, defaults always win — and "the README says it strips tags" then becomes a false
+  claim about the code.
+- **The chunk cap is resolved by Hermes core, not by the plugin.** `_resolve_max_text_length`
+  looks in `tts.<provider>.max_text_length` — *not* `tts.providers.<provider>.max_text_length`,
+  where a provider block temptingly puts it — and an unrecognised (plugin) provider name falls
+  through to a 4000-character cap. Splitting runs before dispatch, so N chunks are N vendor
+  requests against the quota, and a plugin that ignores `text` (script/turns mode) renders its
+  script once per chunk into a file that is then concatenated.
 - `capabilities:` as a mapping is ignored with a warning — it must be a **list**.
 - `hermes plugins enable/disable` reloads plugins live; hand-editing `plugins.enabled` needs a
   gateway restart.

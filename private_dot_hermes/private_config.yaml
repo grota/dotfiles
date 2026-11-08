@@ -109,7 +109,7 @@ model:
   #   It works with both no-auth and auth-enabled server modes.
   #
   # Can also be overridden for a single invocation with the --provider flag.
-  provider: "opencode-zen"
+  provider: "opencode"
 
   # API configuration (falls back to OPENROUTER_API_KEY env var)
   # api_key: "your-key-here"  # Uncomment to set here instead of .env
@@ -2112,14 +2112,17 @@ tts:
     # Local plugin: ~/.hermes/plugins/gemini-custom (enabled via `hermes plugins
     # enable gemini-custom`). It speaks through the Gemini "interactions" API —
     # the 3.8-generation TTS path — and exposes controls the built-in `gemini`
-    # provider never sends: speech_metadata style, speaker turns, inline vocal
-    # tags, exact audio encodings, and PCM streaming for the live voice mode.
+    # provider never sends: speech_metadata style, inline vocal tags, exact audio
+    # encodings, and PCM streaming for the live voice mode.
     # Full docs: ~/.hermes/plugins/gemini-custom/README.md
+    #
+    # Single speaker only: the reply text IS the transcript. Two-speaker dialogue
+    # was removed — the API takes exactly two speakers, and a `turns` script
+    # replaced the reply text, so it could never speak what Hermes asked.
     #
     # Every key here is re-read on EACH spoken reply: no gateway restart, no /new.
     # Precedence (low → high): built-in defaults < this block < per-call
-    # voice=/model= arguments < ~/.hermes/gemini-tts.json (flat JSON override,
-    # takes effect immediately — use it to A/B a voice without editing this file).
+    # voice=/model=/speed=/style= arguments (that is how /voice picks arrive).
     #
     # Requires GOOGLE_API_KEY or GEMINI_API_KEY (env or ~/.hermes/.env).
     # Free tier reality check: 3 requests/minute and 10 requests/DAY per model on
@@ -2146,7 +2149,7 @@ tts:
       #   auto                     first catalogue voice matching `language:`
       # Current pick is a Castilian (es-ES) library voice — the reason to be here
       # instead of the built-in gemini provider, which cannot select these.
-      voice: es-es-podcaster-5
+      voice: Leda
 
       # Turn-level delivery (speech_metadata.style): emotion, pace, volume, tone —
       # applies to the whole turn. Free text, English works best.
@@ -2155,32 +2158,12 @@ tts:
       #   "speaking slowly"         "speaking rapidly"     "angry tone"
       # Leave empty for the voice's own default delivery. Do NOT put age, gender or
       # a different accent here — pick a different voice for that.
-      style: warm and natural
+      style: warm, bantering, flirting, intimate, positive, enthusiastic
 
       # ── optional keys (defaults shown; uncomment to use) ──────────────────
       # Only used with `voice: auto` above: pick a voice by locale instead of name,
       # e.g. es-ES (Castilian), es-419 (Latin American), it-IT, en-GB, pt-PT.
       # language: es-ES
-
-      # Speaker label attached to the single turn. Needed only when mixing this
-      # engine into a labelled dialogue; dialogue mode below sets its own labels.
-      # speaker: A
-
-      # Two-speaker dialogue in ONE request (the API accepts exactly 2 speakers).
-      # `turns` is optional: with no turns the reply text becomes speaker A's line.
-      # multi_speaker:
-      #   speakers:
-      #     - speaker: A
-      #       voice: Kore
-      #     - speaker: B
-      #       voice: Puck
-      #   turns:
-      #     - speaker: A
-      #       text: "¿Vienes mañana a la obra?"
-      #       style: neutral
-      #     - speaker: B
-      #       text: "Sí, llevo el taladro y los tacos."
-      #       style: warm and enthusiastic
 
       # Encoding requested from the API. l16 (headerless 24 kHz PCM) is the default
       # because this plugin wraps the container itself — that is what avoids the
@@ -2194,39 +2177,20 @@ tts:
       # played back at the wrong pitch.
       # sample_rate: 24000
 
-      # Container Hermes finally receives. Empty = whatever Hermes asked for
-      # (mp3 for voice notes, ogg/opus for voice bubbles). Override for archives:
-      #   mp3 | ogg | opus | wav | flac
-      # output_format: ""
-
       # Playback rate multiplier, applied locally with ffmpeg atempo (the API has
       # no rate parameter). 1.0 = untouched; chained automatically outside 0.5–2.0.
       #   speed: 1.15    slightly brisk      speed: 0.9    slower
       # speed: 1.0
-
-      # Pass inline vocal tags through to the model: <laugh>, <sigh>, <cough>,
-      # <breath>, <short pause>. Set false to strip them from the spoken text.
-      # inline_tags: true
 
       # Per-request budget and retry policy. Retries cover 429/5xx, honouring
       # Retry-After; a persistent 429 surfaces as an error, never as silence.
       # timeout: 120
       # retries: 2
 
-      # Advertised cap for one request; Hermes chunks longer replies into several
-      # requests (each one costs quota). Lower it if you hit the length wall first.
-      # max_text_length: 8000
-
       # Cap on entries returned by list_voices() (0 = all 2114). Cosmetic: it only
       # trims the picker in `hermes tools`, not what `voice:` may name.
       # voice_catalog_limit: 0
 
-      # ── live override file ────────────────────────────────────────────────
-      # ~/.hermes/gemini-tts.json (flat JSON, same keys, wins over this block and
-      # applies to the next reply). Example — try a voice for one reply without
-      # touching config.yaml, then delete the file to fall back to this block:
-      #   {"voice": "es-es-training-12", "style": "calm and precise"}
-      #
       # ── helpers ───────────────────────────────────────────────────────────
       # Render one line from a shell (prints the path + a play command):
       #   python3 ~/.hermes/plugins/gemini-custom/tools/render.py "Hola" \
@@ -2234,9 +2198,11 @@ tts:
       # Browse/filter the voice catalogue (cached 24 h, no API cost):
       #   python3 ~/.hermes/plugins/gemini-custom/tools/voices.py --language es-ES
       #   python3 ~/.hermes/plugins/gemini-custom/tools/voices.py --stats
-      # Offline test suite (27 checks, no API calls):
-      #   cd ~/.hermes/hermes-agent && <venv-python> \
-      #     ~/.hermes/plugins/gemini-custom/tests/selftest.py
+      # Offline test suite (38 checks, no API calls):
+      #   python3 ~/.hermes/plugins/gemini-custom/tests/selftest.py
+      # What the model's token window implies for tts.gemini-custom.max_text_length
+      # (metadata call, no audio, no quota):
+      #   python3 ~/.hermes/plugins/gemini-custom/tools/limits.py
       # Usage log, one JSON line per call (model, voice, chars, audio tokens):
       #   ~/.hermes/gemini-tts-usage.jsonl
   gemini:
@@ -2244,6 +2210,20 @@ tts:
     model: gemini-2.5-flash-preview-tts
     audio_tags: false
     persona_prompt_file: ""
+  # Knobs Hermes itself reads, mirroring tts.gemini / tts.edge (flat
+  # tts.<provider>) — NOT the plugin block below; the provider code never sees
+  # these. `hermes config set` appended this key here, which is fine.
+  #
+  # max_text_length is the per-request CHARACTER cap Hermes applies when it
+  # splits a long reply. It is read before the provider is called, which is why
+  # the plugin cannot supply it. The same key under tts.providers.gemini-custom
+  # is silently ignored, and an unknown provider falls back to 4000 chars.
+  # Derive it instead of guessing:
+  #   python3 ~/.hermes/plugins/gemini-custom/tools/limits.py
+  # Every 3.8/3.1/2.5 TTS model reports inputTokenLimit 8192; 16000 chars is
+  # ~4000 tokens of prose — half the window, with headroom for dense text.
+  gemini-custom:
+    max_text_length: 16000
 approvals:
   destructive_slash_confirm: false
 auxiliary:
@@ -2266,3 +2246,15 @@ hooks:
       matcher: ^(write_file|patch|skill_manage)$
       timeout: 10
       fail_closed: true
+secrets:
+  command:
+    enabled: true
+    command: /home/grota/local/bin/hermes-secrets-helper
+    override_existing: false
+dashboard:
+  basic_auth:
+    username: admin
+    password_hash: scrypt$16384$8$1$1lLi9fGI6VY6bM7UoW/ioA==$/v1GkQauTV40IUD+mB4d77NHryDfMOytzlM6KGi4Nbk=
+    secret: j2crzWp_HJ9V2arSSUwkvBldNM6A-gCNwL-UC7wPjRU
+  font: theme
+  theme: ember
