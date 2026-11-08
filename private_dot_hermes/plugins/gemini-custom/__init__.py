@@ -31,7 +31,7 @@ _PROVIDER = GeminiCustomTTS()
 def register(ctx) -> None:
     """Plugin entry point: TTS provider + chunk cap (table entry, no config key)."""
     ctx.register_tts_provider(_PROVIDER)
-    api.install_chunk_cap(allow_network=False)   # cached value or the documented fallback
+    api.install_chunk_cap(allow_network=False, strict=True)  # cached value or the documented fallback
     try:
         ctx.register_hook("pre_llm_call", api.refresh_chunk_cap)
     except Exception:  # a host without hooks must still speak

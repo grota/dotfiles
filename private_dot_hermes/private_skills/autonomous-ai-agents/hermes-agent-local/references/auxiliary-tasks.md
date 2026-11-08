@@ -63,14 +63,34 @@ does nothing, read the debug log before re-reading the vendor docs.
 
 ## The TTS tag task specifically
 
-`tts_audio_tags` only runs when *both* hold:
+Two different switches turn tag rewriting on:
 
-- `tts.gemini.audio_tags` is truthy, and
-- the TTS model name contains `gemini-3.1` and `tts`
-  (`_gemini_audio_tags_enabled`, `tools/tts_tool_providers.py`).
+- **built-in Gemini provider**: `tts.gemini.audio_tags` truthy *and* the model slug
+  contains `gemini-3.1` and `tts` (`_gemini_audio_tags_enabled`,
+  `tools/tts_tool_providers.py`). On any other Gemini TTS model it logs a warning per
+  spoken reply and changes nothing — keep the flag `false` there.
+- **a TTS provider plugin that calls `_rewrite_with_auxiliary_model` itself** (the
+  local `gemini-custom` does, because 3.x interaction models want *angle-bracket*
+  tags while the 3.1 prompt emits square brackets). Then the plugin's own flag
+  decides and the model slug is irrelevant.
 
-On any other Gemini TTS model it logs a warning per spoken reply and changes nothing — keep
-the flag `false` there rather than living with the noise.
+Whichever caller is in play, the system prompt must match the target model's tag
+syntax. Make the prompt overridable from config and print the built-in default next
+to it as a commented block that is *valid YAML once uncommented* (see
+`references/local-config-and-providers.md` for the assertion that guarantees it).
+
+Key naming decides whether a pinned route works at all: `provider: gemini` fails
+with *"no API key was found. Set the GOOGLE_API_KEY environment variable"* when the
+credential exists only as `GOOGLE_GENERATIVE_AI_API_KEY` — the aux resolver wants the
+canonical name. `provider: auto` needs no name, but only resolves inside a live agent
+process, which passes the main runtime into the call; from a bare script it answers
+*"main provider <id> is unavailable and no fallback_chain / fallback_providers is
+configured — refusing to guess"*. Route aux tests through the feature itself.
+
+Small models decline to act, and that is not a failure: gpt-5.4-mini inserts
+`<exhales>` after a startle and leaves neutral prose untouched. Loosen the prompt
+before re-plumbing the route, and budget ~1.5-4 s per request (once per chunk, not
+once per reply).
 
 ## Verification
 
@@ -78,3 +98,12 @@ Aux routes cannot be tested by config readback alone, because failures are swall
 Exercise the feature that uses the task and inspect the log; and re-read the whole
 `auxiliary:` section after `hermes config set`, since setting one key can materialise
 sibling defaults into `config.yaml`.
+
+For tag rewriting, make degradation visible and measurable:
+
+- log a warning when the rewrite returns the text unchanged (*"tags requested but the
+  auxiliary `tts_audio_tags` rewrite returned the text unchanged; speaking it
+  untagged"*) — a silent fallback looks identical to a model that declined;
+- `~/.hermes/gemini-tts-usage.jsonl` records `chars` per synthesis, so a value larger
+  than the text you sent proves tags were inserted *in that call*; equal length means
+  the route failed or declined.

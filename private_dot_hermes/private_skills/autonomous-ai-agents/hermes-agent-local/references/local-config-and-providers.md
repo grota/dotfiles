@@ -35,6 +35,13 @@ Local additions to the bundled `references/configuration.md` and
   YAML is refused rather than stored as a string; a key whose default is a string
   keeps the value verbatim unless it parses as a list/mapping, and quoting forces
   a plain string.
+- **Documenting a long default in `config.yaml`**: keep the text canonical in code,
+  generate the commented copy from that constant, and have the writer script
+  assert both properties — `yaml.safe_load(file)` is unchanged, and stripping the
+  leading `# ` from the *key block* parses back to the identical string
+  (`key: |-`, body indented two spaces deeper than the key). Without that second
+  assertion a user who uncomments the block gets a parse error, or a subtly
+  different value, and no one notices until it matters.
 - API keys are stripped from the environment handed to **tool subprocesses**, so
   `env | grep KEY` inside a terminal call proves nothing about whether Hermes
   holds that key. Filter by name not line when you do look:
@@ -190,6 +197,32 @@ A plugin that registers a hook can still fail silently on a host without the hoo
 API: wrap `ctx.register_hook(...)` in `try/except` so the plugin's main capability
 (a TTS provider, a tool) still loads.
 
+## Supplying a value the runtime needs *before* the provider runs
+
+Some knobs are consumed by Hermes itself before any provider code executes — the
+per-request TTS chunk cap is one: `text_to_speech` splits the text, then
+`_dispatch_to_plugin_provider()` discovers and calls the provider. A plugin cannot
+answer that call, but the table Hermes reads is importable in the same process and
+`register()` runs earlier than the first reply, so the plugin can publish its own
+entry and the user needs no duplicate config key in a second namespace:
+
+1. **Publish into the runtime's table** at registration
+   (`tools.tts_tool_delivery.PROVIDER_MAX_TEXT_LENGTH[name] = cap`). Prefer this
+   over a `tts.<provider>.max_text_length` key, which is a different namespace from
+   the plugin's own `tts.providers.<provider>` block and earns a schema warning.
+2. **Derive, don't hardcode**: take the value from an authoritative source (a
+   metadata endpoint), cache it on disk with a long TTL, and refresh from a cheap
+   hook (`pre_llm_call`) so a stale cache self-heals without a restart. Use the
+   documented constant only as an offline fallback.
+3. **Round-trip it**: after publishing, ask the runtime's own resolver what it will
+   use (`_resolve_max_text_length(name, {})`) and require your number back.
+4. **Fail loudly when the internal moves or disagrees** — `strict=True` at
+   registration (surfaces in `hermes plugins doctor` and the log), a re-check in
+   every provider call, and *log-only* inside hooks, because a hook that raises
+   breaks turns for reasons unrelated to speech.
+5. **Leave entries you did not write alone**, and skip the round-trip when the user
+   pinned the value in config: an explicit choice is not a broken contract.
+
 ## Which env var does a provider want?
 
 Never guess from the provider id. The registry tuple is authoritative:
@@ -204,6 +237,20 @@ OAuth providers (`anthropic` via Claude Pro, `openai-codex`, `xai`) have no env
 var at all — their credential is a token in `auth.json`. Two cheap cross-checks:
 `hermes doctor | grep -i missing` names the variable for anything unresolved, and
 `hermes auth add <provider> --type api-key` resolves an id to its credential slot.
+
+- **One key can exist under several names, and not all of them work.** A secret
+  file may carry both the vendor's `<PROVIDER>_API_KEY` and the SDK-canonical name
+  (`GOOGLE_GENERATIVE_AI_API_KEY`), plus a `${OTHER_KEY}` reference that never got
+  expanded. Treat those as *candidates*, not equivalents: skip values containing
+  `$`, try the rest in order, and rotate to the next one on an auth failure
+  (`API key not valid` / `API_KEY_INVALID`) rather than failing the whole turn.
+  Cache the name that worked for the rest of the process — it saves a rejected
+  request on every call.
+- **A consumer with its own name list is a separate problem.** The auxiliary
+  resolver (see `references/auxiliary-tasks.md`) wants the canonical variable
+  only, so a task pinned to `gemini` can report *"no API key was found"* while a
+  directly-called plugin authenticates fine with the same credential under
+  another name.
 
 ## Provider keys do not flow from a source (verified)
 

@@ -50,6 +50,14 @@ class GeminiTTSError(RuntimeError):
     """Any failure talking to the Gemini TTS API (message is user-facing)."""
 
 
+class ChunkCapContractError(RuntimeError):
+    """Hermes' chunk-cap table is missing or no longer behaves as this plugin needs.
+
+    Deliberately loud: the alternative is splitting long replies at an arbitrary
+    4000 characters while everything looks fine. See ``install_chunk_cap``.
+    """
+
+
 def _hermes_home() -> Path:
     return Path(os.environ.get("HERMES_HOME") or (Path.home() / ".hermes"))
 
@@ -332,30 +340,126 @@ def chunk_cap_for(model: Optional[str] = None, *, allow_network: bool = True) ->
     return max(1000, int(tokens * CHARS_PER_TOKEN_FLOOR) // 1000 * 1000)
 
 
-def install_chunk_cap(name: str = "gemini-custom", *, allow_network: bool = False) -> Optional[int]:
-    """Publish the cap into Hermes' provider table; returns what Hermes will use.
+def _provider_table() -> dict[str, int]:
+    """Hermes' provider→cap table, or a loud ``ChunkCapContractError``.
 
-    Idempotent and non-destructive: an entry we did not write (upstream's, or a
-    future config-driven one) is left alone. Any failure means "leave Hermes'
-    own resolution in place", which is the pre-existing behaviour.
+    This is an internal data structure, not a documented extension point. If it
+    moves or is renamed, saying nothing would silently split long replies at
+    Hermes' 4000-character fallback; failing here surfaces it in
+    ``hermes plugins doctor``, in the gateway log, and in every reply.
     """
     try:
         from tools.tts_tool_delivery import PROVIDER_MAX_TEXT_LENGTH
+    except Exception as exc:
+        raise ChunkCapContractError(
+            "gemini-custom: Hermes' chunk-cap table is gone "
+            "(tools.tts_tool_delivery.PROVIDER_MAX_TEXT_LENGTH). Without it the "
+            "plugin cannot publish its per-request cap and long replies would be "
+            "split at 4000 characters. Fix the import path or pin the cap in "
+            "Hermes itself.") from exc
+    if not isinstance(PROVIDER_MAX_TEXT_LENGTH, dict):
+        raise ChunkCapContractError(
+            "gemini-custom: tools.tts_tool_delivery.PROVIDER_MAX_TEXT_LENGTH is "
+            f"{type(PROVIDER_MAX_TEXT_LENGTH).__name__}, expected a dict.")
+    return PROVIDER_MAX_TEXT_LENGTH
+
+
+def _resolve_via_hermes(name: str, cap: int) -> int:
+    """What Hermes' own resolver returns for *name* with an empty config."""
+    from tools.tts_tool_delivery import _resolve_max_text_length
+
+    return int(_resolve_max_text_length(name, {}))
+
+
+def _config_override(name: str) -> Optional[int]:
+    """``tts.<name>.max_text_length`` if the user pinned one (it outranks us)."""
+    try:
+        from hermes_cli.config import load_config_readonly
+
+        tts = (load_config_readonly() or {}).get("tts") or {}
+        section = tts.get(name) if isinstance(tts, dict) else None
+        value = section.get("max_text_length") if isinstance(section, dict) else None
+        return int(value) if isinstance(value, int) and value > 0 else None
     except Exception:
         return None
-    cap = chunk_cap_for(allow_network=allow_network)
-    current = PROVIDER_MAX_TEXT_LENGTH.get(name)
-    if current is not None and current != _table.get(name):
-        return current  # somebody else owns the entry; don't fight it
-    PROVIDER_MAX_TEXT_LENGTH[name] = cap
-    _table[name] = cap
-    return cap
+
+
+def _check_contract(name: str, cap: int) -> None:
+    """Round-trip through Hermes' resolver; raises ``ChunkCapContractError``."""
+    if _config_override(name):
+        return  # an explicit config value is the user's call, not a broken contract
+    resolved = _resolve_via_hermes(name, cap)
+    if resolved != cap:
+        raise ChunkCapContractError(
+            "gemini-custom: published max_text_length=%d for '%s' but Hermes "
+            "resolves %s. Its chunk-cap contract changed — see "
+            "tools/tts_tool_delivery._resolve_max_text_length." % (cap, name, resolved))
+
+
+def install_chunk_cap(name: str = "gemini-custom", *, allow_network: bool = False,
+                      strict: bool = False) -> Optional[int]:
+    """Publish the cap into Hermes' provider table; returns what Hermes will use.
+
+    Idempotent and non-destructive: an entry we did not write (upstream's, or a
+    config override) is left alone. With ``strict=True`` (plugin registration) a
+    broken contract raises :class:`ChunkCapContractError`; otherwise it is logged
+    and the previous behaviour is kept — the hook must never break a turn.
+    """
+    try:
+        table = _provider_table()
+        cap = chunk_cap_for(allow_network=allow_network)
+        current = table.get(name)
+        if current is not None and current != _table.get(name):
+            return current  # somebody else owns the entry; don't fight it
+        table[name] = cap
+        _table[name] = cap
+        _check_contract(name, cap)
+        return cap
+    except ChunkCapContractError as exc:
+        if strict:
+            raise
+        import logging
+
+        logging.getLogger(__name__).error("%s", exc)
+        return None
+
+
+def chunk_cap_status(name: str = "gemini-custom") -> tuple[bool, str]:
+    """``(ok, detail)`` — cheap contract probe for the synthesize path."""
+    try:
+        table = _provider_table()
+    except ChunkCapContractError as exc:
+        return False, str(exc)
+    cap = table.get(name)
+    if not isinstance(cap, int) or cap <= 0:
+        return False, (f"gemini-custom: no chunk cap published for '{name}'; Hermes "
+                       "would split replies at 4000 characters.")
+    if _config_override(name):
+        return True, "config override"
+    try:
+        _check_contract(name, cap)
+    except ChunkCapContractError as exc:
+        _table.pop(name, None)   # force a re-publish attempt on the next call
+        return False, str(exc)
+    return True, "ok"
+
+
+def require_chunk_cap_contract(name: str = "gemini-custom") -> None:
+    """Raise ``ChunkCapContractError`` unless Hermes will honour our cap.
+
+    Called from ``synthesize``/``stream``: a broken contract must fail the reply
+    loudly, not quietly chunk at 4000 characters.
+    """
+    ok, detail = chunk_cap_status(name)
+    if not ok:
+        raise ChunkCapContractError(detail)
 
 
 def refresh_chunk_cap(**_kwargs: Any) -> None:
     """``pre_llm_call`` hook body: one metadata request per model per 30 days.
 
-    Hook failures must never touch the turn, so everything is swallowed.
+    Hook failures must never touch the turn, so everything is swallowed (and a
+    contract problem is logged by ``install_chunk_cap`` itself).
     """
     try:
         install_chunk_cap(allow_network=True)

@@ -82,7 +82,7 @@ also want English replies.
 |---|---|---|
 | Edge (default) | Good neural, slight TTS tell | Free, no key, instant |
 | ElevenLabs `eleven_multilingual_v2` | Best; Spanish (Spain) and (Mexico) supported | Free tier 10k credits/mo ≈ 10 min of audio, **no commercial licence**, Voice Library not usable via API on free; Starter $6/mo |
-| Gemini `gemini-2.5-flash-preview-tts` | Very good, multilingual voices | Free tier in AI Studio (inputs used for product improvement); needs `GOOGLE_API_KEY`; 32k-char cap. Source: aistudio pricing page |
+| Gemini `gemini-2.5-flash-preview-tts` | Very good, multilingual voices | Free tier in AI Studio (inputs used for product improvement); needs `GOOGLE_API_KEY`. The built-in adapter's 32 000 "char" cap is the 8192-**token** input window reused as characters, so dense text can overflow it — the 3.x models want ~16 000 chars. Source: aistudio model card + pricing page |
 | OpenAI `gpt-4o-mini-tts` | Very good, steerable via instructions | Paid; needs `VOICE_TOOLS_OPENAI_KEY` |
 | xAI | Decent | Paid; `tts.xai.language` accepts BCP-47 or `auto` |
 | Piper (`piper`, `es_ES` voices) | Robotic but intelligible | Free, offline; only if offline matters |
@@ -116,15 +116,19 @@ re-runnable probe: `references/gemini-tts.md` in the
   config key" warning. A flat `tts.<provider>.max_text_length` would still win —
   that is where the chunker looks, and it is a *different* namespace from
   `tts.providers.<provider>`, where the plugin reads its own knobs; Hermes'
-  schema only knows built-in provider names, hence the warning.
-- **Tags:** `tags: true` inserts `<laugh>`/`<sigh>`/`<breath>` via the auxiliary
-  task `tts_audio_tags` (the same helper Hermes' own Gemini/xAI adapters use),
-  skipped when the text is already tagged, above 80% of the cap, or when the
-  auxiliary call fails (logged; spoken untagged). Off by default: one extra LLM
-  round trip per request. Aux caveat on this box: from a bare shell the auxiliary
-  client cannot validate the main `opencode-zen` provider and looks for
-  `GOOGLE_API_KEY`, while the working key is `GOOGLE_GENERATIVE_AI_API_KEY` — pin
-  `auxiliary.tts_audio_tags` to a keyed provider/model if tags must work.
+  schema only knows built-in provider names, hence the warning. The contract is
+  verified by round-tripping through `_resolve_max_text_length`; a mismatch
+  raises `ChunkCapContractError` at registration and in every synthesize call
+  instead of silently chunking at 4000.
+- **Tags:** `tags: true` inserts the model's own vocal events (`<laugh>`,
+  `<sigh>`, `<breath>`, … — 40 spellings, spaces and hyphens included) through
+  the auxiliary task `tts_audio_tags`; `tts_audio_tags_prompt` replaces the
+  instruction, and the default is printed verbatim in `config.yaml` so it can be
+  uncommented and edited. Skipped when the text is already tagged, above 80% of
+  the cap, or when the auxiliary call returns nothing (logged; spoken untagged).
+  Enabled here with `auxiliary.tts_audio_tags` → `openai` / `gpt-5.4-mini`
+  (~1.5-4 s per request; it declines to tag neutral prose, which is the model's
+  judgement, not a failure).
 - **Run Hermes-workspace scripts with `python`** (the install venv), not
   `python3`: the `python3` shim re-execs through `runpy` and breaks on stdin or
   heredoc input, and the interpreter it relaunches may lack `ruamel`.
@@ -141,7 +145,7 @@ re-runnable probe: `references/gemini-tts.md` in the
   (`api key not valid` / `API_KEY_INVALID`, never on quota or 5xx), and remember
   the key that worked for the rest of the process. Reject values containing `$`
   before trying them.
-- Offline suite: `tests/selftest.py` (49 checks, no API calls); contract check:
+- Offline suite: `tests/selftest.py` (55 checks, no API calls); contract check:
   `hermes plugins doctor gemini-custom`.
 
 ## Pitfalls

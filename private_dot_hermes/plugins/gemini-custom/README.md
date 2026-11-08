@@ -51,7 +51,8 @@ per-call arguments are how a `/voice` pick and `tools/render.py` flags arrive.
 | `voice` | `Kore` | A prebuilt name (`Kore`, `Puck`, …), any id from the Extended Voice Library (`es-ES` castilian voices: `es-es-podcaster-5`, `es-es-training-12`, …), a Voice design `voice_…` id, a replication id, or `auto` |
 | `language` | `""` | Only with `voice: auto`: pick the first catalogue voice whose `language_code` matches, e.g. `es-ES` |
 | `style` | `""` | `speech_metadata.style` — turn-level delivery: `"whispered urgently"`, `"warm and enthusiastic"`, `"speaking slowly"` |
-| `tags` | `false` | Insert inline vocal tags (`<laugh>`, `<sigh>`, `<breath>`, `<short pause>`) with the auxiliary model registered as `auxiliary.tts_audio_tags`. Off by default: one extra model round trip per request |
+| `tags` | `false` | Insert inline vocal tags (`<laugh>`, `<sigh>`, `<breath>`, `<short pause>`, …) with the auxiliary model registered as `auxiliary.tts_audio_tags`. One extra model round trip per request |
+| `tts_audio_tags_prompt` | `""` | System prompt for that rewrite; empty = the built-in default (40-tag vocabulary, shown verbatim in `config.yaml`) |
 | `audio_format` | `l16` | `wav`, `l16`, `mulaw`, `alaw` — the encoding requested from the API |
 | `sample_rate` | `24000` | `24000`, `16000`, `8000`; the *reported* rate is used for decoding, since the API clamps some encodings (mu-law comes back at 8000) |
 | `speed` | `1.0` | Rate multiplier applied locally with ffmpeg `atempo` (the API has no rate parameter); chained for values outside 0.5–2.0 |
@@ -79,6 +80,13 @@ the plugin publishes its own entry there:
   synthesis call, so it does not touch the 10-a-day TTS quota.
 - an entry the plugin did not write is never overwritten, and any failure leaves
   Hermes' own resolution in place.
+- **the contract is checked, not assumed.** Because this reaches into a Hermes
+  internal, the plugin round-trips its value through Hermes' own resolver. If the
+  table is gone, renamed, or resolves to a different number, plugin registration
+  raises `ChunkCapContractError` (visible in `hermes plugins doctor` and the
+  gateway log) and every `synthesize`/`stream` call fails with the same message —
+  loud, instead of silently chunking at 4000 characters. The `pre_llm_call` hook
+  is the one place that only logs, since it must never break a turn.
 
 So there is nothing to put in `config.yaml`, and no `not a recognized config
 key` warning. A flat `tts.gemini-custom.max_text_length` would still win if you

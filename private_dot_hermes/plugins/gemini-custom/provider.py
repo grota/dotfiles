@@ -47,6 +47,7 @@ DEFAULTS: dict[str, Any] = {
     "language": "",          # only used when voice == "auto": pick a catalogue voice for this locale
     "style": "",             # speech_metadata.style — turn-level delivery, e.g. "warm and enthusiastic"
     "tags": False,           # insert <laugh>/<sigh>/<short pause> via the auxiliary tts_audio_tags task
+    "tts_audio_tags_prompt": "",  # system prompt for that rewrite; empty = the built-in default
     "audio_format": "l16",   # wav | l16 | mulaw | alaw  (what we ask the API for)
     "sample_rate": 24000,    # 24000 | 16000 | 8000
     "speed": 1.0,            # applied locally with ffmpeg atempo (the API has no rate parameter)
@@ -149,30 +150,47 @@ def _ogg_path(output_path: str) -> str:
 
 # --- inline vocal tags -----------------------------------------------------
 # Gemini 3.8 wants point-in-time vocal events as angle-bracket tags inside the
-# transcript (<laugh>, <sigh>, <cough>, <breath>, <short pause>) and *delivery*
-# in speech_metadata.style. Hermes already ships that rewriting as an auxiliary
+# transcript (<laugh>, <sigh>, <short pause>) and *delivery* in
+# speech_metadata.style. Hermes already ships that rewriting as an auxiliary
 # task — `auxiliary.tts_audio_tags` picks the model — so this reuses that task
 # instead of opening a second LLM path. Off by default: it costs one extra model
 # round trip per request (i.e. per chunk) and adds its latency to the reply.
-_TAGGED_RE = re.compile(
-    r"<\s*/?\s*(?:laugh|laughs|sigh|sighs|cough|breath|gasp|hum|short pause|long pause)\b[^>]*>",
-    re.IGNORECASE)
+# `tts_audio_tags_prompt` in the plugin config replaces the default below.
+_TAGGED_RE = re.compile(r"<\s*/?\s*[A-Za-z][A-Za-z0-9 \-]{0,24}>")
+
+# Tag vocabulary verified against the Gemini 3.8 TTS model card. The spelling
+# matters (spaces and hyphens included): <short pause>, <throat-clearing>.
+TTS_AUDIO_TAGS = (
+    "argh", "breath", "heavy breath", "exhales", "cackle", "cheer", "chuckle",
+    "chuckles", "cough", "cry", "gasp", "giggle", "groan", "growl", "grunt",
+    "grr", "hiss", "laugh", "laughter", "moan", "pant", "pff", "phew", "scream",
+    "shout", "shriek", "sigh", "sighs", "sneeze", "snicker", "snort", "sob",
+    "throat-clearing", "tsk", "whimper", "whispers", "whispering", "yawn",
+    "short pause", "long pause",
+)
 
 _TAG_SYSTEM_PROMPT = (
-    "You rewrite a transcript for Gemini 3.8 Flash TTS by inserting inline "
-    "angle-bracket vocal events.\n\n"
-    "Allowed tags: <laugh>, <sigh>, <cough>, <breath>, <gasp>, <short pause>. "
-    "Use them sparingly — only where a person would actually make that sound, at "
-    "most one per sentence, and never in the first or the last sentence.\n\n"
+    "You rewrite a transcript for Gemini 3.8 Flash TTS by inserting inline\n"
+    "angle-bracket vocal events.\n"
+    "\n"
+    "Allowed tags (use these spellings exactly, inside angle brackets):\n"
+    + "\n".join(", ".join(f"<{tag}>" for tag in TTS_AUDIO_TAGS[i:i + 6])
+                for i in range(0, len(TTS_AUDIO_TAGS), 6))
+    + "\n"
+    "\n"
+    "Only insert a tag where a person would actually make that sound: at most\n"
+    "one per sentence, never in the first or the last sentence, and never two\n"
+    "in a row.\n"
+    "\n"
     "Rules:\n"
     "- Preserve the spoken words, order and meaning exactly.\n"
     "- Do not add, remove, reword or translate anything that is spoken.\n"
-    "- Do not insert delivery instructions (whispered, excited, slowly) and do "
-    "not use square brackets: delivery is set separately through "
-    "speech_metadata.style.\n"
-    "- No SSML, no XML other than the tags listed above.\n"
+    "- Do not put delivery instructions (whispered, excited, slowly) in tags:\n"
+    "  delivery is set separately through speech_metadata.style.\n"
+    "- No square brackets, no SSML; only the angle-bracket tags listed above.\n"
     "- Do not explain or comment. Return only the tagged transcript."
 )
+
 
 
 def _rewrite_tags(system_prompt: str, user_prompt: str, fallback: str) -> str:
@@ -310,8 +328,9 @@ class GeminiCustomTTS(TTSProvider):
             cap = 0
         if cap and len(text) > int(cap * 0.8):
             return text  # tags would push the request past the model window
+        system_prompt = str(settings.get("tts_audio_tags_prompt") or "").strip() or _TAG_SYSTEM_PROMPT
         try:
-            tagged = _rewrite_tags(_TAG_SYSTEM_PROMPT, f"TRANSCRIPT TO TAG:\n{text}", text)
+            tagged = _rewrite_tags(system_prompt, f"TRANSCRIPT TO TAG:\n{text}", text)
         except Exception:
             return text
         if tagged == text:
@@ -425,6 +444,7 @@ class GeminiCustomTTS(TTSProvider):
                    format: str = "mp3", **extra: Any) -> str:
         settings = resolve_settings(voice=voice, model=model, speed=speed,
                                     style=extra.get("style"))
+        api.require_chunk_cap_contract()
         text = self._tagged_text(text, settings)
         mime = api.MIME_BY_FORMAT.get(str(settings.get("audio_format") or "l16").lower(), "audio/l16")
         try:
@@ -450,6 +470,7 @@ class GeminiCustomTTS(TTSProvider):
                format: str = "opus", **extra: Any) -> Iterator[bytes]:
         """Yield raw 24 kHz mono int16 PCM (Hermes' live voice path consumes PCM)."""
         settings = resolve_settings(voice=voice, model=model, style=extra.get("style"))
+        api.require_chunk_cap_contract()
         text = self._tagged_text(text, settings)
         payload = api.build_payload(
             model=str(settings.get("model") or DEFAULTS["model"]), text=text,

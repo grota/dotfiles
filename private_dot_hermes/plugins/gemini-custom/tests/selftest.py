@@ -250,6 +250,63 @@ check("a failing rewrite returns the original text",
       provider.GeminiCustomTTS()._tagged_text("Hola.", {"tags": True}) == "Hola.")
 provider._rewrite_tags = _orig_rewrite
 
+# the prompt is overridable; the shipped default covers the full tag vocabulary
+_seen_prompt: list[str] = []
+provider._rewrite_tags = lambda system, user, fallback: _seen_prompt.append(system) or fallback
+provider.GeminiCustomTTS()._tagged_text("Hola.", {"tags": True, "tts_audio_tags_prompt": "MY PROMPT"})
+check("tts_audio_tags_prompt overrides the default", _seen_prompt == ["MY PROMPT"], str(_seen_prompt))
+_seen_prompt.clear()
+provider.GeminiCustomTTS()._tagged_text("Hola.", {"tags": True})
+check("empty override falls back to the built-in prompt",
+      bool(_seen_prompt) and _seen_prompt[0] == provider._TAG_SYSTEM_PROMPT)
+provider._rewrite_tags = _orig_rewrite
+check("tag vocabulary includes the spaced and hyphenated ones",
+      "heavy breath" in provider.TTS_AUDIO_TAGS and "throat-clearing" in provider.TTS_AUDIO_TAGS
+      and "short pause" in provider.TTS_AUDIO_TAGS and len(provider.TTS_AUDIO_TAGS) == 40)
+check("tagged-with-specials text is detected",
+      bool(provider._TAGGED_RE.search("Hola <throat-clearing> y <heavy breath> ya.")))
+
+# ---- chunk-cap contract: must fail loudly when Hermes changes -----------
+try:
+    from tools.tts_tool_delivery import PROVIDER_MAX_TEXT_LENGTH
+
+    api._table.clear()
+    PROVIDER_MAX_TEXT_LENGTH.pop("gemini-custom", None)
+    check("contract ok after install", api.install_chunk_cap(strict=True) == 16000
+          and api.chunk_cap_status() == (True, "ok"), str(api.chunk_cap_status()))
+
+    _orig_table = api._provider_table
+    api._provider_table = lambda: (_ for _ in ()).throw(
+        api.ChunkCapContractError("gemini-custom: table gone (simulated)"))
+    try:
+        api.install_chunk_cap(strict=True)
+        check("strict install raises on a broken contract", False, "no exception")
+    except api.ChunkCapContractError:
+        check("strict install raises on a broken contract", True)
+    check("non-strict install degrades silently for the hook",
+          api.install_chunk_cap(strict=False) is None)
+    check("status reports the broken contract", api.chunk_cap_status()[0] is False,
+          str(api.chunk_cap_status()))
+    try:
+        api.require_chunk_cap_contract()
+        check("synthesize gate raises on a broken contract", False, "no exception")
+    except api.ChunkCapContractError:
+        check("synthesize gate raises on a broken contract", True)
+    api._provider_table = _orig_table
+
+    _orig_resolve = api._resolve_via_hermes
+    api._resolve_via_hermes = lambda name, cap: 4000
+    try:
+        api.install_chunk_cap(strict=True)
+        check("strict install raises when Hermes resolves another value", False, "no exception")
+    except api.ChunkCapContractError as exc:
+        check("strict install raises when Hermes resolves another value", "resolves 4000" in str(exc))
+    api._resolve_via_hermes = _orig_resolve
+    api._table.clear()
+    api.install_chunk_cap(strict=True)
+except ImportError:
+    print("SKIP contract checks (tools.tts_tool_delivery not importable)")
+
 print()
 if FAILED:
     print(f"{len(FAILED)} FAILED: {', '.join(FAILED)}")
