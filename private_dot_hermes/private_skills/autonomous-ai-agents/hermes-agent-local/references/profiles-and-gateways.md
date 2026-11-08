@@ -180,12 +180,15 @@ credentials never are.
   `DEFAULT_CONFIG` + the file, so ~20 lines (model block, memory limits, a couple
   of gateway flags) is a complete config. Never hand over a copy of a
   2,000-line file that is mostly commented defaults.
-- Versioning a Hermes home: keep `config.yaml`, `SOUL.md`, `memories/*.md`,
-  hand-written `plugins/`, custom scripts, `cron/jobs.json`. Ignore `state.db*`,
-  `sessions/`, `logs/`, `cache/`, `checkpoints/`, `backups/`, `telemetry/`,
-  `auth.json`, `.env`, `whatsapp/`, `webapp/`, and the runtime trees (`tools/`,
+- Versioning a Hermes home: keep `config.yaml`, `SOUL.md`, `memories/*.md`
+  (encrypted — they are personal data), plugins you wrote yourself, custom
+  scripts, `agent-hooks/`. Do **not** track `cron/jobs.json` (scheduler state,
+  rewritten on its own schedule), contributed plugins installed from the catalog,
+  `auth.json`, `.env`, `state.db*`, `sessions/`, `logs/`, `cache/`, `checkpoints/`,
+  `backups/`, `telemetry/`, `whatsapp/`, `webapp/`, or the runtime trees (`tools/`,
   `installs/`, `hermes-agent/` — the checkout has its own git). Of `skills/`,
-  version only agent-created ones; `hermes update` re-seeds bundled ones.
+  version only agent-created ones; `hermes update` re-seeds bundled ones. The full
+  ignore strategy lives in `references/chezmoi-integration.md`.
 - With a copy-based dotfiles manager, review its diff before applying: Hermes
   mutates `config.yaml` itself (multiplex flag, "always allow" approvals,
   `/model` switches).

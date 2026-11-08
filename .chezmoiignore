@@ -435,14 +435,53 @@ local/bin/plannotator
 **/__pycache__
 
 # --- Hermes Agent (see private_dot_hermes) ---
+# Secrets and credentials
 .hermes/.env
 .hermes/auth.json
+.hermes/shell-hooks-allowlist.json
+.hermes/platforms
+.hermes/webapp
+.hermes/whatsapp
+.hermes/pairing
+
+# Databases, sessions, history, pastes
 .hermes/state.db*
 .hermes/shared-state.db*
 .hermes/kanban.db*
 .hermes/projects.db*
 .hermes/sessions
-.hermes/logs
+.hermes/terminal-sessions
+.hermes/.hermes_history
+.hermes/spawn-ledger.json
+.hermes/pastes
+.hermes/pending_messages
+.hermes/tui-pending-inputs
+.hermes/tui-theme-boot.json
+.hermes/telegram_update_receipts_*.json
+
+# Gateway and runtime state
+.hermes/gateway.pid
+.hermes/gateway_state.json
+.hermes/gateway-starts.log
+.hermes/gateway_voice_mode.json
+.hermes/state
+.hermes/runtime
+.hermes/processes.json
+.hermes/channel_directory.json
+.hermes/desktop
+.hermes/hooks
+.hermes/kanban
+.hermes/sandboxes
+.hermes/install_id
+.hermes/.restart_last_processed.json
+.hermes/plugin-update-checks
+.hermes/source-checks
+
+# Caches, backups, runtimes
+.hermes/cron
+.hermes/pending
+.hermes/tts/langvoice.log
+.hermes/tts/last_lang
 .hermes/cache
 .hermes/tools
 .hermes/installs
@@ -450,20 +489,52 @@ local/bin/plannotator
 .hermes/backups
 .hermes/state-snapshots
 .hermes/checkpoints
-.hermes/whatsapp
-.hermes/webapp
+.hermes/logs
 .hermes/telemetry
-.hermes/pairing
 .hermes/audio_cache
 .hermes/image_cache
-.hermes/pending
+.hermes/.curator_backups
 .hermes/models_dev_cache.json
+.hermes/models_dev_cache.etag
+.hermes/provider_models_cache.json
+.hermes/.provider_models_cache_*.tmp
 .hermes/.skills_prompt_snapshot.json
 .hermes/config.yaml.bak*
+
+# Locks (gateway, memory, provider caches, cron ticker, ...)
+.hermes/*.lock
+.hermes/**/*.lock
+
+# Plugins: only locally written ones are tracked
+.hermes/plugins/.install-metadata.json*
+.hermes/plugins/opencode-free-acp
+
+# Skills: only agent-created skills are tracked. `.hermes/skills/*/*` ignores
+# every skill dir; each managed skill needs its negation below. Do NOT ignore a
+# category dir wholesale — a negation cannot re-include below an ignored parent.
+.hermes/skills/*/*
+!.hermes/skills/autonomous-ai-agents/hermes-agent-local
+!.hermes/skills/devops/hermes-pm-maintenance
+!.hermes/skills/devops/multilingual-tts-voice-switching
+!.hermes/skills/devops/verifying-external-service-access
+!.hermes/skills/productivity/pdf-table-extraction
+!.hermes/skills/productivity/public-service-watch
+!.hermes/skills/research/citation-freshness
+!.hermes/skills/software-development/hermes-plugin-development
+.hermes/skills/.locks
+.hermes/skills/.usage.json
+.hermes/skills/.usage.json.lock
 .hermes/skills/.bundled_manifest
 .hermes/skills/.hub
 .hermes/skills/.archive
 .hermes/skills/.curator*
-.hermes/plugins/.install-metadata.json*
-**/.git
-.hermes/cron
+# bundled-only category dirs (upstream adds a new one occasionally: add a line)
+.hermes/skills/apple
+.hermes/skills/creative
+.hermes/skills/email
+.hermes/skills/hermes-feature-questions
+.hermes/skills/media
+.hermes/skills/note-taking
+.hermes/skills/regional-product-sourcing
+.hermes/skills/social-media
+.hermes/skills/web
