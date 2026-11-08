@@ -42,7 +42,11 @@ from . import gemini_api as api
 CONFIG_KEY = "gemini-custom"
 
 DEFAULTS: dict[str, Any] = {
-    "model": "gemini-3.8-flash-tts",
+    # Ordered fallback chain. Each reply starts at the first model with budget
+    # left; a 429 (after retries) moves to the next one for that reply.
+    "models": ["gemini-3.8-flash-tts"],
+    "fallback": "edge",      # edge | none — used when every model is out of budget
+    "fallback_voice": "",    # empty = tts.edge.voice
     "voice": "Kore",
     "language": "",          # only used when voice == "auto": pick a catalogue voice for this locale
     "style": "",             # speech_metadata.style — turn-level delivery, e.g. "warm and enthusiastic"
@@ -129,7 +133,32 @@ def resolve_settings(**kwargs: Any) -> dict[str, Any]:
     for key in ("voice", "model", "speed", "style"):
         if kwargs.get(key) is not None:
             settings[key] = kwargs[key]
+    if kwargs.get("model"):
+        settings["models"] = [str(kwargs["model"])]   # a per-call model wins over the chain
+    settings["models"] = _clean_models(settings.get("models"), settings.get("model"))
     return settings
+
+
+def _clean_models(value: Any, legacy_single: Any = None) -> list[str]:
+    """Normalise the configured chain: strings, de-duplicated, order kept.
+
+    Accepts ``models: [a, b]`` (documented) and, for configs written before the
+    chain existed, a lone ``model: a``.
+    """
+    candidates: list[Any] = []
+    if isinstance(value, (list, tuple)):
+        candidates.extend(value)
+    elif isinstance(value, str) and value.strip():
+        candidates.append(value)
+    if not candidates and isinstance(legacy_single, str) and legacy_single.strip():
+        candidates.append(legacy_single)
+    chain: list[str] = []
+    for entry in candidates:
+        model = str(entry or "").strip()
+        if model and model not in chain:
+            chain.append(model)
+    return chain or [DEFAULTS["models"][0]]
+
 
 
 def _wrap_pcm_wav(pcm: bytes, *, sample_rate: int, channels: int = 1, width: int = 2) -> bytes:
@@ -178,15 +207,16 @@ _TAG_SYSTEM_PROMPT = (
                 for i in range(0, len(TTS_AUDIO_TAGS), 6))
     + "\n"
     "\n"
-    "Only insert a tag where a person would actually make that sound: at most\n"
-    "one per sentence, never in the first or the last sentence, and never two\n"
-    "in a row.\n"
+    "Insert a tag wherever the delivery would carry one — the transcript should\n"
+    "usually gain several. The only spacing rule: never put two tags in a row\n"
+    "with nothing spoken between them.\n"
+    "\n"
+    "The tags are always English and always exactly as listed above, even when\n"
+    "the surrounding text is in another language.\n"
     "\n"
     "Rules:\n"
     "- Preserve the spoken words, order and meaning exactly.\n"
     "- Do not add, remove, reword or translate anything that is spoken.\n"
-    "- Do not put delivery instructions (whispered, excited, slowly) in tags:\n"
-    "  delivery is set separately through speech_metadata.style.\n"
     "- No square brackets, no SSML; only the angle-bracket tags listed above.\n"
     "- Do not explain or comment. Return only the tagged transcript."
 )
@@ -210,6 +240,10 @@ def _rewrite_tags(system_prompt: str, user_prompt: str, fallback: str) -> str:
 # API_KEY_INVALID. So a rejected key must not take the reply down with it.
 _AUTH_HINTS = ("api key not valid", "api_key_invalid", "invalid api key", "unauthorized")
 _GOOD_KEY: Optional[str] = None   # last key that actually worked in this process
+
+
+class AllModelsExhausted(RuntimeError):
+    """Every configured model answered 429 after its retries: nothing left today."""
 
 
 def _looks_like_auth_failure(exc: BaseException) -> bool:
@@ -274,7 +308,7 @@ class GeminiCustomTTS(TTSProvider):
         return [{"id": model, "display": label} for model, label in api.TTS_MODELS.items()]
 
     def default_model(self) -> Optional[str]:
-        return DEFAULTS["model"]
+        return DEFAULTS["models"][0]
 
     def default_voice(self) -> Optional[str]:
         hero = str(resolve_settings().get("voice") or "").strip()
@@ -342,38 +376,101 @@ class GeminiCustomTTS(TTSProvider):
                 "returned the text unchanged; speaking it untagged")
         return tagged
 
-    def _request(self, payload: dict[str, Any], settings: dict[str, Any]) -> tuple[bytes, str, dict[str, Any]]:
-        """Synthesize, rotating to the next candidate key if one is rejected.
-
-        A stale ``GEMINI_API_KEY`` next to a valid ``GOOGLE_GENERATIVE_AI_API_KEY``
-        must cost a retry, not the reply. The key that works is remembered for the
-        rest of the process.
-        """
-        global _GOOD_KEY
+    def _ordered_keys(self) -> list[str]:
+        """Candidate API keys, last-known-good first. Bad keys must not cost a reply."""
         keys = api.candidate_api_keys()
         if not keys:
             raise RuntimeError("gemini-custom: no GEMINI_API_KEY / GOOGLE_API_KEY available")
-        order = ([_GOOD_KEY] + [k for k in keys if k != _GOOD_KEY]) if _GOOD_KEY else keys
+        return ([_GOOD_KEY] + [k for k in keys if k != _GOOD_KEY]) if _GOOD_KEY else keys
+
+    def _model_chain(self, settings: dict[str, Any]) -> list[str]:
+        """Configured models in order, minus the ones whose daily budget is spent."""
+        chain = _clean_models(settings.get("models"))
+        state = api.load_quota_state()
+        available = [model for model in chain if model not in state]
+        if len(available) != len(chain):
+            import logging
+
+            skipped = {m: state.get(m, {}).get("exhausted_until", "?") for m in chain if m in state}
+            logging.getLogger(__name__).info(
+                "gemini-custom: skipping model(s) out of daily budget: %s", skipped)
+        return available
+
+    def _request(self, *, text: str, voice: str, style: str, mime: str, sample_rate: int,
+                 settings: dict[str, Any]) -> tuple[bytes, str, dict[str, Any], str]:
+        """Unary synth across the model chain, rotating keys and models.
+
+        Model order: the configured chain, first one with budget first. A 429 that
+        survives the retries moves to the next model for this reply and — when the
+        detail says "per day" — is remembered until the Pacific-midnight reset so
+        every other process skips it too. ``AllModelsExhausted`` when nothing is
+        left, which is the caller's cue to fall back.
+        """
+        global _GOOD_KEY
+        keys = self._ordered_keys()
+        models = self._model_chain(settings)
+        if not models:
+            raise AllModelsExhausted("every configured model is out of daily budget")
         timeout = float(settings.get("timeout") or 120)
         retries = int(settings.get("retries") or 0)
         last: Optional[BaseException] = None
-        for key in order:
-            try:
-                raw, reported_mime, usage = api.synthesize_request(
-                    payload, api_key=key, timeout=timeout, retries=retries)
-            except api.GeminiTTSError as exc:
-                last = exc
-                if not _looks_like_auth_failure(exc):
+        for model in models:
+            payload = api.build_payload(model=model, text=text, voice=voice, style=style,
+                                        mime_type=mime, sample_rate=sample_rate)
+            for key in keys:
+                try:
+                    raw, reported_mime, usage = api.synthesize_request(
+                        payload, api_key=key, timeout=timeout, retries=retries)
+                except api.GeminiTTSError as exc:
+                    last = exc
+                    if _looks_like_auth_failure(exc):
+                        continue                      # this key is rejected: next key
+                    if api.is_quota_error(exc):
+                        api.mark_model_exhausted(model, daily=api.is_daily_quota_error(exc),
+                                                 reason=str(exc))
+                        break                         # next model
                     raise
-                continue
-            _GOOD_KEY = key
-            return raw, reported_mime, usage
-        raise last if last else RuntimeError("gemini-custom: no usable API key")
+                _GOOD_KEY = key
+                return raw, reported_mime, usage, model
+        if last is not None and not api.is_quota_error(last):
+            raise last
+        raise AllModelsExhausted(f"no model has budget left ({last or 'nothing configured'})")
+
+    def _request_stream(self, *, text: str, voice: str, style: str, sample_rate: int,
+                        settings: dict[str, Any]) -> tuple[str, str]:
+        """POST a streaming request across the chain; returns ``(sse_text, model)``."""
+        global _GOOD_KEY
+        keys = self._ordered_keys()
+        models = self._model_chain(settings)
+        if not models:
+            raise AllModelsExhausted("every configured model is out of daily budget")
+        timeout = float(settings.get("timeout") or 120)
+        retries = int(settings.get("retries") or 0)
+        last: Optional[BaseException] = None
+        for model in models:
+            payload = api.build_payload(model=model, text=text, voice=voice, style=style,
+                                        mime_type="audio/l16", sample_rate=sample_rate, stream=True)
+            for key in keys:
+                try:
+                    sse = api.stream_payload(payload, api_key=key, timeout=timeout, retries=retries)
+                except api.GeminiTTSError as exc:
+                    last = exc
+                    if _looks_like_auth_failure(exc):
+                        continue
+                    if api.is_quota_error(exc):
+                        api.mark_model_exhausted(model, daily=api.is_daily_quota_error(exc),
+                                                 reason=str(exc))
+                        break
+                    raise
+                _GOOD_KEY = key
+                return sse, model
+        raise AllModelsExhausted(f"no model has budget left ({last or 'nothing configured'})")
 
     def _container_for(self, requested: str) -> str:
         """The caller's ``format``, clamped to the containers we can actually write."""
         fmt = str(requested or "mp3").lower().strip().lstrip(".")
         return fmt if fmt in _CONTAINER_ARGS else "mp3"
+
 
     def _write_audio(self, raw: bytes, mime: str, output_path: str, container: str,
                      sample_rate: int, speed: float) -> str:
@@ -393,6 +490,10 @@ class GeminiCustomTTS(TTSProvider):
                 source = tmp_dir / "in.wav"
                 source.write_bytes(raw)
                 input_args = ["-f", "wav"]
+            elif base_mime in ("audio/mpeg", "audio/mp3"):
+                source = tmp_dir / "in.mp3"
+                source.write_bytes(raw)
+                input_args = ["-f", "mp3"]
             elif base_mime in ("audio/mulaw", "audio/alaw"):
                 codec = "mulaw" if base_mime == "audio/mulaw" else "alaw"
                 source = tmp_dir / f"in.{codec}"
@@ -423,14 +524,19 @@ class GeminiCustomTTS(TTSProvider):
         finally:
             shutil.rmtree(tmp_dir, ignore_errors=True)
 
-    def _log_usage(self, settings: dict[str, Any], usage: dict[str, Any], chars: int) -> None:
+    def _log_usage(self, settings: dict[str, Any], usage: dict[str, Any], chars: int, *,
+                   model: Optional[str] = None, engine: str = "gemini", note: str = "",
+                   voice: Optional[str] = None) -> None:
         try:
-            record = {"ts": _now_iso(), "model": settings.get("model"), "voice": settings.get("voice"),
+            record = {"ts": _now_iso(), "engine": engine, "model": model,
+                      "voice": voice if voice is not None else settings.get("voice"),
                       "chars": chars, "input_tokens": usage.get("total_input_tokens"),
                       "output_tokens": usage.get("total_output_tokens"),
                       "audio_tokens": next((m.get("tokens") for m in
                                             (usage.get("output_tokens_by_modality") or [])
                                             if m.get("modality") == "audio"), None)}
+            if note:
+                record["note"] = note[:300]
             path = _profile_home() / "gemini-tts-usage.jsonl"
             path.parent.mkdir(parents=True, exist_ok=True)
             with path.open("a", encoding="utf-8") as fh:
@@ -451,19 +557,21 @@ class GeminiCustomTTS(TTSProvider):
             sample_rate = int(settings.get("sample_rate") or 24000)
         except (TypeError, ValueError):
             sample_rate = 24000
-        payload = api.build_payload(
-            model=str(settings.get("model") or DEFAULTS["model"]), text=text,
-            voice=self._pick_voice(settings), style=str(settings.get("style") or ""),
-            mime_type=mime, sample_rate=sample_rate)
-        key = api.resolve_api_key()
-        if not key:
-            raise RuntimeError("gemini-custom: no GEMINI_API_KEY / GOOGLE_API_KEY available")
-        raw, reported_mime, usage = self._request(payload, settings)
         container = self._container_for(format)
         target = _ogg_path(output_path) if container in _OGG_FAMILY else output_path
+        speed_value = float(settings.get("speed") or 1.0)
+        try:
+            raw, reported_mime, usage, used_model = self._request(
+                text=text, voice=self._pick_voice(settings), style=str(settings.get("style") or ""),
+                mime=mime, sample_rate=sample_rate, settings=settings)
+        except AllModelsExhausted as exc:
+            written = self._edge_fallback(text, target, container, speed_value, settings)
+            self._log_usage(settings, {}, len(text), model=None, engine="edge", note=str(exc),
+                            voice=_edge_voice(settings))
+            return written
         written = self._write_audio(raw, reported_mime or mime, target, container,
-                                    sample_rate, float(settings.get("speed") or 1.0))
-        self._log_usage(settings, usage, len(text))
+                                    sample_rate, speed_value)
+        self._log_usage(settings, usage, len(text), model=used_model)
         return written
 
     def stream(self, text: str, *, voice: Optional[str] = None, model: Optional[str] = None,
@@ -472,19 +580,105 @@ class GeminiCustomTTS(TTSProvider):
         settings = resolve_settings(voice=voice, model=model, style=extra.get("style"))
         api.require_chunk_cap_contract()
         text = self._tagged_text(text, settings)
-        payload = api.build_payload(
-            model=str(settings.get("model") or DEFAULTS["model"]), text=text,
-            voice=self._pick_voice(settings), style=str(settings.get("style") or ""),
-            mime_type="audio/l16", sample_rate=int(settings.get("sample_rate") or 24000), stream=True)
-        key = api.resolve_api_key()
-        if not key:
-            raise RuntimeError("gemini-custom: no GEMINI_API_KEY / GOOGLE_API_KEY available")
-        yield from api.stream_request(payload, api_key=key,
-                                      timeout=float(settings.get("timeout") or 120),
-                                      retries=int(settings.get("retries") or 0))
+        try:
+            sse, used_model = self._request_stream(
+                text=text, voice=self._pick_voice(settings),
+                style=str(settings.get("style") or ""),
+                sample_rate=int(settings.get("sample_rate") or 24000), settings=settings)
+        except AllModelsExhausted as exc:
+            yield from self._edge_pcm(text, settings)
+            self._log_usage(settings, {}, len(text), model=None, engine="edge", note=str(exc))
+            return
+        self._log_usage(settings, {}, len(text), model=used_model)
+        yield from api.iter_stream_audio(sse)
+
+    # ---- free fallback ----------------------------------------------------
+    def _edge_fallback(self, text: str, output_path: str, container: str, speed: float,
+                       settings: dict[str, Any]) -> str:
+        """Render with the free Edge engine when no Gemini model has budget left."""
+        if str(settings.get("fallback") or "edge").strip().lower() != "edge":
+            raise api.GeminiTTSError(
+                "gemini-custom: every model is out of daily budget and `fallback` is not edge")
+        mp3 = _edge_mp3(text, _edge_voice(settings), speed)
+        # Edge already applied the rate; don't atempo it a second time.
+        return self._write_audio(mp3, "audio/mpeg", output_path, container, 24000, 1.0)
+
+    def _edge_pcm(self, text: str, settings: dict[str, Any]) -> Iterator[bytes]:
+        """Edge fallback for the PCM streaming path: mp3 -> s16le on the fly."""
+        mp3 = _edge_mp3(text, _edge_voice(settings), 1.0)
+        ffmpeg = shutil.which("ffmpeg")
+        if not ffmpeg:
+            raise api.GeminiTTSError("gemini-custom: edge fallback needs ffmpeg for PCM streaming")
+        process = subprocess.run(
+            [ffmpeg, "-loglevel", "error", "-f", "mp3", "-i", "pipe:0",
+             "-f", "s16le", "-ar", str(int(settings.get("sample_rate") or 24000)), "-ac", "1", "pipe:1"],
+            input=mp3, capture_output=True)
+        if process.returncode != 0 or not process.stdout:
+            raise api.GeminiTTSError("gemini-custom: edge fallback PCM conversion failed")
+        chunk = 4096
+        for index in range(0, len(process.stdout), chunk):
+            yield process.stdout[index:index + chunk]
 
 
 def _now_iso() -> str:
     import datetime
 
     return datetime.datetime.now().astimezone().isoformat(timespec="seconds")
+
+
+# --- free fallback: Edge ----------------------------------------------------
+def _edge_voice(settings: dict[str, Any]) -> str:
+    """``fallback_voice``, else ``tts.edge.voice``, else Edge's usual default."""
+    explicit = str(settings.get("fallback_voice") or "").strip()
+    if explicit:
+        return explicit
+    try:
+        from hermes_cli.config import load_config_readonly
+
+        tts = (load_config_readonly() or {}).get("tts") or {}
+        voice = str((tts.get("edge") or {}).get("voice") or "").strip()
+        if voice:
+            return voice
+    except Exception:
+        pass
+    return "en-US-AriaNeural"
+
+
+def _edge_mp3(text: str, voice: str, speed: float) -> bytes:
+    """Render *text* with the free Edge engine. Raises ``GeminiTTSError`` on failure.
+
+    Runs the async client in its own thread+loop so this stays usable from the
+    synchronous provider API (Hermes' own Edge generator is async).
+    """
+    import threading
+
+    rate = f"{round((speed - 1.0) * 100):+d}%" if abs(speed - 1.0) > 1e-3 else None
+    result: dict[str, Any] = {"audio": b""}
+
+    def run() -> None:
+        import asyncio
+
+        try:
+            import edge_tts
+
+            async def go() -> None:
+                kwargs = {"rate": rate} if rate else {}
+                audio = bytearray()
+                async for chunk in edge_tts.Communicate(text, voice, **kwargs).stream():
+                    if chunk.get("type") == "audio" and chunk.get("data"):
+                        audio.extend(chunk["data"])
+                result["audio"] = bytes(audio)
+
+            asyncio.run(go())
+        except Exception as exc:  # surfaced below
+            result["error"] = exc
+
+    worker = threading.Thread(target=run, daemon=True)
+    worker.start()
+    worker.join(timeout=90)
+    if result.get("error") is not None:
+        raise api.GeminiTTSError(f"gemini-custom: Edge fallback failed: {result['error']}")
+    audio = result.get("audio") or b""
+    if not audio:
+        raise api.GeminiTTSError("gemini-custom: Edge fallback produced no audio")
+    return audio

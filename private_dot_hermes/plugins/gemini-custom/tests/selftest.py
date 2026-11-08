@@ -307,6 +307,92 @@ try:
 except ImportError:
     print("SKIP contract checks (tools.tts_tool_delivery not importable)")
 
+# ---- model chain, quota state, edge fallback ----------------------------
+check("chain: list kept in order", provider._clean_models(["a", "b"]) == ["a", "b"])
+check("chain: string accepted", provider._clean_models("a") == ["a"])
+check("chain: legacy single model", provider._clean_models(None, "legacy") == ["legacy"])
+check("chain: duplicates dropped", provider._clean_models(["a", "a", "b"]) == ["a", "b"])
+check("chain: empty falls back to the default",
+      provider._clean_models([]) == [provider.DEFAULTS["models"][0]])
+
+_quota_home = Path(tempfile.mkdtemp(prefix="gemini-quota-"))
+_prev_home = os.environ.get("HERMES_HOME")
+os.environ["HERMES_HOME"] = str(_quota_home)
+
+_quota_exc = api.GeminiTTSError("Gemini TTS HTTP 429: RESOURCE_EXHAUSTED", status=429,
+                                body='{"error":{"code":429,"details":[{"quotaId":'
+                                     '"GenerateRequestsPerDayPerProjectPerModel-FreeTier"}]}}')
+_rate_exc = api.GeminiTTSError("Gemini TTS HTTP 429: rate limit", status=429,
+                               body='{"error":{"code":429,"details":[{"quotaId":'
+                                    '"GenerateRequestsPerMinutePerProject"}]}}')
+check("quota error recognised", api.is_quota_error(_quota_exc) and api.is_quota_error(_rate_exc))
+check("daily vs per-minute told apart",
+      api.is_daily_quota_error(_quota_exc) and not api.is_daily_quota_error(_rate_exc))
+check("non-quota error not misread", not api.is_quota_error(api.GeminiTTSError("boom", status=400)))
+
+api.mark_model_exhausted("model-a", daily=False, reason="per-minute")
+check("a per-minute 429 is not persisted", not api.model_is_exhausted("model-a"))
+api.mark_model_exhausted("model-a", daily=True, reason="per-day")
+check("a daily 429 is persisted", api.model_is_exhausted("model-a"))
+check("chain skips the exhausted model",
+      provider.GeminiCustomTTS()._model_chain({"models": ["model-a", "model-b"]}) == ["model-b"])
+check("chain empty when all are spent",
+      provider.GeminiCustomTTS()._model_chain({"models": ["model-a"]}) == [])
+api.clear_quota_state()
+check("state can be cleared", not api.model_is_exhausted("model-a"))
+
+# rotation: first model 429s (daily), second one answers
+_seen_models: list[str] = []
+
+
+def _fake_synth(payload, *, api_key, timeout, retries):
+    _seen_models.append(payload["model"])
+    if payload["model"] == "model-a":
+        raise _quota_exc
+    return b"RIFFxxxx", "audio/wav", {"total_input_tokens": 1}
+
+
+_orig_synth = api.synthesize_request
+api.synthesize_request = _fake_synth
+api._candidate = None
+G = provider.GeminiCustomTTS()
+raw, mime_out, usage, used = G._request(text="hola", voice="Kore", style="",
+                                        mime="audio/l16", sample_rate=24000,
+                                        settings={"models": ["model-a", "model-b"],
+                                                  "timeout": 5, "retries": 0})
+check("rotation tries models in order and reports the winner",
+      _seen_models == ["model-a", "model-b"] and used == "model-b", str(_seen_models))
+check("the 429'd model is remembered", api.model_is_exhausted("model-a"))
+
+_seen_models.clear()
+api.clear_quota_state()
+try:
+    G._request(text="hola", voice="Kore", style="", mime="audio/l16", sample_rate=24000,
+               settings={"models": ["model-a"], "timeout": 5, "retries": 0})
+    check("all-exhausted raises AllModelsExhausted", False, "no exception")
+except provider.AllModelsExhausted:
+    check("all-exhausted raises AllModelsExhausted", True)
+api.synthesize_request = _orig_synth
+
+# the Edge fallback really renders audio, with no API key and no quota
+try:
+    _mp3 = provider._edge_mp3("Hola, esto es la reserva de Edge.", "es-ES-XimenaNeural", 1.0)
+    _is_mp3 = _mp3[:3] == b"ID3" or (_mp3[:1] == b"\xff" and (_mp3[1] & 0xE0) == 0xE0)
+    check("edge fallback returns mp3 bytes", _is_mp3, _mp3[:4].hex())
+    _edge_out = G._write_audio(_mp3, "audio/mpeg", str(tmp / "edge.ogg"), "ogg", 24000, 1.0)
+    _probe = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "a:0", "-show_entries",
+                             "stream=codec_name", "-of", "csv=p=0", _edge_out],
+                            capture_output=True, text=True)
+    check("edge fallback converted to opus", _probe.stdout.strip() == "opus", _probe.stdout.strip())
+except Exception as exc:
+    check("edge fallback works", False, f"{type(exc).__name__}: {exc}")
+
+if _prev_home is None:
+    os.environ.pop("HERMES_HOME", None)
+else:
+    os.environ["HERMES_HOME"] = _prev_home
+api.clear_quota_state()
+
 print()
 if FAILED:
     print(f"{len(FAILED)} FAILED: {', '.join(FAILED)}")

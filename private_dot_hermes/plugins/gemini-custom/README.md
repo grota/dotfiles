@@ -34,7 +34,7 @@ Needs `GEMINI_API_KEY` or `GOOGLE_API_KEY` (env or the profile dotenv).
 
 ```
 hermes config set tts.provider gemini-custom
-hermes config set --force tts.providers.gemini-custom.model gemini-3.8-flash-tts
+hermes config set --force tts.providers.gemini-custom.models '["gemini-3.8-flash-tts","gemini-3.8-flash-lite-tts"]'
 hermes config set --force tts.providers.gemini-custom.voice Kore
 ```
 
@@ -47,7 +47,9 @@ per-call arguments are how a `/voice` pick and `tools/render.py` flags arrive.
 
 | Key | Default | What it controls |
 |---|---|---|
-| `model` | `gemini-3.8-flash-tts` | `gemini-3.8-flash-tts`, `gemini-3.8-flash-lite-tts`, `gemini-3.1-flash-tts-preview`, `gemini-2.5-flash-preview-tts`, `gemini-2.5-pro-preview-tts` (the last needs billing) |
+| `models` | `["gemini-3.8-flash-tts"]` | Ordered fallback chain: `gemini-3.8-flash-tts`, `gemini-3.8-flash-lite-tts`, `gemini-3.1-flash-tts-preview`. The 2.5 TTS models are not listed: `/v1beta/interactions` rejects them (annotations and `audio/l16`/`wav` MIME unsupported) — they only work through Hermes' built-in `gemini` provider |
+| `fallback` | `edge` | What happens when every model is out of daily budget: `edge` renders with the free Edge voice, `none` fails with the 429 |
+| `fallback_voice` | `""` | Edge voice for that fallback; empty = `tts.edge.voice` |
 | `voice` | `Kore` | A prebuilt name (`Kore`, `Puck`, …), any id from the Extended Voice Library (`es-ES` castilian voices: `es-es-podcaster-5`, `es-es-training-12`, …), a Voice design `voice_…` id, a replication id, or `auto` |
 | `language` | `""` | Only with `voice: auto`: pick the first catalogue voice whose `language_code` matches, e.g. `es-ES` |
 | `style` | `""` | `speech_metadata.style` — turn-level delivery: `"whispered urgently"`, `"warm and enthusiastic"`, `"speaking slowly"` |
@@ -62,6 +64,31 @@ per-call arguments are how a `/voice` pick and `tools/render.py` flags arrive.
 
 Nothing else: the delivered container comes from the caller's `format`, the
 chunk cap from Hermes (below), and vocal tags are simply part of the text.
+
+## Model chain and the free fallback
+
+`models` is an ordered chain, not a single pick. Every request starts at the
+first model that still has budget:
+
+1. A `429` (rate or quota) that survives `retries` moves to the next model for
+   that request — including the 3-requests/minute limit.
+2. When the `429` body says **per day**, the model is also written to
+   `~/.hermes/cache/gemini-model-quota.json` until the next midnight Pacific
+   (Google's daily reset), so other processes and later restarts skip it instead
+   of burning attempts. A per-minute 429 is never persisted — it clears in a
+   minute and writing it down would cost the model its whole day.
+3. When every model is spent, `fallback: edge` renders the reply with the free
+   Edge engine using `fallback_voice` (default `tts.edge.voice`) — same
+   container, same delivery, no key and no quota. `fallback: none` raises the
+   429 instead.
+
+Failures other than quota (bad key, unknown model, network) are still raised:
+that is a configuration problem, not a budget one.
+
+The usage log records which engine and model actually spoke:
+`{"engine": "gemini", "model": "gemini-3.8-flash-lite-tts", …}` or
+`{"engine": "edge", "model": null, "note": "every configured model is out of
+daily budget"}`.
 
 ## Chunk cap — supplied by the plugin, not by config
 
@@ -115,8 +142,8 @@ and what the plugin will publish.
   `voice_compatible = True`. With `tts.output_format: ogg` the plugin writes the
   `.ogg` path itself and Hermes skips that second encode — one ffmpeg pass
   instead of two.
-- Usage log: `~/.hermes/gemini-tts-usage.jsonl` — one line per call with model,
-  voice, chars, input/output/audio token counts.
+- Usage log: `~/.hermes/gemini-tts-usage.jsonl` — one line per call with engine,
+  model, voice, chars and token counts (see the chain section above).
 - Failures raise, and Hermes turns them into its error envelope; no silent
   fallback to another engine.
 

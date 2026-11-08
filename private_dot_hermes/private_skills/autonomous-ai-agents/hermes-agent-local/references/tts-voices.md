@@ -120,6 +120,16 @@ re-runnable probe: `references/gemini-tts.md` in the
   verified by round-tripping through `_resolve_max_text_length`; a mismatch
   raises `ChunkCapContractError` at registration and in every synthesize call
   instead of silently chunking at 4000.
+- **Model chain:** `models:` is an ordered list (a lone `model:` still reads as a
+  one-item chain). Each request starts at the first model with budget; a 429 that
+  survives `retries` moves to the next one, and a *per-day* 429 is remembered in
+  `~/.hermes/cache/gemini-model-quota.json` until the Pacific-midnight reset
+  (per-minute 429s are never persisted). When every model is spent,
+  `fallback: edge` speaks with `fallback_voice` (default `tts.edge.voice`) —
+  free, keyless, same container.  `fallback: none` raises instead. The usage log records `engine`/`model` per call.
+  **Only quota exhaustion falls back**: a rejected key, an unknown model slug or a
+  network error is raised, never routed to Edge — a config bug that silently swaps
+  the voice is harder to notice than a failed reply.
 - **Tags:** `tags: true` inserts the model's own vocal events (`<laugh>`,
   `<sigh>`, `<breath>`, … — 40 spellings, spaces and hyphens included) through
   the auxiliary task `tts_audio_tags`; `tts_audio_tags_prompt` replaces the
@@ -129,9 +139,19 @@ re-runnable probe: `references/gemini-tts.md` in the
   Enabled here with `auxiliary.tts_audio_tags` → `openai` / `gpt-5.4-mini`
   (~1.5-4 s per request; it declines to tag neutral prose, which is the model's
   judgement, not a failure).
-- **Run Hermes-workspace scripts with `python`** (the install venv), not
-  `python3`: the `python3` shim re-execs through `runpy` and breaks on stdin or
-  heredoc input, and the interpreter it relaunches may lack `ruamel`.
+- **Testing plugin code end-to-end**: the gateway imported the module once, so a
+  live `text_to_speech` call exercises the *old* code and its failures say nothing
+  about an edit (see the reload tiers in `references/local-config-and-providers.md`).
+  Probe in a fresh process — but under the launcher a script can re-exec through
+  the venv-sync shim into an interpreter whose `sys.path` lacks the venv
+  (`ModuleNotFoundError: ruamel` from `hermes_cli.plugins`), so a failed script is
+  not evidence about your code either. The reliable probe is the session kernel
+  (`execute_code`): insert the workspace and plugin paths, load the package by path
+  with `importlib.util.spec_from_file_location(..., submodule_search_locations=[...])`,
+  and when the sandbox strips provider keys, inject one in-process from the
+  `secrets.command` helper (names/counts only in the output). The same recipe
+  writes one real request and then reads `~/.hermes/gemini-tts-usage.jsonl` to see
+  which engine/model actually spoke.
 - **Container:** Hermes passes `format` (`tts.output_format`, default mp3) and
   then converts to Opus itself for voice bubbles. The plugin writes `.ogg`
   directly when asked for ogg/opus, which makes Hermes skip that pass —
@@ -145,7 +165,8 @@ re-runnable probe: `references/gemini-tts.md` in the
   (`api key not valid` / `API_KEY_INVALID`, never on quota or 5xx), and remember
   the key that worked for the rest of the process. Reject values containing `$`
   before trying them.
-- Offline suite: `tests/selftest.py` (55 checks, no API calls); contract check:
+- Test suite: `tests/selftest.py` (76 checks; offline except the Edge-fallback
+  render, which hits the free public endpoint); contract check:
   `hermes plugins doctor gemini-custom`.
 
 ## Pitfalls

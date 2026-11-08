@@ -34,8 +34,10 @@ TTS_MODELS = {
     "gemini-3.8-flash-tts": "Gemini 3.8 Flash TTS (max fidelity)",
     "gemini-3.8-flash-lite-tts": "Gemini 3.8 Flash-Lite TTS (fast/cheap)",
     "gemini-3.1-flash-tts-preview": "Gemini 3.1 Flash TTS (preview, legacy PCM)",
-    "gemini-2.5-flash-preview-tts": "Gemini 2.5 Flash TTS (preview)",
-    "gemini-2.5-pro-preview-tts": "Gemini 2.5 Pro TTS (preview, needs billing)",
+    # The 2.5 TTS models are deliberately absent: /v1beta/interactions rejects
+    # them (400 "Speech annotations are not supported for model …", and also
+    # AUDIO_L16/AUDIO_WAV "not supported"). They remain usable through Hermes'
+    # built-in `gemini` provider, which speaks the generateContent path.
 }
 
 MIME_BY_FORMAT = {
@@ -47,7 +49,120 @@ MIME_BY_FORMAT = {
 
 
 class GeminiTTSError(RuntimeError):
-    """Any failure talking to the Gemini TTS API (message is user-facing)."""
+    """Any failure talking to the Gemini TTS API (message is user-facing).
+
+    ``status`` and ``body`` are kept so the caller can tell a per-minute rate
+    limit from an exhausted daily budget without parsing the message.
+    """
+
+    def __init__(self, message: str, *, status: Optional[int] = None, body: str = "") -> None:
+        super().__init__(message)
+        self.status = status
+        self.body = body
+
+
+def is_quota_error(exc: BaseException) -> bool:
+    """True for 429 / RESOURCE_EXHAUSTED: the model has no budget right now."""
+    status = getattr(exc, "status", None)
+    body = (getattr(exc, "body", "") or "") + " " + str(exc)
+    return status == 429 or "RESOURCE_EXHAUSTED" in body or "quota" in body.lower()
+
+
+def is_daily_quota_error(exc: BaseException) -> bool:
+    """True when the 429 is the *daily* cap (so it must stay marked until reset)."""
+    body = (getattr(exc, "body", "") or "") + " " + str(exc)
+    lowered = body.lower()
+    return "perday" in lowered or "per day" in lowered or "perdayperproject" in lowered
+
+
+def next_quota_reset_iso() -> str:
+    """Next midnight Pacific (Google's daily quota boundary), as ISO-8601 UTC."""
+    try:
+        from datetime import datetime, time as dtime, timedelta
+        from zoneinfo import ZoneInfo
+
+        tz = ZoneInfo("America/Los_Angeles")
+        now = datetime.now(tz)
+        reset = datetime.combine(now.date() + timedelta(days=1), dtime(0, 0), tzinfo=tz)
+        return reset.astimezone(ZoneInfo("UTC")).isoformat(timespec="seconds")
+    except Exception:  # tz database missing: fall back to +24h
+        import datetime as _dt
+
+        return (_dt.datetime.now(_dt.timezone.utc) + _dt.timedelta(hours=24)).isoformat(timespec="seconds")
+
+
+def _quota_state_path() -> Path:
+    return _hermes_home() / "cache" / "gemini-model-quota.json"
+
+
+def load_quota_state() -> dict[str, Any]:
+    """``{model: {"exhausted_until": iso, "reason": str}}``; stale entries pruned."""
+    import datetime as _dt
+
+    try:
+        data = json.loads(_quota_state_path().read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    if not isinstance(data, dict):
+        return {}
+    now = _dt.datetime.now(_dt.timezone.utc)
+    fresh: dict[str, Any] = {}
+    for model, entry in data.items():
+        if not isinstance(entry, dict):
+            continue
+        try:
+            until = _dt.datetime.fromisoformat(str(entry.get("exhausted_until")))
+        except ValueError:
+            continue
+        if until > now:
+            fresh[model] = entry
+    return fresh
+
+
+def model_is_exhausted(model: str) -> bool:
+    return model in load_quota_state()
+
+
+def mark_model_exhausted(model: str, *, daily: bool, reason: str = "") -> None:
+    """Persist exhaustion so other processes skip the model too.
+
+    A per-minute limit is deliberately *not* persisted: it clears in a minute,
+    and writing it down would cost the model its whole day.
+    """
+    if not daily:
+        return
+    state = load_quota_state()
+    state[model] = {"exhausted_until": next_quota_reset_iso(), "reason": reason[:300],
+                    "marked_at": _now_utc_iso()}
+    path = _quota_state_path()
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(json.dumps(state, indent=1, sort_keys=True), encoding="utf-8")
+    except OSError:
+        pass
+
+
+def clear_quota_state(model: Optional[str] = None) -> None:
+    """Forget exhaustion (all models, or one) — for tests and manual recovery."""
+    if model is None:
+        state = {}
+    else:
+        state = load_quota_state()
+        state.pop(model, None)
+    path = _quota_state_path()
+    try:
+        if state:
+            path.write_text(json.dumps(state, indent=1, sort_keys=True), encoding="utf-8")
+        elif path.exists():
+            path.unlink()
+    except OSError:
+        pass
+
+
+def _now_utc_iso() -> str:
+    import datetime as _dt
+
+    return _dt.datetime.now(_dt.timezone.utc).isoformat(timespec="seconds")
 
 
 class ChunkCapContractError(RuntimeError):
@@ -119,11 +234,12 @@ def _post(url: str, payload: dict[str, Any], *, timeout: float, retries: int,
                     return response.read().decode("utf-8", "replace")
                 return json.load(response)
         except urllib.error.HTTPError as exc:
-            detail = exc.read().decode("utf-8", "replace")[:400]
-            last_error = f"HTTP {exc.code}: {detail}"
+            detail = exc.read().decode("utf-8", "replace")
+            last_error = f"HTTP {exc.code}: {detail[:400]}"
             retryable = exc.code == 429 or 500 <= exc.code < 600
             if not retryable or attempt >= retries:
-                raise GeminiTTSError(f"Gemini TTS {last_error}") from exc
+                raise GeminiTTSError(f"Gemini TTS {last_error}", status=exc.code,
+                                     body=detail[:8000]) from exc
             delay = 5.0 * (attempt + 1)
             header = exc.headers.get("Retry-After") if exc.headers else None
             if header:
@@ -187,11 +303,15 @@ def synthesize_request(payload: dict[str, Any], *, api_key: str, timeout: float,
     raise GeminiTTSError("Gemini TTS response contained no audio part")
 
 
-def stream_request(payload: dict[str, Any], *, api_key: str, timeout: float,
-                   retries: int) -> Iterator[bytes]:
-    """Yield raw audio chunks from an SSE ``stream: true`` interaction."""
-    text = _post(INTERACTIONS_URL, payload, timeout=timeout, retries=retries,
+def stream_payload(payload: dict[str, Any], *, api_key: str, timeout: float,
+                   retries: int) -> str:
+    """POST a ``stream: true`` interaction and return the raw SSE text."""
+    return _post(INTERACTIONS_URL, payload, timeout=timeout, retries=retries,
                  stream=True, api_key=api_key)
+
+
+def iter_stream_audio(text: str) -> Iterator[bytes]:
+    """Yield the audio payloads of an SSE interaction body."""
     for line in text.splitlines():
         line = line.strip()
         if not line.startswith("data:"):
@@ -210,6 +330,13 @@ def stream_request(payload: dict[str, Any], *, api_key: str, timeout: float,
                 yield audio
         elif event.get("event_type") == "error" or event.get("error"):
             raise GeminiTTSError(f"Gemini TTS stream error: {str(event.get('error') or event)[:300]}")
+
+
+def stream_request(payload: dict[str, Any], *, api_key: str, timeout: float,
+                   retries: int) -> Iterator[bytes]:
+    """Yield raw audio chunks from an SSE ``stream: true`` interaction."""
+    yield from iter_stream_audio(stream_payload(payload, api_key=api_key,
+                                                timeout=timeout, retries=retries))
 
 
 def list_voice_catalog(*, api_key: str, cache_path: Path, ttl_seconds: int = 86400,
@@ -272,15 +399,18 @@ def _limits_cache_path() -> Path:
 
 
 def _configured_model() -> str:
-    """``tts.providers.gemini-custom.model``, else the plugin's default."""
+    """First of ``tts.providers.gemini-custom.models`` (or the plugin default)."""
     try:
         from hermes_cli.config import load_config_readonly
 
         tts = (load_config_readonly() or {}).get("tts") or {}
         section = (tts.get("providers") or {}).get("gemini-custom") or {}
-        model = str(section.get("model") or "").strip()
-        if model:
-            return model
+        models = section.get("models")
+        if isinstance(models, list):
+            for entry in models:
+                model = str(entry or "").strip()
+                if model:
+                    return model
     except Exception:
         pass
     return "gemini-3.8-flash-tts"

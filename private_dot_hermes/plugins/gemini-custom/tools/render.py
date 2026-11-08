@@ -15,11 +15,13 @@ import sys
 import time
 
 HERMES = pathlib.Path.home() / ".hermes" / "hermes-agent"
-if str(HERMES) not in sys.path:
+try:  # the install's venv already provides these
+    from hermes_cli.plugins import _ensure_plugins_discovered  # noqa: E402
+    from agent.tts_registry import get_provider  # noqa: E402
+except ImportError:  # only then fall back to the checkout path
     sys.path.insert(0, str(HERMES))
-
-from hermes_cli.plugins import _ensure_plugins_discovered  # noqa: E402
-from agent.tts_registry import get_provider  # noqa: E402
+    from hermes_cli.plugins import _ensure_plugins_discovered  # noqa: E402
+    from agent.tts_registry import get_provider  # noqa: E402
 
 
 def main() -> int:

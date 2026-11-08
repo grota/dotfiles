@@ -2125,29 +2125,15 @@ tts:
     #
     # Requires GOOGLE_API_KEY or GEMINI_API_KEY (env or ~/.hermes/.env).
     # Free tier reality check: 3 requests/minute and 10 requests/DAY per model on
-    # the 3.8 TTS models. Past that the reply is text-only with a 429 error. For
-    # unlimited free speech use `provider: langvoice` (Edge, per-language voices,
-    # block below); switch back here whenever the quota matters.
+    # the 3.8 TTS models. The plugin absorbs that: a 429 surviving `retries`
+    # moves to the next model for that reply, a per-day 429 is remembered until
+    # the Pacific-midnight reset (restarts included), and when every model is
+    # spent the reply is spoken by Edge for free.
     gemini-custom:
-      # Which TTS model renders. 3.8 = the documented generation for this plugin.
-      #   gemini-3.8-flash-tts        max acoustic fidelity, best acting (default)
-      #   gemini-3.8-flash-lite-tts   cheaper/faster workhorse, same API surface
-      #   gemini-3.1-flash-tts-preview  legacy, still serves raw PCM
-      #   gemini-2.5-flash-preview-tts  older generation, PCM, keeps persona prompts
-      #   gemini-2.5-pro-preview-tts    needs billing (free key gets "limit: 0")
+      # Which models may render, in fallback order: the `models:` list at the end
+      # of this block (Hermes appends keys there, so the data is not here).
       # Note: 3.8 treats the input as a verbatim transcript — do NOT put direction
       # text in the message; use `style` below (that is what speech_metadata is).
-      model: gemini-3.8-flash-tts
-
-      # Voice. Four kinds of value are accepted:
-      #   prebuilt studio voice   Kore, Puck, Charon, Fenrir, Aoede, ...
-      #   library id (2114 voices) es-es-podcaster-5, es-es-training-12,
-      #                           es-es-assistant-3, es-419-advisor-4, ...
-      #                           browse: tools/voices.py --language es-ES
-      #   designed/cloned voice    voice_abc123 (Voice design / replication id)
-      #   auto                     first catalogue voice matching `language:`
-      # Current pick is a Castilian (es-ES) library voice — the reason to be here
-      # instead of the built-in gemini provider, which cannot select these.
       voice: Leda
 
       # Turn-level delivery (speech_metadata.style): emotion, pace, volume, tone —
@@ -2169,34 +2155,10 @@ tts:
       tags: true
 
       # Optional: the system prompt for the tag rewrite above. Omit it (the
-      # default) to use the built-in prompt; uncomment the block below to
-      # replace it. It must stay a YAML block scalar and must keep the
-      # "return only the tagged transcript" rule, otherwise the model's prose
-      # is what gets spoken. The built-in default, verbatim:
-      #   You rewrite a transcript for Gemini 3.8 Flash TTS by inserting inline
-      #   angle-bracket vocal events.
-      #
-      #   Allowed tags (use these spellings exactly, inside angle brackets):
-      #   <argh>, <breath>, <heavy breath>, <exhales>, <cackle>, <cheer>
-      #   <chuckle>, <chuckles>, <cough>, <cry>, <gasp>, <giggle>
-      #   <groan>, <growl>, <grunt>, <grr>, <hiss>, <laugh>
-      #   <laughter>, <moan>, <pant>, <pff>, <phew>, <scream>
-      #   <shout>, <shriek>, <sigh>, <sighs>, <sneeze>, <snicker>
-      #   <snort>, <sob>, <throat-clearing>, <tsk>, <whimper>, <whispers>
-      #   <whispering>, <yawn>, <short pause>, <long pause>
-      #
-      #   Only insert a tag where a person would actually make that sound: at most
-      #   one per sentence, never in the first or the last sentence, and never two
-      #   in a row.
-      #
-      #   Rules:
-      #   - Preserve the spoken words, order and meaning exactly.
-      #   - Do not add, remove, reword or translate anything that is spoken.
-      #   - Do not put delivery instructions (whispered, excited, slowly) in tags:
-      #     delivery is set separately through speech_metadata.style.
-      #   - No square brackets, no SSML; only the angle-bracket tags listed above.
-      #   - Do not explain or comment. Return only the tagged transcript.
-      #
+      # default) to use the built-in prompt; uncomment this block to replace
+      # it. It must stay a YAML block scalar and must keep the "return only
+      # the tagged transcript" rule, otherwise the model's prose is what gets
+      # spoken. The commented value below IS the built-in default, verbatim.
       # tts_audio_tags_prompt: |-
       #   You rewrite a transcript for Gemini 3.8 Flash TTS by inserting inline
       #   angle-bracket vocal events.
@@ -2210,18 +2172,18 @@ tts:
       #   <snort>, <sob>, <throat-clearing>, <tsk>, <whimper>, <whispers>
       #   <whispering>, <yawn>, <short pause>, <long pause>
       #
-      #   Only insert a tag where a person would actually make that sound: at most
-      #   one per sentence, never in the first or the last sentence, and never two
-      #   in a row.
+      #   Insert a tag wherever the delivery would carry one — the transcript should
+      #   usually gain several. The only spacing rule: never put two tags in a row
+      #   with nothing spoken between them.
+      #
+      #   The tags are always English and always exactly as listed above, even when
+      #   the surrounding text is in another language.
       #
       #   Rules:
       #   - Preserve the spoken words, order and meaning exactly.
       #   - Do not add, remove, reword or translate anything that is spoken.
-      #   - Do not put delivery instructions (whispered, excited, slowly) in tags:
-      #     delivery is set separately through speech_metadata.style.
       #   - No square brackets, no SSML; only the angle-bracket tags listed above.
       #   - Do not explain or comment. Return only the tagged transcript.
-
       # ── optional keys (defaults shown; uncomment to use) ──────────────────
       # Only used with `voice: auto` above: pick a voice by locale instead of name,
       # e.g. es-ES (Castilian), es-419 (Latin American), it-IT, en-GB, pt-PT.
@@ -2267,6 +2229,26 @@ tts:
       #   python3 ~/.hermes/plugins/gemini-custom/tools/limits.py
       # Usage log, one JSON line per call (model, voice, chars, audio tokens):
       #   ~/.hermes/gemini-tts-usage.jsonl
+      # Model chain, tried in this order; every reply starts at the first model
+      # that still has budget. Per-day 429s are remembered in
+      # ~/.hermes/cache/gemini-model-quota.json until the quota resets.
+      #   gemini-3.8-flash-tts          max fidelity, best acting (default)
+      #   gemini-3.8-flash-lite-tts     cheaper/faster, same API surface
+      #   gemini-3.1-flash-tts-preview  legacy, still serves raw PCM
+      #   gemini-2.5-flash-preview-tts  older generation, PCM, persona prompts
+      #   gemini-2.5-pro-preview-tts    needs billing (free key gets "limit: 0")
+      models:
+        - gemini-3.8-flash-tts
+        - gemini-3.8-flash-lite-tts
+        - gemini-3.1-flash-tts-preview
+
+      # What to do once every model above is out of daily budget:
+      #   edge  render with the free Edge voice (tts.edge.voice) — the default
+      #   none  fail loudly with the 429 instead of switching voice
+      # fallback: edge
+      # Empty = tts.edge.voice (es-ES-XimenaNeural on this install); set a voice
+      # id to keep the reserve closer to the Gemini voice.
+      # fallback_voice: ""
   gemini:
     voice: Kore
     model: gemini-2.5-flash-preview-tts

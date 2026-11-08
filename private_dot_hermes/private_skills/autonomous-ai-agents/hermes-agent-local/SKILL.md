@@ -34,7 +34,7 @@ Hermes home under a dotfile manager. Also load it whenever you load
 | Memory layers, listing/deleting memories, session retention and pruning, "why did it forget", `hermes memory reset`, `/journey` | `references/memory-and-retention.md` |
 | A second agent or a household member's own bot: profiles, command aliases, one-gateway multiplexing, channel pairing, `profile_routes`, the shared-bot satellite rule | `references/profiles-and-gateways.md` |
 | Per-task auxiliary models (titling, compression, vision, background review, TTS), provider gates, cost caps | `references/auxiliary-tasks.md` |
-| Picking or fixing the TTS voice, wrong accent, language binding, comparison clips | `references/tts-voices.md` + `scripts/edge_voice_compare.py` |
+| Picking or fixing the TTS voice (wrong accent, language binding, comparison clips), or the local `gemini-custom` provider — its knobs, chunk cap, model fallback chain with the free Edge reserve, inline vocal tags | `references/tts-voices.md` + `scripts/edge_voice_compare.py` |
 | Editing `config.yaml` safely (values via `hermes config set/unset`, stale comments via a data-neutral script, why the "unrecognized key" warning is not a verdict), which changes need a restart vs `/new`, **plugin/provider code always needs a gateway restart** and must be tested in a fresh process, declaring `provides_hooks` so `plugins doctor` stays quiet, keys from the environment instead of `.env`, which env var a provider actually reads (and why the model provider's key must stay in `.env`/the pool), supplying a value the runtime needs *before* dispatch (a plugin publishing into `PROVIDER_MAX_TEXT_LENGTH`) and failing loudly when an internal contract changes, the gateway-service environment, implementing a `secrets.command` helper (and proving no value leaked: `scripts/secret_leak_check.py`) | `references/local-config-and-providers.md` |
 | Bundled-skill sync mechanics, `list-modified`/`diff`, the reset traps, salvaging an existing local edit | `references/skills-and-upstream.md` |
 | Making a rule enforceable: `pre_tool_call` shell hooks — registering, consent allowlist, blocking contract, `hooks test` | `references/shell-hooks.md` |
@@ -63,5 +63,13 @@ Hermes home under a dotfile manager. Also load it whenever you load
   `scripts/secret_leak_check.py` before saying anything about rotation.
 - This skill is agent-created: editing it, adding references and patching it are
   all fine, and `hermes update` never touches it.
+- **This user wants the forks resolved before you build them.** An invasive change
+  with several consequential choices (what triggers it, whether state persists,
+  what the fallback is, how config is shaped) gets ONE compact `clarify` batch —
+  each question with the recommended option first, and free text only where the
+  real alternative is unknown — then implementation. He invites being grilled
+  rather than handed a guess, and he audits the result: prefer one config location
+  over a working-but-split one, and delete a knob that nothing reads instead of
+  documenting it.
 - Keep the routing row and the reference in sync — a reference nobody routes to is
   dead weight, and a row pointing at a missing file is worse than no row.
