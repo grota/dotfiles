@@ -96,6 +96,33 @@ handles only the raw-PCM ones cleanly. Model matrix, the double-WAV-wrap tick an
 re-runnable probe: `references/gemini-tts.md` in the
 `multilingual-tts-voice-switching` skill.
 
+**The 2.5 TTS models are not served by `/v1beta/interactions`.** Both
+`gemini-2.5-flash-preview-tts` and `gemini-2.5-pro-preview-tts` answer
+`400 "Speech annotations are not supported for model …"` the moment a
+`speech_metadata` annotation is attached, and they reject the encodings too
+(`Audio MIME type AUDIO_L16 / AUDIO_WAV is not supported`). So `style` and the
+3.8 tag vocabulary are a 3.x feature of that surface; 2.5 stays usable only
+through Hermes' built-in `gemini` provider (`generateContent`, delivery via
+inline prompt text). One probe request that comes back 400 says more than the
+model card — check the surface before promising a capability on a model id.
+
+## `/voice` does not choose a voice
+
+`/voice [on|off|tts|status]` — a bare `/voice` toggles — controls **voice mode**
+(push-to-talk recording + STT) and whether replies are spoken inside it. It takes
+no voice id, language, model or any other parameter:
+
+| Subcommand | Effect |
+|---|---|
+| `on` / `off` | voice mode itself (mic + STT loop) |
+| `tts` | inside voice mode, toggle speaking the replies |
+| `status` | mode, TTS, recording state, record key, requirements checklist |
+
+Switching the voice is `hermes config set` only (`tts.edge.voice`,
+`tts.providers.<name>.voice`). When someone remembers "/voice only takes on or
+off", they are right about the shape — there are two extra subcommands, and no
+voice argument exists to add.
+
 ## The local `gemini-custom` provider (this install)
 
 - **Knobs** live in `tts.providers.gemini-custom`, re-read on every call (no
@@ -129,7 +156,14 @@ re-runnable probe: `references/gemini-tts.md` in the
   free, keyless, same container.  `fallback: none` raises instead. The usage log records `engine`/`model` per call.
   **Only quota exhaustion falls back**: a rejected key, an unknown model slug or a
   network error is raised, never routed to Edge — a config bug that silently swaps
-  the voice is harder to notice than a failed reply.
+  the voice is harder to notice than a failed reply. Prove both paths without
+  spending the real budget: mark one model spent
+  (`api.mark_model_exhausted(model, daily=True, reason="simulated")`), render
+  once — the usage log must name the next model; mark them all, render again — it
+  must log `engine: edge` with no API call at all; then `api.clear_state()`.
+  Daily vs per-minute is decided from the 429 *body* (`perDay` / `quotaId`), so a
+  provider error must keep `status` and the raw `body`, not just a formatted
+  message.
 - **Tags:** `tags: true` inserts the model's own vocal events (`<laugh>`,
   `<sigh>`, `<breath>`, … — 40 spellings, spaces and hyphens included) through
   the auxiliary task `tts_audio_tags`; `tts_audio_tags_prompt` replaces the
@@ -182,10 +216,10 @@ re-runnable probe: `references/gemini-tts.md` in the
 - **Don't pick the voice by ear for the user.** You have no audio perception:
   generate samples, attach them, let them choose, then apply the choice.
 - **The `text_to_speech` tool has no `voice` argument; the provider's
-  `synthesize()` does.** A `/voice` pick and a script's `voice=` argument reach
-  the provider as per-call kwargs that beat the config block, but an agent cannot
-  pass one through the tool schema — there the configured profile voice is the
-  only lever.
+  `synthesize()` does.** A script's `voice=` argument (or a per-call kwarg the
+  plugin accepts) beats the config block, but an agent cannot pass one through
+  the tool schema — there the configured profile voice is the only lever, and
+  `/voice` does not select voices (see above).
 - **A single Voice Library / cloned voice on ElevenLabs is not reachable on the
   free plan via API** — cloned or library voices need a paid tier, so don't promise
   a specific community voice on a free key.

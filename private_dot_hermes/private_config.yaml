@@ -2264,8 +2264,8 @@ approvals:
   destructive_slash_confirm: false
 auxiliary:
   tts_audio_tags:
-    provider: "openai"
-    model: "gpt-5.4-mini"
+    provider: "deepseek"
+    model: "deepseek-flash"
     timeout: 30
 # providers:
 #   opencode:
@@ -2276,6 +2276,7 @@ auxiliary:
 #     enabled: false
 #   zen:
 #     enabled: false
+    reasoning_effort: low
 hooks:
   pre_tool_call:
     - command: ~/.hermes/agent-hooks/block-bundled-skill-writes.sh

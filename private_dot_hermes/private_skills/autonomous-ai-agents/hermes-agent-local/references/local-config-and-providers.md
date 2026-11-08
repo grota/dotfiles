@@ -42,6 +42,10 @@ Local additions to the bundled `references/configuration.md` and
   (`key: |-`, body indented two spaces deeper than the key). Without that second
   assertion a user who uncomments the block gets a parse error, or a subtly
   different value, and no one notices until it matters.
+  **Exactly one copy, and it must be the editable one.** A human-readable preview
+  next to the commented key is the duplication this user will make you delete: the
+  commented `key: |-` block *is* the documentation and the override in one, with a
+  header saying so. Never paste the same default twice in one section.
 - API keys are stripped from the environment handed to **tool subprocesses**, so
   `env | grep KEY` inside a terminal call proves nothing about whether Hermes
   holds that key. Filter by name not line when you do look:
@@ -83,6 +87,25 @@ imports the package), and only then restart the gateway: calling the live
 failures that the new code would not make. Module-level state (registering into
 an internal table, caching) also resets on restart, which is why such hooks are
 safe to make idempotent.
+
+**A helper script must import Hermes from the environment, not from the
+checkout.** `sys.path.insert(0, "~/.hermes/hermes-agent")` at the top of a script
+shadows the venv's installed `hermes_cli`, and the launcher's own staleness check
+can then re-exec the script into an interpreter that never sees the venv's
+site-packages (`ModuleNotFoundError: ruamel` from `hermes_cli.plugins`). Import
+first, fall back to the path only on failure:
+
+```python
+try:
+    from hermes_cli.plugins import _ensure_plugins_discovered
+except ImportError:
+    sys.path.insert(0, str(pathlib.Path.home() / ".hermes" / "hermes-agent"))
+    from hermes_cli.plugins import _ensure_plugins_discovered
+```
+
+Note what this is *not*: a failed relaunch proves nothing about the code under
+test. Distinguish the three outcomes before concluding anything — a real bug, a
+stale module in the gateway, or the launcher re-exec'ing into a bare interpreter.
 
 ## The voice is language-bound and global
 

@@ -65,6 +65,28 @@ the user owns that detects the language and renders with the matching voice.
 - To A/B a vendor voice yourself, take the API key from the Hermes dotenv file: keys are
   stripped from the environment handed to tool subprocesses, so `env | grep KEY` shows nothing
   even when Hermes is authenticated and working.
+- The `gemini-custom` plugin's tags (`tts.providers.gemini-custom.tags: true`) call the aux task
+  `auxiliary.tts_audio_tags`; a rewrite that fails OR returns the text unchanged is spoken
+  untagged with only a WARNING (`gemini-custom: tags requested but the auxiliary ... returned
+  the text unchanged`). Pin that task to a real chat provider id — `provider: openai` is NOT one
+  in this build, so it resolves to a `custom` route to api.openai.com with the placeholder key
+  `no-key-required` and 401s; `gpt-5.4-mini` also returned the transcript with zero tags on a
+  long input. `provider: deepseek, model: deepseek-flash, reasoning_effort: low` inserts ~4 tags
+  per 150 chars and works (the live catalogue at `GET https://api.deepseek.com/models` lists only
+  `deepseek-flash` and `deepseek-v4-pro`; `deepseek-chat` still answers but is an unlisted alias —
+  its response reports `model: deepseek-flash`). Without a low effort, flash spends 200-300
+  reasoning tokens before the answer, so any small `max_tokens` cap returns EMPTY content. Hermes
+  itself sends no cap on that route (the plugin calls `call_llm` without `max_tokens`, and
+  `_build_call_kwargs` only forwards one on routes that require it), so the provider default
+  applies; `auxiliary.tts_audio_tags.extra_body.max_tokens` does override it (verified: 30 -> empty
+  reply -> silently untagged), which makes a tight cap a way to lose the tags without an error.
+  Diagnose without the gateway: a runpy probe via `hermes --run-module` does NOT apply
+  secrets, so read them from `~/local/bin/hermes-secrets-helper` first or every provider
+  reports "no API key was found".
+- Proof that the tags actually reached the TTS model: `~/.hermes/gemini-tts-usage.jsonl` records
+  the `chars` SENT, so it exceeds the source length by exactly the tag characters (1044 -> 1134),
+  and the audio grows with it (74.4 s -> 82.6 s for the same text). Absence of the WARNING alone
+  is weaker evidence than that delta.
 
 ## Alternatives that need no script
 

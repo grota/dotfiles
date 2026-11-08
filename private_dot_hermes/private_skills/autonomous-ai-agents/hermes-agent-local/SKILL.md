@@ -69,7 +69,8 @@ Hermes home under a dotfile manager. Also load it whenever you load
   each question with the recommended option first, and free text only where the
   real alternative is unknown — then implementation. He invites being grilled
   rather than handed a guess, and he audits the result: prefer one config location
-  over a working-but-split one, and delete a knob that nothing reads instead of
-  documenting it.
+  over a working-but-split one, delete a knob that nothing reads instead of
+  documenting it, and document a default exactly once — in the form he can
+  uncomment and edit.
 - Keep the routing row and the reference in sync — a reference nobody routes to is
   dead weight, and a row pointing at a missing file is worse than no row.
